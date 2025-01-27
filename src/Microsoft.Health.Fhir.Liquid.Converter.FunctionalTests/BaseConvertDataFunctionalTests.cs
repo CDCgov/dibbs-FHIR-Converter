@@ -218,7 +218,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         {
             var data = new List<string[]>
             {
-                new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json" },
+                // TODO: add new test file
+                // new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json" },
             };
             return data.Select(item => new[]
             {

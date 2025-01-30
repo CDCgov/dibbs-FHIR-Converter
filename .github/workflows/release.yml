@@ -39,7 +39,7 @@ jobs:
               next_tag="$base_version"-"$next_dibbs_counter"
           fi
 
-          echo "NEXT_TAG=next_tag" >> $GITHUB_OUTPUT
+          echo "NEXT_TAG=$next_tag" >> $GITHUB_OUTPUT
 
       - name: Create release
         env:

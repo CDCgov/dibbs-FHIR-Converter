@@ -88,7 +88,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             ConvertCCDAMessageAndValidateExpectedResponse(templateProvider, rootTemplate, inputFile, expectedFile);
         }
 
-        // TODO: uncomment once we have test data again
         [Theory]
         [MemberData(nameof(GetDataForEcr))]
         public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile)

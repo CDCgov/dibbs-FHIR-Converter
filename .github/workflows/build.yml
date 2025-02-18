@@ -26,8 +26,6 @@ jobs:
       - name: Build FHIR Converter API
         uses: docker/build-push-action@v3
         with:
-          context: ./src/FHIRConverterAPI
-          file: ./src/FHIRConverterAPI/Dockerfile
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max

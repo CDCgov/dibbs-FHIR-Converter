@@ -21,7 +21,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
 app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromQuery(Name = "input_type")] string input_type = "eCR", [FromQuery(Name = "root_template")] string root_template = "EICR") =>
 {
     using var reader = new StreamReader(request.Body);
@@ -36,3 +35,8 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromQuery(Name = "i
 .WithOpenApi();
 
 app.Run();
+
+public partial class Program
+{
+    // Expose the Program class for use with WebApplicationFactory<T>
+}

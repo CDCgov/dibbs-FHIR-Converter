@@ -21,13 +21,8 @@ public static class ConverterLogicHandler
         var templateProvider = CreateTemplateProvider(dataType, templateDirectory);
         DefaultProcessorSettings.EnableTelemetryLogger = isVerboseEnabled;
 
-        return ConvertSingleFile(dataProcessor, templateProvider, dataType, rootTemplate, inputDataContent, isTraceInfo);
-    }
-
-    private static string ConvertSingleFile(IFhirConverter dataProcessor, ITemplateProvider templateProvider, DataType dataType, string rootTemplate, string inputContent, bool isTraceInfo)
-    {
         var traceInfo = CreateTraceInfo(dataType, isTraceInfo);
-        return dataProcessor.Convert(inputContent, rootTemplate, templateProvider, traceInfo);
+        return dataProcessor.Convert(inputDataContent, rootTemplate, templateProvider, traceInfo);
     }
 
     private static DataType GetDataTypes(string templateDirectory)
@@ -74,5 +69,4 @@ public static class ConverterLogicHandler
     {
         return isTraceInfo ? (dataType == DataType.Hl7v2 ? new Hl7v2TraceInfo() : new TraceInfo()) : null;
     }
-
 }

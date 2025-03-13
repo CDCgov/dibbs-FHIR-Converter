@@ -371,5 +371,6 @@ FodyWeavers.xsd
 
 # Common test files
 /input.txt
+/input.xml
 /output.json
 output/

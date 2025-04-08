@@ -22,7 +22,7 @@
 {% elsif value._ %}
     "valueString":"{{ value._ | clean_string_from_tabs | escape_special_chars }}",
 {% elsif value.originalText._ %}
-    "valueString":"{{ value.originalText._ }}",
+    "valueString":"{{ value.originalText._ | clean_string_from_tabs | escape_special_chars }}",
 {% else %}
     {% assign ref = value.reference.value | default: value.originalText.reference.value -%}
     {% assign refVal = ref | replace: '#', '' -%}

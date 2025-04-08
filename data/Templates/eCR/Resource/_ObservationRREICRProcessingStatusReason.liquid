@@ -40,7 +40,7 @@
                         {
                             {% include "DataType/CodeableConcept" CodeableConcept: obEntryRelat.observation.code -%}
                         },
-                        "valueString": {{ obEntryRelat.observation.value._ | to_json_string }}
+                        {% include 'Utils/ValueHelper' value: obEntryRelat.observation.value -%}
                     },
                 {% endif -%}
             {% endfor -%}

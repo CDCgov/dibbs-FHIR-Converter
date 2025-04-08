@@ -20,7 +20,7 @@
         {% endif -%}
     },
 {% elsif value._ %}
-    "valueString":"{{ value._ }}",
+    "valueString":"{{ value._ | clean_string_from_tabs | escape_special_chars }}",
 {% elsif value.originalText._ %}
     "valueString":"{{ value.originalText._ }}",
 {% else %}

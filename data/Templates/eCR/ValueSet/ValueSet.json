@@ -113,14 +113,102 @@
       }
     },
     "ValueSet/DiagnosticReportStatus": {
+      "X": {
+        "code": "cancelled",
+        "display": "No results available; Order canceled."
+      },
+      "O": {
+        "code": "registered",
+        "display": "Order received; specimen not yet received"
+      },
+      "I": {
+        "code": "registered",
+        "display": "No results available; specimen received procedure incomplete"
+      },
+      "S": {
+        "code": "registered",
+        "display": "No results available; procedure scheduled, but not done"
+      },
+      "A": {
+        "code": "partial",
+        "display": "Some, but not all, results available"
+      },
+      "P": {
+        "code": "preliminary",
+        "display": "Preliminary: A verified early result is available, final results not yet obtained"
+      },
+      "R": {
+        "code": "partial",
+        "display": "Results stored; not yet verified"
+      },
+      "M": {
+        "code": "corrected",
+        "display": "Corrected result but order is not final"
+      },
+      "C": {
+        "code": "final",
+        "display": "Correction to results (Corrected result and order is final)"
+      },
+      "F": {
+        "code": "final",
+        "display": "Final results; results stored and verified. Can only be changed with a corrected result."
+      },
+      "aborted": {
+        "code": "cancelled"
+      },
+      "active": {
+        "code": "preliminary"
+      },
       "completed": {
         "code": "final"
       },
       "cancelled": {
         "code": "cancelled"
       },
+      "held": {
+        "code": "registered"
+      },
+      "suspended": {
+        "code": "registered"
+      },
+      "registered": {
+        "code": "registered"
+      },
+      "received": {
+        "code": "registered"
+      },
+      "partial": {
+        "code": "partial"
+      },
+      "preliminary": {
+        "code": "preliminary"
+      },
+      "final": {
+        "code": "final"
+      },
+      "amended": {
+        "code": "amended"
+      },
+      "corrected": {
+        "code": "corrected"
+      },
+      "appended": {
+        "code": "appended"
+      },
+      "abandoned": {
+        "code": "cancelled"
+      },
+      "entered-in-error": {
+        "code": "entered-in-error"
+      },
+      "error": {
+        "code": "entered-in-error"
+      },
+      "unknown": {
+        "code": "unknown"
+      },
       "__default__": {
-        "code": ""
+        "code": "unknown"
       }
     },
     "ValueSet/EncounterStatus": {
@@ -565,10 +653,10 @@
         "code": "final"
       },
       "held": {
-        "code": "unknown"
+        "code": "registered"
       },
       "suspended": {
-        "code": "unknown"
+        "code": "registered"
       },
       "registered": {
         "code": "registered"
@@ -601,7 +689,7 @@
         "code": "unknown"
       },
       "__default__": {
-        "code": ""
+        "code": "unknown"
       }
     },
     "ValueSet/RequestStatus": {

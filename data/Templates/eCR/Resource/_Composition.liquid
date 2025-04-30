@@ -239,44 +239,23 @@
                     },
                     {
                         "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    {% assign rrentries = composition.section.entry | to_array -%}
-                                    {% for rrentry in rrentries -%}
-                                        {% if rrentry.act.templateId.root == "2.16.840.1.113883.10.20.15.2.3.29" -%}
-                                            {% if rrentry.act.code.code == "RRVS20" %}
-                                                {% assign subrrentrys = rrentry.act.entryRelationship | to_array -%}
-                                                {% for subrrentry in subrrentrys %}
-                                                    {% if subrrentry.typeCode != "SPRT" %}
-                                                        "entries": [
-                                                            {
-                                                            "eRSDwarnings": [
-                                                                {
-                                                                    "id": "{{ subrrentry.observation.id.root }}",
-                                                                    {% include 'DataType/Coding' Coding: subrrentry.observation.value -%}
-                                                                },
-                                                                {% assign ers = subrrentry.observation.entryRelationship | to_array -%}
-                                                                {% for er in ers -%}
-                                                                    {
-                                                                        "id": "{{ er.observation.id.root }}",
-                                                                        "value": "{{- er.observation.value._ | escape_special_chars -}}",
-                                                                        {% include 'DataType/Coding' Coding: er.observation.code -%},
-                                                                    },
-                                                                {% endfor -%}
-                                                                ],
-                                                            },
-                                                        ],
-                                                    {% endif -%}
-                                                {% endfor %}
-                                            {% else %}
-                                                {% include 'DataType/Coding' Coding: rrentry.act.code -%}
-                                            {% endif -%}
-                                        {% endif -%}
-                                    {% endfor -%}
-                                },
-                            ],
-                        },
+                        "extension": [
+                            {% assign rrentries = composition.section.entry | to_array -%}
+                            {% for rrentry in rrentries -%}
+                                {% comment %} Extension: eICR Processing Status {% endcomment %}
+                                {% if rrentry.act.templateId.root and rrentry.act.templateId.root == "2.16.840.1.113883.10.20.15.2.3.29" -%}
+                                    {
+                                        "url":"eICRProcessingStatus",
+                                        "valueReference": {
+                                            {% assign processingStatusId = rrentry.act | to_json_string | generate_uuid -%}
+                                            {% assign fullProcessingStatusId = processingStatusId | prepend: 'Observation/' -%}
+                                            "reference":"{{ fullProcessingStatusId }}",
+                                            "display": "{{ rrentry.act.code.displayName }}"
+                                        }
+                                    }
+                                {% endif -%}
+                            {% endfor -%}
+                        ]
                     },
                 ],
                 "code": {

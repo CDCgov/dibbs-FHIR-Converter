@@ -47,7 +47,7 @@
                 {% comment %} Laboratory Result Status Extension {% endcomment %}
                 {
                     "url": "http://terminology.hl7.org/CodeSystem/v2-0123",
-                    "valueString":"{{ obsLabResultStatus.observation.value.code | get_property: 'ValueSet/DiagnosticReportStatus', 'display' }}",
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: obsLabResultStatus.observation.value -%} },
                 }
             {% endif %}
             ],

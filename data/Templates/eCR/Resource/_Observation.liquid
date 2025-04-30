@@ -188,7 +188,7 @@
                 {% comment %} Lab Observation Result Status Extension {% endcomment %}
                 {
                     "url": "http://terminology.hl7.org/ValueSet/v2-0085",
-                    "valueString":"{{ observationEntry.entryRelationship.observation.value.code | get_property: 'ValueSet/ObservationResultStatus', 'display' }}",
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.entryRelationship.observation.value -%} },
                 },
             {% endif %}
             ],

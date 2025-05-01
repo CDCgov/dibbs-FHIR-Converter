@@ -1,0 +1,55 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Observation",
+        "id":"{{ ID }}",
+        "meta":
+        {
+            "profile":
+            [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information"
+            ]
+        },
+        "identifier":
+        [
+            {% assign ids = observationEntry.id | to_array -%}
+            {% for id in ids -%}
+            { {% include 'DataType/Identifier' Identifier: id -%} }{% unless forloop.last %},{% endunless %}
+            {% endfor -%}
+        ],
+        "status":
+            {% if observationEntry.statusCode._ -%}
+                "{{ observationEntry.statusCode._ }}",
+            {% else -%}
+                "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
+            {% endif -%}
+        "code":
+        {
+            "coding":
+            [
+                { {% include 'DataType/Coding' Coding: observationEntry.code -%} }
+            ]
+        },
+        "subject": {
+            "reference": "{{ fullPatientId }}"
+        },
+        {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%},
+        {% if observationEntry.effectiveTime.low.value and observationEntry.effectiveTime.high.value -%}
+        "effectivePeriod":
+        {
+            {% if observationEntry.effectiveTime.low.value -%}
+            "start":"{{ observationEntry.effectiveTime.low.value | format_as_date_time }}",
+            {% endif -%}
+            {% if observationEntry.effectiveTime.high.value -%}
+            "end":"{{ observationEntry.effectiveTime.high.value | format_as_date_time }}"
+            {% endif -%}
+        }
+        {% elsif observationEntry.effectiveTime.value -%}
+        "effectiveDateTime":"{{ observationEntry.effectiveTime.value | format_as_date_time }}"
+        {% endif -%}
+    },
+    "request":{
+        "method":"PUT",
+        "url":"Observation/{{ ID }}"
+    }
+}

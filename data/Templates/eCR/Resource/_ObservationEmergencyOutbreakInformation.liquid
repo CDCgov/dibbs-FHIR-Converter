@@ -34,7 +34,7 @@
             "reference": "{{ fullPatientId }}"
         },
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%},
-        {% if observationEntry.effectiveTime.low.value and observationEntry.effectiveTime.high.value -%}
+        {% if observationEntry.effectiveTime.low.value or observationEntry.effectiveTime.high.value -%}
         "effectivePeriod":
         {
             {% if observationEntry.effectiveTime.low.value -%}

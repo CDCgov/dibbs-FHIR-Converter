@@ -54,6 +54,13 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             // Render and strip out unhelpful whitespace (actual post-processing gets rid of this
             // at the end of the day anyway)
             var actualContent = template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture)).Trim().Replace("\n", " ").Replace("\t", string.Empty);
+
+            // Many are harmless, but can be helpful for debugging
+            foreach (var err in template.Errors)
+            {
+                Console.WriteLine(err.Message);
+            }
+
             return Filters.CleanStringFromTabs(actualContent);
         }
 

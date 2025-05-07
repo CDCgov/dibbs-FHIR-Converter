@@ -17,10 +17,6 @@
             {% include 'Resource/ObservationPregnancyStatus' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif entry.observation.code.code == '76690-7' -%}
             {% include 'Resource/ObservationSexualOrientation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
-        {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.2.3.40' -%}
-            {% include 'Resource/ObservationPublicHealthEmergencyOutbreak' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
-
-        {% else -%}
             {% include 'Resource/Observation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% endif -%}
         {% include 'Reference/Observation/Subject' ID: observationId, REF: fullPatientId -%}

@@ -14,7 +14,7 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for id in ids -%}
-            { {% include 'DataType/Identifier' Identifier: id -%} }{% unless forloop.last %},{% endunless %}
+            { {% include 'DataType/Identifier' Identifier: id -%} }
             {% endfor -%}
         ],
         "status":
@@ -33,20 +33,8 @@
         "subject": {
             "reference": "{{ fullPatientId }}"
         },
-        {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%},
-        {% if observationEntry.effectiveTime.low.value or observationEntry.effectiveTime.high.value -%}
-        "effectivePeriod":
-        {
-            {% if observationEntry.effectiveTime.low.value -%}
-            "start":"{{ observationEntry.effectiveTime.low.value | format_as_date_time }}",
-            {% endif -%}
-            {% if observationEntry.effectiveTime.high.value -%}
-            "end":"{{ observationEntry.effectiveTime.high.value | format_as_date_time }}"
-            {% endif -%}
-        }
-        {% elsif observationEntry.effectiveTime.value -%}
-        "effectiveDateTime":"{{ observationEntry.effectiveTime.value | format_as_date_time }}"
-        {% endif -%}
+        {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%}
+        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime -%}
     },
     "request":{
         "method":"PUT",

@@ -14,13 +14,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
     public class BaseECRLiquidTests
     {
         /// <summary>
-        /// Given a path to an eCR template, and attributes. Check that the rendered template
-        /// matches the expected contents.
+        /// Given a path to an eCR template, and attributes, render the template.
         /// </summary>
         /// <param name="templatePath">Path to the template being tested</param>
         /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
-        /// <param name="expectedContent">Serialized string that ought to be returned</param>
-        protected static void ConvertCheckLiquidTemplate(string templatePath, Dictionary<string, object> attributes, string expectedContent)
+        protected static string RenderLiquidTemplate(string templatePath, Dictionary<string, object> attributes)
         {
             var templateContent = File.ReadAllText(templatePath);
             var template = TemplateUtility.ParseLiquidTemplate(templatePath, templateContent);
@@ -56,7 +54,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             // Render and strip out unhelpful whitespace (actual post-processing gets rid of this
             // at the end of the day anyway)
             var actualContent = template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture)).Trim().Replace("\n", " ").Replace("\t", string.Empty);
-            actualContent = Filters.CleanStringFromTabs(actualContent);
 
             // Many are harmless, but can be helpful for debugging
             foreach (var err in template.Errors)
@@ -64,6 +61,18 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 Console.WriteLine(err.Message);
             }
 
+            return Filters.CleanStringFromTabs(actualContent);
+        }
+
+        /// <summary>
+        /// Checks that the rendered template matches the expected contents.
+        /// </summary>
+        /// <param name="templatePath">Path to the template being tested</param>
+        /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
+        /// <param name="expectedContent">Serialized string that should be returned</param>
+        protected static void ConvertCheckLiquidTemplate(string templatePath, Dictionary<string, object> attributes, string expectedContent)
+        {
+            var actualContent = RenderLiquidTemplate(templatePath, attributes);
             Assert.Equal(expectedContent, actualContent);
         }
     }

@@ -31,7 +31,15 @@
                 ],
             },
         ],
-        "status":"{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
+        {% if observationEntry.entryRelationship.observation and observationEntry.entryRelationship.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.419' %}
+            {% comment %} Laboratory Observation Result Status {% endcomment %}
+            {% comment %} Mappings: https://build.fhir.org/ig/HL7/UTG/CodeSystem-v2-0085.html {% endcomment %}
+            "status":"{{ observationEntry.entryRelationship.observation.value.code | get_property: 'ValueSet/ObservationResultStatus',  }}",
+        {% else -%}
+        {% comment %} If DNE, then use Mappings from: Result Observation -  Result Status Value Set (V3 ActStatus) {% endcomment %}
+        {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
+            "status":"{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationResultStatus' }}",
+        {% endif %}
         "code":
         {
             {% assign translations = observationEntry.code.translation | to_array -%}
@@ -175,7 +183,15 @@
                     {% endif -%}
                     ],
                 {% endif -%}
-            },],
+            },
+            {% if observationEntry.entryRelationship.observation and observationEntry.entryRelationship.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.419' %}
+                {% comment %} Lab Observation Result Status Extension {% endcomment %}
+                {
+                    "url": "http://terminology.hl7.org/ValueSet/v2-0085",
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.entryRelationship.observation.value -%} },
+                },
+            {% endif %}
+            ],
     },
     "request":{
         "method":"PUT",

@@ -7,6 +7,7 @@ using System.Threading;
 using DotLiquid;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
@@ -20,26 +21,41 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         /// <param name="templatePath">Path to the template being tested</param>
         /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
         /// <param name="expectedContent">Serialized string that ought to be returned</param>
-        protected static void ConvertCheckLiquidTemplate(string templatePath, Dictionary<string, object> attributes, string expectedContent)
+        protected static void ConvertCheckLiquidTemplate(
+            string templatePath,
+            Dictionary<string, object> attributes,
+            string expectedContent
+        )
         {
             var templateContent = File.ReadAllText(templatePath);
             var template = TemplateUtility.ParseLiquidTemplate(templatePath, templateContent);
             Assert.True(template.Root.NodeList.Count > 0);
 
             // Set up the context
-            var templateProvider = new TemplateProvider(TestConstants.ECRTemplateDirectory, DataType.Ccda);
+            var templateProvider = new TemplateProvider(
+                TestConstants.ECRTemplateDirectory,
+                DataType.Ccda
+            );
             var context = new Context(
-                environments: new List<Hash>(),
-                outerScope: new Hash(),
-                registers: Hash.FromDictionary(new Dictionary<string, object>() { { "file_system", templateProvider.GetTemplateFileSystem() } }),
+                environments: [],
+                outerScope: [],
+                registers: Hash.FromDictionary(
+                    new Dictionary<string, object>()
+                    {
+                        { "file_system", templateProvider.GetTemplateFileSystem() },
+                    }
+                ),
                 errorsOutputMode: ErrorsOutputMode.Display,
                 maxIterations: 0,
                 formatProvider: CultureInfo.InvariantCulture,
-                cancellationToken: CancellationToken.None);
+                cancellationToken: CancellationToken.None
+            );
             context.AddFilters(typeof(Filters));
 
             // Add the value sets to the context
-            var codeContent = File.ReadAllText(Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json"));
+            var codeContent = File.ReadAllText(
+                Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json")
+            );
             var codeMapping = TemplateUtility.ParseCodeMapping(codeContent);
             Console.WriteLine(codeMapping);
             if (codeMapping?.Root?.NodeList?.First() != null)
@@ -55,7 +71,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             // Render and strip out unhelpful whitespace (actual post-processing gets rid of this
             // at the end of the day anyway)
-            var actualContent = template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture)).Trim().Replace("\n", " ").Replace("\t", string.Empty);
+            var actualContent = template.Render(
+                RenderParameters.FromContext(context, CultureInfo.InvariantCulture)
+            );
             actualContent = Filters.CleanStringFromTabs(actualContent);
 
             // Many are harmless, but can be helpful for debugging
@@ -64,7 +82,18 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 Console.WriteLine(err.Message);
             }
 
-            Assert.Equal(expectedContent, actualContent);
+            var minimizedActualContent = MinimizeJson(actualContent);
+            var trimmedExpectedContent = MinimizeJson(expectedContent);
+
+            Assert.Equal(trimmedExpectedContent, minimizedActualContent);
+        }
+
+        private static string MinimizeJson(string json)
+        {
+            var obj = JsonConvert.DeserializeObject(json);
+            var minimized = JsonConvert.SerializeObject(obj);
+
+            return minimized;
         }
     }
 }

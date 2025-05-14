@@ -1,0 +1,43 @@
+{
+  "fullUrl": "urn:uuid:1234",
+  "resource": {
+    "resourceType": "Observation",
+    "id": "1234",
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information"
+      ]
+    },
+    "identifier": [
+      {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a54"
+      }
+    ],
+    "status": "final",
+    "code": {
+      "coding": [
+        {
+          "code": "",
+          "system": "",
+          "display": "Distance of mail workers from mail sorter machines"
+        }
+      ]
+    },
+    "subject": {
+      "reference": ""
+    },
+    "valueQuantity": {
+      "value": 2,
+      "unit": "m"
+    },
+    "effectivePeriod": {
+      "start": "2020-11-01",
+      "end": ""
+    }
+  },
+  "request": {
+    "method": "PUT",
+    "url": "Observation/1234"
+  }
+}

@@ -17,6 +17,7 @@
             {% include 'Resource/ObservationPregnancyStatus' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif entry.observation.code.code == '76690-7' -%}
             {% include 'Resource/ObservationSexualOrientation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+        {% else -%}
             {% include 'Resource/Observation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% endif -%}
         {% include 'Reference/Observation/Subject' ID: observationId, REF: fullPatientId -%}

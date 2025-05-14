@@ -10,6 +10,7 @@
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information"
             ]
         },
+         {% if observationEntry.id._ -%}
         "identifier":
         [
             {% assign ids = observationEntry.id | to_array -%}
@@ -17,22 +18,14 @@
             { {% include 'DataType/Identifier' Identifier: id -%} }
             {% endfor -%}
         ],
-        "status":
-            {% if observationEntry.statusCode._ -%}
-                "{{ observationEntry.statusCode._ }}",
-            {% else -%}
-                "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
-            {% endif -%}
-        "code":
-        {
-            "coding":
-            [
-                { {% include 'DataType/Coding' Coding: observationEntry.code -%} }
-            ]
-        },
+        {% endif -%}
+        "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
+        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
+        {% if fullPatientId -%}
         "subject": {
             "reference": "{{ fullPatientId }}"
         },
+        {% endif -%}
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%}
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime -%}
     },

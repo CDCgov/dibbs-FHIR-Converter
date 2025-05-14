@@ -1,7 +1,9 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using DotLiquid;
+using Hl7.Fhir.Model;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
@@ -15,11 +17,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         );
 
         [Fact]
-        public void BasicReturnsNormal()
+        public void OutbreakInfo_AllFields()
         {
             var attributes = new Dictionary<string, object>
             {
                 { "ID", "1234" },
+                { "fullPatientId", "urn:uuid:9876" },
                 {
                     "observationEntry",
                     Hash.FromAnonymousObject(
@@ -45,14 +48,72 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                     )
                 },
             };
-            var expected = File.ReadAllText(
-                Path.Join(
-                    TestConstants.ExpectedDirectory,
-                    "ObservationEmergencyOutbreakInformation.json"
-                )
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal("Observation", actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+
+            var actualprofile = actualFhir.Meta.Profile.First();
+            Assert.Equal(
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information",
+                actualprofile
             );
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expected);
+            Assert.NotNull(actualFhir.Identifier);
+            Assert.Equal("Final", actualFhir.Status.ToString());
+            Assert.NotNull(actualFhir.Code);
+            Assert.Equal("urn:uuid:9876", actualFhir.Subject.Reference);
+            Assert.NotNull(actualFhir.Value);
+            Assert.NotNull(actualFhir.Effective);
+        }
+
+        [Fact]
+        public void OutbreakInfo_MinimumFields()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "fullPatientId", "urn:uuid:9876" },
+                {
+                    "observationEntry",
+                    Hash.FromAnonymousObject(
+                        new
+                        {
+                            statusCode = new { code = "completed", },
+                            code = new
+                            {
+                                originalText = new
+                                {
+                                    _ = "Distance of mail workers from mail sorter machines",
+                                },
+                            },
+                            value = new
+                            {
+                                type = "PQ",
+                                value = "2",
+                                unit = "m",
+                            },
+                        }
+                    )
+                },
+            };
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal("Observation", actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+
+            var actualprofile = actualFhir.Meta.Profile.First();
+            Assert.Equal(
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information",
+                actualprofile
+            );
+
+            Assert.Empty(actualFhir.Identifier);
+            Assert.Equal("Final", actualFhir.Status.ToString());
+            Assert.NotNull(actualFhir.Code);
+            Assert.Equal("urn:uuid:9876", actualFhir.Subject.Reference);
+            Assert.NotNull(actualFhir.Value);
+            Assert.Null(actualFhir.Effective);
         }
     }
 }

@@ -418,7 +418,7 @@
         "code": "unknown"
       },
       "__default__": {
-        "code": ""
+        "code": "unknown"
       }
     },
     "ValueSet/RequestStatus": {

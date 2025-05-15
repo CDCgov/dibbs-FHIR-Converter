@@ -51,13 +51,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal("Observation", actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
-
-            var actualprofile = actualFhir.Meta.Profile.First();
             Assert.Equal(
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information",
-                actualprofile
+                actualFhir.Meta.Profile.First()
             );
-
             Assert.NotNull(actualFhir.Identifier);
             Assert.Equal("Final", actualFhir.Status.ToString());
             Assert.NotNull(actualFhir.Code);
@@ -100,13 +97,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal("Observation", actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
-
-            var actualprofile = actualFhir.Meta.Profile.First();
             Assert.Equal(
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information",
-                actualprofile
+                actualFhir.Meta.Profile.First()
             );
-
             Assert.Empty(actualFhir.Identifier);
             Assert.Equal("Final", actualFhir.Status.ToString());
             Assert.NotNull(actualFhir.Code);

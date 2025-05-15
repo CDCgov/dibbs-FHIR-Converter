@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using DotLiquid;
 using Hl7.Fhir.Model;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests

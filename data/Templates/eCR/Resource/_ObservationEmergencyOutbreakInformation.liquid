@@ -1,0 +1,32 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Observation",
+        "id":"{{ ID }}",
+        "meta":
+        {
+            "profile":
+            [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information"
+            ]
+        },
+        "identifier":
+        [
+            {% assign ids = observationEntry.id | to_array -%}
+            {% for i in ids -%}
+                { {% include 'DataType/Identifier' Identifier: i -%} },
+            {% endfor -%}
+        ],
+        "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
+        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
+        "subject": {
+            "reference": "{{ fullPatientId }}"
+        },
+        {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%}
+        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime -%}
+    },
+    "request":{
+        "method":"PUT",
+        "url":"Observation/{{ ID }}"
+    }
+}

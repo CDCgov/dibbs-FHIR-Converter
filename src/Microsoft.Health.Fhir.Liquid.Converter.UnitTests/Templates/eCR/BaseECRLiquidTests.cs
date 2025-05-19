@@ -9,13 +9,15 @@ using DotLiquid;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 {
     public class BaseECRLiquidTests
     {
+        private static JsonDocumentOptions jsonDeserializeOptions =
+            new() { AllowTrailingCommas = true, };
+
         /// <summary>
         /// Given a path to an eCR template, and attributes, render the template.
         /// </summary>
@@ -101,25 +103,58 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(expectedContent, actualContent);
         }
 
+        /// <summary>
+        /// Create a FHIR object from the output of a template.
+        /// </summary>
+        /// <typeparam name="T">FHIR Type</typeparam>
+        /// <param name="templatePath">Path to the template being tested</param>
+        /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
+        /// <returns>FHIR object of type T</returns>
         protected static T GetFhirObjectFromTemplate<T>(
             string templatePath,
             Dictionary<string, object> attributes
         )
         {
             var actual = RenderLiquidTemplate(templatePath, attributes);
-            var options = new JsonDocumentOptions { AllowTrailingCommas = true, };
-            var actualJson = JsonDocument.Parse(actual, options).RootElement;
+            var actualJson = DeserializeJson(actual);
             var actualResource = actualJson.GetProperty("resource");
 
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)
                 .UsingMode(DeserializerModes.Ostrich);
-            var actualFhir = System.Text.Json.JsonSerializer.Deserialize<T>(
-                actualResource,
-                fhirOptions
-            );
+            var actualFhir = JsonSerializer.Deserialize<T>(actualResource, fhirOptions);
 
             return actualFhir;
+        }
+
+        protected static void CompareJSONOutput(
+            string templatePath,
+            Dictionary<string, object> attributes,
+            string expectedPath
+        )
+        {
+            var content = RenderLiquidTemplate(templatePath, attributes);
+            var actualMinimized = MinimizeJson(content);
+
+            var expected = File.ReadAllText(
+                Path.Join(TestConstants.ExpectedDirectory, expectedPath)
+            );
+
+            var expectedMinimized = MinimizeJson(expected);
+
+            Assert.Equal(expectedMinimized, actualMinimized);
+        }
+
+        protected static JsonElement DeserializeJson(string content)
+        {
+            return JsonDocument.Parse(content, jsonDeserializeOptions).RootElement;
+        }
+
+        protected static string MinimizeJson(string content)
+        {
+            var jsonObject = DeserializeJson(content);
+            var minimizedJsonString = JsonSerializer.Serialize(jsonObject);
+            return minimizedJsonString;
         }
     }
 }

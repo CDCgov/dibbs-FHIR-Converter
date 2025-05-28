@@ -595,7 +595,9 @@
         ],
         "name": "Good Health Hospital",
         "address": {
-          "line": ["1000 Hospital Lane"],
+          "line": [
+            "1000 Hospital Lane"
+          ],
           "city": "Ann Arbor",
           "state": "MI",
           "country": "US",
@@ -638,7 +640,9 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": ["1000 Hospital Lane"],
+            "line": [
+              "1000 Hospital Lane"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -688,13 +692,19 @@
         "name": [
           {
             "family": "Seven",
-            "given": ["Henry"],
-            "suffix": ["M.D."]
+            "given": [
+              "Henry"
+            ],
+            "suffix": [
+              "M.D."
+            ]
           }
         ],
         "address": [
           {
-            "line": ["1002 Healthcare Drive"],
+            "line": [
+              "1002 Healthcare Drive"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -744,7 +754,9 @@
         "name": "Community Health and Hospitals",
         "address": [
           {
-            "line": ["1002 Healthcare Drive"],
+            "line": [
+              "1002 Healthcare Drive"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -948,7 +960,9 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": ["1000 Hospital Lane"],
+            "line": [
+              "1000 Hospital Lane"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1022,12 +1036,18 @@
           {
             "use": "official",
             "family": "Everywoman",
-            "given": ["Eve", "H"]
+            "given": [
+              "Eve",
+              "H"
+            ]
           },
           {
             "use": "usual",
             "family": "Everywoman",
-            "given": ["Ruth", "L"]
+            "given": [
+              "Ruth",
+              "L"
+            ]
           }
         ],
         "birthDate": "1974-11-24",
@@ -1121,7 +1141,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["2222 Home Street"],
+            "line": [
+              "2222 Home Street"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1303,7 +1325,10 @@
           {
             "use": "official",
             "family": "Mum",
-            "given": ["Martha", "L"]
+            "given": [
+              "Martha",
+              "L"
+            ]
           }
         ],
         "telecom": [
@@ -1320,7 +1345,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["4444 Home Street"],
+            "line": [
+              "4444 Home Street"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -3620,6 +3647,46 @@
       "request": {
         "method": "PUT",
         "url": "Immunization/3a0ef01d-9da9-63dc-e03b-bdffa3ee0b1d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:26d05bcc-1b0f-fc8a-a85e-4c6c6512478f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "26d05bcc-1b0f-fc8a-a85e-4c6c6512478f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-emergency-outbreak-information"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a54"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "display": "Employee desk distance from mail sorter"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "valueQuantity": {
+          "value": 2,
+          "unit": "m"
+        },
+        "effectivePeriod": {
+          "start": "2020-11-01"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/26d05bcc-1b0f-fc8a-a85e-4c6c6512478f"
       }
     }
   ]

@@ -1469,6 +1469,7 @@
             ]
           }
         ],
+        "status": "unknown",
         "code": {
           "coding": [
             {

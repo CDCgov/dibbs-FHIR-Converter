@@ -1235,6 +1235,7 @@
             ]
           }
         ],
+        "status": "unknown",
         "code": {
           "coding": [
             {
@@ -1798,6 +1799,7 @@
             ]
           }
         ],
+        "status": "unknown",
         "code": {
           "coding": [
             {

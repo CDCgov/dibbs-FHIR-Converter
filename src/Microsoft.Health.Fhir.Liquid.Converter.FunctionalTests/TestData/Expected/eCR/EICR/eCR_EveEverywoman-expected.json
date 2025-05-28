@@ -349,6 +349,29 @@
             ]
           },
           {
+            "id": "699e2100-763d-470a-67ac-6828aa2d0a21",
+            "title": "Emergency Outbreak Information Section",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Information Type</th><th>Information Date</th><th>Result</th></tr></thead><tbody><tr><td>REMOVED</td><td>REMOVED</td><td>removed</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "83910-0",
+                  "system": "http://loinc.org",
+                  "display": "Public health Note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/26d05bcc-1b0f-fc8a-a85e-4c6c6512478f"
+              }
+            ]
+          },
+          {
             "id": "d4b0364a-4fa9-902d-04ea-04c6ccd4a9d1",
             "title": "Pregnancy Section",
             "text": {

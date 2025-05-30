@@ -4,7 +4,7 @@
         "resourceType": "Composition",
         "id":"{{ ID }}",
          "meta" : {
-            "profile" : 
+            "profile" :
             [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
             ]
@@ -19,7 +19,7 @@
                     {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%}
                 },
                 "value":"{{ composition.setId.extension }}",
-                "assigner": 
+                "assigner":
                 {
                     "display": "{{ composition.setId.assigningAuthorityName }}"
                 },
@@ -62,7 +62,7 @@
         [
             {% assign components = composition.component.structuredBody.component | to_array -%}
             {% for component in components -%}
-            {   
+            {
                 {% if component.section -%}
                     {% if component.section.id.root -%}
                     "id": "{{ component.section.id.root }}",
@@ -124,10 +124,10 @@
                                     "url" : "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
                                     "valueString" : "{{ tds }}"
                                 },
-                            ], 
+                            ],
                         {% endif -%}
                     {% endif -%}
-                    "entry": 
+                    "entry":
                     [
                         {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.38" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.38" %}
                             {% assign entries = component.section.entry | to_array -%}
@@ -173,7 +173,7 @@
                                         },
                                 {% endif -%}
                                 {% endfor -%}
-                            {% elsif component.section.code.code and component.section.code.code == "30954-2" -%}                                
+                            {% elsif component.section.code.code and component.section.code.code == "30954-2" -%}
                                 {% assign orgComps = sectionEntry.organizer.component | to_array -%}
                                 {% for orgComp in orgComps -%}
                                     {% if orgComp.observation -%}
@@ -210,6 +210,12 @@
                                         "reference": "{{ fullObservationId }}",
                                     },
                                 {% endif -%}
+                            {% elsif sectionEntry.observation.templateId.root and sectionEntry.observation.templateId.root == "2.16.840.1.113883.10.20.15.2.3.40" %}
+                                    {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                    {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                    {
+                                        "reference": "{{ fullObservationId }}",
+                                    },
                             {% endif -%}
                         {% endfor -%}
                     ],
@@ -227,10 +233,10 @@
                 },
                 "extension":
                 [
-            
+
                     {
                         "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
-                        "valueCodeableConcept": 
+                        "valueCodeableConcept":
                         {
                             "text":"official",
                             {% assign codes = composition.section.code | to_array -%}
@@ -265,9 +271,9 @@
                         }
                     ],
                 },
-                "entry": 
+                "entry":
                 [
-                    
+
                     {% assign entries = composition.section.entry | to_array -%}
                     {% for entry in entries -%}
                         {% if entry.organizer.templateId.root and entry.organizer.templateId.root == "2.16.840.1.113883.10.20.15.2.3.34" -%}

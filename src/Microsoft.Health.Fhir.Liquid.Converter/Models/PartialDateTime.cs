@@ -118,7 +118,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Models
                 };
             }
 
-            var timeZoneSuffix = resultDateTime.Offset == TimeSpan.Zero ? "Z" : "%K";
+            var timeZoneSuffix = timeZoneHandling == TimeZoneHandlingMethod.Preserve && !this.HasTimeZone ? "" : (resultDateTime.Offset == TimeSpan.Zero ? "Z" : "%K");
             string dateTimeFormat;
             if (Precision < DateTimePrecision.Milliseconds)
             {

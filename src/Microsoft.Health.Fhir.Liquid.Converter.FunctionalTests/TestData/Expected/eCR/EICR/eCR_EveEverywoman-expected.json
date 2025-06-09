@@ -1155,7 +1155,7 @@
             "postalCode": "99999",
             "district": "26001",
             "period": {
-              "start": "2000-07-20T08:45:00Z"
+              "start": "2000-07-20T08:45:00"
             }
           }
         ],
@@ -1511,7 +1511,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00Z",
+        "effectiveDateTime": "2020-01-05T10:15:00",
         "valueQuantity": {
           "value": 20170801
         },
@@ -1560,7 +1560,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00Z",
+        "effectiveDateTime": "2020-01-05T10:15:00",
         "valueCodeableConcept": {
           "coding": [
             {
@@ -2169,8 +2169,8 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2020-11-10T18:00:00Z",
-          "end": "2020-11-10T21:30:00Z"
+          "start": "2020-11-10T18:00:00",
+          "end": "2020-11-10T21:30:00"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2933,7 +2933,7 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2017-01-16T15:47:14Z"
+          "start": "2017-01-16T15:47:14"
         },
         "valueCodeableConcept": {
           "coding": [

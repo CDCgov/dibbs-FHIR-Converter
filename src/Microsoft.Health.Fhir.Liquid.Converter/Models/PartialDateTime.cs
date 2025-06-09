@@ -40,8 +40,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Models
             int millisecond = groups["millisecond"].Success ? int.Parse(groups["millisecond"].Value.Length > 3 ? groups["millisecond"].Value.Substring(0, 3) : groups["millisecond"].Value) : 0;
             MillisecondString = groups["millisecond"].Success ? groups["millisecond"].Value : null;
 
-            // var timeSpan = TimeZoneInfo.Local.GetUtcOffset(new DateTime(year, month, day, hour, minute, second, millisecond));
-            var timeSpan = TimeSpan.Zero;
+            var timeSpan = TimeZoneInfo.Local.GetUtcOffset(new DateTime(year, month, day, hour, minute, second, millisecond));
             if (groups["timeZone"].Success)
             {
                 if (groups["timeZone"].Value == "Z")
@@ -118,7 +117,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Models
                 };
             }
 
-            var timeZoneSuffix = timeZoneHandling == TimeZoneHandlingMethod.Preserve && !this.HasTimeZone ? "" : (resultDateTime.Offset == TimeSpan.Zero ? "Z" : "%K");
+            var timeZoneSuffix = timeZoneHandling == TimeZoneHandlingMethod.Preserve && !this.HasTimeZone ? string.Empty : (resultDateTime.Offset == TimeSpan.Zero ? "Z" : "%K");
             string dateTimeFormat;
             if (Precision < DateTimePrecision.Milliseconds)
             {

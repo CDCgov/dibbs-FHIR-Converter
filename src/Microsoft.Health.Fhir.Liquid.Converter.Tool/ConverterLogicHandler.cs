@@ -133,7 +133,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Tool
         private static void SaveConverterResult(string outputFilePath, ConverterResult result)
         {
             var outputFileDirectory = Path.GetDirectoryName(outputFilePath);
-            if (!string.IsNullOrEmpty(outputFileDirectory)) {
+            if (!string.IsNullOrEmpty(outputFileDirectory))
+            {
                 Directory.CreateDirectory(outputFileDirectory);
             }
 

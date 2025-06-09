@@ -1595,7 +1595,7 @@
                                 </participantRole>
                             </participant>
                             <participant typeCode="LOC">
-                                <partcipantRole classCode="SDLOC">
+                                <participantRole classCode="SDLOC">
                                     <templateId root="2.16.840.1.113883.10.20.22.4.32" />
                                     <code code="1160-1" codeSystem="2.16.840.1.113883.6.259"
                                         codeSystemName="HealthcareServiceLocation"
@@ -1611,7 +1611,7 @@
                                     <playingEntity classCode="PLC">
                                         <name>Community Health and Hospitals</name>
                                     </playingEntity>
-                                </partcipantRole>
+                                </participantRole>
                             </participant>
                         </procedure>
                     </entry>

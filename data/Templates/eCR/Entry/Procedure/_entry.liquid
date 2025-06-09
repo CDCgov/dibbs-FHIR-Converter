@@ -13,7 +13,6 @@
         {% if participant.typeCode == "DEV" %}
             {% assign deviceId = participant.participantRole | to_json_string | generate_uuid %}
             {% assign fullDeviceId = deviceId | prepend: 'Device/' %}
-            {{ fullDeviceId | print_object }}
             {% include 'Resource/DeviceProductInstance' ID: deviceId, deviceEntry: participant.participantRole %}
             {% include 'Reference/Procedure/ProductInstance' ID: procedureId, REF: fullDeviceId -%}
         {% elseif participant.typeCode == "LOC" %}

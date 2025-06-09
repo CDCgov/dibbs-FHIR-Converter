@@ -18,7 +18,7 @@
             {% include 'Reference/Procedure/ProductInstance' ID: procedureId, REF: fullDeviceId -%}
         {% elseif participant.typeCode == "LOC" %}
             {% assign locationId = participant.participantRole | to_json_string | generate_uuid %}
-            {% assign fullLocationId = locationId | prepend: 'Device/' %}
+            {% assign fullLocationId = locationId | prepend: 'Location/' %}
             {% include 'Resource/Location' ID: locationId, location: participant.participantRole %}
             {% include 'Reference/Procedure/Location' ID: procedureId, REF: fullLocationId -%}
         {% endif %}

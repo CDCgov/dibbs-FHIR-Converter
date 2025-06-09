@@ -1,6 +1,4 @@
 {
-  "Status": "OK",
-  "FhirResource": {
   "resourceType": "Bundle",
   "type": "batch",
   "entry": [
@@ -250,7 +248,7 @@
             ]
           },
           {
-            "id": "93953a1a-be40-d775-7b3e-32f4c53e821b",
+            "id": "daafaabe-fa87-9a91-b1cc-c919840a7efa",
             "title": "Procedures",
             "text": {
               "status": "generated",
@@ -1157,7 +1155,7 @@
             "postalCode": "99999",
             "district": "26001",
             "period": {
-              "start": "2000-07-20T08:45:00-04:00"
+              "start": "2000-07-20T08:45:00Z"
             }
           }
         ],
@@ -1513,7 +1511,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00-05:00",
+        "effectiveDateTime": "2020-01-05T10:15:00Z",
         "valueQuantity": {
           "value": 20170801
         },
@@ -1562,7 +1560,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00-05:00",
+        "effectiveDateTime": "2020-01-05T10:15:00Z",
         "valueCodeableConcept": {
           "coding": [
             {
@@ -2171,8 +2169,8 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2020-11-10T18:00:00-05:00",
-          "end": "2020-11-10T21:30:00-05:00"
+          "start": "2020-11-10T18:00:00Z",
+          "end": "2020-11-10T21:30:00Z"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2935,7 +2933,7 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2017-01-16T15:47:14-05:00"
+          "start": "2017-01-16T15:47:14Z"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -3406,10 +3404,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:defe964f-0773-ed85-4aaa-eba0b52c2a9a",
+      "fullUrl": "urn:uuid:079f11d4-e0d1-47b5-cb87-445561f5f392",
       "resource": {
         "resourceType": "Procedure",
-        "id": "defe964f-0773-ed85-4aaa-eba0b52c2a9a",
+        "id": "079f11d4-e0d1-47b5-cb87-445561f5f392",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
@@ -3439,11 +3437,14 @@
           {
             "reference": "Device/1c4fb2b0-801a-f762-f367-d9f03280ea97"
           }
-        ]
+        ],
+        "location": {
+          "reference": "Location/7df7cf78-ecc5-75ec-0746-e14deee862a3"
+        }
       },
       "request": {
         "method": "PUT",
-        "url": "Procedure/defe964f-0773-ed85-4aaa-eba0b52c2a9a"
+        "url": "Procedure/079f11d4-e0d1-47b5-cb87-445561f5f392"
       }
     },
     {
@@ -3476,13 +3477,42 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:",
+      "fullUrl": "urn:uuid:7df7cf78-ecc5-75ec-0746-e14deee862a3",
       "resource": {
-        "resourceType": "Location"
+        "resourceType": "Location",
+        "id": "7df7cf78-ecc5-75ec-0746-e14deee862a3",
+        "name": "Community Health and Hospitals",
+        "address": {
+          "line": [
+            "1002 Healthcare Drive"
+          ],
+          "city": "Ann Arbor",
+          "state": "MI",
+          "country": "US",
+          "postalCode": "99999"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-5000",
+            "use": "work"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "1160-1",
+                "system": "urn:oid:2.16.840.1.113883.6.259",
+                "display": "Community Health and Hospitals"
+              }
+            ]
+          }
+        ]
       },
       "request": {
         "method": "PUT",
-        "url": "Location/"
+        "url": "Location/7df7cf78-ecc5-75ec-0746-e14deee862a3"
       }
     },
     {
@@ -3778,5 +3808,4 @@
       }
     }
   ]
-}
 }

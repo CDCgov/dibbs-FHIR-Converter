@@ -1,14 +1,35 @@
-{% assign procedureId = entry.procedure | to_json_string | generate_uuid -%}
-{% if entry.procedure -%}
-    {% include 'Resource/Procedure' procedureEntry: entry.procedure, ID: procedureId -%}
+{% comment %} Procedure activity act is a subset of procedure activity procedure {% endcomment %}
+{% assign procedure = entry.procedure %}
+{% if entry.act %}
+    {% assign procedure = entry.act %}
+{% endif %}
+{% assign procedureId = procedure | to_json_string | generate_uuid -%}
+{% if procedure -%}
+    {% include 'Resource/Procedure' procedureEntry: procedure, ID: procedureId -%}
     {% include 'Reference/Procedure/Subject' ID: procedureId, REF: fullPatientId -%}
-{% endif -%}
 
-{% if entry.procedure.performer.assignedEntity.representedOrganization.name._ -%}
-    {% assign organizationId = entry.procedure.performer.assignedEntity.representedOrganization | to_json_string | generate_uuid -%}
-    {% include 'Resource/Organization' organization: entry.procedure.performer.assignedEntity.representedOrganization, ID: organizationId -%}
-    {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
-    {% include 'Reference/Procedure/Performer_Actor' ID: procedureId, REF: fullOrganizationId -%}
+    {% assign participants = procedure.participant | to_array %}
+    {% for participant in participants %}
+        {% if participant.typeCode == "DEV" %}
+            {% assign deviceId = participant.participantRole | to_json_string | generate_uuid %}
+            {% assign fullDeviceId = deviceId | prepend: 'Device/' %}
+            {{ fullDeviceId | print_object }}
+            {% include 'Resource/DeviceProductInstance' ID: deviceId, deviceEntry: participant.participantRole %}
+            {% include 'Reference/Procedure/ProductInstance' ID: procedureId, REF: fullDeviceId -%}
+        {% elseif participant.typeCode == "LOC" %}
+            {% assign locationId = participant.participantRole | to_json_string | generate_uuid %}
+            {% assign fullLocationId = locationId | prepend: 'Device/' %}
+            {% include 'Resource/Location' ID: locationId, location: participant.participantRole %}
+            {% include 'Reference/Procedure/Location' ID: procedureId, REF: fullLocationId -%}
+        {% endif %}
+    {% endfor %}
+
+    {% if procedure.performer.assignedEntity.representedOrganization.name._ -%}
+        {% assign organizationId = procedure.performer.assignedEntity.representedOrganization | to_json_string | generate_uuid -%}
+        {% include 'Resource/Organization' organization: procedure.performer.assignedEntity.representedOrganization, ID: organizationId -%}
+        {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
+        {% include 'Reference/Procedure/Performer_Actor' ID: procedureId, REF: fullOrganizationId -%}
+    {% endif -%}
 {% endif -%}
 
 {% if entry.observation -%}

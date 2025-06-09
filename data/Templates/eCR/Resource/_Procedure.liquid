@@ -22,15 +22,7 @@
             {% assign codes = code | concat: translations -%}
             {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
         },
-        {% if procedureEntry.effectiveTime.value -%}
-            "performedDateTime":"{{ procedureEntry.effectiveTime.value | format_as_date_time }}",
-        {% else -%}
-            "performedPeriod": 
-            {
-                "start":"{{ procedureEntry.effectiveTime.low.value | format_as_date_time }}",
-                "end":"{{ procedureEntry.effectiveTime.high.value | format_as_date_time }}",
-            },
-        {% endif -%}
+        {% include 'Utils/EffectiveTime' effectiveTime: procedureEntry.effectiveTime, timeType: "performed" %}
         "bodySite":
         [
             { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.targetSiteCode -%} },

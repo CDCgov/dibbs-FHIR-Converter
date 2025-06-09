@@ -1,4 +1,6 @@
 {
+  "Status": "OK",
+  "FhirResource": {
   "resourceType": "Bundle",
   "type": "batch",
   "entry": [
@@ -47,7 +49,7 @@
             }
           ]
         },
-        "date": "2020-11-07T14:44:21+00:00",
+        "date": "2020-11-07T09:44:21-05:00",
         "title": "Initial Public Health Case Report",
         "confidentiality": "N",
         "section": [
@@ -248,7 +250,7 @@
             ]
           },
           {
-            "id": "ebb25baf-215f-b297-43ce-4c8ca79e45f7",
+            "id": "93953a1a-be40-d775-7b3e-32f4c53e821b",
             "title": "Procedures",
             "text": {
               "status": "generated",
@@ -532,8 +534,8 @@
           }
         ],
         "period": {
-          "start": "2020-11-07T13:44:21+00:00",
-          "end": "2020-11-08T16:21:03+00:00"
+          "start": "2020-11-07T08:44:21-05:00",
+          "end": "2020-11-08T11:21:03-05:00"
         },
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
@@ -1155,7 +1157,7 @@
             "postalCode": "99999",
             "district": "26001",
             "period": {
-              "start": "2000-07-20T08:45:00Z"
+              "start": "2000-07-20T08:45:00-04:00"
             }
           }
         ],
@@ -1273,7 +1275,7 @@
           }
         ],
         "status": "completed",
-        "effectiveDateTime": "2020-11-07T18:59:00+00:00",
+        "effectiveDateTime": "2020-11-07T11:59:00-07:00",
         "dosage": {
           "route": {
             "coding": [
@@ -1511,7 +1513,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00Z",
+        "effectiveDateTime": "2020-01-05T10:15:00-05:00",
         "valueQuantity": {
           "value": 20170801
         },
@@ -1560,7 +1562,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00Z",
+        "effectiveDateTime": "2020-01-05T10:15:00-05:00",
         "valueCodeableConcept": {
           "coding": [
             {
@@ -2169,8 +2171,8 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2020-11-10T18:00:00Z",
-          "end": "2020-11-10T21:30:00Z"
+          "start": "2020-11-10T18:00:00-05:00",
+          "end": "2020-11-10T21:30:00-05:00"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2933,7 +2935,7 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2017-01-16T15:47:14Z"
+          "start": "2017-01-16T15:47:14-05:00"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2989,7 +2991,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 120,
           "unit": "mm[Hg]"
@@ -3039,7 +3041,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 80,
           "unit": "mm[Hg]"
@@ -3089,7 +3091,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 80,
           "unit": "/min"
@@ -3139,7 +3141,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 99.0,
           "unit": "[degF]"
@@ -3189,7 +3191,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 18,
           "unit": "/min"
@@ -3239,7 +3241,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 67,
           "unit": "[in_us]"
@@ -3289,7 +3291,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 239.9,
           "unit": "[lb_av]"
@@ -3339,7 +3341,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 37.58,
           "unit": "kg/m2"
@@ -3389,7 +3391,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 98,
           "unit": "%"
@@ -3404,10 +3406,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:68ecb078-61af-67b8-5b27-739d22e8d2ee",
+      "fullUrl": "urn:uuid:defe964f-0773-ed85-4aaa-eba0b52c2a9a",
       "resource": {
         "resourceType": "Procedure",
-        "id": "68ecb078-61af-67b8-5b27-739d22e8d2ee",
+        "id": "defe964f-0773-ed85-4aaa-eba0b52c2a9a",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
@@ -3432,11 +3434,55 @@
         "performedDateTime": "2020-11-15",
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "usedReference": [
+          {
+            "reference": "Device/1c4fb2b0-801a-f762-f367-d9f03280ea97"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/defe964f-0773-ed85-4aaa-eba0b52c2a9a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1c4fb2b0-801a-f762-f367-d9f03280ea97",
+      "resource": {
+        "resourceType": "Device",
+        "id": "1c4fb2b0-801a-f762-f367-d9f03280ea97",
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.3719",
+            "value": "(01)51022222233336(11)141231(17)150707(10)A213B1(21)1234",
+            "assigner": {
+              "display": "FDA"
+            }
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "code": "90412006",
+              "system": "http://snomed.info/sct",
+              "display": "Colonoscope"
+            }
+          ]
         }
       },
       "request": {
         "method": "PUT",
-        "url": "Procedure/68ecb078-61af-67b8-5b27-739d22e8d2ee"
+        "url": "Device/1c4fb2b0-801a-f762-f367-d9f03280ea97"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:",
+      "resource": {
+        "resourceType": "Location"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/"
       }
     },
     {
@@ -3528,6 +3574,42 @@
       "request": {
         "method": "PUT",
         "url": "Procedure/a09444be-e022-d5ec-3014-e337fd6dc2ef"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3ec04e84-6296-9381-d036-ceb7a9133b59",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "3ec04e84-6296-9381-d036-ceb7a9133b59",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:941aee94-1f69-4fa8-91c8-7eee00915728"
+          }
+        ],
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "code": "409524006",
+              "system": "http://snomed.info/sct",
+              "display": "Airborn precautions (procedure)"
+            }
+          ]
+        },
+        "performedDateTime": "2020-11-15",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/3ec04e84-6296-9381-d036-ceb7a9133b59"
       }
     },
     {
@@ -3696,4 +3778,5 @@
       }
     }
   ]
+}
 }

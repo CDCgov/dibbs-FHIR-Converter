@@ -30,9 +30,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         [Fact]
         public void GivenCcdaMessageForTimezoneTesting_WhenConvert_ExpectedResultShouldBeReturned()
         {
-            var inputFile = Path.Combine("TestData", "TimezoneHandling", "Input", "CcdaTestTimezoneInput.ccda");
+            var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "CcdaTestTimezoneInput.ccda");
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
-            var templateDirectory = Path.Join("TestData", "TimezoneHandling", "Template");
+            var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
 
             var inputContent = File.ReadAllText(inputFile);
             var actualContent = ccdaProcessor.Convert(inputContent, "CcdaTestTimezoneTemplate", new TemplateProvider(templateDirectory, DataType.Ccda));
@@ -50,9 +50,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         [Fact]
         public void GivenHl7v2MessageForTimeZoneTesting_WhenConvert_ExpectedResultShouldBeReturned()
         {
-            var inputFile = Path.Combine("TestData", "TimezoneHandling", "Input", "Hl7v2TestTimezoneInput.hl7v2");
+            var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "Hl7v2TestTimezoneInput.hl7v2");
             var hl7v2Processor = new Hl7v2Processor(_processorSettings, FhirConverterLogging.CreateLogger<Hl7v2Processor>());
-            var templateDirectory = Path.Join("TestData", "TimezoneHandling", "Template");
+            var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
 
             var inputContent = File.ReadAllText(inputFile);
             var traceInfo = new Hl7v2TraceInfo();

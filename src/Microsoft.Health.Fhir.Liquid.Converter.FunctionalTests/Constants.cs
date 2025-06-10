@@ -13,6 +13,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         public static readonly string SampleDataDirectory = Path.Join("..", "..", "data", "SampleData");
         // Roundabout path to make sure we reference/update the source expected test data and not a copy
         // in the build folder
-        public static readonly string ExpectedDataFolder = Path.Join("..", "..", "src", "Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests", "TestData", "Expected");
+        public static readonly string TestDataDirectory = Path.Join("..", "..", "src", "Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests", "TestData");
+        public static readonly string ExpectedDataFolder = Path.Join(TestDataDirectory, "Expected");
     }
 }

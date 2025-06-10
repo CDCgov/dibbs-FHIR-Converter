@@ -14,7 +14,7 @@
         [
             { {% include 'DataType/Identifier' Identifier: procedureEntry.id -%} },
         ],
-        "status":"{{ procedureEntry.statusCode.code }}",
+        "status":"{{ procedureEntry.statusCode.code | get_property: 'ValueSet/EventStatus' }}",
         "code":
         {
             {% assign translations = procedureEntry.code.translation | to_array -%}

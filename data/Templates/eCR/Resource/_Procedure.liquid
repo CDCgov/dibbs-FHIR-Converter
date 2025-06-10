@@ -27,7 +27,7 @@
         [
             { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.targetSiteCode -%} },
         ],
-        {% assign rels = procedure.entryRelationship | to_array %}
+        {% assign rels = procedureEntry.entryRelationship | to_array %}
         {% for rel in rels %}
             {% if rel.typeCode == "RSON" %}
                 "reasonCode": 
@@ -39,7 +39,7 @@
                 "complication":
                 [
                     { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
-                ]
+                ],
             {% endif %}
         {% endfor %}
         
@@ -62,7 +62,7 @@
             {% for spec in specs %}
                 {
                     "url": "specimen",
-                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: spec.specimenRole.spcimenPlayingEntity.code -%} }
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: spec.specimenRole.specimenPlayingEntity.code -%} }
                 },
             {% endfor %}
         ]

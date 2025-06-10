@@ -48,13 +48,20 @@
                 {
                     "url": "http://hl7.org/fhir/StructureDefinition/procedure-method",
                     "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.methodCode %} }
-                }
+                },
             {% endif %}
 
             {% if procedureEntry.priorityCode %}
                 {
                     "url": "priorityCode",
                     "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.priorityCode %} }
+                },
+            {% endif %}
+
+            {% if procedureEntry.specimen %}
+                {
+                    "url": "specimen",
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.specimen.specimenRole.spcimenPlayingEntity.code -%} }
                 }
             {% endif %}
         ]

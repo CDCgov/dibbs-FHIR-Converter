@@ -24,21 +24,14 @@
     {% endfor %}
 
     {% assign rels = procedure.entryRelationship | to_array %}
-        {% for rel in rels %}
-            {% if rel.typeCode == "COMP" and rel.substanceAdministration.templateId.root == "2.16.840.1.113883.10.20.22.4.16" %}
-                {% assign adminId = rel.substanceAdministration | to_json_string | generate_uuid %}
-                {% assign fullAdminId = adminId | prepend: 'MedicationAdministration/' %}
-                {% include 'Resource/MedicationAdministration' ID: adminId, medicationAdministration: rel.substanceAdministration %}
-                {% include 'Reference/Procedure/MedicationAdministration' ID: procedureId, REF: fullAdminId -%}
-            {% endif %}
-        {% endfor %}
-    
-    {% if procedure.specimen %} 
-        {% assign specimenId = participant.specimen | to_json_string | generate_uuid %}
-        {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' %}
-        {% include 'Resource/Specimen' ID: specimenId, specimen: participant.specimen %}
-        {% include 'Reference/Procedure/Specimen' ID: procedureId, REF: fullSpecimenId %}
-    {% endif %}
+    {% for rel in rels %}
+        {% if rel.typeCode == "COMP" and rel.substanceAdministration.templateId.root == "2.16.840.1.113883.10.20.22.4.16" %}
+            {% assign adminId = rel.substanceAdministration | to_json_string | generate_uuid %}
+            {% assign fullAdminId = adminId | prepend: 'MedicationAdministration/' %}
+            {% include 'Resource/MedicationAdministration' ID: adminId, medicationAdministration: rel.substanceAdministration %}
+            {% include 'Reference/Procedure/MedicationAdministration' ID: procedureId, REF: fullAdminId -%}
+        {% endif %}
+    {% endfor %}
 
     {% assign orgs = procedure.performer.assignedEntity.representedOrganization | to_array %}
     {% for org in orgs %}

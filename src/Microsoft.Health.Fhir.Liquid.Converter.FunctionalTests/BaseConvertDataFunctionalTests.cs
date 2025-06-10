@@ -342,8 +342,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         {
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
             var inputContent = File.ReadAllText(inputFile);
-            var expectedContent = File.ReadAllText(expectedFile);
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, templateProvider);
+
+            var updateSnaphot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";
+            if (updateSnaphot.Trim() == "true")
+            {
+                File.WriteAllText(expectedFile, actualContent);
+            }
+
+            var expectedContent = File.ReadAllText(expectedFile);
 
             var expectedObject = JObject.Parse(expectedContent);
             var actualObject = JObject.Parse(actualContent);

@@ -216,9 +216,24 @@
                                     {
                                         "reference": "{{ fullObservationId }}",
                                     },
-                                    {% comment %}
-                                        TODO: procedure references
-                            {% endcomment %}
+                            {% elseif component.section.code.code == "47519-4" %}
+                                {% assign procedure = sectionEntry.procedure %}
+                                {% if sectionEntry.act %}
+                                    {% assign procedure = sectionEntry.act %}
+                                {% endif %}
+                                {% if procedure -%}
+                                    {% assign procedureId = procedure | to_json_string | generate_uuid -%}
+                                    {% assign fullProcedureId = procedureId | prepend: 'Procedure/' -%}
+                                    {
+                                        "reference": "{{ fullProcedureId }}",
+                                    },
+                                {% elseif sectionEntry.observation %}
+                                    {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                    {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                    {
+                                        "reference": "{{ fullObservationId }}",
+                                    },
+                                {% endif %}
                             {% endif -%}
                         {% endfor -%}
                     ],

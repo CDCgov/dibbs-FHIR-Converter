@@ -33,12 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="TestData\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="ValidatorLib\" />
   </ItemGroup>
 

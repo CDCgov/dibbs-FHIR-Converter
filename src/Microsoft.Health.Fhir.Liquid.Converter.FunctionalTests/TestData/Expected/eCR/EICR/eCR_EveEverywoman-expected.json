@@ -263,7 +263,24 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Procedure/079f11d4-e0d1-47b5-cb87-445561f5f392"
+              },
+              {
+                "reference": "Observation/44e6df0f-4e41-63ee-2bda-625369930b7c"
+              },
+              {
+                "reference": "Procedure/a09444be-e022-d5ec-3014-e337fd6dc2ef"
+              },
+              {
+                "reference": "Procedure/3ec04e84-6296-9381-d036-ceb7a9133b59"
+              },
+              {
+                "reference": "Observation/ecf330de-e85f-0b34-5fdd-6dccdae41d6d"
+              }
+            ]
           },
           {
             "id": "56fbb469-df1b-4b55-c913-12bb7520c7e4",

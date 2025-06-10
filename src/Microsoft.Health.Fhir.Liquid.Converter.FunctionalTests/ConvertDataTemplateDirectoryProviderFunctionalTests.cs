@@ -42,8 +42,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             Assert.Equal("2001-01", actualObject["datetime1"]);
             Assert.Equal("2001-01-01", actualObject["datetime2"]);
             Assert.Equal("2001-01-01", actualObject["datetime3"]);
-            Assert.Contains("2001-11-11T12:00:00", actualObject["datetime4"].ToString());
-            Assert.Contains("2001-11-11T12:23:00", actualObject["datetime5"].ToString());
+            Assert.Equal("2001-11-11T12:00:00", actualObject["datetime4"]);
+            Assert.Equal("2001-11-11T12:23:00", actualObject["datetime5"]);
             Assert.Equal("2020-01-01T01:01:01+08:00", actualObject["datetime6"]);
         }
 
@@ -63,8 +63,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             Assert.Equal("2001-01", actualObject["datetime1"]);
             Assert.Equal("2001-01-01", actualObject["datetime2"]);
             Assert.Equal("2001-01-01", actualObject["datetime3"]);
-            Assert.Contains("2001-11-11T12:00:00", actualObject["datetime4"].ToString());
-            Assert.Contains("2001-11-11T12:23:00", actualObject["datetime5"].ToString());
+            Assert.Equal("2001-11-11T12:00:00", actualObject["datetime4"]);
+            Assert.Equal("2001-11-11T12:23:00", actualObject["datetime5"]);
             Assert.Equal("2020-01-01T01:01:01+08:00", actualObject["datetime6"]);
         }
 

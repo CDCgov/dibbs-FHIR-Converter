@@ -59,7 +59,7 @@
             {% endif %}
 
             {% assign specs = procedureEntry.specimen | to_array %}
-            {% for spec of specs %}
+            {% for spec in specs %}
                 {
                     "url": "specimen",
                     "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: spec.specimenRole.spcimenPlayingEntity.code -%} }

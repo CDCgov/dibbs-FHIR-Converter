@@ -58,12 +58,13 @@
                 },
             {% endif %}
 
-            {% if procedureEntry.specimen %}
+            {% assign specs = procedureEntry.specimen | to_array %}
+            {% for spec of specs %}
                 {
                     "url": "specimen",
-                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.specimen.specimenRole.spcimenPlayingEntity.code -%} }
-                }
-            {% endif %}
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: spec.specimenRole.spcimenPlayingEntity.code -%} }
+                },
+            {% endfor %}
         ]
     },
     "request":{

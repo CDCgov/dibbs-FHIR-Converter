@@ -248,7 +248,7 @@
             ]
           },
           {
-            "id": "daafaabe-fa87-9a91-b1cc-c919840a7efa",
+            "id": "3734fa23-17ac-de09-dd73-02ff454424aa",
             "title": "Procedures",
             "text": {
               "status": "generated",
@@ -266,7 +266,7 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "Procedure/079f11d4-e0d1-47b5-cb87-445561f5f392"
+                "reference": "Procedure/2f0873b8-77be-2507-a2fc-705ba512fb1b"
               },
               {
                 "reference": "Observation/44e6df0f-4e41-63ee-2bda-625369930b7c"
@@ -3421,10 +3421,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:079f11d4-e0d1-47b5-cb87-445561f5f392",
+      "fullUrl": "urn:uuid:2f0873b8-77be-2507-a2fc-705ba512fb1b",
       "resource": {
         "resourceType": "Procedure",
-        "id": "079f11d4-e0d1-47b5-cb87-445561f5f392",
+        "id": "2f0873b8-77be-2507-a2fc-705ba512fb1b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
@@ -3447,6 +3447,32 @@
           ]
         },
         "performedDateTime": "2020-11-15",
+        "extension": [
+          {
+            "url": "specimen",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "309266009",
+                  "system": "http://snomed.info/sct",
+                  "display": "anal polyp"
+                }
+              ]
+            }
+          },
+          {
+            "url": "specimen",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "57259009",
+                  "system": "http://snomed.info/sct",
+                  "display": "bile duct"
+                }
+              ]
+            }
+          }
+        ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
@@ -3461,7 +3487,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Procedure/079f11d4-e0d1-47b5-cb87-445561f5f392"
+        "url": "Procedure/2f0873b8-77be-2507-a2fc-705ba512fb1b"
       }
     },
     {

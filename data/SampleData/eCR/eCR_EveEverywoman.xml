@@ -1579,6 +1579,22 @@
                                 codeSystemName="SNOMED CT" displayName="Colonoscopy" />
                             <statusCode code="completed" />
                             <effectiveTime value="20201115" />
+                            <specimen typeCode="SPC">
+                                <specimenRole classCode="SPEC">
+                                  <id root="b6d7b927-2b70-43c7-bdf3-0e7c4133062d" />
+                                    <specimenPlayingEntity>
+                                      <code code="309266009" codeSystem="2.16.840.1.113883.6.96" displayName="anal polyp" />
+                                  </specimenPlayingEntity>
+                                </specimenRole>
+                            </specimen>
+                            <specimen typeCode="SPC">
+                                <specimenRole classCode="SPEC">
+                                  <id root="a6d7b927-2b70-43c7-bdf3-0e7c4133062c" />
+                                    <specimenPlayingEntity>
+                                      <code code="57259009" codeSystem="2.16.840.1.113883.6.96" displayName="bile duct" />
+                                  </specimenPlayingEntity>
+                                </specimenRole>
+                            </specimen>
                             <participant typeCode="DEV">
                                 <participantRole classCode="MANU">
                                     <templateId root="2.16.840.1.113883.10.20.22.4.37" />

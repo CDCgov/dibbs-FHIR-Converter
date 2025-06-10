@@ -27,13 +27,37 @@
         [
             { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.targetSiteCode -%} },
         ],
-        "reason": 
-        [
-            {
-                "display": "{{procedureEntry.entryRelationship.observation.text._ | clean_string_from_tabs | strip}}",
-                "reference": "{{procedureEntry.entryRelationship.observation | to_json_string | generate_uuid}}",
-            },
-        ],
+        {% assign rels = procedure.entryRelationship | to_array %}
+        {% for rel in rels %}
+            {% if rel.typeCode == "RSON" %}
+                "reasonCode": 
+                [
+                    { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
+                ],
+            {% elseif rel.typeCode == "COMP" and rel.observation.templateId.root == "2.16.840.1.113883.10.20.22.4.9" %}
+                {% comment %} Reaction observation {% endcomment %}   
+                "complication":
+                [
+                    { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
+                ]
+            {% endif %}
+        {% endfor %}
+        
+        "extension": [
+            {% if procedureEntry.methodCode %}
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/procedure-method",
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.methodCode %} }
+                }
+            {% endif %}
+
+            {% if procedureEntry.priorityCode %}
+                {
+                    "url": "priorityCode",
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.priorityCode %} }
+                }
+            {% endif %}
+        ]
     },
     "request":{
         "method":"PUT",

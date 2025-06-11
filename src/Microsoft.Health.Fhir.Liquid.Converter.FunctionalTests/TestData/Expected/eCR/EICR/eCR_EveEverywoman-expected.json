@@ -3477,7 +3477,9 @@
           },
           {
             "url": "medicationAdministration",
-            "valueReference": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+            "valueReference": {
+              "reference": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+            }
           }
         ],
         "subject": {

@@ -248,7 +248,7 @@
             ]
           },
           {
-            "id": "3734fa23-17ac-de09-dd73-02ff454424aa",
+            "id": "704bf516-3860-cfb3-fd1b-26547e8ddb69",
             "title": "Procedures",
             "text": {
               "status": "generated",
@@ -266,7 +266,7 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "Procedure/2f0873b8-77be-2507-a2fc-705ba512fb1b"
+                "reference": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
               },
               {
                 "reference": "Observation/44e6df0f-4e41-63ee-2bda-625369930b7c"
@@ -3421,10 +3421,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:2f0873b8-77be-2507-a2fc-705ba512fb1b",
+      "fullUrl": "urn:uuid:c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
       "resource": {
         "resourceType": "Procedure",
-        "id": "2f0873b8-77be-2507-a2fc-705ba512fb1b",
+        "id": "c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
@@ -3446,7 +3446,10 @@
             }
           ]
         },
-        "performedDateTime": "2020-11-15",
+        "performedPeriod": {
+          "start": "2020-11-15T11:10:00",
+          "end": "2020-11-15T15:14:00"
+        },
         "extension": [
           {
             "url": "specimen",
@@ -3471,6 +3474,10 @@
                 }
               ]
             }
+          },
+          {
+            "url": "medicationAdministration",
+            "valueReference": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
           }
         ],
         "subject": {
@@ -3487,7 +3494,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Procedure/2f0873b8-77be-2507-a2fc-705ba512fb1b"
+        "url": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
       }
     },
     {
@@ -3556,6 +3563,41 @@
       "request": {
         "method": "PUT",
         "url": "Location/7df7cf78-ecc5-75ec-0746-e14deee862a3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:6c844c75-aa34-411c-b7bd-5e4a9f206e29"
+          }
+        ],
+        "status": "in-progress",
+        "effectivePeriod": {
+          "start": "2012-03-18"
+        },
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C38288",
+                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "display": "ORAL"
+              }
+            ]
+          },
+          "dose": {
+            "value": 1
+          }
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
       }
     },
     {

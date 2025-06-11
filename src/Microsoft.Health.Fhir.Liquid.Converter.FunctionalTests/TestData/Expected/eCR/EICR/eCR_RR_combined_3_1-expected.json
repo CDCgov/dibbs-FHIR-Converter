@@ -50,7 +50,7 @@
             }
           ]
         },
-        "date": "1985-07-28T22:28:26-07:00",
+        "date": "1985-07-28T23:28:26-06:00",
         "title": "Initial Public Health Case Report",
         "confidentiality": "N",
         "section": [
@@ -290,7 +290,12 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Procedure/e2811748-41a6-95b2-b7fb-eb3271baed16"
+              }
+            ]
           },
           {
             "id": "36C0CA42-DA66-11EF-B655-005056BE2511",
@@ -456,7 +461,7 @@
           }
         ],
         "period": {
-          "start": "1981-10-16T10:14:46-07:00"
+          "start": "1981-10-16T12:14:46-05:00"
         },
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
@@ -515,7 +520,7 @@
               }
             ],
             "period": {
-              "start": "1981-10-16T10:14:46-07:00"
+              "start": "1981-10-16T12:14:46-05:00"
             },
             "individual": {
               "reference": "PractitionerRole/2292332c-3705-aa46-e48d-453f81784d54"
@@ -533,7 +538,7 @@
               }
             ],
             "period": {
-              "start": "1981-10-16T10:14:46-07:00"
+              "start": "1981-10-16T12:14:46-05:00"
             },
             "individual": {
               "reference": "PractitionerRole/2292332c-3705-aa46-e48d-453f81784d54"
@@ -572,7 +577,9 @@
         "name": " Sissubo School Neighbourhood Laboratory",
         "address": {
           "use": "work",
-          "line": ["4509 KAMINO OCEAN Street"],
+          "line": [
+            "4509 KAMINO OCEAN Street"
+          ],
           "city": "Galactic City",
           "state": "KZ",
           "country": "AI",
@@ -618,7 +625,9 @@
         "address": [
           {
             "use": "work",
-            "line": ["554 KAMINO OCEAN Street"],
+            "line": [
+              "554 KAMINO OCEAN Street"
+            ],
             "city": "Galactic City",
             "state": "KZ",
             "country": "AI",
@@ -664,13 +673,18 @@
         "name": [
           {
             "family": "Baba",
-            "given": ["Elzar"]
+            "given": [
+              "Elzar"
+            ]
           }
         ],
         "address": [
           {
             "use": "work",
-            "line": ["54018 KAMINO OCEAN Spire", "STE 820"],
+            "line": [
+              "54018 KAMINO OCEAN Spire",
+              "STE 820"
+            ],
             "city": "Keren",
             "state": "YA",
             "postalCode": "81303"
@@ -760,14 +774,21 @@
           {
             "use": "official",
             "family": "Powers",
-            "given": ["JohnTESTPROVIDER"],
-            "suffix": [" MD"]
+            "given": [
+              "JohnTESTPROVIDER"
+            ],
+            "suffix": [
+              " MD"
+            ]
           }
         ],
         "address": [
           {
             "use": "work",
-            "line": ["90001 TEST Avey", "STE 100"],
+            "line": [
+              "90001 TEST Avey",
+              "STE 100"
+            ],
             "city": "Washington",
             "state": "DC",
             "postalCode": "20000"
@@ -828,14 +849,21 @@
           {
             "use": "official",
             "family": "Powers",
-            "given": ["JohnTESTPROVIDER"],
-            "suffix": [" MD"]
+            "given": [
+              "JohnTESTPROVIDER"
+            ],
+            "suffix": [
+              " MD"
+            ]
           }
         ],
         "address": [
           {
             "use": "work",
-            "line": ["90001 TEST Avey", "STE 100"],
+            "line": [
+              "90001 TEST Avey",
+              "STE 100"
+            ],
             "city": "Washington",
             "state": "DC",
             "postalCode": "20000"
@@ -1084,7 +1112,9 @@
           {
             "use": "official",
             "family": "Erso",
-            "given": ["Fo"]
+            "given": [
+              "Fo"
+            ]
           }
         ],
         "birthDate": "1860-10-14",
@@ -1152,7 +1182,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["9897 Kamino Ocean Street"],
+            "line": [
+              "9897 Kamino Ocean Street"
+            ],
             "city": "Galactic City",
             "state": "KZ",
             "country": "AI",
@@ -1164,7 +1196,9 @@
           },
           {
             "use": "temp",
-            "line": ["6903 KAMINO OCEAN Ave"],
+            "line": [
+              "6903 KAMINO OCEAN Ave"
+            ],
             "city": "Galactic City",
             "state": "KZ",
             "country": "AI",
@@ -2113,7 +2147,7 @@
             }
           ]
         },
-        "effectiveDateTime": "1981-10-16T10:09:32-07:00",
+        "effectiveDateTime": "1981-10-16T12:09:32-05:00",
         "valueCodeableConcept": {
           "coding": [
             {

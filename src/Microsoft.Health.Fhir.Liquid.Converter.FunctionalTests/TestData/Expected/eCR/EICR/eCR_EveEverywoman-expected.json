@@ -47,7 +47,7 @@
             }
           ]
         },
-        "date": "2020-11-07T14:44:21+00:00",
+        "date": "2020-11-07T09:44:21-05:00",
         "title": "Initial Public Health Case Report",
         "confidentiality": "N",
         "section": [
@@ -248,7 +248,7 @@
             ]
           },
           {
-            "id": "ebb25baf-215f-b297-43ce-4c8ca79e45f7",
+            "id": "704bf516-3860-cfb3-fd1b-26547e8ddb69",
             "title": "Procedures",
             "text": {
               "status": "generated",
@@ -263,7 +263,24 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
+              },
+              {
+                "reference": "Observation/44e6df0f-4e41-63ee-2bda-625369930b7c"
+              },
+              {
+                "reference": "Procedure/a09444be-e022-d5ec-3014-e337fd6dc2ef"
+              },
+              {
+                "reference": "Procedure/3ec04e84-6296-9381-d036-ceb7a9133b59"
+              },
+              {
+                "reference": "Observation/ecf330de-e85f-0b34-5fdd-6dccdae41d6d"
+              }
+            ]
           },
           {
             "id": "56fbb469-df1b-4b55-c913-12bb7520c7e4",
@@ -532,8 +549,8 @@
           }
         ],
         "period": {
-          "start": "2020-11-07T13:44:21+00:00",
-          "end": "2020-11-08T16:21:03+00:00"
+          "start": "2020-11-07T08:44:21-05:00",
+          "end": "2020-11-08T11:21:03-05:00"
         },
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
@@ -1155,7 +1172,7 @@
             "postalCode": "99999",
             "district": "26001",
             "period": {
-              "start": "2000-07-20T08:45:00Z"
+              "start": "2000-07-20T08:45:00"
             }
           }
         ],
@@ -1273,7 +1290,7 @@
           }
         ],
         "status": "completed",
-        "effectiveDateTime": "2020-11-07T18:59:00+00:00",
+        "effectiveDateTime": "2020-11-07T11:59:00-07:00",
         "dosage": {
           "route": {
             "coding": [
@@ -1511,7 +1528,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00Z",
+        "effectiveDateTime": "2020-01-05T10:15:00",
         "valueQuantity": {
           "value": 20170801
         },
@@ -1560,7 +1577,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2020-01-05T10:15:00Z",
+        "effectiveDateTime": "2020-01-05T10:15:00",
         "valueCodeableConcept": {
           "coding": [
             {
@@ -2169,8 +2186,8 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2020-11-10T18:00:00Z",
-          "end": "2020-11-10T21:30:00Z"
+          "start": "2020-11-10T18:00:00",
+          "end": "2020-11-10T21:30:00"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2933,7 +2950,7 @@
           ]
         },
         "effectivePeriod": {
-          "start": "2017-01-16T15:47:14Z"
+          "start": "2017-01-16T15:47:14"
         },
         "valueCodeableConcept": {
           "coding": [
@@ -2989,7 +3006,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 120,
           "unit": "mm[Hg]"
@@ -3039,7 +3056,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 80,
           "unit": "mm[Hg]"
@@ -3089,7 +3106,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 80,
           "unit": "/min"
@@ -3139,7 +3156,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 99.0,
           "unit": "[degF]"
@@ -3189,7 +3206,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 18,
           "unit": "/min"
@@ -3239,7 +3256,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 67,
           "unit": "[in_us]"
@@ -3289,7 +3306,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 239.9,
           "unit": "[lb_av]"
@@ -3339,7 +3356,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 37.58,
           "unit": "kg/m2"
@@ -3389,7 +3406,7 @@
             }
           ]
         },
-        "effectiveDateTime": "2014-05-21T00:36:05+00:00",
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
         "valueQuantity": {
           "value": 98,
           "unit": "%"
@@ -3404,10 +3421,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:68ecb078-61af-67b8-5b27-739d22e8d2ee",
+      "fullUrl": "urn:uuid:c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
       "resource": {
         "resourceType": "Procedure",
-        "id": "68ecb078-61af-67b8-5b27-739d22e8d2ee",
+        "id": "c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
@@ -3429,14 +3446,186 @@
             }
           ]
         },
-        "performedDateTime": "2020-11-15",
+        "performedPeriod": {
+          "start": "2020-11-15T11:10:00",
+          "end": "2020-11-15T15:14:00"
+        },
+        "extension": [
+          {
+            "url": "specimen",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "309266009",
+                  "system": "http://snomed.info/sct",
+                  "display": "anal polyp"
+                }
+              ]
+            }
+          },
+          {
+            "url": "specimen",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "57259009",
+                  "system": "http://snomed.info/sct",
+                  "display": "bile duct"
+                }
+              ]
+            }
+          },
+          {
+            "url": "medicationAdministration",
+            "valueReference": {
+              "reference": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+            }
+          }
+        ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "usedReference": [
+          {
+            "reference": "Device/1c4fb2b0-801a-f762-f367-d9f03280ea97"
+          }
+        ],
+        "location": {
+          "reference": "Location/7df7cf78-ecc5-75ec-0746-e14deee862a3"
         }
       },
       "request": {
         "method": "PUT",
-        "url": "Procedure/68ecb078-61af-67b8-5b27-739d22e8d2ee"
+        "url": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1c4fb2b0-801a-f762-f367-d9f03280ea97",
+      "resource": {
+        "resourceType": "Device",
+        "id": "1c4fb2b0-801a-f762-f367-d9f03280ea97",
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.3.3719",
+            "value": "(01)51022222233336(11)141231(17)150707(10)A213B1(21)1234",
+            "assigner": {
+              "display": "FDA"
+            }
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "code": "90412006",
+              "system": "http://snomed.info/sct",
+              "display": "Colonoscope"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/1c4fb2b0-801a-f762-f367-d9f03280ea97"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7df7cf78-ecc5-75ec-0746-e14deee862a3",
+      "resource": {
+        "resourceType": "Location",
+        "id": "7df7cf78-ecc5-75ec-0746-e14deee862a3",
+        "name": "Community Health and Hospitals",
+        "address": {
+          "line": [
+            "1002 Healthcare Drive"
+          ],
+          "city": "Ann Arbor",
+          "state": "MI",
+          "country": "US",
+          "postalCode": "99999"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-5000",
+            "use": "work"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "1160-1",
+                "system": "urn:oid:2.16.840.1.113883.6.259",
+                "display": "Community Health and Hospitals"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/7df7cf78-ecc5-75ec-0746-e14deee862a3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:6c844c75-aa34-411c-b7bd-5e4a9f206e29"
+          }
+        ],
+        "status": "in-progress",
+        "effectivePeriod": {
+          "start": "2012-03-18"
+        },
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C38288",
+                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "display": "ORAL"
+              }
+            ]
+          },
+          "dose": {
+            "value": 1
+          }
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "medicationReference": {
+          "reference": "Medication/4361c210-6a33-4124-2863-0853046ef9a9"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4361c210-6a33-4124-2863-0853046ef9a9",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "4361c210-6a33-4124-2863-0853046ef9a9",
+        "code": {
+          "coding": [
+            {
+              "code": "197380",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "Atenolol 25 MG Oral Tablet"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/4361c210-6a33-4124-2863-0853046ef9a9"
       }
     },
     {
@@ -3528,6 +3717,42 @@
       "request": {
         "method": "PUT",
         "url": "Procedure/a09444be-e022-d5ec-3014-e337fd6dc2ef"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3ec04e84-6296-9381-d036-ceb7a9133b59",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "3ec04e84-6296-9381-d036-ceb7a9133b59",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:941aee94-1f69-4fa8-91c8-7eee00915728"
+          }
+        ],
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "code": "409524006",
+              "system": "http://snomed.info/sct",
+              "display": "Airborn precautions (procedure)"
+            }
+          ]
+        },
+        "performedDateTime": "2020-11-15",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Procedure/3ec04e84-6296-9381-d036-ceb7a9133b59"
       }
     },
     {

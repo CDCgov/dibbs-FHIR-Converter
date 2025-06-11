@@ -267,6 +267,9 @@
       "abandoned": {
         "code": "not-done"
       },
+      "cancelled": {
+        "code": "not-done"
+      },
       "not-done": {
         "code": "not-done"
       },
@@ -275,6 +278,9 @@
       },
       "on-hold": {
         "code": "on-hold"
+      },
+      "aborted": {
+        "code": "stopped"
       },
       "failed": {
         "code": "stopped"

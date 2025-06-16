@@ -147,7 +147,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
         protected static JsonElement DeserializeJson(string content)
         {
-            return JsonDocument.Parse(content, jsonDeserializeOptions).RootElement;
+            return JsonDocument.Parse(content.TrimEnd(new [] {',', ' '}), jsonDeserializeOptions).RootElement;
         }
 
         protected static string MinimizeJson(string content)

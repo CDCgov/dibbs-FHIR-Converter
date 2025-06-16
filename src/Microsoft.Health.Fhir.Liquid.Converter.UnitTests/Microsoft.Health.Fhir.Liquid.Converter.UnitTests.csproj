@@ -4,6 +4,7 @@
     <TargetFramework>$(LatestFramework)</TargetFramework>
 
     <IsPackable>false</IsPackable>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup>

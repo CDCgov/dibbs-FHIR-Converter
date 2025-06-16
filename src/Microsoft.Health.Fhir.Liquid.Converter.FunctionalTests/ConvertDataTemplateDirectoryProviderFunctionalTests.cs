@@ -30,9 +30,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         [Fact]
         public void GivenCcdaMessageForTimezoneTesting_WhenConvert_ExpectedResultShouldBeReturned()
         {
-            var inputFile = Path.Combine("TestData", "TimezoneHandling", "Input", "CcdaTestTimezoneInput.ccda");
+            var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "CcdaTestTimezoneInput.ccda");
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
-            var templateDirectory = Path.Join("TestData", "TimezoneHandling", "Template");
+            var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
 
             var inputContent = File.ReadAllText(inputFile);
             var actualContent = ccdaProcessor.Convert(inputContent, "CcdaTestTimezoneTemplate", new TemplateProvider(templateDirectory, DataType.Ccda));
@@ -42,17 +42,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             Assert.Equal("2001-01", actualObject["datetime1"]);
             Assert.Equal("2001-01-01", actualObject["datetime2"]);
             Assert.Equal("2001-01-01", actualObject["datetime3"]);
-            Assert.Contains("2001-11-11T12:00:00", actualObject["datetime4"].ToString());
-            Assert.Contains("2001-11-11T12:23:00", actualObject["datetime5"].ToString());
+            Assert.Equal("2001-11-11T12:00:00", actualObject["datetime4"]);
+            Assert.Equal("2001-11-11T12:23:00", actualObject["datetime5"]);
             Assert.Equal("2020-01-01T01:01:01+08:00", actualObject["datetime6"]);
         }
 
         [Fact]
         public void GivenHl7v2MessageForTimeZoneTesting_WhenConvert_ExpectedResultShouldBeReturned()
         {
-            var inputFile = Path.Combine("TestData", "TimezoneHandling", "Input", "Hl7v2TestTimezoneInput.hl7v2");
+            var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "Hl7v2TestTimezoneInput.hl7v2");
             var hl7v2Processor = new Hl7v2Processor(_processorSettings, FhirConverterLogging.CreateLogger<Hl7v2Processor>());
-            var templateDirectory = Path.Join("TestData", "TimezoneHandling", "Template");
+            var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
 
             var inputContent = File.ReadAllText(inputFile);
             var traceInfo = new Hl7v2TraceInfo();
@@ -63,8 +63,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             Assert.Equal("2001-01", actualObject["datetime1"]);
             Assert.Equal("2001-01-01", actualObject["datetime2"]);
             Assert.Equal("2001-01-01", actualObject["datetime3"]);
-            Assert.Contains("2001-11-11T12:00:00", actualObject["datetime4"].ToString());
-            Assert.Contains("2001-11-11T12:23:00", actualObject["datetime5"].ToString());
+            Assert.Equal("2001-11-11T12:00:00", actualObject["datetime4"]);
+            Assert.Equal("2001-11-11T12:23:00", actualObject["datetime5"]);
             Assert.Equal("2020-01-01T01:01:01+08:00", actualObject["datetime6"]);
         }
 

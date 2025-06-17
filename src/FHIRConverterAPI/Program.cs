@@ -21,16 +21,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromQuery(Name = "input_type")] string input_type = "eCR", [FromQuery(Name = "root_template")] string root_template = "EICR") =>
+app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConverterRequest requestBody) =>
 {
-    using var reader = new StreamReader(request.Body);
-    var input = await reader.ReadToEndAsync();
     var templatesPath = Environment.GetEnvironmentVariable("TEMPLATES_PATH") ?? "../../data/Templates/";
-    var result = ConverterLogicHandler.Convert(templatesPath + input_type, root_template, input, false, false);
+    var result = ConverterLogicHandler.Convert(templatesPath + requestBody.input_type, requestBody.root_template, requestBody.input_data, false, false);
 
     return Results.Text(result, contentType: "application/json");
 })
-.Accepts<dynamic>("application/xml")
+.Accepts<dynamic>("application/json")
 .WithName("ConvertToFhir")
 .WithOpenApi();
 

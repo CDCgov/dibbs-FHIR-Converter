@@ -1,11 +1,5 @@
 {% if entry.procedure -%}
-    {% assign procedureId = entry.procedure | to_json_string | generate_uuid -%}
-    {% include 'Resource/Procedure' procedureEntry: entry.procedure, ID: procedureId -%}
-    {% assign organizationId = entry.procedure.performer.assignedEntity.representedOrganization | to_json_string | generate_uuid -%}    
-    {% include 'Resource/Organization' organization: entry.procedure.performer.assignedEntity.representedOrganization, ID: organizationId -%}
-    {% include 'Reference/Procedure/Subject' ID: procedureId, REF: fullPatientId -%}
-    {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
-    {% include 'Reference/Procedure/Performer_Actor' ID: procedureId, REF: fullOrganizationId -%}
+    {% include 'Entry/Procedure/entry' entry: entry %}
 {% endif -%}
 
 {% if entry.substanceAdministration -%}

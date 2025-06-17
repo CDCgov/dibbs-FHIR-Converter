@@ -10,7 +10,22 @@
             { {% include 'DataType/Identifier' Identifier: id -%} },
             {% endfor -%}
         ],
-        "status":"{{ diagnosticReport.statusCode.code | get_property: 'ValueSet/DiagnosticReportStatus' }}",
+        {% assign obsLabResultStatus = nil %}
+        {% assign labComponents = diagnosticReport.component | to_array -%}
+        {% for comp in labComponents %}
+            {% if comp.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.418' %}
+                {% assign obsLabResultStatus = comp %}
+            {% endif %}
+        {% endfor %}
+        {% if obsLabResultStatus %}
+            {% comment %} Laboratory Result Status: HL7 Result Status OBR-25 Result Status (HL701234_USL) {% endcomment %}
+            "status":"{{ obsLabResultStatus.observation.value.code | get_property: 'ValueSet/DiagnosticReportStatus' }}",
+        {% else -%}
+        {% comment %} If DNE, then use Mappings from one of the following: {% endcomment %}
+        {% comment %} 1) Result Status Value Set (V3 ActStatus): https://terminology.hl7.org/2.0.0/CodeSystem-v3-ActStatus.html {% endcomment %}
+        {% comment %} 2) FHIR R4 Diagnostic Report Status:  http://hl7.org/fhir/observation-status {% endcomment %}
+            "status":"{{ diagnosticReport.statusCode.code | get_property: 'ValueSet/DiagnosticReportStatus' }}",
+        {% endif %}
         "code":
         {
             {% assign codeTranslations = diagnosticReport.code.translation | to_array -%}
@@ -26,6 +41,16 @@
             "end":"{{ diagnosticReport.effectiveTime.high.value | format_as_date_time }}",
         },
         "effectiveDateTime":"{{ diagnosticReport.effectiveTime.value | format_as_date_time }}",
+        "extension":
+            [ 
+            {% if obsLabResultStatus %}
+                {% comment %} Laboratory Result Status Extension {% endcomment %}
+                {
+                    "url": "http://terminology.hl7.org/CodeSystem/v2-0123",
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: obsLabResultStatus.observation.value -%} },
+                }
+            {% endif %}
+            ],
     },
     "request":{
         "method":"PUT",

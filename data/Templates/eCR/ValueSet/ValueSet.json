@@ -113,14 +113,92 @@
       }
     },
     "ValueSet/DiagnosticReportStatus": {
+      "X": {
+        "code": "cancelled"
+      },
+      "O": {
+        "code": "registered"
+      },
+      "I": {
+        "code": "registered"
+      },
+      "S": {
+        "code": "registered"
+      },
+      "A": {
+        "code": "partial"
+      },
+      "P": {
+        "code": "preliminary"
+      },
+      "R": {
+        "code": "partial"
+      },
+      "M": {
+        "code": "corrected"
+      },
+      "C": {
+        "code": "final"
+      },
+      "F": {
+        "code": "final"
+      },
+      "aborted": {
+        "code": "cancelled"
+      },
+      "active": {
+        "code": "preliminary"
+      },
       "completed": {
         "code": "final"
       },
       "cancelled": {
         "code": "cancelled"
       },
+      "held": {
+        "code": "registered"
+      },
+      "suspended": {
+        "code": "registered"
+      },
+      "registered": {
+        "code": "registered"
+      },
+      "received": {
+        "code": "registered"
+      },
+      "partial": {
+        "code": "partial"
+      },
+      "preliminary": {
+        "code": "preliminary"
+      },
+      "final": {
+        "code": "final"
+      },
+      "amended": {
+        "code": "amended"
+      },
+      "corrected": {
+        "code": "corrected"
+      },
+      "appended": {
+        "code": "appended"
+      },
+      "abandoned": {
+        "code": "cancelled"
+      },
+      "entered-in-error": {
+        "code": "entered-in-error"
+      },
+      "error": {
+        "code": "entered-in-error"
+      },
+      "unknown": {
+        "code": "unknown"
+      },
       "__default__": {
-        "code": ""
+        "code": "unknown"
       }
     },
     "ValueSet/EncounterStatus": {
@@ -189,6 +267,9 @@
       "abandoned": {
         "code": "not-done"
       },
+      "cancelled": {
+        "code": "not-done"
+      },
       "not-done": {
         "code": "not-done"
       },
@@ -197,6 +278,9 @@
       },
       "on-hold": {
         "code": "on-hold"
+      },
+      "aborted": {
+        "code": "stopped"
       },
       "failed": {
         "code": "stopped"
@@ -488,7 +572,105 @@
         "code": "unknown"
       },
       "__default__": {
-        "code": ""
+        "code": "unknown"
+      }
+    },
+    "ValueSet/ObservationResultStatus": {
+      "A": {
+        "code": "amended"
+      },
+      "B": {
+        "code": "amended"
+      },
+      "C": {
+        "code": "corrected"
+      },
+      "D": {
+        "code": "cancelled"
+      },
+      "F": {
+        "code": "final"
+      },
+      "I": {
+        "code": "registered"
+      },
+      "N": {
+        "code": "cancelled"
+      },
+      "O": {
+        "code": "registered"
+      },
+      "P": {
+        "code": "preliminary"
+      },
+      "R": {
+        "code": "registered"
+      },
+      "S": {
+        "code": "preliminary"
+      },
+      "U": {
+        "code": "final"
+      },
+      "V": {
+        "code": "final"
+      },
+      "W": {
+        "code": "entered-in-error"
+      },
+      "X": {
+        "code": "cancelled"
+      },
+      "aborted": {
+        "code": "cancelled"
+      },
+      "active": {
+        "code": "preliminary"
+      },
+      "cancelled": {
+        "code": "cancelled"
+      },
+      "completed": {
+        "code": "final"
+      },
+      "held": {
+        "code": "registered"
+      },
+      "suspended": {
+        "code": "registered"
+      },
+      "registered": {
+        "code": "registered"
+      },
+      "received": {
+        "code": "registered"
+      },
+      "preliminary": {
+        "code": "preliminary"
+      },
+      "final": {
+        "code": "final"
+      },
+      "amended": {
+        "code": "amended"
+      },
+      "corrected": {
+        "code": "corrected"
+      },
+      "abandoned": {
+        "code": "cancelled"
+      },
+      "entered-in-error": {
+        "code": "entered-in-error"
+      },
+      "error": {
+        "code": "entered-in-error"
+      },
+      "unknown": {
+        "code": "unknown"
+      },
+      "__default__": {
+        "code": "unknown"
       }
     },
     "ValueSet/RequestStatus": {

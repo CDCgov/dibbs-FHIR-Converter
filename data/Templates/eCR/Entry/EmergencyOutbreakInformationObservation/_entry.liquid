@@ -1,0 +1,2 @@
+{% assign observationId = entry.observation | to_json_string | generate_uuid -%}
+{% include 'Resource/ObservationEmergencyOutbreakInformation' observationEntry: entry.observation, ID: observationId -%}

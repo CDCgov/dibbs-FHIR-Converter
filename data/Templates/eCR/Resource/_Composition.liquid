@@ -4,7 +4,7 @@
         "resourceType": "Composition",
         "id":"{{ ID }}",
          "meta" : {
-            "profile" : 
+            "profile" :
             [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
             ]
@@ -19,7 +19,7 @@
                     {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%}
                 },
                 "value":"{{ composition.setId.extension }}",
-                "assigner": 
+                "assigner":
                 {
                     "display": "{{ composition.setId.assigningAuthorityName }}"
                 },
@@ -62,7 +62,7 @@
         [
             {% assign components = composition.component.structuredBody.component | to_array -%}
             {% for component in components -%}
-            {   
+            {
                 {% if component.section -%}
                     {% if component.section.id.root -%}
                     "id": "{{ component.section.id.root }}",
@@ -124,10 +124,10 @@
                                     "url" : "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
                                     "valueString" : "{{ tds }}"
                                 },
-                            ], 
+                            ],
                         {% endif -%}
                     {% endif -%}
-                    "entry": 
+                    "entry":
                     [
                         {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.38" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.38" %}
                             {% assign entries = component.section.entry | to_array -%}
@@ -173,7 +173,7 @@
                                         },
                                 {% endif -%}
                                 {% endfor -%}
-                            {% elsif component.section.code.code and component.section.code.code == "30954-2" -%}                                
+                            {% elsif component.section.code.code and component.section.code.code == "30954-2" -%}
                                 {% assign orgComps = sectionEntry.organizer.component | to_array -%}
                                 {% for orgComp in orgComps -%}
                                     {% if orgComp.observation -%}
@@ -210,6 +210,30 @@
                                         "reference": "{{ fullObservationId }}",
                                     },
                                 {% endif -%}
+                            {% elsif sectionEntry.observation.templateId.root and sectionEntry.observation.templateId.root == "2.16.840.1.113883.10.20.15.2.3.40" %}
+                                    {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                    {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                    {
+                                        "reference": "{{ fullObservationId }}",
+                                    },
+                            {% elseif component.section.code.code == "47519-4" %}
+                                {% assign procedure = sectionEntry.procedure %}
+                                {% if sectionEntry.act %}
+                                    {% assign procedure = sectionEntry.act %}
+                                {% endif %}
+                                {% if procedure -%}
+                                    {% assign procedureId = procedure | to_json_string | generate_uuid -%}
+                                    {% assign fullProcedureId = procedureId | prepend: 'Procedure/' -%}
+                                    {
+                                        "reference": "{{ fullProcedureId }}",
+                                    },
+                                {% elseif sectionEntry.observation %}
+                                    {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                    {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                    {
+                                        "reference": "{{ fullObservationId }}",
+                                    },
+                                {% endif %}
                             {% endif -%}
                         {% endfor -%}
                     ],
@@ -227,10 +251,10 @@
                 },
                 "extension":
                 [
-            
+
                     {
                         "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
-                        "valueCodeableConcept": 
+                        "valueCodeableConcept":
                         {
                             "text":"official",
                             {% assign codes = composition.section.code | to_array -%}
@@ -239,44 +263,23 @@
                     },
                     {
                         "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
-                        "valueCodeableConcept": {
-                            "coding": [
-                                {
-                                    {% assign rrentries = composition.section.entry | to_array -%}
-                                    {% for rrentry in rrentries -%}
-                                        {% if rrentry.act.templateId.root == "2.16.840.1.113883.10.20.15.2.3.29" -%}
-                                            {% if rrentry.act.code.code == "RRVS20" %}
-                                                {% assign subrrentrys = rrentry.act.entryRelationship | to_array -%}
-                                                {% for subrrentry in subrrentrys %}
-                                                    {% if subrrentry.typeCode != "SPRT" %}
-                                                        "entries": [
-                                                            {
-                                                            "eRSDwarnings": [
-                                                                {
-                                                                    "id": "{{ subrrentry.observation.id.root }}",
-                                                                    {% include 'DataType/Coding' Coding: subrrentry.observation.value -%}
-                                                                },
-                                                                {% assign ers = subrrentry.observation.entryRelationship | to_array -%}
-                                                                {% for er in ers -%}
-                                                                    {
-                                                                        "id": "{{ er.observation.id.root }}",
-                                                                        "value": "{{- er.observation.value._ -}}",
-                                                                        {% include 'DataType/Coding' Coding: er.observation.code -%},
-                                                                    },
-                                                                {% endfor -%}
-                                                                ],
-                                                            },
-                                                        ],
-                                                    {% endif -%}
-                                                {% endfor %}
-                                            {% else %}
-                                                {% include 'DataType/Coding' Coding: rrentry.act.code -%}
-                                            {% endif -%}
-                                        {% endif -%}
-                                    {% endfor -%}
-                                },
-                            ],
-                        },
+                        "extension": [
+                            {% assign rrentries = composition.section.entry | to_array -%}
+                            {% for rrentry in rrentries -%}
+                                {% comment %} Extension: eICR Processing Status {% endcomment %}
+                                {% if rrentry.act.templateId.root and rrentry.act.templateId.root == "2.16.840.1.113883.10.20.15.2.3.29" -%}
+                                    {
+                                        "url":"eICRProcessingStatus",
+                                        "valueReference": {
+                                            {% assign processingStatusId = rrentry.act | to_json_string | generate_uuid -%}
+                                            {% assign fullProcessingStatusId = processingStatusId | prepend: 'Observation/' -%}
+                                            "reference":"{{ fullProcessingStatusId }}",
+                                            "display": "{{ rrentry.act.code.displayName }}"
+                                        }
+                                    }
+                                {% endif -%}
+                            {% endfor -%}
+                        ]
                     },
                 ],
                 "code": {
@@ -286,9 +289,9 @@
                         }
                     ],
                 },
-                "entry": 
+                "entry":
                 [
-                    
+
                     {% assign entries = composition.section.entry | to_array -%}
                     {% for entry in entries -%}
                         {% if entry.organizer.templateId.root and entry.organizer.templateId.root == "2.16.840.1.113883.10.20.15.2.3.34" -%}

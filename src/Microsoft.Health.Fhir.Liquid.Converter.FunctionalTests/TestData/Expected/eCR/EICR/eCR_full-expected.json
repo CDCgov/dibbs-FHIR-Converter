@@ -47,7 +47,7 @@
             }
           ]
         },
-        "date": "2020-05-05T08:05:15-07:00",
+        "date": "2020-05-05T11:05:15-04:00",
         "title": "Initial Public Health Case Report",
         "confidentiality": "N",
         "section": [
@@ -351,7 +351,9 @@
         "name": "Sacramento Hospital",
         "address": {
           "use": "work",
-          "line": ["1234 Facility Drive"],
+          "line": [
+            "1234 Facility Drive"
+          ],
           "city": "Sacramento",
           "state": "CA",
           "postalCode": "94203"
@@ -394,7 +396,9 @@
         "address": [
           {
             "use": "work",
-            "line": ["1234 Facility Drive"],
+            "line": [
+              "1234 Facility Drive"
+            ],
             "city": "Sacramento",
             "state": "CA",
             "postalCode": "94203"
@@ -443,14 +447,20 @@
         "name": [
           {
             "family": "SanDiego",
-            "given": ["Carmen "],
-            "suffix": ["MD"]
+            "given": [
+              "Carmen "
+            ],
+            "suffix": [
+              "MD"
+            ]
           }
         ],
         "address": [
           {
             "use": "home",
-            "line": ["1234 Provider Street"],
+            "line": [
+              "1234 Provider Street"
+            ],
             "city": "Sacramento",
             "state": "CA",
             "country": "US",
@@ -503,7 +513,9 @@
         "address": [
           {
             "use": "work",
-            "line": ["1234 Facility Drive"],
+            "line": [
+              "1234 Facility Drive"
+            ],
             "city": "Sacramento",
             "state": "CA",
             "postalCode": "94203"
@@ -576,7 +588,9 @@
           {
             "use": "official",
             "family": "Patient",
-            "given": ["Joseph"]
+            "given": [
+              "Joseph"
+            ]
           }
         ],
         "birthDate": "1989-07-30",
@@ -648,7 +662,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["2222 Home Street"],
+            "line": [
+              "2222 Home Street"
+            ],
             "city": "Sacramento",
             "state": "CA",
             "country": "US",
@@ -673,8 +689,12 @@
             "name": {
               "use": "official",
               "family": "Contact",
-              "given": ["Emer"],
-              "prefix": ["Mr"]
+              "given": [
+                "Emer"
+              ],
+              "prefix": [
+                "Mr"
+              ]
             },
             "telecom": [
               {

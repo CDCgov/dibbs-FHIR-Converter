@@ -219,6 +219,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             var data = new List<string[]>
             {
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json" },
+                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json" },
+                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json" },
             };
             return data.Select(item => new[]
             {
@@ -340,8 +342,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         {
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
             var inputContent = File.ReadAllText(inputFile);
-            var expectedContent = File.ReadAllText(expectedFile);
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, templateProvider);
+
+            var updateSnaphot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";
+            if (updateSnaphot.Trim() == "true")
+            {
+                File.WriteAllText(expectedFile, actualContent);
+            }
+
+            var expectedContent = File.ReadAllText(expectedFile);
 
             var expectedObject = JObject.Parse(expectedContent);
             var actualObject = JObject.Parse(actualContent);

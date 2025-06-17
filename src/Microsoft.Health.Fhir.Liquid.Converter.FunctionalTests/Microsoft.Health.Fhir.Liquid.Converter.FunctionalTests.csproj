@@ -4,6 +4,7 @@
     <TargetFramework>$(LatestFramework)</TargetFramework>
 
     <IsPackable>false</IsPackable>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -30,12 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Health.Fhir.Liquid.Converter\Microsoft.Health.Fhir.Liquid.Converter.csproj" />
     <ProjectReference Include="..\Microsoft.Health.Fhir.TemplateManagement\Microsoft.Health.Fhir.TemplateManagement.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="TestData\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

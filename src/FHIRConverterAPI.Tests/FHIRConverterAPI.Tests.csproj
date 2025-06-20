@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\FHIRConverterAPI\FHIRConverterAPI.csproj" />
+    <ProjectReference Include="..\FHIRConverterAPI\FHIRConverterAPI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,9 @@
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
@@ -18,14 +20,22 @@ public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program
     public async Task ConvertToFHIR_ReturnsSuccess_WhenValidXMLProvided()
     {
         Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
-        var xmlPayload = "<ClinicalDocument xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"></ClinicalDocument>";
-        var content = new StringContent(xmlPayload, Encoding.UTF8, "application/xml");
+        var workingDirectory = Environment.CurrentDirectory;
+        var xmlPayload = File.ReadAllText("../../../../../data/SampleData/eCR/eCR_EveEverywoman.xml");
+        var content = new FHIRConverterRequest
+        {
+            input_type = "eCR",
+            input_data = xmlPayload,
+            root_template = "EICR"
+        };
 
-        var response = await _client.PostAsync("/convert-to-fhir", content);
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
         Assert.NotNull(jsonResponse);
-        Assert.Contains("\"resourceType\": \"Bundle\"", jsonResponse);
+
+        var expected = File.ReadAllText("../../../../../src/Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests/TestData/Expected/eCR/EICR/eCR_EveEverywoman-expected.json");
+        Assert.Equal(expected, jsonResponse);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 }

@@ -1,0 +1,7 @@
+**/output
+**/obj
+**/bin
+**/SampleData
+docs
+input.txt
+output.txt

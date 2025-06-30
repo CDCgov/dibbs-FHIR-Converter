@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Health.Fhir.Liquid.Converter.Tool;
 
 var builder = WebApplication.CreateBuilder(args);
 

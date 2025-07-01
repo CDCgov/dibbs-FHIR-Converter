@@ -25,8 +25,7 @@ public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program
         var content = new FHIRConverterRequest
         {
             input_type = "eCR",
-            input_data = xmlPayload,
-            root_template = "EICR"
+            input_data = xmlPayload
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));

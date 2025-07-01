@@ -29,16 +29,17 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
 {
     var templatesPath = Environment.GetEnvironmentVariable("TEMPLATES_PATH") ?? "../../data/Templates/";
     var inputData = requestBody.input_data;
-    if (requestBody.input_type == "vxu" || requestBody.input_type == "elr")
+    var inputType = requestBody.input_type.ToLower();
+    if (inputType == "vxu" || inputType == "elr")
     {
         inputData = StandardizeHl7DateTimes(inputData);
     }
 
     try
     {
-        if (string.IsNullOrEmpty(requestBody.rr_data))
+        if (!string.IsNullOrEmpty(requestBody.rr_data))
         {
-            inputData = MergeEicrAndRR(requestBody.input_data, requestBody.rr_data, requestBody.input_type);
+            inputData = MergeEicrAndRR(inputData, requestBody.rr_data, inputType);
         }
     }
     catch (Exception ex)
@@ -50,15 +51,14 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
 
     try
     {
-        rootTemplate = GetRootTemplate(requestBody.input_type);
+        rootTemplate = GetRootTemplate(inputType);
     }
     catch (Exception ex)
     {
         return Results.BadRequest(ex.Message);
     }
 
-    var result = ConverterLogicHandler.Convert(GetTemplatesPath(requestBody.input_type), rootTemplate, inputData, false, false);
-
+    var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);
     return Results.Text(result, contentType: "application/json");
 })
 .Accepts<dynamic>("application/json")
@@ -72,9 +72,9 @@ string StandardizeHl7DateTimes(string inputData)
     return inputData;
 }
 
-string MergeEicrAndRR(string input_data, string rr_data, string input_type)
+string MergeEicrAndRR(string inputData, string rrData, string inputType)
 {
-    if (input_type != "ecr")
+    if (inputType != "ecr")
     {
         throw new UnprocessableEntityException("Reportability Response (RR) data is only accepted for eCR conversion requests.");
     }
@@ -83,7 +83,7 @@ string MergeEicrAndRR(string input_data, string rr_data, string input_type)
 
     try
     {
-        mergedEcr = AddRRDataToEicr(input_data, rr_data);
+        mergedEcr = AddRRDataToEicr(inputData, rrData);
     }
     catch (Exception e)
     {
@@ -121,9 +121,9 @@ string GetRootTemplate(string inputType)
     };
 }
 
-string AddRRDataToEicr(string input_data, string rr_data)
+string AddRRDataToEicr(string inputData, string rrData)
 {
-    return input_data;
+    return inputData;
 }
 
 public partial class Program

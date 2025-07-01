@@ -95,17 +95,18 @@ string MergeEicrAndRR(string inputData, string rrData, string inputType)
 
 string GetTemplatesPath(string inputType)
 {
+    var templatesDir = Environment.GetEnvironmentVariable("TEMPLATES_PATH") ?? "../../data/Templates/";
     if (inputType == "vxu" || inputType == "elr")
     {
-        return "/build/FHIR-Converter/data/Templates/Hl7v2";
+        return templatesDir + "/Hl7v2";
     }
     else if (inputType == "ecr")
     {
-        return "/build/FHIR-Converter/data/Templates/eCR";
+        return templatesDir + "/eCR";
     }
     else
     {
-        throw new Exception("Invalid input_type " + inputType + ". Valid values are 'hl7v2' and 'ecr'.");
+        throw new Exception($"Invalid input_type {inputType}. Valid values are 'hl7v2' and 'ecr'.");
     }
 }
 

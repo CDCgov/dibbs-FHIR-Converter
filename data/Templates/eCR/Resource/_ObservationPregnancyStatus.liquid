@@ -55,9 +55,6 @@
             "end":"{{ observationEntry.effectiveTime.high.value | format_as_date_time }}",
             {% endif -%}
         },
-        {% if observationEntry.effectiveTime.low.value == null -%}
-        "effectiveDateTime":"{{ observationEntry.effectiveTime.value | format_as_date_time }}",
-        {% endif -%}
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
         "component" : [
             {% assign obsRelationships = observationEntry.entryRelationship | to_array -%}

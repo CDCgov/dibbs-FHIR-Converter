@@ -76,6 +76,20 @@
             },
             {% endfor -%}
         ],
+        "extension": [
+            {% if observationEntry.author -%}
+            {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension",
+                "valueDateTime": "{{ observationEntry.author.time.value | format_as_date_time }}"
+            },
+            {% endif -%}
+            {% if observationEntry.performer -%}
+            {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                "valueDateTime": "{{ observationEntry.performer.time.value | format_as_date_time }}"
+            },
+            {% endif -%}
+        ]
     },
     "request":{
         "method":"PUT",

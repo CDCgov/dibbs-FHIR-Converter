@@ -47,18 +47,7 @@
             {% assign codes = code | concat: translations %}
             {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
         },
-        "effectivePeriod":
-        {
-            {% if observationEntry.effectiveTime.low.value -%}
-            "start":"{{ observationEntry.effectiveTime.low.value | format_as_date_time }}",
-            {% endif -%}
-            {% if observationEntry.effectiveTime.high.value -%}
-            "end":"{{ observationEntry.effectiveTime.high.value | format_as_date_time }}",
-            {% endif -%}
-        },
-        {% if observationEntry.effectiveTime.low.value == null -%}
-        "effectiveDateTime":"{{ observationEntry.effectiveTime.value | format_as_date_time }}",
-        {% endif -%}
+        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         "bodySite":
         {
             {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode -%}

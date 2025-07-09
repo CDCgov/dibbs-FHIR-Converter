@@ -777,6 +777,10 @@
           "dose": {
             "value": 100,
             "unit": "mg"
+          },
+          "rateQuantity": {
+            "value": "1",
+            "unit": "d"
           }
         },
         "subject": {

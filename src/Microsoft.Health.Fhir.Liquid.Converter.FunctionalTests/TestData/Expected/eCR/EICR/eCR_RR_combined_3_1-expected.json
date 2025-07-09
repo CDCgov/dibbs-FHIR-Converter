@@ -1303,6 +1303,10 @@
           "dose": {
             "value": 10,
             "unit": "mg/kg"
+          },
+          "rateQuantity": {
+            "value": "6",
+            "unit": "h"
           }
         },
         "subject": {

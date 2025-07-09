@@ -54,6 +54,9 @@
             {% endif -%}
         },
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
+        "method": {
+            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.methodCode %}
+        },
         "component" : [
             {% assign obsRelationships = observationEntry.entryRelationship | to_array -%}
             {% for obsRelation in obsRelationships -%}

@@ -111,7 +111,7 @@
             "mode": "snapshot"
           },
           {
-            "id": "7422c3c3-d2e5-698e-5bcf-bb90408af81e",
+            "id": "9cb0442a-fcc4-cb62-ca2f-5563110a7f1e",
             "title": "Medications Administered",
             "text": {
               "status": "generated",
@@ -129,7 +129,7 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "MedicationAdministration/85d010e8-1781-4c15-baa2-af86c2a0c578"
+                "reference": "MedicationAdministration/10b5eb67-b60e-0272-b5af-026b77fa9253"
               }
             ]
           },
@@ -1279,10 +1279,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:85d010e8-1781-4c15-baa2-af86c2a0c578",
+      "fullUrl": "urn:uuid:10b5eb67-b60e-0272-b5af-026b77fa9253",
       "resource": {
         "resourceType": "MedicationAdministration",
-        "id": "85d010e8-1781-4c15-baa2-af86c2a0c578",
+        "id": "10b5eb67-b60e-0272-b5af-026b77fa9253",
         "identifier": [
           {
             "system": "urn:ietf:rfc:3986",
@@ -1304,6 +1304,10 @@
           "dose": {
             "value": 1,
             "unit": "g"
+          },
+          "rateQuantity": {
+            "value": "12",
+            "unit": "h"
           }
         },
         "subject": {
@@ -1315,7 +1319,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "MedicationAdministration/85d010e8-1781-4c15-baa2-af86c2a0c578"
+        "url": "MedicationAdministration/10b5eb67-b60e-0272-b5af-026b77fa9253"
       }
     },
     {
@@ -3594,6 +3598,10 @@
           },
           "dose": {
             "value": 1
+          },
+          "rateQuantity": {
+            "value": "12",
+            "unit": "h"
           }
         },
         "subject": {

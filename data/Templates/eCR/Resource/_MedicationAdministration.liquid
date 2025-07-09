@@ -29,7 +29,7 @@
                     "unit":"{{ medicationAdministration.doseQuantity.unit }}",
                 },
             {% endif -%}
-            {% assign  effectivePeriod = effectiveTimes | where "operator", "A" | first %}
+            {% assign  effectivePeriod = effectiveTimes | where: "operator", "A" | first %}
             {% if medicationAdministration.rateQuantity.value -%}
                 "rateQuantity":
                 {
@@ -38,7 +38,7 @@
                 },
             {% elseif effectivePeriod != null %}
                 "rateQuantity": {
-                    "value": "{{ effectivePeriod.period.value }}"",
+                    "value": "{{ effectivePeriod.period.value }}",
                     "unit": "{{ effectivePeriod.period.unit }}"
                 }
             {% endif -%}

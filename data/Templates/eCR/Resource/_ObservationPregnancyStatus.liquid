@@ -39,12 +39,10 @@
             {% endif -%}
         "code":
         {
-            {% if observationEntry.code.translation.code -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code.translation -%}
-            {% endif -%}
-            {% if observationEntry.code.translation.code == null -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%}
-            {% endif -%}
+            "coding": {
+                "system": "http://loinc.org",
+                "code": "82810-3"
+            }
         },
         "effectivePeriod":
         {

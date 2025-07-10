@@ -44,7 +44,9 @@
                 "code": "82810-3"
             }
         },
-        {% comment %} "subject": {% endcomment %}
+        "subject": {
+            "reference": "{{ patientId }}"
+        },
         "effectivePeriod":
         {
             {% if observationEntry.effectiveTime.low.value -%}

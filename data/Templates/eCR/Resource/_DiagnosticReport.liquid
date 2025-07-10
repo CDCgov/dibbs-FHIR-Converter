@@ -35,12 +35,7 @@
                 {% include 'DataType/CodeableConcept' CodeableConcept: diagnosticReport.code -%}
             {% endif -%}
         },
-        "effectivePeriod":
-        {
-            "start":"{{ diagnosticReport.effectiveTime.low.value | format_as_date_time }}",
-            "end":"{{ diagnosticReport.effectiveTime.high.value | format_as_date_time }}",
-        },
-        "effectiveDateTime":"{{ diagnosticReport.effectiveTime.value | format_as_date_time }}",
+        {% include 'Utils/EffectiveTime' effectiveTime: diagnosticReport.effectiveTime %}
         "extension":
             [ 
             {% if obsLabResultStatus %}

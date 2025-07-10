@@ -44,6 +44,7 @@
                 "code": "82810-3"
             }
         },
+        {% comment %} "subject": {% endcomment %}
         "effectivePeriod":
         {
             {% if observationEntry.effectiveTime.low.value -%}
@@ -60,18 +61,39 @@
         "component" : [
             {% assign obsRelationships = observationEntry.entryRelationship | to_array -%}
             {% for obsRelation in obsRelationships -%}
-            {
-                "code":
-                    {
-                        {% if obsRelation.observation.code.translation.code -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code.translation -%}
+            {% assign templateIdString = obsRelation.observation.templateId.root -%}
+            {% if templateIdString == '2.16.840.1.113883.10.20.22.4.280' -%}
+                {
+                    "extension": [
+                        {% if obsRelation.observation.effectiveTime -%}
+                        {
+                            "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                            "valueDateTime": "{{ obsRelation.observation.effectiveTime.value | format_as_date_time }}",
+                        },
                         {% endif -%}
-                        {% if obsRelation.observation.code.translation.code == null -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code -%}
-                        {% endif -%}
+                    ],
+                    "code": {
+                        {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code -%}
                     },
-                {% include 'Utils/ValueHelper' value: obsRelation.observation.value, origText: text._innerText -%}
-            },
+                    {% include 'Utils/ValueHelper' value: obsRelation.observation.value orgText: text._innerText -%},
+                },
+            {% endif -%}
+            {% if templateIdString == '2.16.840.1.113883.10.20.22.4.297' -%}
+                {
+                    "extension": [
+                        {% if obsRelation.observation.effectiveTime -%}
+                        {
+                            "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                            "valueDateTime": "{{ obsRelation.observation.effectiveTime.value | format_as_date_time }}",
+                        },
+                        {% endif -%}
+                    ],
+                    "code": {
+                        {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code -%}
+                    },
+                    "valueDateTime": "{{ obsRelation.observation.value.value | format_as_date_time }}",
+                },
+            {% endif -%}
             {% endfor -%}
         ],
         "extension": [

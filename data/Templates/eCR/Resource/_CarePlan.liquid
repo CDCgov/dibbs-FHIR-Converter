@@ -17,6 +17,7 @@
         },
         "activity":[
             {% for entry in carePlan.entry %}
+                {% comment %} Other entry types are handles in `Entry/PlanOfTreatment/entry` {% endcomment %}
                 {% if entry.act %}
                     {
                         "detail": {
@@ -26,7 +27,7 @@
                                 "kind": "Task",
                             {% endif %}
                             "code": { {% include 'DataType/CodeableConcept' CodeableConcept: entry.act.code %} },
-                            {% assign reasons = entr.act.entryRelationship | where: "typeCode", "RSON" %}
+                            {% assign reasons = entr.act.entryRelationship | to_array | where: "typeCode", "RSON" %}
                             "reasonCode": [
                                 {% for reason in reasons %}
                                     { {% include 'DataType/CodeableConcept' CodeableConcept: reason.observation.value %} },
@@ -42,23 +43,6 @@
                     }
                 {% endif %}
             {% endfor %}
-            {% comment %} {% for carePlanEntry in carePlan.entry %}
-                {% if carePlanEntry.procedure.templateId.root == "2.16.840.1.113883.10.20.22.4.41" or carePlanEntry.procedure.templateId[0].root == "2.16.840.1.113883.10.20.22.4.41" %}
-                {
-                    "detail": {
-                        "code":{ {% include 'DataType/CodeableConcept' CodeableConcept: carePlanEntry.procedure.code -%} },
-                        "status":"scheduled",
-                        "scheduledString": "{{ carePlanEntry.procedure.effectiveTime.value }}",
-                    },
-                    "extension": [
-                        {
-                            "url": "dibbs.orderedDate",
-                            "valueString": "{{ carePlanEntry.procedure.author.time.value }}"
-                        }
-                    ]
-                },
-                {% endif %}
-            {% endfor %} {% endcomment %}
         ]
     },
     "request":{

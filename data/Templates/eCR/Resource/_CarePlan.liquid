@@ -16,21 +16,31 @@
             "reference": "{{ patientReference }}",
         },
         "activity":[
-            {% for carePlanEntry in carePlan.entry %}
-                {% if carePlanEntry.procedure.templateId.root == "2.16.840.1.113883.10.20.22.4.41" or carePlanEntry.procedure.templateId[0].root == "2.16.840.1.113883.10.20.22.4.41" %}
-                {
-                    "detail": {
-                        "code":{ {% include 'DataType/CodeableConcept' CodeableConcept: carePlanEntry.procedure.code -%} },
-                        "status":"scheduled",
-                        "scheduledString": "{{ carePlanEntry.procedure.effectiveTime.value }}",
-                    },
-                    "extension": [
-                        {
-                            "url": "dibbs.orderedDate",
-                            "valueString": "{{ carePlanEntry.procedure.author.time.value }}"
+            {% for entry in carePlan.entry %}
+                {% comment %} Other entry types are handles in `Entry/PlanOfTreatment/entry` {% endcomment %}
+                {% if entry.act %}
+                    {
+                        "detail": {
+                            {% if entry.act.moodCode == "ARQ" or entry.act.moodCode == "APT" %}
+                                "kind": "Appointment",
+                            {% else %}
+                                "kind": "Task",
+                            {% endif %}
+                            "code": { {% include 'DataType/CodeableConcept' CodeableConcept: entry.act.code %} },
+                            {% assign reasons = entr.act.entryRelationship | to_array | where: "typeCode", "RSON" %}
+                            "reasonCode": [
+                                {% for reason in reasons %}
+                                    { {% include 'DataType/CodeableConcept' CodeableConcept: reason.observation.value %} },
+                                {% endfor %}
+                            ],
+                            {% if entry.act.effectiveTime %}
+                                "status": "scheduled",
+                            {% else %}
+                                "status": "not-started",
+                            {% endif %}
+                            {% include 'Utils/EffectiveTime' effectiveTime: entry.act.effectiveTime, timeType: "scheduled" %}
                         }
-                    ]
-                },
+                    }
                 {% endif %}
             {% endfor %}
         ]

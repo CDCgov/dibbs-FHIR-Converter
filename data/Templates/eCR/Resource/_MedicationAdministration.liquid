@@ -43,6 +43,19 @@
                 }
             {% endif -%}
         },
+        "extension": [
+            {% assign entryRelationships = medicationAdministration.entryRelationship | to_array %}
+            {% for entryRelationship in entryRelationships %}
+                {% if entryRelationship.observation and entryRelationship.observation.templateId.root == '2.16.840.1.113883.10.20.15.2.3.37' -%}
+                    {
+                        "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension",
+                        "valueCodeableConcept": {
+                            {% include 'DataType/CodeableConcept' CodeableConcept: entryRelationship.observation.value -%}
+                        },
+                    }
+                {% endif %}
+            {% endfor %}
+        ]
     },
     "request":{
         "method":"PUT",

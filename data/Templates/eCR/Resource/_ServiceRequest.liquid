@@ -21,13 +21,12 @@
 
         {% assign rels = serviceEntry.entryRelationship | to_array %}
         {% assign priorities = rels | where: 'typeCode', 'REFR' %}
-        {% assign providerPriority %}
+        {% assign priorityCode = serviceEntry.priorityCode.code %}
         {% for priority in priorities %}
-            {% if priority.observation.templateId.root = '2.16.840.1.113883.10.20.22.4.143' %}
-                {% assign providerPriority = priority.observation.value.code %}
+            {% if priority.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.143' %}
+                {% assign priorityCode = priority.observation.value.code %}
             {% endif %}
         {% endfor %}
-        {% assign priorityCode = serviceEntry.priorityCode.code | default: providerPriority %}
         "priority":"{{ priorityCode | get_property: 'ValueSet/ServiceRequestPriority' }}",
 
         {% include 'Utils/EffectiveTime' effectiveTime: serviceEntry.effectiveTime, timeType: "occurrence" %}

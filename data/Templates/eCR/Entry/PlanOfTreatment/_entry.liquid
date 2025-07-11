@@ -3,11 +3,15 @@
 
 {% comment %} Planned Procedure & Observation {% endcomment %}
 {% comment %} The spec for procedure and observation are almost identical {% endcomment %}
-{% assign service = entry.procedure | default: entry.observation %}
+{% assign service = entry.procedure %}
+{% if entry.observation %}
+    {% assign service = entry.observation %}
+{% endif %}
 {% if service %}
     {% assign serviceId = service | to_json_string | generate_uuid -%}
     {% assign fullServiceId = serviceId | prepend: 'ServiceRequest/' %}
-    {% include 'Reference/CarePlan/ActivityReference' ID: carePlanId,  REF: fullServiceId -%}
+
+    {% include 'Reference/CarePlan/Activity_Reference' ID: carePlanId,  REF: fullServiceId -%}
     {% include 'Resource/ServiceRequest' serviceEntry: service, ID: serviceId -%}
     {% include 'Reference/ServiceRequest/Subject' ID: serviceId, REF: fullPatientId -%}
 

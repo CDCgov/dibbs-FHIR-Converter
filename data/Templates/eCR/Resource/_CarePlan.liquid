@@ -20,7 +20,7 @@
                 {% if entry.act %}
                     {
                         "detail": {
-                            {% if entry.act.moodCode = "ARQ" or entry.act.moodCode = "APT" %}
+                            {% if entry.act.moodCode == "ARQ" or entry.act.moodCode == "APT" %}
                                 "kind": "Appointment",
                             {% else %}
                                 "kind": "Task",

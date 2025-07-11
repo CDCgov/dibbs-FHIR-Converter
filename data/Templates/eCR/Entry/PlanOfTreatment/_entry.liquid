@@ -3,6 +3,26 @@
 
 {% comment %} Planned Procedure {% endcomment %}
 {% comment %} TODO: make this a service request and reference in careplan {% endcomment %}
+{% if entry.procedure %}
+    {% assign procedureId = entry.procedure | to_json_string | generate_uuid -%}
+    {% assign fullProcedureId = procedureId | prepend: 'ServiceRequest/' %}
+    {% include 'Resource/ServiceRequest' serviceEntry: entry.procedure, ID: procedureId -%}
+    {% include 'Reference/ServiceRequest/Subject' ID: procedureId, REF: fullPatientId -%}
+
+    {% for performer in entry.procedure.performer %}
+        {% assign performerId = performer| to_json_string | generate_uuid -%}
+        {% assign fullPerformerId = performerId | prepend: 'Practitioner/' %}
+        {% include 'Resource/Practitioner' ID: performerId pracitioner: performer.assignedEntity %}
+        {% include 'Reference/ServiceRequest/Performer' ID: procedureId, REF: fullPerformerId -%}
+    {% endfor %}
+
+    {% assign authorId = entry.procedure.author | to_json_string | generate_uuid -%}
+    {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
+    {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
+    {% include 'Reference/ServiceRequest/Requester' ID: procedureId, REF: fullAuthorId -%}
+
+    {% include 'Reference/CarePlan/ActivityReference' ID: carePlanId,  REF: fullProcedureId -%}
+{% endif %}
 
 {% comment %} Planned Observation {% endcomment %}
 {% comment %} TODO: make this a service request and reference in careplan {% endcomment %}

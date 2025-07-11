@@ -37,7 +37,7 @@
                             {% else %}
                                 "status": "not-started",
                             {% endif %}
-                            {% include 'Utils/EffectiveTime' effectiveTime: entry.act.effectiveTime timeType: "scheduled" %}
+                            {% include 'Utils/EffectiveTime' effectiveTime: entry.act.effectiveTime, timeType: "scheduled" %}
                         }
                     }
                 {% endif %}

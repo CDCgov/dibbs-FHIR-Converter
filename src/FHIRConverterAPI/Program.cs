@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Efferent.HL7.V2;
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,9 +73,161 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
 
 app.Run();
 
+string NormalizeHl7Datetime(string hl7Datetime)
+{
+    // """
+    // Splits HL7 datetime-formatted fields into the following parts:
+    // <integer 8+ digits>[.<integer 1+ digits>][+/-<integer 4+ digits>]
+
+    // Each group of integers is truncated to conform to the HL7
+    // specification:
+
+    // - first integer group: max 14 digits
+    // - following decimal point: max 4 digits
+    // - following +/- (timezone): 4 digits
+
+    // This normalization facilitates downstream processing using
+    // cloud providers that have particular requirements for dates.
+
+    // :param hl7_datetime: The raw datetime string to clean.
+    // :return: The datetime string with normalizing substitutions
+    //   performed, or the original HL7 datetime if no matching
+    //   format could be found.
+    // """
+
+    var datetimeRegex = new Regex(@"(\d{8}\d*)(\.\d+)?([+-]\d+)?");
+    var hl7DatetimeMatch = datetimeRegex.Match(hl7Datetime);
+
+    if (hl7DatetimeMatch.Success == false)
+    {
+        return hl7Datetime;
+    }
+
+    var hl7DatetimeParts = hl7DatetimeMatch.Groups;
+
+    // Start with date base
+    var normalizedDatetime = hl7DatetimeParts[0].Value[..14];
+
+    // Add date decimal if present
+    if (hl7DatetimeParts[1].Value != string.Empty)
+    {
+        normalizedDatetime += hl7DatetimeParts[1].Value[..5];  // . plus first 4 digits
+    }
+
+    // Add timezone information if present
+    if (hl7DatetimeParts[2]?.Value.Length >= 5)
+    {
+        normalizedDatetime += hl7DatetimeParts[2].Value[..5]; // +/- plus 4 digits
+    }
+
+    return normalizedDatetime;
+}
+
+void NormalizeHl7DatetimeSegment(Message message, string segmentId, List<int> fieldList)
+{ 
+    // """
+    // Applies datetime normalization to multiple fields in a segment,
+    // overwriting values in the input segment as necessary.
+
+    // :param message: The HL7 message, represented as a list
+    //   of indexable component strings (which is how the HL7 library
+    //   processes and returns messages).
+    // :param segment_id: The segment type (MSH, PID, etc) of the field to replace.
+    // :param field_num: The field number to replace in the segment named by `segment_id`.
+    // :param field_list: The list of field numbers to replace in the segment named
+    //   by `segement_id`.
+    // """
+    try
+    {
+        foreach (var segment in message.Segments(segmentId))
+        {
+            foreach (var fieldNum in fieldList)
+            {
+                var fields = segment.GetAllFields();
+                // Datetime value is always in first component
+                if (fields.Count > fieldNum && fields[fieldNum].Components(0).Value != string.Empty)
+                {
+                    var cleanedDatetime = NormalizeHl7Datetime(fields[fieldNum].Components(0).Value);
+                    fields[fieldNum].Components(0).Value = cleanedDatetime;
+                }
+            }
+        }
+    }
+    // # @TODO: Eliminate logging, raise an exception, document the exception
+    // # in the docstring, and make this fit into our new structure of allowing
+    // # the caller to implement more robust error handling
+    catch (IndexOutOfRangeException ex)
+    {
+        Console.WriteLine($"Segment {segmentId} not found in message.");
+    }
+}
+
 string StandardizeHl7DateTimes(string inputData)
 {
-    return inputData;
+    try
+    {
+        //The hl7 module requires \n characters be replaced with \r
+        var message = new Message(inputData.Replace("\n", "\r"));
+        message.ParseMessage();
+
+        // MSH-7 - Message date/time
+        NormalizeHl7DatetimeSegment(message, "MSH", fieldList: [7]);
+
+        // PID-7 - Date of Birth
+        // PID-29 - Date of Death
+        // PID-33 - Last update date/time
+        NormalizeHl7DatetimeSegment(message, "PID", fieldList: [7, 29, 33]);
+
+        // PV1-44 - Admission Date
+        // PV1-45 - Discharge Date
+        NormalizeHl7DatetimeSegment(message, "PV1", fieldList: [44, 45]);
+
+        // ORC-9 Date/time of transaction
+        // ORC-15 Order effective date/time
+        // ORC-27 Filler's expected availability date/time
+        NormalizeHl7DatetimeSegment(message, "ORC", fieldList: [9, 15, 27]);
+
+        // OBR-7 Observation date/time
+        // OBR-8 Observation end date/time
+        // OBR-22 Status change date/time
+        // OBR-36 Scheduled date/time
+        NormalizeHl7DatetimeSegment(message, "OBR", fieldList: [7, 8, 22, 36]);
+
+        // OBX-12 Effective date/time of reference range
+        // OBX-14 Date/time of observation
+        // OBX-19 Date/time of analysis
+        NormalizeHl7DatetimeSegment(message, "OBX", fieldList: [12, 14, 19]);
+
+        // TQ1-7 Start date/time
+        // TQ1-8 End date/time
+        NormalizeHl7DatetimeSegment(message, "TQ1", fieldList: [7, 8]);
+
+        // SPM-18 Specimen received date/time
+        // SPM-19 Specimen expiration date/time
+        NormalizeHl7DatetimeSegment(message, "SPM", fieldList: [18, 19]);
+
+        // RXA-3 Date/time start of administration
+        // RXA-4 Date/time end of administration
+        // RXA-16 Substance expiration date
+        // RXA-22 System entry date/time
+        NormalizeHl7DatetimeSegment(message, "RXA", fieldList: [3, 4, 16, 22]);
+
+        Console.WriteLine(message.SerializeMessage());
+        return message.SerializeMessage().Replace("\r", "\n");
+    }
+    catch (Exception ex)
+    {
+        // # @TODO: Eliminate logging, raise an exception, document the exception
+        // # in the docstring, and make this fit into our new structure of allowing
+        // # the caller to implement more robust error handling
+        // except Exception:
+        //     print(
+        //         "Exception occurred while cleaning message.  "
+        //         + "Passing through original message."
+        //     )
+        Console.WriteLine("Exception occurred while cleaning message. Passing through original message.");
+        return inputData;
+    }
 }
 
 string MergeEicrAndRR(string inputData, string rrData, string inputType)
@@ -197,7 +352,7 @@ string AddRRDataToEicr(string inputData, string rrData)
 
         // Find the nested entry element that we need
         var rrEntry = rrXDocument.XPathSelectElement(
-            $"/*/hl7:component/hl7:structuredBody/hl7:component/hl7:section/hl7:entry" +
+            "/*/hl7:component/hl7:structuredBody/hl7:component/hl7:section/hl7:entry" +
             "[@typeCode=\"DRIV\"]/hl7:organizer[@classCode=\"CLUSTER\" and @moodCode=\"EVN\"]/..", rrNames);
 
         // find the status in the RR utilizing the templateid root

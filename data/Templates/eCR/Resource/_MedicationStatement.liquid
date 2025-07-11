@@ -11,11 +11,7 @@
             {% endfor -%}
         ],
         "status":"{{ medicationStatement.statusCode.code | downcase | get_property: 'ValueSet/MedicationStatementStatus' }}",
-        "effectivePeriod":
-        {
-            "start":"{{ medicationStatement.effectiveTime.low.value | format_as_date_time }}",
-            "end":"{{ medicationStatement.effectiveTime.high.value | format_as_date_time }}",
-        },
+        {% include 'Utils/EffectiveTime' effectiveTime: medicationStatement.effectiveTime %}
         "dosage":
         [
             {

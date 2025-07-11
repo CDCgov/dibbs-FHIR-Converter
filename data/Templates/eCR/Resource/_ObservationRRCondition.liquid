@@ -48,24 +48,7 @@
             },
           ],
         },
-        "effectivePeriod":
-        {
-            {% if observationEntry.effectiveTime.low.value -%}
-            "start":"{{ observationEntry.effectiveTime.low.value | format_as_date_time }}",
-            {% elsif observationEntry.entryRelationship.organizer.effectiveTime.low.value %}
-            "start":"{{ observationEntry.entryRelationship.organizer.effectiveTime.low.value | format_as_date_time }}",
-            {% endif -%}
-            {% if observationEntry.effectiveTime.high.value -%}
-              "end":"{{ observationEntry.effectiveTime.high.value | format_as_date_time }}",
-            {% elsif observationEntry.entryRelationship.organizer.effectiveTime.high.value -%}
-                "end":"{{ observationEntry.entryRelationship.organizer.effectiveTime.hight.value | format_as_date_time }}",
-            {% endif -%}
-        },
-        {% if observationEntry.effectiveTime.low.value == null -%}
-        "effectiveDateTime":"{{ observationEntry.effectiveTime.value | format_as_date_time }}",
-        {% elsif observationEntry.entryRelationship.organizer.effectiveTime.low.value %}
-        "effectiveDateTime":"{{ observationEntry.entryRelationship.organizer.effectiveTime.low.value | format_as_date_time }}",
-        {% endif -%}
+        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime | default: observationEntry.entryRelationship.organizer.effectiveTime %}
         "bodySite":
         {
             {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode -%}

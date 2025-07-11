@@ -22,10 +22,12 @@
         {% include 'Reference/ServiceRequest/Performer' ID: serviceId, REF: fullPerformerId -%}
     {% endfor %}
 
-    {% assign authorId = service.author | to_json_string | generate_uuid -%}
-    {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
-    {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
-    {% include 'Reference/ServiceRequest/Requester' ID: serviceId, REF: fullAuthorId -%}
+    {% if service.author %}
+        {% assign authorId = service.author | to_json_string | generate_uuid -%}
+        {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
+        {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
+        {% include 'Reference/ServiceRequest/Requester' ID: serviceId, REF: fullAuthorId -%}
+    {% endif %}
 {% endif %}
 
 {% comment %} Planned Medication & Immunization {% endcomment %}
@@ -44,9 +46,11 @@
         {% include 'Reference/MedicationRequest/Performer' ID: medId, REF: fullPerformerId -%}
     {% endfor %}
 
-    {% assign authorId = service.author | to_json_string | generate_uuid -%}
-    {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
-    {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
-    {% include 'Reference/MedicationRequest/Requester' ID: medId, REF: fullAuthorId -%}
+    {% if service.author %}
+        {% assign authorId = service.author | to_json_string | generate_uuid -%}
+        {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
+        {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
+        {% include 'Reference/MedicationRequest/Requester' ID: medId, REF: fullAuthorId -%}
+    {% endif %}
 
 {% endif %}

@@ -5,6 +5,9 @@ using System.Xml.XPath;
 using Efferent.HL7.V2;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Namotion.Reflection;
+using DotLiquid.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,7 +68,34 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
     }
 
     var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);
-    return Results.Text(result, contentType: "application/json");
+
+    // TODO: Make a/some real type(s) so I don't have to spam TryGetPropertyValue
+    var resultJson = JsonConvert.DeserializeObject(result);
+    var oldId = string.Empty;
+    // TODO: none of this works. The deserialized object has double outer curly braces
+    foreach (var entry in resultJson.TryGetPropertyValue<object>("FhirResource")?.TryGetPropertyValue<object[]>("entry") ?? [])
+    {
+        if (entry.TryGetPropertyValue<object>("resource")?.TryGetPropertyValue<string>("resourceType") == "Patient")
+        {
+            oldId = entry.TryGetPropertyValue<object>("resource").TryGetPropertyValue<string>("id");
+            break;
+        }
+    }
+
+    result = JsonConvert.SerializeObject(resultJson);
+    if (!string.IsNullOrEmpty(oldId))
+    {
+        result = result.Replace(oldId, Guid.NewGuid().ToString());
+    }
+
+    resultJson = JsonConvert.DeserializeObject(result);
+    var fhirResource = resultJson.TryGetPropertyValue<object>("FhirResource");
+    if (fhirResource is not null)
+    {
+        fhirResource = AddDataSourceToBundle(fhirResource, inputType);
+    }
+
+    return Results.Text(JsonConvert.SerializeObject(resultJson), contentType: "application/json");
 })
 .Accepts<dynamic>("application/json")
 .WithName("ConvertToFhir")
@@ -103,24 +133,27 @@ string NormalizeHl7Datetime(string hl7Datetime)
         return hl7Datetime;
     }
 
-    var hl7DatetimeParts = hl7DatetimeMatch.Groups;
+    var hl7DatetimeParts = hl7DatetimeMatch.Groups.Values;
 
     // Start with date base
-    var normalizedDatetime = hl7DatetimeParts[0].Value[..14];
+    // The first group is always the whole string so we start with the second
+    var endIndex = hl7DatetimeParts.ElementAtOrDefault(1)?.Value.Length >= 14 ? 14 : hl7DatetimeParts.ElementAtOrDefault(1)?.Value.Length ?? 0;
+    var normalizedDatetime = hl7DatetimeParts.ElementAtOrDefault(1)?.Value[..endIndex]; // probably delete all the distinct stuff
 
     // Add date decimal if present
-    if (hl7DatetimeParts[1].Value != string.Empty)
+    if (!string.IsNullOrEmpty(hl7DatetimeParts.ElementAtOrDefault(2)?.Value))
     {
-        normalizedDatetime += hl7DatetimeParts[1].Value[..5];  // . plus first 4 digits
+        var decimalEndIndex = hl7DatetimeParts.ElementAt(2).Value.Length >= 5 ? 5 : hl7DatetimeParts.ElementAt(2).Value.Length;
+        normalizedDatetime += hl7DatetimeParts.ElementAt(2).Value[..decimalEndIndex];  // . plus first 4 digits
     }
 
     // Add timezone information if present
-    if (hl7DatetimeParts[2]?.Value.Length >= 5)
+    if (!string.IsNullOrEmpty(hl7DatetimeParts.ElementAtOrDefault(3)?.Value) && hl7DatetimeParts.ElementAt(3).Value.Length >= 5)
     {
-        normalizedDatetime += hl7DatetimeParts[2].Value[..5]; // +/- plus 4 digits
+        normalizedDatetime += hl7DatetimeParts.ElementAt(3).Value[..5]; // +/- plus 4 digits
     }
 
-    return normalizedDatetime;
+    return normalizedDatetime ?? hl7Datetime;
 }
 
 void NormalizeHl7DatetimeSegment(Message message, string segmentId, List<int> fieldList)
@@ -145,10 +178,10 @@ void NormalizeHl7DatetimeSegment(Message message, string segmentId, List<int> fi
             {
                 var fields = segment.GetAllFields();
                 // Datetime value is always in first component
-                if (fields.Count > fieldNum && fields[fieldNum].Components(0).Value != string.Empty)
+                if (fields.Count > fieldNum && fields[fieldNum].Value != string.Empty)
                 {
-                    var cleanedDatetime = NormalizeHl7Datetime(fields[fieldNum].Components(0).Value);
-                    fields[fieldNum].Components(0).Value = cleanedDatetime;
+                    var cleanedDatetime = NormalizeHl7Datetime(fields[fieldNum].Value);
+                    fields[fieldNum].Value = cleanedDatetime;
                 }
             }
         }
@@ -390,6 +423,39 @@ string AddRRDataToEicr(string inputData, string rrData)
         Console.WriteLine($"Error processing eICR document: {ex.Message}");
         throw new Exception($"Error processing eICR document: {ex.Message}");
     }
+}
+
+object AddDataSourceToBundle(object bundle, string dataSource)
+{
+    // """
+    // Given a FHIR bundle and a data source parameter the function
+    // will loop through the bundle and add a Meta.source entry for
+    // every resource in the bundle.
+
+    // :param bundle: The FHIR bundle to add minimum provenance to.
+    // :param data_source: The data source of the FHIR bundle.
+    // :return: The FHIR bundle with the a Meta.source entry for each
+    //   FHIR resource in the bundle
+    // """
+    // if data_source == "":
+    //     raise ValueError(
+    //         "The data_source parameter must be a defined, non-empty string."
+    //     )
+
+    // for entry in bundle.get("entry", []):
+    //     resource = entry.get("resource", {})
+    //     if "meta" in resource:
+    //         meta = resource["meta"]
+    //     else:
+    //         meta = {}
+    //         resource["meta"] = meta
+
+    //     if "source" in meta:
+    //         meta["source"] = data_source
+    //     else:
+    //         meta["source"] = data_source
+
+    return bundle;
 }
 
 public partial class Program

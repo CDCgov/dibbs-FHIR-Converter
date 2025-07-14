@@ -3,11 +3,9 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Efferent.HL7.V2;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Namotion.Reflection;
-using DotLiquid.Util;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,40 +66,38 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
     }
 
     var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);
+    var newResult = DoStuff(result, inputType);
 
-    // TODO: Make a/some real type(s) so I don't have to spam TryGetPropertyValue
-    var resultJson = JsonConvert.DeserializeObject(result);
-    var oldId = string.Empty;
-    // TODO: none of this works. The deserialized object has double outer curly braces
-    foreach (var entry in resultJson.TryGetPropertyValue<object>("FhirResource")?.TryGetPropertyValue<object[]>("entry") ?? [])
-    {
-        if (entry.TryGetPropertyValue<object>("resource")?.TryGetPropertyValue<string>("resourceType") == "Patient")
-        {
-            oldId = entry.TryGetPropertyValue<object>("resource").TryGetPropertyValue<string>("id");
-            break;
-        }
-    }
-
-    result = JsonConvert.SerializeObject(resultJson);
-    if (!string.IsNullOrEmpty(oldId))
-    {
-        result = result.Replace(oldId, Guid.NewGuid().ToString());
-    }
-
-    resultJson = JsonConvert.DeserializeObject(result);
-    var fhirResource = resultJson.TryGetPropertyValue<object>("FhirResource");
-    if (fhirResource is not null)
-    {
-        fhirResource = AddDataSourceToBundle(fhirResource, inputType);
-    }
-
-    return Results.Text(JsonConvert.SerializeObject(resultJson), contentType: "application/json");
+    return Results.Text(newResult, contentType: "application/json");
 })
 .Accepts<dynamic>("application/json")
 .WithName("ConvertToFhir")
 .WithOpenApi();
 
 app.Run();
+
+string DoStuff(string input, string inputType)
+{
+    var resultJson = JsonNode.Parse(input)!;
+    var oldId = string.Empty;
+    var newId = Guid.NewGuid().ToString();
+
+    foreach (var entry in (resultJson["entry"] as JsonArray) ?? [])
+    {
+        if ((string)entry["resource"]!["resourceType"]! == "Patient")
+        {
+            oldId = (string)entry["resource"]!["id"]!;
+            entry["resource"]!["id"] = newId;
+            break;
+        }
+    }
+
+    resultJson = AddDataSourceToBundle(resultJson, inputType);
+
+    var resultString = resultJson!.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
+    resultString.Replace(oldId, newId);
+    return resultString;
+}
 
 string NormalizeHl7Datetime(string hl7Datetime)
 {
@@ -253,11 +249,6 @@ string StandardizeHl7DateTimes(string inputData)
         // # @TODO: Eliminate logging, raise an exception, document the exception
         // # in the docstring, and make this fit into our new structure of allowing
         // # the caller to implement more robust error handling
-        // except Exception:
-        //     print(
-        //         "Exception occurred while cleaning message.  "
-        //         + "Passing through original message."
-        //     )
         Console.WriteLine("Exception occurred while cleaning message. Passing through original message.");
         return inputData;
     }
@@ -425,7 +416,7 @@ string AddRRDataToEicr(string inputData, string rrData)
     }
 }
 
-object AddDataSourceToBundle(object bundle, string dataSource)
+JsonNode AddDataSourceToBundle(JsonNode bundle, string dataSource)
 {
     // """
     // Given a FHIR bundle and a data source parameter the function
@@ -437,23 +428,23 @@ object AddDataSourceToBundle(object bundle, string dataSource)
     // :return: The FHIR bundle with the a Meta.source entry for each
     //   FHIR resource in the bundle
     // """
-    // if data_source == "":
-    //     raise ValueError(
-    //         "The data_source parameter must be a defined, non-empty string."
-    //     )
+    if (dataSource == string.Empty)
+    {
+        throw new Exception("The dataSource parameter must be a defined, non-empty string.");
+    }
 
-    // for entry in bundle.get("entry", []):
-    //     resource = entry.get("resource", {})
-    //     if "meta" in resource:
-    //         meta = resource["meta"]
-    //     else:
-    //         meta = {}
-    //         resource["meta"] = meta
+    foreach (var entry in (bundle["entry"] as JsonArray) ?? [])
+    {
+        var resource = entry["resource"];
+        if (resource is null)
+        {
+            return bundle;
+        }
 
-    //     if "source" in meta:
-    //         meta["source"] = data_source
-    //     else:
-    //         meta["source"] = data_source
+        // TODO: make real types, I need to be able to updates these objects and I can't with trygetpropertyvalue
+        JsonNode meta = resource["meta"] ?? JsonNode.Parse("{}");
+        meta["source"] = dataSource;
+    }
 
     return bundle;
 }

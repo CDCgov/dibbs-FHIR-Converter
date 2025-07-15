@@ -1305,7 +1305,7 @@
             "unit": "mg/kg"
           },
           "rateQuantity": {
-            "value": "6",
+            "value": 6,
             "unit": "h"
           }
         },

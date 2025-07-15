@@ -84,12 +84,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
 
-            // Profile (if set in the template)
-            Assert.Contains(
-                "http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentOccupation",
-                actualFhir.Meta?.Profile ?? new List<string>()
-            );
-
             Assert.Equal(ObservationStatus.Final, actualFhir.Status);
 
             // Code

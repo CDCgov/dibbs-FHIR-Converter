@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using DotLiquid;
 using Hl7.Fhir.Model;
 using Xunit;
@@ -34,12 +35,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                                 new {
                                     value = "202011071159-0700"
                                 },
-                                new {
-                                    operator_ = "A",
-                                    period = new {
-                                        value = "12",
-                                        unit = "h"
-                                    }
+                                new Dictionary<string, object>
+                                {
+                                    { "operator", "A" },
+                                    { "period", new { value = "12", unit = "h" } }
                                 }
                             },
                             routeCode = new {
@@ -81,7 +80,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                                 },
                                 new {
                                     typeCode = "COMP",
-                                    observation = new { 
+                                    observation = new {
                                         templateId = new { root = "2.16.840.1.113883.10.20.22.4.999" },
                                         value = new { code = "Red herring"}
                                     },
@@ -92,32 +91,24 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);
-            Console.WriteLine("FOOBAR");
+
+            string actualFhirString = JsonSerializer.Serialize(actualFhir);
+            Assert.False(actualFhirString.Contains("Red herring"));
 
             Assert.Equal("MedicationAdministration", actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
-            // Assert.Equal(
-            //     "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure",
-            //     actualFhir.Meta.Profile.First()
-            // );
-            // Assert.NotEmpty(actualFhir.Identifier);
-            // Assert.Equal(EventStatus.NotDone, actualFhir.Status);
-            // Assert.NotNull(actualFhir.Code);
-            // Assert.NotNull(actualFhir.Performed);
-            // Assert.NotEmpty(actualFhir.BodySite);
-            // Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);
-            // Assert.Equal("Couldn't hurt", actualFhir.ReasonCode.Last().Coding.First().Code);
-            // Assert.Equal(
-            //     "METHOD", 
-            //     actualFhir.GetExtensionValue<CodeableConcept>("http://hl7.org/fhir/StructureDefinition/procedure-method").Coding.First().Code
-            // );
-            // Assert.Equal(
-            //     "CR", 
-            //     actualFhir.GetExtensionValue<CodeableConcept>("priorityCode").Coding.First().Code
-            // );
-            // var specimen = actualFhir.GetExtensions("specimen");
-            // Assert.Equal("Tissue", ((CodeableConcept)specimen.First().Value).Coding.First().Code);
-            // Assert.Equal("Bile", ((CodeableConcept)specimen.Last().Value).Coding.First().Code);
+            Assert.NotEmpty(actualFhir.Identifier);
+            Assert.NotNull(actualFhir.Status);
+            Assert.NotEmpty(actualFhir.Effective);
+
+            Assert.Equal("ORAL", actualFhir.Dosage.Route.Coding.First().Display);
+            Assert.Equal(1, actualFhir.Dosage.Dose.Value);
+            Assert.Equal("g", actualFhir.Dosage.Dose.Unit);
+            var dosageRateQuantity = actualFhir.Dosage.Rate as Quantity;
+            Assert.Equal(12, dosageRateQuantity.Value);
+            Assert.Equal("h", dosageRateQuantity.Unit);
+
+            Assert.Equal("Patient\u0027s condition improved (finding)", actualFhir.GetExtensionValue<CodeableConcept>("http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension").Coding.First().Display);
         }
     }
 }

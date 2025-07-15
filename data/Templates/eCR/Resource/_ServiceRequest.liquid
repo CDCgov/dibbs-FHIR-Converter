@@ -10,7 +10,9 @@
             { {% include 'DataType/Identifier' Identifier: id -%} },
             {% endfor -%}
         ],
+        {{ "status" | print_object }}
         "status":"{{ serviceEntry.statusCode.code | get_property: 'ValueSet/RequestStatus' }}",
+        {{ "code" | print_object }}
         "code":
         {
             {% assign translations = serviceEntry.code.translation | to_array -%}
@@ -21,6 +23,7 @@
 
         {% assign rels = serviceEntry.entryRelationship | to_array %}
 
+        {{ "priority" | print_object }}
         {% comment %} prioritize provider's priority preference {% endcomment %}
         {% assign priorities = rels | where: 'typeCode', 'REFR' %}
         {% assign priorityCode = serviceEntry.priorityCode.code %}
@@ -31,10 +34,13 @@
         {% endfor %}
         "priority":"{{ priorityCode | get_property: 'ValueSet/ServiceRequestPriority' }}",
 
+        {{ "time" | print_object }}
         {% include 'Utils/EffectiveTime' effectiveTime: serviceEntry.effectiveTime, timeType: "occurrence" %}
 
-        "authoredOn": "{{ serviceEntry.author.time | format_as_date_time }}",
+        {{ "authored" | print_object }}
+        "authoredOn": "{{ serviceEntry.author.time.value | format_as_date_time }}",
 
+        {{ "reasons" | print_object }}
         {% assign reasons = rels | where: 'typeCode', 'RSON' %}
         "reasonCode": [
             {% for reason in reasons %}
@@ -42,6 +48,7 @@
             {% endfor %}
         ],
 
+        {{ "body site" | print_object }}
         "bodySite": [
             {% assign sites = serviceEntry.targetSiteCode | to_array %}
             {% for site in sites %}

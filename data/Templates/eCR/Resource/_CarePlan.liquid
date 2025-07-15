@@ -1,5 +1,6 @@
 {
     "fullUrl":"urn:uuid:{{ID}}",
+    {{ "care plan" | print_object }}
     "resource":{
         "resourceType": "CarePlan",
         "id":"{{ID}}",
@@ -22,7 +23,7 @@
                 {% if entry.encounter %}
                     {% assign act = entry.encounter %}
                 {% endif %}
-                {% comment %} Other entry types are handles in `Entry/PlanOfTreatment/entry` {% endcomment %}
+                {% comment %} Other entry types are handled in `Entry/PlanOfTreatment/entry` {% endcomment %}
                 {% if act %}
                     {
                         "detail": {

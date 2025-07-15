@@ -25,7 +25,7 @@
             {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
         },
 
-        "authoredOn": "{{ medicationRequest.author.time | format_as_date_time }}",
+        "authoredOn": "{{ medicationRequest.author.time.value | format_as_date_time }}",
 
         {% assign reasons = rels | where: 'typeCode', 'RSON' %}
         "reasonCode": [

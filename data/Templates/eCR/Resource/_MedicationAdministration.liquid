@@ -33,12 +33,12 @@
             {% if medicationAdministration.rateQuantity.value -%}
                 "rateQuantity":
                 {
-                    "value":{{ medicationAdministration.rateQuantity.value }},
+                    "value":{{ medicationAdministration.rateQuantity.value | format_quantity }},
                     "unit":"{{ medicationAdministration.rateQuantity.unit }}",
                 },
             {% elseif effectivePeriod != null %}
                 "rateQuantity": {
-                    "value": "{{ effectivePeriod.period.value }}",
+                    "value": {{ effectivePeriod.period.value | format_quantity }},
                     "unit": "{{ effectivePeriod.period.unit }}"
                 }
             {% endif -%}

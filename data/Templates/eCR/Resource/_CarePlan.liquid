@@ -38,7 +38,9 @@
                             {% else %}
                                 "status": "not-started",
                             {% endif %}
-                            {% include 'Utils/EffectiveTime' effectiveTime: entry.act.effectiveTime, timeType: "scheduled" %}
+                            {% comment %} planned activities use scheduledString instead of scheduledDateTime {% endcomment %}
+                            {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: entry.act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
+                            {{ time |  replace_first: "DateTime", "String" }}
                         }
                     }
                 {% endif %}

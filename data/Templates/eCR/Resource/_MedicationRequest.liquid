@@ -46,12 +46,14 @@
                     {% assign codes = code | to_array | concat: translations %}
                     {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
                 },
-                "doseAndRate": {
-                    "doseQuantity": {
-                        "value": "{{ medicationRequest.doseQuantity.value }}",
-                        "unit": "{{ medicationRequest.doseQuantity.unit }}",
-                    }
-                },
+                {% if medicationRequest.doseQuantity.value %}
+                    "doseAndRate": {
+                        "doseQuantity": {
+                            "value": {{ medicationRequest.doseQuantity.value | format_quantity }},
+                            "unit": "{{ medicationRequest.doseQuantity.unit }}",
+                        }
+                    },
+                {% endif %}
             }
         ],
 

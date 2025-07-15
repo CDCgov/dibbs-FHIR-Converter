@@ -16,30 +16,35 @@
             "reference": "{{ patientReference }}",
         },
         "activity":[
-            {% for entry in carePlan.entry %}
+            {% assign entries = carePlan.entry | to_array %}
+            {% for entry in entries %}
+                {% assign act = entry.act %}
+                {% if entry.encounter %}
+                    {% assign act = entry.encounter %}
+                {% endif %}
                 {% comment %} Other entry types are handles in `Entry/PlanOfTreatment/entry` {% endcomment %}
-                {% if entry.act %}
+                {% if act %}
                     {
                         "detail": {
-                            {% if entry.act.moodCode == "ARQ" or entry.act.moodCode == "APT" %}
+                            {% if act.moodCode == "ARQ" or act.moodCode == "APT" %}
                                 "kind": "Appointment",
                             {% else %}
                                 "kind": "Task",
                             {% endif %}
-                            "code": { {% include 'DataType/CodeableConcept' CodeableConcept: entry.act.code %} },
-                            {% assign reasons = entr.act.entryRelationship | to_array | where: "typeCode", "RSON" %}
+                            "code": { {% include 'DataType/CodeableConcept' CodeableConcept: act.code %} },
+                            {% assign reasons = act.entryRelationship | to_array | where: "typeCode", "RSON" %}
                             "reasonCode": [
                                 {% for reason in reasons %}
                                     { {% include 'DataType/CodeableConcept' CodeableConcept: reason.observation.value %} },
                                 {% endfor %}
                             ],
-                            {% if entry.act.effectiveTime %}
+                            {% if act.effectiveTime %}
                                 "status": "scheduled",
                             {% else %}
                                 "status": "not-started",
                             {% endif %}
                             {% comment %} planned activities use scheduledString instead of scheduledDateTime {% endcomment %}
-                            {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: entry.act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
+                            {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
                             {{ time |  replace_first: "DateTime", "String" }}
                         }
                     }

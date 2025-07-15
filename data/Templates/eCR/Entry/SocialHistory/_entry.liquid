@@ -10,7 +10,12 @@
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.2.3.47' -%}
             {% include 'Resource/ObservationDisabilityStatus' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.22.4.217' -%}
-            {% include 'Resource/ObservationPastPresentOccupation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% if entry.observation.participant.participantRole %}
+                {% assign organizationId = entry.observation.participant.participantRole | to_json_string | generate_uuid -%}
+                {% include 'Resource/Organization' organization: entry.observation.participant.participantRole, ID: organizationId %}
+                {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
+            {% endif %}
+            {% include 'Resource/ObservationPastPresentOccupation' observationCategory: 'social-history', observationEntry: entry.observation, employerRef: fullOrganizationId,  ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.22.4.221' -%}
             {% include 'Resource/ObservationUsualWork' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.3.8' -%}

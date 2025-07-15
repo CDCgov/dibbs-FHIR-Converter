@@ -79,7 +79,9 @@
     {% if employerRef -%}
         "extension": [{
             "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
-            "valueReference" : "{{ employerRef }}"
+            "valueReference": {
+                "reference": "{{ employerRef }}"
+            }
         }
         ]
     {% endif %}

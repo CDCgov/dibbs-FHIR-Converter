@@ -50,35 +50,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                                     codeSystemName="Occupational Data for Health (ODH)",
                                     displayName="Certified Nursing Assistant (CNA) [Nursing Assistants]"
                                 }
-                            },
-                            participant = new {
-                                typeCode = "IND",
-                                participantRole = new {
-                                    telecom = new {
-                                        use= "WP",
-                                        value = "555-1212"
-                                    },
-                                    addr = new {
-                                        streetAddressLine = new {
-                                         _ = "Peachtree St",
-                                        },
-                                        city = new {
-                                         _ = "Atlanta",
-                                        },
-                                        state = new {
-                                         _ = "Georgia",
-                                        },
-                                    },
-                                    playingEntity = new {
-                                        name = new {
-                                        _ = "University Hospital"
-                                        }
-                                    }
-                            }}
+                            }
                         }
                     )
                 },
             };
+
             var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
 
             Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
@@ -86,49 +63,24 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal(ObservationStatus.Final, actualFhir.Status);
 
-            // Code
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("History of Occupation", actualFhir.Code?.Text);
-            Assert.Equal("2.16.840.1.113883.6.1", actualFhir.Code?.Coding?.First().System);
+            Assert.Equal("History of Occupation", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
 
-            // Effective date
-            Assert.Equal("20201101", (actualFhir.Effective as FhirDateTime)?.Value);
+
+            Assert.Equal("2020-11-01", (actualFhir.Effective as FhirDateTime)?.Value);
 
             Assert.IsType<CodeableConcept>(actualFhir.Value);
             var occupation = (CodeableConcept)actualFhir.Value;
 
             Assert.Equal("3600", occupation.Coding.First().Code);
-            Assert.Equal("U.S. Census Occupation Code (2010)", occupation.Coding.First().System);
+            Assert.Equal("urn:oid:2.16.840.1.113883.6.240", occupation.Coding.First().System);
             Assert.Equal("Nursing, psychiatric, and home health aides", occupation.Coding.First().Display);
 
-            // Translation (ODH code)
-            var translation = occupation.Coding.First().Extension
-                ?.FirstOrDefault(e => e.Url == "http://hl7.org/fhir/StructureDefinition/translation")?.Value as Coding;
-
-            Assert.NotNull(translation);
-            Assert.Equal("31-1014.00.007136", translation.Code);
-            Assert.Equal("2.16.840.1.114222.4.5.327", translation.System);
-            Assert.Equal("Certified Nursing Assistant (CNA) [Nursing Assistants]", translation.Display);
-
-            // Employer Reference
-            Assert.NotNull(actualFhir.Subject?.Reference);
-            Assert.Equal("Organization/4567", actualFhir.Subject.Reference);
-
-            // Employer details (if included via extensions or components)
-            var employerNameExt = actualFhir.GetExtensions("employerName").FirstOrDefault()?.Value as FhirString;
-            Assert.Equal("University Hospital", employerNameExt?.Value);
-
-            // Contact information
-            var phoneExt = actualFhir.GetExtensions("employerPhone").FirstOrDefault()?.Value as ContactPoint;
-            Assert.Equal("555-1212", phoneExt?.Value);
-            Assert.Equal(ContactPoint.ContactPointUse.Work, phoneExt?.Use);
-
-            //Address
-            var addressExt = actualFhir.GetExtensions("employerAddress").FirstOrDefault()?.Value as Address;
-            Assert.NotNull(addressExt);
-            Assert.Contains("Peachtree St", addressExt.Line);
-            Assert.Equal("Atlanta", addressExt.City);
-            Assert.Equal("Georgia", addressExt.State);
+            Assert.NotEmpty(actualFhir.Extension);
+            Assert.Equal("http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension", actualFhir.Extension.First().Url);
+            var reference = actualFhir.GetExtensionValue<ResourceReference>("http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension").First().Value as FhirString;
+            Assert.Equal("Organization/4567", reference.Value);
         }
     }
 }

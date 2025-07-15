@@ -8,34 +8,32 @@ using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 {
-    public class ServiceRequestTests : BaseECRLiquidTests
+    public class MedicationRequestTests : BaseECRLiquidTests
     {
         private static readonly string ECRPath = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "Resource",
-            "_ServiceRequest.liquid"
+            "_MedicationRequest.liquid"
         );
 
         [Fact]
-        public void ServiceRequest_AllFields()
+        public void MedicationRequest_AllFields()
         {
             var attributes = new Dictionary<string, object>
             {
                 { "ID", "1234" },
                 { "patientReference", "Patient/4566" },
                 {
-                    "serviceEntry",
+                    "medicationRequest",
                     Hash.FromAnonymousObject(
                         new {
                             id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
                             moodCode = "RQO",
                             statusCode = new { code = "active" },
-                            code = new
-                            {
-                                originalText = new
-                                {
-                                    _ = "Colonoscopy",
-                                },
+                            consumable = new {
+                                manufacturedProduct = new {
+                                    manufacturedMaterial = new { code = "med here" }
+                                }
                             },
                             effectiveTime = new {
                                 value = "20201101"
@@ -56,20 +54,29 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                             author = new {
                                 time = "20201030"
                             },
-                            targetSiteCode = new { code = "Abdomen" },
+                            approachSiteCode = new { code = "Abdomen" },
+                            routeCode = new {
+                                code = "a code",
+                                translation = new { code = "Synonym" }
+                            },
+                            doseQuantity = new { value = "3", unit = "mg" },
+                            repeatNumber = new { value = "1" },
                         }
                     )
                 },
             };
-            var actualFhir = GetFhirObjectFromTemplate<ServiceRequest>(ECRPath, attributes);
+            var actualFhir = GetFhirObjectFromTemplate<MedicationRequest>(ECRPath, attributes);
 
-            Assert.Equal("ServiceRequest", actualFhir.TypeName);
+            Assert.Equal("MedicationRequest", actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
-            Assert.Equal(RequestStatus.Active, actualFhir.Status);
-            Assert.NotEmpty(actualFhir.Occurrence);
+            Assert.Equal(MedicationRequest.MedicationrequestStatus.Active, actualFhir.Status);
             Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);
             Assert.Equal(RequestPriority.Asap , actualFhir.Priority);
-            Assert.NotEmpty(actualFhir.BodySite);
+            Assert.Equal(1, actualFhir.DispenseRequest.NumberOfRepeatsAllowed);
+            var dosage = actualFhir.DosageInstruction.First();
+            Assert.NotEmpty(dosage.Site);
+            Assert.NotEmpty(dosage.DoseAndRate);
+            Assert.NotEmpty(dosage.Route);
         }
     }
 }

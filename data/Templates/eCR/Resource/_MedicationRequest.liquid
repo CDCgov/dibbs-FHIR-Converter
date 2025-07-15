@@ -14,8 +14,8 @@
         "intent":"order",
 
         {% assign rels = medicationRequest.entryRelationship | to_array %}
-        {% assign priorities = rels | where: 'typeCode', 'REFR' %}
-        "priority":"{{ priorities.observation.value.code | first | get_property: 'ValueSet/ServiceRequestPriority' }}",
+        {% assign priority = rels | where: 'typeCode', 'REFR' | where: 'observation' | first %}
+        "priority":"{{ priority.observation.value.code | first | get_property: 'ValueSet/ServiceRequestPriority' }}",
 
         "medicationCodeableConcept":
         {
@@ -55,10 +55,11 @@
             }
         ],
 
-        "dispenseRequest": {
-            "numberOfRepeatsAllowed": "{{ medicationRequest.repeatNumber.value }}",
-        },
-
+        {% if medicationRequest.repeatNumber.value %}
+            "dispenseRequest": {
+                "numberOfRepeatsAllowed": {{ medicationRequest.repeatNumber.value }},
+            },
+        {% endif %}
     },
     "request":{
         "method":"PUT",

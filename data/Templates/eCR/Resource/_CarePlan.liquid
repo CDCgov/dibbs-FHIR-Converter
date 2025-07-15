@@ -26,7 +26,7 @@
                 {% if act %}
                     {
                         "detail": {
-                            {% if act.moodCode == "ARQ" or act.moodCode == "APT" %}
+                            {% if act.moodCode == "ARQ" or act.moodCode == "APT" or entry.encounter %}
                                 "kind": "Appointment",
                             {% else %}
                                 "kind": "Task",

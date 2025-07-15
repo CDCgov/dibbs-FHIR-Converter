@@ -1268,7 +1268,26 @@
         "intent": "proposal",
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-        }
+        },
+        "activity": [
+          {
+            "detail": {
+              "kind": "Appointment",
+              "code": {
+                "coding": [
+                  {
+                    "code": "AMB",
+                    "system": "urn:oid:2.16.840.1.113883.5.4"
+                  }
+                ]
+              },
+              "status": "scheduled",
+              "scheduledPeriod": {
+                "start": "1985-10-15"
+              }
+            }
+          }
+        ]
       },
       "request": {
         "method": "PUT",

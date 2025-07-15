@@ -779,7 +779,7 @@
             "unit": "mg"
           },
           "rateQuantity": {
-            "value": "1",
+            "value": 1,
             "unit": "d"
           }
         },

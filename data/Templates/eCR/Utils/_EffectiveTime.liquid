@@ -1,5 +1,5 @@
 {% if effectiveTime.low.value or effectiveTime.high.value -%}
     "{{ timeType | default: "effective" }}Period": { {% include 'DataType/Period' Period: effectiveTime %} },
-{% elsif effectiveTime.value -%}
+{%- elseif effectiveTime.value -%}
     "{{ timeType | default: "effective" }}DateTime":"{{ effectiveTime.value | format_as_date_time }}",
-{% endif -%}
+{%- endif -%}

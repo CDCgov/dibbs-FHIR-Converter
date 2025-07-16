@@ -1317,10 +1317,27 @@
             "unit": "g"
           },
           "rateQuantity": {
-            "value": "12",
+            "value": 12,
             "unit": "h"
           }
         },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension",
+
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "268910001",
+
+                  "system": "http://snomed.info/sct",
+
+                  "display": "Patient's condition improved (finding)"
+                }
+              ]
+            }
+          }
+        ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
@@ -3704,7 +3721,7 @@
             "value": 1
           },
           "rateQuantity": {
-            "value": "12",
+            "value": 12,
             "unit": "h"
           }
         },

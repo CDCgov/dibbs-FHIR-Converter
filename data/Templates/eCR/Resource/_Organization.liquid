@@ -10,7 +10,11 @@
             { {% include 'DataType/Identifier' Identifier: id -%} },
             {% endfor -%}
         ],
-        "name":"{{ organization.name._ }}",
+        {% if organization.name -%}
+            "name": "{{  organization.name._ }}",
+        {% elsif organization.playingEntity.name -%}
+            "name": "{{  organization.playingEntity.name._ }}",
+        {% endif %}
         "address":
         [
             {% assign addrs = organization.addr | to_array -%}

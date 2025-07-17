@@ -718,6 +718,18 @@
       "R": {
         "code": "routine"
       },
+      "routine": {
+        "code": "routine"
+      },
+      "urgent": {
+        "code": "urgent"
+      },
+      "asap": {
+        "code": "asap"
+      },
+      "stat": {
+        "code": "stat"
+      },
       "__default__": {
         "code": ""
       }

@@ -76,11 +76,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("3600", occupation.Coding.First().Code);
             Assert.Equal("urn:oid:2.16.840.1.113883.6.240", occupation.Coding.First().System);
             Assert.Equal("Nursing, psychiatric, and home health aides", occupation.Coding.First().Display);
-
-            Assert.NotEmpty(actualFhir.Extension);
-            Assert.Equal("http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension", actualFhir.Extension.First().Url);
-            var reference = actualFhir.GetExtensionValue<ResourceReference>("http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension").First().Value as FhirString;
-            Assert.Equal("Organization/4567", reference.Value);
         }
     }
 }

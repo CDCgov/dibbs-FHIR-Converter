@@ -65,15 +65,6 @@
             },
             {% endfor -%}
         ],
-    {% if employerRef -%}
-        "extension": [{
-            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
-            "valueReference": {
-                "reference": "{{ employerRef }}"
-            }
-        }
-        ]
-    {% endif %}
     },
     "request":{
         "method":"PUT",

@@ -23,6 +23,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             {
                 { "ID", "1234" },
                 { "patientReference", "Patient/4566" },
+                { "intent", "plan"},
                 {
                     "medicationRequest",
                     Hash.FromAnonymousObject(
@@ -68,6 +69,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var actualFhir = GetFhirObjectFromTemplate<MedicationRequest>(ECRPath, attributes);
 
             Assert.Equal("MedicationRequest", actualFhir.TypeName);
+            Assert.Equal(MedicationRequest.MedicationRequestIntent.Plan, actualFhir.Intent);
             Assert.NotNull(actualFhir.Id);
             Assert.Equal(MedicationRequest.MedicationrequestStatus.Active, actualFhir.Status);
             Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);

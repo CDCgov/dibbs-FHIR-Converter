@@ -1241,55 +1241,6 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:49200334-0c15-5a04-bf2c-b96a087ec490",
-      "resource": {
-        "resourceType": "CarePlan",
-        "id": "49200334-0c15-5a04-bf2c-b96a087ec490",
-        "status": "unknown",
-        "intent": "proposal",
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        },
-        "activity": [
-          {
-            "detail": {
-              "kind": "Task",
-              "code": {
-                "coding": [
-                  {
-                    "code": "409524006",
-                    "system": "http://snomed.info/sct",
-                    "display": "Airborne precautions (procedure)"
-                  }
-                ]
-              },
-              "status": "scheduled",
-              "scheduledString": "2020-11-08"
-            }
-          },
-          {
-            "reference": {
-              "reference": "ServiceRequest/c85c8602-76f8-1866-3bb7-20be7950ef7a"
-            }
-          },
-          {
-            "reference": {
-              "reference": "ServiceRequest/224b95cc-df73-aee0-4522-b6ac683ea13b"
-            }
-          },
-          {
-            "reference": {
-              "reference": "ServiceRequest/5b68e715-e34e-01cc-7c5e-d7c43f1484e7"
-            }
-          }
-        ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "CarePlan/49200334-0c15-5a04-bf2c-b96a087ec490"
-      }
-    },
-    {
       "fullUrl": "urn:uuid:10b5eb67-b60e-0272-b5af-026b77fa9253",
       "resource": {
         "resourceType": "MedicationAdministration",
@@ -1324,14 +1275,11 @@
         "extension": [
           {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension",
-
             "valueCodeableConcept": {
               "coding": [
                 {
                   "code": "268910001",
-
                   "system": "http://snomed.info/sct",
-
                   "display": "Patient's condition improved (finding)"
                 }
               ]
@@ -3450,6 +3398,55 @@
       "request": {
         "method": "PUT",
         "url": "Observation/5a2fdf42-c9cd-7938-6f1e-faceebac6f1c"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:49200334-0c15-5a04-bf2c-b96a087ec490",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "49200334-0c15-5a04-bf2c-b96a087ec490",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "activity": [
+          {
+            "detail": {
+              "kind": "Task",
+              "code": {
+                "coding": [
+                  {
+                    "code": "409524006",
+                    "system": "http://snomed.info/sct",
+                    "display": "Airborne precautions (procedure)"
+                  }
+                ]
+              },
+              "status": "scheduled",
+              "scheduledString": "2020-11-08"
+            }
+          },
+          {
+            "reference": {
+              "reference": "ServiceRequest/c85c8602-76f8-1866-3bb7-20be7950ef7a"
+            }
+          },
+          {
+            "reference": {
+              "reference": "ServiceRequest/224b95cc-df73-aee0-4522-b6ac683ea13b"
+            }
+          },
+          {
+            "reference": {
+              "reference": "ServiceRequest/5b68e715-e34e-01cc-7c5e-d7c43f1484e7"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "CarePlan/49200334-0c15-5a04-bf2c-b96a087ec490"
       }
     },
     {

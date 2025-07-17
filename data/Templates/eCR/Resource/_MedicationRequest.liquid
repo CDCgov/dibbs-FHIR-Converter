@@ -11,7 +11,7 @@
             {% endfor -%}
         ],
         "status":"{{ medicationRequest.statusCode.code }}",
-        "intent":"order",
+        "intent":"{{ intent }}",
 
         {% assign rels = medicationRequest.entryRelationship | to_array %}
         {% assign priority = rels | where: 'typeCode', 'REFR' | where: 'observation' | first %}

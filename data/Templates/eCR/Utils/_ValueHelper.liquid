@@ -7,6 +7,8 @@
     },
 {% elsif value["xsi:type"] == "BL" -%}
     "valueBoolean" : {{ value.value }}
+{% elsif value["xsi:type"] == "TS" -%}
+    "valueDateTime": "{{ value.value | format_as_date_time }}",
 {% elsif value.value -%}
     "valueQuantity": {
     "value":

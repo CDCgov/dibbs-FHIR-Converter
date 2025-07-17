@@ -42,23 +42,29 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
         inputData = StandardizeHl7DateTimes(inputData);
     }
 
-    try
+    if (inputType == "ecr")
     {
-        if (!string.IsNullOrEmpty(requestBody.rr_data))
+        try
         {
-            inputData = MergeEicrAndRR(inputData, requestBody.rr_data, inputType);
+            XDocument ecrDoc = ConvertStringToXDocument(inputData);
+            
+            // TODO: We are no longer throwing if rr is included but input type is not ecr. is this ok?
+            if (!string.IsNullOrEmpty(requestBody.rr_data))
+            {
+                inputData = MergeEicrAndRR(ecrDoc, requestBody.rr_data, inputType);
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        return Results.BadRequest(ex.Message);
+        catch (Exception ex)
+        {
+            return Results.BadRequest(ex.Message);
+        }
     }
 
     string rootTemplate;
 
     try
     {
-        rootTemplate = GetRootTemplate(inputType);
+        rootTemplate = requestBody.root_template ?? GetRootTemplate(inputType);
     }
     catch (Exception ex)
     {
@@ -66,7 +72,7 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
     }
 
     var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);
-    var newResult = DoStuff(result, inputType);
+    var newResult = FhirBundlePostProcessing(result, inputType);
 
     return Results.Text(newResult, contentType: "application/json");
 })
@@ -76,7 +82,7 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
 
 app.Run();
 
-string DoStuff(string input, string inputType)
+string FhirBundlePostProcessing(string input, string inputType)
 {
     var resultJson = JsonNode.Parse(input)!;
     var oldId = string.Empty;
@@ -99,28 +105,52 @@ string DoStuff(string input, string inputType)
     return resultString;
 }
 
+XDocument ConvertStringToXDocument(string inputData)
+{
+    // Add xmlns:xsi if missing
+    // TODO: Will the schema instance namespace ever actually be missing?
+    var ecrLines = inputData.Split(
+        ["\n", "\r\n"],
+        StringSplitOptions.None).ToList();
+    var startIndex = ecrLines.FindIndex(line => line.TrimStart().StartsWith("<ClinicalDocument"));
+    var endIndex = ecrLines.FindIndex(startIndex, line => line.TrimEnd().EndsWith('>'));
+
+    if (ecrLines.FindIndex(startIndex, endIndex, line => line.Contains("xmlns:xsi")) == -1)
+    {
+        var newRootElement = string.Join(" ", ecrLines.ToArray(), startIndex, endIndex - startIndex + 1);
+        newRootElement = newRootElement.Replace("xmlns=\"urn:hl7-org:v3\"", "xmlns=\"urn:hl7-org:v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
+        ecrLines.RemoveRange(startIndex, endIndex - startIndex + 1);
+        ecrLines.Insert(startIndex, newRootElement);
+        inputData = string.Join("\n", ecrLines.ToArray());
+    }
+
+    var ecrDoc = XDocument.Parse(inputData);
+
+    return ResolveReferences(ecrDoc);
+}
+
+/// <summary>
+///  Splits HL7 datetime-formatted fields into the following parts:
+///  <integer 8+ digits>[.<integer 1+ digits>][+/-<integer 4+ digits>]
+///
+///  Each group of integers is truncated to conform to the HL7
+///  specification:
+///
+///  - first integer group: max 14 digits
+///  - following decimal point: max 4 digits
+///  - following +/- (timezone): 4 digits
+///
+///  This normalization facilitates downstream processing using
+///  cloud providers that have particular requirements for dates.
+/// </summary>
+/// <param name="hl7Datetime">The raw datetime string to clean.</param>
+/// <returns>
+///  The datetime string with normalizing substitutions
+///  performed, or the original HL7 datetime if no matching
+///  format could be found.
+/// </returns>
 string NormalizeHl7Datetime(string hl7Datetime)
 {
-    // """
-    // Splits HL7 datetime-formatted fields into the following parts:
-    // <integer 8+ digits>[.<integer 1+ digits>][+/-<integer 4+ digits>]
-
-    // Each group of integers is truncated to conform to the HL7
-    // specification:
-
-    // - first integer group: max 14 digits
-    // - following decimal point: max 4 digits
-    // - following +/- (timezone): 4 digits
-
-    // This normalization facilitates downstream processing using
-    // cloud providers that have particular requirements for dates.
-
-    // :param hl7_datetime: The raw datetime string to clean.
-    // :return: The datetime string with normalizing substitutions
-    //   performed, or the original HL7 datetime if no matching
-    //   format could be found.
-    // """
-
     var datetimeRegex = new Regex(@"(\d{8}\d*)(\.\d+)?([+-]\d+)?");
     var hl7DatetimeMatch = datetimeRegex.Match(hl7Datetime);
 
@@ -152,20 +182,20 @@ string NormalizeHl7Datetime(string hl7Datetime)
     return normalizedDatetime ?? hl7Datetime;
 }
 
+/// <summary>
+///  Applies datetime normalization to multiple fields in a segment,
+///  overwriting values in the input segment as necessary.
+/// </summary>
+/// <param name="message">
+///  The HL7 message, represented as a list of indexable component strings
+///  (which is how the HL7 library processes and returns messages).
+/// </param>
+/// <param name="segmentId">The segment type (MSH, PID, etc) of the field to replace.</param>
+/// <param name="fieldList">
+///  The list of field numbers to replace in the segment named by `segmentId`.
+/// </param>
 void NormalizeHl7DatetimeSegment(Message message, string segmentId, List<int> fieldList)
-{ 
-    // """
-    // Applies datetime normalization to multiple fields in a segment,
-    // overwriting values in the input segment as necessary.
-
-    // :param message: The HL7 message, represented as a list
-    //   of indexable component strings (which is how the HL7 library
-    //   processes and returns messages).
-    // :param segment_id: The segment type (MSH, PID, etc) of the field to replace.
-    // :param field_num: The field number to replace in the segment named by `segment_id`.
-    // :param field_list: The list of field numbers to replace in the segment named
-    //   by `segement_id`.
-    // """
+{
     try
     {
         foreach (var segment in message.Segments(segmentId))
@@ -173,6 +203,7 @@ void NormalizeHl7DatetimeSegment(Message message, string segmentId, List<int> fi
             foreach (var fieldNum in fieldList)
             {
                 var fields = segment.GetAllFields();
+
                 // Datetime value is always in first component
                 if (fields.Count > fieldNum && fields[fieldNum].Value != string.Empty)
                 {
@@ -182,11 +213,11 @@ void NormalizeHl7DatetimeSegment(Message message, string segmentId, List<int> fi
             }
         }
     }
-    // # @TODO: Eliminate logging, raise an exception, document the exception
-    // # in the docstring, and make this fit into our new structure of allowing
-    // # the caller to implement more robust error handling
     catch (IndexOutOfRangeException ex)
     {
+        // @TODO: Eliminate logging, raise an exception, document the exception
+        // in the docstring, and make this fit into our new structure of allowing
+        // the caller to implement more robust error handling
         Console.WriteLine($"Segment {segmentId} not found in message.");
     }
 }
@@ -195,7 +226,7 @@ string StandardizeHl7DateTimes(string inputData)
 {
     try
     {
-        //The hl7 module requires \n characters be replaced with \r
+        // The hl7 module requires \n characters be replaced with \r
         var message = new Message(inputData.Replace("\n", "\r"));
         message.ParseMessage();
 
@@ -246,33 +277,24 @@ string StandardizeHl7DateTimes(string inputData)
     }
     catch (Exception ex)
     {
-        // # @TODO: Eliminate logging, raise an exception, document the exception
-        // # in the docstring, and make this fit into our new structure of allowing
-        // # the caller to implement more robust error handling
+        // @TODO: Eliminate logging, raise an exception, document the exception
+        // in the docstring, and make this fit into our new structure of allowing
+        // the caller to implement more robust error handling
         Console.WriteLine("Exception occurred while cleaning message. Passing through original message.");
         return inputData;
     }
 }
 
-string MergeEicrAndRR(string inputData, string rrData, string inputType)
+string MergeEicrAndRR(XDocument ecrDoc, string rrData, string inputType)
 {
-    if (inputType != "ecr")
-    {
-        throw new UnprocessableEntityException("Reportability Response (RR) data is only accepted for eCR conversion requests.");
-    }
-
-    string mergedEcr;
-
     try
     {
-        mergedEcr = AddRRDataToEicr(inputData, rrData);
+        return AddRRDataToEicr(ecrDoc, rrData);
     }
     catch (Exception e)
     {
         throw new UnprocessableEntityException("Reportability Response and eICR message both must be valid XML messages.");
     }
-
-    return mergedEcr;
 }
 
 string GetTemplatesPath(string inputType)
@@ -304,28 +326,10 @@ string GetRootTemplate(string inputType)
     };
 }
 
-string AddRRDataToEicr(string inputData, string rrData)
+string AddRRDataToEicr(XDocument ecrXDocument, string rrData)
 {
-    // Add xmlns:xsi if missing
-    // TODO: Will the schema instance namespace ever actually be missing?
-    var ecrLines = inputData.Split(
-        ["\n", "\r\n"],
-        StringSplitOptions.None).ToList();
-    var startIndex = ecrLines.FindIndex(line => line.TrimStart().StartsWith("<ClinicalDocument"));
-    var endIndex = ecrLines.FindIndex(startIndex, line => line.TrimEnd().EndsWith('>'));
-
-    if (ecrLines.FindIndex(startIndex, endIndex, line => line.Contains("xmlns:xsi")) == -1)
-    {
-        var newRootElement = string.Join(" ", ecrLines.ToArray(), startIndex, endIndex - startIndex + 1);
-        newRootElement = newRootElement.Replace("xmlns=\"urn:hl7-org:v3\"", "xmlns=\"urn:hl7-org:v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
-        ecrLines.RemoveRange(startIndex, endIndex - startIndex + 1);
-        ecrLines.Insert(startIndex, newRootElement);
-        inputData = string.Join("\n", ecrLines.ToArray());
-    }
-
     try
     {
-        var ecrXDocument = XDocument.Parse(inputData);
         var rrXDocument = XDocument.Parse(rrData);
 
         // Check for eICR Processing Status entry (required & only available in RR)
@@ -416,18 +420,18 @@ string AddRRDataToEicr(string inputData, string rrData)
     }
 }
 
+/// <summary>
+///  Given a FHIR bundle and a data source parameter the function
+///  will loop through the bundle and add a Meta.source entry for
+///  every resource in the bundle.
+/// </summary>
+/// <param name="bundle">The FHIR bundle to add minimum provenance to.</param>
+/// <param name="dataSource">The data source of the FHIR bundle.</param>
+/// <returns>
+///  The FHIR bundle with the a Meta.source entry for each FHIR resource in the bundle
+/// </returns>
 JsonNode AddDataSourceToBundle(JsonNode bundle, string dataSource)
 {
-    // """
-    // Given a FHIR bundle and a data source parameter the function
-    // will loop through the bundle and add a Meta.source entry for
-    // every resource in the bundle.
-
-    // :param bundle: The FHIR bundle to add minimum provenance to.
-    // :param data_source: The data source of the FHIR bundle.
-    // :return: The FHIR bundle with the a Meta.source entry for each
-    //   FHIR resource in the bundle
-    // """
     if (dataSource == string.Empty)
     {
         throw new Exception("The dataSource parameter must be a defined, non-empty string.");
@@ -441,12 +445,48 @@ JsonNode AddDataSourceToBundle(JsonNode bundle, string dataSource)
             return bundle;
         }
 
-        // TODO: make real types, I need to be able to updates these objects and I can't with trygetpropertyvalue
         JsonNode meta = resource["meta"] ?? JsonNode.Parse("{}");
         meta["source"] = dataSource;
     }
 
     return bundle;
+}
+
+/// <summary>
+///  Given an HL7 XML string the function will attempt to set text
+///  for all reference tags based on the value attribute.
+/// </summary>
+/// <param name="ecrXDocument">HL7 XML document.</param>
+/// <returns>XML document with text set for references.</returns>
+XDocument ResolveReferences(XDocument ecrXDocument)
+{
+    var names = new XmlNamespaceManager(ecrXDocument.CreateNavigator().NameTable);
+    names.AddNamespace("hl7", "urn:hl7-org:v3");
+
+    var refs = ecrXDocument.XPathSelectElements(
+        "//hl7:reference",
+        names);
+
+    foreach (var refElement in refs)
+    {
+        var value = refElement.Attribute("value");
+        if (value is not null)
+        {
+            var refId = value.Value[1..];
+            // The XPath expression evaluated to unexpected type System.Xml.Linq.XText.
+            var refText = ecrXDocument.XPathEvaluate(
+                $"//*[@ID='{refId}']/text()",
+                names);
+
+            if (refText is IEnumerable<object> enumerableSequence)
+            {
+                IEnumerable<XObject> enumerableText = enumerableSequence.Cast<XObject>();
+                refElement.Value = string.Join(" ", enumerableText.Select(t => t.ToString()));
+            }
+        }
+    }
+
+    return ecrXDocument;
 }
 
 public partial class Program

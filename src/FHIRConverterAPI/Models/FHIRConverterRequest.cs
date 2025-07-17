@@ -8,4 +8,6 @@ public class FHIRConverterRequest
 
     // If an eICR message, the accompanying Reportability Response data.
     public string rr_data { get; set; }
+
+    public string root_template { get; set; }
 }

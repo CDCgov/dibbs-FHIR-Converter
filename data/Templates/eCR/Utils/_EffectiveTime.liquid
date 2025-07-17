@@ -2,4 +2,6 @@
     "{{ timeType | default: "effective" }}Period": { {% include 'DataType/Period' Period: effectiveTime %} },
 {%- elseif effectiveTime.value -%}
     "{{ timeType | default: "effective" }}DateTime":"{{ effectiveTime.value | format_as_date_time }}",
+{%- elseif effectiveTime.center.value -%}
+    "{{ timeType | default: "effective" }}DateTime":"{{ effectiveTime.center.value | format_as_date_time }}",
 {%- endif -%}

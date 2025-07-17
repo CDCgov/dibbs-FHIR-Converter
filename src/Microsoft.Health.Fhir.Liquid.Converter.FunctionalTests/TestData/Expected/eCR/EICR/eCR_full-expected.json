@@ -735,21 +735,6 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "CarePlan",
-        "status": "unknown",
-        "intent": "proposal",
-        "subject": {
-          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "CarePlan/"
-      }
-    },
-    {
       "fullUrl": "urn:uuid:580cd575-265a-3e62-3b81-f270db5bda69",
       "resource": {
         "resourceType": "MedicationAdministration",

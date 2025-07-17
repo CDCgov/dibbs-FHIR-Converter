@@ -1,0 +1,58 @@
+{% comment %} Planned Act {% endcomment %}
+{% comment %} Handled inline in Resource/CarePlan {% endcomment %}
+
+{% comment %} Planned Procedure & Observation {% endcomment %}
+{% comment %} The spec for procedure and observation are almost identical {% endcomment %}
+{% assign service = entry.procedure %}
+{% if entry.observation %}
+    {% assign service = entry.observation %}
+{% endif %}
+{% if service %}
+    {% assign serviceId = service | to_json_string | generate_uuid -%}
+    {% assign fullServiceId = serviceId | prepend: 'ServiceRequest/' %}
+
+    {% include 'Reference/CarePlan/Activity_Reference' ID: carePlanId,  REF: fullServiceId -%}
+    {% include 'Resource/ServiceRequest' serviceEntry: service, ID: serviceId -%}
+    {% include 'Reference/ServiceRequest/Subject' ID: serviceId, REF: fullPatientId -%}
+
+    {% assign performers = service.performer | to_array %}
+    {% for performer in performers %}
+        {% assign performerId = performer| to_json_string | generate_uuid -%}
+        {% assign fullPerformerId = performerId | prepend: 'Practitioner/' %}
+        {% include 'Resource/Practitioner' ID: performerId pracitioner: performer.assignedEntity %}
+        {% include 'Reference/ServiceRequest/Performer' ID: serviceId, REF: fullPerformerId -%}
+    {% endfor %}
+
+    {% if service.author %}
+        {% assign authorId = service.author | to_json_string | generate_uuid -%}
+        {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
+        {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
+        {% include 'Reference/ServiceRequest/Requester' ID: serviceId, REF: fullAuthorId -%}
+    {% endif %}
+{% endif %}
+
+{% comment %} Planned Medication & Immunization {% endcomment %}
+{% assign med = entry.substanceAdministration %}
+{% if med %}
+    {% assign medId = med | to_json_string | generate_uuid -%}
+    {% assign fullMedId = medId | prepend: 'MedicationRequest/' %}
+    {% include 'Reference/CarePlan/ActivityReference' ID: carePlanId,  REF: fullMedId -%}
+    {% include 'Resource/MedicationRequest' medicationRequest: med, ID: medId, intent: "plan" -%}
+    {% include 'Reference/MedicationRequest/Subject' ID: medId, REF: fullPatientId -%}
+
+    {% assign performers = med.performer | to_array %}
+    {% for performer in performers %}
+        {% assign performerId = performer| to_json_string | generate_uuid -%}
+        {% assign fullPerformerId = performerId | prepend: 'Practitioner/' %}
+        {% include 'Resource/Practitioner' ID: performerId pracitioner: performer.assignedEntity %}
+        {% include 'Reference/MedicationRequest/Performer' ID: medId, REF: fullPerformerId -%}
+    {% endfor %}
+
+    {% if med.author %}
+        {% assign authorId = med.author | to_json_string | generate_uuid -%}
+        {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
+        {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
+        {% include 'Reference/MedicationRequest/Requester' ID: medId, REF: fullAuthorId -%}
+    {% endif %}
+
+{% endif %}

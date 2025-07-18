@@ -248,7 +248,7 @@
             ]
           },
           {
-            "id": "704bf516-3860-cfb3-fd1b-26547e8ddb69",
+            "id": "efaeb74f-db14-fb34-66e4-5fde84682c12",
             "title": "Procedures",
             "text": {
               "status": "generated",
@@ -266,7 +266,7 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
+                "reference": "Procedure/d409ccf8-ab6a-5edf-f64e-ad74e31b74ba"
               },
               {
                 "reference": "Observation/44e6df0f-4e41-63ee-2bda-625369930b7c"
@@ -3543,10 +3543,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
+      "fullUrl": "urn:uuid:d409ccf8-ab6a-5edf-f64e-ad74e31b74ba",
       "resource": {
         "resourceType": "Procedure",
-        "id": "c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
+        "id": "d409ccf8-ab6a-5edf-f64e-ad74e31b74ba",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
@@ -3600,7 +3600,7 @@
           {
             "url": "medicationAdministration",
             "valueReference": {
-              "reference": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+              "reference": "MedicationAdministration/04117137-af0d-8f70-177c-01b862866ed2"
             }
           }
         ],
@@ -3618,7 +3618,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
+        "url": "Procedure/d409ccf8-ab6a-5edf-f64e-ad74e31b74ba"
       }
     },
     {
@@ -3690,10 +3690,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+      "fullUrl": "urn:uuid:04117137-af0d-8f70-177c-01b862866ed2",
       "resource": {
         "resourceType": "MedicationAdministration",
-        "id": "1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+        "id": "04117137-af0d-8f70-177c-01b862866ed2",
         "identifier": [
           {
             "system": "urn:ietf:rfc:3986",
@@ -3731,7 +3731,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+        "url": "MedicationAdministration/04117137-af0d-8f70-177c-01b862866ed2"
       }
     },
     {

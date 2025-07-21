@@ -21,19 +21,22 @@ public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program
     {
         Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var workingDirectory = Environment.CurrentDirectory;
-        var xmlPayload = File.ReadAllText("../../../../../data/SampleData/eCR/eCR_EveEverywoman.xml");
+        var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
+        var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
         var content = new FHIRConverterRequest
         {
             input_type = "eCR",
-            input_data = xmlPayload
+            input_data = eICR,
+            rr_data = rr
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
+        File.WriteAllText("actual.json", jsonResponse);
         Assert.NotNull(jsonResponse);
 
-        var expected = File.ReadAllText("../../../../../src/Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests/TestData/Expected/eCR/EICR/eCR_EveEverywoman-expected.json");
+        var expected = File.ReadAllText("../../../../../data/SampleData/FHIR/YodaEcrBundle.json");
         Assert.Equal(expected, jsonResponse);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }

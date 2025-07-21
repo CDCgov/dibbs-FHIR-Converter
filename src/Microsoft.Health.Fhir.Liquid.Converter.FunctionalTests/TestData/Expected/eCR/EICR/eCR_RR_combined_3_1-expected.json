@@ -12,24 +12,22 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
           ]
         },
-        "identifier": [
-          {
-            "use": "official",
-            "type": {
-              "coding": [
-                {
-                  "code": "55751-2",
-                  "system": "http://loinc.org",
-                  "display": "Initial Public Health Case Report"
-                }
-              ]
-            },
-            "value": "359d9b6c-da66-11ef-8f89-005056be2511",
-            "assigner": {
-              "display": "EPC"
-            }
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Initial Public Health Case Report"
+              }
+            ]
+          },
+          "value": "359d9b6c-da66-11ef-8f89-005056be2511",
+          "assigner": {
+            "display": "EPC"
           }
-        ],
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
@@ -1248,15 +1246,6 @@
       "request": {
         "method": "PUT",
         "url": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "CareTeam",
-        "subject": {
-          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-        }
       }
     },
     {
@@ -2869,21 +2858,6 @@
       "request": {
         "method": "PUT",
         "url": "Procedure/e2811748-41a6-95b2-b7fb-eb3271baed16"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "Observation",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/"
       }
     },
     {

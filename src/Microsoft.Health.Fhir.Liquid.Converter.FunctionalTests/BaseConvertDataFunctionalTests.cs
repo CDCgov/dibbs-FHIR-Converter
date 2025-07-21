@@ -14,6 +14,18 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
+using Firely.Fhir.Packages;
+using Firely.Fhir.Validation;
+using Firely.Fhir.Validation.Compilation;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Rest;
+using Hl7.Fhir.Serialization;
+using Hl7.Fhir.Specification;
+using Hl7.Fhir.Specification.Source;
+using Hl7.Fhir.Specification.Terminology;
+using Hl7.Fhir.Support;
+using Hl7.Fhir.Utility;
+
 namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 {
     public class BaseConvertDataFunctionalTests
@@ -369,6 +381,50 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             }
 
             Assert.True(JToken.DeepEquals(expectedObject, actualObject));
+        }
+
+        protected void ValidateConvertCCDAMessageIsValidFHIR(ITemplateProvider templateProvider, string rootTemplate, string inputFile)
+        {
+            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
+            if (validateFhir.Trim() == "false") return;
+
+            var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
+            var inputContent = File.ReadAllText(inputFile);
+            var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, templateProvider);
+
+            var _jsonPocoDeserializer = new FhirJsonPocoDeserializer();
+
+            try
+            {
+                var poco = _jsonPocoDeserializer.DeserializeResource(actualContent);
+                var packageSource = new FhirPackageSource(
+                    ModelInfo.ModelInspector,
+                    "https://packages2.fhir.org/packages",
+                    new string[] {
+                        "hl7.fhir.us.ecr@2.1.2",
+                    }
+                );
+                var profileSource = new CachedResolver(packageSource);
+                var terminologyService = new LocalTerminologyService(profileSource);
+
+                var validator = new Validator(profileSource, terminologyService);
+                var result = validator.Validate(poco);
+                var outcomeText = result.ToString();
+
+                foreach (var issue in result.Issue)
+                {
+                    Console.WriteLine(issue.ToString());
+                }
+
+                Assert.True(result.Success);
+            }
+            catch (DeserializationFailedException e)
+            {
+                Console.WriteLine("Serialization failed");
+                Console.WriteLine(e.Message);
+                Assert.True(false);
+                return;
+            }
         }
 
         protected void ConvertFHIRMessageAndValidateExpectedResponse(ITemplateProvider templateProvider, string rootTemplate, string inputFile, string expectedFile)

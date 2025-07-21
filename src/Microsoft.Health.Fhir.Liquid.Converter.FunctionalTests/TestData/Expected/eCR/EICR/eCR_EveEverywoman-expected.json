@@ -2782,6 +2782,39 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
+        "identifier": [
+          {
+            "system": "urn:oid:58822180-ab0d-42e4-90c6-35336bf55654",
+            "value": "12345"
+          }
+        ],
+        "name": "University Hospital",
+        "address": [
+          {
+            "line": [
+              "Peachtree St"
+            ],
+            "city": "Atlanta",
+            "state": "Georgia"
+          }
+        ],
+        "telecom": [
+          {
+            "value": "555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "resource": {
         "resourceType": "Observation",
@@ -2870,6 +2903,14 @@
                   "display": "Home nursing services"
                 }
               ]
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
             }
           }
         ],

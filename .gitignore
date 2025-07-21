@@ -378,3 +378,6 @@ FodyWeavers.xsd
 /input.xml
 /output.json
 output/
+
+# macOS
+.DS_Store

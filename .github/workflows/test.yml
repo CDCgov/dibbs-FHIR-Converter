@@ -48,4 +48,4 @@ jobs:
         with:
           dotnet-version: "8.0.x"
       - name: Run tests
-        run: VALIDATE_FHIR=true dotnet test --filter FullyQualifiedName~Converter.FunctionalTests.BaseConvertDataFunctionalTests.GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid --logger "console;verbosity=detailed"
+        run: VALIDATE_FHIR=true dotnet test --filter FullyQualifiedName~Converter.FunctionalTests.ConvertDataTemplateDirectoryProviderFunctionalTests.GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid --logger "console;verbosity=detailed"

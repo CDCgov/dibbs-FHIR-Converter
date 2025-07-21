@@ -76,6 +76,18 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 attributes, 
                 @"""system"":""fax"", ""value"": ""123"", ""use"": ""work"",");
         }
+
+        [Fact]
+        public void GivenTelecomWithNoPrefixReturnsValueString()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"ContactPoint", Hash.FromAnonymousObject(new { value = "123", use="WP" })}
+            };
+            ConvertCheckLiquidTemplate(
+                ECRPath,
+                attributes,
+                @"""value"": ""123"", ""use"": ""work"",");
+        }
     }
    
 }

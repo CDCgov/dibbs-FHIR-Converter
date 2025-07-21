@@ -14,5 +14,8 @@
 		"system":"fax",
 		"value": "{{ContactPoint.value | replace: 'fax:\s*', ''}}",
 		"use": "{{ ContactPoint.use | get_property: 'ValueSet/TelecomUse' }}",
+	{% else %}
+		"value": "{{ ContactPoint.value }}",
+		"use": "{{ ContactPoint.use | get_property: 'ValueSet/TelecomUse' }}",
 	{% endif -%}
 {% endif -%}

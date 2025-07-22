@@ -12,21 +12,19 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
           ]
         },
-        "identifier": [
-          {
-            "use": "official",
-            "type": {
-              "coding": [
-                {
-                  "code": "55751-2",
-                  "system": "http://loinc.org",
-                  "display": "Public Health Case Report"
-                }
-              ]
-            },
-            "value": "8d86218e-0fea-11eb-8216-a80388425cfb"
-          }
-        ],
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public Health Case Report"
+              }
+            ]
+          },
+          "value": "8d86218e-0fea-11eb-8216-a80388425cfb"
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
@@ -726,15 +724,6 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "CareTeam",
-        "subject": {
-          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
-        }
-      }
-    },
-    {
       "fullUrl": "urn:uuid:580cd575-265a-3e62-3b81-f270db5bda69",
       "resource": {
         "resourceType": "MedicationAdministration",
@@ -815,7 +804,7 @@
         "code": {
           "coding": [
             {
-              "code": "94308-4 ",
+              "code": "94308-4",
               "system": "http://loinc.org",
               "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
             }
@@ -1075,21 +1064,6 @@
       "request": {
         "method": "PUT",
         "url": "Observation/7d4bbe54-856b-d831-d592-864f9da32c1d"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "Observation",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/"
       }
     }
   ]

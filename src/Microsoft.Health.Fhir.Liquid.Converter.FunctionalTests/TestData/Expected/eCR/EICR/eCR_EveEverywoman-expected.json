@@ -12,21 +12,19 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
           ]
         },
-        "identifier": [
-          {
-            "use": "official",
-            "type": {
-              "coding": [
-                {
-                  "code": "55751-2",
-                  "system": "http://loinc.org",
-                  "display": "Public Health Case Report"
-                }
-              ]
-            },
-            "value": "31"
-          }
-        ],
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public Health Case Report"
+              }
+            ]
+          },
+          "value": "31"
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
@@ -1229,15 +1227,6 @@
       "request": {
         "method": "PUT",
         "url": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "CareTeam",
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        }
       }
     },
     {
@@ -3966,21 +3955,6 @@
       "request": {
         "method": "PUT",
         "url": "Observation/ecf330de-e85f-0b34-5fdd-6dccdae41d6d"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "Observation",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/"
       }
     },
     {

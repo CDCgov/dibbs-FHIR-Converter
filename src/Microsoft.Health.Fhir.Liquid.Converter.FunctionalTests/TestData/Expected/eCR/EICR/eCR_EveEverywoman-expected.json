@@ -1462,6 +1462,80 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:f85a5394-2752-45c5-5a83-116810fb69ee",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f85a5394-2752-45c5-5a83-116810fb69ee",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:6df3e951-e6f8-441d-a298-d9d6d3f405db"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "63893-2",
+              "display": "Outcome of pregnancy"
+            }
+          ]
+        },
+        "focus": [
+          {
+            "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
+          }
+        ],
+        "effectiveDateTime": "2020-01-05T08:50:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "237364002",
+              "system": "http://snomed.info/sct",
+              "display": "Stillbirth (finding)"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "73771-8",
+                  "display": "Birth order"
+                }
+              ]
+            },
+            "valueInteger": 1
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/f85a5394-2752-45c5-5a83-116810fb69ee"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:1d93a81a-783d-c53d-54c4-24e9f036600d",
       "resource": {
         "resourceType": "Observation",
@@ -2815,10 +2889,17 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "resource": {
         "resourceType": "Observation",
         "id": "77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
+            }
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob"
@@ -2906,18 +2987,11 @@
             }
           }
         ],
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
-            "valueReference": {
-              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
-            }
-          }
-        ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
       },
+      "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "request": {
         "method": "PUT",
         "url": "Observation/77d57bd0-c41e-78f4-cbbb-218b4a2c412a"

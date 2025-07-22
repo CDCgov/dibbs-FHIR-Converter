@@ -411,18 +411,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 var result = validator.Validate(poco);
                 var outcomeText = result.ToString();
 
-                foreach (var issue in result.Issue)
-                {
-                    Console.WriteLine(issue.ToString());
-                }
-
-                Assert.True(result.Success);
+                Assert.True(result.Success, $"!!Validation failed!!\n\n{outcomeText}");
             }
             catch (DeserializationFailedException e)
             {
-                Console.WriteLine("Serialization failed");
-                Console.WriteLine(e.Message);
-                Assert.True(false);
+                Assert.True(false, $"!!Serialization failed!!\n\n{e.Message}");
                 return;
             }
         }

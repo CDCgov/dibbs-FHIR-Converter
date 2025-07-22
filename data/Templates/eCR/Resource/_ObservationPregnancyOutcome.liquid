@@ -47,9 +47,6 @@
                 }
             ]
         },
-        "focus": {
-            "reference": "{{ fullObservationId }}"
-        },
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         {% include 'Utils/ValueHelper' value: observationEntry.value -%}
         "component" : [

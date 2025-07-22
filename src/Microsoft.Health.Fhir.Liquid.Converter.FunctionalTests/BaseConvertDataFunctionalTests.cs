@@ -415,7 +415,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             }
             catch (DeserializationFailedException e)
             {
-                Assert.True(false, $"!!Serialization failed!!\n\n{e.Message}");
+                var errors = e.Message.Replace(") (", ")\n(");
+                Assert.True(false, $"!!Serialization failed!!\n\n{errors}");
                 return;
             }
         }

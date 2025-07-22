@@ -1,3 +1,4 @@
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -16,11 +17,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
     /// </returns>
     public static string FhirBundlePostProcessing(string input, string inputType)
     {
-      var resultJson = JsonNode.Parse(input)!;
+      var bundleJson = JsonNode.Parse(input)!;
       var oldId = string.Empty;
       var newId = Guid.NewGuid().ToString();
 
-      foreach (var entry in (resultJson["entry"] as JsonArray) ?? [])
+      foreach (var entry in (bundleJson["entry"] as JsonArray) ?? [])
       {
         if ((string)entry["resource"]!["resourceType"]! == "Patient")
         {
@@ -30,10 +31,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
         }
       }
 
-      resultJson = AddDataSourceToBundle(resultJson, inputType);
-
-      var resultString = resultJson!.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
-      resultString.Replace(oldId, newId);
+      bundleJson = AddDataSourceToBundle(bundleJson, inputType);
+      var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}");
+      resultsJson!["response"]!["FhirResource"] = bundleJson;
+      var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
+      {
+        WriteIndented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+      });
+      resultString = resultString.Replace(oldId, newId);
       return resultString;
     }
 
@@ -62,7 +68,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
           return bundle;
         }
 
-        JsonNode meta = resource["meta"] ?? JsonNode.Parse("{}");
+        JsonNode meta = resource["meta"];
+
+        if (meta is null)
+        {
+          meta = new JsonObject();
+          resource["meta"] = meta;
+        }
+
         meta["source"] = dataSource;
       }
 

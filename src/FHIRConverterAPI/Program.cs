@@ -45,12 +45,12 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
             }
             catch (Exception ex)
             {
-                return Results.BadRequest(ex.Message);
+                return Results.BadRequest(new { detail = ex.Message });
             }
         }
         else
         {
-            return Results.BadRequest("Reportability Response (RR) data is only accepted for eCR conversion requests.");
+            return Results.BadRequest(new { detail = "Reportability Response (RR) data is only accepted for eCR conversion requests." });
         }
     }
 
@@ -67,7 +67,7 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
     }
     catch (Exception ex)
     {
-        return Results.BadRequest(ex.Message);
+        return Results.BadRequest(new { detail = ex.Message });
     }
 
     var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);

@@ -1412,9 +1412,7 @@
                 }
               ]
             },
-            "valueQuantity": {
-              "value": 20170522
-            }
+            "valueDateTime": "2017-05-22"
           },
           {
             "code": {
@@ -1468,7 +1466,7 @@
         "id": "1d93a81a-783d-c53d-54c4-24e9f036600d",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-last-menstrual-period"
           ]
         },
         "identifier": [
@@ -1491,16 +1489,14 @@
         "code": {
           "coding": [
             {
-              "code": "8665-2",
               "system": "http://loinc.org",
+              "code": "8665-2",
               "display": "Last menstrual period start date"
             }
           ]
         },
         "effectiveDateTime": "2020-01-05T10:15:00",
-        "valueQuantity": {
-          "value": 20170801
-        },
+        "valueDateTime": "2017-08-01",
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
@@ -2815,10 +2811,17 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "resource": {
         "resourceType": "Observation",
         "id": "77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
+            }
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob"
@@ -2906,18 +2909,11 @@
             }
           }
         ],
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
-            "valueReference": {
-              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
-            }
-          }
-        ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
       },
+      "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "request": {
         "method": "PUT",
         "url": "Observation/77d57bd0-c41e-78f4-cbbb-218b4a2c412a"

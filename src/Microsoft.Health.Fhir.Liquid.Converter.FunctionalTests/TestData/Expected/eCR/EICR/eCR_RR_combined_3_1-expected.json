@@ -12,24 +12,22 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
           ]
         },
-        "identifier": [
-          {
-            "use": "official",
-            "type": {
-              "coding": [
-                {
-                  "code": "55751-2",
-                  "system": "http://loinc.org",
-                  "display": "Initial Public Health Case Report"
-                }
-              ]
-            },
-            "value": "359d9b6c-da66-11ef-8f89-005056be2511",
-            "assigner": {
-              "display": "EPC"
-            }
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Initial Public Health Case Report"
+              }
+            ]
+          },
+          "value": "359d9b6c-da66-11ef-8f89-005056be2511",
+          "assigner": {
+            "display": "EPC"
           }
-        ],
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
@@ -1251,31 +1249,6 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "CareTeam",
-        "subject": {
-          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:15ad6219-c9bb-2f48-416a-816612931a67",
-      "resource": {
-        "resourceType": "CarePlan",
-        "id": "15ad6219-c9bb-2f48-416a-816612931a67",
-        "status": "unknown",
-        "intent": "proposal",
-        "subject": {
-          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
-      }
-    },
-    {
       "fullUrl": "urn:uuid:dbd52596-33a3-ad0c-4085-537a69085dae",
       "resource": {
         "resourceType": "MedicationAdministration",
@@ -1305,7 +1278,7 @@
             "unit": "mg/kg"
           },
           "rateQuantity": {
-            "value": "6",
+            "value": 6,
             "unit": "h"
           }
         },
@@ -2817,6 +2790,41 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:15ad6219-c9bb-2f48-416a-816612931a67",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "15ad6219-c9bb-2f48-416a-816612931a67",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        },
+        "activity": [
+          {
+            "detail": {
+              "kind": "Appointment",
+              "code": {
+                "coding": [
+                  {
+                    "code": "AMB",
+                    "system": "urn:oid:2.16.840.1.113883.5.4"
+                  }
+                ]
+              },
+              "status": "scheduled",
+              "scheduledPeriod": {
+                "start": "1985-10-15"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:e2811748-41a6-95b2-b7fb-eb3271baed16",
       "resource": {
         "resourceType": "Procedure",
@@ -2850,21 +2858,6 @@
       "request": {
         "method": "PUT",
         "url": "Procedure/e2811748-41a6-95b2-b7fb-eb3271baed16"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "Observation",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/"
       }
     },
     {

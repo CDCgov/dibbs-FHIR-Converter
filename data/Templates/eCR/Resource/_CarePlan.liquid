@@ -16,21 +16,38 @@
             "reference": "{{ patientReference }}",
         },
         "activity":[
-            {% for carePlanEntry in carePlan.entry %}
-                {% if carePlanEntry.procedure.templateId.root == "2.16.840.1.113883.10.20.22.4.41" or carePlanEntry.procedure.templateId[0].root == "2.16.840.1.113883.10.20.22.4.41" %}
-                {
-                    "detail": {
-                        "code":{ {% include 'DataType/CodeableConcept' CodeableConcept: carePlanEntry.procedure.code -%} },
-                        "status":"scheduled",
-                        "scheduledString": "{{ carePlanEntry.procedure.effectiveTime.value }}",
-                    },
-                    "extension": [
-                        {
-                            "url": "dibbs.orderedDate",
-                            "valueString": "{{ carePlanEntry.procedure.author.time.value }}"
+            {% assign entries = carePlan.entry | to_array %}
+            {% for entry in entries %}
+                {% assign act = entry.act %}
+                {% if entry.encounter %}
+                    {% assign act = entry.encounter %}
+                {% endif %}
+                {% comment %} Other entry types are handled in `Entry/PlanOfTreatment/entry` {% endcomment %}
+                {% if act %}
+                    {
+                        "detail": {
+                            {% if act.moodCode == "ARQ" or act.moodCode == "APT" or entry.encounter %}
+                                "kind": "Appointment",
+                            {% else %}
+                                "kind": "Task",
+                            {% endif %}
+                            "code": { {% include 'DataType/CodeableConcept' CodeableConcept: act.code %} },
+                            {% assign reasons = act.entryRelationship | to_array | where: "typeCode", "RSON" %}
+                            "reasonCode": [
+                                {% for reason in reasons %}
+                                    { {% include 'DataType/CodeableConcept' CodeableConcept: reason.observation.value %} },
+                                {% endfor %}
+                            ],
+                            {% if act.effectiveTime %}
+                                "status": "scheduled",
+                            {% else %}
+                                "status": "not-started",
+                            {% endif %}
+                            {% comment %} planned activities use scheduledString instead of scheduledDateTime {% endcomment %}
+                            {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
+                            {{ time |  replace_first: "DateTime", "String" }}
                         }
-                    ]
-                },
+                    }
                 {% endif %}
             {% endfor %}
         ]

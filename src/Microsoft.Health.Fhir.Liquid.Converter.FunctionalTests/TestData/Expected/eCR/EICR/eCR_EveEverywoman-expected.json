@@ -12,21 +12,19 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
           ]
         },
-        "identifier": [
-          {
-            "use": "official",
-            "type": {
-              "coding": [
-                {
-                  "code": "55751-2",
-                  "system": "http://loinc.org",
-                  "display": "Public Health Case Report"
-                }
-              ]
-            },
-            "value": "31"
-          }
-        ],
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public Health Case Report"
+              }
+            ]
+          },
+          "value": "31"
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
@@ -248,7 +246,7 @@
             ]
           },
           {
-            "id": "704bf516-3860-cfb3-fd1b-26547e8ddb69",
+            "id": "efaeb74f-db14-fb34-66e4-5fde84682c12",
             "title": "Procedures",
             "text": {
               "status": "generated",
@@ -266,7 +264,7 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
+                "reference": "Procedure/d409ccf8-ab6a-5edf-f64e-ad74e31b74ba"
               },
               {
                 "reference": "Observation/44e6df0f-4e41-63ee-2bda-625369930b7c"
@@ -1232,53 +1230,6 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "CareTeam",
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:49200334-0c15-5a04-bf2c-b96a087ec490",
-      "resource": {
-        "resourceType": "CarePlan",
-        "id": "49200334-0c15-5a04-bf2c-b96a087ec490",
-        "status": "unknown",
-        "intent": "proposal",
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        },
-        "activity": [
-          {
-            "detail": {
-              "code": {
-                "coding": [
-                  {
-                    "code": "233573008",
-                    "system": "http://snomed.info/sct",
-                    "display": "Extracorporeal membrane oxygenation (procedure)"
-                  }
-                ]
-              },
-              "status": "scheduled",
-              "scheduledString": "20201108"
-            },
-            "extension": [
-              {
-                "url": "dibbs.orderedDate"
-              }
-            ]
-          }
-        ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "CarePlan/49200334-0c15-5a04-bf2c-b96a087ec490"
-      }
-    },
-    {
       "fullUrl": "urn:uuid:10b5eb67-b60e-0272-b5af-026b77fa9253",
       "resource": {
         "resourceType": "MedicationAdministration",
@@ -1306,10 +1257,24 @@
             "unit": "g"
           },
           "rateQuantity": {
-            "value": "12",
+            "value": 12,
             "unit": "h"
           }
         },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "268910001",
+                  "system": "http://snomed.info/sct",
+                  "display": "Patient's condition improved (finding)"
+                }
+              ]
+            }
+          }
+        ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
@@ -2817,6 +2782,39 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
+        "identifier": [
+          {
+            "system": "urn:oid:58822180-ab0d-42e4-90c6-35336bf55654",
+            "value": "12345"
+          }
+        ],
+        "name": "University Hospital",
+        "address": [
+          {
+            "line": [
+              "Peachtree St"
+            ],
+            "city": "Atlanta",
+            "state": "Georgia"
+          }
+        ],
+        "telecom": [
+          {
+            "value": "555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "resource": {
         "resourceType": "Observation",
@@ -2905,6 +2903,14 @@
                   "display": "Home nursing services"
                 }
               ]
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
             }
           }
         ],
@@ -3425,10 +3431,152 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
+      "fullUrl": "urn:uuid:49200334-0c15-5a04-bf2c-b96a087ec490",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "49200334-0c15-5a04-bf2c-b96a087ec490",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "activity": [
+          {
+            "detail": {
+              "kind": "Task",
+              "code": {
+                "coding": [
+                  {
+                    "code": "409524006",
+                    "system": "http://snomed.info/sct",
+                    "display": "Airborne precautions (procedure)"
+                  }
+                ]
+              },
+              "status": "scheduled",
+              "scheduledString": "2020-11-08"
+            }
+          },
+          {
+            "reference": {
+              "reference": "ServiceRequest/c85c8602-76f8-1866-3bb7-20be7950ef7a"
+            }
+          },
+          {
+            "reference": {
+              "reference": "ServiceRequest/224b95cc-df73-aee0-4522-b6ac683ea13b"
+            }
+          },
+          {
+            "reference": {
+              "reference": "ServiceRequest/5b68e715-e34e-01cc-7c5e-d7c43f1484e7"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "CarePlan/49200334-0c15-5a04-bf2c-b96a087ec490"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c85c8602-76f8-1866-3bb7-20be7950ef7a",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "c85c8602-76f8-1866-3bb7-20be7950ef7a",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b52bee94-c34b-4e2c-8c15-5ad9d6def205"
+          }
+        ],
+        "status": "active",
+        "code": {
+          "coding": [
+            {
+              "code": "80825-3",
+              "system": "http://loinc.org",
+              "display": "Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method"
+            }
+          ]
+        },
+        "occurrenceDateTime": "2020-11-08",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/c85c8602-76f8-1866-3bb7-20be7950ef7a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:224b95cc-df73-aee0-4522-b6ac683ea13b",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "224b95cc-df73-aee0-4522-b6ac683ea13b",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:9a6d1bac-17d3-4195-89c4-1121bc809b5a"
+          }
+        ],
+        "status": "active",
+        "code": {
+          "coding": [
+            {
+              "code": "233573008",
+              "system": "http://snomed.info/sct",
+              "display": "Extracorporeal membrane oxygenation (procedure)"
+            }
+          ]
+        },
+        "occurrenceDateTime": "2020-11-08",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/224b95cc-df73-aee0-4522-b6ac683ea13b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5b68e715-e34e-01cc-7c5e-d7c43f1484e7",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "5b68e715-e34e-01cc-7c5e-d7c43f1484e7",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b52bee94-c34b-4e2c-8c15-5ad9d6def204"
+          }
+        ],
+        "status": "active",
+        "code": {
+          "coding": [
+            {
+              "code": "385857005",
+              "system": "http://snomed.info/sct",
+              "display": "Ventilator care and adjustment (regime/therapy)"
+            }
+          ]
+        },
+        "occurrenceDateTime": "2020-11-08",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "ServiceRequest/5b68e715-e34e-01cc-7c5e-d7c43f1484e7"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d409ccf8-ab6a-5edf-f64e-ad74e31b74ba",
       "resource": {
         "resourceType": "Procedure",
-        "id": "c8b0b1c1-4bed-4c35-522d-867e5d7e22a1",
+        "id": "d409ccf8-ab6a-5edf-f64e-ad74e31b74ba",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
@@ -3482,7 +3630,7 @@
           {
             "url": "medicationAdministration",
             "valueReference": {
-              "reference": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+              "reference": "MedicationAdministration/04117137-af0d-8f70-177c-01b862866ed2"
             }
           }
         ],
@@ -3500,7 +3648,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Procedure/c8b0b1c1-4bed-4c35-522d-867e5d7e22a1"
+        "url": "Procedure/d409ccf8-ab6a-5edf-f64e-ad74e31b74ba"
       }
     },
     {
@@ -3572,10 +3720,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+      "fullUrl": "urn:uuid:04117137-af0d-8f70-177c-01b862866ed2",
       "resource": {
         "resourceType": "MedicationAdministration",
-        "id": "1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d",
+        "id": "04117137-af0d-8f70-177c-01b862866ed2",
         "identifier": [
           {
             "system": "urn:ietf:rfc:3986",
@@ -3600,7 +3748,7 @@
             "value": 1
           },
           "rateQuantity": {
-            "value": "12",
+            "value": 12,
             "unit": "h"
           }
         },
@@ -3613,7 +3761,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "MedicationAdministration/1b8ee8b8-7e66-4cc6-7677-a8dfa341b39d"
+        "url": "MedicationAdministration/04117137-af0d-8f70-177c-01b862866ed2"
       }
     },
     {
@@ -3807,21 +3955,6 @@
       "request": {
         "method": "PUT",
         "url": "Observation/ecf330de-e85f-0b34-5fdd-6dccdae41d6d"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "Observation",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/"
       }
     },
     {

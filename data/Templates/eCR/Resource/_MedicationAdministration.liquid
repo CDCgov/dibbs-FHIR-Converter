@@ -13,8 +13,10 @@
         "status":"{{ medicationAdministration.statusCode.code | get_property: 'ValueSet/MedicationAdministrationStatus' }}",
         {% assign effectiveTimes = medicationAdministration.effectiveTime | to_array -%}
         {% for effectiveTime in effectiveTimes %}
-            {%  comment  %} only one of the times should actually return anything here {% endcomment %}
-            {% include 'Utils/EffectiveTime' effectiveTime: effectiveTime %}
+            {% if effectiveTime.operator != "A" %}
+                {%  comment  %} only one of the times should actually return anything here {% endcomment %}
+                {% include 'Utils/EffectiveTime' effectiveTime: effectiveTime %}
+            {% endif %}
         {% endfor %}
         "dosage":
         {
@@ -29,20 +31,33 @@
                     "unit":"{{ medicationAdministration.doseQuantity.unit }}",
                 },
             {% endif -%}
-            {% assign  effectivePeriod = effectiveTimes | where: "operator", "A" | first %}
+            {% assign  effectivePeriod = effectiveTimes | where: "operator", "A" | where: "period" | first %}
             {% if medicationAdministration.rateQuantity.value -%}
                 "rateQuantity":
                 {
-                    "value":{{ medicationAdministration.rateQuantity.value }},
+                    "value":{{ medicationAdministration.rateQuantity.value | format_quantity }},
                     "unit":"{{ medicationAdministration.rateQuantity.unit }}",
                 },
-            {% elseif effectivePeriod != null %}
+            {% elseif effectivePeriod.period.value %}
                 "rateQuantity": {
-                    "value": "{{ effectivePeriod.period.value }}",
+                    "value": {{ effectivePeriod.period.value | format_quantity }},
                     "unit": "{{ effectivePeriod.period.unit }}"
                 }
             {% endif -%}
         },
+        "extension": [
+            {% assign entryRelationships = medicationAdministration.entryRelationship | to_array %}
+            {% for entryRelationship in entryRelationships %}
+                {% if entryRelationship.observation and entryRelationship.observation.templateId.root == '2.16.840.1.113883.10.20.15.2.3.37' -%}
+                    {
+                        "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension",
+                        "valueCodeableConcept": {
+                            {% include 'DataType/CodeableConcept' CodeableConcept: entryRelationship.observation.value -%}
+                        },
+                    }
+                {% endif %}
+            {% endfor %}
+        ]
     },
     "request":{
         "method":"PUT",

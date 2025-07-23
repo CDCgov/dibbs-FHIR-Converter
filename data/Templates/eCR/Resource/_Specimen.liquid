@@ -1,0 +1,79 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Specimen",
+        "id":"{{ ID }}",
+        "identifier":
+        [
+            {% assign ids = specimenProc.id | to_array -%}
+            {% for id in ids -%}
+            { {% include 'DataType/Identifier' Identifier: id -%} },
+            {% endfor -%}
+        ],
+        {% assign rels = specimenProc.entryRelationship | to_array %}
+        {% assign acts = rels.act %}
+        {% assign obs = rels.observation %}
+
+        {% assign rejected = false %}
+        {% for ob in obs %}
+            {% if ob.templateId.root == '2.16.840.1.113883.10.20.22.4.420' %}
+                {% assign rejected = true %}
+            {% endif %}
+        {% endfor %}
+        {% if rejected %}
+            "status": "unsatisfactory",
+        {% endif %}
+        "type": {
+            {% include 'DataType/CodeableConcept' CodeableConcept: specimenProc.participant.participantRole.playingEntity.code %}
+        },
+        {% assign receivedTime = nil %}
+        {% comment %} This is based on observed data and not per spec {% endcomment %}
+        {% for act in acts -%}
+            {% if act.code and act.code.code == "SPRECEIVE" %}
+                {% assign receivedTime = act.effectiveTime.value -%}
+            {% endif -%}
+        {% endfor -%} 
+        {% comment %} specimen observations generally are a loinc code and value. This is a guess at
+        what the spec-standard way of encoding received time is {% endcomment %}
+        {% for ob in obs %}
+            {% if ob.code.code == "63572-2" %}
+                {% assign receivedTime = ob.value.value -%}
+            {% endif %}
+        {% endfor %}
+        {% if receivedTime %}
+            "receivedTime": "{{ receivedTime | format_as_date_time }}",
+        {% endif %}
+        "collection": {
+            {% include 'Utils/EffectiveTime' timeType: "collected", effectiveTime: specimenProc.effectiveTime %}
+            "bodySite": {
+                {% include 'DataType/CodeableConcept' CodeableConcept: specimenProc.targetSiteCode %}
+            },
+        },
+        "condition": [
+        {% for ob in obs %}
+            {% if ob.templateId.root == '2.16.840.1.113883.10.20.22.4.421' %}
+                {
+                    {% include 'DataType/CodeableConcept' CodeableConcept: ob.value %}
+                },
+            {% endif %}
+        {% endfor %}
+        ],
+        "note": [
+        {% for act in acts %}
+            {% if act.templateId.root == '2.16.840.1.113883.10.20.22.4.64' %}
+                {% assign refVal = act.text.reference.value | replace: '#', '' -%}
+                {% assign commentStr = text | find_inner_text_by_id: refVal -%}
+                {
+                    "text": {{ commentStr | clean_string_from_tabs | escape_special_chars }},
+                    "time": "{{ act.author.time.value | format_as_date_time }}",
+                    "authorString": "{{ act.author.assignedAuthor.assignedPerson.name }}",
+                }
+            {% endif %}
+        {% endfor %}
+        ]
+    },
+    "request":{
+        "method":"PUT",
+        "url":"Specimen/{{ ID }}",
+    },
+},

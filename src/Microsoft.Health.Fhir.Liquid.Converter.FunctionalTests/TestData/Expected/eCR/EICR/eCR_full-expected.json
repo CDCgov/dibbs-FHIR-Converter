@@ -876,17 +876,8 @@
         },
         "extension": [
           {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-05-13"
-              },
-              {
-                "url": "observation entry reference value",
-                "valueString": "id_077fe949-6bbb-44b2-9430-f4f00cc4877d_ref"
-              }
-            ]
+            "url": "observation entry reference value",
+            "valueString": "id_077fe949-6bbb-44b2-9430-f4f00cc4877d_ref"
           }
         ],
         "subject": {
@@ -985,17 +976,8 @@
         },
         "extension": [
           {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-05-15"
-              },
-              {
-                "url": "observation entry reference value",
-                "valueString": "id_5a3c1d72-9f88-41e7-b2d5-ec9a7f6b8c4f_ref"
-              }
-            ]
+            "url": "observation entry reference value",
+            "valueString": "id_5a3c1d72-9f88-41e7-b2d5-ec9a7f6b8c4f_ref"
           }
         ],
         "subject": {

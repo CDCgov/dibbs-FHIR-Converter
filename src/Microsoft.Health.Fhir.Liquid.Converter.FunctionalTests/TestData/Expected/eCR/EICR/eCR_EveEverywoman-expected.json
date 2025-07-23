@@ -1607,6 +1607,11 @@
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
+        "specimen": [
+          {
+            "reference": "Specimen/f6ead144-a7d0-a2c9-2938-723d4c3c8fa6"
+          }
+        ],
         "result": [
           {
             "reference": "Observation/e333acb8-01e7-e1ea-e9bc-b87c9e8bfd7c"
@@ -1619,6 +1624,43 @@
       "request": {
         "method": "PUT",
         "url": "DiagnosticReport/d48a8db3-dcea-9283-8af5-68cf694ef489"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f6ead144-a7d0-a2c9-2938-723d4c3c8fa6",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "f6ead144-a7d0-a2c9-2938-723d4c3c8fa6",
+        "type": {
+          "coding": [
+            {
+              "code": "119297000",
+              "system": "http://snomed.info/sct",
+              "display": "Blood specimen (specimen)"
+            }
+          ]
+        },
+        "collection": {
+          "collectedPeriod": {
+            "start": "2020-03-09"
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "code": "368208006",
+                "system": "http://snomed.info/sct",
+                "display": "Left upper arm structure (body structure)"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/f6ead144-a7d0-a2c9-2938-723d4c3c8fa6"
       }
     },
     {
@@ -1682,21 +1724,6 @@
                 "code": "L",
                 "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
                 "display": "Low"
-              }
-            ]
-          }
-        ],
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood specimen (specimen)"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
               }
             ]
           }
@@ -1771,21 +1798,6 @@
                 "code": "H",
                 "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
                 "display": "High"
-              }
-            ]
-          }
-        ],
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood specimen (specimen)"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
               }
             ]
           }
@@ -1899,15 +1911,6 @@
           }
         ],
         "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
-              }
-            ]
-          },
           {
             "url": "http://terminology.hl7.org/ValueSet/v2-0085",
             "valueCodeableConcept": {
@@ -2032,15 +2035,6 @@
           }
         ],
         "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
-              }
-            ]
-          },
           {
             "url": "http://terminology.hl7.org/ValueSet/v2-0085",
             "valueCodeableConcept": {
@@ -2815,10 +2809,17 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "resource": {
         "resourceType": "Observation",
         "id": "77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
+            }
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob"
@@ -2906,18 +2907,11 @@
             }
           }
         ],
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
-            "valueReference": {
-              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
-            }
-          }
-        ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
       },
+      "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "request": {
         "method": "PUT",
         "url": "Observation/77d57bd0-c41e-78f4-cbbb-218b4a2c412a"

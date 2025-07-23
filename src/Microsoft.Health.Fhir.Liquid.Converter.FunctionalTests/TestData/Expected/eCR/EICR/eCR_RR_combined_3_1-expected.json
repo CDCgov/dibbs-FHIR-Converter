@@ -1486,6 +1486,14 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         },
+        "specimen": [
+          {
+            "reference": "Specimen/a0364c3a-0124-b1f1-c4f5-518c0d810ece"
+          },
+          {
+            "reference": "Specimen/c625e261-fcd2-030c-7ddf-2145afdbb2a6"
+          }
+        ],
         "result": [
           {
             "reference": "Observation/bcdfa648-971b-836c-5a7e-5eff675f405c"
@@ -1507,6 +1515,54 @@
       "request": {
         "method": "PUT",
         "url": "DiagnosticReport/ce037697-81e6-973a-10e7-58d070f9f77b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a0364c3a-0124-b1f1-c4f5-518c0d810ece",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "a0364c3a-0124-b1f1-c4f5-518c0d810ece",
+        "type": {
+          "coding": [
+            {
+              "code": "119297000",
+              "system": "http://snomed.info/sct",
+              "display": "Blood"
+            }
+          ]
+        },
+        "collection": {
+          "bodySite": {
+            "coding": [
+              {
+                "code": "122555007",
+                "system": "http://snomed.info/sct",
+                "display": "Venous blood specimen (specimen)"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/a0364c3a-0124-b1f1-c4f5-518c0d810ece"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c625e261-fcd2-030c-7ddf-2145afdbb2a6",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "c625e261-fcd2-030c-7ddf-2145afdbb2a6",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/c625e261-fcd2-030c-7ddf-2145afdbb2a6"
       }
     },
     {
@@ -1552,21 +1608,8 @@
         },
         "extension": [
           {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "1981-10-16"
-              },
-              {
-                "url": "observation entry reference value",
-                "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1"
-              }
-            ]
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1"
           }
         ],
         "subject": {
@@ -1630,21 +1673,8 @@
         ],
         "extension": [
           {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "1981-10-16"
-              },
-              {
-                "url": "observation entry reference value",
-                "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2"
-              }
-            ]
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2"
           }
         ],
         "subject": {
@@ -1699,21 +1729,8 @@
         },
         "extension": [
           {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "1981-10-16"
-              },
-              {
-                "url": "observation entry reference value",
-                "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3"
-              }
-            ]
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3"
           }
         ],
         "subject": {
@@ -1781,21 +1798,8 @@
         ],
         "extension": [
           {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "1981-10-16"
-              },
-              {
-                "url": "observation entry reference value",
-                "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4"
-              }
-            ]
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4"
           }
         ],
         "subject": {
@@ -1843,21 +1847,6 @@
             }
           ]
         },
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "1981-10-16"
-              }
-            ]
-          }
-        ],
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }

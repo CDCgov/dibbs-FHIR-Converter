@@ -133,46 +133,24 @@
                 {% endfor %}
             ],
         {% endif %}
+        {% comment %} TODO: can this go anywhere better? {% endcomment %}
         {% assign observationTextReferenceValue = observationEntry.text.reference.value -%}
         {% assign observationValueReferenceValue = observationEntry.value.reference.value -%}
         "extension":
-            [ {
-                {% if specimenValue != null or collectTime != null or receiveTime != null -%}
-
-                    "url" : "http://hl7.org/fhir/R4/specimen.html",
-                    "extension": [
-                    {% if specimenValue != null -%}
-                        {
-                            "url" : "specimen source",
-                            "valueString" : "{{ specimenValue }}",
-                        },
-                    {% endif -%}
-                    {% if collectTime != null -%}
-                        {
-                            "url" : "specimen collection time",
-                            "valueDateTime" : "{{ collectTime | format_as_date_time }}",
-                        },
-                    {% endif -%}
-                    {% if receiveTime != null -%}
-                        {
-                            "url" : "specimen receive time",
-                            "valueDateTime" : "{{ receiveTime | format_as_date_time }}",
-                        },
-                    {% endif -%}
-                    {% if observationTextReferenceValue -%}
-                        {
-                            "url":"observation entry reference value",
-                            "valueString":"{{ observationTextReferenceValue }}",
-                        },
-                    {% elsif observationValueReferenceValue -%}
-                        {
-                            "url":"observation entry reference value",
-                            "valueString":"{{ observationValueReferenceValue }}",
-                        },
-                    {% endif -%}
-                    ],
+            [
+            {% if observationCategory == 'laboratory' %}
+                {% if observationTextReferenceValue -%}
+                    {
+                        "url":"observation entry reference value",
+                        "valueString":"{{ observationTextReferenceValue }}",
+                    },
+                {% elsif observationValueReferenceValue -%}
+                    {
+                        "url":"observation entry reference value",
+                        "valueString":"{{ observationValueReferenceValue }}",
+                    },
                 {% endif -%}
-            },
+            {% endif %}
             {% if observationEntry.entryRelationship.observation and observationEntry.entryRelationship.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.419' %}
                 {% comment %} Lab Observation Result Status Extension {% endcomment %}
                 {

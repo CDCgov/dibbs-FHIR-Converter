@@ -134,22 +134,14 @@
             ],
         {% endif %}
         {% comment %} TODO: can this go anywhere better? {% endcomment %}
-        {% assign observationTextReferenceValue = observationEntry.text.reference.value -%}
-        {% assign observationValueReferenceValue = observationEntry.value.reference.value -%}
+        {% assign observationReferenceValue = observationEntry.text.reference.value | default: observationEntry.value.reference.value -%}
         "extension":
             [
-            {% if observationCategory == 'laboratory' %}
-                {% if observationTextReferenceValue -%}
-                    {
-                        "url":"observation entry reference value",
-                        "valueString":"{{ observationTextReferenceValue }}",
-                    },
-                {% elsif observationValueReferenceValue -%}
-                    {
-                        "url":"observation entry reference value",
-                        "valueString":"{{ observationValueReferenceValue }}",
-                    },
-                {% endif -%}
+            {% if observationCategory == 'laboratory' and observationtReferenceValue %}
+                {
+                    "url":"observation entry reference value",
+                    "valueString":"{{ observationReferenceValue }}",
+                },
             {% endif %}
             {% if observationEntry.entryRelationship.observation and observationEntry.entryRelationship.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.419' %}
                 {% comment %} Lab Observation Result Status Extension {% endcomment %}

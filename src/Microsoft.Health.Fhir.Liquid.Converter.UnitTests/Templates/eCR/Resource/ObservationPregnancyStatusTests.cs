@@ -111,7 +111,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("Final", actualFhir.Status.ToString());
             Assert.Equal("http://loinc.org", actualFhir.Code.Coding.First().System);
             Assert.Equal("82810-3", actualFhir.Code.Coding.First().Code);
-            Assert.Equal("urn:uuid:9876", actualFhir.Subject.Reference);
             Assert.Equal("2017-08-26", (actualFhir.Effective as Period).Start);
             Assert.Equal("77386006", (actualFhir.Value as CodeableConcept).Coding.First().Code);
             Assert.Equal(

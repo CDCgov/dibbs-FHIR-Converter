@@ -12,21 +12,19 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
           ]
         },
-        "identifier": [
-          {
-            "use": "official",
-            "type": {
-              "coding": [
-                {
-                  "code": "55751-2",
-                  "system": "http://loinc.org",
-                  "display": "Public Health Case Report"
-                }
-              ]
-            },
-            "value": "31"
-          }
-        ],
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public Health Case Report"
+              }
+            ]
+          },
+          "value": "31"
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
@@ -1253,15 +1251,6 @@
       "request": {
         "method": "PUT",
         "url": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "CareTeam",
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        }
       }
     },
     {
@@ -2817,6 +2806,39 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
+        "identifier": [
+          {
+            "system": "urn:oid:58822180-ab0d-42e4-90c6-35336bf55654",
+            "value": "12345"
+          }
+        ],
+        "name": "University Hospital",
+        "address": [
+          {
+            "line": [
+              "Peachtree St"
+            ],
+            "city": "Atlanta",
+            "state": "Georgia"
+          }
+        ],
+        "telecom": [
+          {
+            "value": "555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:77d57bd0-c41e-78f4-cbbb-218b4a2c412a",
       "resource": {
         "resourceType": "Observation",
@@ -2905,6 +2927,14 @@
                   "display": "Home nursing services"
                 }
               ]
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/3f173e4d-0ac7-bc1b-dd38-1df99c48640e"
             }
           }
         ],
@@ -3949,21 +3979,6 @@
       "request": {
         "method": "PUT",
         "url": "Observation/ecf330de-e85f-0b34-5fdd-6dccdae41d6d"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:",
-      "resource": {
-        "resourceType": "Observation",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
-          ]
-        }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/"
       }
     },
     {

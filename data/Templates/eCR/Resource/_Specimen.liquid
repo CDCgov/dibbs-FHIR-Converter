@@ -12,6 +12,13 @@
         ],
         {% assign rels = specimenProc.entryRelationship | to_array %}
         {% assign acts = rels.act %}
+        {% comment %}
+            NOTE: We are currently (potentially) not converting most data that comes through as
+            specimen observations. These are essentially code/value pairs of LOINC codes describing
+            what is observed and the result of that in the value. It can be any LOINC code and we
+            don't know where they would go. As these come in, we should start to find homes for them
+            in this resource.
+        {% endcomment %}
         {% assign obs = rels.observation %}
 
         {% assign rejected = false %}

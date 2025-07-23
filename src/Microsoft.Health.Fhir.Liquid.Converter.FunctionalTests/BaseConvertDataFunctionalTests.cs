@@ -414,6 +414,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 var outcomeText = result.ToString();
                 var numFailed = result.Issue.Count();
 
+                if ("validation" == validationFailureStep && numFailures == numFailed)
+                {
+                    Console.WriteLine(result.ToString());
+                }
+
                 Assert.Equal("validation", validationFailureStep);
                 Assert.True(numFailures == numFailed, $"!!Validation failed!!\nExpected {numFailures}, but got {numFailed}\n{outcomeText}");
             }
@@ -422,6 +427,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 
                 var errors = e.Message.Replace(") (", ")\n(");
                 var numFailed = errors.Count(f => f == '\n') + 1;
+
+                if ("parsing" == validationFailureStep && numFailures == numFailed)
+                {
+                    Console.WriteLine(errors);
+                }
+
                 Assert.Equal("parsing", validationFailureStep);
                 Assert.True(numFailures == numFailed, $"!!Parsing failed!!\nExpected {numFailures}, but got {numFailed}\n{errors}");
                 return;

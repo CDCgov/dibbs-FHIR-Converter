@@ -89,7 +89,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 </observation>";
 
             var parser = new CcdaDataParser();
-            var parsedXml = parser.Parse(xmlString) as Dictionary<string, object>; ;
+            var parsedXml = parser.Parse(xmlString) as Dictionary<string, object>;
 
             var attributes = new Dictionary<string, object>
             {

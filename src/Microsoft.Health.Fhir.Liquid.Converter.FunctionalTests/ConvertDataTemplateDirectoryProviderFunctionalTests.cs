@@ -110,7 +110,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 rootTemplate,
                 inputFile,
                 validationFailureStep,
-                Int32.Parse(numFailures),
+                Int32.Parse(numFailures)
             );
         }
 

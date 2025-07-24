@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DotLiquid;
+using DotLiquid.Util;
 using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -115,6 +116,33 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             }
 
             return template;
+        }
+
+        private static bool HasMatchingPropertyRecursive(IList<IDictionary<string, object>> entry, string keyPath, string targetProperty = null)
+        {
+            var keys = keyPath.Split(".");
+            var res = DotLiquid.StandardFilters.Where(entry, keys[0], targetProperty) as IList<IDictionary<string, object>>;
+            if (res.Count() == 0)
+            {
+                return false;
+            }
+            else if (keys.Count() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return HasMatchingPropertyRecursive(new[] { res[0][keys[0]] }, keys[1..].Join('.'), targetProperty);
+            }
+        }
+
+        public static IList<IDictionary<string, object>> NestedWhere(IList<IDictionary<string, object>> entries, string keyPath, string targetProperty = null)
+        {
+            if (input == null)
+                return null;
+
+
+            return entries.Where(entry => HasMatchingPropertyRecursive(new[] { entry }, keyPath, targetProperty));
         }
     }
 }

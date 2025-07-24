@@ -379,7 +379,21 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
+              },
+              {
+                "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
+              },
+              {
+                "reference": "Observation/1d93a81a-783d-c53d-54c4-24e9f036600d"
+              },
+              {
+                "reference": "Observation/94fe2533-e208-a1b4-c510-c9ece8a2d490"
+              }
+            ]
           },
           {
             "id": "ab1d85cb-f5b1-ff82-c029-9bea163cb86f",
@@ -1390,9 +1404,6 @@
             }
           ]
         },
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        },
         "effectivePeriod": {
           "start": "2017-08-26"
         },
@@ -1464,7 +1475,10 @@
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
             "valueDateTime": "2017-10-01"
           }
-        ]
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
       },
       "request": {
         "method": "PUT",
@@ -1507,11 +1521,6 @@
             }
           ]
         },
-        "focus": [
-          {
-            "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
-          }
-        ],
         "effectiveDateTime": "2020-01-05T08:50:00",
         "valueCodeableConcept": {
           "coding": [
@@ -1538,7 +1547,12 @@
         ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        }
+        },
+        "focus": [
+          {
+            "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
+          }
+        ]
       },
       "request": {
         "method": "PUT",
@@ -1552,7 +1566,7 @@
         "id": "1d93a81a-783d-c53d-54c4-24e9f036600d",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-last-menstrual-period"
           ]
         },
         "identifier": [
@@ -1575,8 +1589,8 @@
         "code": {
           "coding": [
             {
-              "code": "8665-2",
               "system": "http://loinc.org",
+              "code": "8665-2",
               "display": "Last menstrual period start date"
             }
           ]

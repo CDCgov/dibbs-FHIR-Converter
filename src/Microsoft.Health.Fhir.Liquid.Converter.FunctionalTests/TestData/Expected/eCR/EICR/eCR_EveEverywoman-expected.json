@@ -379,7 +379,18 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
+              },
+              {
+                "reference": "Observation/1d93a81a-783d-c53d-54c4-24e9f036600d"
+              },
+              {
+                "reference": "Observation/94fe2533-e208-a1b4-c510-c9ece8a2d490"
+              }
+            ]
           },
           {
             "id": "ab1d85cb-f5b1-ff82-c029-9bea163cb86f",
@@ -1495,11 +1506,6 @@
             }
           ]
         },
-        "focus": [
-          {
-            "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
-          }
-        ],
         "effectiveDateTime": "2020-01-05T08:50:00",
         "valueCodeableConcept": {
           "coding": [
@@ -1526,7 +1532,12 @@
         ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        }
+        },
+        "focus": [
+          {
+            "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
+          }
+        ]
       },
       "request": {
         "method": "PUT",

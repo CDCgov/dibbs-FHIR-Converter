@@ -213,7 +213,7 @@
                                     {
                                         "reference": "{{ fullObservationId }}",
                                     },
-                            {% elseif component.section.code.code == "47519-4" %}
+                            {% elsif component.section.code.code == "47519-4" %}
                                 {% assign procedure = sectionEntry.procedure %}
                                 {% if sectionEntry.act %}
                                     {% assign procedure = sectionEntry.act %}
@@ -231,6 +231,24 @@
                                         "reference": "{{ fullObservationId }}",
                                     },
                                 {% endif %}
+                            {% elsif sectionEntry.observation != null and component.section.templateId.root == '2.16.840.1.113883.10.20.22.2.80' %}
+                                {% comment %} Pregnancy observations {% endcomment %}
+                                {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                {% assign fullObservationId = observationId | prepend: 'Observation/' %}
+                                {
+                                    "reference": "{{ fullObservationId }}",
+                                },
+                                 {% comment %} Add birth outcome obs with focus on this pregnancy obs {% endcomment %}
+                                {% assign rels = sectionEntry.observation.entryRelationship | to_array %}
+                                {% for rel in rels -%}
+                                    {% if rel.typeCode == "COMP" and rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.284' %}
+                                        {% assign outcomeId = rel | to_json_string | generate_uuid %}
+                                        {% assign fullOutcomeId = observationId | prepend: 'Observation/' %}
+                                        {
+                                            "reference": "{{ fullOutcomeId }}",
+                                        },
+                                    {% endif %}
+                                {% endfor %}
                             {% endif -%}
                         {% endfor -%}
                     ],

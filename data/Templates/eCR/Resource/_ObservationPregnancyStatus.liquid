@@ -39,32 +39,55 @@
             {% endif -%}
         "code":
         {
-            {% if observationEntry.code.translation.code -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code.translation -%}
-            {% endif -%}
-            {% if observationEntry.code.translation.code == null -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%}
-            {% endif -%}
+            "coding": [
+                {
+                    "system": "http://loinc.org",
+                    "code": "82810-3",
+                    "display": "Pregnancy status"
+                }
+            ]
         },
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
+        "method": {
+            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.methodCode %}
+        },
         "component" : [
             {% assign obsRelationships = observationEntry.entryRelationship | to_array -%}
             {% for obsRelation in obsRelationships -%}
+            {% assign templateIdString = obsRelation.observation.templateId.root -%}
+            {% if templateIdString == '2.16.840.1.113883.10.20.22.4.280' or templateIdString == '2.16.840.1.113883.10.20.22.4.297' -%}
             {
-                "code":
+                "extension": [
+                    {% if obsRelation.observation.effectiveTime -%}
                     {
-                        {% if obsRelation.observation.code.translation.code -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code.translation -%}
-                        {% endif -%}
-                        {% if obsRelation.observation.code.translation.code == null -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code -%}
-                        {% endif -%}
+                        "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                        "valueDateTime": "{{ obsRelation.observation.effectiveTime.value | format_as_date_time }}",
                     },
+                    {% endif -%}
+                ],
+                "code": {
+                    {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code -%}
+                },
                 {% include 'Utils/ValueHelper' value: obsRelation.observation.value, origText: text._innerText -%}
             },
+            {% endif -%}
             {% endfor -%}
         ],
+        "extension": [
+            {% if observationEntry.author -%}
+            {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension",
+                "valueDateTime": "{{ observationEntry.author.time.value | format_as_date_time }}"
+            },
+            {% endif -%}
+            {% if observationEntry.performer -%}
+            {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                "valueDateTime": "{{ observationEntry.performer.time.value | format_as_date_time }}"
+            },
+            {% endif -%}
+        ]
     },
     "request":{
         "method":"PUT",

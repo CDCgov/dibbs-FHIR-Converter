@@ -238,6 +238,17 @@
                                 {
                                     "reference": "{{ fullObservationId }}",
                                 },
+                                 {% comment %} Add birth outcome obs with focus on this pregnancy obs {% endcomment %}
+                                {% assign rels = sectionEntry.observation.entryRelationship | to_array %}
+                                {% for rel in rels -%}
+                                    {% if rel.typeCode == "COMP" and rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.284' %}
+                                        {% assign outcomeId = rel | to_json_string | generate_uuid %}
+                                        {% assign fullOutcomeId = observationId | prepend: 'Observation/' %}
+                                        {
+                                            "reference": "{{ fullOutcomeId }}",
+                                        },
+                                    {% endif %}
+                                {% endfor %}
                             {% endif -%}
                         {% endfor -%}
                     ],

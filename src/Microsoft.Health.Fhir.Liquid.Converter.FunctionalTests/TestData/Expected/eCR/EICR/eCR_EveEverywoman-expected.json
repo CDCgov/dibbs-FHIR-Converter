@@ -385,6 +385,9 @@
                 "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
               },
               {
+                "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
+              },
+              {
                 "reference": "Observation/1d93a81a-783d-c53d-54c4-24e9f036600d"
               },
               {
@@ -1401,9 +1404,6 @@
             }
           ]
         },
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        },
         "effectivePeriod": {
           "start": "2017-08-26"
         },
@@ -1475,7 +1475,10 @@
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
             "valueDateTime": "2017-10-01"
           }
-        ]
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
       },
       "request": {
         "method": "PUT",

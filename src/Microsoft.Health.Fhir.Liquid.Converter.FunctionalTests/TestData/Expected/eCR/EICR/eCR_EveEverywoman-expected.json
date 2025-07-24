@@ -887,7 +887,7 @@
           },
           {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension",
-            "valueString": "Detection of SARS-CoV-2                                                    antibody in a clinical specimen by any method"
+            "valueString": "Detection of SARS-CoV-2 antibody in a clinical specimen by any method"
           }
         ],
         "performer": [
@@ -957,7 +957,7 @@
           },
           {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension",
-            "valueString": "Plague (as a diagnosis or                                                    active problem)"
+            "valueString": "Plague (as a diagnosis or active problem)"
           }
         ],
         "performer": [

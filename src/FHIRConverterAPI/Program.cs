@@ -43,6 +43,10 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
 
                 inputData = ecrDoc.ToString();
             }
+            catch (UserFacingException ex)
+            {
+                return Results.Json(new { detail = ex.Message }, statusCode: (int)ex.StatusCode);
+            }
             catch (Exception ex)
             {
                 return Results.BadRequest(new { detail = ex.Message });
@@ -106,6 +110,7 @@ string GetRootTemplate(string inputType)
         "elr" => "ORU_R01",
         "vxu" => "VXU_V04",
         "fhir" => string.Empty,
+        // TODO: fix this
         _ => throw new NotImplementedException($"The conversion from data type {inputType} to FHIR is not supported")
     };
 }

@@ -1,3 +1,4 @@
+using System.Net;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -37,7 +38,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       }
       catch (Exception ex)
       {
-        throw new UnprocessableEntityException("EICR message must be valid XML message.");
+        throw new UserFacingException("EICR message must be valid XML message.", HttpStatusCode.UnprocessableEntity, ex);
       }
     }
 
@@ -60,7 +61,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       }
       catch (Exception ex)
       {
-        throw new UnprocessableEntityException("Reportability Response (RR) message must be valid XML message.");
+        throw new UserFacingException("Reportability Response (RR) message must be valid XML message.", HttpStatusCode.UnprocessableEntity, ex);
       }
 
       try

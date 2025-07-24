@@ -1,12 +1,7 @@
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Xunit;
-using System.Text.Json.Nodes;
+using Snapshooter.Xunit;
 
 public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program>>
 {
@@ -18,33 +13,104 @@ public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program
     }
 
     [Fact]
+    public async Task HealthCheck()
+    {
+        var response = await _client.GetAsync("/");
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal("{\"status\":\"OK\"}", jsonResponse);
+    }
+
+    [Fact]
+    public async Task OpenApi()
+    {
+        var response = await _client.GetAsync("/swagger/v1/swagger.json");
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
     public async Task ConvertToFHIR_ReturnsSuccess_WhenValidXMLProvided()
     {
         Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
-        var workingDirectory = Environment.CurrentDirectory;
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
         var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
         var content = new FHIRConverterRequest
         {
             input_type = "eCR",
             input_data = eICR,
-            rr_data = rr
+            rr_data = rr,
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
         var jsonResponse = await response.Content.ReadAsStringAsync();
-
-        var responseJNode = JsonNode.Parse(jsonResponse);
-        var entries = responseJNode["response"]["FhirResource"]["entry"] as JsonArray;
-        var patientId = (string)entries.Where(x => (string)x["resource"]["resourceType"] == "Patient").First()["resource"]["id"];
-
-        // Hack to deal with new ID being generated every time
-        jsonResponse = jsonResponse.Replace(patientId, "b326e36e-b4ef-4bd3-ac4a-1aee81d10665");
-
         Assert.NotNull(jsonResponse);
 
-        var expected = File.ReadAllText("../../../../../data/SampleData/FHIR/YodaEcrBundle.json");
-        Assert.Equal(expected, jsonResponse);
+        Snapshot.Match(jsonResponse, CommonIgnoredFields);
+    }
+
+    [Fact]
+    public async Task ConvertToFHIR_Returns422StatusCode_WhenInvalidXMLProvided()
+    {
+        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
+        var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
+        var content = new FHIRConverterRequest
+        {
+            input_type = "eCR",
+            input_data = eICR,
+            rr_data = "<this is not valid xml>",
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.Equal("{\"detail\":\"Reportability Response (RR) message must be valid XML message.\"}", jsonResponse);
+    }
+
+    // TODO: more error response tests
+
+    [Fact]
+    public async Task ConvertToFHIR_ReturnsSuccess_WhenValidVXUProvided()
+    {
+        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
+        var vxu = File.ReadAllText("../../../../../data/SampleData/Hl7v2/VXU-Sample.hl7");
+        var content = new FHIRConverterRequest
+        {
+            input_type = "vxu",
+            input_data = vxu,
+            root_template = "VXU_V04",
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.NotNull(jsonResponse);
+
+        // find diff
+        // var expectedObject = JObject.Parse(expected);
+        // var actualObject = JObject.Parse(jsonResponse);
+
+        // var diff = DiffHelper.FindDiff(actualObject, expectedObject);
+        // if (diff.HasValues)
+        // {
+        //     Console.WriteLine(diff);
+        // }
+        // find diff
+
+        Snapshot.Match(jsonResponse, matchOptions => CommonIgnoredFields(matchOptions)
+                    // Ignore provenance div because of generated on timestamp
+                    .IgnoreField("response.FhirResource.entry[1].resource.text.div"));
+    }
+
+    private static Snapshooter.MatchOptions CommonIgnoredFields(Snapshooter.MatchOptions matchOptions)
+    {
+        return matchOptions
+                    .IgnoreAllFields("id")
+                    .IgnoreAllFields("fullUrl")
+                    .IgnoreAllFields("reference")
+                    .IgnoreField("response.FhirResource.entry[*].request.url");
     }
 }

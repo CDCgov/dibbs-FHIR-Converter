@@ -1384,10 +1384,14 @@
         "code": {
           "coding": [
             {
-              "code": "ASSERTION",
-              "system": "urn:oid:2.16.840.1.113883.5.4"
+              "system": "http://loinc.org",
+              "code": "82810-3",
+              "display": "Pregnancy status"
             }
           ]
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
         "effectivePeriod": {
           "start": "2017-08-26"
@@ -1401,8 +1405,23 @@
             }
           ]
         },
+        "method": {
+          "coding": [
+            {
+              "code": "16310003",
+              "system": "http://snomed.info/sct",
+              "display": "Diagnostic ultrasonography (procedure)"
+            }
+          ]
+        },
         "component": [
           {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                "valueDateTime": "2017-10-01T10:15:00"
+              }
+            ],
             "code": {
               "coding": [
                 {
@@ -1412,11 +1431,15 @@
                 }
               ]
             },
-            "valueQuantity": {
-              "value": 20170522
-            }
+            "valueDateTime": "2017-05-22"
           },
           {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                "valueDateTime": "2017-10-01T10:15:00"
+              }
+            ],
             "code": {
               "coding": [
                 {
@@ -1430,31 +1453,18 @@
               "value": 143,
               "unit": "d"
             }
-          },
-          {
-            "code": {
-              "coding": [
-                {
-                  "code": "63893-2",
-                  "system": "http://loinc.org",
-                  "display": "Outcome of Pregnancy"
-                }
-              ]
-            },
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "code": "237364002",
-                  "system": "http://snomed.info/sct",
-                  "display": "Stillbirth (finding)"
-                }
-              ]
-            }
           }
         ],
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        }
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension",
+            "valueDateTime": "2017-10-01T10:35:00"
+          },
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+            "valueDateTime": "2017-10-01"
+          }
+        ]
       },
       "request": {
         "method": "PUT",
@@ -1572,9 +1582,7 @@
           ]
         },
         "effectiveDateTime": "2020-01-05T10:15:00",
-        "valueQuantity": {
-          "value": 20170801
-        },
+        "valueDateTime": "2017-08-01",
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }

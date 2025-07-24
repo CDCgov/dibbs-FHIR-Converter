@@ -137,7 +137,7 @@
         {% assign observationReferenceValue = observationEntry.text.reference.value | default: observationEntry.value.reference.value -%}
         "extension":
             [
-            {% if observationCategory == 'laboratory' and observationtReferenceValue %}
+            {% if observationCategory == 'laboratory' and observationReferenceValue %}
                 {
                     "url":"observation entry reference value",
                     "valueString":"{{ observationReferenceValue }}",

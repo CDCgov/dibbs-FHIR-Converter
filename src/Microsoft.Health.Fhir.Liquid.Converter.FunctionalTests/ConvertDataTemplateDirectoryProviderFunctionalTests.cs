@@ -90,7 +90,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 
         [Theory]
         [MemberData(nameof(GetDataForEcr))]
-        public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile)
+        public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile, string _validationFailureStep, string _numFailures)
         {
             var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "eCR");
             var templateProvider = new TemplateProvider(templateDirectory, DataType.Ccda);
@@ -100,12 +100,18 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 
         [Theory]
         [MemberData(nameof(GetDataForEcr))]
-        public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid(string rootTemplate, string inputFile, string expectedFile)
+        public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid(string rootTemplate, string inputFile, string expectedFile, string validationFailureStep, string numFailures)
         {
             var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "eCR");
             var templateProvider = new TemplateProvider(templateDirectory, DataType.Ccda);
 
-            ValidateConvertCCDAMessageIsValidFHIR(templateProvider, rootTemplate, inputFile);
+            ValidateConvertCCDAMessageIsValidFHIR(
+                templateProvider,
+                rootTemplate,
+                inputFile,
+                validationFailureStep,
+                Int32.Parse(numFailures)
+            );
         }
 
         [Theory]

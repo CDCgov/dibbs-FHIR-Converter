@@ -16,52 +16,36 @@
         {% include 'Reference/DiagnosticReport/Performer' ID: diagnosticId, REF: fullPerformerId -%}
         {% endif -%}
     {% endif -%}
-    {% assign collectTime = null %}
-    {% if entry.organizer.effectiveTime.low and entry.organizer.effectiveTime.low.value -%}
-        {% assign collectTime = entry.organizer.effectiveTime.low.value -%}
-    {% elsif entry.organizer.effectiveTime.high and entry.organizer.effectiveTime.high.value -%}
-        {% assign collectTime = entry.organizer.effectiveTime.high.value -%}
-    {% elsif entry.organizer.effectiveTime and entry.organizer.effectiveTime.value and entry.organizer.effectiveTime.value != "UNK"-%}
-        {% assign collectTime = entry.organizer.effectiveTime.value -%}
-    {% endif -%}
-    
-    {% assign specValue = null %}
-    {% assign receiveTime = null %}
-    {% assign comps = entry.organizer.component | to_array -%}
-    {% for comp in comps -%}
-        {% if comp.procedure  -%}
-            {% if comp.procedure.entryRelationship and comp.procedure.entryRelationship.act -%}
-              {% assign acts = comp.procedure.entryRelationship.act | to_array %}
-              {% for act in acts -%}
-                {% if act.code and act.code["code"] == "SPRECEIVE" %}
-                  {% assign receiveTime = act.effectiveTime.value -%}
-                {% endif -%}
-              {% endfor -%} 
-            {% endif -%}
-            {% if comp.procedure.participant.participantRole.id -%}
-                {% assign playingEntity = comp.procedure.participant.participantRole.playingEntity -%}
-                {% if playingEntity.code.translation -%}
-                    {% assign translations = playingEntity.code.translation | to_array -%}
-                    {% if translations.first.displayName -%}
-                        {% assign specValue = translations.first.displayName -%}
-                    {% endif -%}
-                {% elsif comp.procedure.participant.participantRole.id.displayName -%}
-                    {% assign specValue = comp.procedure.participant.participantRole.id.displayName -%}
-                {% elsif playingEntity.code.originalText._ %}
-                    {% assign specValue = playingEntity.code.originalText._ -%}
-                {% elsif playingEntity.code.displayName -%}
-                     {% assign specValue = playingEntity.code.displayName -%}
-                {% endif -%}
-            {% endif -%}
-        {% endif -%}
-    {% endfor -%}   
+
+    {% comment %} From 2.16.840.1.113883.10.20.15.2.3.35:2022-05-01 {% endcomment %}
+    {% assign procComponents  = entry.organizer.component | to_array | where: "procedure"  %}
+    {% for component in procComponents %}
+        {% assign specimenId = component.procedure | to_json_string | generate_uuid -%}
+        {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' -%}
+        {% include 'Resource/SpecimenProcedure' ID: specimenId, specimenProc: component.procedure %}
+        {% include 'Reference/Specimen/Subject' ID: specimenId, REF: fullPatientId -%}
+        {% include 'Reference/DiagnosticReport/Specimen' ID: diagnosticID, REF: fullSpecimenId %}
+    {% endfor %}
+
+    {% comment %} From 2.16.840.1.113883.10.20.22.4.1:2023-05-01 {% endcomment %}
+    {% assign specs = entry.organizer.specimen | to_array  %}
+    {% for spec in specs %}
+        {% assign specimenId = spec | to_json_string | generate_uuid -%}
+        {% comment %} This specimen might have already been assigned an id via the specimen procedure, if it has, use it instead so they merge together {% endcomment %}
+        {% assign matchingSpecProcComp = procComponents | nested_where: "procedure.participant.participantRole.id.extension", spec.specimenRole.id.extension | first %}
+        {% if matchingSpecProcComp %}
+            {% assign specimenId = matchingSpecProcComp.procedure | to_json_string | generate_uuid -%}
+        {% endif %}
+        {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' -%}
+        {% include 'Resource/Specimen' ID: specimenId, specimen: spec %}
+        {% include 'Reference/Specimen/Subject' ID: specimenId, REF: fullPatientId -%}
+        {% include 'Reference/DiagnosticReport/Specimen' ID: diagnosticID, REF: fullSpecimenId %}
+    {% endfor %}
+
+    {% assign comps = entry.organizer.component | to_array -%} 
     {% for component in comps %}
         {% if component.observation.templateId.root != "2.16.840.1.113883.10.20.22.4.418" %} {% comment %} Ignore Laboratory Result Status observations {% endcomment %}
-            {% include 'Entry/Result/entry_organizer_component' with component, text: text, specValue: specValue, collectTime: collectTime, receiveTime: receiveTime, diagnosticId: diagnosticId %}
+            {% include 'Entry/Result/entry_organizer_component' with component, text: text, diagnosticId: diagnosticId %}
         {% endif %}
     {% endfor %}
 {% endif -%}
-{% comment %} Prevent weird variable leakage {% endcomment %}
-{% assign specValue = null %}
-{% assign receiveTime = null %}
-{% assign collectTime = null %}

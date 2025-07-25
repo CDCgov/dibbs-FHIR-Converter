@@ -351,7 +351,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
         Console.WriteLine($"{indent}}}");
       }
-      else if (obj is List<object> list)
+      else if (obj is IEnumerable<object> list)
       {
         Console.WriteLine($"{indent}[");
         foreach (var item in list)

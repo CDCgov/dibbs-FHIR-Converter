@@ -7,7 +7,12 @@
         {
             "profile":
             [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults",
+                {% case observationCategory %}
+                    {% when 'laboratory' %}
+                        "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation",
+                    {% else %}
+                        "http://hl7.org/fhir/StructureDefinition/Observation"
+                {% endcase %}
             ],
         },
         "identifier":
@@ -36,8 +41,8 @@
             {% comment %} Mappings: https://build.fhir.org/ig/HL7/UTG/CodeSystem-v2-0085.html {% endcomment %}
             "status":"{{ observationEntry.entryRelationship.observation.value.code | get_property: 'ValueSet/ObservationResultStatus',  }}",
         {% else -%}
-        {% comment %} If DNE, then use Mappings from: Result Observation -  Result Status Value Set (V3 ActStatus) {% endcomment %}
-        {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
+            {% comment %} If DNE, then use Mappings from: Result Observation -  Result Status Value Set (V3 ActStatus) {% endcomment %}
+            {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
             "status":"{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationResultStatus' }}",
         {% endif %}
         "code":
@@ -87,6 +92,7 @@
                         "unit":"{{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ }}",
                     },
                 {% endif -%}
+                "type": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.referenceRange.observationRange.interpretationCode %} },
             },
         ],
         "interpretation":
@@ -114,18 +120,15 @@
             [
                 {% for component in batteryComponents %}
                 {
-                    "code":
-                        {
-                            {% if component.observation.code -%}
-                                {% include 'DataType/CodeableConcept' CodeableConcept: component.observation.code -%}
-                            {% endif -%}
-                        },
-                    "valueString": "{{ component.observation.value._ }}",
+                    "code": {
+                        {% include 'DataType/CodeableConcept' CodeableConcept: component.observation.code -%}
+                    },
+                    {% include 'Utils/ValueHelper' value: component.observation.value %}
                     "extension": [
-                        {% if component.observation.methodCode.originalText._ %}
+                        {% if component.observation.methodCode %}
                         {
-                            "url": "methodCode originalText",
-                            "valueString": "{{ component.observation.methodCode.originalText._ }}",
+                            "url": "methodCode",
+                            {% include 'Utils/ValueHelper' value: component.observation.methodCode %}
                         },
                         {% endif %}
                     ],
@@ -133,46 +136,15 @@
                 {% endfor %}
             ],
         {% endif %}
-        {% assign observationTextReferenceValue = observationEntry.text.reference.value -%}
-        {% assign observationValueReferenceValue = observationEntry.value.reference.value -%}
+        {% assign observationReferenceValue = observationEntry.text.reference.value | default: observationEntry.value.reference.value -%}
         "extension":
-            [ {
-                {% if specimenValue != null or collectTime != null or receiveTime != null -%}
-
-                    "url" : "http://hl7.org/fhir/R4/specimen.html",
-                    "extension": [
-                    {% if specimenValue != null -%}
-                        {
-                            "url" : "specimen source",
-                            "valueString" : "{{ specimenValue }}",
-                        },
-                    {% endif -%}
-                    {% if collectTime != null -%}
-                        {
-                            "url" : "specimen collection time",
-                            "valueDateTime" : "{{ collectTime | format_as_date_time }}",
-                        },
-                    {% endif -%}
-                    {% if receiveTime != null -%}
-                        {
-                            "url" : "specimen receive time",
-                            "valueDateTime" : "{{ receiveTime | format_as_date_time }}",
-                        },
-                    {% endif -%}
-                    {% if observationTextReferenceValue -%}
-                        {
-                            "url":"observation entry reference value",
-                            "valueString":"{{ observationTextReferenceValue }}",
-                        },
-                    {% elsif observationValueReferenceValue -%}
-                        {
-                            "url":"observation entry reference value",
-                            "valueString":"{{ observationValueReferenceValue }}",
-                        },
-                    {% endif -%}
-                    ],
-                {% endif -%}
-            },
+            [
+            {% if observationCategory == 'laboratory' and observationReferenceValue %}
+                {
+                    "url":"observation entry reference value",
+                    "valueString":"{{ observationReferenceValue }}",
+                },
+            {% endif %}
             {% if observationEntry.entryRelationship.observation and observationEntry.entryRelationship.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.419' %}
                 {% comment %} Lab Observation Result Status Extension {% endcomment %}
                 {

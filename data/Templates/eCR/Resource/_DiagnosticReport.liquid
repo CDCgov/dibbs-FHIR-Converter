@@ -21,9 +21,9 @@
             {% comment %} Laboratory Result Status: HL7 Result Status OBR-25 Result Status (HL701234_USL) {% endcomment %}
             "status":"{{ obsLabResultStatus.observation.value.code | get_property: 'ValueSet/DiagnosticReportStatus' }}",
         {% else -%}
-        {% comment %} If DNE, then use Mappings from one of the following: {% endcomment %}
-        {% comment %} 1) Result Status Value Set (V3 ActStatus): https://terminology.hl7.org/2.0.0/CodeSystem-v3-ActStatus.html {% endcomment %}
-        {% comment %} 2) FHIR R4 Diagnostic Report Status:  http://hl7.org/fhir/observation-status {% endcomment %}
+            {% comment %} If DNE, then use Mappings from one of the following: {% endcomment %}
+            {% comment %} 1) Result Status Value Set (V3 ActStatus): https://terminology.hl7.org/2.0.0/CodeSystem-v3-ActStatus.html {% endcomment %}
+            {% comment %} 2) FHIR R4 Diagnostic Report Status:  http://hl7.org/fhir/observation-status {% endcomment %}
             "status":"{{ diagnosticReport.statusCode.code | get_property: 'ValueSet/DiagnosticReportStatus' }}",
         {% endif %}
         "code":

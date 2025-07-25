@@ -835,7 +835,7 @@
         "id": "0e0093f9-e989-974c-eb83-21bfca5e42db",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -935,7 +935,7 @@
         "id": "cbf0c974-b864-e15a-b825-bfbf4708cc17",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -996,7 +996,7 @@
         "id": "7d4bbe54-856b-d831-d592-864f9da32c1d",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [

@@ -1522,6 +1522,12 @@
       "resource": {
         "resourceType": "Specimen",
         "id": "a0364c3a-0124-b1f1-c4f5-518c0d810ece",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.7.798268.300",
+            "value": "XX97036"
+          }
+        ],
         "type": {
           "coding": [
             {
@@ -1572,7 +1578,7 @@
         "id": "bcdfa648-971b-836c-5a7e-5eff675f405c",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1628,7 +1634,7 @@
         "id": "607da054-fb30-24cc-7ad4-c551f3913320",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1693,7 +1699,7 @@
         "id": "89ef1c4f-2ad2-ad2b-ff6c-145df1e8521a",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1749,7 +1755,7 @@
         "id": "080f8e03-814d-d5b7-82a8-4788ce8e62ed",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1818,7 +1824,7 @@
         "id": "5b1d7d64-ee1b-64e7-75a4-d7ff29fc9e77",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1863,7 +1869,7 @@
         "id": "6350e7fb-da2f-eeab-75b8-c0e6ae25968f",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -1918,7 +1924,7 @@
         "id": "41173172-a928-8b21-a48d-d7d2156fe7ec",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -1978,7 +1984,7 @@
         "id": "699b9556-f7cb-9164-b312-849989c064a8",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2038,7 +2044,7 @@
         "id": "e12e58c0-5b1c-ea6b-a474-26184e35bb54",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2084,7 +2090,7 @@
         "id": "83f9f9b0-3066-d990-9b77-5144f5e60333",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2170,7 +2176,7 @@
         "id": "06ab2e28-7e5d-3031-b644-29bd38bef2e8",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2220,7 +2226,7 @@
         "id": "55b63b40-395c-6c58-dc5a-84d8fe84bfab",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2270,7 +2276,7 @@
         "id": "66c220d3-6ce9-4cfd-bb8e-1efdfc035457",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2320,7 +2326,7 @@
         "id": "7855a3c3-145b-158c-97f8-c4d6325d1b9b",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2370,7 +2376,7 @@
         "id": "0c44d586-e6b0-2400-b615-fde6a667b249",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2420,7 +2426,7 @@
         "id": "5c96eaaa-9117-bb37-58a0-64ae4dc1811c",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2470,7 +2476,7 @@
         "id": "b30b4fc2-107e-c8d6-a5a7-a566656c0e0f",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2520,7 +2526,7 @@
         "id": "826393fd-144f-86b4-5aa3-fd6a696c36cb",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2570,7 +2576,7 @@
         "id": "ce6ae68e-af02-5134-0b92-5abc3a93791b",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2625,7 +2631,7 @@
         "id": "c409dfdf-6a85-6710-cf2c-8287a88b2392",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2675,7 +2681,7 @@
         "id": "66300dc8-8fc2-9c3b-b23d-4c8d9c398a39",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2730,7 +2736,7 @@
         "id": "6794b82a-7175-3150-38fb-9f5b295198eb",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [

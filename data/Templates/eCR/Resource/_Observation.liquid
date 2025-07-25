@@ -7,7 +7,12 @@
         {
             "profile":
             [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults",
+                {% case observationCategory %}
+                    {% when 'laboratory' %}
+                        "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation",
+                    {% else %}
+                        "http://hl7.org/fhir/StructureDefinition/Observation"
+                {% endcase %}
             ],
         },
         "identifier":
@@ -36,8 +41,8 @@
             {% comment %} Mappings: https://build.fhir.org/ig/HL7/UTG/CodeSystem-v2-0085.html {% endcomment %}
             "status":"{{ observationEntry.entryRelationship.observation.value.code | get_property: 'ValueSet/ObservationResultStatus',  }}",
         {% else -%}
-        {% comment %} If DNE, then use Mappings from: Result Observation -  Result Status Value Set (V3 ActStatus) {% endcomment %}
-        {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
+            {% comment %} If DNE, then use Mappings from: Result Observation -  Result Status Value Set (V3 ActStatus) {% endcomment %}
+            {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
             "status":"{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationResultStatus' }}",
         {% endif %}
         "code":
@@ -120,7 +125,7 @@
                                 {% include 'DataType/CodeableConcept' CodeableConcept: component.observation.code -%}
                             {% endif -%}
                         },
-                    "valueString": "{{ component.observation.value._ }}",
+                    {% include 'Utils/ValueHelper' value: component.observation.value %}
                     "extension": [
                         {% if component.observation.methodCode.originalText._ %}
                         {
@@ -133,7 +138,6 @@
                 {% endfor %}
             ],
         {% endif %}
-        {% comment %} TODO: can this go anywhere better? {% endcomment %}
         {% assign observationReferenceValue = observationEntry.text.reference.value | default: observationEntry.value.reference.value -%}
         "extension":
             [

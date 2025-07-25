@@ -17,11 +17,27 @@
         {% endif -%}
     {% endif -%}
 
+    {% comment %} From 2.16.840.1.113883.10.20.15.2.3.35:2022-05-01 {% endcomment %}
     {% assign procComponents  = entry.organizer.component | to_array | where: "procedure"  %}
     {% for component in procComponents %}
         {% assign specimenId = component.procedure | to_json_string | generate_uuid -%}
         {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' -%}
-        {% include 'Resource/Specimen' ID: specimenId, specimenProc: component.procedure %}
+        {% include 'Resource/SpecimenProcedure' ID: specimenId, specimenProc: component.procedure %}
+        {% include 'Reference/Specimen/Subject' ID: specimenId, REF: fullPatientId -%}
+        {% include 'Reference/DiagnosticReport/Specimen' ID: diagnosticID, REF: fullSpecimenId %}
+    {% endfor %}
+
+    {% comment %} From 2.16.840.1.113883.10.20.22.4.1:2023-05-01 {% endcomment %}
+    {% assign specs = entry.organizer.specimen | to_array  %}
+    {% for spec in specs %}
+        {% assign specimenId = spec | to_json_string | generate_uuid -%}
+        {% comment %} This specimen might have already been assigned an id via the specimen procedure, if it has, use it instead so they merge together {% endcomment %}
+        {% assign matchingSpecProcComp = procComponents | nested_where: "procedure.participant.participantRole.id.extension", spec.specimenRole.id.extension | first %}
+        {% if matchingSpecProcComp %}
+            {% assign specimenId = matchingSpecProcComp.procedure | to_json_string | generate_uuid -%}
+        {% endif %}
+        {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' -%}
+        {% include 'Resource/Specimen' ID: specimenId, specimen: spec %}
         {% include 'Reference/Specimen/Subject' ID: specimenId, REF: fullPatientId -%}
         {% include 'Reference/DiagnosticReport/Specimen' ID: diagnosticID, REF: fullSpecimenId %}
     {% endfor %}

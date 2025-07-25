@@ -92,6 +92,7 @@
                         "unit":"{{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ }}",
                     },
                 {% endif -%}
+                "type": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.referenceRange.observationRange.interpretationCode %} },
             },
         ],
         "interpretation":
@@ -119,18 +120,15 @@
             [
                 {% for component in batteryComponents %}
                 {
-                    "code":
-                        {
-                            {% if component.observation.code -%}
-                                {% include 'DataType/CodeableConcept' CodeableConcept: component.observation.code -%}
-                            {% endif -%}
-                        },
+                    "code": {
+                        {% include 'DataType/CodeableConcept' CodeableConcept: component.observation.code -%}
+                    },
                     {% include 'Utils/ValueHelper' value: component.observation.value %}
                     "extension": [
-                        {% if component.observation.methodCode.originalText._ %}
+                        {% if component.observation.methodCode %}
                         {
-                            "url": "methodCode originalText",
-                            "valueString": "{{ component.observation.methodCode.originalText._ }}",
+                            "url": "methodCode",
+                            {% include 'Utils/ValueHelper' value: component.observation.methodCode %}
                         },
                         {% endif %}
                     ],

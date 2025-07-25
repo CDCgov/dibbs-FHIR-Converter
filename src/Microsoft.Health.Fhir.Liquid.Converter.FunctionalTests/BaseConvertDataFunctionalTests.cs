@@ -230,15 +230,25 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
         {
             var data = new List<string[]>
             {
-                new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json" },
-                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json" },
-                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json" },
+                // Array has the following fields:
+                // [
+                //   1. Root template, 
+                //   2. ecr file, 
+                //   3. expected fhir file, 
+                //   4. whether the file should fail at parsing or validation when testing if valid (if it is fully valid, "validation" is what should be there)
+                //   5. The number of expected failures at the step in (4)
+                // ]
+                new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "19" },
+                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "parsing", "3" },
+                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "parsing", "19" },
             };
             return data.Select(item => new[]
             {
                 item[0],
                 Path.Join(Constants.SampleDataDirectory, "eCR", item[1]),
                 Path.Join(Constants.ExpectedDataFolder, "eCR", item[0], item[2]),
+                item[3],
+                item[4],
             });
         }
 
@@ -383,7 +393,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             Assert.True(JToken.DeepEquals(expectedObject, actualObject));
         }
 
-        protected void ValidateConvertCCDAMessageIsValidFHIR(ITemplateProvider templateProvider, string rootTemplate, string inputFile)
+        protected void ValidateConvertCCDAMessageIsValidFHIR(ITemplateProvider templateProvider, string rootTemplate, string inputFile, string validationFailureStep, int numFailures)
         {
             var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
             if (validateFhir.Trim() == "false") return;
@@ -410,13 +420,29 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 var validator = new Validator(profileSource, terminologyService);
                 var result = validator.Validate(poco);
                 var outcomeText = result.ToString();
+                var numFailed = result.Issue.Count();
 
-                Assert.True(result.Success, $"!!Validation failed!!\n\n{outcomeText}");
+                if ("validation" == validationFailureStep && numFailures == numFailed)
+                {
+                    Console.WriteLine(result.ToString());
+                }
+
+                Assert.Equal("validation", validationFailureStep);
+                Assert.True(numFailures == numFailed, $"!!Validation failed!!\nExpected {numFailures}, but got {numFailed}\n{outcomeText}");
             }
             catch (DeserializationFailedException e)
             {
+
                 var errors = e.Message.Replace(") (", ")\n(");
-                Assert.True(false, $"!!Serialization failed!!\n\n{errors}");
+                var numFailed = errors.Count(f => f == '\n') + 1;
+
+                if ("parsing" == validationFailureStep && numFailures == numFailed)
+                {
+                    Console.WriteLine(errors);
+                }
+
+                Assert.Equal("parsing", validationFailureStep);
+                Assert.True(numFailures == numFailed, $"!!Parsing failed!!\nExpected {numFailures}, but got {numFailed}\n{errors}");
                 return;
             }
         }

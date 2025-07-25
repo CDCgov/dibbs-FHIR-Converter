@@ -1613,7 +1613,7 @@
         "id": "94fe2533-e208-a1b4-c510-c9ece8a2d490",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/ecr/2.1.2/StructureDefinition-us-ph-postpartum-status.html"
+            "http://hl7.org/fhir/us/ecr/2.1.2/StructureDefinition-us-ph-postpartum-status"
           ]
         },
         "identifier": [

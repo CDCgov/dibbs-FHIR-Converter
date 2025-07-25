@@ -1816,6 +1816,15 @@
             "high": {
               "value": 44.5,
               "unit": "%"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "L",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Low"
+                }
+              ]
             }
           }
         ],
@@ -1890,6 +1899,15 @@
             "high": {
               "value": 4.8,
               "unit": "10*3/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
             }
           }
         ],
@@ -1998,6 +2016,15 @@
             "high": {
               "value": 45,
               "unit": "[iU]/mL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
             }
           }
         ],

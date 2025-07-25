@@ -1674,6 +1674,14 @@
             "high": {
               "value": 500000,
               "unit": "10*3/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+                }
+              ]
             }
           }
         ],
@@ -1799,6 +1807,14 @@
             "high": {
               "value": 8,
               "unit": "ng/mL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+                }
+              ]
             }
           }
         ],

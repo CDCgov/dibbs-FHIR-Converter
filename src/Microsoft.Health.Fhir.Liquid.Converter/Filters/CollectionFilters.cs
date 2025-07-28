@@ -143,7 +143,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         }
 
         /// <summary>
-        /// Given a collection, return items that match the keypath and target property (like standard 
+        /// Given a collection, return items that match the keypath and target property (like standard
         /// `where` filter except instead of taking one key, takes a period-delimited path of keys).
         /// </summary>
         /// <param name="entries">A collection of items.</param>

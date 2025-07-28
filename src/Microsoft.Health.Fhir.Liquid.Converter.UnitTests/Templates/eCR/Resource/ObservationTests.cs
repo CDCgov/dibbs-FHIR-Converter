@@ -119,6 +119,72 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
+        public void ObservationVitalSign_Basic_AllFields()
+        {
+            // from 3.1 spec
+            var xmlStr = @"
+            <observation 
+                classCode=""OBS"" 
+                moodCode=""EVN""
+                xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+                xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
+                xmlns=""urn:hl7-org:v3""
+                xmlns:cda=""urn:hl7-org:v3""
+                xmlns:sdtc=""urn:hl7-org:sdtc""
+                xmlns:voc=""http://www.lantanagroup.com/voc""
+                >
+                <templateId root=""2.16.840.1.113883.10.20.22.4.27"" extension=""2014-06-09"" />
+                <!-- Vital Sign Observation template -->
+                <id root=""c6f88321-67ad-11db-bd13-0800200c9a66"" />
+                <code code=""8302-2"" codeSystem=""2.16.840.1.113883.6.1"" codeSystemName=""LOINC""
+                displayName=""Height"" />
+                <statusCode code=""completed"" />
+                <effectiveTime value=""20121114"" />
+                <value xsi:type=""PQ"" value=""177"" unit=""cm"" />
+            </observation>
+            ";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "observationCategory", "vital-signs" },
+                { "observationEntry", parsed["observation"]},
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+
+            Assert.Equal(ObservationStatus.Final, actualFhir.Status);
+
+            Assert.NotNull(actualFhir.Code);
+            Assert.Equal("Height", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
+
+
+            Assert.Equal("2012-11-14", (actualFhir.Effective as FhirDateTime)?.Value);
+
+
+            Assert.IsType<Quantity>(actualFhir.Value);
+            var value = (Quantity)actualFhir.Value;
+
+            Assert.Equal("177", value.Value.ToString());
+            Assert.Equal("cm", value.Unit);
+
+            Assert.Equal(
+                "http://hl7.org/fhir/StructureDefinition/Observation",
+                actualFhir.Meta.Profile.First());
+            Assert.Equal(
+                "vital-signs",
+                actualFhir.Category.First().Coding.First().Code);
+
+            Assert.Equal(0, actualFhir.Extension.Count());
+        }
+
+
+        [Fact]
         public void Obs_Status_GivenLabObsResultStatus_ReturnsStatusFromObs()
         {
             var attributes = new Dictionary<string, object>

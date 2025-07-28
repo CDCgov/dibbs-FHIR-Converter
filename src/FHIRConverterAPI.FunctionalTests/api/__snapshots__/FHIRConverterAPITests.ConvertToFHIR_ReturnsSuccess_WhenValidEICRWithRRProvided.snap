@@ -1,0 +1,1551 @@
+﻿{
+ "response": {
+  "Status": "OK",
+  "FhirResource": {
+   "resourceType": "Bundle",
+   "type": "batch",
+   "entry": [
+    {
+     "fullUrl": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e703",
+     "resource": {
+      "resourceType": "Composition",
+      "id": "db734647-fc99-424c-a864-7e3cda82e703",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+       ],
+       "source": "ecr"
+      },
+      "identifier": {
+       "use": "official",
+       "type": {
+        "coding": [
+         {
+          "code": "55751-2",
+          "system": "http://loinc.org",
+          "display": "Public Health Case Report"
+         }
+        ]
+       },
+       "value": "71b065e4-6339-45cd-88fa-a6ab3fe4946d"
+      },
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+        "valueString": "1"
+       },
+       {
+        "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+        "valueString": "2016-12-01"
+       }
+      ],
+      "status": "final",
+      "type": {
+       "coding": [
+        {
+         "code": "55751-2",
+         "system": "http://loinc.org",
+         "display": "Public Health Case Report"
+        }
+       ]
+      },
+      "date": "2025-02-25T01:32:00Z",
+      "title": "Initial Public Health Case Report",
+      "confidentiality": "N",
+      "section": [
+       {
+        "id": "2792de2c-8448-d401-6012-845090b2afbe",
+        "title": "Plan of Treatment",
+        "text": {
+         "status": "generated",
+         "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Initial Case Report Trigger Code Lab Test Order</th><th>Trigger Code</th><th>Trigger Code codeSystem</th><th>RCTC OID</th><th>RCTC Version</th><th>Ordered Date</th></tr></thead><tbody><tr><td>Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method</td><td>80825-3</td><td>LOINC</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2016</td><td>FEB 25, 2025</td></tr></tbody></table>"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "18776-5",
+           "system": "http://loinc.org",
+           "display": "Plan of Treatment"
+          }
+         ]
+        },
+        "mode": "snapshot"
+       },
+       {
+        "id": "58d903bb-abb6-9ca8-944a-b434e5403814",
+        "title": "Encounters",
+        "text": {
+         "status": "generated",
+         "div": "No information"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "46240-8",
+           "system": "http://loinc.org",
+           "display": "History of encounters"
+          }
+         ]
+        },
+        "mode": "snapshot"
+       },
+       {
+        "id": "8c9db562-27fd-957c-e00a-ddc6373fec2e",
+        "title": "History of Present Illness",
+        "text": {
+         "status": "generated",
+         "div": "No information"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "10164-2",
+           "system": "http://loinc.org",
+           "display": "HISTORY OF PRESENT ILLNESS"
+          }
+         ]
+        },
+        "mode": "snapshot"
+       },
+       {
+        "id": "d91d2e13-83e0-b521-bc62-de9e942e7813",
+        "title": "Medications Administered",
+        "text": {
+         "status": "generated",
+         "div": "No medications administered"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "29549-3",
+           "system": "http://loinc.org",
+           "display": "Medications Administered"
+          }
+         ]
+        },
+        "mode": "snapshot"
+       },
+       {
+        "id": "23ab9b03-0a1b-b3ab-b5f9-b96f8e47a908",
+        "title": "Problems",
+        "text": {
+         "status": "generated",
+         "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Concern</th><th>Concern Status</th><th>Date(s)</th></tr></thead><tbody><tr><td>Problem</td><td>active</td><td>FEB 5, 2025</td></tr><tr><td><list><item><table><thead><tr><th>Problem Type</th><th>Problem</th><th>Date(s)</th></tr></thead><tbody><tr><td>Sympton</td><td>Fever</td><td>FEB 5, 2025</td></tr></tbody></table></item></list></td></tr></tbody></table>"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "11450-4",
+           "system": "http://loinc.org",
+           "display": "Problem List"
+          }
+         ]
+        },
+        "mode": "snapshot",
+        "entry": [
+         {
+          "display": "Problem - Fever (finding)",
+          "reference": "Condition/00bd16b4-f05c-93f0-614f-2aed279fc599"
+         },
+         {
+          "display": "Problem - Fever (finding)",
+          "reference": "Condition/bc5888a5-5fbb-4652-ce07-79823f43e124"
+         }
+        ]
+       },
+       {
+        "id": "d3dab687-a97f-1c5e-4581-b77134de459c",
+        "title": "Reason for Visit",
+        "text": {
+         "status": "generated",
+         "div": "No information"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "29299-5",
+           "system": "http://loinc.org",
+           "display": "Reason for visit"
+          }
+         ]
+        },
+        "mode": "snapshot",
+        "extension": [
+         {
+          "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
+          "valueString": "No information"
+         }
+        ]
+       },
+       {
+        "id": "4f5e5135-21ef-80b6-9565-7c8879002754",
+        "title": "Results",
+        "text": {
+         "status": "generated",
+         "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Results Panel</th><th>Date(s)</th></tr></thead><tbody><tr><td>Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method</td><td>FEB 25, 2025 to FEB 25, 2025</td></tr><tr><td><list><item><table><thead><tr><th>Initial Case Report Trigger Code Result Observation </th><th>Trigger Code</th><th>Trigger Code codeSystem</th><th>RCTC OID</th><th>RCTC Version</th><th>Outcome</th><th>Interpretation</th><th>Date(s)</th><th>Interpretation</th></tr></thead><tbody><tr><td>Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method</td><td>80825-3</td><td>LOINC</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2016</td><td>Positive</td><td>High</td><td>FEB 25, 2025</td><td>Abnormal</td></tr></tbody></table></item></list></td></tr></tbody></table>"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "30954-2",
+           "system": "http://loinc.org",
+           "display": "Relevant diagnostic tests and/or laboratory data"
+          }
+         ]
+        },
+        "mode": "snapshot",
+        "entry": [
+         {
+          "reference": "Observation/f59e77fb-9909-79fb-5996-a1b884f84820"
+         }
+        ]
+       },
+       {
+        "id": "2f50f447-dd19-16d7-3742-ac21924deb07",
+        "title": "Social History",
+        "text": {
+         "status": "generated",
+         "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Birth Sex</th><th>Value</th><th>Date</th></tr></thead><tbody><tr><td>Sex Assigned At Birth</td><td>Male</td><td>1125</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Social History Observation Type</th><th>Value</th><th>Date(s)</th></tr></thead><tbody><tr><td>Employment detail</td><td>Jedi High Council Member, Jedi Temple, Temple District, Galactic City, Coruscant</td><td>1275</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Travel History: Date(s)</th><th>Notes</th><th>Location</th></tr></thead><tbody><tr><td>In the 3 weeks before FEB 5, 2025</td><td>Visited swamp regions</td><td><list><item>Brazil</item></list></td></tr></tbody></table>"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "29762-2",
+           "system": "http://loinc.org",
+           "display": "Social History"
+          }
+         ]
+        },
+        "mode": "snapshot",
+        "entry": [
+         {
+          "reference": "Observation/eea34341-7188-2158-d580-2e835d9a7316"
+         },
+         {
+          "reference": "Observation/098e70ab-3f80-2c42-2bae-665b4ebd70a2"
+         }
+        ]
+       },
+       {
+        "id": "d50da8fb-5d7f-a9e4-6d27-e6ac5ee5253f",
+        "title": "Vital Signs (Last Filed)",
+        "text": {
+         "status": "generated",
+         "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Date</th><th>Blood Pressure</th><th>Pulse</th><th>Temperature</th><th>Respiratory Rate</th><th>Height</th><th>Weight</th><th>BMI</th><th>SpO2</th></tr></thead><tbody><tr><td>05/20/2014 7:36pm</td><!-- You can consolidate Systolic and Diastolic in human view if desired but should retain separate references--><td><content ID=\"SystolicBP_2\">120</content>/<content ID=\"DiastolicBP_2\">80</content>mm[Hg] </td><td ID=\"Pulse_2\">80 /min</td><td ID=\"Temp_2\">99.0 F</td><td ID=\"RespRate_2\">18 /min</td><td ID=\"Height_2\">3'7 (43 inches)</td><td ID=\"Weight_2\">39.9 lbs</td><td ID=\"BMI_2\">17.58 kg/m2</td><td ID=\"SPO2_2\">98%</td></tr></tbody></table>"
+        },
+        "code": {
+         "coding": [
+          {
+           "code": "8716-3",
+           "system": "http://loinc.org",
+           "display": "Vital Signs"
+          }
+         ]
+        },
+        "mode": "snapshot"
+       },
+       {
+        "id": "d62f4d09-f06d-5033-f372-01683abba2c8",
+        "title": "Reportability Response Information Section",
+        "text": {
+         "status": "generated",
+         "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Reportability Response Information Section</div>"
+        },
+        "extension": [
+         {
+          "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
+          "valueCodeableConcept": {
+           "text": "official",
+           "coding": [
+            {
+             "code": "88085-6",
+             "system": "http://loinc.org",
+             "display": "Reportability response report Document Public health"
+            }
+           ]
+          }
+         },
+         {
+          "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
+          "extension": [
+           {
+            "url": "eICRProcessingStatus",
+            "valueReference": {
+             "reference": "Observation/4b4065d5-b4e8-12e1-baeb-f148467d0808",
+             "display": "eICR processed"
+            }
+           }
+          ]
+         }
+        ],
+        "code": {
+         "coding": [
+          {
+           "code": "88085-6",
+           "system": "http://loinc.org",
+           "display": "Reportability response report Document Public health"
+          }
+         ]
+        },
+        "entry": [
+         {
+          "display": "Relevant Reportable Condition Observation - Zika virus disease (disorder)",
+          "reference": "Observation/a054d401-7b23-4b15-bc28-c889c156ba6a"
+         }
+        ]
+       }
+      ],
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      },
+      "encounter": {
+       "reference": "Encounter/3fef2f23-d5a0-bafd-3761-83a4c317d3ed"
+      },
+      "custodian": {
+       "reference": "Organization/8b06cd13-a912-27b6-1c73-aea78bf8df1f"
+      },
+      "author": [
+       {
+        "reference": "PractitionerRole/9342fe62-7ff5-a14e-b829-2e880d7e6b45"
+       }
+      ]
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Composition/db734647-fc99-424c-a864-7e3cda82e703"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:3fef2f23-d5a0-bafd-3761-83a4c317d3ed",
+     "resource": {
+      "resourceType": "Encounter",
+      "id": "3fef2f23-d5a0-bafd-3761-83a4c317d3ed",
+      "status": "unknown",
+      "class": {
+       "code": "PHC2237",
+       "system": "urn:oid:2.16.840.1.114222.4.5.274",
+       "display": "External Encounter"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      },
+      "location": [
+       {
+        "id": "2.16.840.1.113883.4.6",
+        "location": {
+         "reference": "Location/bea8eaff-b016-f74b-10ab-9d0440257223",
+         "display": "None"
+        },
+        "extension": [
+         {
+          "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type"
+         }
+        ]
+       }
+      ],
+      "serviceProvider": {
+       "reference": "Organization/42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+      },
+      "participant": [
+       {
+        "type": [
+         {
+          "coding": [
+           {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+            "code": "ATND"
+           }
+          ]
+         }
+        ],
+        "individual": {
+         "reference": "PractitionerRole/9d19c144-4bd4-c0b3-d85d-856c9308e578"
+        }
+       }
+      ],
+      "meta": {
+       "source": "ecr"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Encounter/3fef2f23-d5a0-bafd-3761-83a4c317d3ed"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:bea8eaff-b016-f74b-10ab-9d0440257223",
+     "resource": {
+      "resourceType": "Location",
+      "id": "bea8eaff-b016-f74b-10ab-9d0440257223",
+      "meta": {
+       "source": "ecr"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Location/bea8eaff-b016-f74b-10ab-9d0440257223"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:42e178bb-0fd1-7329-a02e-c06b5c9782b8",
+     "resource": {
+      "resourceType": "Organization",
+      "id": "42e178bb-0fd1-7329-a02e-c06b5c9782b8",
+      "meta": {
+       "source": "ecr"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Organization/42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:9d19c144-4bd4-c0b3-d85d-856c9308e578",
+     "resource": {
+      "resourceType": "Practitioner",
+      "id": "9d19c144-4bd4-c0b3-d85d-856c9308e578",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+       ],
+       "source": "ecr"
+      },
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+        "valueString": "Responsible Party"
+       }
+      ]
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Practitioner/9d19c144-4bd4-c0b3-d85d-856c9308e578"
+     }
+    },
+    {
+     "resource": {
+      "resourceType": "PractitionerRole",
+      "id": "9d19c144-4bd4-c0b3-d85d-856c9308e578",
+      "practitioner": {
+       "reference": "Practitioner/9d19c144-4bd4-c0b3-d85d-856c9308e578"
+      },
+      "organization": {
+       "reference": "Organization/ba7129ae-138e-3bb4-f774-273d526e4b75"
+      },
+      "meta": {
+       "source": "ecr"
+      }
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:ba7129ae-138e-3bb4-f774-273d526e4b75",
+     "resource": {
+      "resourceType": "Organization",
+      "id": "ba7129ae-138e-3bb4-f774-273d526e4b75",
+      "meta": {
+       "source": "ecr"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Organization/ba7129ae-138e-3bb4-f774-273d526e4b75"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:4b4065d5-b4e8-12e1-baeb-f148467d0808",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "4b4065d5-b4e8-12e1-baeb-f148467d0808",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:39d966b9-8a3a-4024-93d8-138e97d5898a"
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "RRVS19",
+         "system": "urn:oid:2.16.840.1.114222.4.5.274",
+         "display": "eICR processed"
+        }
+       ]
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/4b4065d5-b4e8-12e1-baeb-f148467d0808"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:79a37dee-d5a9-30a4-66f6-efce5a523b8e",
+     "resource": {
+      "resourceType": "Organization",
+      "id": "79a37dee-d5a9-30a4-66f6-efce5a523b8e",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"
+       ],
+       "source": "ecr"
+      },
+      "active": true,
+      "type": [
+       {
+        "coding": [
+         {
+          "system": "urn:oid:2.16.840.1.114222.4.5.232",
+          "code": "RR7",
+          "display": "Routing Entity"
+         }
+        ]
+       }
+      ],
+      "name": "Coruscant Department of Health",
+      "address": [
+       {
+        "city": "Macrodata District",
+        "state": "Galactic City",
+        "country": "Coruscant",
+        "postalCode": "GC-50",
+        "district": "Administrative Core"
+       }
+      ],
+      "telecom": [
+       {
+        "system": "phone",
+        "value": "+1-555-555-3555",
+        "use": "work"
+       }
+      ]
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "a054d401-7b23-4b15-bc28-c889c156ba6a",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a"
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "64572001",
+         "display": "Condition",
+         "system": "http://snomed.info/sct"
+        },
+        {
+         "code": "75323-6",
+         "display": "Condition",
+         "system": "http://loinc.org"
+        }
+       ]
+      },
+      "valueCodeableConcept": {
+       "coding": [
+        {
+         "code": "3928002",
+         "system": "http://snomed.info/sct",
+         "display": "Zika virus disease (disorder)"
+        }
+       ]
+      },
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension",
+        "valueString": "Rule used in                                                                reportability determination"
+       }
+      ],
+      "performer": [
+       {
+        "reference": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e",
+        "display": "Coruscant Department of Health"
+       }
+      ]
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/a054d401-7b23-4b15-bc28-c889c156ba6a"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:8b06cd13-a912-27b6-1c73-aea78bf8df1f",
+     "resource": {
+      "resourceType": "Organization",
+      "id": "8b06cd13-a912-27b6-1c73-aea78bf8df1f",
+      "identifier": [
+       {
+        "system": "http://hl7.org/fhir/sid/us-npi",
+        "value": "1234567893"
+       }
+      ],
+      "name": "Grand Republic Medical Facility Clinic",
+      "address": [
+       {
+        "use": "work",
+        "line": [
+         "500 Republica Medical Plaza, Suite 1000"
+        ],
+        "city": "Senate District",
+        "state": "Galactic City",
+        "country": "Coruscant",
+        "postalCode": "GC-500",
+        "district": "Administrative Core"
+       }
+      ],
+      "telecom": [
+       {
+        "system": "phone",
+        "value": "+1-888-000-9999",
+        "use": "work"
+       }
+      ],
+      "meta": {
+       "source": "ecr"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Organization/8b06cd13-a912-27b6-1c73-aea78bf8df1f"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:94617b3c-14f9-eee5-a239-7233ba1b5d84",
+     "resource": {
+      "resourceType": "Practitioner",
+      "id": "94617b3c-14f9-eee5-a239-7233ba1b5d84",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "http://hl7.org/fhir/sid/us-npi",
+        "value": "1234567890"
+       }
+      ],
+      "name": [
+       {
+        "family": "Hemlock",
+        "given": [
+         "Royce"
+        ],
+        "prefix": [
+         "Dr"
+        ],
+        "suffix": [
+         "MD"
+        ]
+       }
+      ],
+      "address": [
+       {
+        "use": "home",
+        "line": [
+         "200 Corusca Street"
+        ],
+        "city": "Senate District",
+        "state": "Galactic City",
+        "country": "Coruscant",
+        "postalCode": "GC-500",
+        "district": "Administrative Core"
+       }
+      ],
+      "telecom": [
+       {
+        "system": "phone",
+        "value": "+1-555-777-0123",
+        "use": "work"
+       },
+       {
+        "system": "fax",
+        "value": "+1-555-777-0987",
+        "use": "work"
+       },
+       {
+        "system": "email",
+        "value": "dr.hemlock@grmfc.gc.example.com",
+        "use": "work"
+       }
+      ]
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Practitioner/94617b3c-14f9-eee5-a239-7233ba1b5d84"
+     }
+    },
+    {
+     "resource": {
+      "resourceType": "PractitionerRole",
+      "id": "9342fe62-7ff5-a14e-b829-2e880d7e6b45",
+      "organization": {
+       "reference": "Organization/8b06cd13-a912-27b6-1c73-aea78bf8df1f"
+      },
+      "practitioner": {
+       "reference": "Practitioner/94617b3c-14f9-eee5-a239-7233ba1b5d84"
+      },
+      "meta": {
+       "source": "ecr"
+      }
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:d54c46e2-344c-4bc4-ba36-5dda7808932e",
+     "resource": {
+      "resourceType": "Patient",
+      "id": "d54c46e2-344c-4bc4-ba36-5dda7808932e",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:oid:2.16.840.1.113883.19.5",
+        "value": "MRN-00884411"
+       },
+       {
+        "system": "http://hl7.org/fhir/sid/us-ssn",
+        "value": "000-65-8466"
+       }
+      ],
+      "name": [
+       {
+        "use": "official",
+        "family": "Yoda",
+        "given": [
+         "Minch"
+        ],
+        "prefix": [
+         "Master"
+        ]
+       }
+      ],
+      "birthDate": "1125-01-01",
+      "deceasedBoolean": false,
+      "gender": "male",
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+        "extension": [
+         {
+          "url": "detailed",
+          "valueCoding": {
+           "code": "UNK",
+           "display": "Unknown"
+          }
+         },
+         {
+          "url": "text",
+          "valueString": "Unknown"
+         }
+        ]
+       },
+       {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+        "extension": [
+         {
+          "url": "ombCategory",
+          "valueCoding": {
+           "code": "2186-5",
+           "display": "Not Hispanic or Latino"
+          }
+         },
+         {
+          "url": "text",
+          "valueString": "Not Hispanic or Latino"
+         }
+        ]
+       },
+       {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+        "extension": [
+         {
+          "url": "value",
+          "valueCodeableConcept": {
+           "coding": [
+            {
+             "code": "M",
+             "system": "urn:oid:2.16.840.1.113883.5.1",
+             "display": "Male"
+            }
+           ]
+          }
+         }
+        ]
+       }
+      ],
+      "address": [
+       {
+        "line": [
+         "Jedi Temple, Temple Spire"
+        ],
+        "city": "Temple District",
+        "state": "Galactic City",
+        "country": "Coruscant",
+        "postalCode": "GC-101",
+        "district": "Administrative Core"
+       }
+      ],
+      "telecom": [
+       {
+        "system": "phone",
+        "value": "+1-555-555-0001"
+       },
+       {
+        "system": "email",
+        "value": "master.yoda@jediorder.gc.example.com",
+        "use": "work"
+       }
+      ],
+      "communication": [
+       {
+        "language": {
+         "coding": [
+          {
+           "system": "urn:ietf:bcp:47",
+           "code": "en",
+           "display": "English"
+          }
+         ]
+        },
+        "preferred": true,
+        "extension": [
+         {
+          "url": "http://hl7.org/fhir/StructureDefinition/patient-proficiency",
+          "extension": [
+           {
+            "url": "type",
+            "valueCoding": {
+             "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityMode",
+             "code": "ESP",
+             "display": "Expressed spoken"
+            }
+           },
+           {
+            "url": "level",
+            "valueCoding": {
+             "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityProficiency",
+             "code": "G",
+             "display": "Good"
+            }
+           }
+          ]
+         }
+        ]
+       }
+      ]
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:9ca8e880-2452-260c-c732-3ed9082b6c87",
+     "resource": {
+      "resourceType": "DiagnosticReport",
+      "id": "9ca8e880-2452-260c-c732-3ed9082b6c87",
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:a4307cb2-b3b4-4f42-be03-1d9077376f4a"
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "80825-3",
+         "system": "http://loinc.org",
+         "display": "Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method"
+        }
+       ]
+      },
+      "effectivePeriod": {
+       "start": "2025-02-25",
+       "end": "2025-02-25"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      },
+      "result": [
+       {
+        "reference": "Observation/f59e77fb-9909-79fb-5996-a1b884f84820"
+       }
+      ],
+      "meta": {
+       "source": "ecr"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "DiagnosticReport/9ca8e880-2452-260c-c732-3ed9082b6c87"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:f59e77fb-9909-79fb-5996-a1b884f84820",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "f59e77fb-9909-79fb-5996-a1b884f84820",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:bf9c0a26-4524-4395-b3ce-100450b9c9ad"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "laboratory"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "80825-3",
+         "system": "http://loinc.org",
+         "display": "Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method"
+        }
+       ]
+      },
+      "effectiveDateTime": "2025-02-07",
+      "valueCodeableConcept": {
+       "coding": [
+        {
+         "code": "10828004",
+         "system": "http://snomed.info/sct",
+         "display": "Positive"
+        }
+       ]
+      },
+      "interpretation": [
+       {
+        "coding": [
+         {
+          "code": "A",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+          "display": "Abnormal"
+         }
+        ]
+       }
+      ],
+      "extension": [
+       {
+        "url": "http://hl7.org/fhir/R4/specimen.html",
+        "extension": [
+         {
+          "url": "specimen collection time",
+          "valueDateTime": "2025-02-25"
+         }
+        ]
+       }
+      ],
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/f59e77fb-9909-79fb-5996-a1b884f84820"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:eea34341-7188-2158-d580-2e835d9a7316",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "eea34341-7188-2158-d580-2e835d9a7316",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:6049baec-80df-4dea-82b2-345f6546cda3"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "social-history"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "364703007",
+         "system": "http://snomed.info/sct",
+         "display": "Employment detail"
+        },
+        {
+         "code": "11295-3",
+         "system": "http://loinc.org",
+         "display": "Current employment - Reported"
+        }
+       ]
+      },
+      "effectivePeriod": {
+       "start": "1275-01-01"
+      },
+      "valueString": "Jedi High Council Member, Jedi Temple, Temple District, Galactic City, Coruscant",
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/eea34341-7188-2158-d580-2e835d9a7316"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:098e70ab-3f80-2c42-2bae-665b4ebd70a2",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "098e70ab-3f80-2c42-2bae-665b4ebd70a2",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+       ],
+       "source": "ecr"
+      },
+      "code": {
+       "coding": [
+        {
+         "system": "http://snomed.info/sct",
+         "code": "420008001",
+         "display": "Travel"
+        }
+       ],
+       "text": "Travel History"
+      },
+      "status": "final",
+      "component": [
+       {
+        "code": {
+         "coding": [
+          {
+           "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+           "code": "LOC",
+           "display": "Location"
+          }
+         ]
+        }
+       }
+      ],
+      "effectivePeriod": {
+       "start": "2025-01-15",
+       "end": "2025-02-05"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/098e70ab-3f80-2c42-2bae-665b4ebd70a2"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:1eea3980-9117-c629-e951-187478e9c020",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "1eea3980-9117-c629-e951-187478e9c020",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:2721acc5-0d05-4402-9e62-79943ea3901c"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "8480-6",
+         "system": "http://loinc.org",
+         "display": "SYSTOLIC BLOOD PRESSURE"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 120,
+       "unit": "mm[Hg]"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/1eea3980-9117-c629-e951-187478e9c020"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:a6b35f51-be85-53da-f02b-15625aececea",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "a6b35f51-be85-53da-f02b-15625aececea",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:88a01c83-a096-4705-a992-b5f59eca8c8c"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "8462-4",
+         "system": "http://loinc.org",
+         "display": "DIASTOLIC BLOOD PRESSURE"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 80,
+       "unit": "mm[Hg]"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/a6b35f51-be85-53da-f02b-15625aececea"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:efd8ed37-e03d-7900-6956-f0228c787674",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "efd8ed37-e03d-7900-6956-f0228c787674",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:83bbffe1-54e5-4984-a32d-ad8f8d6896d8"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "8867-4",
+         "system": "http://loinc.org",
+         "display": "HEART RATE"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 80,
+       "unit": "/min"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/efd8ed37-e03d-7900-6956-f0228c787674"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:e8b96985-ea71-bb6a-cb1b-c65dc04bd6ea",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "e8b96985-ea71-bb6a-cb1b-c65dc04bd6ea",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:85f5784f-2958-4321-b7b6-3030d1577dc0"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "8310-5",
+         "system": "http://loinc.org",
+         "display": "BODY TEMPERATURE"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 99.0,
+       "unit": "[degF]"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/e8b96985-ea71-bb6a-cb1b-c65dc04bd6ea"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:2bd018a6-a52c-b69d-6d6d-81b13faa749d",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "2bd018a6-a52c-b69d-6d6d-81b13faa749d",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:b618fa98-6596-4e19-a9e7-6bdb48012fc8"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "9279-1",
+         "system": "http://loinc.org",
+         "display": "RESPIRATORY RATE"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 18,
+       "unit": "/min"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/2bd018a6-a52c-b69d-6d6d-81b13faa749d"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:b489d07e-c351-21bb-dd04-736c5fbc8636",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "b489d07e-c351-21bb-dd04-736c5fbc8636",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:1b1274a9-b45f-449a-8493-08eaeaeba7d6"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "8302-2",
+         "system": "http://loinc.org",
+         "display": "HEIGHT"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 43,
+       "unit": "[in_us]"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/b489d07e-c351-21bb-dd04-736c5fbc8636"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:d8fd211d-2555-ea6c-116c-132dcef4cc61",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "d8fd211d-2555-ea6c-116c-132dcef4cc61",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:1c1f89f1-8e93-4a46-b37f-9434f99727b8"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "3141-9",
+         "system": "http://loinc.org",
+         "display": "WEIGHT"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 39.9,
+       "unit": "[lb_av]"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/d8fd211d-2555-ea6c-116c-132dcef4cc61"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:b47109b2-3f96-e69f-637f-728b9b7e9657",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "b47109b2-3f96-e69f-637f-728b9b7e9657",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:fd4ccd0b-c045-4587-8976-a17e2e064a1e"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "39156-5",
+         "system": "http://loinc.org",
+         "display": "BODY MASS INDEX"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 17.58,
+       "unit": "kg/m2"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/b47109b2-3f96-e69f-637f-728b9b7e9657"
+     }
+    },
+    {
+     "fullUrl": "urn:uuid:74e77fe8-551b-bc20-f6b4-ab4119703a15",
+     "resource": {
+      "resourceType": "Observation",
+      "id": "74e77fe8-551b-bc20-f6b4-ab4119703a15",
+      "meta": {
+       "profile": [
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+       ],
+       "source": "ecr"
+      },
+      "identifier": [
+       {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:0ef4afda-1638-4ad2-9978-7321bbceb0cb"
+       }
+      ],
+      "category": [
+       {
+        "coding": [
+         {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "vital-signs"
+         }
+        ]
+       }
+      ],
+      "status": "final",
+      "code": {
+       "coding": [
+        {
+         "code": "2710-2",
+         "system": "http://loinc.org",
+         "display": "OXYGEN SATURATION"
+        }
+       ]
+      },
+      "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+      "valueQuantity": {
+       "value": 98,
+       "unit": "%"
+      },
+      "subject": {
+       "reference": "Patient/d54c46e2-344c-4bc4-ba36-5dda7808932e"
+      }
+     },
+     "request": {
+      "method": "PUT",
+      "url": "Observation/74e77fe8-551b-bc20-f6b4-ab4119703a15"
+     }
+    }
+   ]
+  }
+ }
+}

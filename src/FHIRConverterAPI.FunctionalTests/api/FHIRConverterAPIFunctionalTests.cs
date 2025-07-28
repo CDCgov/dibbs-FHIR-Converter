@@ -3,11 +3,11 @@ using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Snapshooter.Xunit;
 
-public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program>>
+public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;
 
-    public FHIRConverterAPITests(WebApplicationFactory<Program> factory)
+    public FHIRConverterAPIFunctionalTests(WebApplicationFactory<Program> factory)
     {
         _client = factory.CreateClient();
     }

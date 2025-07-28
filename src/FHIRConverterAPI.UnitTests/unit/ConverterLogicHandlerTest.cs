@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Xunit;
-
 public class ConverterLogicHandlerTest
 {
     [Fact]

@@ -56,11 +56,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
     /// </returns>
     private static JsonNode AddDataSourceToBundle(JsonNode bundle, string dataSource)
     {
-      if (dataSource == string.Empty)
-      {
-        throw new Exception("The dataSource parameter must be a defined, non-empty string.");
-      }
-
       foreach (var entry in (bundle["entry"] as JsonArray) ?? [])
       {
         var resource = entry!["resource"];

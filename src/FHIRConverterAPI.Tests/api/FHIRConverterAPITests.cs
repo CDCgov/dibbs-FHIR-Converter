@@ -30,7 +30,7 @@ public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program
     }
 
     [Fact]
-    public async Task ConvertToFHIR_ReturnsSuccess_WhenValidXMLProvided()
+    public async Task ConvertToFHIR_ReturnsSuccess_WhenValidEICRWithRRProvided()
     {
         Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
@@ -52,7 +52,47 @@ public class FHIRConverterAPITests : IClassFixture<WebApplicationFactory<Program
     }
 
     [Fact]
-    public async Task ConvertToFHIR_Returns422StatusCode_WhenInvalidXMLProvided()
+    public async Task ConvertToFHIR_ReturnsSuccess_WhenValidEICRWithoutRRProvided()
+    {
+        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
+        var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
+        var content = new FHIRConverterRequest
+        {
+            input_type = "eCR",
+            input_data = eICR,
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.NotNull(jsonResponse);
+
+        File.WriteAllText("actual.json", jsonResponse);
+
+        Snapshot.Match(jsonResponse, CommonIgnoredFields);
+    }
+
+    [Fact]
+    public async Task ConvertToFHIR_Returns422StatusCode_WhenInvalidEICRProvided()
+    {
+        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
+        var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
+        var content = new FHIRConverterRequest
+        {
+            input_type = "eCR",
+            input_data = "<this is not valid xml>",
+            rr_data = rr,
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.Equal("{\"detail\":\"EICR message must be valid XML message.\"}", jsonResponse);
+    }
+
+    [Fact]
+    public async Task ConvertToFHIR_Returns422StatusCode_WhenInvalidRRProvided()
     {
         Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");

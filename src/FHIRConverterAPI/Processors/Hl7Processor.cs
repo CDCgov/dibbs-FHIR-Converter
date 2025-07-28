@@ -72,9 +72,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       }
       catch (Exception ex)
       {
-        // @TODO: Eliminate logging, raise an exception, document the exception
-        // in the docstring, and make this fit into our new structure of allowing
-        // the caller to implement more robust error handling
         Console.WriteLine("Exception occurred while cleaning message. Passing through original message.");
         return inputData;
       }
@@ -167,9 +164,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       }
       catch (IndexOutOfRangeException ex)
       {
-        // @TODO: Eliminate logging, raise an exception, document the exception
-        // in the docstring, and make this fit into our new structure of allowing
-        // the caller to implement more robust error handling
+        // Segment not existing in the message is not an error
         Console.WriteLine($"Segment {segmentId} not found in message.");
       }
 

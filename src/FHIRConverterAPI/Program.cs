@@ -1,3 +1,4 @@
+using System.Net;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors;
@@ -28,33 +29,27 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
     var inputData = requestBody.input_data;
     var inputType = requestBody.input_type.ToLower();
 
-    if (!string.IsNullOrEmpty(requestBody.rr_data))
+    if (!string.IsNullOrEmpty(requestBody.rr_data) && inputType != "ecr")
     {
-        if (inputType == "ecr")
+        return Results.BadRequest(new { detail = "Reportability Response (RR) data is only accepted for eCR conversion requests." });
+    }
+
+    if (inputType == "ecr")
+    {
+        try
         {
-            try
-            {
-                XDocument ecrDoc = EcrProcessor.ConvertStringToXDocument(inputData);
+            XDocument ecrDoc = EcrProcessor.ConvertStringToXDocument(inputData);
 
-                if (!string.IsNullOrEmpty(requestBody.rr_data))
-                {
-                    ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.rr_data);
-                }
+            if (!string.IsNullOrEmpty(requestBody.rr_data))
+            {
+                ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.rr_data);
+            }
 
-                inputData = ecrDoc.ToString();
-            }
-            catch (UserFacingException ex)
-            {
-                return Results.Json(new { detail = ex.Message }, statusCode: (int)ex.StatusCode);
-            }
-            catch (Exception ex)
-            {
-                return Results.BadRequest(new { detail = ex.Message });
-            }
+            inputData = ecrDoc.ToString();
         }
-        else
+        catch (UserFacingException ex)
         {
-            return Results.BadRequest(new { detail = "Reportability Response (RR) data is only accepted for eCR conversion requests." });
+            return Results.Json(new { detail = ex.Message }, statusCode: (int)ex.StatusCode);
         }
     }
 
@@ -68,16 +63,18 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
     try
     {
         rootTemplate = requestBody.root_template ?? GetRootTemplate(inputType);
+        var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);
+        var newResult = FhirProcessor.FhirBundlePostProcessing(result, inputType);
+        return Results.Text(newResult, contentType: "application/json");
+    }
+    catch (UserFacingException ex)
+    {
+        return Results.Json(new { detail = ex.Message }, statusCode: (int)ex.StatusCode);
     }
     catch (Exception ex)
     {
-        return Results.BadRequest(new { detail = ex.Message });
+        return Results.Json(new { detail = ex.Message }, statusCode: (int)HttpStatusCode.InternalServerError);
     }
-
-    var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);
-    var newResult = FhirProcessor.FhirBundlePostProcessing(result, inputType);
-
-    return Results.Text(newResult, contentType: "application/json");
 })
 .Accepts<dynamic>("application/json")
 .WithName("ConvertToFhir")
@@ -98,7 +95,7 @@ string GetTemplatesPath(string inputType)
     }
     else
     {
-        throw new Exception($"Invalid input_type {inputType}. Valid values are 'hl7v2' and 'ecr'.");
+        throw new UserFacingException($"Invalid input_type {inputType}. Valid values are 'hl7v2' and 'ecr'.", HttpStatusCode.BadRequest);
     }
 }
 
@@ -110,8 +107,7 @@ string GetRootTemplate(string inputType)
         "elr" => "ORU_R01",
         "vxu" => "VXU_V04",
         "fhir" => string.Empty,
-        // TODO: fix this
-        _ => throw new NotImplementedException($"The conversion from data type {inputType} to FHIR is not supported")
+        _ => throw new UserFacingException($"The conversion from data type {inputType} to FHIR is not supported", HttpStatusCode.BadRequest)
     };
 }
 

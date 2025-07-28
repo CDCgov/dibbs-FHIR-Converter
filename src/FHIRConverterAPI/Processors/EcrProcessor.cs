@@ -15,24 +15,25 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
     /// <returns>An XDocument object containing an eICR.</returns>
     public static XDocument ConvertStringToXDocument(string inputData)
     {
-      // Add xmlns:xsi if missing
-      var ecrLines = inputData.Split(
-          ["\n", "\r\n"],
-          StringSplitOptions.None).ToList();
-      var startIndex = ecrLines.FindIndex(line => line.TrimStart().StartsWith("<ClinicalDocument"));
-      var endIndex = ecrLines.FindIndex(startIndex, line => line.TrimEnd().EndsWith('>'));
-
-      if (ecrLines.FindIndex(startIndex, endIndex, line => line.Contains("xmlns:xsi")) == -1)
-      {
-        var newRootElement = string.Join(" ", ecrLines.ToArray(), startIndex, endIndex - startIndex + 1);
-        newRootElement = newRootElement.Replace("xmlns=\"urn:hl7-org:v3\"", "xmlns=\"urn:hl7-org:v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
-        ecrLines.RemoveRange(startIndex, endIndex - startIndex + 1);
-        ecrLines.Insert(startIndex, newRootElement);
-        inputData = string.Join("\n", ecrLines.ToArray());
-      }
-
       try
       {
+        // Add xmlns:xsi if missing
+        // TODO: this seems fragile, do we need to add xmlns:xsi to the raw string or can we parse to XDocument first?
+        var ecrLines = inputData.Split(
+            ["\n", "\r\n"],
+            StringSplitOptions.None).ToList();
+        var startIndex = ecrLines.FindIndex(line => line.TrimStart().StartsWith("<ClinicalDocument"));
+        var endIndex = ecrLines.FindIndex(startIndex, line => line.TrimEnd().EndsWith('>'));
+
+        if (ecrLines.FindIndex(startIndex, endIndex, line => line.Contains("xmlns:xsi")) == -1)
+        {
+          var newRootElement = string.Join(" ", ecrLines.ToArray(), startIndex, endIndex - startIndex + 1);
+          newRootElement = newRootElement.Replace("xmlns=\"urn:hl7-org:v3\"", "xmlns=\"urn:hl7-org:v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
+          ecrLines.RemoveRange(startIndex, endIndex - startIndex + 1);
+          ecrLines.Insert(startIndex, newRootElement);
+          inputData = string.Join("\n", ecrLines.ToArray());
+        }
+
         var ecrDoc = XDocument.Parse(inputData);
         return ResolveReferences(ecrDoc);
       }
@@ -75,8 +76,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
 
         // If eICR >=R3, remove (optional) RR section that came from eICR
         // This is duplicate/incomplete info from RR
-        var ecrVersion = ecrXDocument.XPathEvaluate("string(//*[@root=\"2.16.840.1.113883.10.20.15.2\"]/@extension)");
-        if (ecrVersion is not null && DateTime.Parse(ecrVersion.ToString()) >= DateTime.Parse("2021-01-01"))
+        var ecrVersion = ecrXDocument.XPathEvaluate("string(//*[@root=\"2.16.840.1.113883.10.20.15.2\"]/@extension)")?.ToString();
+        if (!string.IsNullOrEmpty(ecrVersion) && DateTime.Parse(ecrVersion.ToString()) >= DateTime.Parse("2021-01-01"))
         {
           var names = new XmlNamespaceManager(ecrXDocument.CreateNavigator().NameTable);
           names.AddNamespace("hl7", "urn:hl7-org:v3");
@@ -142,14 +143,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
           ecrSection.Add(rrEntry);
 
           // Append the ecr section into the eCR - puts it at the end
-          ecrXDocument.Root.Add(ecrSection);
+          ecrXDocument.Root!.Add(ecrSection);
         }
 
         return ecrXDocument;
       }
       catch (Exception ex)
       {
-        throw new Exception($"Error processing eICR document: {ex.Message}");
+        throw new UserFacingException($"Error processing eICR document: {ex.Message}", HttpStatusCode.InternalServerError, ex);
       }
     }
 

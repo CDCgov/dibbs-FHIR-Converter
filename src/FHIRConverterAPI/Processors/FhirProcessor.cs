@@ -23,7 +23,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
 
       foreach (var entry in (bundleJson["entry"] as JsonArray) ?? [])
       {
-        if ((string)entry["resource"]!["resourceType"]! == "Patient")
+        if ((string)entry!["resource"]!["resourceType"]! == "Patient")
         {
           oldId = (string)entry["resource"]!["id"]!;
           entry["resource"]!["id"] = newId;
@@ -37,6 +37,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
       {
         WriteIndented = true,
+        // Encoder required for HTML sections to be formatted the way we expect
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
       });
       resultString = resultString.Replace(oldId, newId);
@@ -62,13 +63,13 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
 
       foreach (var entry in (bundle["entry"] as JsonArray) ?? [])
       {
-        var resource = entry["resource"];
+        var resource = entry!["resource"];
         if (resource is null)
         {
           return bundle;
         }
 
-        JsonNode meta = resource["meta"];
+        JsonNode? meta = resource["meta"];
 
         if (meta is null)
         {

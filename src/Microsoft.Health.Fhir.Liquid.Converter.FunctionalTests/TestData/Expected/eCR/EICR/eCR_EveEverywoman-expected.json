@@ -2224,6 +2224,12 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information"
           ]
         },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:5f2e0ab0-b505-438a-9d50-f22d78ad1567"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -2281,6 +2287,12 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information"
           ]
         },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:a78adeed-d623-49cb-95df-42a0a2c33fca"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -2322,6 +2334,17 @@
       "resource": {
         "resourceType": "RelatedPerson",
         "id": "2d776a00-fb02-b451-af3f-31a775136bec",
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "O",
+                "display": "Other",
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0131"
+              }
+            ]
+          }
+        ],
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/practitioner-animalSpecies",
@@ -2355,6 +2378,12 @@
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-exposure-contact-information"
           ]
         },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:a78adeed-d623-49cb-95df-42a0a2c33fca"
+          }
+        ],
         "code": {
           "coding": [
             {

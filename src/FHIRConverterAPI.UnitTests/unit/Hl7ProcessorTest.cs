@@ -22,9 +22,6 @@ public class Hl7ProcessorTest
   [Fact]
   public void StandardizeHl7DateTimes_ShouldShortenDatetimes_WhenTheyAreTooLong()
   {
-    // TODO: failing
-    // Expected: ···RPH^^|20200514010000||VXU^V04|2020051411020600|P^|2.4^^|||ER\n···
-    // Actual:   ···RPH^^|202005140100001234567890||VXU^V04|2020051411020600|P^|2·····|||ER\n
     var longDateInput = File.ReadAllText("../../../TestData/FileSingleMessageLongDate.hl7");
     var longDateExpectedOutput = "MSH|^~\\&|WIR11.3.2^^|WIR^^||WIRPH^^|20200514010000||VXU^V04"
          + "|2020051411020600|P^|2.4^^|||ER\n"

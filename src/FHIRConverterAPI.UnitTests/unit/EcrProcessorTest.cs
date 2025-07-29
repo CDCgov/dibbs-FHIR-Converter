@@ -1,4 +1,5 @@
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.XPath;
 using Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors;
 
@@ -28,10 +29,6 @@ public class EcrProcessorTest
     Assert.Equal("#gender-identity", entries?.ElementAt(1)?.XPathSelectElement("hl7:observation/hl7:reference", names)?.Attribute("value")?.Value);
     Assert.Equal("unknown", entries?.ElementAt(1).Value);
   }
-
-  // def test_resolve_references_invalid_input():
-  //    actual = resolve_references("VXU or HL7 MESSAGE")
-  //    assert actual == "VXU or HL7 MESSAGE"
 
   // MergeEicrAndRR
 
@@ -82,39 +79,39 @@ public class EcrProcessorTest
   //            assert temps.attrib["root"] == "2.16.840.1.113883.10.20.15.2.3.29"
   //            assert "RRVS19" in status_code.attrib["code"]
 
-  // def test_add_rr_to_ecr_rr_already_present(capfd):
-  //    with open("./tests/test_files/CDA_RR.xml") as fp:
-  //        rr = fp.read()
+  [Fact]
+  public void MergeEicrAndRR_ShouldAddRRDataToEicr_WhenEicrHasNoRR()
+  {
+    // TODO
+  }
 
-  //    # This eICR has already been merged with an RR
-  //    with open("./tests/test_files/merged_eICR.xml") as fp:
-  //        ecr = fp.read()
+  [Fact]
+  public void MergeEicrAndRR_ShouldNotAddRRDataToEicr_WhenEicrHasRR()
+  {
+    var rr = File.ReadAllText("../../../TestData/CDA_RR.xml");
+    var ecr = File.ReadAllText("../../../TestData/merged_eICR.xml");
+    var ecrXDoc = XDocument.Parse(ecr);
+    var mergedEcr = EcrProcessor.MergeEicrAndRR(ecrXDoc, rr);
 
-  //    merged_ecr = add_rr_data_to_eicr(rr, ecr)
-  //    assert merged_ecr == ecr
+    Assert.Equal(ecrXDoc.ToString(), mergedEcr.ToString());
+  }
 
-  //    out, err = capfd.readouterr()
-  //    assert "This eCR has already been merged with RR data." in out
+  [Fact]
+  public void MergeEicrAndRR_ShouldRemoveExtraRR_WhenEicrIs3_1()
+  {
+    var ecr = File.ReadAllText("../../../TestData/3.1_CDA_eICR.xml");
+    var ecrXDoc = XDocument.Parse(ecr);
+    var rr = File.ReadAllText("../../../TestData/3.1_CDA_RR.xml");
 
-  // def test_add_rr_to_ecr_rr_remove_extra_rr(capfd):
-  //    with open("./tests/test_files/3.1/CDA_eICR.xml") as fp:
-  //        eicr = fp.read()
-  //    with open("./tests/test_files/3.1/CDA_RR.xml") as fp:
-  //        rr = fp.read()
+    var mergedEcr = EcrProcessor.MergeEicrAndRR(ecrXDoc, rr);
 
-  //    ecr = add_rr_data_to_eicr(rr, eicr)
-  //    root = etree.fromstring(ecr)
+    var names = new XmlNamespaceManager(mergedEcr.CreateNavigator().NameTable);
+    names.AddNamespace("hl7", "urn:hl7-org:v3");
 
-  //    # RR section ("88085-6") should appear only once
-  //    code_RR_loinc = root.xpath(
-  //        './/hl7:*[@code="88085-6"]', namespaces={"hl7": "urn:hl7-org:v3"}
-  //    )
-  //    assert len(code_RR_loinc) == 1
+    var codeRrLoinc = mergedEcr.XPathSelectElements(".//hl7:*[@code='88085-6']", names);
+    Assert.Single(codeRrLoinc);
 
-  //    # RR section from eICR (v>3.1) should not exist (should have been removed)
-  //    rr_from_eicr = root.xpath(
-  //        './/hl7:templateId[@root="2.16.840.1.113883.10.20.15.2.2.5" and @extension="2021-01-01"]',
-  //        namespaces={"hl7": "urn:hl7-org:v3"},
-  //    )
-  //    assert len(rr_from_eicr) == 0
+    var rrFromEicr = mergedEcr.XPathSelectElements(".//hl7:templateId[@root='2.16.840.1.113883.10.20.15.2.2.5' and @extension='2021-01-01']", names);
+    Assert.Empty(rrFromEicr);
+  }
 }

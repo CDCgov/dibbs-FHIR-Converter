@@ -1,4 +1,4 @@
-{% assign components = obs.entryRelationship.organizer.component |  to_array %}
+{% assign components = obs.component |  to_array %}
 {% for component in components %}
     {% comment %} Determination of Reportability (required) {% endcomment %}
      {% if component.observation and component.observation.templateId.root == '2.16.840.1.113883.10.20.15.2.3.19' %}

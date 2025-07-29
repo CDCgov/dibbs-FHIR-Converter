@@ -1,3 +1,5 @@
+using System.Xml;
+using System.Xml.XPath;
 using Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors;
 
 public class EcrProcessorTest
@@ -13,30 +15,25 @@ public class EcrProcessorTest
   [Fact]
   public void ConvertStringToXDocument_ResolvesReferences_WhenTheyExist()
   {
-    // TODO: Failing due to duplicate xmlns xsi
     var input = "<ClinicalDocument xmlns=\"urn:hl7-org:v3\" xmlns:sdtc=\"urn:hl7-org:sdtc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><component><structuredBody><component><section><text><content ID=\"birthsex\">Female</content><content ID=\"gender-identity\">unknown</content></text><entry><observation classCode=\"OBS\" moodCode=\"EVN\"><reference value=\"#birthsex\"/></observation></entry><entry><observation classCode=\"OBS\" moodCode=\"EVN\"><reference value=\"#gender-identity\"/></observation></entry></section></component></structuredBody></component></ClinicalDocument>";
     var actual = EcrProcessor.ConvertStringToXDocument(input);
-    var elements = actual.Elements().ToArray();
+    var names = new XmlNamespaceManager(actual.CreateNavigator().NameTable);
+    names.AddNamespace("hl7", "urn:hl7-org:v3");
+    var entries = actual.XPathSelectElements(
+              "//hl7:component/hl7:structuredBody/hl7:component/hl7:section/hl7:entry",
+              names);
 
-    Assert.Equal("#birthsex", elements?[0]?.Attribute("value")?.Value);
-    Assert.Equal("Female", elements?[0].Value);
-    Assert.Equal("#gender-identity", elements?[1]?.Attribute("value")?.Value);
-    Assert.Equal("unknown", elements?[1].Value);
+    Assert.Equal("#birthsex", entries?.ElementAt(0)?.XPathSelectElement("hl7:observation/hl7:reference", names)?.Attribute("value")?.Value);
+    Assert.Equal("Female", entries?.ElementAt(0).Value);
+    Assert.Equal("#gender-identity", entries?.ElementAt(1)?.XPathSelectElement("hl7:observation/hl7:reference", names)?.Attribute("value")?.Value);
+    Assert.Equal("unknown", entries?.ElementAt(1).Value);
   }
-
-  // MergeEicrAndRR
-
-  // def test_resolve_references_valid_input():
-  //    tree = etree.fromstring(resolve_references(bundle_with_references))
-  //    actual_refs = tree.xpath("//hl7:reference", namespaces={"hl7": "urn:hl7-org:v3"})
-  //    assert actual_refs[0].attrib["value"] == "#birthsex"
-  //    assert actual_refs[0].text == "Female"
-  //    assert actual_refs[1].attrib["value"] == "#gender-identity"
-  //    assert actual_refs[1].text == "unknown"
 
   // def test_resolve_references_invalid_input():
   //    actual = resolve_references("VXU or HL7 MESSAGE")
   //    assert actual == "VXU or HL7 MESSAGE"
+
+  // MergeEicrAndRR
 
   // def test_add_rr_to_ecr():
   //    with open("./tests/test_files/CDA_RR.xml") as fp:

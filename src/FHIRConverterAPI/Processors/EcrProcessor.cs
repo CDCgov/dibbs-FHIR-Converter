@@ -24,8 +24,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
             StringSplitOptions.None).ToList();
         var startIndex = ecrLines.FindIndex(line => line.TrimStart().StartsWith("<ClinicalDocument"));
         var endIndex = ecrLines.FindIndex(startIndex, line => line.TrimEnd().EndsWith('>'));
+        var count = endIndex - startIndex + 1;
 
-        if (ecrLines.FindIndex(startIndex, endIndex, line => line.Contains("xmlns:xsi")) == -1)
+        if (ecrLines.FindIndex(startIndex, count, line => line.Contains("xmlns:xsi")) == -1)
         {
           var newRootElement = string.Join(" ", ecrLines.ToArray(), startIndex, endIndex - startIndex + 1);
           newRootElement = newRootElement.Replace("xmlns=\"urn:hl7-org:v3\"", "xmlns=\"urn:hl7-org:v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
@@ -39,7 +40,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       }
       catch (Exception ex)
       {
-        throw new UserFacingException("EICR message must be valid XML message.", HttpStatusCode.UnprocessableEntity, ex);
+         throw new UserFacingException("EICR message must be valid XML message.", HttpStatusCode.UnprocessableEntity, ex);
       }
     }
 

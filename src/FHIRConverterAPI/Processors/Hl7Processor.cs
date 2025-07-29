@@ -27,46 +27,46 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
         message.ParseMessage();
 
         // MSH-7 - Message date/time
-        message = NormalizeHl7DatetimeSegment(message, "MSH", fieldList: [7]);
+        message = NormalizeHl7DatetimeSegment(message, "MSH", fieldList: [6]);
 
         // PID-7 - Date of Birth
         // PID-29 - Date of Death
         // PID-33 - Last update date/time
-        message = NormalizeHl7DatetimeSegment(message, "PID", fieldList: [7, 29, 33]);
+        message = NormalizeHl7DatetimeSegment(message, "PID", fieldList: [6, 28, 32]);
 
         // PV1-44 - Admission Date
         // PV1-45 - Discharge Date
-        message = NormalizeHl7DatetimeSegment(message, "PV1", fieldList: [44, 45]);
+        message = NormalizeHl7DatetimeSegment(message, "PV1", fieldList: [43, 44]);
 
         // ORC-9 Date/time of transaction
         // ORC-15 Order effective date/time
         // ORC-27 Filler's expected availability date/time
-        message = NormalizeHl7DatetimeSegment(message, "ORC", fieldList: [9, 15, 27]);
+        message = NormalizeHl7DatetimeSegment(message, "ORC", fieldList: [8, 14, 26]);
 
         // OBR-7 Observation date/time
         // OBR-8 Observation end date/time
         // OBR-22 Status change date/time
         // OBR-36 Scheduled date/time
-        message = NormalizeHl7DatetimeSegment(message, "OBR", fieldList: [7, 8, 22, 36]);
+        message = NormalizeHl7DatetimeSegment(message, "OBR", fieldList: [6, 7, 21, 35]);
 
         // OBX-12 Effective date/time of reference range
         // OBX-14 Date/time of observation
         // OBX-19 Date/time of analysis
-        message = NormalizeHl7DatetimeSegment(message, "OBX", fieldList: [12, 14, 19]);
+        message = NormalizeHl7DatetimeSegment(message, "OBX", fieldList: [11, 13, 18]);
 
         // TQ1-7 Start date/time
         // TQ1-8 End date/time
-        message = NormalizeHl7DatetimeSegment(message, "TQ1", fieldList: [7, 8]);
+        message = NormalizeHl7DatetimeSegment(message, "TQ1", fieldList: [6, 7]);
 
         // SPM-18 Specimen received date/time
         // SPM-19 Specimen expiration date/time
-        message = NormalizeHl7DatetimeSegment(message, "SPM", fieldList: [18, 19]);
+        message = NormalizeHl7DatetimeSegment(message, "SPM", fieldList: [17, 18]);
 
         // RXA-3 Date/time start of administration
         // RXA-4 Date/time end of administration
         // RXA-16 Substance expiration date
         // RXA-22 System entry date/time
-        message = NormalizeHl7DatetimeSegment(message, "RXA", fieldList: [3, 4, 16, 22]);
+        message = NormalizeHl7DatetimeSegment(message, "RXA", fieldList: [2, 3, 15, 21]);
 
         return message.SerializeMessage().Replace("\r", "\n");
       }
@@ -149,17 +149,16 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       {
         foreach (var segment in message.Segments(segmentId))
         {
-          foreach (var fieldNum in fieldList)
-          {
-            var fields = segment.GetAllFields();
+          var fields = segment.GetAllFields();
 
-            // Datetime value is always in first component
-            if (fields.Count > fieldNum && fields[fieldNum].Value != string.Empty)
+          foreach (var fieldNum in fieldList)
             {
-              var cleanedDatetime = NormalizeHl7Datetime(fields[fieldNum].Value);
-              fields[fieldNum].Value = cleanedDatetime;
+              if (fields.Count > fieldNum && fields[fieldNum].Value != string.Empty)
+              {
+                var cleanedDatetime = NormalizeHl7Datetime(fields[fieldNum].Value);
+                fields[fieldNum].Value = cleanedDatetime;
+              }
             }
-          }
         }
       }
       catch (IndexOutOfRangeException ex)

@@ -11,14 +11,16 @@
     "valueDateTime": "{{ value.value | format_as_date_time }}",
 {% elsif value.value -%}
     "valueQuantity": {
-    "value":
-    {% if value.value startswith "." %}
-        {{ "0" | append: value.value }},
-    {% else %}
-        {{ value.value }},
-    {% endif %}
+        {% if value.value != "" %}
+        "value":
+            {% if value.value startswith "." %}
+                {{ "0" | append: value.value }},
+            {% else %}
+                {{ value.value }},
+            {% endif %}
+        {% endif %}
         {% if value.unit and  value.unit != "null" -%}
-        "unit":"{{ value.unit }}",
+            "unit":"{{ value.unit }}",
         {% endif -%}
     },
 {% elsif value._ %}

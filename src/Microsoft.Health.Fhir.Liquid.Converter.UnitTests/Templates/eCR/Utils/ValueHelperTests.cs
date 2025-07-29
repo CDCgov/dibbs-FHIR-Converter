@@ -61,5 +61,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             };
             ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\":\"/d\", },");
         }
+
+        [Fact]
+        public void GivenNoValueOnlyUnitProperlyReturnsUnit()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", Hash.FromAnonymousObject(new { value = "" , unit = "Immediate"})}
+            };
+            ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\":\"Immediate\", },");
+        }
     }
 }

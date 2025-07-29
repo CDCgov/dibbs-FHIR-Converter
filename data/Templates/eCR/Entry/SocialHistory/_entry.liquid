@@ -37,10 +37,14 @@
         {% include 'Reference/Observation/Subject' ID: observationId, REF: fullPatientId -%}
         {% assign rels = entry.act.entryRelationship | to_array %}
         {% for rel in rels %}
+            {% assign relObsId = rel | to_json_string | generate_uuid %}
+            {% assign fullRelObsId = relObsId |  prepend: 'Observation/' %}
             {% if rel.observation.templateId.root == '2.16.840.1.113883.10.20.15.2.3.52' %}
-                {% assign relObsId = rel.observation | to_json_string | generate_uuid %}
-                {% assign fullRelObsId = relObsId |  prepend: 'Observation/' %}
                 {% include 'Entry/ObservationExposureContact/entry' observationId: relObsId, observationEntry: rel.observation %}
+                {% include 'Reference/Observation/HasMember' ID: observationId, REF: fullRelObsId %}
+                {% include 'Reference/Observation/Subject' ID: relObsId, REF: fullPatientId -%}
+            {% elsif rel.organizer.templateId.root == '2.16.840.1.113883.10.20.15.2.3.50' %}
+                {% include 'Resource/ObservationTransportationDetails' ID: relObsId, transitOrganizer: rel.organizer %}
                 {% include 'Reference/Observation/HasMember' ID: observationId, REF: fullRelObsId %}
                 {% include 'Reference/Observation/Subject' ID: relObsId, REF: fullPatientId -%}
             {% endif %}

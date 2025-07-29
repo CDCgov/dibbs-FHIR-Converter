@@ -2638,11 +2638,89 @@
         ],
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        }
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/7ea16f9a-29a7-dff0-5d8c-d3391f91cfe9"
+          }
+        ]
       },
       "request": {
         "method": "PUT",
         "url": "Observation/73501091-475b-ed11-39dc-2e810af60bef"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7ea16f9a-29a7-dff0-5d8c-d3391f91cfe9",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7ea16f9a-29a7-dff0-5d8c-d3391f91cfe9",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-transportation-details"
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ActClass",
+                "code": "TRNS",
+                "display": "Transportation"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424483007",
+              "display": "Transportation details"
+            }
+          ]
+        },
+        "status": "final",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "21812002",
+              "system": "http://loinc.org",
+              "display": "Ocean liner, device (physical object)"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "display": "Ship Name"
+                }
+              ],
+              "text": "Ship Name"
+            },
+            "valueString": "Princess of the Sea"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "display": "Cabin Number"
+                }
+              ],
+              "text": "Cabin Number"
+            },
+            "valueString": "69B"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/7ea16f9a-29a7-dff0-5d8c-d3391f91cfe9"
       }
     },
     {

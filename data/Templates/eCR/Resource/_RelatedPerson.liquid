@@ -15,7 +15,8 @@
         ],
         "name":
         [
-            {% assign names = relatedPerson.guardianPerson.name | to_array -%}
+            {% assign guardianNames = relatedPerson.guardianPerson.name | to_array -%}
+            {% assign names = relatedPerson.name | to_array | concat: guardianNames -%}
             {% for name in names -%}
             { {% include 'DataType/HumanName' HumanName: name -%} },
             {% endfor -%}

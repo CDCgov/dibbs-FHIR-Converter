@@ -1,0 +1,54 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Observation",
+        "id":"{{ ID }}",
+        "meta":
+        {
+            "profile":
+            [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation",
+            ],
+        },
+        "identifier":
+        [
+            {% assign ids = observationEntry.id | to_array -%}
+            {% for id in ids -%}
+            { {% include 'DataType/Identifier' Identifier: id -%} },
+            {% endfor -%}
+        ],
+        "status":"final",
+        {% comment %} ?TAG Change this to location relevance {% endcomment %}
+        "code":
+        {
+          {% include "DataType/CodeableConcept" CodeableConcept: observationEntry.code %}
+        },
+        {% comment %} ?TAG Add determination of reportability here {% endcomment %}
+        "extension": [
+            {% comment %} ?TAG Update Determination of reportability input {% endcomment %}
+            {% include 'Extension/DeterminationOfReportability' obs: observationEntry %}
+        ],
+        {% comment %} ?TAG Remove performer here (and reference in header) {% endcomment %}
+        {% comment %} ?TAG Add component for reporting timeframe {% endcomment %}
+        {% if observationEntry.component %}
+            {% assign components = observationEntry.component | to_array %}
+            {% for component in components %}
+                {% if component.observation and component.observation.templateId.root == "2.16.840.1.113883.10.20.15.2.3.14" %}
+                    {% comment %} Reporting Timeframe {% endcomment %}
+                    "component": [
+                        {
+                            "code": {
+                                {% include "DataType/CodeableConcept" CodeableConcept: component.observation.code %}
+                            },
+                            {% include "Utils/ValueHelper" value: component.observation.value %}
+                        },
+                    ],
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    },
+    "request":{
+        "method":"PUT",
+        "url":"Observation/{{ ID }}",
+    },
+},

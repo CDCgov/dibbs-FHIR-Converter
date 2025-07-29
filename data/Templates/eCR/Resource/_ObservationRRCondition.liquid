@@ -7,7 +7,8 @@
         {
             "profile":
             [
-                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation",
+                {% comment %} ?TAG Change URL {% endcomment %}
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation",
             ],
         },
         "identifier":
@@ -77,15 +78,9 @@
         [
             { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.interpretationCode -%} },
         ],
-        "extension": [
-            {% include 'Extension/DeterminationOfReportability' obs: observationEntry %}
-        ],
-        "performer" : [
-            {
-                "reference" : "Organization/{{ RoutingEntityId }}",
-                "display" : "{{  RoutingEntityName }}",
-            },
-        ],
+        {% comment %} ?TAG Remove Determination of Reportability {% endcomment %}
+        {% comment %} TODO: Add external resources (condition) extension {% endcomment %}
+        {% comment %} ?TAG Remove Routing Entity {% endcomment %}
     },
     "request":{
         "method":"PUT",

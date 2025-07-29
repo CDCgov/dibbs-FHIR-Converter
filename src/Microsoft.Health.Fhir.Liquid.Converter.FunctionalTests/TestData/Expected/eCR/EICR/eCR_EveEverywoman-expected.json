@@ -629,7 +629,9 @@
         ],
         "name": "Good Health Hospital",
         "address": {
-          "line": ["1000 Hospital Lane"],
+          "line": [
+            "1000 Hospital Lane"
+          ],
           "city": "Ann Arbor",
           "state": "MI",
           "country": "US",
@@ -672,7 +674,9 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": ["1000 Hospital Lane"],
+            "line": [
+              "1000 Hospital Lane"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -722,13 +726,19 @@
         "name": [
           {
             "family": "Seven",
-            "given": ["Henry"],
-            "suffix": ["M.D."]
+            "given": [
+              "Henry"
+            ],
+            "suffix": [
+              "M.D."
+            ]
           }
         ],
         "address": [
           {
-            "line": ["1002 Healthcare Drive"],
+            "line": [
+              "1002 Healthcare Drive"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -778,7 +788,9 @@
         "name": "Community Health and Hospitals",
         "address": [
           {
-            "line": ["1002 Healthcare Drive"],
+            "line": [
+              "1002 Healthcare Drive"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -789,35 +801,6 @@
       "request": {
         "method": "PUT",
         "url": "Organization/8305a99c-dd44-f037-9a4a-b22ef7ae7d5e"
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:c56015b1-ec87-3ccf-4f38-5a16943cf505",
-      "resource": {
-        "resourceType": "Organization",
-        "id": "c56015b1-ec87-3ccf-4f38-5a16943cf505",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"
-          ]
-        },
-        "active": true,
-        "type": [
-          {
-            "coding": [
-              {
-                "system": "urn:oid:2.16.840.1.114222.4.5.232",
-                "code": "RR7",
-                "display": "Routing Entity"
-              }
-            ]
-          }
-        ],
-        "name": "Los Angeles County Department of Public Health"
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/c56015b1-ec87-3ccf-4f38-5a16943cf505"
       }
     },
     {
@@ -989,6 +972,35 @@
       "request": {
         "method": "PUT",
         "url": "Organization/8d0d153a-1f2a-a25b-1843-cdee40c84354"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c56015b1-ec87-3ccf-4f38-5a16943cf505",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "c56015b1-ec87-3ccf-4f38-5a16943cf505",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"
+          ]
+        },
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "urn:oid:2.16.840.1.114222.4.5.232",
+                "code": "RR7",
+                "display": "Routing Entity"
+              }
+            ]
+          }
+        ],
+        "name": "Los Angeles County Department of Public Health"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/c56015b1-ec87-3ccf-4f38-5a16943cf505"
       }
     },
     {
@@ -1279,7 +1291,9 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": ["1000 Hospital Lane"],
+            "line": [
+              "1000 Hospital Lane"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1353,12 +1367,18 @@
           {
             "use": "official",
             "family": "Everywoman",
-            "given": ["Eve", "H"]
+            "given": [
+              "Eve",
+              "H"
+            ]
           },
           {
             "use": "usual",
             "family": "Everywoman",
-            "given": ["Ruth", "L"]
+            "given": [
+              "Ruth",
+              "L"
+            ]
           }
         ],
         "birthDate": "1974-11-24",
@@ -1452,7 +1472,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["2222 Home Street"],
+            "line": [
+              "2222 Home Street"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1605,7 +1627,10 @@
           {
             "use": "official",
             "family": "Mum",
-            "given": ["Martha", "L"]
+            "given": [
+              "Martha",
+              "L"
+            ]
           }
         ],
         "telecom": [
@@ -1622,7 +1647,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["4444 Home Street"],
+            "line": [
+              "4444 Home Street"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -3161,7 +3188,9 @@
         "name": "University Hospital",
         "address": [
           {
-            "line": ["Peachtree St"],
+            "line": [
+              "Peachtree St"
+            ],
             "city": "Atlanta",
             "state": "Georgia"
           }
@@ -4051,7 +4080,9 @@
         "id": "7df7cf78-ecc5-75ec-0746-e14deee862a3",
         "name": "Community Health and Hospitals",
         "address": {
-          "line": ["1002 Healthcare Drive"],
+          "line": [
+            "1002 Healthcare Drive"
+          ],
           "city": "Ann Arbor",
           "state": "MI",
           "country": "US",

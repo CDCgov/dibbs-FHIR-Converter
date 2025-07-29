@@ -629,9 +629,7 @@
         ],
         "name": "Good Health Hospital",
         "address": {
-          "line": [
-            "1000 Hospital Lane"
-          ],
+          "line": ["1000 Hospital Lane"],
           "city": "Ann Arbor",
           "state": "MI",
           "country": "US",
@@ -674,9 +672,7 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": [
-              "1000 Hospital Lane"
-            ],
+            "line": ["1000 Hospital Lane"],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -726,19 +722,13 @@
         "name": [
           {
             "family": "Seven",
-            "given": [
-              "Henry"
-            ],
-            "suffix": [
-              "M.D."
-            ]
+            "given": ["Henry"],
+            "suffix": ["M.D."]
           }
         ],
         "address": [
           {
-            "line": [
-              "1002 Healthcare Drive"
-            ],
+            "line": ["1002 Healthcare Drive"],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -788,9 +778,7 @@
         "name": "Community Health and Hospitals",
         "address": [
           {
-            "line": [
-              "1002 Healthcare Drive"
-            ],
+            "line": ["1002 Healthcare Drive"],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -839,7 +827,7 @@
         "id": "a66d09ae-2b5a-4170-af3f-4ca4df7a02a6",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation"
           ]
         },
         "identifier": [
@@ -872,6 +860,46 @@
             }
           ]
         },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/af32957a-f928-596e-fead-6ef42fa94c2a"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/a66d09ae-2b5a-4170-af3f-4ca4df7a02a6"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:af32957a-f928-596e-fead-6ef42fa94c2a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "af32957a-f928-596e-fead-6ef42fa94c2a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b0bd7770-283f-44b1-9dda-5590707d29fe"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "RRVS5",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "display": "Patient home address"
+            }
+          ]
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension",
@@ -888,18 +916,207 @@
           {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension",
             "valueString": "Detection of SARS-CoV-2 antibody in a clinical specimen by any method"
+          },
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension",
+            "valueReference": {
+              "reference": "DocumentReference/f306806d-91b0-c2f1-8230-7af5a13ac504"
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension",
+            "valueReference": {
+              "reference": "DocumentReference/26dedaf4-419a-5359-b2aa-24afb63d834a"
+            }
+          }
+        ],
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "RR4",
+                  "system": "urn:oid:2.16.840.1.114222.4.5.232",
+                  "display": "Timeframe to report (urgency)"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "unit": "Immediate"
+            }
           }
         ],
         "performer": [
           {
-            "reference": "Organization/c56015b1-ec87-3ccf-4f38-5a16943cf505",
-            "display": "Los Angeles County Department of Public Health"
+            "display": "Los Angeles County Department of Public Health",
+            "reference": "Organization/8d0d153a-1f2a-a25b-1843-cdee40c84354"
+          },
+          {
+            "display": "Los Angeles County Department of Public Health",
+            "reference": "Organization/c56015b1-ec87-3ccf-4f38-5a16943cf505"
           }
         ]
       },
       "request": {
         "method": "PUT",
-        "url": "Observation/a66d09ae-2b5a-4170-af3f-4ca4df7a02a6"
+        "url": "Observation/af32957a-f928-596e-fead-6ef42fa94c2a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8d0d153a-1f2a-a25b-1843-cdee40c84354",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "8d0d153a-1f2a-a25b-1843-cdee40c84354",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"
+          ]
+        },
+        "active": true,
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "urn:oid:2.16.840.1.114222.4.5.232",
+                "code": "RR12",
+                "display": "Rules Authoring Agency"
+              }
+            ]
+          }
+        ],
+        "name": "Los Angeles County Department of Public Health"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/8d0d153a-1f2a-a25b-1843-cdee40c84354"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f306806d-91b0-c2f1-8230-7af5a13ac504",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "f306806d-91b0-c2f1-8230-7af5a13ac504",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference"
+          ]
+        },
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "83910-0",
+              "display": "Public health Note"
+            }
+          ],
+          "text": "Public health information"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "RRVS13",
+                "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                "display": "Outbreak- or Cluster related"
+              }
+            ]
+          }
+        ],
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/html",
+              "url": "https://www.cdc.gov/coronavirus/2019-ncov/index.html"
+            }
+          }
+        ],
+        "description": "CDC COVID-19 webpage",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "RRVS15",
+                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "display": "Information only"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DocumentReference/f306806d-91b0-c2f1-8230-7af5a13ac504"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:26dedaf4-419a-5359-b2aa-24afb63d834a",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "26dedaf4-419a-5359-b2aa-24afb63d834a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference"
+          ]
+        },
+        "status": "current",
+        "type": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "83910-0",
+              "display": "Public health Note"
+            }
+          ],
+          "text": "Public health information"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "RRVS12",
+                "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                "display": "PHA Contact Information"
+              }
+            ]
+          }
+        ],
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/html",
+              "url": "http://publichealth.lacounty.gov/"
+            }
+          }
+        ],
+        "description": "Los Angeles County Department of Public Health Office of the Chief Medical Informatics Officer IRIS System 241 North Figueroa Street Los Angeles, CA 90012 213-288-7696",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "RRVS15",
+                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "display": "Information only"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DocumentReference/26dedaf4-419a-5359-b2aa-24afb63d834a"
       }
     },
     {
@@ -909,7 +1126,7 @@
         "id": "10bd27fb-e882-4acb-8efb-ed2051b86691",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation"
           ]
         },
         "identifier": [
@@ -942,6 +1159,46 @@
             }
           ]
         },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/19dff51c-e53e-1b1e-ae25-717a97a65e18"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/10bd27fb-e882-4acb-8efb-ed2051b86691"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:19dff51c-e53e-1b1e-ae25-717a97a65e18",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "19dff51c-e53e-1b1e-ae25-717a97a65e18",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:f4ea9439-0626-4b65-b6de-6e64554bd427"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "RRVS5",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "display": "Patient home address"
+            }
+          ]
+        },
         "extension": [
           {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension",
@@ -962,14 +1219,18 @@
         ],
         "performer": [
           {
-            "reference": "Organization/c56015b1-ec87-3ccf-4f38-5a16943cf505",
-            "display": "Los Angeles County Department of Public Health"
+            "display": "Los Angeles County Department of Public Health",
+            "reference": "Organization/8d0d153a-1f2a-a25b-1843-cdee40c84354"
+          },
+          {
+            "display": "Los Angeles County Department of Public Health",
+            "reference": "Organization/c56015b1-ec87-3ccf-4f38-5a16943cf505"
           }
         ]
       },
       "request": {
         "method": "PUT",
-        "url": "Observation/10bd27fb-e882-4acb-8efb-ed2051b86691"
+        "url": "Observation/19dff51c-e53e-1b1e-ae25-717a97a65e18"
       }
     },
     {
@@ -1018,9 +1279,7 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": [
-              "1000 Hospital Lane"
-            ],
+            "line": ["1000 Hospital Lane"],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1094,18 +1353,12 @@
           {
             "use": "official",
             "family": "Everywoman",
-            "given": [
-              "Eve",
-              "H"
-            ]
+            "given": ["Eve", "H"]
           },
           {
             "use": "usual",
             "family": "Everywoman",
-            "given": [
-              "Ruth",
-              "L"
-            ]
+            "given": ["Ruth", "L"]
           }
         ],
         "birthDate": "1974-11-24",
@@ -1199,9 +1452,7 @@
         "address": [
           {
             "use": "home",
-            "line": [
-              "2222 Home Street"
-            ],
+            "line": ["2222 Home Street"],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1354,10 +1605,7 @@
           {
             "use": "official",
             "family": "Mum",
-            "given": [
-              "Martha",
-              "L"
-            ]
+            "given": ["Martha", "L"]
           }
         ],
         "telecom": [
@@ -1374,9 +1622,7 @@
         "address": [
           {
             "use": "home",
-            "line": [
-              "4444 Home Street"
-            ],
+            "line": ["4444 Home Street"],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -2915,9 +3161,7 @@
         "name": "University Hospital",
         "address": [
           {
-            "line": [
-              "Peachtree St"
-            ],
+            "line": ["Peachtree St"],
             "city": "Atlanta",
             "state": "Georgia"
           }
@@ -3807,9 +4051,7 @@
         "id": "7df7cf78-ecc5-75ec-0746-e14deee862a3",
         "name": "Community Health and Hospitals",
         "address": {
-          "line": [
-            "1002 Healthcare Drive"
-          ],
+          "line": ["1002 Healthcare Drive"],
           "city": "Ann Arbor",
           "state": "MI",
           "country": "US",

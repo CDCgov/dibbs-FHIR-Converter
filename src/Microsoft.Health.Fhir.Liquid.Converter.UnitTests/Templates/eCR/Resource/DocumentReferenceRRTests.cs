@@ -70,12 +70,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 { "documentReference", parsed["act"]},
             };
             var actualFhir = GetFhirObjectFromTemplate<DocumentReference>(ECRPath, attributes);
-            var serializer = new Hl7.Fhir.Serialization.FhirJsonSerializer(new Hl7.Fhir.Serialization.SerializerSettings
-            {
-                Pretty = true
-            });
-            string json = serializer.SerializeToString(actualFhir);
-            Console.WriteLine(json);
 
             Assert.Equal(ResourceType.DocumentReference.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);

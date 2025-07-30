@@ -4407,15 +4407,15 @@
           ],
           "text": "Employee desk distance from mail sorter"
         },
-        "subject": {
-          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
-        },
         "valueQuantity": {
           "value": 2,
           "unit": "m"
         },
         "effectivePeriod": {
           "start": "2020-11-01"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
       },
       "request": {

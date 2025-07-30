@@ -113,10 +113,7 @@ For local development, you may prefer to run the service directly from Python. T
 1. Ensure that both Git and Dotnet 8 are installed.
 2. Clone the dibbs-ecr-viewer repository with `git clone https://github.com/CDCgov/dibbs-ecr-viewer`.
 3. Navigate to `/dibbs-ecr-viewer/containers/fhir-converter/`.
-4. Make a fresh virtual environment with `python -m venv .venv`.
-5. Activate the virtual environment with `source .venv/bin/activate` (MacOS and Linux), `venv\Scripts\activate` (Windows Command Prompt), or `.venv\Scripts\Activate.ps1` (Windows PowerShell).
-6. Install all of the Python dependencies for the ingestion service with `pip install -r requirements.txt` into your virtual environment.
-7. Run the FHIR Converter on `localhost:8080` with `FHIR_CONVERTER_TOOl_PATH=~/fully/qualified/path/to/Microsoft.Health.Fhir.Liquid.Converter.Tool python -m uvicorn app.main:app --host 0.0.0.0 --port 8080`.
+4. Run the FHIR Converter on `localhost:8080` with `dotnet run`.
 
 ### Building the Docker Image
 
@@ -132,12 +129,6 @@ To build the Docker image for the FHIR Conversion service from source code inste
 - To run the service tests, use the command `dotnet test`.
   - Make sure your docker image has pulled in the latest changes by building with no cache `make build-image-no-cache`.
 - To run the tool tests, run the commands found in the github actions workflow.
-
-### Updating RCTC document
-
-RCTC spreadsheet gets updated approximately every 6 months. The latest RCTC spreadsheet can be found on the [eRDS Aims Platform](https://ersd.aimsplatform.org/#/home), an account is required to download. Two output files are created, in which `json_output_loc` holds the Grouping List, and `json_output_loc2` holds the Expansion List.
-<!-- TODO: Update this -->
-The script can be run by using the following command `python3 rctc-to-json.py spreadsheet_input_loc json_output_loc json_output_loc2`
 
 ## Architecture Diagram
 
@@ -187,7 +178,7 @@ When testing, you can print from the liquid templates with the following command
 {{ objectName | print_object }}
 ```
 
-This will print objects or strings to the console for debugging purposes. You must set the environment variables `DEV_MODE` and `DEBUG_LOG` to `"true"`.
+This will print objects or strings to the console for debugging purposes. You must set the environment variable `DEBUG_LOG` to `"true"`.
 
 If debugging an exception, the below snippet of code can be helpful to get more information on where the exception is coming from.
 

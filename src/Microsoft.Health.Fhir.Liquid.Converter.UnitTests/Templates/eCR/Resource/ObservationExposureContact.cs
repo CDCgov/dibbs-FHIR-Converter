@@ -292,7 +292,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.NotNull(animalFhir.Id);
 
             Assert.Equal(1, animalFhir.Extension.Count());
-            Assert.Equal("http://hl7.org/fhir/StructureDefinition/practitioner-animalSpecies", animalFhir.Extension[0].Url);
+            Assert.Equal(
+                "http://hl7.org/fhir/StructureDefinition/practitioner-animalSpecies",
+                animalFhir.Extension[0].Url);
             var value = (CodeableConcept)animalFhir.Extension[0].Value;
             Assert.Equal("Wild mink (organism)", value.Coding[0].Display);
             Assert.Equal("35794008", value.Coding[0].Code);

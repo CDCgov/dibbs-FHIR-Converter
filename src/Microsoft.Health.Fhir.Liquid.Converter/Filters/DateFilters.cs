@@ -16,7 +16,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
-
         private static TimeZoneHandlingMethod ParseTimeZone(string timeZoneHandling)
         {
             if (!Enum.TryParse(timeZoneHandling, true, out TimeZoneHandlingMethod outputTimeZoneHandling))
@@ -46,8 +45,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                 return input;
             }
 
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Fhir);
             var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
+            var dateTimeObject = ParsePartialDate(input, DateTimeType.Fhir);
 
             dateTimeObject.AddSeconds(seconds);
             return dateTimeObject.ToFhirString(outputTimeZoneHandling);
@@ -60,8 +59,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                 return input;
             }
 
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Hl7v2);
             var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
+            var dateTimeObject = ParsePartialDate(input, DateTimeType.Hl7v2);
 
             dateTimeObject.ConvertToDate();
             return dateTimeObject.ToFhirString(outputTimeZoneHandling);
@@ -74,8 +73,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                 return input;
             }
 
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Hl7v2);
             var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
+            var dateTimeObject = ParsePartialDate(input, DateTimeType.Hl7v2);
 
             return dateTimeObject.ToFhirString(outputTimeZoneHandling);
         }
@@ -92,8 +91,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                 return input;
             }
 
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Fhir);
             var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
+            var dateTimeObject = ParsePartialDate(input, DateTimeType.Fhir);
             return dateTimeObject.ToHl7v2Date(outputTimeZoneHandling);
         }
 
@@ -107,6 +106,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             {
                 return input;
             }
+
             var obj = (IDictionary<string, object>)input;
 
             PartialDateTime lowDate;
@@ -145,7 +145,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         private static PartialDateTime AddWidthToDate(PartialDateTime origDate, int intervalMultiplier, IDictionary<string, object> width)
         {
             var widthUnit = ((string)width["unit"]).ToLower();
-            var widthValue = Int32.Parse((string)width["value"]);
+            var widthValue = int.Parse((string)width["value"]);
             var date = origDate.Copy();
 
             if (widthUnit.StartsWith("s"))
@@ -183,6 +183,5 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                     $"Invalid datetime width: {widthUnit}");
             }
         }
-        
     }
 }

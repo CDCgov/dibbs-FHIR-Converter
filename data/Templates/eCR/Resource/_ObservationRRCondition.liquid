@@ -7,7 +7,6 @@
         {
             "profile":
             [
-                {% comment %} ?TAG Change URL {% endcomment %}
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation",
             ],
         },
@@ -78,9 +77,6 @@
         [
             { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.interpretationCode -%} },
         ],
-        {% comment %} ?TAG Remove Determination of Reportability {% endcomment %}
-        {% comment %} TODO: Add external resources (condition) extension {% endcomment %}
-        {% comment %} ?TAG Remove Routing Entity {% endcomment %}
     },
     "request":{
         "method":"PUT",

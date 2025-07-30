@@ -18,18 +18,13 @@
             {% endfor -%}
         ],
         "status":"final",
-        {% comment %} ?TAG Change this to location relevance {% endcomment %}
         "code":
         {
           {% include "DataType/CodeableConcept" CodeableConcept: observationEntry.code %}
         },
-        {% comment %} ?TAG Add determination of reportability here {% endcomment %}
         "extension": [
-            {% comment %} ?TAG Update Determination of reportability input {% endcomment %}
             {% include 'Extension/DeterminationOfReportability' obs: observationEntry %}
         ],
-        {% comment %} ?TAG Remove performer here (and reference in header) {% endcomment %}
-        {% comment %} ?TAG Add component for reporting timeframe {% endcomment %}
         {% if observationEntry.component %}
             {% assign components = observationEntry.component | to_array %}
             {% for component in components %}

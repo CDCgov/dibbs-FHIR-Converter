@@ -3,6 +3,7 @@
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DotLiquid;
+using DotLiquid.Util;
 using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -115,6 +117,47 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             }
 
             return template;
+        }
+
+        private static bool HasMatchingPropertyRecursive(IEnumerable<object> entry, string keyPath, string targetProperty = null)
+        {
+            var keys = keyPath.Split(".");
+            var thisKey = keys[0];
+            var thisTargetProperty = keys.Count() == 1 ? targetProperty : null;
+            var res = DotLiquid.StandardFilters.Where(entry, thisKey, thisTargetProperty) as IEnumerable<object>;
+            if (res.Count() == 0)
+            {
+                return false;
+            }
+            else if (keys.Count() == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return HasMatchingPropertyRecursive(
+                    DotLiquid.StandardFilters.Map(res, thisKey) as IEnumerable<object>,
+                    string.Join('.', keys[1..]),
+                    targetProperty);
+            }
+        }
+
+        /// <summary>
+        /// Given a collection, return items that match the keypath and target property (like standard
+        /// `where` filter except instead of taking one key, takes a period-delimited path of keys).
+        /// </summary>
+        /// <param name="entries">A collection of items.</param>
+        /// <param name="keyPath">A period delimited set of keys to search.</param>
+        /// <param name="targetProperty">Optionally, the expected value of the item at the end of the keypath, if not present, truthiness is tested.</param>
+        /// <returns>A list of the items that match. If no matching elements are found, an empty list is returned.</returns>
+        public static IEnumerable<object> NestedWhere(IEnumerable<object> entries, string keyPath, string targetProperty = null)
+        {
+            if (entries == null)
+            {
+                return null;
+            }
+
+            return entries.Cast<object>().Where(entry => HasMatchingPropertyRecursive(new[] { entry }, keyPath, targetProperty));
         }
     }
 }

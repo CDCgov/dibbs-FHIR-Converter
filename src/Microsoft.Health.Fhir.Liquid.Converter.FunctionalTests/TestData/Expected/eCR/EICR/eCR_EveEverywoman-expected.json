@@ -2536,6 +2536,7 @@
         },
         "status": "final",
         "effectivePeriod": {
+          "start": "2020-10-19",
           "end": "2020-11-09"
         },
         "component": [

@@ -44,6 +44,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       }
     }
 
+    // TODO: refactor, this is too big
     /// <summary>
     ///  Extracts relevant fields from an RR document, and inserts them into a
     ///  given eICR document. Ensures that the eICR contains properly formatted
@@ -90,15 +91,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
         }
 
         // Create the tags for elements we'll be looking for
-        var rrTags = new string[]
-        {
+        string[] rrTags =
+        [
             "templateId",
             "id",
             "code",
             "title",
             "effectiveTime",
             "confidentialityCode",
-        };
+        ];
 
         var rrElements = new List<XElement>();
         var rrNames = new XmlNamespaceManager(rrXDocument.CreateNavigator().NameTable);
@@ -130,7 +131,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
         // and entry to insert in the eICR
         if (rrEntry is not null)
         {
-          var ecrSection = new XElement("section");
+          XNamespace ns = "urn:hl7-org:v3";
+          var ecrSection = new XElement(ns + "section");
           foreach (var element in rrElements)
           {
             ecrSection.Add(element);

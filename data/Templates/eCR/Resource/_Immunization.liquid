@@ -41,10 +41,7 @@
             {% for manufacturedProduct in manufacturedProducts -%}
                 {% assign templateIdString = manufacturedProduct.templateId | to_json_string -%}
                 {% if templateIdString contains '"2.16.840.1.113883.10.20.22.4.54"' -%}
-                    {% assign translations = manufacturedProduct.manufacturedMaterial.code.translation | to_array -%}
-                    {% assign code = manufacturedProduct.manufacturedMaterial.code | to_array -%}
-                    {% assign codes = code | concat: translations %}
-                    "vaccineCode":{ {% include 'DataType/CodeableConcept' CodeableConcept: codes -%} },
+                    "vaccineCode":{ {% include 'DataType/CodeableConcept' CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%} },
                     "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
                     {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}
                     {% assign fullManufacturerId = manufacturerId | prepend: 'Organization/' -%}

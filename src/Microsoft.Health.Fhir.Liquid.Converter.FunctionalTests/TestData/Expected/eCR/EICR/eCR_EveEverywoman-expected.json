@@ -1636,8 +1636,8 @@
         "code": {
           "coding": [
             {
-              "code": "249197004",
               "system": "http://snomed.info/sct",
+              "code": "249197004",
               "display": "Maternal condition during puerperium (observable entity)"
             }
           ]
@@ -2248,7 +2248,8 @@
               "system": "http://loinc.org",
               "display": "Mass gathering"
             }
-          ]
+          ],
+          "text": "Football game"
         },
         "effectivePeriod": {
           "start": "2020-11-10T18:00:00",
@@ -2261,7 +2262,8 @@
               "system": "http://snomed.info/sct",
               "display": "Sports stadium (environment)"
             }
-          ]
+          ],
+          "text": "City Football Stadium"
         },
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
@@ -4139,7 +4141,8 @@
             {
               "display": "Employee desk distance from mail sorter"
             }
-          ]
+          ],
+          "text": "Employee desk distance from mail sorter"
         },
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"

@@ -19,9 +19,6 @@
         ],
         "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
         "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
-        "subject": {
-            "reference": "{{ fullPatientId }}"
-        },
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%}
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime -%}
     },

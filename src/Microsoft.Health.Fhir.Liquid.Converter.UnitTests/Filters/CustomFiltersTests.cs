@@ -388,4 +388,56 @@ public class CustomFilterTests
     var actual = Microsoft.Health.Fhir.Liquid.Converter.Filters.GetDiagnosisDictionary(CustomFilterTestFixtures.EncounterDiagnoses);
     Assert.Equal(new Dictionary<string, bool>() { { "B05.9", true }, { "B06.0", true }, { "B06.1", true } }, actual);
   }
+
+  [Fact]
+  public void NestedWhere_NullData_ReturnsNull()
+  {
+    var actual = Filters.NestedWhere(null, "test.path");
+    Assert.Equal(null, actual);
+  }
+
+  [Fact]
+  public void NestedWhere_EmptyArray_ReturnsEmpty()
+  {
+    var actual = Filters.NestedWhere(new object[] { }, "test.path");
+    Assert.Equal(new object[] { }, actual);
+  }
+
+  [Fact]
+  public void NestedWhere_NoMatch_ReturnsEmpty()
+  {
+    var actual = Filters.NestedWhere(
+      new object[] { new { test = "hi" }, new { test = "bye" } },
+      "test.path");
+    Assert.Equal(new object[] { }, actual);
+  }
+
+  [Fact]
+  public void NestedWhere_Match_ReturnsMatch()
+  {
+    var actual = Filters.NestedWhere(
+      new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
+      "test.path");
+    Assert.Equal(new object[] { new { test = new { path = "hi" } } }, actual);
+  }
+
+  [Fact]
+  public void NestedWhere_MatchButNotValue_ReturnsEmpty()
+  {
+    var actual = Filters.NestedWhere(
+      new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
+      "test.path",
+      "other");
+    Assert.Equal(new object[] { }, actual);
+  }
+
+  [Fact]
+  public void NestedWhere_MatchIncludingValue_ReturnsMatch()
+  {
+    var actual = Filters.NestedWhere(
+      new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
+      "test.path",
+      "hi");
+    Assert.Equal(new object[] { new { test = new { path = "hi" } } }, actual);
+  }
 }

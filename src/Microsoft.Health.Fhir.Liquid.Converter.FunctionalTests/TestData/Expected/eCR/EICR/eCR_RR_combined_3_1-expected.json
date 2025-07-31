@@ -308,6 +308,11 @@
                   "code": "46241-6",
                   "system": "http://loinc.org",
                   "display": "Hospital admission diagnosis Narrative - Reported"
+                },
+                {
+                  "code": "42347-5",
+                  "system": "http://loinc.org",
+                  "display": "Admission diagnosis (narrative)"
                 }
               ]
             },
@@ -480,8 +485,14 @@
                       "code": "1081-9",
                       "system": "urn:oid:2.16.840.1.113883.6.259",
                       "display": "Pediatric Medical-Surgical Ward"
+                    },
+                    {
+                      "code": "82",
+                      "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
+                      "display": "Pediatrics"
                     }
-                  ]
+                  ],
+                  "text": "Pediatrics"
                 }
               }
             ]
@@ -598,8 +609,14 @@
                 "code": "1081-9",
                 "system": "urn:oid:2.16.840.1.113883.6.259",
                 "display": "Pediatric Medical-Surgical Ward"
+              },
+              {
+                "code": "82",
+                "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
+                "display": "Pediatrics"
               }
-            ]
+            ],
+            "text": "Pediatrics"
           }
         ]
       },
@@ -807,8 +824,19 @@
                   "code": "208D00000X",
                   "system": "http://nucc.org/provider-taxonomy",
                   "display": "General Practice Physician"
+                },
+                {
+                  "code": "32",
+                  "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160",
+                  "display": "Internal Medicine"
+                },
+                {
+                  "code": "17",
+                  "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.10.836982.1050",
+                  "display": "Internal Medicine"
                 }
-              ]
+              ],
+              "text": "Internal Medicine"
             }
           }
         ]
@@ -882,8 +910,19 @@
                   "code": "208D00000X",
                   "system": "http://nucc.org/provider-taxonomy",
                   "display": "General Practice Physician"
+                },
+                {
+                  "code": "32",
+                  "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160",
+                  "display": "Internal Medicine"
+                },
+                {
+                  "code": "17",
+                  "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.10.836982.1050",
+                  "display": "Internal Medicine"
                 }
-              ]
+              ],
+              "text": "Internal Medicine"
             }
           }
         ]
@@ -1271,7 +1310,8 @@
                 "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
                 "display": "Oral"
               }
-            ]
+            ],
+            "text": "Oral"
           },
           "dose": {
             "value": 10,
@@ -1473,11 +1513,17 @@
         "code": {
           "coding": [
             {
+              "code": "58410-2",
+              "system": "http://loinc.org",
+              "display": "CBC"
+            },
+            {
               "code": "1698",
               "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.696580",
               "display": "CBC"
             }
-          ]
+          ],
+          "text": "CBC"
         },
         "effectivePeriod": {
           "start": "1981-10-16",
@@ -1534,8 +1580,14 @@
               "code": "119297000",
               "system": "http://snomed.info/sct",
               "display": "Blood"
+            },
+            {
+              "code": "3",
+              "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.4.798268.300",
+              "display": "Blood"
             }
-          ]
+          ],
+          "text": "Blood"
         },
         "collection": {
           "bodySite": {
@@ -1544,6 +1596,11 @@
                 "code": "122555007",
                 "system": "http://snomed.info/sct",
                 "display": "Venous blood specimen (specimen)"
+              },
+              {
+                "code": "310",
+                "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.4.798268.325",
+                "display": "Blood, Venous"
               }
             ]
           }
@@ -1605,7 +1662,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-18T05:33:46Z",
         "valueQuantity": {
@@ -1661,7 +1719,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-18T05:33:46Z",
         "valueQuantity": {
@@ -1734,7 +1793,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-18T05:33:46Z",
         "valueQuantity": {
@@ -1790,7 +1850,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-18T05:33:46Z",
         "valueQuantity": {
@@ -2219,7 +2280,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2269,7 +2331,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2319,7 +2382,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2369,7 +2433,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2419,7 +2484,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2469,7 +2535,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2519,7 +2586,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2569,7 +2637,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2619,7 +2688,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2674,7 +2744,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2724,7 +2795,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2779,7 +2851,8 @@
               "system": "http://loinc.org",
               "display": "REMOVED"
             }
-          ]
+          ],
+          "text": "REMOVED"
         },
         "effectiveDateTime": "1981-10-16T17:17:46Z",
         "valueQuantity": {
@@ -2819,6 +2892,18 @@
                   {
                     "code": "AMB",
                     "system": "urn:oid:2.16.840.1.113883.5.4"
+                  },
+                  {
+                    "code": "101",
+                    "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.4.698084.30"
+                  },
+                  {
+                    "code": "101",
+                    "system": "urn:oid:1.2.840.114350.1.72.1.30"
+                  },
+                  {
+                    "code": "4",
+                    "system": "urn:oid:1.2.840.114350.1.72.1.30.1"
                   }
                 ]
               },
@@ -2859,7 +2944,8 @@
               "system": "http://loinc.org",
               "display": "CBC"
             }
-          ]
+          ],
+          "text": "CBC"
         },
         "performedDateTime": "1981-10-16",
         "subject": {

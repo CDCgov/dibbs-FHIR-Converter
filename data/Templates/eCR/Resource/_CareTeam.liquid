@@ -24,7 +24,7 @@
             {% for component in components -%} 
                 {
                     "role": {
-                        "text": "{{ component.act.performer.['sdtc_functionCode'].originalText._ }}",
+                        {% include 'DataType/CodeableConcept' CodeableConcept:  component.act.performer.['sdtc_functionCode'] %}
                     },
                     {% assign practitionerId = component.act.performer.assignedEntity | to_json_string | generate_uuid -%}
                     {% assign fullPractitionerId = practitionerId | prepend: 'Practitioner/' -%}

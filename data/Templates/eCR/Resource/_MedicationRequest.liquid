@@ -20,9 +20,7 @@
         "medicationCodeableConcept":
         {
             {% assign code = medicationRequest.consumable.manufacturedProduct.manufacturedMaterial.code %}
-            {% assign translations = code.translation | to_array -%}
-            {% assign codes = code | to_array | concat: translations %}
-            {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
+            {% include 'DataType/CodeableConcept' CodeableConcept: code -%}
         },
 
         "authoredOn": "{{ medicationRequest.author.time.value | format_as_date_time }}",
@@ -39,13 +37,7 @@
                 "site": { 
                     {% include 'DataType/CodeableConcept' CodeableConcept: medicationRequest.approachSiteCode | first %} 
                 },
-                "route": 
-                {
-                    {% assign code = medicationRequest.routeCode %}
-                    {% assign translations = code.translation | to_array -%}
-                    {% assign codes = code | to_array | concat: translations %}
-                    {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
-                },
+                "route": { {% include 'DataType/CodeableConcept' CodeableConcept: medicationRequest.routeCode -%} },
                 {% if medicationRequest.doseQuantity.value %}
                     "doseAndRate": {
                         "doseQuantity": {

@@ -96,6 +96,36 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Models
             return this;
         }
 
+        public PartialDateTime AddMinutes(int minutes)
+        {
+            DateTimeValue = DateTimeValue.AddMinutes(minutes);
+            return this;
+        }
+
+        public PartialDateTime AddHours(int hours)
+        {
+            DateTimeValue = DateTimeValue.AddHours(hours);
+            return this;
+        }
+
+        public PartialDateTime AddDays(int days)
+        {
+            DateTimeValue = DateTimeValue.AddDays(days);
+            return this;
+        }
+
+        public PartialDateTime AddMonths(int months)
+        {
+            DateTimeValue = DateTimeValue.AddMonths(months);
+            return this;
+        }
+
+        public PartialDateTime AddYears(int years)
+        {
+            DateTimeValue = DateTimeValue.AddYears(years);
+            return this;
+        }
+
         public string ToFhirString(TimeZoneHandlingMethod timeZoneHandling = TimeZoneHandlingMethod.Preserve)
         {
             var resultDateTime = timeZoneHandling switch
@@ -153,16 +183,22 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Models
             }
 
             string dateTimeFormat;
+            var timeZoneSuffix = timeZoneHandling == TimeZoneHandlingMethod.Preserve && !this.HasTimeZone ? string.Empty : "K";
             if (Precision < DateTimePrecision.Milliseconds || MillisecondString == null)
             {
-                dateTimeFormat = "yyyyMMddHHmmssK";
+                dateTimeFormat = $"yyyyMMddHHmmss{timeZoneSuffix}";
             }
             else
             {
-                dateTimeFormat = $"yyyyMMddHHmmss.{MillisecondString}K";
+                dateTimeFormat = $"yyyyMMddHHmmss.{MillisecondString}{timeZoneSuffix}";
             }
 
             return resultDateTime.ToString(dateTimeFormat).Replace(":", string.Empty);
+        }
+
+        public PartialDateTime Copy()
+        {
+            return new PartialDateTime(this.ToHl7v2Date(), DateTimeType.Hl7v2);
         }
     }
 }

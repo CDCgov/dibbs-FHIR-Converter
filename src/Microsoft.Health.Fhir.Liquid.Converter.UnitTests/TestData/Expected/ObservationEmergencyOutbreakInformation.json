@@ -25,9 +25,6 @@
       ],
       "text": "Distance of mail workers from mail sorter machines"
     },
-    "subject": {
-      "reference": ""
-    },
     "valueQuantity": {
       "value": 2,
       "unit": "m"

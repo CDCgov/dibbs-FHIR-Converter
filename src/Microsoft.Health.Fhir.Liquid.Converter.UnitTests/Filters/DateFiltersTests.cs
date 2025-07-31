@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
+using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
@@ -220,6 +223,97 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
             yield return new object[] { @"2001-01T" };
         }
 
+        public static IEnumerable<object[]> GetValidDataForFormatWidthAsPeriod()
+        {
+            // happy path
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202000000"" /><width value=""2"" unit=""secs"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202000000"" /><high value=""20200202000002"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202000000"" /><width value=""2"" unit=""secs"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200201235958"" /><high value=""20200202000000"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202000000"" /><width value=""2"" unit=""mins"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202000000"" /><high value=""20200202000200"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202000000"" /><width value=""2"" unit=""mins"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200201235800"" /><high value=""20200202000000"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202000000"" /><width value=""2"" unit=""h"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202000000"" /><high value=""20200202020000"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202000000"" /><width value=""2"" unit=""h"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200201220000"" /><high value=""20200202000000"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202000000"" /><width value=""2"" unit=""d"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202000000"" /><high value=""20200204000000"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202000000"" /><width value=""2"" unit=""d"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200131000000"" /><high value=""20200202000000"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202"" /><width value=""2"" unit=""days"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202"" /><high value=""20200204"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202"" /><width value=""2"" unit=""days"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200131"" /><high value=""20200202"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202"" /><width value=""2"" unit=""mo"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202"" /><high value=""20200402"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202"" /><width value=""2"" unit=""mo"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20191202"" /><high value=""20200202"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202"" /><width value=""2"" unit=""y"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202"" /><high value=""20220202"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202"" /><width value=""2"" unit=""y"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20180202"" /><high value=""20200202"" /></effectiveTime>",
+            };
+            // garbage in, garbage out
+            yield return new object[] {
+                @"<effectiveTime><high value=""20200202"" /></effectiveTime>",
+                @"<effectiveTime><high value=""20200202"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><width value=""2"" unit=""y"" /></effectiveTime>",
+                @"<effectiveTime><width value=""2"" unit=""y"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202"" /></effectiveTime>",
+                @"<effectiveTime><low value=""20200202"" /></effectiveTime>",
+            };
+            yield return new object[] {
+                @"<effectiveTime value=""20200202""></effectiveTime>",
+                @"<effectiveTime value=""20200202""></effectiveTime>",
+            };
+        }
+
+        public static IEnumerable<object[]> GetInvalidDataForFormatWidthAsPeriod()
+        {
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202000000"" /><width value=""2"" unit=""nope"" /></effectiveTime>"
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202000000"" /><width value=""2"" /></effectiveTime>"
+            };
+            yield return new object[] {
+                @"<effectiveTime><low value=""20200202000000"" /><width unit=""s"" /></effectiveTime>"
+            };
+        }
+
         [Theory]
         [MemberData(nameof(GetValidDataForAddSeconds))]
         public void GivenSeconds_WhenAddOnValidDateTime_CorrectDateTimeStringShouldBeReturned(string originalDateTime, double seconds, string timeZoneHandling, string expectedDateTime)
@@ -386,6 +480,26 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
 
             // Invalid DateTime format
             Assert.Throws<FormatException>(() => Filters.Now(string.Empty, "a"));
+        }
+
+        [Theory]
+        [MemberData(nameof(GetValidDataForFormatWidthAsPeriod))]
+        public void FormatWidthAsPeriod_Valid(string inputStr, string expectedStr)
+        {
+            var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;
+            var expectedParsed = new CcdaDataParser().Parse(expectedStr) as IDictionary<string, object>;
+            var expected = JObject.FromObject(expectedParsed["effectiveTime"]);
+            var actual = JObject.FromObject(Filters.FormatWidthAsPeriod(inputParsed["effectiveTime"]));
+            Assert.True(JToken.DeepEquals(expected, actual), $"\nExpected: {expected}\nActual:  {actual}");
+        }
+
+        [Theory]
+        [MemberData(nameof(GetInvalidDataForFormatWidthAsPeriod))]
+        public void FormatWidthAsPeriod_Invalid(string inputStr)
+        {
+            var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;
+            var exception = Assert.Throws<RenderException>(() => Filters.FormatWidthAsPeriod(inputParsed["effectiveTime"]));
+            Assert.Equal(FhirConverterErrorCode.InvalidDateTimeFormat, exception.FhirConverterErrorCode);
         }
     }
 }

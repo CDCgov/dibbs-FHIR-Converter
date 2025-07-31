@@ -21,7 +21,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var attributes = new Dictionary<string, object>
             {
                 { "ID", "1234" },
-                { "fullPatientId", "urn:uuid:9876" },
                 {
                     "observationEntry",
                     Hash.FromAnonymousObject(
@@ -58,7 +57,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.NotEmpty(actualFhir.Identifier);
             Assert.Equal("Final", actualFhir.Status.ToString());
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("urn:uuid:9876", actualFhir.Subject.Reference);
             Assert.NotNull(actualFhir.Value);
             Assert.NotNull(actualFhir.Effective);
         }
@@ -68,7 +66,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             var attributes = new Dictionary<string, object>
             {
-                { "fullPatientId", "urn:uuid:9876" },
                 {
                     "observationEntry",
                     Hash.FromAnonymousObject(
@@ -103,7 +100,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Empty(actualFhir.Identifier);
             Assert.Equal("Final", actualFhir.Status.ToString());
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("urn:uuid:9876", actualFhir.Subject.Reference);
             Assert.NotNull(actualFhir.Value);
             Assert.Null(actualFhir.Effective);
         }

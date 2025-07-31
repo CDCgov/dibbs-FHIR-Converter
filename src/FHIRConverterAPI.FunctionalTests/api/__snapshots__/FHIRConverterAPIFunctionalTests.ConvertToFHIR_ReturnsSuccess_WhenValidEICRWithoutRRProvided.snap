@@ -246,7 +246,7 @@
               }
             ],
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             },
             "encounter": {
               "reference": "Encounter/3fef2f23-d5a0-bafd-3761-83a4c317d3ed"
@@ -277,7 +277,7 @@
               "display": "External Encounter"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             },
             "location": [
               {
@@ -526,10 +526,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:e2c985a4-bc64-4d2a-ab33-22c346744a5f",
+          "fullUrl": "urn:uuid:a96a691f-7704-4761-8e71-8675380e9ed6",
           "resource": {
             "resourceType": "Patient",
-            "id": "e2c985a4-bc64-4d2a-ab33-22c346744a5f",
+            "id": "a96a691f-7704-4761-8e71-8675380e9ed6",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
@@ -675,7 +675,7 @@
           },
           "request": {
             "method": "PUT",
-            "url": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+            "url": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
           }
         },
         {
@@ -704,7 +704,7 @@
               "end": "2025-02-25"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             },
             "result": [
               {
@@ -727,7 +727,7 @@
             "id": "f59e77fb-9909-79fb-5996-a1b884f84820",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
               ],
               "source": "ecr"
             },
@@ -778,19 +778,8 @@
                 ]
               }
             ],
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/R4/specimen.html",
-                "extension": [
-                  {
-                    "url": "specimen collection time",
-                    "valueDateTime": "2025-02-25"
-                  }
-                ]
-              }
-            ],
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -805,7 +794,7 @@
             "id": "eea34341-7188-2158-d580-2e835d9a7316",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -845,7 +834,7 @@
             },
             "valueString": "Jedi High Council Member, Jedi Temple, Temple District, Galactic City, Coruscant",
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -905,7 +894,7 @@
             "id": "1eea3980-9117-c629-e951-187478e9c020",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -941,7 +930,7 @@
               "unit": "mm[Hg]"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -956,7 +945,7 @@
             "id": "a6b35f51-be85-53da-f02b-15625aececea",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -992,7 +981,7 @@
               "unit": "mm[Hg]"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -1007,7 +996,7 @@
             "id": "efd8ed37-e03d-7900-6956-f0228c787674",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -1043,7 +1032,7 @@
               "unit": "/min"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -1058,7 +1047,7 @@
             "id": "e8b96985-ea71-bb6a-cb1b-c65dc04bd6ea",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -1094,7 +1083,7 @@
               "unit": "[degF]"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -1109,7 +1098,7 @@
             "id": "2bd018a6-a52c-b69d-6d6d-81b13faa749d",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -1145,7 +1134,7 @@
               "unit": "/min"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -1160,7 +1149,7 @@
             "id": "b489d07e-c351-21bb-dd04-736c5fbc8636",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -1196,7 +1185,7 @@
               "unit": "[in_us]"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -1211,7 +1200,7 @@
             "id": "d8fd211d-2555-ea6c-116c-132dcef4cc61",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -1247,7 +1236,7 @@
               "unit": "[lb_av]"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -1262,7 +1251,7 @@
             "id": "b47109b2-3f96-e69f-637f-728b9b7e9657",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -1298,7 +1287,7 @@
               "unit": "kg/m2"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {
@@ -1313,7 +1302,7 @@
             "id": "74e77fe8-551b-bc20-f6b4-ab4119703a15",
             "meta": {
               "profile": [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+                "http://hl7.org/fhir/StructureDefinition/Observation"
               ],
               "source": "ecr"
             },
@@ -1349,7 +1338,7 @@
               "unit": "%"
             },
             "subject": {
-              "reference": "Patient/e2c985a4-bc64-4d2a-ab33-22c346744a5f"
+              "reference": "Patient/a96a691f-7704-4761-8e71-8675380e9ed6"
             }
           },
           "request": {

@@ -23,12 +23,7 @@
         },
         "category":
         [
-            {% if consentEntry.code.translation -%}
-            { {% include 'DataType/CodeableConcept' CodeableConcept: consentEntry.code.translation -%} },
-            {% endif -%}
-            {% if consentEntry.code.translation == null -%}
             { {% include 'DataType/CodeableConcept' CodeableConcept: consentEntry.code -%} },
-            {% endif -%}
         ],
         "dateTime":"{{ consentEntry.component.observation.effectiveTime.low.value | format_as_date_time }}",
         "provision":

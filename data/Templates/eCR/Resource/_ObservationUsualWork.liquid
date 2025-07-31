@@ -37,15 +37,7 @@
             {% else -%}
                 "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
             {% endif -%}
-        "code":
-        {
-            {% if observationEntry.code.translation.code -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code.translation -%}
-            {% endif -%}
-            {% if observationEntry.code.translation.code == null -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%}
-            {% endif -%}
-        },
+        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
         "component" : [

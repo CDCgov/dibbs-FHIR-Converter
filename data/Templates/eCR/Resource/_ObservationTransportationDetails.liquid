@@ -37,6 +37,7 @@
                 "{{ transitOrganizer.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
             {% endif -%}
         {% include 'Utils/ValueHelper' value: transitOrganizer.code %}
+        {% include 'Utils/EffectiveTime' effectiveTime: transitOrganizer.effectiveTime %}
         "component":
         [
             {% assign comps = transitOrganizer.component | to_array %}

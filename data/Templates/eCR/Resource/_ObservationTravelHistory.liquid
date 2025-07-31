@@ -58,7 +58,7 @@
                     {% endif %}
                 },
             {% endfor %}
-            {% if observationEntry.text.reference._ %}
+            {% if observationEntry.text._ or observationEntry.text.reference._ %}
                  {
                     "code" : {
                         "coding" :
@@ -71,7 +71,7 @@
                         ]
                     },
                     "valueCodeableConcept" : {
-                        "text": "{{ observationEntry.text.reference._ }}",
+                        "text": "{{ observationEntry.text._ | default: observationEntry.text.reference._ }}",
                     },
                  },
             {% endif %}

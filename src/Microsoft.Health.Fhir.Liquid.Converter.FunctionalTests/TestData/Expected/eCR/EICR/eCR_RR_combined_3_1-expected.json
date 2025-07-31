@@ -1513,11 +1513,17 @@
         "code": {
           "coding": [
             {
+              "code": "58410-2",
+              "system": "http://loinc.org",
+              "display": "CBC"
+            },
+            {
               "code": "1698",
               "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.696580",
               "display": "CBC"
             }
-          ]
+          ],
+          "text": "CBC"
         },
         "effectivePeriod": {
           "start": "1981-10-16",

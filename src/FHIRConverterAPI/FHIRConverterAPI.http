@@ -1,0 +1,6 @@
+@FHIRConverterAPI_HostAddress = http://localhost:8080
+
+POST {{FHIRConverterAPI_HostAddress}}/convert-to-fhir/
+Accept: application/json
+
+###

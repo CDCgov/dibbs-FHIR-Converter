@@ -109,16 +109,22 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
             var obj = (IDictionary<string, object>)input;
 
+            // bail out if no width present
+            if (!obj.ContainsKey("width"))
+            {
+                return input;
+            }
+
             PartialDateTime lowDate;
             PartialDateTime highDate;
-            if (obj["high"] != null)
+            if (obj.ContainsKey("high"))
             {
                 var highDateObj = (IDictionary<string, object>)obj["high"];
                 var highDateStr = (string)highDateObj["value"];
                 highDate = ParsePartialDate(highDateStr, DateTimeType.Hl7v2);
                 lowDate = AddWidthToDate(highDate, -1, obj["width"] as IDictionary<string, object>);
             }
-            else if (obj["low"] != null)
+            else if (obj.ContainsKey("low"))
             {
                 var lowDateObj = (IDictionary<string, object>)obj["low"];
                 var lowDateStr = (string)lowDateObj["value"];
@@ -127,9 +133,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             }
             else
             {
-                throw new RenderException(
-                    FhirConverterErrorCode.InvalidDateTimeFormat,
-                    "No low or high date associated with width");
+                // no low or high to add width to
+                return input;
             }
 
             var lowDict = new Dictionary<string, object>();
@@ -144,44 +149,58 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
         private static PartialDateTime AddWidthToDate(PartialDateTime origDate, int intervalMultiplier, IDictionary<string, object> width)
         {
+            if (!width.ContainsKey("unit"))
+            {
+                throw new RenderException(
+                    FhirConverterErrorCode.InvalidDateTimeFormat,
+                    $"Invalid datetime width: no unit");
+            }
+            if (!width.ContainsKey("value"))
+            {
+                throw new RenderException(
+                    FhirConverterErrorCode.InvalidDateTimeFormat,
+                    $"Invalid datetime width: no value");
+            }
+
+
             var widthUnit = ((string)width["unit"]).ToLower();
             var widthValue = int.Parse((string)width["value"]);
             var date = origDate.Copy();
 
             if (widthUnit.StartsWith("s"))
-            {
-                return date.AddSeconds(intervalMultiplier * widthValue);
-            }
-            else if (widthUnit.StartsWith("mi"))
-            {
-                return date.AddMinutes(intervalMultiplier * widthValue);
-            }
-            else if (widthUnit.StartsWith("h"))
-            {
-                return date.AddHours(intervalMultiplier * widthValue);
-            }
-            else if (widthUnit.StartsWith("d"))
-            {
-                return date.AddDays(intervalMultiplier * widthValue);
-            }
-            else if (widthUnit.StartsWith("w"))
-            {
-                return date.AddDays(intervalMultiplier * widthValue * 7);
-            }
-            else if (widthUnit.StartsWith("mo"))
-            {
-                return date.AddMonths(intervalMultiplier * widthValue);
-            }
-            else if (widthUnit.StartsWith("y"))
-            {
-                return date.AddYears(intervalMultiplier * widthValue);
-            }
-            else
-            {
-                throw new RenderException(
-                    FhirConverterErrorCode.InvalidDateTimeFormat,
-                    $"Invalid datetime width: {widthUnit}");
-            }
+                {
+                    return date.AddSeconds(intervalMultiplier * widthValue);
+                }
+                else if (widthUnit.StartsWith("mi"))
+                {
+                    return date.AddMinutes(intervalMultiplier * widthValue);
+                }
+                else if (widthUnit.StartsWith("h"))
+                {
+                    return date.AddHours(intervalMultiplier * widthValue);
+                }
+                else if (widthUnit.StartsWith("d"))
+                {
+                    return date.AddDays(intervalMultiplier * widthValue);
+                }
+                else if (widthUnit.StartsWith("w"))
+                {
+                    return date.AddDays(intervalMultiplier * widthValue * 7);
+                }
+                else if (widthUnit.StartsWith("mo"))
+                {
+                    return date.AddMonths(intervalMultiplier * widthValue);
+                }
+                else if (widthUnit.StartsWith("y"))
+                {
+                    return date.AddYears(intervalMultiplier * widthValue);
+                }
+                else
+                {
+                    throw new RenderException(
+                        FhirConverterErrorCode.InvalidDateTimeFormat,
+                        $"Invalid datetime width: {widthUnit}");
+                }
         }
     }
 }

@@ -183,13 +183,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Models
             }
 
             string dateTimeFormat;
+            var timeZoneSuffix = timeZoneHandling == TimeZoneHandlingMethod.Preserve && !this.HasTimeZone ? string.Empty : "K";
             if (Precision < DateTimePrecision.Milliseconds || MillisecondString == null)
             {
-                dateTimeFormat = "yyyyMMddHHmmssK";
+                dateTimeFormat = $"yyyyMMddHHmmss{timeZoneSuffix}";
             }
             else
             {
-                dateTimeFormat = $"yyyyMMddHHmmss.{MillisecondString}K";
+                dateTimeFormat = $"yyyyMMddHHmmss.{MillisecondString}{timeZoneSuffix}";
             }
 
             return resultDateTime.ToString(dateTimeFormat).Replace(":", string.Empty);
@@ -197,7 +198,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Models
 
         public PartialDateTime Copy()
         {
-            return new PartialDateTime(this.ToFhirString());
+            return new PartialDateTime(this.ToHl7v2Date(), DateTimeType.Hl7v2);
         }
     }
 }

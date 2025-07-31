@@ -13,10 +13,7 @@
         "status":"{{ serviceEntry.statusCode.code | get_property: 'ValueSet/RequestStatus' }}",
         "code":
         {
-            {% assign translations = serviceEntry.code.translation | to_array -%}
-            {% assign code = serviceEntry.code | to_array -%}
-            {% assign codes = code | concat: translations %}
-            {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
+            {% include 'DataType/CodeableConcept' CodeableConcept: serviceEntry.code -%}
         },
 
         {% assign rels = serviceEntry.entryRelationship | to_array %}

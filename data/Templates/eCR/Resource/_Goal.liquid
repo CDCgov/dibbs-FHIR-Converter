@@ -23,15 +23,7 @@
         "target":
         [
             {
-                "measure":
-                {
-                    {% if goalEntry.code.translation -%}
-                    {% include 'DataType/CodeableConcept' CodeableConcept: goalEntry.code.translation -%}
-                    {% endif -%}
-                    {% if goalEntry.code.translation == null -%}
-                    {% include 'DataType/CodeableConcept' CodeableConcept: goalEntry.code -%}
-                    {% endif -%}
-                },
+                "measure": { {% include 'DataType/CodeableConcept' CodeableConcept: goalEntry.code -%} },
                 {% if goalEntry.value.low.value -%}
                     "detailQuantity":
                     {

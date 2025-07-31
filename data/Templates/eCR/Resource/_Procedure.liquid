@@ -15,13 +15,7 @@
             { {% include 'DataType/Identifier' Identifier: procedureEntry.id -%} },
         ],
         "status":"{{ procedureEntry.statusCode.code | get_property: 'ValueSet/EventStatus' }}",
-        "code":
-        {
-            {% assign translations = procedureEntry.code.translation | to_array -%}
-            {% assign code = procedureEntry.code | to_array -%}
-            {% assign codes = code | concat: translations -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
-        },
+        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.code -%} },
         {% include 'Utils/EffectiveTime' effectiveTime: procedureEntry.effectiveTime, timeType: "performed" %}
         "bodySite":
         [

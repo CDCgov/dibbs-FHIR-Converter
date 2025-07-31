@@ -12,6 +12,16 @@
         "relationship":
         [
             { {% include 'DataType/CodeableConcept' CodeableConcept: relatedPerson.code -%} },
+            {% if relatedPerson.guardianPerson %}
+                {
+                    "coding": [
+                        {
+                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                        "code": "GUARD"
+                        }
+                    ]
+                },
+            {% endif %}
         ],
         "name":
         [
@@ -61,18 +71,6 @@
             },
             {% endfor -%}
         ],
-        "extension": [
-            {% if relatedPerson.guardianPerson %}
-                {
-                    "coding": [
-                        {
-                        "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                        "code": "GUARD"
-                        }
-                    ]
-                },
-            {% endif %}
-        ]
     },
     "request":{
         "method":"PUT",

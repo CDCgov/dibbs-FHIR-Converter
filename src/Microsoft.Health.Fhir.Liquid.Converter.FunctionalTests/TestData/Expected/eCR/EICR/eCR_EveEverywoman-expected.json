@@ -1326,6 +1326,16 @@
       "resource": {
         "resourceType": "RelatedPerson",
         "id": "fe47f3c2-6f9a-0997-66b8-4584e3fecdc8",
+        "relationship": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                "code": "GUARD"
+              }
+            ]
+          }
+        ],
         "name": [
           {
             "use": "official",
@@ -1357,16 +1367,6 @@
             "state": "MI",
             "country": "US",
             "postalCode": "99999"
-          }
-        ],
-        "extension": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-                "code": "GUARD"
-              }
-            ]
           }
         ],
         "patient": {

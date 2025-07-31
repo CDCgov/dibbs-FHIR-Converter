@@ -1703,6 +1703,11 @@
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
+        "specimen": [
+          {
+            "reference": "Specimen/f6ead144-a7d0-a2c9-2938-723d4c3c8fa6"
+          }
+        ],
         "result": [
           {
             "reference": "Observation/e333acb8-01e7-e1ea-e9bc-b87c9e8bfd7c"
@@ -1718,13 +1723,56 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:f6ead144-a7d0-a2c9-2938-723d4c3c8fa6",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "f6ead144-a7d0-a2c9-2938-723d4c3c8fa6",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:44fd0410-6115-4b8e-8ee9-a51b3817df66"
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "code": "119297000",
+              "system": "http://snomed.info/sct",
+              "display": "Blood specimen (specimen)"
+            }
+          ]
+        },
+        "collection": {
+          "collectedPeriod": {
+            "start": "2020-03-09"
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "code": "368208006",
+                "system": "http://snomed.info/sct",
+                "display": "Left upper arm structure (body structure)"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/f6ead144-a7d0-a2c9-2938-723d4c3c8fa6"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:e333acb8-01e7-e1ea-e9bc-b87c9e8bfd7c",
       "resource": {
         "resourceType": "Observation",
         "id": "e333acb8-01e7-e1ea-e9bc-b87c9e8bfd7c",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1768,6 +1816,15 @@
             "high": {
               "value": 44.5,
               "unit": "%"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "L",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Low"
+                }
+              ]
             }
           }
         ],
@@ -1778,21 +1835,6 @@
                 "code": "L",
                 "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
                 "display": "Low"
-              }
-            ]
-          }
-        ],
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood specimen (specimen)"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
               }
             ]
           }
@@ -1813,7 +1855,7 @@
         "id": "4d749a1f-c826-e0c1-c5a8-4cdf22d35bd8",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1857,6 +1899,15 @@
             "high": {
               "value": 4.8,
               "unit": "10*3/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
             }
           }
         ],
@@ -1867,21 +1918,6 @@
                 "code": "H",
                 "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
                 "display": "High"
-              }
-            ]
-          }
-        ],
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen source",
-                "valueString": "Blood specimen (specimen)"
-              },
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
               }
             ]
           }
@@ -1941,7 +1977,7 @@
         "id": "9066312e-2cd6-fc9d-223e-090aa5e566d8",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -1980,6 +2016,15 @@
             "high": {
               "value": 45,
               "unit": "[iU]/mL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
             }
           }
         ],
@@ -1995,15 +2040,6 @@
           }
         ],
         "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
-              }
-            ]
-          },
           {
             "url": "http://terminology.hl7.org/ValueSet/v2-0085",
             "valueCodeableConcept": {
@@ -2072,7 +2108,7 @@
         "id": "d9915885-4dd6-2c75-851c-419cf0438d37",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
           ]
         },
         "identifier": [
@@ -2128,15 +2164,6 @@
           }
         ],
         "extension": [
-          {
-            "url": "http://hl7.org/fhir/R4/specimen.html",
-            "extension": [
-              {
-                "url": "specimen collection time",
-                "valueDateTime": "2020-11-07"
-              }
-            ]
-          },
           {
             "url": "http://terminology.hl7.org/ValueSet/v2-0085",
             "valueCodeableConcept": {
@@ -2906,7 +2933,7 @@
         "id": "c241ed7b-dc3d-7055-5d3e-a307f8494b07",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -2960,7 +2987,7 @@
         "id": "962570d9-01a7-db34-f8c9-57168e44510d",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3292,7 +3319,7 @@
         "id": "aa4503c3-c475-e3dd-96fa-814291526157",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3349,7 +3376,7 @@
         "id": "daab0fc7-6a51-0e82-b16b-8541a088ec56",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3399,7 +3426,7 @@
         "id": "8e60fc3c-0790-08ce-da9b-4da0bb028115",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3449,7 +3476,7 @@
         "id": "c553f18d-9df3-590b-5900-acf75899ec21",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3499,7 +3526,7 @@
         "id": "08747908-0c7e-9928-913d-65d7243d9487",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3549,7 +3576,7 @@
         "id": "fb26676b-06f1-676c-acb2-458126dc6535",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3599,7 +3626,7 @@
         "id": "a7226ec7-2e47-136b-c464-9ae6552f0a15",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3649,7 +3676,7 @@
         "id": "38c6218f-8693-d40d-f1ce-5d345f32a553",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3699,7 +3726,7 @@
         "id": "16e91e0a-8e11-7635-f67a-f0cc88395e8d",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -3749,7 +3776,7 @@
         "id": "5a2fdf42-c9cd-7938-6f1e-faceebac6f1c",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -4153,7 +4180,7 @@
         "id": "44e6df0f-4e41-63ee-2bda-625369930b7c",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [
@@ -4280,7 +4307,7 @@
         "id": "ecf330de-e85f-0b34-5fdd-6dccdae41d6d",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observationresults"
+            "http://hl7.org/fhir/StructureDefinition/Observation"
           ]
         },
         "identifier": [

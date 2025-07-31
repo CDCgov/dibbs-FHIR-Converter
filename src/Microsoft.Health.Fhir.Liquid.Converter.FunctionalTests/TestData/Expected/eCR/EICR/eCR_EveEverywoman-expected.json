@@ -1359,6 +1359,16 @@
             "postalCode": "99999"
           }
         ],
+        "extension": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                "code": "GUARD"
+              }
+            ]
+          }
+        ],
         "patient": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }

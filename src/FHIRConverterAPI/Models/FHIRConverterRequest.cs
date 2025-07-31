@@ -9,6 +9,6 @@ public class FHIRConverterRequest
     // If an eICR message, the accompanying Reportability Response data.
     public string rr_data { get; set; }
 
-    // 
+    // Name of the liquid template within to be used for conversion.
     public string root_template { get; set; }
 }

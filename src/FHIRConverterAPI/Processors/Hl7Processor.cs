@@ -167,7 +167,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
         Console.WriteLine($"Segment {segmentId} not found in message.");
       }
 
-      // TODO: verify that we end up back in the foreachloop if we get an exception
       return message;
     }
   }

@@ -1,9 +1,6 @@
 {% if value.code %}
     "valueCodeableConcept" : {
-        {% assign translations = value.translation | to_array -%}
-        {% assign code = value | to_array -%}
-        {% assign codes = code | concat: translations %}
-        {% include 'DataType/CodeableConcept' CodeableConcept: codes -%}
+        {% include 'DataType/CodeableConcept' CodeableConcept: value -%}
     },
 {% elsif value["xsi:type"] == "BL" -%}
     "valueBoolean" : {{ value.value }}

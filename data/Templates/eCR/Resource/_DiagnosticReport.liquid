@@ -28,12 +28,7 @@
         {% endif %}
         "code":
         {
-            {% assign codeTranslations = diagnosticReport.code.translation | to_array -%}
-            {% if codeTranslations.first -%}
-                {% include 'DataType/CodeableConcept' CodeableConcept: codeTranslations.first -%}
-            {% elsif diagnosticReport.code and diagnosticReport.code.code -%}
-                {% include 'DataType/CodeableConcept' CodeableConcept: diagnosticReport.code -%}
-            {% endif -%}
+            {% include 'DataType/CodeableConcept' CodeableConcept: diagnosticReport.code -%}
         },
         {% include 'Utils/EffectiveTime' effectiveTime: diagnosticReport.effectiveTime %}
         "extension":

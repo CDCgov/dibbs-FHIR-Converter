@@ -11,12 +11,7 @@
             {% endfor -%}
         ],
         "status":"completed",
-        "relationship":
-            {% if familyEntry.subject.relatedSubject.code.translation -%}
-                { {% include 'DataType/CodeableConcept' CodeableConcept: familyEntry.subject.relatedSubject.code.translation -%} },
-            {% else -%}
-                { {% include 'DataType/CodeableConcept' CodeableConcept: familyEntry.subject.relatedSubject.code -%} },
-            {% endif -%}
+        "relationship": { {% include 'DataType/CodeableConcept' CodeableConcept: familyEntry.subject.relatedSubject.code -%} },
         "sex":{ {% include 'DataType/CodeableConcept' CodeableConcept: familyEntry.subject.relatedSubject.subject.administrativeGenderCode -%} },
         "bornString":"{{familyEntry.subject.relatedSubject.subject.birthTime.value}}",
         "condition":

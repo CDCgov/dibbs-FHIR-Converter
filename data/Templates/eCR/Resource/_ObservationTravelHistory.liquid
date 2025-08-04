@@ -58,7 +58,11 @@
                     {% endif %}
                 },
             {% endfor %}
-            {% if observationEntry.text._ or observationEntry.text.reference._ %}
+            {% capture entryText -%}
+                {%- include 'Utils/TextHelper' text: observationEntry.text, origText: text -%}
+            {%- endcapture %}
+            {{ entryText | print_object }}
+            {% if entryText and entryText != '' %}
                  {
                     "code" : {
                         "coding" :
@@ -71,7 +75,7 @@
                         ]
                     },
                     "valueCodeableConcept" : {
-                        "text": "{{ observationEntry.text._ | default: observationEntry.text.reference._ }}",
+                        "text": "{{ entryText }}",
                     },
                  },
             {% endif %}

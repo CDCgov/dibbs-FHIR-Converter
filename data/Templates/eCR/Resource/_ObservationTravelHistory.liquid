@@ -59,9 +59,8 @@
                 },
             {% endfor %}
             {% capture entryText -%}
-                {%- include 'Utils/TextHelper' text: observationEntry.text, origText: text -%}
+                {%- include 'Utils/TextHelper' text: observationEntry.text, origText: socialHistoryText -%}
             {%- endcapture %}
-            {{ entryText | print_object }}
             {% if entryText and entryText != '' %}
                  {
                     "code" : {

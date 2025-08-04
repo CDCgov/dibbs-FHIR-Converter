@@ -2052,7 +2052,7 @@
                                     <td />
                                     <td>
                                         <list styleCode="none">
-                                            <item>Brazil</item>
+                                            <item ID="trvhx-1">Brazil</item>
                                         </list>
                                     </td>
                                 </tr>
@@ -2320,6 +2320,39 @@
                                         codeSystemName="Country (ISO 3166-1)" />
                                 </participantRole>
                             </participant>
+                        </act>
+                    </entry>
+                    <entry>
+                        <!-- Travel History - text with reference -->
+                        <act classCode="ACT" moodCode="EVN">
+                            <templateId extension="2016-12-01"
+                                root="2.16.840.1.113883.10.20.15.2.3.1" />
+                            <id root="3f3aa1dd-75c5-4f10-9881-374429241b03" />
+                            <code code="420008001" codeSystem="2.16.840.1.113883.6.96"
+                                codeSystemName="SNOMED CT" displayName="Travel" />
+                            <text>
+                                <reference value="#trvhx-1" />
+                            </text>
+                            <statusCode code="completed" />
+                            <effectiveTime>
+                                <low value="20180118" />
+                                <high value="20180218" />
+                            </effectiveTime>
+                            <author><!-- Provenance - Author Participation -->
+                                <templateId root="2.16.840.1.113883.10.20.22.4.119" />
+                                <templateId extension="2019-10-01"
+                                    root="2.16.840.1.113883.10.20.22.5.6" />
+                                <time value="20220317145400-0400" />
+                                <assignedAuthor><!-- NPI of Author -->
+                                    <id nullFlavor="UNK" root="2.16.840.1.113883.4.6" />
+                                    <representedOrganization><!-- NPI of Organization -->
+                                        <id nullFlavor="UNK" root="2.16.840.1.113883.4.6" />
+                                        <name>CANTON MEDICAL CENTER OF MASSACHUSETTS-North Canton
+                                            Facilit</name>
+                                        <telecom use="WP" value="tel:+1(781)821-3001" />
+                                    </representedOrganization>
+                                </assignedAuthor>
+                            </author>
                         </act>
                     </entry>
                     <entry typeCode="DRIV">

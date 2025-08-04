@@ -299,11 +299,11 @@
             "mode": "snapshot"
           },
           {
-            "id": "04e503c1-9ea7-e30b-b33f-de3df54e471d",
+            "id": "80fd1139-e481-b671-6ec6-53a661300b42",
             "title": "Social History",
             "text": {
               "status": "generated",
-              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Birth Sex</th><th>Value</th><th>Date</th></tr></thead><tbody><tr><td>Sex Assigned At Birth</td><td>Female</td><td>NOV 24, 1974</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Gender identity</th><th>Date</th></tr></thead><tbody><tr><td>Female-to-male transsexual (finding)</td><td>JAN 1, 2020</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Characteristics of Home Environment</th><th>Date</th></tr></thead><tbody><tr><td>Homeless</td><td>NOV 9, 2020</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Exposure/Contact Information</th><th>Date</th><th>Location</th><th>Address</th></tr></thead><tbody><tr><td>Mass Gathering: Football game</td><td>November 11, 2020</td><td>City Football Stadium</td><td>99 Football Stadium Road, My City, AZ, 8562</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Current Occupation</th><th>Current Industry</th><th>Current Job Title</th><th>Current Employer Name</th><th>Current Employer Address</th><th>Current Employer Telcom</th><th>Occupational Exposure</th></tr></thead><tbody><tr><td>Nursing, psychiatric, and home health aides</td><td>Accounting, tax preparation, bookkeeping, and payroll services</td><td>Nurse</td><td>University Hospital</td><td>Peachtree Street, Atlanta, Georgia</td><td>555-1212</td><td>Nursing care facilities</td><td>Asbestos</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Usual Occupation</th><th>Usual Industry</th></tr></thead><tbody><tr><td>Nursing, psychiatric, and home health aides</td><td>Nursing care facilities</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Travel History: Date(s)</th><th>Notes</th><th>Location</th></tr></thead><tbody><tr><td>1999 to 2007</td><td>Spent 8 years in the UK during the BSE outbreak</td><td /></tr><tr><td>In the 3 weeks before NOV 9, 2020</td><td /><td><list styleCode=\"none\"><item>Brazil</item></list></td></tr><tr><td>APR 25, 2020 to APR 30, 2020</td><td /><td><list styleCode=\"none\"><item>Nadi, FJ</item></list></td></tr><tr><td>MAY 6, 2020 to MAY 15, 2020</td><td /><td><list styleCode=\"none\"><item>Montreal, QC, CA</item></list></td></tr><tr><td>JUL 13, 2020 to JUL 15, 2020</td><td /><td><list styleCode=\"none\"><item>Sydney, NSW, AU</item></list></td></tr><tr><td>OCT 22, 2020 to OCT 30, 2020</td><td /><td><list styleCode=\"none\"><item>1170 N Rancho Robles Rd Oracle, AZ8562, US</item></list></td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Country of Residence</th></tr></thead><tbody><tr><td>United Kingdom of Great Britain and Northern Ireland</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Country of Nationality</th></tr></thead><tbody><tr><td>Australia</td></tr></tbody></table>"
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Birth Sex</th><th>Value</th><th>Date</th></tr></thead><tbody><tr><td>Sex Assigned At Birth</td><td>Female</td><td>NOV 24, 1974</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Gender identity</th><th>Date</th></tr></thead><tbody><tr><td>Female-to-male transsexual (finding)</td><td>JAN 1, 2020</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Characteristics of Home Environment</th><th>Date</th></tr></thead><tbody><tr><td>Homeless</td><td>NOV 9, 2020</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Exposure/Contact Information</th><th>Date</th><th>Location</th><th>Address</th></tr></thead><tbody><tr><td>Mass Gathering: Football game</td><td>November 11, 2020</td><td>City Football Stadium</td><td>99 Football Stadium Road, My City, AZ, 8562</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Current Occupation</th><th>Current Industry</th><th>Current Job Title</th><th>Current Employer Name</th><th>Current Employer Address</th><th>Current Employer Telcom</th><th>Occupational Exposure</th></tr></thead><tbody><tr><td>Nursing, psychiatric, and home health aides</td><td>Accounting, tax preparation, bookkeeping, and payroll services</td><td>Nurse</td><td>University Hospital</td><td>Peachtree Street, Atlanta, Georgia</td><td>555-1212</td><td>Nursing care facilities</td><td>Asbestos</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Usual Occupation</th><th>Usual Industry</th></tr></thead><tbody><tr><td>Nursing, psychiatric, and home health aides</td><td>Nursing care facilities</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Travel History: Date(s)</th><th>Notes</th><th>Location</th></tr></thead><tbody><tr><td>1999 to 2007</td><td>Spent 8 years in the UK during the BSE outbreak</td><td /></tr><tr><td>In the 3 weeks before NOV 9, 2020</td><td /><td><list styleCode=\"none\"><item ID=\"trvhx-1\">Brazil</item></list></td></tr><tr><td>APR 25, 2020 to APR 30, 2020</td><td /><td><list styleCode=\"none\"><item>Nadi, FJ</item></list></td></tr><tr><td>MAY 6, 2020 to MAY 15, 2020</td><td /><td><list styleCode=\"none\"><item>Montreal, QC, CA</item></list></td></tr><tr><td>JUL 13, 2020 to JUL 15, 2020</td><td /><td><list styleCode=\"none\"><item>Sydney, NSW, AU</item></list></td></tr><tr><td>OCT 22, 2020 to OCT 30, 2020</td><td /><td><list styleCode=\"none\"><item>1170 N Rancho Robles Rd Oracle, AZ8562, US</item></list></td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Country of Residence</th></tr></thead><tbody><tr><td>United Kingdom of Great Britain and Northern Ireland</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Country of Nationality</th></tr></thead><tbody><tr><td>Australia</td></tr></tbody></table>"
             },
             "code": {
               "coding": [
@@ -333,6 +333,9 @@
               },
               {
                 "reference": "Observation/97b51123-4fab-9332-9e7e-b3afc57b45e1"
+              },
+              {
+                "reference": "Observation/f5470e2d-460b-4117-355f-f261bebea1bc"
               },
               {
                 "reference": "Observation/b8678cc4-fcdf-54c6-3bc8-65aa54dcdb1f"
@@ -2622,6 +2625,56 @@
       "request": {
         "method": "PUT",
         "url": "Observation/97b51123-4fab-9332-9e7e-b3afc57b45e1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f5470e2d-460b-4117-355f-f261bebea1bc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f5470e2d-460b-4117-355f-f261bebea1bc",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-01-18",
+          "end": "2018-02-18"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Brazil"
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/f5470e2d-460b-4117-355f-f261bebea1bc"
       }
     },
     {

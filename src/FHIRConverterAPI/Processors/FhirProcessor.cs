@@ -40,6 +40,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
         // Encoder required for HTML sections to be formatted the way we expect
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
       });
+
+      // update references to the patient ID
       resultString = resultString.Replace(oldId, newId);
       return resultString;
     }

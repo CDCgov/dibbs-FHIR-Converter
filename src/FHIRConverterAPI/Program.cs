@@ -25,7 +25,6 @@ app.MapGet("/", () => new { status = "OK" })
 
 app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConverterRequest requestBody) =>
 {
-    var templatesPath = Environment.GetEnvironmentVariable("TEMPLATES_PATH") ?? "../../data/Templates/";
     var inputData = requestBody.input_data;
     var inputType = requestBody.input_type.ToLower();
 
@@ -95,7 +94,7 @@ string GetTemplatesPath(string inputType)
     }
     else
     {
-        throw new UserFacingException($"Invalid input_type {inputType}. Valid values are 'hl7v2' and 'ecr'.", HttpStatusCode.BadRequest);
+        throw new UserFacingException($"Invalid input_type {inputType}. Valid values are 'ecr', 'elr', and 'vxu'.", HttpStatusCode.BadRequest);
     }
 }
 
@@ -107,7 +106,7 @@ string GetRootTemplate(string inputType)
         "elr" => "ORU_R01",
         "vxu" => "VXU_V04",
         "fhir" => string.Empty,
-        _ => throw new UserFacingException($"The conversion from data type {inputType} to FHIR is not supported", HttpStatusCode.BadRequest)
+        _ => throw new UserFacingException($"Root template for {inputType} cannot be found. Please specify using the root_template parameter.", HttpStatusCode.BadRequest)
     };
 }
 

@@ -7,7 +7,7 @@ We will use the .NET SDK to build the FHIR Converter from source code. If you ha
 To check if a .NET SDK is installed, try running `dotnet --list-sdks`. You should see an output message that lists the .NET SDK version you have installed, as well as where it's located. It should look something like the following, but note that the version number and filepath will differ depending on which operating system you use and when you installed the .NET SDK.
 
 ```
-6.0.40 [C:\Program Files\dotnet\sdk]
+8.0.117 [C:\Program Files\dotnet\sdk]
 ```
 
 If you see a message like `Command 'dotnet' not found` (MacOS and Linux) or `The term 'dotnet' is not recognized as the name of a cmdlet, function, script file, or operable program` (Windows), then .NET has not been installed. Additionally, if running `dotnet --list-sdks` does not produce any output, then you likely have the .NET runtime installed, but not the SDK. In either event, you should follow the instructions below to install the SDK.
@@ -108,7 +108,7 @@ Congratulations, the FHIR Conversion service should now be running on `localhost
 
 ### Running from C# Source Code
 
-For local development, you may prefer to run the service directly from Python. To do so, follow the steps below.
+For local development, you may prefer to run the service directly from dotnet. To do so, follow the steps below.
 
 1. Ensure that both Git and Dotnet 8 are installed.
 2. Clone the dibbs-ecr-viewer repository with `git clone https://github.com/CDCgov/dibbs-ecr-viewer`.
@@ -122,12 +122,12 @@ To build the Docker image for the FHIR Conversion service from source code inste
 1. Ensure that both [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker](https://docs.docker.com/get-docker/) are installed.
 2. Clone the dibbs-ecr-viewer repository with `git clone https://github.com/CDCgov/dibbs-ecr-viewer`.
 3. Navigate to `/dibbs-ecr-viewer/containers/fhir-converter/`.
-4. Run the service with `make docker-local`.
+4. Run the service with `docker compose up`.
 
 #### Tips & Tricks
 
 - To run the service tests, use the command `dotnet test`.
-  - Make sure your docker image has pulled in the latest changes by building with no cache `make build-image-no-cache`.
+  - Make sure your docker image has pulled in the latest changes by building with no cache `build-image-no-cache && docker compose up`.
 - To run the tool tests, run the commands found in the github actions workflow.
 
 ## Architecture Diagram

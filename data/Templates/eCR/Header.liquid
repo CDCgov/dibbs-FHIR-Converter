@@ -202,6 +202,6 @@
 {% assign guardian = msg.ClinicalDocument.recordTarget.patientRole.patient.guardian %}
 {% if guardian -%}
   {% assign relatedPersonId = guardian | to_json_string | generate_uuid -%}
-  {% include 'Resource/RelatedPerson' relatedPerson: guardian relationship: guardian.code ID: relatedPersonId -%}
+  {% include 'Resource/RelatedPerson' relatedPerson: guardian, ID: relatedPersonId -%}
   {% include 'Reference/RelatedPerson/Patient' ID: relatedPersonId, REF: fullPatientId -%}
 {% endif -%}

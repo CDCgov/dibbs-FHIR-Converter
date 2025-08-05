@@ -155,13 +155,13 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                     FhirConverterErrorCode.InvalidDateTimeFormat,
                     $"Invalid datetime width: no unit");
             }
+
             if (!width.ContainsKey("value"))
             {
                 throw new RenderException(
                     FhirConverterErrorCode.InvalidDateTimeFormat,
                     $"Invalid datetime width: no value");
             }
-
 
             var widthUnit = ((string)width["unit"]).ToLower();
             var widthValue = int.Parse((string)width["value"]);

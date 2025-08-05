@@ -1,6 +1,6 @@
-{% include 'Resource/ObservationExposureContact' ID: observationId, observationEntry: observationEntry %}
+{% include 'Resource/ObservationExposureContact' ID: observationId, observationEntry: entry.observation %}
 {% comment %} Subject reference handled by calling sites {% endcomment %}
-{% assign  participants = observationEntry.participant | to_array | where: "typeCode", "IND" %}
+{% assign  participants = entry.observation.participant | to_array | where: "typeCode", "IND" %}
 {% for participant in participants %}
     {% assign participantId = participant | to_json_string | generate_uuid %}
     {% assign fullRelatedPersonId = participantId | prepend: 'RelatedPerson/'  %}

@@ -2338,21 +2338,6 @@
                                 <low value="20180118" />
                                 <high value="20180218" />
                             </effectiveTime>
-                            <author><!-- Provenance - Author Participation -->
-                                <templateId root="2.16.840.1.113883.10.20.22.4.119" />
-                                <templateId extension="2019-10-01"
-                                    root="2.16.840.1.113883.10.20.22.5.6" />
-                                <time value="20220317145400-0400" />
-                                <assignedAuthor><!-- NPI of Author -->
-                                    <id nullFlavor="UNK" root="2.16.840.1.113883.4.6" />
-                                    <representedOrganization><!-- NPI of Organization -->
-                                        <id nullFlavor="UNK" root="2.16.840.1.113883.4.6" />
-                                        <name>CANTON MEDICAL CENTER OF MASSACHUSETTS-North Canton
-                                            Facilit</name>
-                                        <telecom use="WP" value="tel:+1(781)821-3001" />
-                                    </representedOrganization>
-                                </assignedAuthor>
-                            </author>
                         </act>
                     </entry>
                     <entry typeCode="DRIV">

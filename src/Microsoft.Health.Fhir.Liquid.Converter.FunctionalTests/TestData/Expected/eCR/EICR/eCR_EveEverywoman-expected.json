@@ -299,7 +299,7 @@
             "mode": "snapshot"
           },
           {
-            "id": "80fd1139-e481-b671-6ec6-53a661300b42",
+            "id": "f7ded6e0-6078-619f-cdfd-c178f6d1ee36",
             "title": "Social History",
             "text": {
               "status": "generated",
@@ -335,7 +335,7 @@
                 "reference": "Observation/97b51123-4fab-9332-9e7e-b3afc57b45e1"
               },
               {
-                "reference": "Observation/f5470e2d-460b-4117-355f-f261bebea1bc"
+                "reference": "Observation/640052bf-bd4d-b52f-f7c8-9adce8b28738"
               },
               {
                 "reference": "Observation/b8678cc4-fcdf-54c6-3bc8-65aa54dcdb1f"
@@ -2628,10 +2628,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:f5470e2d-460b-4117-355f-f261bebea1bc",
+      "fullUrl": "urn:uuid:640052bf-bd4d-b52f-f7c8-9adce8b28738",
       "resource": {
         "resourceType": "Observation",
-        "id": "f5470e2d-460b-4117-355f-f261bebea1bc",
+        "id": "640052bf-bd4d-b52f-f7c8-9adce8b28738",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -2674,7 +2674,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Observation/f5470e2d-460b-4117-355f-f261bebea1bc"
+        "url": "Observation/640052bf-bd4d-b52f-f7c8-9adce8b28738"
       }
     },
     {

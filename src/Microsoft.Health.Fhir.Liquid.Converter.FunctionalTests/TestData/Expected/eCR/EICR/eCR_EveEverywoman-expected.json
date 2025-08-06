@@ -3,10 +3,10 @@
   "type": "batch",
   "entry": [
     {
-      "fullUrl": "urn:uuid:2.16.840.1.113883.9.9.9.9.9",
+      "fullUrl": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e704",
       "resource": {
         "resourceType": "Composition",
-        "id": "2.16.840.1.113883.9.9.9.9.9",
+        "id": "db734647-fc99-424c-a864-7e3cda82e704",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -543,7 +543,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Composition/2.16.840.1.113883.9.9.9.9.9"
+        "url": "Composition/db734647-fc99-424c-a864-7e3cda82e704"
       }
     },
     {

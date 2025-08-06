@@ -1,5 +1,5 @@
 {% if code -%}
-	{% assign s = code | match: "[0123456789.]+" | size -%}
+    {% assign s = code | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
     {% case code -%}
         {% when "2.16.840.1.113883.6.1" -%}
             "http://loinc.org"
@@ -16,9 +16,9 @@
         {% when "2.16.840.1.113883.4.6" -%}
             "http://hl7.org/fhir/sid/us-npi"
         {% when "2.16.840.1.113883.4.572" -%}
-            "http://hl7.org/fhir/sid/us-medicare"  
+            "http://hl7.org/fhir/sid/us-medicare"
         {% when "2.16.840.1.113883.4.927" -%}
-            "http://hl7.org/fhir/sid/us-mbi"  
+            "http://hl7.org/fhir/sid/us-mbi"
         {% when "2.16.840.1.113883.6.59" -%}
             "http://hl7.org/fhir/sid/cvx"
         {% when "2.16.840.1.113883.6.101" -%}
@@ -30,11 +30,7 @@
         {% when "2.16.840.1.113883.6.12" -%}
             "http://www.ama-assn.org/go/cpt"
         {% else -%}
-            {% if s == 1%}
-                "urn:oid:{{ code }}"
-            {% else -%}
-                "http://terminology.hl7.org/CodeSystem/{{ code | replace: " ", "" }}"
-            {% endif -%}
+            "urn:oid:{{ code }}"
     {% endcase -%}
 {% else -%}
     ""

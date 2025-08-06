@@ -160,7 +160,6 @@
   {% assign careTeam = _careTeam.2_16_840_1_113883_10_20_22_2_500 %}
   {% if careTeam %}
     {% assign careTeamId = careTeam | to_json_string | generate_uuid -%}
-    {% assign fullPatientId = patientId | prepend: 'Patient/' -%}
     {% include 'Resource/CareTeam' careTeamEntry: careTeam.entry.organizer ID: careTeamId patientId: fullPatientId%}
     {% for member in careTeam.entry.organizer.component %}
       {% assign practitionerId = member.act.performer.assignedEntity | to_json_string | generate_uuid -%}
@@ -176,9 +175,9 @@
   {% include 'Entry/MedicationAdministration/entry' entry: entry %}
 {% endfor %}
 
-{% if msg.ClinicalDocument.recordTarget.patientRole.patient.guardian -%}
-  {% assign relatedPersonId = msg.ClinicalDocument.recordTarget.patientRole.patient.guardian | to_json_string | generate_uuid -%}
-  {% include 'Resource/RelatedPerson' relatedPerson: msg.ClinicalDocument.recordTarget.patientRole.patient.guardian ID: relatedPersonId -%}
-  {% assign fullPatientId = patientId | prepend: 'Patient/' -%}
+{% assign guardian = msg.ClinicalDocument.recordTarget.patientRole.patient.guardian %}
+{% if guardian -%}
+  {% assign relatedPersonId = guardian | to_json_string | generate_uuid -%}
+  {% include 'Resource/RelatedPerson' relatedPerson: guardian, ID: relatedPersonId -%}
   {% include 'Reference/RelatedPerson/Patient' ID: relatedPersonId, REF: fullPatientId -%}
 {% endif -%}

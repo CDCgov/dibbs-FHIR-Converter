@@ -14,7 +14,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public void GivenNoAttributeReturnsEmpty()
         {
-            ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\": \"\",");
+            ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\":\"\",");
         }
 
         [Fact]

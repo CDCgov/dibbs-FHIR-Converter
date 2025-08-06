@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using DotLiquid;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -86,6 +87,29 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             var guid = new byte[16];
             Array.Copy(hash, 0, guid, 0, 16);
             return new Guid(guid).ToString();
+        }
+
+        public static string PrependID(string input)
+        {
+            string uuid_pattern = @"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
+            string oid_pattern = @"^([0-2])((\.0)|(\.[1-9][0-9]*))*$";
+            string output = "urn:";
+
+            if (Regex.IsMatch(input, uuid_pattern, RegexOptions.IgnoreCase))
+            {
+                output = output + "uuid:" + input;
+            }
+            else if (Regex.IsMatch(input, oid_pattern, RegexOptions.IgnoreCase))
+            {
+                output = output + "oid:" + input;
+            }
+            else
+            {
+                // output = input;
+                output = "I'm not an uuid or oid :(";
+            }
+
+            return output;
         }
     }
 }

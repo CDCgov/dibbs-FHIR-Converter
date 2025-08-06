@@ -39,20 +39,27 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
                 errorsOutputMode: ErrorsOutputMode.Rethrow,
                 maxIterations: 0,
                 formatProvider: CultureInfo.InvariantCulture,
-                cancellationToken: CancellationToken.None);
+                cancellationToken: CancellationToken.None
+            );
             context["CodeMapping"] = null;
             Assert.Equal("M", Filters.GetProperty(context, "M", "Gender", "code"));
 
             // context with valid CodeMapping
-            context["CodeMapping"] = new CodeMapping(new Dictionary<string, Dictionary<string, Dictionary<string, string>>>
-            {
+            context["CodeMapping"] = new CodeMapping(
+                new Dictionary<string, Dictionary<string, Dictionary<string, string>>>
                 {
-                    "CodeSystem/Gender", new Dictionary<string, Dictionary<string, string>>
                     {
-                        { "M", new Dictionary<string, string> { { "code", "male" } } },
-                    }
-                },
-            });
+                        "CodeSystem/Gender",
+                        new Dictionary<string, Dictionary<string, string>>
+                        {
+                            {
+                                "M",
+                                new Dictionary<string, string> { { "code", "male" } }
+                            },
+                        }
+                    },
+                }
+            );
             Assert.Equal("male", Filters.GetProperty(context, "M", "CodeSystem/Gender", "code"));
             Assert.Null(Filters.GetProperty(context, "M", null, "code"));
             Assert.Null(Filters.GetProperty(context, "M", string.Empty, "code"));
@@ -64,7 +71,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
             Assert.Null(Filters.Evaluate(null, null));
             Assert.Null(Filters.Evaluate(string.Empty, string.Empty));
 
-            var input = @"{""code"": ""male"", ""display"": ""Male"", ""system"": ""http://hl7.org/fhir/administrative-gender"",}";
+            var input =
+                @"{""code"": ""male"", ""display"": ""Male"", ""system"": ""http://hl7.org/fhir/administrative-gender"",}";
             Assert.Equal("male", Filters.Evaluate(input, "code"));
             Assert.Equal("Male", Filters.Evaluate(input, "display"));
             Assert.Null(Filters.Evaluate(input, "abc"));
@@ -74,7 +82,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         [Theory]
         [MemberData(nameof(GetValidDataForGenerateUuid))]
-        public void GivenValidData_WhenGenerateUuid_CorrectResultShouldBeReturned(string input, string expected)
+        public void GivenValidData_WhenGenerateUuid_CorrectResultShouldBeReturned(
+            string input,
+            string expected
+        )
         {
             Assert.Equal(expected, Filters.GenerateUUID(input));
         }
@@ -88,25 +99,40 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
             // Base resources
             Assert.Equal(
                 "Patient_PATID1234,ADT1",
-                Filters.GenerateIdInput("PATID1234,ADT1", "Patient", false));
+                Filters.GenerateIdInput("PATID1234,ADT1", "Patient", false)
+            );
 
             // Base optional resources
             Assert.Equal(
                 "Encounter_0123456789_5002eb07-c460-7112-6574-50303ae3b4a6",
-                Filters.GenerateIdInput("0123456789", "Encounter", false, "5002eb07-c460-7112-6574-50303ae3b4a6"));
+                Filters.GenerateIdInput(
+                    "0123456789",
+                    "Encounter",
+                    false,
+                    "5002eb07-c460-7112-6574-50303ae3b4a6"
+                )
+            );
 
             // Base required resources
             Assert.Equal(
                 "RelatedPerson_NK1|1|DUCK^HUEY|SO|3583 DUCK RD^^FOWL^CA^999990000|8885552222||Y||||||||||||||_bab5ca58-f272-4c06-4b3f-f9661e45a22b",
-                Filters.GenerateIdInput("NK1|1|DUCK^HUEY|SO|3583 DUCK RD^^FOWL^CA^999990000|8885552222||Y|||||||||||||| ", "RelatedPerson", true, "bab5ca58-f272-4c06-4b3f-f9661e45a22b"));
+                Filters.GenerateIdInput(
+                    "NK1|1|DUCK^HUEY|SO|3583 DUCK RD^^FOWL^CA^999990000|8885552222||Y|||||||||||||| ",
+                    "RelatedPerson",
+                    true,
+                    "bab5ca58-f272-4c06-4b3f-f9661e45a22b"
+                )
+            );
 
             // Bundle
-            var message = @"MSH|^~\&|AccMgr|1|||20050110045504||ADT^A01|599102|P|2.3||| 
+            var message =
+                @"MSH|^~\&|AccMgr|1|||20050110045504||ADT^A01|599102|P|2.3|||
 EVN|A01|20050110045502||||| ";
             Assert.Equal(
-                @"Bundle_MSH|^~\&|AccMgr|1|||20050110045504||ADT^A01|599102|P|2.3||| 
+                @"Bundle_MSH|^~\&|AccMgr|1|||20050110045504||ADT^A01|599102|P|2.3|||
 EVN|A01|20050110045502|||||",
-                Filters.GenerateIdInput(message, "Bundle", false));
+                Filters.GenerateIdInput(message, "Bundle", false)
+            );
 
             // Null, empty or whitespace segment
             Assert.Null(Filters.GenerateIdInput(null, "Location", false));
@@ -114,8 +140,40 @@ EVN|A01|20050110045502|||||",
             Assert.Null(Filters.GenerateIdInput(" \n", "Location", false));
 
             // Base ID required but not provided
-            var exception = Assert.Throws<RenderException>(() => Filters.GenerateIdInput("NK1|1|DUCK^HUEY|SO|3583 DUCK RD^^FOWL^CA^999990000|8885552222||Y|||||||||||||| ", "RelatedPerson", true, null));
-            Assert.Equal(FhirConverterErrorCode.InvalidIdGenerationInput, exception.FhirConverterErrorCode);
+            var exception = Assert.Throws<RenderException>(
+                () =>
+                    Filters.GenerateIdInput(
+                        "NK1|1|DUCK^HUEY|SO|3583 DUCK RD^^FOWL^CA^999990000|8885552222||Y|||||||||||||| ",
+                        "RelatedPerson",
+                        true,
+                        null
+                    )
+            );
+            Assert.Equal(
+                FhirConverterErrorCode.InvalidIdGenerationInput,
+                exception.FhirConverterErrorCode
+            );
+        }
+
+        [Fact]
+        public void PrependIdTest_uuid()
+        {
+            string id = "fc97958d-4b72-47a4-887f-b14ff8bcc859";
+            Assert.Equal("urn:uuid:" + id, Filters.PrependID(id));
+        }
+
+        [Fact]
+        public void PrependIdTest_oid()
+        {
+            string id = "1.3.6.1.4.1.343";
+            Assert.Equal("urn:oid:" + id, Filters.PrependID(id));
+        }
+
+        [Fact]
+        public void PrependIdTest_unknown()
+        {
+            string id = "a random ID";
+            Assert.Equal(id, Filters.PrependID(id));
         }
     }
 }

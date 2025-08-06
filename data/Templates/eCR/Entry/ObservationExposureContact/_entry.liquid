@@ -1,0 +1,16 @@
+{% include 'Resource/ObservationExposureContact' ID: observationId, observationEntry: entry.observation %}
+{% comment %} Subject reference handled by calling sites {% endcomment %}
+{% assign  participants = entry.observation.participant | to_array | where: "typeCode", "IND" %}
+{% for participant in participants %}
+    {% assign participantId = participant | to_json_string | generate_uuid %}
+    {% assign fullRelatedPersonId = participantId | prepend: 'RelatedPerson/'  %}
+    {% if participant.participantRole.playingEntity.classCode == 'ANM' %}
+        {% comment %} animal {% endcomment %}
+        {% include 'Resource/RelatedPersonAnimal' ID: participantId, animalCode: participant.participantRole.playingEntity.code %}
+    {% else %}
+        {% comment %} human (presumably) {% endcomment %}
+        {% include 'Resource/RelatedPerson' ID: participantId, relatedPerson: participant.participantRole.playingEntity %}
+    {% endif %}
+    {% include 'Reference/RelatedPerson/Patient' ID: participantId, REF: fullPatientId %}
+    {% include 'Reference/Observation/Focus' ID: observationID, REF: fullRelatedPersonId %}
+{% endfor %}

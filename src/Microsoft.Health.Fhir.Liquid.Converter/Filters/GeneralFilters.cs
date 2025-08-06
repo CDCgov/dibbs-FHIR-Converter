@@ -105,8 +105,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             }
             else
             {
-                // output = input;
-                output = "I'm not an uuid or oid :(";
+                output = input;
             }
 
             return output;

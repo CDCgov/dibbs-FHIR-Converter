@@ -97,7 +97,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
             if (Regex.IsMatch(input, uuid_pattern, RegexOptions.IgnoreCase))
             {
-                output = output + "uuid:" + input;
+                output = output + "uuid:" + input.ToLower();
             }
             else if (Regex.IsMatch(input, oid_pattern, RegexOptions.IgnoreCase))
             {

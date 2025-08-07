@@ -11,7 +11,10 @@
     "identifier": [
       {
         "system": "urn:ietf:rfc:3986",
-        "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a54"
+        "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a54",
+        "assigner": {
+          "display": ""
+        }
       }
     ],
     "status": "final",

@@ -540,7 +540,7 @@
         "identifier": [
           {
             "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:2.16.840.1.113883.3.72.5.20"
+            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
           }
         ],
         "property": [
@@ -897,7 +897,7 @@
         "identifier": [
           {
             "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:1234abcd-ef56-7890-gh12-34567890ijkl"
+            "value": "1234abcd-ef56-7890-gh12-34567890ijkl"
           }
         ],
         "status": "final",

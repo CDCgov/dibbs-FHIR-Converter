@@ -1,20 +1,21 @@
 {% if Identifier.nullFlavor == null -%}
     {% if Identifier.extension -%}
         {% assign value = Identifier.extension -%}
-        {% assign pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" -%}
-        {% if pattern_match -%}
+        {% assign pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
+        {% if pattern_match == 1 -%}
             {%- capture system -%}
                 {% include 'ValueSet/SystemReference' code: Identifier.root -%}
             {%- endcapture -%}
+            {% assign system = system | strip -%}
         {% else -%}
             {% assign system = Identifier.root | prepend_id -%}
         {% endif -%}
     {% elsif Identifier.root -%}
         {% assign value = Identifier.root | prepend_id -%}
-        {% assign system = '"urn:ietf:rfc:3986"' -%}
+        {% assign system = "urn:ietf:rfc:3986" -%}
     {% endif -%}
 
-    "system": {{ system }},
+    "system": "{{ system }}",
     "value": "{{ value }}",
     "assigner": {
         "display": "{{ Identifier.assigningAuthorityName }}"

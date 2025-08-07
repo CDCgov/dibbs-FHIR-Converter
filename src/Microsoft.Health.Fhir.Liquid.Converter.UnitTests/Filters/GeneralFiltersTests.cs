@@ -161,6 +161,12 @@ EVN|A01|20050110045502|||||",
             string id = "fc97958d-4b72-47a4-887f-b14ff8bcc859";
             Assert.Equal("urn:uuid:" + id, Filters.PrependID(id));
         }
+        [Fact]
+        public void PrependIdTest_uuid_uppercase()
+        {
+            string id = "FC97958D-4B72-47A4-887F-B14FF8BCC859";
+            Assert.Equal("urn:uuid:" + id.ToLower(), Filters.PrependID(id));
+        }
 
         [Fact]
         public void PrependIdTest_oid()

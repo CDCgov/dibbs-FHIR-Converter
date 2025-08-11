@@ -89,6 +89,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             return new Guid(guid).ToString();
         }
 
+        /// <summary>
+        /// Prepend UUIDs or OIDs to make them valid URNs.
+        /// </summary>
+        /// <param name="input">String of the ID</param>
+        /// <returns>If input string matches the UUID pattern return string prepended with `urn:uuid:`, else if it matches the OIN pattern return the input string prepended with `urn:oid:`. It matches neither return the input string unchanged. </returns>
         public static string PrependID(string input)
         {
             string uuid_pattern = @"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";

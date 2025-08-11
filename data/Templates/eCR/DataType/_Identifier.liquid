@@ -3,8 +3,8 @@
     {% if (Identifier.extension != null or Identifier.root != null)  -%}
         {% if Identifier.extension -%}
             {% assign value = Identifier.extension -%}
-            {% assign pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
-            {% if pattern_match == 1 -%}
+            {% assign oid_pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
+            {% if oid_pattern_match == 1 -%}
                 {%- capture system -%}
                     {% include 'ValueSet/SystemReference' code: Identifier.root -%}
                 {%- endcapture -%}

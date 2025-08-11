@@ -25,8 +25,8 @@
                         "url" : "ombCategory",
                     {% else -%}
                         "url" : "detailed",
-                    {% endif -%}                   
-                    "valueCoding" : { {% include 'DataType/Coding' Coding: e -%} },
+                    {% endif -%}
+                    "valueCoding" : {% include 'DataType/Coding' Coding: e -%},
                 {% endif -%}
             },
         {% endfor -%}
@@ -45,5 +45,5 @@
                 "valueString":"{{Ethnicity.ethnicGroupCode.displayName}}",
             {% endif -%}
         }
-    ],                        
+    ],
 {% endif -%}

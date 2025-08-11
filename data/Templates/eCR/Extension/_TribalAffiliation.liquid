@@ -3,8 +3,7 @@
     "extension" : [
         {
           "url" : "TribeName",
-          "valueCoding":
-                    { {% include 'DataType/Coding' Coding: tribeAOb.code -%} },
+          "valueCoding": {% include 'DataType/Coding' Coding: tribeAOb.code -%},
         },
         {% if tribeAOb.value -%}
           {

@@ -117,12 +117,16 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             var actual = RenderLiquidTemplate(templatePath, attributes);
             var actualJson = DeserializeJson(actual);
-            var actualResource = actualJson.GetProperty("resource");
+
+            if (actualJson.TryGetProperty("resource", out var resourceElement))
+            {
+                actualJson = resourceElement;
+            }
 
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)
                 .UsingMode(DeserializerModes.Ostrich);
-            var actualFhir = JsonSerializer.Deserialize<T>(actualResource, fhirOptions);
+            var actualFhir = JsonSerializer.Deserialize<T>(actualJson, fhirOptions);
 
             return actualFhir;
         }

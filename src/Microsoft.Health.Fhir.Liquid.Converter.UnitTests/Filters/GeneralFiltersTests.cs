@@ -181,5 +181,41 @@ EVN|A01|20050110045502|||||",
             string id = "a random ID";
             Assert.Equal(id, Filters.PrependID(id));
         }
+
+        [Fact]
+        public void RemovePrefix()
+        {
+            string extension = "http://example.com/user/1";
+            string root = "http://example.com/user";
+
+            Assert.Equal("1", Filters.RemovePrefix(extension, root));
+        }
+
+        [Fact]
+        public void RemovePrefixExtensionNotUrl()
+        {
+            string extension = "not url";
+            string root = "http://example.com/user";
+
+            Assert.Equal(extension, Filters.RemovePrefix(extension, root));
+        }
+
+        [Fact]
+        public void RemovePrefixRootNotUrl()
+        {
+            string extension = "http://example.com/user/1";
+            string root = "not url";
+
+            Assert.Equal(extension, Filters.RemovePrefix(extension, root));
+        }
+
+        [Fact]
+        public void RemovePrefixRootNoSlash()
+        {
+            string extension = "http://example.com/user";
+            string root = "http://example.com/use";
+
+            Assert.Equal(extension, Filters.RemovePrefix(extension, root));
+        }
     }
 }

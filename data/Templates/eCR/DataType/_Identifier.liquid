@@ -16,7 +16,7 @@
     {% endif -%}
 {
     "system": "{{ system }}",
-    "value": "{{ value }}",
+    "value": "{{ value | remove_prefix: system }}",
     "assigner": {
         "display": "{{ Identifier.assigningAuthorityName }}"
     }

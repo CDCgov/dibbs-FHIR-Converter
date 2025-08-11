@@ -1,26 +1,24 @@
 {
 {% if Identifier.nullFlavor == null -%}
-    {% if (Identifier.extension != null or Identifier.root != null)  -%}
-        {% if Identifier.extension -%}
-            {% assign value = Identifier.extension -%}
-            {% assign oid_pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
-            {% if oid_pattern_match == 1 -%}
-                {%- capture system -%}
-                    {% include 'ValueSet/SystemReference' code: Identifier.root -%}
-                {%- endcapture -%}
-                {% assign system = system | strip -%}
-            {% else -%}
-                {% assign system = Identifier.root | prepend_id -%}
-            {% endif -%}
-        {% elsif Identifier.root -%}
-            {% assign value = Identifier.root | prepend_id -%}
-            {% assign system = "urn:ietf:rfc:3986" -%}
-        {% endif -%}
+    {% if Identifier.extension -%}
+        {% assign oid_pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
+        {% if oid_pattern_match == 1 -%}
+            {%- capture system -%}
+                {%- include 'ValueSet/SystemReference' code: Identifier.root -%}
+            {%- endcapture %}
+            {%- assign system = system | strip -%}
             "system": "{{ system }}",
-            "value": "{{ value | remove_prefix: system }}",
-            "assigner": {
-                "display": "{{ Identifier.assigningAuthorityName }}"
-            }
-    {%endif -%}
+            "value": "{{ Identifier.extension | remove_prefix: system }}",
+        {% else -%}
+            "system": "{{ Identifier.root | prepend_id }}",
+            "value": "{{ Identifier.extension }}",
+        {% endif -%}
+    {% elsif Identifier.root -%}
+        "value": "{{Identifier.root | prepend_id }}",
+        "system": "urn:ietf:rfc:3986",
+    {% endif -%}
+        "assigner": {
+            "display": "{{ Identifier.assigningAuthorityName }}",
+        }
 {% endif -%}
 }

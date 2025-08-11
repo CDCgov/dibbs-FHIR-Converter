@@ -157,7 +157,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         public static string RemovePrefix(string extension, string root)
         {
             var httpPrefix = "http://";
-            if (extension.StartsWith(httpPrefix) && extension.StartsWith(root))
+            if (
+                root != null
+                && extension != null
+                && extension.StartsWith(httpPrefix)
+                && extension.StartsWith(root))
             {
                 string newValue = extension[root.Length..];
 

@@ -9,11 +9,7 @@
         {% if encounter.statusCode.code == null -%}
         "status":"unknown",
         {% endif -%}
-        "class": {                
-                    {% if encounter.code -%}
-                        {% include 'DataType/Coding' Coding: encounter.code -%}
-                    {% endif -%}
-        },
+        "class": {% include 'DataType/Coding' Coding: encounter.code -%},
         "identifier":
         [
             {% assign ids = encounter.id | to_array -%}

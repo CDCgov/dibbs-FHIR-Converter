@@ -1,24 +1,26 @@
-{% if Identifier.nullFlavor == null or (Identifier.extension == null and Identifier.root == null) -%}
-    {% if Identifier.extension -%}
-        {% assign value = Identifier.extension -%}
-        {% assign pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
-        {% if pattern_match == 1 -%}
-            {%- capture system -%}
-                {% include 'ValueSet/SystemReference' code: Identifier.root -%}
-            {%- endcapture -%}
-            {% assign system = system | strip -%}
-        {% else -%}
-            {% assign system = Identifier.root | prepend_id -%}
-        {% endif -%}
-    {% elsif Identifier.root -%}
-        {% assign value = Identifier.root | prepend_id -%}
-        {% assign system = "urn:ietf:rfc:3986" -%}
-    {% endif -%}
 {
-    "system": "{{ system }}",
-    "value": "{{ value | remove_prefix: system }}",
-    "assigner": {
-        "display": "{{ Identifier.assigningAuthorityName }}"
-    }
-}
+{% if Identifier.nullFlavor == null -%}
+    {% if (Identifier.extension != null or Identifier.root != null)  -%}
+        {% if Identifier.extension -%}
+            {% assign value = Identifier.extension -%}
+            {% assign pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
+            {% if pattern_match == 1 -%}
+                {%- capture system -%}
+                    {% include 'ValueSet/SystemReference' code: Identifier.root -%}
+                {%- endcapture -%}
+                {% assign system = system | strip -%}
+            {% else -%}
+                {% assign system = Identifier.root | prepend_id -%}
+            {% endif -%}
+        {% elsif Identifier.root -%}
+            {% assign value = Identifier.root | prepend_id -%}
+            {% assign system = "urn:ietf:rfc:3986" -%}
+        {% endif -%}
+            "system": "{{ system }}",
+            "value": "{{ value | remove_prefix: system }}",
+            "assigner": {
+                "display": "{{ Identifier.assigningAuthorityName }}"
+            }
+    {%endif -%}
 {% endif -%}
+}

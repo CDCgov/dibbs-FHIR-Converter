@@ -12,7 +12,7 @@
         },
         "identifier":
         [
-            { {% include 'DataType/Identifier' Identifier: procedureEntry.id -%} },
+            {% include 'DataType/Identifier' Identifier: procedureEntry.id -%},
         ],
         "status":"{{ procedureEntry.statusCode.code | get_property: 'ValueSet/EventStatus' }}",
         "code": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.code -%} },
@@ -24,19 +24,19 @@
         {% assign rels = procedureEntry.entryRelationship | to_array %}
         {% for rel in rels %}
             {% if rel.typeCode == "RSON" %}
-                "reasonCode": 
+                "reasonCode":
                 [
                     { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
                 ],
             {% elseif rel.typeCode == "COMP" and rel.observation.templateId.root == "2.16.840.1.113883.10.20.22.4.9" %}
-                {% comment %} Reaction observation {% endcomment %}   
+                {% comment %} Reaction observation {% endcomment %}
                 "complication":
                 [
                     { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
                 ],
             {% endif %}
         {% endfor %}
-        
+
         "extension": [
             {% if procedureEntry.methodCode %}
                 {

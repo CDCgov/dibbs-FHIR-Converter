@@ -14,7 +14,7 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for i in ids -%}
-                { {% include 'DataType/Identifier' Identifier: i -%} },
+                {% include 'DataType/Identifier' Identifier: i -%},
             {% endfor -%}
         ],
         "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",

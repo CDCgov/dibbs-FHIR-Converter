@@ -15,13 +15,13 @@
         [
             {% assign ids = ob.id | to_array -%}
             {% for id in ids -%}
-            { {% include 'DataType/Identifier' Identifier: id -%} },
+            {% include 'DataType/Identifier' Identifier: id -%},
             {% endfor -%}
         ],
         "status":"final",
         "code":
         {
-            "coding": 
+            "coding":
             [
                 { {% include 'DataType/Coding' Coding: ob.code -%} },
             ]

@@ -7,7 +7,7 @@
         [
             {% assign ids = allergyEntry.id | to_array -%}
             {% for i in ids -%}
-                { {% include 'DataType/Identifier' Identifier: i -%} },
+                {% include 'DataType/Identifier' Identifier: i -%},
             {% endfor -%}
         ],
         "clinicalStatus":
@@ -41,7 +41,7 @@
                             { {% include 'DataType/CodeableConcept' CodeableConcept: r.observation.value -%} },
                         {% endif -%}
                     ],
-                    "onset": "{{ r.observation.effectiveTime.low.value | format_as_date_time }}", 
+                    "onset": "{{ r.observation.effectiveTime.low.value | format_as_date_time }}",
                 {% endif -%}
                 {% if templateIdString contains '"2.16.840.1.113883.10.20.22.4.8"' -%}
                     {% if r.observation.value.translation -%}

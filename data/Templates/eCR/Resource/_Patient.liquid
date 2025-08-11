@@ -14,7 +14,7 @@
         [
             {% assign ids = patientRole.id | to_array -%}
             {% for id in ids -%}
-            { {% include 'DataType/Identifier' Identifier: id -%} },
+            {% include 'DataType/Identifier' Identifier: id -%},
             {% endfor -%}
         ],
         "name":
@@ -107,7 +107,7 @@
                 {% if languageCommunication.preferenceInd.value -%}
                     "preferred": {{ languageCommunication.preferenceInd.value }},
                 {% endif -%}
-                "extension": 
+                "extension":
                 [
                     { {% include 'Extension/PatientProficiency', modeCode: languageCommunication.modeCode, proficiencyLevelCode: languageCommunication.proficiencyLevelCode -%} },
                 ],

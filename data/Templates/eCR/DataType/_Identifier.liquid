@@ -1,4 +1,4 @@
-{% if Identifier.nullFlavor == null -%}
+{% if Identifier.nullFlavor == null or (Identifier.extension == null and Identifier.root == null) -%}
     {% if Identifier.extension -%}
         {% assign value = Identifier.extension -%}
         {% assign pattern_match = Identifier.root | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
@@ -14,10 +14,11 @@
         {% assign value = Identifier.root | prepend_id -%}
         {% assign system = "urn:ietf:rfc:3986" -%}
     {% endif -%}
-
+{
     "system": "{{ system }}",
     "value": "{{ value }}",
     "assigner": {
         "display": "{{ Identifier.assigningAuthorityName }}"
     }
+}
 {% endif -%}

@@ -24,7 +24,7 @@ jobs:
         with:
           dotnet-version: "8.0.x"
       - name: Run tests
-        run: dotnet test src/FHIRConverterAPI.UnitTests
+        run: dotnet test src/Dibbs.FhirConverterApi.UnitTests
 
   functional-test-dotnet-fhir-converter-api:
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
         with:
           dotnet-version: "8.0.x"
       - name: Run tests
-        run: dotnet test src/FHIRConverterAPI.FunctionalTests
+        run: dotnet test src/Dibbs.FhirConverterApi.FunctionalTests
 
   unit-test-dotnet-fhir-converter:
     runs-on: ubuntu-latest

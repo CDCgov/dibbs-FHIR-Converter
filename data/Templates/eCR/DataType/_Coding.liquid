@@ -1,8 +1,8 @@
-"code": "{{ Coding.code }}",
+"code": "{{- Coding.code -}}",
 {%- capture codeSystemName -%}
-  {% include 'ValueSet/SystemReference' code: Coding.codeSystem %}
+  {%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}
 {%- endcapture -%}
-"system": "{{ codeSystemName | strip }}",
+"system": "{{- codeSystemName -}}",
 {% if Coding.displayName -%}
   "display": "{{ Coding.displayName | clean_string_from_tabs | strip }}",
 {% elsif Coding.originalText._ -%}

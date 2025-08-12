@@ -1,37 +1,38 @@
 {%- comment -%} See https://www.hl7.org/fhir/terminologies.html#system for finding the corresponding URI for a system OID {%- endcomment -%}
-{%- assign url = "" -%}
+{%- assign url = '""' -%}
 {%- if code -%}
     {%- assign s = code | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
     {%- if s == 1 -%}
         {%- case code -%}
             {%- when "2.16.840.1.113883.6.1" -%}
-                {%- assign url = "http://loinc.org" -%}
+                {%- assign url = '"http://loinc.org"' -%}
             {%- when "2.16.840.1.113883.6.96" -%}
-                {%- assign url = "http://snomed.info/sct" -%}
+                {%- assign url = '"http://snomed.info/sct"' -%}
             {%- when "2.16.840.1.113883.6.88" -%}
-                {%- assign url = "http://www.nlm.nih.gov/research/umls/rxnorm" -%}
+                {%- assign url = '"http://www.nlm.nih.gov/research/umls/rxnorm"' -%}
             {%- when "2.16.840.1.113883.3.88.12.3221.8.9" -%}
-                {%- assign url = "http://snomed.info/sct" -%}
+                {%- assign url = '"http://snomed.info/sct"' -%}
             {%- when "2.16.840.1.113883.5.83" -%}
-                {%- assign url = "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation" -%}
+                {%- assign url = '"http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"' -%}
             {%- when "2.16.840.1.113883.4.1" -%}
-                {%- assign url = "http://hl7.org/fhir/sid/us-ssn" -%}
+                {%- assign url = '"http://hl7.org/fhir/sid/us-ssn"' -%}
             {%- when "2.16.840.1.113883.4.6" -%}
-                {%- assign url = "http://hl7.org/fhir/sid/us-npi" -%}
+                {%- assign url = '"http://hl7.org/fhir/sid/us-npi"' -%}
             {%- when "2.16.840.1.113883.4.572" -%}
-                {%- assign url = "http://hl7.org/fhir/sid/us-medicare" -%}
+                {%- assign url = '"http://hl7.org/fhir/sid/us-medicare"' -%}
             {%- when "2.16.840.1.113883.4.927" -%}
-                {%- assign url = "http://hl7.org/fhir/sid/us-mbi" -%}
+                {%- assign url = '"http://hl7.org/fhir/sid/us-mbi"' -%}
             {%- when "2.16.840.1.113883.6.59" -%}
-                {%- assign url = "http://hl7.org/fhir/sid/cvx" -%}
+                {%- assign url = '"http://hl7.org/fhir/sid/cvx"' -%}
             {%- when "2.16.840.1.113883.6.101" -%}
-                {%- assign url = "http://nucc.org/provider-taxonomy" -%}
+                {%- assign url = '"http://nucc.org/provider-taxonomy"' -%}
             {%- when "2.16.840.1.113883.6.238" -%}
-                {%- assign url = "urn:oid:2.16.840.1.113883.6.238" -%}
+                {% comment %} This is indeed the official URI: https://terminology.hl7.org/5.1.0/CodeSystem-CDCREC.html {% endcomment %}
+                {%- assign url = '"urn:oid:2.16.840.1.113883.6.238"' -%}
             {%- when "2.16.840.1.113883.5.140" -%}
-                {%- assign url = "http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS" -%}
+                {%- assign url = '"http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS"' -%}
             {%- when "2.16.840.1.113883.6.12" -%}
-                {%- assign url = "http://www.ama-assn.org/go/cpt" -%}
+                {%- assign url = '"http://www.ama-assn.org/go/cpt"' -%}
             {%- else -%}
                 {%- assign url = "urn:oid:" | append: code -%}
         {%- endcase -%}

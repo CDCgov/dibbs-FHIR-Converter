@@ -1,9 +1,11 @@
 using System.Text.Json.Serialization;
 
+namespace Dibbs.FhirConverterApi.Models;
+
 /// <summary>
 /// Model for the body of the incoming API request.
 /// </summary>
-public class FHIRConverterRequest
+public class FhirConverterRequest
 {
     // The message to be converted as a string.
     [JsonPropertyName("input_data")]

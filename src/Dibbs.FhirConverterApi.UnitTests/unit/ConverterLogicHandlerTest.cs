@@ -1,3 +1,5 @@
+using Dibbs.FhirConverterApi;
+
 public class ConverterLogicHandlerTest
 {
     [Fact]

@@ -379,7 +379,7 @@ FodyWeavers.xsd
 /output.json
 output/
 
-# Mismatched snapshots
+# Mismatched snapshots from snapshot tests
 src/FHIRConverterAPI.FunctionalTests/api/__snapshots__/__mismatch__
 
 # macOS

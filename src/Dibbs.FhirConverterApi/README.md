@@ -126,8 +126,8 @@ To build the Docker image for the FHIR Conversion service from source code inste
 
 #### Tips & Tricks
 
-- To run the unit tests, use the command `dotnet test src/FHIRConverterAPI.UnitTests`.
-- To run the integration tests, use the command `dotnet test src/FHIRConverterAPI.FunctionalTests`.
+- To run the unit tests, use the command `dotnet test src/Dibbs.FhirConverterApi.UnitTests`.
+- To run the integration tests, use the command `dotnet test src/Dibbs.FhirConverterApi.FunctionalTests`.
 
 ## Architecture Diagram
 

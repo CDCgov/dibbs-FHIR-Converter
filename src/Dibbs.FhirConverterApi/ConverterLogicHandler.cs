@@ -5,6 +5,9 @@ using Microsoft.Health.Fhir.Liquid.Converter.Processors;
 using Microsoft.Health.Fhir.Liquid.Converter.Tool;
 using Microsoft.Health.Fhir.Liquid.Converter.Tool.Models;
 using Newtonsoft.Json;
+using ConverterFhirProcessor = Microsoft.Health.Fhir.Liquid.Converter.Processors.FhirProcessor;
+
+namespace Dibbs.FhirConverterApi;
 
 public static class ConverterLogicHandler
 {
@@ -37,7 +40,7 @@ public static class ConverterLogicHandler
 
         var content = File.ReadAllText(metadataPath);
         var metadata = JsonConvert.DeserializeObject<Metadata>(content);
-        if (Enum.TryParse<DataType>(metadata?.Type, ignoreCase: true, out DataType type))
+        if (Enum.TryParse(metadata?.Type, ignoreCase: true, out DataType type))
         {
             return type;
         }
@@ -52,7 +55,7 @@ public static class ConverterLogicHandler
             DataType.Hl7v2 => new Hl7v2Processor(DefaultProcessorSettings, ConsoleLoggerFactory.CreateLogger<Hl7v2Processor>()),
             DataType.Ccda => new CcdaProcessor(DefaultProcessorSettings, ConsoleLoggerFactory.CreateLogger<CcdaProcessor>()),
             DataType.Json => new JsonProcessor(DefaultProcessorSettings, ConsoleLoggerFactory.CreateLogger<JsonProcessor>()),
-            DataType.Fhir => new FhirProcessor(DefaultProcessorSettings, ConsoleLoggerFactory.CreateLogger<FhirProcessor>()),
+            DataType.Fhir => new ConverterFhirProcessor(DefaultProcessorSettings, ConsoleLoggerFactory.CreateLogger<ConverterFhirProcessor>()),
             _ => throw new NotImplementedException($"The conversion from data type {dataType} to FHIR is not supported")
         };
     }
@@ -62,7 +65,7 @@ public static class ConverterLogicHandler
         return new TemplateProvider(templateDirectory, dataType);
     }
 
-    private static TraceInfo CreateTraceInfo(DataType dataType, bool isTraceInfo)
+    private static TraceInfo? CreateTraceInfo(DataType dataType, bool isTraceInfo)
     {
         return isTraceInfo ? (dataType == DataType.Hl7v2 ? new Hl7v2TraceInfo() : new TraceInfo()) : null;
     }

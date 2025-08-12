@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FHIRConverterAPI\FHIRConverterAPI.csproj" />
+    <ProjectReference Include="..\Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests\Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests.csproj" />
+    <ProjectReference Include="..\Dibbs.FhirConverterApi\Dibbs.FhirConverterApi.csproj" />
   </ItemGroup>
 
 </Project>

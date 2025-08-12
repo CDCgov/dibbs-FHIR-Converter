@@ -1,7 +1,9 @@
 using System.Net;
 using System.Xml.Linq;
+using Dibbs.FhirConverterApi;
+using Dibbs.FhirConverterApi.Models;
+using Dibbs.FhirConverterApi.Processors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +25,7 @@ app.MapGet("/", () => new { status = "OK" })
 .WithName("HealthCheck")
 .WithOpenApi();
 
-app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FHIRConverterRequest requestBody) =>
+app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRequest requestBody) =>
 {
     var inputData = requestBody.InputData;
     var inputType = requestBody.InputType.ToLower();

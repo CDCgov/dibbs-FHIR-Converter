@@ -24,22 +24,19 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             Context context,
             string originalCode,
             string mapping,
-            string property = "code"
-        )
+            string property = "code")
         {
             if (
                 string.IsNullOrEmpty(originalCode)
                 || string.IsNullOrEmpty(mapping)
-                || string.IsNullOrEmpty(property)
-            )
+                || string.IsNullOrEmpty(property))
             {
                 return null;
             }
 
             var map = (context["CodeMapping"] as CodeMapping)?.Mapping?.GetValueOrDefault(
                 mapping,
-                null
-            );
+                null);
             var codeMapping =
                 map?.GetValueOrDefault(originalCode, null)
                 ?? map?.GetValueOrDefault("__default__", null);
@@ -76,8 +73,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             string segment,
             string resourceType,
             bool isBaseIdRequired,
-            string baseId = null
-        )
+            string baseId = null)
         {
             if (string.IsNullOrWhiteSpace(segment))
             {
@@ -86,13 +82,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
             if (
                 string.IsNullOrEmpty(resourceType)
-                || (isBaseIdRequired && string.IsNullOrEmpty(baseId))
-            )
+                || (isBaseIdRequired && string.IsNullOrEmpty(baseId)))
             {
                 throw new RenderException(
                     FhirConverterErrorCode.InvalidIdGenerationInput,
-                    Resources.InvalidIdGenerationInput
-                );
+                    Resources.InvalidIdGenerationInput);
             }
 
             segment = segment.Trim();

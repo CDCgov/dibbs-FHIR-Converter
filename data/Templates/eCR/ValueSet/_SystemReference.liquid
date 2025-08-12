@@ -1,3 +1,5 @@
+{%- comment -%} See https://www.hl7.org/fhir/terminologies.html#system for finding the corresponding URI for a system OID {%- endcomment -%}
+{%- assign url = "" -%}
 {%- if code -%}
     {%- assign s = code | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
     {%- if s == 1 -%}
@@ -25,6 +27,7 @@
             {%- when "2.16.840.1.113883.6.101" -%}
                 {%- assign url = "http://nucc.org/provider-taxonomy" -%}
             {%- when "2.16.840.1.113883.6.238" -%}
+                {%- assign url = "urn:oid:2.16.840.1.113883.6.238" -%}
             {%- when "2.16.840.1.113883.5.140" -%}
                 {%- assign url = "http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS" -%}
             {%- when "2.16.840.1.113883.6.12" -%}
@@ -32,6 +35,6 @@
             {%- else -%}
                 {%- assign url = "urn:oid:" | append: code -%}
         {%- endcase -%}
-{{- url -}}
     {%- endif -%}
 {%- endif -%}
+{{- url | clean_string_from_tabs -}}

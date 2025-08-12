@@ -602,6 +602,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "1002-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "American Indian or Alaska Native"
                 }
               },
@@ -618,6 +619,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "2135-2",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "Hispanic or Latino"
                 }
               },
@@ -804,7 +806,7 @@
         "code": {
           "coding": [
             {
-              "code": "94308-4",
+              "code": "94308-4 ",
               "system": "http://loinc.org",
               "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
             }

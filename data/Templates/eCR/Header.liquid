@@ -4,7 +4,7 @@
   {% if msg.ClinicalDocument.id.extension -%}
     {% comment %} If extension exists, use that {% endcomment %}
     {% assign compositionId = msg.ClinicalDocument.id.extension -%}
-  {% else if msg.ClinicalDocument.id.root -%}
+  {% elsif msg.ClinicalDocument.id.root -%}
     {% comment %} If extension does not exist and root does, use that {% endcomment %}
     {% assign compositionId = msg.ClinicalDocument.id.root -%}
   {% endif -%}

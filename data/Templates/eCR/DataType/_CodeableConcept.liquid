@@ -1,9 +1,9 @@
 "coding":
 [
-	{%- assign translations = CodeableConcept.translation | to_array -%}
-	{%- assign concepts = CodeableConcept | to_array | concat: translations -%}
-	{%- for concept in concepts -%}
-	{ {%- include 'DataType/Coding' Coding: concept -%} },
-	{%- endfor -%}
+	{% assign translations = CodeableConcept.translation | to_array -%}
+	{% assign concepts = CodeableConcept | to_array | concat: translations -%}
+	{% for concept in concepts -%}
+	{ {% include 'DataType/Coding' Coding: concept -%} },
+	{% endfor -%}
 ],
-"text": "{{- CodeableConcept.originalText._ | clean_string_from_tabs | strip -}}"
+"text": "{{ CodeableConcept.originalText._ | clean_string_from_tabs | strip }}"

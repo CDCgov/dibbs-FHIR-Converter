@@ -70,9 +70,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
 
         return message.SerializeMessage().Replace("\r", "\n");
       }
-      catch (Exception ex)
+      catch (Exception)
       {
-        Console.WriteLine("Exception occurred while cleaning message. Passing through original message.");
+        // Return the original message
         return inputData;
       }
     }
@@ -112,7 +112,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       // Start with date base
       // The first group is always the whole string so we start with the second
       var endIndex = hl7DatetimeParts.ElementAtOrDefault(1)?.Value.Length >= 14 ? 14 : hl7DatetimeParts.ElementAtOrDefault(1)?.Value.Length ?? 0;
-      var normalizedDatetime = hl7DatetimeParts.ElementAtOrDefault(1)?.Value[..endIndex]; // probably delete all the distinct stuff
+      var normalizedDatetime = hl7DatetimeParts.ElementAtOrDefault(1)?.Value[..endIndex];
 
       // Add date decimal if present
       if (!string.IsNullOrEmpty(hl7DatetimeParts.ElementAtOrDefault(2)?.Value))
@@ -161,7 +161,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
             }
         }
       }
-      catch (IndexOutOfRangeException ex)
+      catch (IndexOutOfRangeException)
       {
         // Segment not existing in the message is not an error
         Console.WriteLine($"Segment {segmentId} not found in message.");

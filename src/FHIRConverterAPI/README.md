@@ -126,9 +126,8 @@ To build the Docker image for the FHIR Conversion service from source code inste
 
 #### Tips & Tricks
 
-- To run the service tests, use the command `dotnet test`.
-  - Make sure your docker image has pulled in the latest changes by building with no cache `build-image-no-cache && docker compose up`.
-- To run the tool tests, run the commands found in the github actions workflow.
+- To run the unit tests, use the command `dotnet test src/FHIRConverterAPI.UnitTests`.
+- To run the integration tests, use the command `dotnet test src/FHIRConverterAPI.FunctionalTests`.
 
 ## Architecture Diagram
 

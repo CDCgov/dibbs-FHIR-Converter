@@ -23,12 +23,12 @@ app.MapGet("/", () => new { status = "OK" })
 .WithName("HealthCheck")
 .WithOpenApi();
 
-app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConverterRequest requestBody) =>
+app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FHIRConverterRequest requestBody) =>
 {
-    var inputData = requestBody.input_data;
-    var inputType = requestBody.input_type.ToLower();
+    var inputData = requestBody.InputData;
+    var inputType = requestBody.InputType.ToLower();
 
-    if (!string.IsNullOrEmpty(requestBody.rr_data) && inputType != "ecr")
+    if (!string.IsNullOrEmpty(requestBody.RRData) && inputType != "ecr")
     {
         return Results.BadRequest(new { detail = "Reportability Response (RR) data is only accepted for eCR conversion requests." });
     }
@@ -39,9 +39,9 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
         {
             XDocument ecrDoc = EcrProcessor.ConvertStringToXDocument(inputData);
 
-            if (!string.IsNullOrEmpty(requestBody.rr_data))
+            if (!string.IsNullOrEmpty(requestBody.RRData))
             {
-                ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.rr_data);
+                ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.RRData);
             }
 
             inputData = ecrDoc.ToString();
@@ -61,7 +61,7 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
 
     try
     {
-        rootTemplate = requestBody.root_template ?? GetRootTemplate(inputType);
+        rootTemplate = requestBody.RootTemplate ?? GetRootTemplate(inputType);
         var result = ConverterLogicHandler.Convert(GetTemplatesPath(inputType), rootTemplate, inputData, false, false);
         var newResult = FhirProcessor.FhirBundlePostProcessing(result, inputType);
         return Results.Text(newResult, contentType: "application/json");
@@ -72,7 +72,8 @@ app.MapPost("/convert-to-fhir", async (HttpRequest request, [FromBody] FHIRConve
     }
     catch (Exception ex)
     {
-        return Results.Json(new { detail = ex.Message }, statusCode: (int)HttpStatusCode.InternalServerError);
+        Console.WriteLine(ex);
+        return Results.StatusCode(500);
     }
 })
 .Accepts<dynamic>("application/json")

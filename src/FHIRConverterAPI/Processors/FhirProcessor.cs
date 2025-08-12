@@ -37,6 +37,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
       var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
       {
         WriteIndented = true,
+
         // Encoder required for HTML sections to be formatted the way we expect
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
       });

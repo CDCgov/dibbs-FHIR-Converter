@@ -1,6 +1,9 @@
 using System.Net;
 
-public class UserFacingException: Exception
+/// <summary>
+/// Allows customization of exception message, specifying status code, and optionally includes the original exception.
+/// </summary>
+public class UserFacingException : Exception
 {
   public UserFacingException(string message, HttpStatusCode statusCode)
   : base(message)

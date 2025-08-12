@@ -3,6 +3,7 @@ using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Models.Hl7v2;
 using Microsoft.Health.Fhir.Liquid.Converter.Processors;
 using Microsoft.Health.Fhir.Liquid.Converter.Tool;
+using Microsoft.Health.Fhir.Liquid.Converter.Tool.Models;
 using Newtonsoft.Json;
 
 public static class ConverterLogicHandler

@@ -10,6 +10,7 @@ public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFacto
     public FHIRConverterAPIFunctionalTests(WebApplicationFactory<Program> factory)
     {
         _client = factory.CreateClient();
+        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
     }
 
     [Fact]
@@ -32,14 +33,13 @@ public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFacto
     [Fact]
     public async Task ConvertToFHIR_ReturnsSuccess_WhenValidEICRWithRRProvided()
     {
-        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
         var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
         var content = new FHIRConverterRequest
         {
-            input_type = "eCR",
-            input_data = eICR,
-            rr_data = rr,
+            InputType = "eCR",
+            InputData = eICR,
+            RRData = rr,
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
@@ -54,12 +54,11 @@ public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFacto
     [Fact]
     public async Task ConvertToFHIR_ReturnsSuccess_WhenValidEICRWithoutRRProvided()
     {
-        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
         var content = new FHIRConverterRequest
         {
-            input_type = "eCR",
-            input_data = eICR,
+            InputType = "eCR",
+            InputData = eICR,
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
@@ -76,13 +75,12 @@ public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFacto
     [Fact]
     public async Task ConvertToFHIR_Returns422StatusCode_WhenInvalidEICRProvided()
     {
-        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
         var content = new FHIRConverterRequest
         {
-            input_type = "eCR",
-            input_data = "<this is not valid xml>",
-            rr_data = rr,
+            InputType = "eCR",
+            InputData = "<this is not valid xml>",
+            RRData = rr,
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
@@ -94,13 +92,12 @@ public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFacto
     [Fact]
     public async Task ConvertToFHIR_Returns422StatusCode_WhenInvalidRRProvided()
     {
-        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
         var content = new FHIRConverterRequest
         {
-            input_type = "eCR",
-            input_data = eICR,
-            rr_data = "<this is not valid xml>",
+            InputType = "eCR",
+            InputData = eICR,
+            RRData = "<this is not valid xml>",
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
@@ -109,18 +106,69 @@ public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal("{\"detail\":\"Reportability Response (RR) message must be valid XML message.\"}", jsonResponse);
     }
 
-    // TODO: more error response tests
+    [Fact]
+    public async Task ConvertToFHIR_Returns400StatusCode_WhenRRProvidedWithoutWrongInputDataType()
+    {
+        var vxu = File.ReadAllText("../../../../../data/SampleData/Hl7v2/VXU-Sample.hl7");
+        var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
+        var content = new FHIRConverterRequest
+        {
+            InputType = "vxu",
+            InputData = vxu,
+            RRData = rr,
+            RootTemplate = "VXU_V04",
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.Equal("{\"detail\":\"Reportability Response (RR) data is only accepted for eCR conversion requests.\"}", jsonResponse);
+    }
+
+    [Fact]
+    public async Task ConvertToFHIR_Returns400StatusCode_WhenInvalidTemplateDirectoryProvided()
+    {
+        var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
+        var content = new FHIRConverterRequest
+        {
+            InputType = "badinputtype",
+            InputData = eICR,
+            RootTemplate = "EICR",
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.Equal("{\"detail\":\"Invalid input_type badinputtype. Valid values are 'ecr', 'elr', and 'vxu'.\"}", jsonResponse);
+    }
+
+    [Fact]
+    public async Task ConvertToFHIR_Returns400StatusCode_WhenRRProvidedWhenInvalidInputTypeProvided()
+    {
+        var content = new FHIRConverterRequest
+        {
+            InputType = "ccd",
+            InputData = "<ClinicalDocument></ClinicalDocument>",
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.Equal("{\"detail\":\"Root template for ccd cannot be found. Please specify using the root_template parameter.\"}", jsonResponse);
+    }
 
     [Fact]
     public async Task ConvertToFHIR_ReturnsSuccess_WhenValidVXUProvided()
     {
-        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
         var vxu = File.ReadAllText("../../../../../data/SampleData/Hl7v2/VXU-Sample.hl7");
         var content = new FHIRConverterRequest
         {
-            input_type = "vxu",
-            input_data = vxu,
-            root_template = "VXU_V04",
+            InputType = "vxu",
+            InputData = vxu,
+            RootTemplate = "VXU_V04",
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
@@ -129,19 +177,8 @@ public class FHIRConverterAPIFunctionalTests : IClassFixture<WebApplicationFacto
         var jsonResponse = await response.Content.ReadAsStringAsync();
         Assert.NotNull(jsonResponse);
 
-        // find diff
-        // var expectedObject = JObject.Parse(expected);
-        // var actualObject = JObject.Parse(jsonResponse);
-
-        // var diff = DiffHelper.FindDiff(actualObject, expectedObject);
-        // if (diff.HasValues)
-        // {
-        //     Console.WriteLine(diff);
-        // }
-        // find diff
-
+        // Ignore provenance div because of generated on timestamp
         Snapshot.Match(jsonResponse, matchOptions => CommonIgnoredFields(matchOptions)
-                    // Ignore provenance div because of generated on timestamp
                     .IgnoreField("response.FhirResource.entry[1].resource.text.div"));
     }
 

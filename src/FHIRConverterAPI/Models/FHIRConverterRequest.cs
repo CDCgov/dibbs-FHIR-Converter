@@ -1,14 +1,23 @@
+using System.Text.Json.Serialization;
+
+/// <summary>
+/// Model for the body of the incoming API request.
+/// </summary>
 public class FHIRConverterRequest
 {
     // The message to be converted as a string.
-    public string input_data { get; set; }
+    [JsonPropertyName("input_data")]
+    required public string InputData { get; set; }
 
     // The type of message to be converted.
-    public string input_type { get; set; }
+    [JsonPropertyName("input_type")]
+    required public string InputType { get; set; }
 
     // If an eICR message, the accompanying Reportability Response data.
-    public string rr_data { get; set; }
+    [JsonPropertyName("rr_data")]
+    public string? RRData { get; set; }
 
     // Name of the liquid template within to be used for conversion.
-    public string root_template { get; set; }
+    [JsonPropertyName("root_template")]
+    public string? RootTemplate { get; set; }
 }

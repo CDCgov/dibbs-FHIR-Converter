@@ -178,7 +178,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FHIRConverterAPI.Processors
         if (value is not null)
         {
           var refId = value.Value[1..];
-          // The XPath expression evaluated to unexpected type System.Xml.Linq.XText.
           var refText = ecrXDocument.XPathEvaluate(
               $"//*[@ID='{refId}']/text()",
               names);

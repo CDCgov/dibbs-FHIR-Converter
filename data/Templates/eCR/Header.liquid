@@ -1,4 +1,5 @@
 {% evaluate practitionerId using 'Utils/GenerateId' obj: msg.ClinicalDocument.componentOf.encompassingEncounter.responsibleParty.assignedEntity -%}
+{% assign compositionId = msg._originalData | generate_uuid -%}
 {% if msg.ClinicalDocument.id -%}
   {% if msg.ClinicalDocument.id.extension -%}
     {% comment %} If extension exists, use that {% endcomment %}

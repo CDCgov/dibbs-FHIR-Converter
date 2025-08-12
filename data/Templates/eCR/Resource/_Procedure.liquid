@@ -12,7 +12,7 @@
         },
         "identifier":
         [
-            {% include 'DataType/Identifier' Identifier: procedureEntry.id -%},
+            {% include 'DataType/Identifier' Identifier: procedureEntry.id -%}
         ],
         "status":"{{ procedureEntry.statusCode.code | get_property: 'ValueSet/EventStatus' }}",
         "code": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.code -%} },

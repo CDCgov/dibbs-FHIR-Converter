@@ -7,7 +7,7 @@
         [
             {% assign ids = allergyEntry.id | to_array -%}
             {% for i in ids -%}
-                {% include 'DataType/Identifier' Identifier: i -%},
+                {% include 'DataType/Identifier' Identifier: i -%}
             {% endfor -%}
         ],
         "clinicalStatus":

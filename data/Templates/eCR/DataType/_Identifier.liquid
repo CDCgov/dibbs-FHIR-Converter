@@ -7,7 +7,7 @@
                 {%- include 'ValueSet/SystemReference' code: Identifier.root -%}
             {%- endcapture %}
             {%- assign system = system | strip -%}
-            "system": "{{ system }}",
+            "system": "{{- system -}}",
             "value": "{{ Identifier.extension | remove_prefix: system }}",
         {% else -%}
             "system": "{{ Identifier.root | prepend_id }}",

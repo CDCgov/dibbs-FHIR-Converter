@@ -1,4 +1,4 @@
-"code": "{{- Coding.code -}}",
+"code": "{{- Coding.code | strip -}}",
 {%- capture codeSystemName -%}{%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}{%- endcapture -%}
 "system": "{{- codeSystemName -}}",
 {% if Coding.displayName -%}

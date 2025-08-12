@@ -806,7 +806,7 @@
         "code": {
           "coding": [
             {
-              "code": "94308-4 ",
+              "code": "94308-4",
               "system": "http://loinc.org",
               "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
             }

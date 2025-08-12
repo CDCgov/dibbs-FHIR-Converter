@@ -8,7 +8,7 @@
     {% assign compositionId = msg.ClinicalDocument.id.root -%}
   {% endif -%}
 {% else -%}
-  {% assign compositionId =msg._originalData | generate_uuid -%}
+  {% assign compositionId = msg._originalData | generate_uuid -%}
 {% endif -%}
 {% include 'Resource/Composition' composition: msg.ClinicalDocument, practitionerId: practitionerId, ID: compositionId -%}
 {% include 'Reference/Composition/Subject' ID: compositionId, REF: fullPatientId -%}

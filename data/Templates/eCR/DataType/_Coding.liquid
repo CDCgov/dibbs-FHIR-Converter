@@ -1,4 +1,4 @@
-"code": "{{ Coding.code | strip }}",
+"code": "{{ Coding.code }}",
 {%- capture codeSystemName -%}
   {% include 'ValueSet/SystemReference' code: Coding.codeSystem %}
 {%- endcapture -%}

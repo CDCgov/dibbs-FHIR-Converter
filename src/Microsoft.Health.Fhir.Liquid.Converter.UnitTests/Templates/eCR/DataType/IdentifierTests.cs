@@ -70,7 +70,21 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public void UuidWithExtensionOnly()
+        public void InvalidUuidOnly()
+        {
+            var xmlStr = @"<id root=""7c0704bb-9c40-41b5-9c7d-26b2d59e234g"" />";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };
+
+            var actualFhir = GetFhirObjectFromTemplate<Identifier>(ECRPath, attributes);
+
+            Assert.Equal("7c0704bb-9c40-41b5-9c7d-26b2d59e234g", actualFhir.Value);
+            Assert.Null(actualFhir.System);
+        }
+
+        [Fact]
+        public void UuidWithExtension()
         {
             var xmlStr =
                 @"<id root=""58822180-ab0d-42e4-90c6-35336bf55654"" extension=""12345"" />";

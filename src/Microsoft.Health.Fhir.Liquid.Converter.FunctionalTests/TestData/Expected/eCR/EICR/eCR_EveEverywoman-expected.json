@@ -1876,7 +1876,6 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
             "value": "7c0704bb-9c40-41b5-9c7d-26b2d59e234g"
           }
         ],
@@ -3024,7 +3023,6 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
             "value": "3adc7f4d-ff0a-4b38-9252-bd65edbe3dfg"
           }
         ],

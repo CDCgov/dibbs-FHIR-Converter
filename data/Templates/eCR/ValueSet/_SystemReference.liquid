@@ -34,7 +34,7 @@
             {%- when "2.16.840.1.113883.6.12" -%}
                 {%- assign url = '"http://www.ama-assn.org/go/cpt"' -%}
             {%- else -%}
-                {%- assign url = "urn:oid:" | append: code -%}
+                {%- assign url = '"urn:oid:' | append: code | append: '"' -%}
         {%- endcase -%}
     {%- endif -%}
 {%- endif -%}

@@ -898,7 +898,6 @@
         "id": "8349f135-880d-bab1-e18b-5d060a7115d5",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
             "value": "1234abcd-ef56-7890-gh12-34567890ijkl"
           }
         ],

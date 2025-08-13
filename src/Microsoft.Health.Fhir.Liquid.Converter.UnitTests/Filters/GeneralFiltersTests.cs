@@ -217,5 +217,27 @@ EVN|A01|20050110045502|||||",
 
             Assert.Equal(extension, Filters.RemovePrefix(extension, root));
         }
+
+        [Fact]
+        public void RemovePrefixRootExtensionWithMultipleSegments()
+        {
+            string extension = "\"http://example.com/category/user/1\"";
+            string root = "\"http://example.com\"";
+
+            string expected = "\"category/user/1\"";
+
+            Assert.Equal(expected, Filters.RemovePrefix(extension, root));
+        }
+
+        [Fact]
+        public void RemovePrefixRootRootWithMultipleSegments()
+        {
+            string extension = "\"http://example.com/category/user/1\"";
+            string root = "\"http://example.com/category\"";
+
+            string expected = "\"user/1\"";
+
+            Assert.Equal(expected, Filters.RemovePrefix(extension, root));
+        }
     }
 }

@@ -313,7 +313,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                     @"eCR_RR_combined_3_1.xml",
                     @"eCR_RR_combined_3_1-expected.json",
                     "parsing",
-                    "1"
+                    "3"
                 },
                 new[]
                 {
@@ -321,7 +321,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                     @"eCR_EveEverywoman.xml",
                     @"eCR_EveEverywoman-expected.json",
                     "parsing",
-                    "3"
+                    "7"
                 },
             };
             return data.Select(item =>

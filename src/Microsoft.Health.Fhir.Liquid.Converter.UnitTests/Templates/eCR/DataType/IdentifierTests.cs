@@ -25,6 +25,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 ECRPath,
                 new Dictionary<string, object>()
             );
+
+            Assert.Null(actualFhir.Value);
+            Assert.Null(actualFhir.System);
+            Assert.Empty(actualFhir.Assigner.Display);
         }
 
         [Fact]

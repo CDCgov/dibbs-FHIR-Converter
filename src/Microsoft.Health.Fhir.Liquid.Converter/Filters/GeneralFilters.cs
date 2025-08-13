@@ -151,9 +151,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         public static string RemovePrefix(string extension, string root)
         {
             // We potentially have to strip quote marks from the root because the output of the SystemReference template includes the quote marks.
-            extension = extension.StartsWith('"') ? extension[1..] : extension;
-            extension = extension.EndsWith('"') ? extension[..^1] : extension;
-
             root = root.StartsWith('"') ? root[1..] : root;
             root = root.EndsWith('"') ? root[..^1] : root;
 
@@ -168,11 +165,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
                 if (newValue.StartsWith('/'))
                 {
-                    return '"' + newValue[1..] + '"';
+                    return newValue[1..];
                 }
             }
 
-            return '"' + extension + '"';
+            return extension;
         }
     }
 }

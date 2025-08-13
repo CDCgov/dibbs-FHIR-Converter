@@ -118,6 +118,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var actual = RenderLiquidTemplate(templatePath, attributes);
             var actualJson = DeserializeJson(actual);
 
+            // If the JSON is a FHIR resource, then it will have a `resource` property, and we just
+            // want the value of `resource. Otherwise, if it does not have a `resource` property, it
+            // is not a resource we do not need to change the JSON.
             if (actualJson.TryGetProperty("resource", out var resourceElement))
             {
                 actualJson = resourceElement;

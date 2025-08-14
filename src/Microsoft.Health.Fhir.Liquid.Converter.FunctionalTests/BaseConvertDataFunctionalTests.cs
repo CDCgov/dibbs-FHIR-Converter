@@ -226,6 +226,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             });
         }
 
+
         public static IEnumerable<object[]> GetDataForEcr()
         {
             var data = new List<string[]>
@@ -238,18 +239,187 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 //   4. whether the file should fail at parsing or validation when testing if valid (if it is fully valid, "validation" is what should be there)
                 //   5. The number of expected failures at the step in (4)
                 // ]
-                new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "13" },
-                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "parsing", "1" },
-                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "parsing", "15" },
+                new[]
+                {
+                    @"EICR",
+                    @"eCR_full.xml",
+                    @"eCR_full-expected.json",
+                    "validation",
+                    "13"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"eCR_RR_combined_3_1.xml",
+                    @"eCR_RR_combined_3_1-expected.json",
+                    "parsing",
+                    "1"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"eCR_EveEverywoman.xml",
+                    @"eCR_EveEverywoman-expected.json",
+                    "parsing",
+                    "15"
+                },
+                new[] { @"EICR", @"new.xml", @"new-expected.json", "validation", "6" },
+                new[]
+                {
+                    @"EICR",
+                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_EXTERNAL_ENCOUNTER.xml",
+                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_EXTERNAL_ENCOUNTER-expected.json",
+                    "parsing",
+                    "7"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_MANUAL.xml",
+                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_MANUAL.json",
+                    "parsing",
+                    "1"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml",
+                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.json",
+                    "parsing",
+                    "7"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_EXTERNAL_ENCOUNTER.xml",
+                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_EXTERNAL_ENCOUNTER.json",
+                    "validation",
+                    "19"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_MANUAL.xml",
+                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_MANUAL.json",
+                    "parsing",
+                    "1"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_Sample.xml",
+                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_Sample.json",
+                    "parsing",
+                    "2"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"eICR Sample Patient Alliance 03132020.xml",
+                    @"eICR Sample Patient Alliance 03132020.json",
+                    "parsing",
+                    "5"
+                },
+                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020.json", "parsing", "4" },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305.xml",
+                    @"NNeicrsamples_202006032305.json",
+                    "parsing",
+                    "1"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_2.xml",
+                    @"NNeicrsamples_202006032305_2.json",
+                    "validation",
+                    "18"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_3.xml",
+                    @"NNeicrsamples_202006032305_3.json",
+                    "validation",
+                    "18"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_4.xml",
+                    @"NNeicrsamples_202006032305_4.json",
+                    "parsing",
+                    "1"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_5.xml",
+                    @"NNeicrsamples_202006032305_5.json",
+                    "validation",
+                    "19"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_6.xml",
+                    @"NNeicrsamples_202006032305_6.json",
+                    "validation",
+                    "18"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_7.xml",
+                    @"NNeicrsamples_202006032305_7.json",
+                    "parsing",
+                    "1"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_8.xml",
+                    @"NNeicrsamples_202006032305_8.json",
+                    "validation",
+                    "18"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_9.xml",
+                    @"NNeicrsamples_202006032305_9.json",
+                    "validation",
+                    "18"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_10.xml",
+                    @"NNeicrsamples_202006032305_10.json",
+                    "validation",
+                    "18"
+                },
+                new[]
+                {
+                    @"EICR",
+                    @"NNeicrsamples_202006032305_11.xml",
+                    @"NNeicrsamples_202006032305_11.json",
+                    "parsing",
+                    "1"
+                },
             };
-            return data.Select(item => new[]
-            {
-                item[0],
-                Path.Join(Constants.SampleDataDirectory, "eCR", item[1]),
-                Path.Join(Constants.ExpectedDataFolder, "eCR", item[0], item[2]),
-                item[3],
-                item[4],
-            });
+            return data.Select(item =>
+                new[]
+                {
+                    item[0],
+                    Path.Join(Constants.SampleDataDirectory, "eCR", item[1]),
+                    Path.Join(Constants.ExpectedDataFolder, "eCR", item[0], item[2]),
+                    item[3],
+                    item[4],
+                }
+            );
         }
 
         public static IEnumerable<object[]> GetDataForJson()

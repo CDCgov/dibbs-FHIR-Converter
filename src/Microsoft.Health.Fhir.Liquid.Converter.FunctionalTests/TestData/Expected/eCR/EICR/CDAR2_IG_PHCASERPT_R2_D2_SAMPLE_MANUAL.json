@@ -1,0 +1,1664 @@
+{
+  "Status": "OK",
+  "FhirResource": {
+  "resourceType": "Bundle",
+  "type": "batch",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e704",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "db734647-fc99-424c-a864-7e3cda82e704",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+          ]
+        },
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public Health Case Report"
+              }
+            ]
+          },
+          "value": "31"
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+            "valueString": "1"
+          },
+          {
+            "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+            "valueString": "2019-04-01"
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "55751-2",
+              "system": "http://loinc.org",
+              "display": "Public Health Case Report"
+            }
+          ]
+        },
+        "date": "2018-11-07T09:44:21-05:00",
+        "title": "Initial Public Health Case Report",
+        "confidentiality": "N",
+        "event": [
+          {
+            "period": {
+              "start": "2018-11-06T00:00:00-05:00"
+            }
+          }
+        ],
+        "section": [
+          {
+            "id": "43a5ff87-b264-82e4-f505-ba18bc9b951f",
+            "title": "Encounters",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Encounter</th><th>Date(s)</th><th>Location</th></tr></thead><tbody><tr ID=\"id_2a620155-9d11-439e-92b3-5d9815ff4de8_ref\"><td>Office outpatient visit 15 minutes</td><td>NOV 7, 2018</td><td><list styleCode=\"none\"><item><content styleCode=\"Italics\">Urgent Care Center</content></item></list></td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Initiation Reason Type</th><th>Initiation Reason</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a65_ref\"><td>Complaint</td><td>Free text containing the reason for the eICR document</td><td>NOV 4, 2018</td></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "46240-8",
+                  "system": "http://loinc.org",
+                  "display": "History of encounters"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "d078e5c1-23cb-6ee2-e5d0-61c106690b44",
+            "title": "History of Present Illness",
+            "text": {
+              "status": "generated",
+              "div": "<paragraph xmlns=\"urn:hl7-org:v3\">Persistent Cough REPORTED starting on 2018/10/05<br /> Whooping Respiration not reported<br /> Paroxysms Of Coughing REPORTED starting on 2018/11/04<br /> Post-tussive vomiting not reported<br /></paragraph>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10164-2",
+                  "system": "http://loinc.org",
+                  "display": "HISTORY OF PRESENT ILLNESS"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "6e24f750-1b15-85d3-4fd3-21a8cce12c38",
+            "title": "Medications Administered",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Medication</th><th>Dose</th><th>Duration</th><th>Route</th></tr></thead><tbody><tr ID=\"id_6c844c75-aa34-411c-b7bd-5e4a9f206e29_ref\"><td>Azithromycin 500 MG Oral Tablet</td><td>1 g</td><td>NOV 7, 2018 11:60</td><td>ORAL</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29549-3",
+                  "system": "http://loinc.org",
+                  "display": "Medications Administered"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationAdministration/bc3e871d-0b02-0ccd-b286-cdd1162bf3e1"
+              }
+            ]
+          },
+          {
+            "id": "b0899fe2-0223-508b-5425-ad1176744ba3",
+            "title": "Problems",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Concern</th><th>Concern Status</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ec8a6ff8-ed4b-4f7e-82c3-e98e58b45de7_ref\"><td>Problem</td><td>active</td><td>NOV 7, 2018</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Problem Type</th><th>Problem</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a66_ref\"><td>Symptom</td><td>Dark stools (finding)</td><td>NOV 1, 2018</td></tr><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a67_ref\"><td>Complaint</td><td>Paroxysmal cough (finding)</td><td>NOV 4, 2018</td></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11450-4",
+                  "system": "http://loinc.org",
+                  "display": "Problem List"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "display": "Problem - Dark stools (finding)",
+                "reference": "Condition/028492eb-66b8-658a-b1e9-9ecad7530ceb"
+              },
+              {
+                "display": "Problem - Paroxysmal cough (finding)",
+                "reference": "Condition/bf6251d6-2a69-ab5d-d0f5-f91779b7cfe0"
+              }
+            ]
+          },
+          {
+            "id": "e40cdafc-baa4-5531-690e-4140be6252ce",
+            "title": "Reason for Visit",
+            "text": {
+              "status": "generated",
+              "div": "<paragraph xmlns=\"urn:hl7-org:v3\">Dark stools</paragraph>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29299-5",
+                  "system": "http://loinc.org",
+                  "display": "Reason for visit"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
+                "valueString": "Dark stools"
+              }
+            ]
+          },
+          {
+            "id": "dab8ca47-738a-24cb-3dfc-cdbe45480450",
+            "title": "Results",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Results Panel</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_7d5a02b0-67a4-11db-bd13-0800200c9a66_ref\"><td>CBC W Auto Differential panel in Blood</td><td>NOV 7, 2018 to NOV 7, 2018</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Test</th><th>Outcome</th><th>Interpretation</th><th>Date(s)</th><th>Reference Range</th><th>Reference Range Interpretation</th><th>Reference Range Description</th></tr></thead><tbody><tr ID=\"id_7c0704bb-9c40-41b5-9c7d-26b2d59e234f_ref\"><td>Hematocrit</td><td>35.3 %</td><td>Low</td><td>NOV 7, 2018</td><td>34.9 % to 44.5 %</td><td>Low</td><td>Low</td></tr><tr ID=\"id_7c0704bb-9c40-41b5-9c7d-26b2d59e234g_ref\"><td>Lymphocytes [#/​volume] in Blood by Automated count</td><td>5.2 10*3/uL</td><td>High</td><td>NOV 7, 2018</td><td>1.0 10*3/uL to 4.8 10*3/uL</td><td>Normal</td><td /></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "30954-2",
+                  "system": "http://loinc.org",
+                  "display": "Relevant diagnostic tests and/or laboratory data"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/542cf409-a330-2185-6cfc-7f7f20d593c8"
+              },
+              {
+                "reference": "Observation/fe859df1-071e-3927-dcaa-9f511660a24d"
+              }
+            ]
+          },
+          {
+            "id": "3ff12a22-6754-a4e4-87dd-d3f4c32fe380",
+            "title": "Social History",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Birth Sex</th><th>Value</th><th>Date</th></tr></thead><tbody><tr><td>Sex Assigned At Birth</td><td>Female</td><td>NOV 24, 1974</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Current Occupation</th><th>Current Industry</th><th>Current Job Title</th><th>Current Employer</th></tr></thead><tbody><tr><td>Actuaries</td><td>Accounting, tax preparation, bookkeeping, and payroll services</td><td>Senior Accountant</td><td>CDC, Peachtree St, South Atlanta Georgia, 555-1212</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Usual Occupation</th><th>Usual Industry</th><th>Occupational Exposure</th></tr></thead><tbody><tr><td>Actuaries</td><td>Accounting, tax preparation, bookkeeping, and payroll services</td><td>Asbestos</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Travel History: Date(s)</th><th>Notes</th><th>Location</th></tr></thead><tbody><tr><td>1999 to 2007</td><td>Spent 8 years in the UK during the BSE outbreak</td><td /></tr><tr><td>In the 3 weeks before NOV 9, 2018</td><td /><td><list styleCode=\"none\"><item>Brazil</item></list></td></tr><tr><td>APR 29, 2018 to OCT 30, 2018</td><td /><td><list styleCode=\"none\"><item>Nadi, FJ</item></list></td></tr><tr><td>MAY 6, 2018 to MAY 15, 2018</td><td /><td><list styleCode=\"none\"><item>Montreal, QC, CA</item></list></td></tr><tr><td>JUL 13, 2018 to JUL 15, 2018</td><td /><td><list styleCode=\"none\"><item>Sydney, NSW, AU</item></list></td></tr><tr><td>OCT 22, 2018 to OCT 30, 2018</td><td /><td><list styleCode=\"none\"><item>1170 N Rancho Robles Rd Oracle, AZ8562, US</item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29762-2",
+                  "system": "http://loinc.org",
+                  "display": "Social History"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/41fb62f4-0827-2a1a-c85e-afc77b2c92d5"
+              },
+              {
+                "reference": "Observation/e419541c-79fc-a50e-6c78-f93b7715fc88"
+              },
+              {
+                "reference": "Observation/39643f6f-31af-a1a3-24c5-d45f1e492137"
+              },
+              {
+                "reference": "Observation/e0b83dcd-dced-1a38-d82a-eca78198428b"
+              },
+              {
+                "reference": "Observation/8b536f6b-b441-948d-764c-517fa4869ddd"
+              },
+              {
+                "reference": "Observation/8a65af49-3816-ab97-1179-3ebe9c728122"
+              },
+              {
+                "reference": "Observation/6770d2f8-c964-aac6-b8c2-df22bba56b7a"
+              },
+              {
+                "reference": "Observation/92270508-dbf5-a464-b271-df255173e646"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "encounter": {
+          "reference": "Encounter/3133d9e4-71a7-05d0-8800-0cfbce3c4a4a"
+        },
+        "custodian": {
+          "reference": "Organization/6f0890ee-d9a6-c51d-ac83-79cfda623a82"
+        },
+        "author": [
+          {
+            "reference": "Device/d0ae0527-f36b-de1d-e26b-1560599be6d5"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Composition/db734647-fc99-424c-a864-7e3cda82e704"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3133d9e4-71a7-05d0-8800-0cfbce3c4a4a",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "3133d9e4-71a7-05d0-8800-0cfbce3c4a4a",
+        "status": "unknown",
+        "class": {
+          "code": "AMB",
+          "system": "2.16.840.1.113883.5.4",
+          "display": "Ambulatory"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19",
+            "value": "9937012"
+          }
+        ],
+        "period": {
+          "start": "2018-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "location": [
+          {
+            "id": "2.16.840.1.113883.4.6",
+            "location": {
+              "reference": "Location/14383c1c-7f95-3974-3e55-9d730de06b9e",
+              "display": "Good Health Hospital"
+            },
+            "extension": [
+              {
+                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "OF",
+                      "system": "2.16.840.1.113883.5.111",
+                      "display": "Outpatient facility"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/09e89134-7d55-51b4-2183-bcb51b361a36"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/ee172968-bee0-e42b-1901-83480bd97c51"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/3133d9e4-71a7-05d0-8800-0cfbce3c4a4a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:14383c1c-7f95-3974-3e55-9d730de06b9e",
+      "resource": {
+        "resourceType": "Location",
+        "id": "14383c1c-7f95-3974-3e55-9d730de06b9e",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "77777777777"
+          }
+        ],
+        "name": "Good Health Hospital",
+        "address": {
+          "line": [
+            "1000 Hospital Lane"
+          ],
+          "city": "Ann Arbor",
+          "state": "MI",
+          "country": "US",
+          "postalCode": "99999"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "1+(555)-555-1212",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "1+(555)-555-3333",
+            "use": "work"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "OF",
+                "system": "2.16.840.1.113883.5.111",
+                "display": "Outpatient facility"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/14383c1c-7f95-3974-3e55-9d730de06b9e"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:09e89134-7d55-51b4-2183-bcb51b361a36",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "09e89134-7d55-51b4-2183-bcb51b361a36",
+        "name": "Good Health Hospital",
+        "address": [
+          {
+            "line": [
+              "1000 Hospital Lane"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "1+(555)-555-1212",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "1+(555)-555-3333",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/09e89134-7d55-51b4-2183-bcb51b361a36"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b1788a7c-7165-936d-d3de-3a1713e2d54d",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "b1788a7c-7165-936d-d3de-3a1713e2d54d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+            "valueString": "Responsible Party"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "6666666666666"
+          }
+        ],
+        "name": [
+          {
+            "family": "Seven",
+            "given": [
+              "Henry"
+            ],
+            "suffix": [
+              "M.D."
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "1002 Healthcare Drive"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-1003",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "+1(555)555-1234",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "mail@provider_domain.com",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/b1788a7c-7165-936d-d3de-3a1713e2d54d"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "ee172968-bee0-e42b-1901-83480bd97c51",
+        "practitioner": {
+          "reference": "Practitioner/b1788a7c-7165-936d-d3de-3a1713e2d54d"
+        },
+        "organization": {
+          "reference": "Organization/8305a99c-dd44-f037-9a4a-b22ef7ae7d5e"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8305a99c-dd44-f037-9a4a-b22ef7ae7d5e",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "8305a99c-dd44-f037-9a4a-b22ef7ae7d5e",
+        "name": "Community Health and Hospitals",
+        "address": [
+          {
+            "line": [
+              "1002 Healthcare Drive"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/8305a99c-dd44-f037-9a4a-b22ef7ae7d5e"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6f0890ee-d9a6-c51d-ac83-79cfda623a82",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "6f0890ee-d9a6-c51d-ac83-79cfda623a82",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "88888888"
+          }
+        ],
+        "name": "Good Health Hospital",
+        "address": [
+          {
+            "line": [
+              "1000 Hospital Lane"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/6f0890ee-d9a6-c51d-ac83-79cfda623a82"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d0ae0527-f36b-de1d-e26b-1560599be6d5",
+      "resource": {
+        "resourceType": "Device",
+        "id": "d0ae0527-f36b-de1d-e26b-1560599be6d5",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
+          }
+        ],
+        "property": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/device-category",
+                  "code": "software",
+                  "display": "software"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/d0ae0527-f36b-de1d-e26b-1560599be6d5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f238f1ae-2f55-cd21-5c90-5e68a10af8ce",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "f238f1ae-2f55-cd21-5c90-5e68a10af8ce",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19.5",
+            "value": "123453"
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "444-22-2222"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Everywoman",
+            "given": [
+              "Eve",
+              "H"
+            ]
+          },
+          {
+            "use": "usual",
+            "family": "Everywoman",
+            "given": [
+              "Ruth",
+              "L"
+            ]
+          }
+        ],
+        "birthDate": "1974-11-24",
+        "deceasedBoolean": false,
+        "gender": "female",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2106-3",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2186-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "F",
+                      "system": "2.16.840.1.113883.5.1",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "2222 Home Street"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999",
+            "district": "26001"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-555-555-2003",
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "+1-555-555-2004",
+            "use": "work"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            },
+            "preferred": true,
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/patient-proficiency",
+                "extension": [
+                  {
+                    "url": "type",
+                    "valueCoding": {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityMode",
+                      "code": "ESP",
+                      "display": "Expressed spoken"
+                    }
+                  },
+                  {
+                    "url": "level",
+                    "valueCoding": {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityProficiency",
+                      "code": "G",
+                      "display": "Good"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bc3e871d-0b02-0ccd-b286-cdd1162bf3e1",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "bc3e871d-0b02-0ccd-b286-cdd1162bf3e1",
+        "identifier": [
+          {
+            "system": "2.16.840.1.113883.5.1",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "completed",
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C38288",
+                "system": "2.16.840.1.113883.3.26.1.1",
+                "display": "ORAL"
+              }
+            ]
+          },
+          "dose": {
+            "value": 1,
+            "unit": "g"
+          }
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "medicationReference": {
+          "reference": "Medication/a0ab93f5-2465-3671-0751-3d4e22232670"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationAdministration/bc3e871d-0b02-0ccd-b286-cdd1162bf3e1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a0ab93f5-2465-3671-0751-3d4e22232670",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "a0ab93f5-2465-3671-0751-3d4e22232670",
+        "code": {
+          "coding": [
+            {
+              "code": "248656",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "Azithromycin 500 MG Oral Tablet"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/a0ab93f5-2465-3671-0751-3d4e22232670"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fe47f3c2-6f9a-0997-66b8-4584e3fecdc8",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "id": "fe47f3c2-6f9a-0997-66b8-4584e3fecdc8",
+        "relationship": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                "code": "GUARD",
+                "display": "Guardian"
+              }
+            ]
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Mum",
+            "given": [
+              "Martha",
+              "L"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-555-555-2006",
+            "use": "home"
+          },
+          {
+            "system": "email",
+            "value": "mail@guardian.com"
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "4444 Home Street"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "patient": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "RelatedPerson/fe47f3c2-6f9a-0997-66b8-4584e3fecdc8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3f60898a-c80c-e7b9-541c-b25cdd458dd8",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "3f60898a-c80c-e7b9-541c-b25cdd458dd8",
+        "identifier": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "57021-8",
+              "system": "http://loinc.org",
+              "display": "CBC W Auto Differential panel in Blood"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2018-11-07",
+          "end": "2018-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "result": [
+          {
+            "reference": "Observation/542cf409-a330-2185-6cfc-7f7f20d593c8"
+          },
+          {
+            "reference": "Observation/fe859df1-071e-3927-dcaa-9f511660a24d"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/3f60898a-c80c-e7b9-541c-b25cdd458dd8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:542cf409-a330-2185-6cfc-7f7f20d593c8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "542cf409-a330-2185-6cfc-7f7f20d593c8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "20570-8",
+              "system": "http://loinc.org",
+              "display": "Hematocrit"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-07",
+        "valueQuantity": {
+          "value": 35.3,
+          "unit": "%"
+        },
+        "referenceRange": [
+          {
+            "text": "34.9 % - 44.5 %",
+            "low": {
+              "value": 34.9,
+              "unit": "%"
+            },
+            "high": {
+              "value": 44.5,
+              "unit": "%"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "L",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Low"
+                }
+              ]
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "L",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/542cf409-a330-2185-6cfc-7f7f20d593c8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fe859df1-071e-3927-dcaa-9f511660a24d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "fe859df1-071e-3927-dcaa-9f511660a24d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "731-0",
+              "system": "http://loinc.org",
+              "display": "Lymphocytes [#/​volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-07",
+        "valueQuantity": {
+          "value": 5.2,
+          "unit": "10*3/uL"
+        },
+        "referenceRange": [
+          {
+            "text": "1.0 10*3/uL - 4.8 10*3/uL",
+            "low": {
+              "value": 1.0,
+              "unit": "10*3/uL"
+            },
+            "high": {
+              "value": 4.8,
+              "unit": "10*3/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "H",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/fe859df1-071e-3927-dcaa-9f511660a24d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:41fb62f4-0827-2a1a-c85e-afc77b2c92d5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "41fb62f4-0827-2a1a-c85e-afc77b2c92d5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "1999",
+          "end": "2007"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Spent 8 years in the UK during the BSE outbreak"
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/41fb62f4-0827-2a1a-c85e-afc77b2c92d5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e419541c-79fc-a50e-6c78-f93b7715fc88",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e419541c-79fc-a50e-6c78-f93b7715fc88",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-10-19",
+          "end": "2018-11-09"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "BRA",
+                  "system": "1.0.3166.1",
+                  "display": "Brazil"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/e419541c-79fc-a50e-6c78-f93b7715fc88"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:39643f6f-31af-a1a3-24c5-d45f1e492137",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "39643f6f-31af-a1a3-24c5-d45f1e492137",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-04-29",
+          "end": "2018-10-30"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Nadi",
+                  "country": "FJ"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/39643f6f-31af-a1a3-24c5-d45f1e492137"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e0b83dcd-dced-1a38-d82a-eca78198428b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e0b83dcd-dced-1a38-d82a-eca78198428b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-05-06",
+          "end": "2018-05-15"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Montreal",
+                  "state": "QC",
+                  "country": "CA"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/e0b83dcd-dced-1a38-d82a-eca78198428b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8b536f6b-b441-948d-764c-517fa4869ddd",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8b536f6b-b441-948d-764c-517fa4869ddd",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-07-13",
+          "end": "2018-07-15"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Sydney",
+                  "state": "NSW",
+                  "country": "AU"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/8b536f6b-b441-948d-764c-517fa4869ddd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8a65af49-3816-ab97-1179-3ebe9c728122",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8a65af49-3816-ab97-1179-3ebe9c728122",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-10-22",
+          "end": "2018-10-30"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "line": [
+                    "1170 N Rancho Robles Rd"
+                  ],
+                  "city": "Oracle",
+                  "state": "AZ",
+                  "country": "US",
+                  "postalCode": "8562"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/8a65af49-3816-ab97-1179-3ebe9c728122"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6770d2f8-c964-aac6-b8c2-df22bba56b7a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6770d2f8-c964-aac6-b8c2-df22bba56b7a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "1.0.3166.1",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "21843-8",
+              "system": "http://loinc.org",
+              "display": "Usual Occupation"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "1996-11-24"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1200",
+              "system": "2.16.840.1.114222.4.5.314",
+              "display": "Actuaries"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "21844-6",
+                  "system": "http://loinc.org",
+                  "display": "Usual Industry"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "7280",
+                  "system": "2.16.840.1.114222.4.5.315",
+                  "display": "Accounting, tax preparation, bookkeeping, and payroll services"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/6770d2f8-c964-aac6-b8c2-df22bba56b7a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8b04381d-5509-d237-fbbe-2c3963321ba0",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "8b04381d-5509-d237-fbbe-2c3963321ba0",
+        "identifier": [
+          {
+            "system": "urn:uuid:58822180-ab0d-42e4-90c6-35336bf55654",
+            "value": "12345"
+          }
+        ],
+        "name": "CDC",
+        "address": [
+          {
+            "line": [
+              "Peachtree St"
+            ],
+            "city": "South Atlanta",
+            "state": "Georgia"
+          }
+        ],
+        "telecom": [
+          {
+            "value": "555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/8b04381d-5509-d237-fbbe-2c3963321ba0"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "92270508-dbf5-a464-b271-df255173e646",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/8b04381d-5509-d237-fbbe-2c3963321ba0"
+            }
+          }
+        ],
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "2.16.840.1.114222.4.5.315",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "unknown",
+        "code": {
+          "coding": [
+            {
+              "code": "11341-5",
+              "system": "http://loinc.org",
+              "display": "History of Occupation"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2015-04-24"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1200",
+              "system": "2.16.840.1.114222.4.5.314",
+              "display": "Actuaries"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "87729-0",
+                  "system": "http://loinc.org",
+                  "display": "History of Occupational hazard"
+                }
+              ]
+            },
+            "valueString": "Asbestos"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "86188-0",
+                  "system": "http://loinc.org",
+                  "display": "Occupation Industry"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "7280",
+                  "system": "2.16.840.1.114222.4.5.315",
+                  "display": "Accounting, tax preparation, bookkeeping, and payroll services"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "fullUrl": "urn:uuid:92270508-dbf5-a464-b271-df255173e646",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/92270508-dbf5-a464-b271-df255173e646"
+      }
+    }
+  ]
+}
+}

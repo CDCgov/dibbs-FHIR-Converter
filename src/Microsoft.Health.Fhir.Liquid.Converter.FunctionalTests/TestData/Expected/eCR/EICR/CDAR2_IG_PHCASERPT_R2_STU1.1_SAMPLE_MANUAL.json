@@ -1,0 +1,1551 @@
+{
+  "Status": "OK",
+  "FhirResource": {
+  "resourceType": "Bundle",
+  "type": "batch",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e703",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "db734647-fc99-424c-a864-7e3cda82e703",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+          ]
+        },
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public Health Case Report"
+              }
+            ]
+          }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber"
+          },
+          {
+            "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+            "valueString": "2016-12-01"
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "55751-2",
+              "system": "http://loinc.org",
+              "display": "Public Health Case Report"
+            }
+          ]
+        },
+        "date": "2016-11-07T09:44:21-05:00",
+        "title": "Initial Public Health Case Report",
+        "confidentiality": "N",
+        "event": [
+          {
+            "period": {
+              "start": "2016-11-06T00:00:00-05:00"
+            }
+          }
+        ],
+        "section": [
+          {
+            "id": "8fd4a750-eb96-cd19-c3c9-cf361e8bcbf3",
+            "title": "Encounters",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Encounter</th><th>Date(s)</th><th>Location</th></tr></thead><tbody><tr ID=\"id_2a620155-9d11-439e-92b3-5d9815ff4de8_ref\"><td>Office outpatient visit 15 minutes</td><td>NOV 7, 2016</td><td><list styleCode=\"none\"><item><content styleCode=\"Italics\">Urgent Care Center</content></item></list></td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Manual Initiation Reason Type</th><th>Manual Initiation Reason</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a65_ref\"><td>Complaint</td><td>Free text containing the reason for the manual eICR document</td><td>NOV 4, 2016</td></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "46240-8",
+                  "system": "http://loinc.org",
+                  "display": "History of encounters"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "12cf9f09-79b5-1170-7970-fa75138349c3",
+            "title": "History of Present Illness",
+            "text": {
+              "status": "generated",
+              "div": "<paragraph xmlns=\"urn:hl7-org:v3\"> Persistent Cough REPORTED starting on 2016/10/05<br /> Whooping Respiration not reported<br /> Paroxysms Of Coughing REPORTED starting on 2016/11/04<br /> Post-tussive vomiting not reported<br /></paragraph>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10164-2",
+                  "system": "http://loinc.org",
+                  "display": "HISTORY OF PRESENT ILLNESS"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "2ab95122-afc6-94ca-9415-fee628007fc6",
+            "title": "Medications Administered",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Medication</th><th>Dose</th><th>Duration</th><th>Route</th></tr></thead><tbody><tr ID=\"id_6c844c75-aa34-411c-b7bd-5e4a9f206e29_ref\"><td>Azithromycin 500 MG Oral Tablet</td><td>1 g</td><td>NOV 7, 2016 11:60</td><td>ORAL</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29549-3",
+                  "system": "http://loinc.org",
+                  "display": "Medications Administered"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationAdministration/af69d702-2f13-94d1-537b-3f27b6837c76"
+              }
+            ]
+          },
+          {
+            "id": "8b61df98-f1d0-5056-da29-9613d0f9254c",
+            "title": "Problems",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Concern</th><th>Concern Status</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ec8a6ff8-ed4b-4f7e-82c3-e98e58b45de7_ref\"><td>Problem</td><td>active</td><td>NOV 7, 2016</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Problem Type</th><th>Problem</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a66_ref\"><td>Symptom</td><td>Dark stools (finding)</td><td>NOV 1, 2016</td></tr><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a67_ref\"><td>Complaint</td><td>Paroxysmal cough (finding)</td><td>NOV 4, 2016</td></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11450-4",
+                  "system": "http://loinc.org",
+                  "display": "Problem List"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "display": "Problem - Dark stools (finding)",
+                "reference": "Condition/ce610e80-0ed7-7c2f-2163-2fc3e36c7093"
+              },
+              {
+                "display": "Problem - Paroxysmal cough (finding)",
+                "reference": "Condition/a6c72178-3750-94c5-06ac-19f76c427207"
+              }
+            ]
+          },
+          {
+            "id": "e40cdafc-baa4-5531-690e-4140be6252ce",
+            "title": "Reason for Visit",
+            "text": {
+              "status": "generated",
+              "div": "<paragraph xmlns=\"urn:hl7-org:v3\">Dark stools</paragraph>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29299-5",
+                  "system": "http://loinc.org",
+                  "display": "Reason for visit"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
+                "valueString": "Dark stools"
+              }
+            ]
+          },
+          {
+            "id": "d90080ca-4080-29e6-36f4-a51abf3d56a5",
+            "title": "Results",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Results Panel</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_7d5a02b0-67a4-11db-bd13-0800200c9a66_ref\"><td>CBC W Auto Differential panel in Blood</td><td>NOV 7, 2016 to NOV 7, 2016</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Test</th><th>Outcome</th><th>Interpretation</th><th>Date(s)</th><th>Reference Range</th><th>Reference Range Interpretation</th><th>Reference Range Description</th></tr></thead><tbody><tr ID=\"id_7c0704bb-9c40-41b5-9c7d-26b2d59e234f_ref\"><td>Hematocrit</td><td>35.3 %</td><td>Low</td><td>NOV 7, 2016</td><td>34.9 % to 44.5 %</td><td>Low</td><td>Low</td></tr><tr ID=\"id_7c0704bb-9c40-41b5-9c7d-26b2d59e234g_ref\"><td>Lymphocytes [#/​volume] in Blood by Automated count</td><td>5.2 10*3/uL</td><td>High</td><td>NOV 7, 2016</td><td>1.0 10*3/uL to 4.8 10*3/uL</td><td>Normal</td><td /></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "30954-2",
+                  "system": "http://loinc.org",
+                  "display": "Relevant diagnostic tests and/or laboratory data"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/5c55d6b9-98cf-8779-34c0-50080f27c46f"
+              },
+              {
+                "reference": "Observation/c1901179-05ba-fe39-cc37-80a5b8672e17"
+              }
+            ]
+          },
+          {
+            "id": "33509ac7-b4a3-e193-43dc-73daaf504d27",
+            "title": "Social History",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Birth Sex</th><th>Value</th><th>Date</th></tr></thead><tbody><tr><td>Sex Assigned At Birth</td><td>Female</td><td>NOV 24, 1974</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Social History Observation Type</th><th>Value</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_6049baec-80df-4dea-82b2-345f6546cda3_ref\"><td>Employment detail</td><td>Centers for Disease Control 1, Peachtree St South Atlanta, GA, 404-564-7865</td><td>JAN 1, 1993</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Travel History: Date(s)</th><th>Notes</th><th>Location</th></tr></thead><tbody><tr ID=\"id_79565142-eae0-4213-a3b3-b73cdf474682_ref\"><td>1999 to 2007</td><td>Spent 8 years in the UK during the BSE outbreak</td><td /></tr><tr ID=\"id_030df1dc-1d31-4e5d-abdd-5edd0b74c5c3_ref\"><td>In the 3 weeks before NOV 9, 2016</td><td /><td><list styleCode=\"none\"><item>Brazil</item></list></td></tr><tr ID=\"id_b98e410c-d29a-46d8-8fc8-f55a9d3022b9_ref\"><td>APR 29, 2016 to OCT 30, 2016</td><td /><td><list styleCode=\"none\"><item>Nadi, FJ</item></list></td></tr><tr ID=\"id_b97346f7-8f9e-4c5b-97bb-df4f6e057fd4_ref\"><td>MAY 6, 2016 to MAY 15, 2016</td><td /><td><list styleCode=\"none\"><item>Montreal, QC, CA</item></list></td></tr><tr ID=\"id_1d957c2a-6133-427d-a6cc-26f132773b86_ref\"><td>JUL 13, 2016 to JUL 15, 2016</td><td /><td><list styleCode=\"none\"><item>Sydney, NSW, AU</item></list></td></tr><tr ID=\"id_45397b5c-e974-4cf1-8b19-e1555bd55701_ref\"><td>OCT 22, 2016 to OCT 30, 2016</td><td /><td><list styleCode=\"none\"><item>1170 N Rancho Robles Rd Oracle, AZ8562, US</item></list></td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><col width=\"10%\" /><thead><tr><th>Pregnancy Status</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_2.16.840.1.113883.19_ref\"><td><content styleCode=\"Italics Bold\">Not </content>Pregnant</td><td>JAN 1, 2016 to NOV 7, 2016</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29762-2",
+                  "system": "http://loinc.org",
+                  "display": "Social History"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/82d66efd-73a4-0584-f6ea-b239aa906921"
+              },
+              {
+                "reference": "Observation/41fb62f4-0827-2a1a-c85e-afc77b2c92d5"
+              },
+              {
+                "reference": "Observation/d54b804c-e3cc-26b9-72ec-3f4aeb41e0be"
+              },
+              {
+                "reference": "Observation/cb780b88-a815-a6f7-b9cd-8723b0694c2d"
+              },
+              {
+                "reference": "Observation/92eb3007-7f87-61fc-cc50-20e41e8b8b1d"
+              },
+              {
+                "reference": "Observation/bf2e1069-eb73-66cd-be65-468824472578"
+              },
+              {
+                "reference": "Observation/bf5fdc06-0cdc-c962-6410-9bd55f8f22fb"
+              },
+              {
+                "reference": "Observation/cedb5a20-f4eb-9bcd-3241-fb05e009408c"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "encounter": {
+          "reference": "Encounter/b1d1e11f-60b0-27d2-c23e-57d1b9acfddb"
+        },
+        "custodian": {
+          "reference": "Organization/6f0890ee-d9a6-c51d-ac83-79cfda623a82"
+        },
+        "author": [
+          {
+            "reference": "Device/d0ae0527-f36b-de1d-e26b-1560599be6d5"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Composition/db734647-fc99-424c-a864-7e3cda82e703"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b1d1e11f-60b0-27d2-c23e-57d1b9acfddb",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "b1d1e11f-60b0-27d2-c23e-57d1b9acfddb",
+        "status": "unknown",
+        "class": {
+          "code": "99213",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office outpatient visit 15 minutes"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19",
+            "value": "9937012"
+          }
+        ],
+        "period": {
+          "start": "2016-11-07",
+          "end": "2016-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "location": [
+          {
+            "id": "2.16.840.1.113883.4.6",
+            "location": {
+              "reference": "Location/664d2770-19d7-8cb7-47b3-ddd78e4f9ce9",
+              "display": "Salem Medical Center"
+            },
+            "extension": [
+              {
+                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "OF",
+                      "system": "2.16.840.1.113883.5.111",
+                      "display": "Outpatient facility"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/cd73fa04-e151-711b-4e20-414f3576ccec"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/5915bfce-9a3e-7301-52f2-d241dc323a6c"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/b1d1e11f-60b0-27d2-c23e-57d1b9acfddb"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:664d2770-19d7-8cb7-47b3-ddd78e4f9ce9",
+      "resource": {
+        "resourceType": "Location",
+        "id": "664d2770-19d7-8cb7-47b3-ddd78e4f9ce9",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "77777777777"
+          }
+        ],
+        "name": "Salem Medical Center",
+        "address": {
+          "line": [
+            "4646 Brown Rd"
+          ],
+          "city": "Salem",
+          "state": "MA",
+          "country": "US",
+          "postalCode": "02368"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "1+(555)-555-1212",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "1+(555)-555-3333",
+            "use": "work"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "OF",
+                "system": "2.16.840.1.113883.5.111",
+                "display": "Outpatient facility"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/664d2770-19d7-8cb7-47b3-ddd78e4f9ce9"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cd73fa04-e151-711b-4e20-414f3576ccec",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "cd73fa04-e151-711b-4e20-414f3576ccec",
+        "name": "Salem Medical Center",
+        "address": [
+          {
+            "line": [
+              "4646 Brown Rd"
+            ],
+            "city": "Salem",
+            "state": "MA",
+            "country": "US",
+            "postalCode": "02368"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "1+(555)-555-1212",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "1+(555)-555-3333",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/cd73fa04-e151-711b-4e20-414f3576ccec"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b1788a7c-7165-936d-d3de-3a1713e2d54d",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "b1788a7c-7165-936d-d3de-3a1713e2d54d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+            "valueString": "Responsible Party"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "6666666666666"
+          }
+        ],
+        "name": [
+          {
+            "family": "Coletta",
+            "given": [
+              "Michael"
+            ],
+            "suffix": [
+              "M.D."
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "2100 North Ave"
+            ],
+            "city": "Burlington",
+            "state": "MA",
+            "country": "US",
+            "postalCode": "02368"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-1003",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "+1(555)555-1234",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "mail@provider_domain.com",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/b1788a7c-7165-936d-d3de-3a1713e2d54d"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "5915bfce-9a3e-7301-52f2-d241dc323a6c",
+        "practitioner": {
+          "reference": "Practitioner/b1788a7c-7165-936d-d3de-3a1713e2d54d"
+        },
+        "organization": {
+          "reference": "Organization/c5058005-78a7-e8c5-dced-b45296215833"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c5058005-78a7-e8c5-dced-b45296215833",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "c5058005-78a7-e8c5-dced-b45296215833",
+        "name": "BMass Doctors",
+        "address": [
+          {
+            "line": [
+              "2100 North Ave"
+            ],
+            "city": "Burlington",
+            "state": "MA",
+            "country": "US",
+            "postalCode": "02368"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/c5058005-78a7-e8c5-dced-b45296215833"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6f0890ee-d9a6-c51d-ac83-79cfda623a82",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "6f0890ee-d9a6-c51d-ac83-79cfda623a82",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "88888888"
+          }
+        ],
+        "name": "Salem Medical Center",
+        "address": [
+          {
+            "line": [
+              "4646 Brown Rd"
+            ],
+            "city": "Salem",
+            "state": "MA",
+            "country": "US",
+            "postalCode": "02368"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/6f0890ee-d9a6-c51d-ac83-79cfda623a82"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d0ae0527-f36b-de1d-e26b-1560599be6d5",
+      "resource": {
+        "resourceType": "Device",
+        "id": "d0ae0527-f36b-de1d-e26b-1560599be6d5",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
+          }
+        ],
+        "property": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/device-category",
+                  "code": "software",
+                  "display": "software"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/d0ae0527-f36b-de1d-e26b-1560599be6d5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f238f1ae-2f55-cd21-5c90-5e68a10af8ce",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "f238f1ae-2f55-cd21-5c90-5e68a10af8ce",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19.5",
+            "value": "123453"
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "111-00-1234"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Stinn",
+            "given": [
+              "Jane",
+              "H"
+            ]
+          }
+        ],
+        "birthDate": "1974-11-24",
+        "deceasedBoolean": false,
+        "gender": "female",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2106-3",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2186-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "F",
+                      "system": "2.16.840.1.113883.5.1",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "5101 Peachtree St NE"
+            ],
+            "city": "Atlanta",
+            "state": "GA",
+            "country": "US",
+            "postalCode": "30302",
+            "district": "Fulton County"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-(404)555-1212",
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "+1(555)555-2003",
+            "use": "work"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            },
+            "preferred": true,
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/patient-proficiency",
+                "extension": [
+                  {
+                    "url": "type",
+                    "valueCoding": {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityMode",
+                      "code": "ESP",
+                      "display": "Expressed spoken"
+                    }
+                  },
+                  {
+                    "url": "level",
+                    "valueCoding": {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityProficiency",
+                      "code": "G",
+                      "display": "Good"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:af69d702-2f13-94d1-537b-3f27b6837c76",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "af69d702-2f13-94d1-537b-3f27b6837c76",
+        "identifier": [
+          {
+            "system": "2.16.840.1.113883.5.1",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "completed",
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C38288",
+                "system": "2.16.840.1.113883.3.26.1.1",
+                "display": "ORAL"
+              }
+            ]
+          },
+          "dose": {
+            "value": 1,
+            "unit": "g"
+          }
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "medicationReference": {
+          "reference": "Medication/a0ab93f5-2465-3671-0751-3d4e22232670"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationAdministration/af69d702-2f13-94d1-537b-3f27b6837c76"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a0ab93f5-2465-3671-0751-3d4e22232670",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "a0ab93f5-2465-3671-0751-3d4e22232670",
+        "code": {
+          "coding": [
+            {
+              "code": "248656",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "Azithromycin 500 MG Oral Tablet"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/a0ab93f5-2465-3671-0751-3d4e22232670"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:00f6077e-b8e1-bb0b-7b6a-4a4597909aa7",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "id": "00f6077e-b8e1-bb0b-7b6a-4a4597909aa7",
+        "relationship": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                "code": "GUARD",
+                "display": "Guardian"
+              }
+            ]
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Stinn",
+            "given": [
+              "Ruth",
+              "L"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(999)555-1212",
+            "use": "home"
+          },
+          {
+            "system": "email",
+            "value": "mail@guardian.com"
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "1700 Dawes St"
+            ],
+            "city": "Lowell",
+            "state": "MA",
+            "country": "US",
+            "postalCode": "02368"
+          }
+        ],
+        "patient": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "RelatedPerson/00f6077e-b8e1-bb0b-7b6a-4a4597909aa7"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b7c4c76f-1837-67b0-82cd-3427033422a8",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "b7c4c76f-1837-67b0-82cd-3427033422a8",
+        "identifier": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          },
+          {
+            "system": "2.16.840.1.113883.1.11.78",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "57021-8",
+              "system": "http://loinc.org",
+              "display": "CBC W Auto Differential panel in Blood"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2016-11-07",
+          "end": "2016-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "result": [
+          {
+            "reference": "Observation/5c55d6b9-98cf-8779-34c0-50080f27c46f"
+          },
+          {
+            "reference": "Observation/c1901179-05ba-fe39-cc37-80a5b8672e17"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/b7c4c76f-1837-67b0-82cd-3427033422a8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5c55d6b9-98cf-8779-34c0-50080f27c46f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5c55d6b9-98cf-8779-34c0-50080f27c46f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "20570-8",
+              "system": "http://loinc.org",
+              "display": "Hematocrit"
+            }
+          ]
+        },
+        "effectiveDateTime": "2016-11-07",
+        "valueQuantity": {
+          "value": 35.3,
+          "unit": "%"
+        },
+        "referenceRange": [
+          {
+            "text": "34.9 % - 44.5 %",
+            "low": {
+              "value": 34.9,
+              "unit": "%"
+            },
+            "high": {
+              "value": 44.5,
+              "unit": "%"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "L",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Low"
+                }
+              ]
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "L",
+                "system": "2.16.840.1.113883.1.11.78",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/5c55d6b9-98cf-8779-34c0-50080f27c46f"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c1901179-05ba-fe39-cc37-80a5b8672e17",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c1901179-05ba-fe39-cc37-80a5b8672e17",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "2.16.840.1.113883.1.11.78",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "731-0",
+              "system": "http://loinc.org",
+              "display": "Lymphocytes [#/​volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "effectiveDateTime": "2016-11-07",
+        "valueQuantity": {
+          "value": 5.2,
+          "unit": "10*3/uL"
+        },
+        "referenceRange": [
+          {
+            "text": "1.0 10*3/uL - 4.8 10*3/uL",
+            "low": {
+              "value": 1.0,
+              "unit": "10*3/uL"
+            },
+            "high": {
+              "value": 4.8,
+              "unit": "10*3/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "H",
+                "system": "2.16.840.1.113883.1.11.78",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/c1901179-05ba-fe39-cc37-80a5b8672e17"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:82d66efd-73a4-0584-f6ea-b239aa906921",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "82d66efd-73a4-0584-f6ea-b239aa906921",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "2.16.840.1.113883.1.11.78",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "364703007",
+              "system": "http://snomed.info/sct",
+              "display": "Employment detail"
+            },
+            {
+              "code": "11295-3",
+              "system": "http://loinc.org",
+              "display": "Current employment - Reported"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "1993-01-01"
+        },
+        "valueString": "Centers for Disease Control 1, Peachtree St South Atlanta, GA, 404-564-7865",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/82d66efd-73a4-0584-f6ea-b239aa906921"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:41fb62f4-0827-2a1a-c85e-afc77b2c92d5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "41fb62f4-0827-2a1a-c85e-afc77b2c92d5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "1999",
+          "end": "2007"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Spent 8 years in the UK during the BSE outbreak"
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/41fb62f4-0827-2a1a-c85e-afc77b2c92d5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d54b804c-e3cc-26b9-72ec-3f4aeb41e0be",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d54b804c-e3cc-26b9-72ec-3f4aeb41e0be",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2016-10-19",
+          "end": "2016-11-09"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "BRA",
+                  "system": "1.0.3166.1",
+                  "display": "Brazil"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/d54b804c-e3cc-26b9-72ec-3f4aeb41e0be"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cb780b88-a815-a6f7-b9cd-8723b0694c2d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cb780b88-a815-a6f7-b9cd-8723b0694c2d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2016-04-29",
+          "end": "2016-10-30"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Nadi",
+                  "country": "FJ"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cb780b88-a815-a6f7-b9cd-8723b0694c2d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:92eb3007-7f87-61fc-cc50-20e41e8b8b1d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "92eb3007-7f87-61fc-cc50-20e41e8b8b1d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2016-05-06",
+          "end": "2016-05-15"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Montreal",
+                  "state": "QC",
+                  "country": "CA"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/92eb3007-7f87-61fc-cc50-20e41e8b8b1d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bf2e1069-eb73-66cd-be65-468824472578",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "bf2e1069-eb73-66cd-be65-468824472578",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2016-07-13",
+          "end": "2016-07-15"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Sydney",
+                  "state": "NSW",
+                  "country": "AU"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/bf2e1069-eb73-66cd-be65-468824472578"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bf5fdc06-0cdc-c962-6410-9bd55f8f22fb",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "bf5fdc06-0cdc-c962-6410-9bd55f8f22fb",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2016-10-22",
+          "end": "2016-10-30"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "line": [
+                    "1170 N Rancho Robles Rd"
+                  ],
+                  "city": "Oracle",
+                  "state": "AZ",
+                  "country": "US",
+                  "postalCode": "8562"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/bf5fdc06-0cdc-c962-6410-9bd55f8f22fb"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cedb5a20-f4eb-9bcd-3241-fb05e009408c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cedb5a20-f4eb-9bcd-3241-fb05e009408c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19",
+            "value": "123456789"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "82810-3",
+              "display": "Pregnancy status"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2016-01-01",
+          "end": "2016-11-07"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "77386006",
+              "system": "http://snomed.info/sct",
+              "display": "Pregnant"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/cedb5a20-f4eb-9bcd-3241-fb05e009408c"
+      }
+    }
+  ]
+}
+}

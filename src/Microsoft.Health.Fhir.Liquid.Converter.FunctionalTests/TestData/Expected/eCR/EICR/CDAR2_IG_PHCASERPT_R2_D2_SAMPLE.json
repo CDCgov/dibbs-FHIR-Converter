@@ -1,0 +1,3102 @@
+{
+  "Status": "OK",
+  "FhirResource": {
+  "resourceType": "Bundle",
+  "type": "batch",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e704",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "db734647-fc99-424c-a864-7e3cda82e704",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+          ]
+        },
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public Health Case Report"
+              }
+            ]
+          },
+          "value": "31"
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+            "valueString": "2"
+          },
+          {
+            "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+            "valueString": "2019-04-01"
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "55751-2",
+              "system": "http://loinc.org",
+              "display": "Public Health Case Report"
+            }
+          ]
+        },
+        "date": "2018-11-07T09:44:21-05:00",
+        "title": "Initial Public Health Case Report",
+        "confidentiality": "N",
+        "section": [
+          {
+            "id": "65430f0b-1a9a-b6bd-9648-ab44350d5794",
+            "title": "Plan of Treatment",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Initial Case Report Trigger<br />Code Lab Test Order</th><th>Trigger Code</th><th>Trigger Code codeSystem</th><th>RCTC OID</th><th>RCTC Version</th><th>Ordered Date</th></tr></thead><tbody><tr ID=\"id_b52bee94-c34b-4e2c-8c15-5ad9d6def205_ref\"><td>Zika virus envelope (E) gene [Presence] in Serum<br />by Probe and target amplification method</td><td>80825-3</td><td>LOINC</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2018</td><td>NOV 8, 2018</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "18776-5",
+                  "system": "http://loinc.org",
+                  "display": "Plan of Treatment"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "1caa3252-d724-801f-5f8c-8cbf7dad60f4",
+            "title": "Encounters",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Encounter</th><th>Date(s)</th><th>Location</th></tr></thead><tbody><tr ID=\"id_2a620155-9d11-439e-92b3-5d9815ff4de8_ref\"><td>Office outpatient visit 15 minutes</td><td>NOV 7, 2018</td><td><list styleCode=\"none\"><item><content styleCode=\"Italics\">Urgent Care Center</content></item></list></td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Encounter Diagnosis Type</th></tr></thead><tbody><tr><td>Diagnosis</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Initial Case Report Trigger<br />Code Problem Observation </th><th>Problem</th><th>Trigger Code</th><th>Trigger Code codeSystem</th><th>RCTC OID</th><th>RCTC Version</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_db734647-fc99-424c-a864-7e3cda82e705_ref\"><td>Diagnosis</td><td>Pertussis (disorder)</td><td>27836007</td><td>SNOMED CT</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2018</td><td>NOV 7, 2018</td></tr></tbody></table><table><thead><tr><th>Encounter Diagnosis Type</th></tr></thead><tbody><tr><td>Diagnosis</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Problem Type</th><th>Problem</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_db734647-fc99-424c-a864-7e3cda82e704_ref\"><td>Diagnosis</td><td>A non-trigger code diagnosis (disorder)</td><td>NOV 7, 2018</td></tr></tbody></table></item></list></td></tr></tbody></table></item></list></td></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "46240-8",
+                  "system": "http://loinc.org",
+                  "display": "History of encounters"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "c2093bef-fcc6-95a1-b54b-9d7f57e2ac07",
+            "title": "History of Present Illness",
+            "text": {
+              "status": "generated",
+              "div": "<paragraph xmlns=\"urn:hl7-org:v3\"> Persistent Cough REPORTED starting on 2018/10/05<br /> Whooping Respiration not reported<br /> Paroxysms Of Coughing REPORTED starting on 2018/11/04<br /> Post-tussive vomiting not reported<br /></paragraph>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10164-2",
+                  "system": "http://loinc.org",
+                  "display": "HISTORY OF PRESENT ILLNESS"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "6e9a707c-4514-617a-3185-18271a5f95ca",
+            "title": "Medications Administered",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Medication</th><th>Dose</th><th>Duration</th><th>Route</th></tr></thead><tbody><tr ID=\"id_6c844c75-aa34-411c-b7bd-5e4a9f206e29_ref\"><td>Azithromycin 500 MG Oral Tablet</td><td>1 g</td><td>NOV 7, 2018 11:60</td><td>ORAL</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29549-3",
+                  "system": "http://loinc.org",
+                  "display": "Medications Administered"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationAdministration/b3970f50-46c6-06eb-eb39-41b4db5f1e76"
+              }
+            ]
+          },
+          {
+            "id": "f0060761-a5e8-73e0-7ee8-d1b73db6b3a5",
+            "title": "Problems",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Concern</th><th>Concern Status</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ec8a6ff8-ed4b-4f7e-82c3-e98e58b45de7_ref\"><td>Problem</td><td>active</td><td>NOV 7, 2018</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Problem Type</th><th>Problem</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a66_ref\"><td>Symptom</td><td>Dark stools (finding)</td><td>NOV 1, 2018</td></tr><tr ID=\"id_ab1791b0-5c71-11db-b0de-0800200c9a67_ref\"><td>Complaint</td><td>Paroxysmal cough (finding)</td><td>NOV 4, 2018</td></tr></tbody></table></item></list></td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Concern</th><th>Concern Status</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_ec8a6ff8-ed4b-4f7e-82c3-e98e58b45de8_ref\"><td>Problem</td><td>active</td><td>MAY 23, 2018</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11450-4",
+                  "system": "http://loinc.org",
+                  "display": "Problem List"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "display": "Problem - Dark stools (finding)",
+                "reference": "Condition/028492eb-66b8-658a-b1e9-9ecad7530ceb"
+              },
+              {
+                "display": "Problem - Paroxysmal cough (finding)",
+                "reference": "Condition/bf6251d6-2a69-ab5d-d0f5-f91779b7cfe0"
+              },
+              {
+                "display": "Problem - Dark stools (finding)",
+                "reference": "Condition/028492eb-66b8-658a-b1e9-9ecad7530ceb"
+              },
+              {
+                "display": "Problem - Paroxysmal cough (finding)",
+                "reference": "Condition/bf6251d6-2a69-ab5d-d0f5-f91779b7cfe0"
+              }
+            ]
+          },
+          {
+            "id": "e40cdafc-baa4-5531-690e-4140be6252ce",
+            "title": "Reason for Visit",
+            "text": {
+              "status": "generated",
+              "div": "<paragraph xmlns=\"urn:hl7-org:v3\">Dark stools</paragraph>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29299-5",
+                  "system": "http://loinc.org",
+                  "display": "Reason for visit"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
+                "valueString": "Dark stools"
+              }
+            ]
+          },
+          {
+            "id": "d887e17f-f7d9-15f6-24e0-73c549af07d6",
+            "title": "Results",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Results Panel</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_7d5a02b0-67a4-11db-bd13-0800200c9a66_ref\"><td>CBC W Auto Differential panel in Blood</td><td>NOV 7, 2018 to NOV 7, 2018</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Test</th><th>Outcome</th><th>Interpretation</th><th>Date(s)</th><th>Reference Range</th><th>Reference Range Interpretation</th><th>Reference Range Description</th></tr></thead><tbody><tr ID=\"id_7c0704bb-9c40-41b5-9c7d-26b2d59e234f_ref\"><td>Hematocrit</td><td>35.3 %</td><td>Low</td><td>NOV 7, 2018</td><td>34.9 % to 44.5 %</td><td>Low</td><td>Low</td></tr><tr ID=\"id_7c0704bb-9c40-41b5-9c7d-26b2d59e234g_ref\"><td>Lymphocytes [#/​volume] in Blood by Automated count</td><td>5.2 10*3/uL</td><td>High</td><td>NOV 7, 2018</td><td>1.0 10*3/uL to 4.8 10*3/uL</td><td>Normal</td><td /></tr></tbody></table></item></list></td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Results Panel</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_a4307cb2-b3b4-4f42-be03-1d9077376f4a_ref\"><td>Bordetella pertussis Ab<br />[Units/volume] in Serum</td><td>NOV 7, 2018 to NOV 7, 2018</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Initial Case Report Trigger<br />Code Result Observation </th><th>Trigger Code</th><th>Trigger Code codeSystem</th><th>RCTC OID</th><th>RCTC Version</th><th>Outcome</th><th>Interpretation</th><th>Date(s)</th><th>Reference Range</th><th>Reference Range Interpretation</th></tr></thead><tbody><tr ID=\"id_bf9c0a26-4524-4395-b3ce-100450b9c9ad_ref\"><td>Bordetella pertussis Ab<br />[Units/volume] in Serum</td><td>11585-7</td><td>LOINC</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2018</td><td>100 [iU]/mL</td><td>High</td><td>NOV 7, 2018</td><td> to 45 [iU]/mL</td><td>Normal</td></tr></tbody></table></item></list></td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Results Panel</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_a4307cb2-b3b4-4f42-be03-1d9077376f4b_ref\"><td>Bordetella pertussis [Presence]<br />in Throat by Organism specific culture</td><td>NOV 7, 2018 to NOV 7, 2018</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Initial Case Report Trigger Code Result Observation </th><th>Trigger Code</th><th>Trigger Code codeSystem</th><th>RCTC OID</th><th>RCTC Version</th><th>Outcome</th><th>Trigger Code</th><th>Trigger Code codeSystem</th><th>RCTC OID</th><th>RCTC Version</th><th>Interpretation</th><th>Date(s)</th></tr></thead><tbody><tr ID=\"id_bf9c0a26-4524-4395-b3ce-100450b9c9ac_ref\"><td>Bordetella pertussis [Presence]<br />in Throat by Organism specific culture</td><td>548-8</td><td>LOINC</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2018</td><td>Bordetella pertussis (organism)</td><td>5247005</td><td>SNOMED CT</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2018</td><td>Abnormal</td><td>NOV 7, 2018</td></tr></tbody></table></item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "30954-2",
+                  "system": "http://loinc.org",
+                  "display": "Relevant diagnostic tests and/or laboratory data"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/542cf409-a330-2185-6cfc-7f7f20d593c8"
+              },
+              {
+                "reference": "Observation/fe859df1-071e-3927-dcaa-9f511660a24d"
+              },
+              {
+                "reference": "Observation/d5a75751-35da-5ce1-936d-42a4b765febb"
+              },
+              {
+                "reference": "Observation/6235785d-3468-42dc-8c76-d4c70d67f2e9"
+              },
+              {
+                "reference": "Observation/145a35c6-8d22-9a2c-a1f9-2962a6586b3e",
+                "display": "Bordetella pertussis [Presence] in Throat by Organism specific culture"
+              }
+            ]
+          },
+          {
+            "id": "0677166e-0d81-2868-5676-611c7a72fdda",
+            "title": "Immunizations",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Immunization</th><th>Immunization Date</th></tr></thead><tbody><tr><td>diphtheria, tetanus toxoids and acellular<br />pertussis vaccine, 5 pertussis antigens</td><td>NOV 11, 2018</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Initial Case Report Trigger Code<br />Immunization Medication Activity</th><th>Immunization Date</th><th>Trigger<br />Code</th><th>Trigger Code<br />codeSystem</th><th>RCTC OID</th><th>RCTC<br />Version</th></tr></thead><tbody><tr><td>influenza virus vaccine, unspecified formulation</td><td>NOV 11, 2018</td><td>88</td><td>CVX</td><td>2.16.840.1.114222.4.11.7508</td><td>19/05/2018</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11369-6",
+                  "system": "http://loinc.org",
+                  "display": "Hx of Immunization"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "9cf99ab0-8905-d839-b313-98cbc80ee805",
+            "title": "Social History",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Birth Sex</th><th>Value</th><th>Date</th></tr></thead><tbody><tr><td>Sex Assigned At Birth</td><td>Female</td><td>NOV 24, 1974</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Gender identity</th><th>Date</th></tr></thead><tbody><tr><td>Female-to-male transsexual (finding)</td><td>JAN 1, 2018</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Characteristics of Home Environment</th><th>Date</th></tr></thead><tbody><tr><td>Homeless</td><td>NOV 9, 2018</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Current Occupation</th><th>Current Industry</th><th>Current Job Title</th><th>Current Employer</th></tr></thead><tbody><tr><td>Actuaries</td><td>Accounting, tax preparation, bookkeeping, and payroll services</td><td>Senior Accountant</td><td>CDC, Peachtree St, Ann Arbor Georgia, 555-1212</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Usual Occupation</th><th>Usual Industry</th><th>Occupational Exposure</th></tr></thead><tbody><tr><td>Actuaries</td><td>Accounting, tax preparation, bookkeeping, and payroll services</td><td>Asbestos</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Travel History: Date(s)</th><th>Notes</th><th>Location</th></tr></thead><tbody><tr><td>1999 to 2007</td><td>Spent 8 years in the UK during the BSE outbreak</td><td /></tr><tr><td>In the 3 weeks before NOV 9, 2018</td><td /><td><list styleCode=\"none\"><item>Brazil</item></list></td></tr><tr><td>APR 25, 2018 to APR 30, 2018</td><td /><td><list styleCode=\"none\"><item>Nadi, FJ</item></list></td></tr><tr><td>MAY 6, 2018 to MAY 15, 2018</td><td /><td><list styleCode=\"none\"><item>Montreal, QC, CA</item></list></td></tr><tr><td>JUL 13, 2018 to JUL 15, 2018</td><td /><td><list styleCode=\"none\"><item>Sydney, NSW, AU</item></list></td></tr><tr><td>OCT 22, 2018 to OCT 30, 2018</td><td /><td><list styleCode=\"none\"><item>1170 N Rancho Robles Rd Oracle, AZ8562, US</item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29762-2",
+                  "system": "http://loinc.org",
+                  "display": "Social History"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/32076aed-d020-9b44-d756-327a72167578"
+              },
+              {
+                "reference": "Observation/41fb62f4-0827-2a1a-c85e-afc77b2c92d5"
+              },
+              {
+                "reference": "Observation/e419541c-79fc-a50e-6c78-f93b7715fc88"
+              },
+              {
+                "reference": "Observation/d5b5f6ce-cd21-c9a0-5778-e5276364c153"
+              },
+              {
+                "reference": "Observation/e0b83dcd-dced-1a38-d82a-eca78198428b"
+              },
+              {
+                "reference": "Observation/8b536f6b-b441-948d-764c-517fa4869ddd"
+              },
+              {
+                "reference": "Observation/8a65af49-3816-ab97-1179-3ebe9c728122"
+              },
+              {
+                "reference": "Observation/6770d2f8-c964-aac6-b8c2-df22bba56b7a"
+              },
+              {
+                "reference": "Observation/033923b6-9c24-956e-21c2-b8e2478bc446"
+              }
+            ]
+          },
+          {
+            "id": "62713e64-f46d-6fce-db3c-bbe9d8850be4",
+            "title": "Pregnancy Section",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Pregnancy Status</th><th>Date(s) over which status holds<br />(if no high date, status was<br />current at time of recording)</th><th>Determination Method</th><th>Determination Date</th><th>Recorded Date</th></tr></thead><tbody><tr><td>Pregnant</td><td>AUG 26, 2017</td><td>Diagnostic ultrasonography</td><td>OCT 1, 2017</td><td>OCT 1, 2017 10:35</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Estimated Date of Delivery</th><th>EDD</th><th>EDD Determination Date</th></tr></thead><tbody><tr><td>Delivery date estimated from ovulation date</td><td>MAY 22, 2017</td><td>OCT 1, 2017 10:15</td></tr></tbody></table><table><thead><tr><th>Estimated Gestational Age of Pregnancy</th><th>Days</th><th>Determination Date</th></tr></thead><tbody><tr><td>Gestational age Estimated from selected delivery date</td><td>143 d</td><td>OCT 1, 2017 10:15</td></tr><tr><td colspan=\"20\"><list styleCode=\"none\"><item><table><thead><tr><th>Reference to selected delivery date</th></tr></thead><tbody><tr><td><linkHtml href=\"#id_f3dfc576-2329-4f71-af3f-d500cab1146b_ref\">Link to referenced entry</linkHtml></td></tr></tbody></table></item></list></td></tr></tbody></table><table><thead><tr><th>Pregnancy Outcome</th><th>Birth Order</th><th>Time</th><th>Method of Delivery</th></tr></thead><tbody><tr><td>Stillbirth (finding)</td><td>1</td><td>JAN 5, 2018 08:50</td><td>Breech delivery (procedure)</td></tr><tr><td>Term birth of newborn (finding)</td><td>2</td><td>JAN 5, 2018 10:05</td><td>Breech delivery (procedure)</td></tr></tbody></table></item></list></td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Last menstrual period start date</th><th>Observation Date</th></tr></thead><tbody><tr><td>AUG 1, 2017</td><td>JAN 5, 2018 10:15</td></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Postpartum Status</th><th>Observation date</th></tr></thead><tbody><tr><td>Mid postpartum state (finding)</td><td>JAN 5, 2018 10:15</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "90767-5",
+                  "system": "http://loinc.org",
+                  "display": "Pregnancy summary Document"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
+              },
+              {
+                "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
+              },
+              {
+                "reference": "Observation/e918b73b-aad0-4797-3ee3-ff8b96d3a054"
+              },
+              {
+                "reference": "Observation/4e7f8ad6-3b2a-91e0-0d2a-42f0b0d5719d"
+              }
+            ]
+          },
+          {
+            "id": "90120268-e0d0-1e15-cf91-846ac22a9af7",
+            "title": "Vital Signs (Last Filed)",
+            "text": {
+              "status": "generated",
+              "div": "<table xmlns=\"urn:hl7-org:v3\"><thead><tr><th>Date</th><th>Blood Pressure</th><th>Pulse</th><th>Temperature</th><th>Respiratory Rate</th><th>Height</th><th>Weight</th><th>BMI</th><th>SpO2</th></tr></thead><tbody><tr><td>05/20/2014 7:36pm</td><!-- You can consolidate Systolic and Diastolic in human view if desired but should retain separate references--><td><content ID=\"SystolicBP_2\">120</content>/<content ID=\"DiastolicBP_2\">80</content>mm[Hg] </td><td ID=\"Pulse_2\">80 /min</td><td ID=\"Temp_2\">99.0 F</td><td ID=\"RespRate_2\">18 /min</td><td ID=\"Height_2\">5'7 (67 inches)</td><td ID=\"Weight_2\">239.9 lbs</td><td ID=\"BMI_2\">37.58 kg/m2</td><td ID=\"SPO2_2\">98%</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "8716-3",
+                  "system": "http://loinc.org",
+                  "display": "Vital Signs"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "relatesTo": [
+          {
+            "code": "replaces",
+            "targetReference": {
+              "reference": "Composition/2.16.840.1.113883.9.9.9.9.9"
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+                "valueString": "1"
+              }
+            ]
+          }
+        ],
+        "encounter": {
+          "reference": "Encounter/e643736c-3539-57f5-a34d-66a1aa2ca08b"
+        },
+        "custodian": {
+          "reference": "Organization/6f0890ee-d9a6-c51d-ac83-79cfda623a82"
+        },
+        "author": [
+          {
+            "reference": "Device/d0ae0527-f36b-de1d-e26b-1560599be6d5"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Composition/db734647-fc99-424c-a864-7e3cda82e704"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e643736c-3539-57f5-a34d-66a1aa2ca08b",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "e643736c-3539-57f5-a34d-66a1aa2ca08b",
+        "status": "unknown",
+        "class": {
+          "code": "AMB",
+          "system": "2.16.840.1.113883.5.4",
+          "display": "Ambulatory"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19",
+            "value": "9937012"
+          }
+        ],
+        "period": {
+          "start": "2018-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "location": [
+          {
+            "id": "2.16.840.1.113883.4.6",
+            "location": {
+              "reference": "Location/14383c1c-7f95-3974-3e55-9d730de06b9e",
+              "display": "Good Health Hospital"
+            },
+            "extension": [
+              {
+                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "OF",
+                      "system": "2.16.840.1.113883.5.111",
+                      "display": "Outpatient facility"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/09e89134-7d55-51b4-2183-bcb51b361a36"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/ee172968-bee0-e42b-1901-83480bd97c51"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/e643736c-3539-57f5-a34d-66a1aa2ca08b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:14383c1c-7f95-3974-3e55-9d730de06b9e",
+      "resource": {
+        "resourceType": "Location",
+        "id": "14383c1c-7f95-3974-3e55-9d730de06b9e",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "77777777777"
+          }
+        ],
+        "name": "Good Health Hospital",
+        "address": {
+          "line": [
+            "1000 Hospital Lane"
+          ],
+          "city": "Ann Arbor",
+          "state": "MI",
+          "country": "US",
+          "postalCode": "99999"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "1+(555)-555-1212",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "1+(555)-555-3333",
+            "use": "work"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "OF",
+                "system": "2.16.840.1.113883.5.111",
+                "display": "Outpatient facility"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/14383c1c-7f95-3974-3e55-9d730de06b9e"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:09e89134-7d55-51b4-2183-bcb51b361a36",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "09e89134-7d55-51b4-2183-bcb51b361a36",
+        "name": "Good Health Hospital",
+        "address": [
+          {
+            "line": [
+              "1000 Hospital Lane"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "1+(555)-555-1212",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "1+(555)-555-3333",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/09e89134-7d55-51b4-2183-bcb51b361a36"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b1788a7c-7165-936d-d3de-3a1713e2d54d",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "b1788a7c-7165-936d-d3de-3a1713e2d54d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+            "valueString": "Responsible Party"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "6666666666666"
+          }
+        ],
+        "name": [
+          {
+            "family": "Seven",
+            "given": [
+              "Henry"
+            ],
+            "suffix": [
+              "M.D."
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "1002 Healthcare Drive"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-1003",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "+1(555)555-1234",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "mail@provider_domain.com",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/b1788a7c-7165-936d-d3de-3a1713e2d54d"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "ee172968-bee0-e42b-1901-83480bd97c51",
+        "practitioner": {
+          "reference": "Practitioner/b1788a7c-7165-936d-d3de-3a1713e2d54d"
+        },
+        "organization": {
+          "reference": "Organization/8305a99c-dd44-f037-9a4a-b22ef7ae7d5e"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8305a99c-dd44-f037-9a4a-b22ef7ae7d5e",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "8305a99c-dd44-f037-9a4a-b22ef7ae7d5e",
+        "name": "Community Health and Hospitals",
+        "address": [
+          {
+            "line": [
+              "1002 Healthcare Drive"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/8305a99c-dd44-f037-9a4a-b22ef7ae7d5e"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6f0890ee-d9a6-c51d-ac83-79cfda623a82",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "6f0890ee-d9a6-c51d-ac83-79cfda623a82",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "88888888"
+          }
+        ],
+        "name": "Good Health Hospital",
+        "address": [
+          {
+            "line": [
+              "1000 Hospital Lane"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/6f0890ee-d9a6-c51d-ac83-79cfda623a82"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d0ae0527-f36b-de1d-e26b-1560599be6d5",
+      "resource": {
+        "resourceType": "Device",
+        "id": "d0ae0527-f36b-de1d-e26b-1560599be6d5",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
+          }
+        ],
+        "property": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/device-category",
+                  "code": "software",
+                  "display": "software"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/d0ae0527-f36b-de1d-e26b-1560599be6d5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f238f1ae-2f55-cd21-5c90-5e68a10af8ce",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "f238f1ae-2f55-cd21-5c90-5e68a10af8ce",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19.5",
+            "value": "123453"
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "444-22-2222"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Everywoman",
+            "given": [
+              "Eve",
+              "H"
+            ]
+          },
+          {
+            "use": "usual",
+            "family": "Everywoman",
+            "given": [
+              "Ruth",
+              "L"
+            ]
+          }
+        ],
+        "birthDate": "1974-11-24",
+        "deceasedBoolean": false,
+        "gender": "female",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2106-3",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "White"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2186-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "F",
+                      "system": "2.16.840.1.113883.5.1",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "407377005",
+                      "system": "http://snomed.info/sct",
+                      "display": "Female-to-male transsexual (finding)"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "2222 Home Street"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999",
+            "district": "26001"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-555-555-2003",
+            "use": "home"
+          },
+          {
+            "system": "phone",
+            "value": "+1-555-555-2004",
+            "use": "work"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            },
+            "preferred": true,
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/patient-proficiency",
+                "extension": [
+                  {
+                    "url": "type",
+                    "valueCoding": {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityMode",
+                      "code": "ESP",
+                      "display": "Expressed spoken"
+                    }
+                  },
+                  {
+                    "url": "level",
+                    "valueCoding": {
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-LanguageAbilityProficiency",
+                      "code": "G",
+                      "display": "Good"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b3970f50-46c6-06eb-eb39-41b4db5f1e76",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "b3970f50-46c6-06eb-eb39-41b4db5f1e76",
+        "identifier": [
+          {
+            "system": "http://snomed.info/sct",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "completed",
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C38288",
+                "system": "2.16.840.1.113883.3.26.1.1",
+                "display": "ORAL"
+              }
+            ]
+          }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "268910001",
+                  "system": "http://snomed.info/sct",
+                  "display": "Patient's condition improved (finding)"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "medicationReference": {
+          "reference": "Medication/da82c76b-25ec-2365-8e57-4e7ec4f8f174"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationAdministration/b3970f50-46c6-06eb-eb39-41b4db5f1e76"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:da82c76b-25ec-2365-8e57-4e7ec4f8f174",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "da82c76b-25ec-2365-8e57-4e7ec4f8f174",
+        "code": {
+          "coding": [
+            {
+              "code": "248656",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "Azithromycin 500 MG Oral Tablet"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/da82c76b-25ec-2365-8e57-4e7ec4f8f174"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fe47f3c2-6f9a-0997-66b8-4584e3fecdc8",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "id": "fe47f3c2-6f9a-0997-66b8-4584e3fecdc8",
+        "relationship": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                "code": "GUARD",
+                "display": "Guardian"
+              }
+            ]
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Mum",
+            "given": [
+              "Martha",
+              "L"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-555-555-2006",
+            "use": "home"
+          },
+          {
+            "system": "email",
+            "value": "mail@guardian.com"
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "4444 Home Street"
+            ],
+            "city": "Ann Arbor",
+            "state": "MI",
+            "country": "US",
+            "postalCode": "99999"
+          }
+        ],
+        "patient": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "RelatedPerson/fe47f3c2-6f9a-0997-66b8-4584e3fecdc8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:971025bd-d2cd-6731-e9f1-7d51fbeea207",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "971025bd-d2cd-6731-e9f1-7d51fbeea207",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "82810-3",
+              "display": "Pregnancy status"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2017-08-26"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "77386006",
+              "system": "http://snomed.info/sct",
+              "display": "Pregnant"
+            }
+          ]
+        },
+        "method": {
+          "coding": [
+            {
+              "code": "16310003",
+              "system": "http://snomed.info/sct",
+              "display": "Diagnostic ultrasonography (procedure)"
+            }
+          ]
+        },
+        "component": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                "valueDateTime": "2017-10-01T10:15:00"
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "code": "11780-4",
+                  "system": "http://loinc.org",
+                  "display": "Delivery date estimated from ovulation date"
+                }
+              ]
+            },
+            "valueDateTime": "2017-05-22"
+          },
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+                "valueDateTime": "2017-10-01T10:15:00"
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "code": "11887-7",
+                  "system": "http://loinc.org",
+                  "display": "Gestational age Estimated from selected delivery date"
+                }
+              ]
+            },
+            "valueQuantity": {
+              "value": 143,
+              "unit": "d"
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-recorded-extension",
+            "valueDateTime": "2017-10-01T10:35:00"
+          },
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension",
+            "valueDateTime": "2017-10-01"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c806bc5b-20bf-181a-f6b1-49d52983e243",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c806bc5b-20bf-181a-f6b1-49d52983e243",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-outcome-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "63893-2",
+              "display": "Outcome of pregnancy"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-01-05T08:50:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "237364002",
+              "system": "http://snomed.info/sct",
+              "display": "Stillbirth (finding)"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "73771-8",
+                  "display": "Birth order"
+                }
+              ]
+            },
+            "valueInteger": 1
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "focus": [
+          {
+            "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/c806bc5b-20bf-181a-f6b1-49d52983e243"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e918b73b-aad0-4797-3ee3-ff8b96d3a054",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e918b73b-aad0-4797-3ee3-ff8b96d3a054",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/vr-common-library/StructureDefinition/Observation-last-menstrual-period"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://snomed.info/sct",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "8665-2",
+              "display": "Last menstrual period start date"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-01-05T10:15:00",
+        "valueDateTime": "2017-08-01",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/e918b73b-aad0-4797-3ee3-ff8b96d3a054"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4e7f8ad6-3b2a-91e0-0d2a-42f0b0d5719d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "4e7f8ad6-3b2a-91e0-0d2a-42f0b0d5719d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/2.1.2/StructureDefinition-us-ph-postpartum-status"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://snomed.info/sct",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "exam"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "249197004",
+              "display": "Maternal condition during puerperium (observable entity)"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-01-05T10:15:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "42814007",
+              "system": "http://snomed.info/sct",
+              "display": "Mid postpartum state (finding)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/4e7f8ad6-3b2a-91e0-0d2a-42f0b0d5719d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0e598eaf-fad7-7fa4-1bb3-6f7dcf1e4543",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "0e598eaf-fad7-7fa4-1bb3-6f7dcf1e4543",
+        "identifier": [
+          {
+            "system": "http://snomed.info/sct",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          },
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "57021-8",
+              "system": "http://loinc.org",
+              "display": "CBC W Auto Differential panel in Blood"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2018-11-07",
+          "end": "2018-11-07"
+        },
+        "extension": [
+          {
+            "url": "http://terminology.hl7.org/CodeSystem/v2-0123",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "F",
+                  "system": "2.16.840.1.113883.18.51",
+                  "display": "Final results; results stored and verified. Can only be changed with a corrected result."
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "specimen": [
+          {
+            "reference": "Specimen/e9912a9e-f5c5-5324-64f5-09fb48c6f743"
+          }
+        ],
+        "result": [
+          {
+            "reference": "Observation/542cf409-a330-2185-6cfc-7f7f20d593c8"
+          },
+          {
+            "reference": "Observation/fe859df1-071e-3927-dcaa-9f511660a24d"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/0e598eaf-fad7-7fa4-1bb3-6f7dcf1e4543"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e9912a9e-f5c5-5324-64f5-09fb48c6f743",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "e9912a9e-f5c5-5324-64f5-09fb48c6f743",
+        "identifier": [
+          {
+            "system": "2.16.840.1.113883.18.51",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "code": "119297000",
+              "system": "http://snomed.info/sct",
+              "display": "Blood specimen (specimen)"
+            }
+          ]
+        },
+        "collection": {
+          "collectedPeriod": {
+            "start": "2018-03-09"
+          },
+          "bodySite": {
+            "coding": [
+              {
+                "code": "368208006",
+                "system": "http://snomed.info/sct",
+                "display": "Left upper arm structure (body structure)"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Specimen/e9912a9e-f5c5-5324-64f5-09fb48c6f743"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:542cf409-a330-2185-6cfc-7f7f20d593c8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "542cf409-a330-2185-6cfc-7f7f20d593c8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://snomed.info/sct",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "20570-8",
+              "system": "http://loinc.org",
+              "display": "Hematocrit"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-07",
+        "valueQuantity": {
+          "value": 35.3,
+          "unit": "%"
+        },
+        "referenceRange": [
+          {
+            "text": "34.9 % - 44.5 %",
+            "low": {
+              "value": 34.9,
+              "unit": "%"
+            },
+            "high": {
+              "value": 44.5,
+              "unit": "%"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "L",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Low"
+                }
+              ]
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "L",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "Low"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/542cf409-a330-2185-6cfc-7f7f20d593c8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fe859df1-071e-3927-dcaa-9f511660a24d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "fe859df1-071e-3927-dcaa-9f511660a24d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "731-0",
+              "system": "http://loinc.org",
+              "display": "Lymphocytes [#/​volume] in Blood by Automated count"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-07",
+        "valueQuantity": {
+          "value": 5.2,
+          "unit": "10*3/uL"
+        },
+        "referenceRange": [
+          {
+            "text": "1.0 10*3/uL - 4.8 10*3/uL",
+            "low": {
+              "value": 1.0,
+              "unit": "10*3/uL"
+            },
+            "high": {
+              "value": 4.8,
+              "unit": "10*3/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "H",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/fe859df1-071e-3927-dcaa-9f511660a24d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1ff11a5a-bb04-839b-f590-fb53f3aac6cf",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "1ff11a5a-bb04-839b-f590-fb53f3aac6cf",
+        "identifier": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          },
+          {
+            "system": "2.16.840.1.113883.18.34",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "11585-7",
+              "system": "http://loinc.org",
+              "display": "Bordetella pertussis Ab [Units/volume] in Serum"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2018-11-07",
+          "end": "2018-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "result": [
+          {
+            "reference": "Observation/6235785d-3468-42dc-8c76-d4c70d67f2e9"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/1ff11a5a-bb04-839b-f590-fb53f3aac6cf"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6235785d-3468-42dc-8c76-d4c70d67f2e9",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6235785d-3468-42dc-8c76-d4c70d67f2e9",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "11585-7",
+              "system": "http://loinc.org",
+              "display": "Bordetella pertussis Ab [Units/volume] in Serum"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-07",
+        "valueQuantity": {
+          "value": 100,
+          "unit": "[iU]/mL"
+        },
+        "referenceRange": [
+          {
+            "high": {
+              "value": 45,
+              "unit": "[iU]/mL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                  "display": "Normal"
+                }
+              ]
+            }
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "H",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "High"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://terminology.hl7.org/ValueSet/v2-0085",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "F",
+                  "system": "2.16.840.1.113883.18.34",
+                  "display": "Final results"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/6235785d-3468-42dc-8c76-d4c70d67f2e9"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fdd7fe34-d9fc-3ab8-87c0-a754a19175c7",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "fdd7fe34-d9fc-3ab8-87c0-a754a19175c7",
+        "identifier": [
+          {
+            "system": "2.16.840.1.113883.18.34",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "status": "preliminary",
+        "code": {
+          "coding": [
+            {
+              "code": "548-8",
+              "system": "http://loinc.org",
+              "display": "Bordetella pertussis [Presence] in Throat by Organism specific culture"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2018-11-07",
+          "end": "2018-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "result": [
+          {
+            "reference": "Observation/145a35c6-8d22-9a2c-a1f9-2962a6586b3e"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/fdd7fe34-d9fc-3ab8-87c0-a754a19175c7"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:145a35c6-8d22-9a2c-a1f9-2962a6586b3e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "145a35c6-8d22-9a2c-a1f9-2962a6586b3e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "preliminary",
+        "code": {
+          "coding": [
+            {
+              "code": "local_code_pertussis",
+              "system": "2.16.840.1.113883.1.2.3.665",
+              "display": "Bordetella pertussis in Throat by Organism specific culture"
+            },
+            {
+              "code": "548-8",
+              "system": "http://loinc.org",
+              "display": "Bordetella pertussis [Presence] in Throat by Organism specific culture"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-07",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "5247005",
+              "system": "http://snomed.info/sct",
+              "display": "Bordetella pertussis (organism)"
+            }
+          ]
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "A",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "Abnormal"
+              }
+            ]
+          }
+        ],
+        "extension": [
+          {
+            "url": "http://terminology.hl7.org/ValueSet/v2-0085",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "P",
+                  "system": "2.16.840.1.113883.18.34",
+                  "display": "Preliminary results"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/145a35c6-8d22-9a2c-a1f9-2962a6586b3e"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:32076aed-d020-9b44-d756-327a72167578",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "32076aed-d020-9b44-d756-327a72167578",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-characteristics-of-home-environment"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "2.16.840.1.113883.18.34",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "75274-1",
+              "system": "http://loinc.org",
+              "display": "Characteristics of residence"
+            }
+          ]
+        },
+        "effectiveDateTime": "2018-11-09",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "32911000",
+              "system": "http://snomed.info/sct",
+              "display": "Homeless (finding)"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/32076aed-d020-9b44-d756-327a72167578"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:41fb62f4-0827-2a1a-c85e-afc77b2c92d5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "41fb62f4-0827-2a1a-c85e-afc77b2c92d5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "1999",
+          "end": "2007"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "text": "Spent 8 years in the UK during the BSE outbreak"
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/41fb62f4-0827-2a1a-c85e-afc77b2c92d5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e419541c-79fc-a50e-6c78-f93b7715fc88",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e419541c-79fc-a50e-6c78-f93b7715fc88",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-10-19",
+          "end": "2018-11-09"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "BRA",
+                  "system": "1.0.3166.1",
+                  "display": "Brazil"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/e419541c-79fc-a50e-6c78-f93b7715fc88"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d5b5f6ce-cd21-c9a0-5778-e5276364c153",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "d5b5f6ce-cd21-c9a0-5778-e5276364c153",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-04-25",
+          "end": "2018-04-30"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Nadi",
+                  "country": "FJ"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/d5b5f6ce-cd21-c9a0-5778-e5276364c153"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e0b83dcd-dced-1a38-d82a-eca78198428b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e0b83dcd-dced-1a38-d82a-eca78198428b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-05-06",
+          "end": "2018-05-15"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Montreal",
+                  "state": "QC",
+                  "country": "CA"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/e0b83dcd-dced-1a38-d82a-eca78198428b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8b536f6b-b441-948d-764c-517fa4869ddd",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8b536f6b-b441-948d-764c-517fa4869ddd",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-07-13",
+          "end": "2018-07-15"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "city": "Sydney",
+                  "state": "NSW",
+                  "country": "AU"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/8b536f6b-b441-948d-764c-517fa4869ddd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8a65af49-3816-ab97-1179-3ebe9c728122",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8a65af49-3816-ab97-1179-3ebe9c728122",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "420008001",
+              "display": "Travel"
+            }
+          ],
+          "text": "Travel History"
+        },
+        "status": "final",
+        "effectivePeriod": {
+          "start": "2018-10-22",
+          "end": "2018-10-30"
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                  "code": "LOC",
+                  "display": "Location"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
+                "valueAddress": {
+                  "line": [
+                    "1170 N Rancho Robles Rd"
+                  ],
+                  "city": "Oracle",
+                  "state": "AZ",
+                  "country": "US",
+                  "postalCode": "8562"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/8a65af49-3816-ab97-1179-3ebe9c728122"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6770d2f8-c964-aac6-b8c2-df22bba56b7a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6770d2f8-c964-aac6-b8c2-df22bba56b7a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/odh/StructureDefinition/odh-UsualWork"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "1.0.3166.1",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "21843-8",
+              "system": "http://loinc.org",
+              "display": "Usual Occupation"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "1996-11-24"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1200",
+              "system": "2.16.840.1.114222.4.5.314",
+              "display": "Actuaries"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "21844-6",
+                  "system": "http://loinc.org",
+                  "display": "Usual Industry"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "7280",
+                  "system": "2.16.840.1.114222.4.5.315",
+                  "display": "Accounting, tax preparation, bookkeeping, and payroll services"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/6770d2f8-c964-aac6-b8c2-df22bba56b7a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f8a425b4-e7da-6c88-64ed-07d776377c11",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "f8a425b4-e7da-6c88-64ed-07d776377c11",
+        "identifier": [
+          {
+            "system": "urn:uuid:58822180-ab0d-42e4-90c6-35336bf55654",
+            "value": "12345"
+          }
+        ],
+        "name": "CDC",
+        "address": [
+          {
+            "line": [
+              "Peachtree St"
+            ],
+            "city": "Ann Arbor",
+            "state": "Georgia"
+          }
+        ],
+        "telecom": [
+          {
+            "value": "555-1212",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/f8a425b4-e7da-6c88-64ed-07d776377c11"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "033923b6-9c24-956e-21c2-b8e2478bc446",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/odh/StructureDefinition/odh-Employer-extension",
+            "valueReference": {
+              "reference": "Organization/f8a425b4-e7da-6c88-64ed-07d776377c11"
+            }
+          }
+        ],
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/odh/StructureDefinition/odh-PastOrPresentJob"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "2.16.840.1.114222.4.5.315",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "unknown",
+        "code": {
+          "coding": [
+            {
+              "code": "11341-5",
+              "system": "http://loinc.org",
+              "display": "History of Occupation"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2015-04-24"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1200",
+              "system": "2.16.840.1.114222.4.5.314",
+              "display": "Actuaries"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "87729-0",
+                  "system": "http://loinc.org",
+                  "display": "History of Occupational hazard"
+                }
+              ]
+            },
+            "valueString": "Asbestos"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "86188-0",
+                  "system": "http://loinc.org",
+                  "display": "Occupation Industry"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "7280",
+                  "system": "2.16.840.1.114222.4.5.315",
+                  "display": "Accounting, tax preparation, bookkeeping, and payroll services"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "fullUrl": "urn:uuid:033923b6-9c24-956e-21c2-b8e2478bc446",
+      "request": {
+        "method": "PUT",
+        "url": "Observation/033923b6-9c24-956e-21c2-b8e2478bc446"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5f8639bd-0579-7698-6ade-9555cfe2bdff",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5f8639bd-0579-7698-6ade-9555cfe2bdff",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "2.16.840.1.114222.4.5.315",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8480-6",
+              "system": "http://loinc.org",
+              "display": "SYSTOLIC BLOOD PRESSURE"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 120,
+          "unit": "mm[Hg]"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/5f8639bd-0579-7698-6ade-9555cfe2bdff"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8e60fc3c-0790-08ce-da9b-4da0bb028115",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8e60fc3c-0790-08ce-da9b-4da0bb028115",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8462-4",
+              "system": "http://loinc.org",
+              "display": "DIASTOLIC BLOOD PRESSURE"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 80,
+          "unit": "mm[Hg]"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/8e60fc3c-0790-08ce-da9b-4da0bb028115"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c553f18d-9df3-590b-5900-acf75899ec21",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c553f18d-9df3-590b-5900-acf75899ec21",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8867-4",
+              "system": "http://loinc.org",
+              "display": "HEART RATE"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 80,
+          "unit": "/min"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/c553f18d-9df3-590b-5900-acf75899ec21"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:08747908-0c7e-9928-913d-65d7243d9487",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "08747908-0c7e-9928-913d-65d7243d9487",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8310-5",
+              "system": "http://loinc.org",
+              "display": "BODY TEMPERATURE"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 99.0,
+          "unit": "[degF]"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/08747908-0c7e-9928-913d-65d7243d9487"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fb26676b-06f1-676c-acb2-458126dc6535",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "fb26676b-06f1-676c-acb2-458126dc6535",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "9279-1",
+              "system": "http://loinc.org",
+              "display": "RESPIRATORY RATE"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 18,
+          "unit": "/min"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/fb26676b-06f1-676c-acb2-458126dc6535"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a7226ec7-2e47-136b-c464-9ae6552f0a15",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "a7226ec7-2e47-136b-c464-9ae6552f0a15",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8302-2",
+              "system": "http://loinc.org",
+              "display": "HEIGHT"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 67,
+          "unit": "[in_us]"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/a7226ec7-2e47-136b-c464-9ae6552f0a15"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:38c6218f-8693-d40d-f1ce-5d345f32a553",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "38c6218f-8693-d40d-f1ce-5d345f32a553",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "3141-9",
+              "system": "http://loinc.org",
+              "display": "WEIGHT"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 239.9,
+          "unit": "[lb_av]"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/38c6218f-8693-d40d-f1ce-5d345f32a553"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:16e91e0a-8e11-7635-f67a-f0cc88395e8d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "16e91e0a-8e11-7635-f67a-f0cc88395e8d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "39156-5",
+              "system": "http://loinc.org",
+              "display": "BODY MASS INDEX"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 37.58,
+          "unit": "kg/m2"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/16e91e0a-8e11-7635-f67a-f0cc88395e8d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5a2fdf42-c9cd-7938-6f1e-faceebac6f1c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5a2fdf42-c9cd-7938-6f1e-faceebac6f1c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://loinc.org",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "unknown"
+              }
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "2710-2",
+              "system": "http://loinc.org",
+              "display": "OXYGEN SATURATION"
+            }
+          ]
+        },
+        "effectiveDateTime": "2014-05-20T19:36:05-05:00",
+        "valueQuantity": {
+          "value": 98,
+          "unit": "%"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/5a2fdf42-c9cd-7938-6f1e-faceebac6f1c"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:007787d7-b7e4-26af-fba4-1ce1f439a903",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "007787d7-b7e4-26af-fba4-1ce1f439a903",
+        "identifier": [
+          {
+            "system": "urn:uuid:00000000-5cf3-ec63-0513-4a4838595787",
+            "value": "11369-6_3-1_1.3.6.1.4.1.22812.11.2016.163.1_14168"
+          }
+        ],
+        "occurrenceDateTime": "2018-11-07",
+        "vaccineCode": {
+          "coding": [
+            {
+              "code": "106",
+              "system": "2.16.840.1.113883.12.292",
+              "display": "diphtheria, tetanus toxoids and acellular pertussis vaccine, 5 pertussis antigens"
+            }
+          ]
+        },
+        "status": "completed",
+        "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "system": "2.16.840.1.113883.12.292"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Immunization/007787d7-b7e4-26af-fba4-1ce1f439a903"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3a0ef01d-9da9-63dc-e03b-bdffa3ee0b1d",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "3a0ef01d-9da9-63dc-e03b-bdffa3ee0b1d",
+        "identifier": [
+          {
+            "system": "urn:uuid:00000000-5cf3-ec63-0513-4a4838595787",
+            "value": "11369-6_2-1_1.3.6.1.4.1.22812.11.2016.163.1_14168"
+          }
+        ],
+        "occurrenceDateTime": "2018-11-07",
+        "vaccineCode": {
+          "coding": [
+            {
+              "code": "88",
+              "system": "2.16.840.1.113883.12.292",
+              "display": "influenza virus vaccine, unspecified formulation"
+            }
+          ]
+        },
+        "status": "completed",
+        "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "system": "2.16.840.1.113883.12.292"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Immunization/3a0ef01d-9da9-63dc-e03b-bdffa3ee0b1d"
+      }
+    }
+  ]
+}
+}

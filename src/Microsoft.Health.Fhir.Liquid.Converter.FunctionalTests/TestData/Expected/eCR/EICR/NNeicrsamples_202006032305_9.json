@@ -1,0 +1,1902 @@
+{
+  "Status": "OK",
+  "FhirResource": {
+  "resourceType": "Bundle",
+  "type": "batch",
+  "entry": [
+    {
+      "fullUrl": "1906844699671560",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "1906844699671560",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+          ]
+        },
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Initial Public Health Case Report"
+              }
+            ]
+          }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber"
+          },
+          {
+            "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+            "valueString": "2016-12-01"
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "55751-2",
+              "system": "http://loinc.org",
+              "display": "Initial Public Health Case Report"
+            }
+          ]
+        },
+        "date": "2020-06-03T23:05:04-05:00",
+        "title": "Initial Public Health Case Report",
+        "confidentiality": "N",
+        "event": [
+          {
+            "period": {
+              "start": "2020-06-03T23:05:04-05:00"
+            }
+          }
+        ],
+        "section": [
+          {
+            "id": "2268eeba-4187-8fdb-bf8e-3fb4d1deed68",
+            "title": "HISTORY OF PRESENT ILLNESS",
+            "text": {
+              "status": "generated",
+              "div": "Gonorrhea - New Counseling done., Kayla Holloway is a 16 Years &amp; 7 Months Old Female ( DOB 10/12/2003) presents to clinic for gonorrhea treatment. Labs done 05/22 positive for gonorrhea. Denies vaginal discharge, rash, dysuria or abdominal pain. Uses condoms. Pt on depo for birth control but states she does not want to take it again due to menstrual irregularities and wants to think about another option. , No, No, No, No, 05/22/2020, Done, Done, 06/22/2020, , Use fluoridated toothpaste. Brush in the morning after breakfast. Brush and floss after your final meal of the day. , 05/22/2020, DYSURIA - New ·Instructions: Borderline urine with 1+ Leu and blood. Will start on antibiotic treatment for 5 days and send urine for culture., Screening, STI - New ·Instructions: Will call with results STI screening sent. Had HIV testing in the last year., Ankle joint pain, right - New ·Instructions: Fracture unlikely given bearing weight and location of pain. Discussed supportive care and when to return, No rashes, no abnormal lesions , no accessory muscle use, no retractions, lungs clear to auscultation bilaterally, symmetric air movement, Kayla Holloway is a 16 Years &amp; 7 Months Old Female ( DOB 10/12/2003) here for ankle pain and STD check. She says she thinks she rolled her ankle about 2 days ago. She has been able to walk on it. She tried ice which only helped a little. She has not tried any medicines. The pain is located on the outside of her right ankle. She has not noticed any swelling. There is pain when she is inverting the ankle. She says outside of this, she always seems to have some pain in her ankle. She also would like to be screened for STI. Last sexual intercouse was 2 weeks ago. She says she used protection (and always does). She says she started to develop dyusiria about 2 days ago with some lower abdominal pain. She has no discharge. At end of visit, patient asked if clinic did \"rape kits.\" Asked patient why she was asking and she said she was just curious. Asked whether anything had happened, she said no. She said she had nothing that she wanted to talk about. She made no disclosures., Yes, No, No, Yes, Yes"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10164-2",
+                  "system": "http://loinc.org",
+                  "display": "HISTORY OF PRESENT ILLNESS"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "135eed24-3b2c-67ea-1360-f23847cb35bf",
+            "title": "REASON FOR VISIT",
+            "text": {
+              "status": "generated",
+              "div": "test results, PT HERE FOR A STD CHECK / RIGHT ANKLE PAIN OFF AND ON"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29299-5",
+                  "system": "http://loinc.org",
+                  "display": "REASON FOR VISIT"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
+                "valueString": "test results, PT HERE FOR A STD CHECK / RIGHT ANKLE PAIN OFF AND ON"
+              }
+            ]
+          },
+          {
+            "id": "a73d88ba-1143-d0c5-3b02-49ddfe38a7f1",
+            "title": "SOCIAL HISTORY",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Date</th><th align=\"left\">Observation</th><th align=\"left\">Value</th><th align=\"left\">Provider</th></tr></thead><tbody><tr ID=\"d59120e13-1.2.840.113619.21.1.139060385287897942.10.1591243504674.319767\"><td align=\"left\">2020/05/26</td><td>if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked</td><td>No</td><td>Kenia Johnson </td></tr><tr ID=\"d59120e191-1.2.840.113619.21.1.139060385287897942.10.1591243504674.319767\"><td align=\"center\">\"</td><td>if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked</td><td>No</td><td>Kenia Johnson </td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29762-2",
+                  "system": "http://loinc.org",
+                  "display": "SOCIAL HISTORY"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/dd0ec375-d6e2-f4be-3d2f-728621c50b40"
+              },
+              {
+                "reference": "Observation/b2c3bf75-8456-076c-b14b-a25298e03d0f"
+              }
+            ]
+          },
+          {
+            "id": "04c35988-5606-4c66-ee9d-67f8a9f0c71c",
+            "title": "ENCOUNTERS",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Date</th><th align=\"left\">Type</th><th align=\"left\">Provider</th><th align=\"left\">Location</th><th align=\"left\">Encounter Diagnosis</th></tr></thead><tbody><tr ID=\"d59101e13-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/26 - 2020/05/26</td><td>Phone Note</td><td><list listType=\"unordered\"><item>William Stanford </item></list></td><td>Komed Holman Health Center</td><td>UNK</td></tr><tr ID=\"d59101e95-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/26 - 2020/05/26</td><td>Office Visit</td><td><list listType=\"unordered\"><item>Juhi Uddin </item><item>Kenia Johnson </item><item>Sheila Carter, LPN </item></list></td><td>Komed Holman Health Center</td><td><list listType=\"unordered\"><item>DYSURIA</item><item>Gonorrhea</item></list></td></tr><tr ID=\"d59101e202-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/22 - 2020/05/22</td><td>Lab Report</td><td><list listType=\"unordered\"><item>William Stanford </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59101e290-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/22 - 2020/05/22</td><td>Dental</td><td><list listType=\"unordered\"><item>Adewale Lawal </item></list></td><td>Komed Holman Health Center</td><td><list listType=\"unordered\"><item>Examination, dental</item></list></td></tr><tr ID=\"d59101e383-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/22 - 2020/05/22</td><td>Internal Correspondence</td><td><list listType=\"unordered\"><item>William Stanford </item></list></td><td>Komed Holman Health Center</td><td>UNK</td></tr><tr ID=\"d59101e465-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/22 - 2020/05/22</td><td>Office Visit</td><td><list listType=\"unordered\"><item>William Stanford </item><item>Kenia Johnson </item><item>Salama Witherspoon </item></list></td><td>Komed Holman Health Center</td><td><list listType=\"unordered\"><item>DYSURIA</item><item>Screening, STI</item><item>Ankle joint pain, right</item></list></td></tr><tr ID=\"d59101e575-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/22 - 2020/05/22</td><td>External Correspondence</td><td><list listType=\"unordered\"><item>William Stanford </item><item>Kenia Johnson </item></list></td><td>Komed Holman Health Center</td><td>UNK</td></tr><tr ID=\"d59101e663-1.2.840.113619.21.1.139060385287897942.10.1591243504721.20088\"><td>2020/05/21 - 2020/05/21</td><td>Phone Note</td><td><list listType=\"unordered\"><item>Fredrick Reid </item></list></td><td>Komed Holman Health Center</td><td>UNK</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "46240-8",
+                  "system": "http://loinc.org",
+                  "display": "ENCOUNTERS"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "7bc75ac9-7f10-6d86-065c-b4287992209d",
+            "title": "MEDICATIONS ADMINISTERED",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Medication</th><th align=\"left\">Status</th><th align=\"left\">Directions</th><th align=\"left\">Dates</th><th align=\"left\">Provider</th><th align=\"left\">Indications</th><th align=\"left\">Fill Instructions</th></tr></thead><tbody><tr ID=\"d59078e13-1.2.840.113619.21.1.139060385287897942.10.1591243504674.212492\"><td ID=\"d59078e100\">CEFTRIAXONE SODIUM</td><td>in-progress</td><td ID=\"d59078e109\">Right gluteus maximus</td><td>2020/05/26 - 2020/05/26</td><td>Sheila Carter, LPN </td><td>Gonorrhea</td><td ID=\"d59078e102a1065-1.2.840.113619.21.1.139060385287897942.10.1591243504674.212492\">tolerarted well no adverse reaction at this time</td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29549-3",
+                  "system": "http://loinc.org",
+                  "display": "MEDICATIONS ADMINISTERED"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationAdministration/5323fb9d-b789-67b6-a0a7-21d0c186f35e"
+              }
+            ]
+          },
+          {
+            "id": "bd75f5cb-6960-df5f-5f04-5c698f32363c",
+            "title": "HISTORY OF MEDICATION USE",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Medication</th><th align=\"left\">Status</th><th align=\"left\">Instructions</th><th align=\"left\">Dates</th><th align=\"left\">Provider</th><th align=\"left\">Indications</th><th align=\"left\">Comments</th></tr></thead><tbody><tr ID=\"d59144e18-1.2.840.113619.21.1.139060385287897942.10.1591243504752.427708\"><td ID=\"d59144e81\">AZITHROMYCIN 500 MG ORAL TABLET</td><td>active</td><td ID=\"d59144e84\">Take 2 tabs by mouth once</td><td>2020/05/26</td><td>Juhi Uddin </td><td /><td /></tr><tr ID=\"d59144e100-1.2.840.113619.21.1.139060385287897942.10.1591243504752.427708\"><td ID=\"d59144e161\">MEDROXYPROGESTERONE ACETATE 150 MG/ML INTRAMUSCULAR SUSPENSION</td><td>active</td><td ID=\"d59144e164\">1 injection every 12 weeks. bring to nurse for administration</td><td>2018/09/12</td><td>Andrew Koch </td><td>Family planning</td><td /></tr><tr ID=\"d59144e180-1.2.840.113619.21.1.139060385287897942.10.1591243504752.427708\"><td ID=\"d59144e241\">OSCAL 500/200 D-3 500-200 MG-UNIT ORAL TABLET</td><td>active</td><td ID=\"d59144e244\">2 tablets by mouth daily</td><td>2018/06/20</td><td>Dayna Long </td><td /><td /></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10160-0",
+                  "system": "http://loinc.org",
+                  "display": "HISTORY OF MEDICATION USE"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "6ac7e3cf-da51-a99d-d29f-41317f411aab",
+            "title": "PROBLEMS",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Condition</th><th align=\"left\">Status</th><th align=\"left\">Date</th><th align=\"left\">Provider</th><th align=\"left\">Notes</th></tr></thead><tbody><tr ID=\"d59131e13-1.2.840.113619.21.1.139060385287897942.10.1591243504752.561564\"><td>Gonorrhea</td><td>active</td><td>2020/05/26 - 2020/06/25</td><td>Juhi Uddin </td><td /></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11450-4",
+                  "system": "http://loinc.org",
+                  "display": "PROBLEMS"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "display": "Problem - ",
+                "reference": "Condition/2555927b-6c35-2618-8783-d2eb1aea8e6c"
+              }
+            ]
+          },
+          {
+            "id": "694662dd-cd7f-48cd-a8ff-2f55ec2f77fd",
+            "title": "RESULTS",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Date</th><th align=\"left\">Observation</th><th align=\"left\">Value</th><th align=\"left\">Provider</th><th align=\"left\">Reference Range</th><th align=\"left\">Interpretation</th><th align=\"left\">Location</th></tr></thead><tbody><tr ID=\"d59115e13-1.2.840.113619.21.1.139060385287897942.10.1591243504736.925415\"><td align=\"left\">2020/05/22</td><td>Neisseria gonorrhoeae DNA probe</td><td>Positive</td><td>LinkLogic </td><td>Negative</td><td>Abnormal</td><td /></tr><tr ID=\"d59115e118-1.2.840.113619.21.1.139060385287897942.10.1591243504736.925415\"><td align=\"center\">\"</td><td>chlamydia DNA probe</td><td>Negative</td><td>LinkLogic </td><td>Negative</td><td /><td /></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "30954-2",
+                  "system": "http://loinc.org",
+                  "display": "RESULTS"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/8ce253bb-d47d-4b40-adfc-1b168b940293",
+                "display": "Neisseria gonorrhoeae DNA probe"
+              },
+              {
+                "reference": "Observation/3580f709-fb0a-ce9e-1a4a-e0283f91faf1",
+                "display": "chlamydia DNA probe"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "encounter": {
+          "reference": "Encounter/bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a"
+        },
+        "custodian": {
+          "reference": "Organization/2bae76ef-8be0-941b-6672-72b84298d223"
+        },
+        "author": [
+          {
+            "reference": "PractitionerRole/876b5cd3-71aa-6ae6-94a5-0413e5733a50"
+          },
+          {
+            "reference": "Device/48c756a8-18ae-5310-e8d7-2de6957e99b8"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Composition/1906844699671560"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a",
+        "status": "unknown",
+        "class": {
+          "code": "PHC2237",
+          "system": "2.16.840.1.114222.4.5.274",
+          "display": "External Encounter"
+        },
+        "identifier": [
+          {
+            "extension": {
+              "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+              "valueCode": "not-applicable"
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "location": [
+          {
+            "id": "2.16.840.1.113883.4.6",
+            "location": {
+              "reference": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db",
+              "display": "None"
+            },
+            "extension": [
+              {
+                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/sid/us-npi"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bdf4bd41-5f95-3434-7bad-c22f469af6db",
+      "resource": {
+        "resourceType": "Location",
+        "id": "bdf4bd41-5f95-3434-7bad-c22f469af6db",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "not-applicable"
+              }
+            }
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/us-npi"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:42e178bb-0fd1-7329-a02e-c06b5c9782b8",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e8d30303-e0a1-2dbb-bddb-d208c95aad77",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "e8d30303-e0a1-2dbb-bddb-d208c95aad77",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+            "valueString": "Responsible Party"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "not-applicable"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "e8d30303-e0a1-2dbb-bddb-d208c95aad77",
+        "practitioner": {
+          "reference": "Practitioner/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
+        },
+        "organization": {
+          "reference": "Organization/43eaaf8e-f805-d37c-8e4e-77965eef87aa"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:43eaaf8e-f805-d37c-8e4e-77965eef87aa",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "43eaaf8e-f805-d37c-8e4e-77965eef87aa"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/43eaaf8e-f805-d37c-8e4e-77965eef87aa"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2bae76ef-8be0-941b-6672-72b84298d223",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "2bae76ef-8be0-941b-6672-72b84298d223",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Organization/LO-1454412490000610",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "LO-1454412490000610",
+            "assigner": {
+              "display": "Organization Identifier"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Tax ID number"
+            }
+          }
+        ],
+        "name": "Komed Holman Health Center",
+        "address": [
+          {
+            "line": [
+              "4259 S. Berkeley"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "country": "USA",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "7732687600",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/2bae76ef-8be0-941b-6672-72b84298d223"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:406c3e36-d27a-041b-61a8-e29df69f50e1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "406c3e36-d27a-041b-61a8-e29df69f50e1",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1467041069000630",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "365",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Nurse Desk",
+            "given": [
+              "KH WH"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/406c3e36-d27a-041b-61a8-e29df69f50e1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:01fe444a-5df3-6915-447b-5b16fe2c6872",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "01fe444a-5df3-6915-447b-5b16fe2c6872",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Organization/DF-76",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "DF-76",
+            "assigner": {
+              "display": "Organization Identifier"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1821079088",
+            "assigner": {
+              "display": "National Provider Identifier"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Tax ID number"
+            }
+          }
+        ],
+        "name": "Winfield Moody Health Center",
+        "address": [
+          {
+            "line": [
+              "1276 N Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL ",
+            "postalCode": "60610     "
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073     ",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/01fe444a-5df3-6915-447b-5b16fe2c6872"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "876b5cd3-71aa-6ae6-94a5-0413e5733a50",
+        "organization": {
+          "reference": "Organization/01fe444a-5df3-6915-447b-5b16fe2c6872"
+        },
+        "practitioner": {
+          "reference": "Practitioner/406c3e36-d27a-041b-61a8-e29df69f50e1"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:48c756a8-18ae-5310-e8d7-2de6957e99b8",
+      "resource": {
+        "resourceType": "Device",
+        "id": "48c756a8-18ae-5310-e8d7-2de6957e99b8",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:1.2.840.113619.21.1.139060385287897942.11"
+          }
+        ],
+        "manufacturer": "12.3/9.12",
+        "version": [
+          {
+            "value": "GE Healthcare API Server"
+          }
+        ],
+        "property": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/device-category",
+                  "code": "software",
+                  "display": "software"
+                }
+              ]
+            }
+          }
+        ],
+        "owner": {
+          "reference": "Organization/2bae76ef-8be0-941b-6672-72b84298d223"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/48c756a8-18ae-5310-e8d7-2de6957e99b8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1.1.1",
+            "value": "1457799842450610"
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1.1.2",
+            "value": "49525",
+            "assigner": {
+              "display": "GE EMR-CPS PatientId"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1.1",
+            "value": "K83400",
+            "assigner": {
+              "display": "GE EMR-CPS PatientMRN"
+            }
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Patient9",
+            "given": [
+              "Sample"
+            ]
+          }
+        ],
+        "birthDate": "1991-09-01",
+        "deceasedBoolean": false,
+        "gender": "female",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2054-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Black or African American"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Black or African American"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2186-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "9 Sample Street",
+              "apt 2"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3129998888",
+            "use": "mobile"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5323fb9d-b789-67b6-a0a7-21d0c186f35e",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "5323fb9d-b789-67b6-a0a7-21d0c186f35e",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationAdministration/1906125385624500",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "1906125385624500",
+            "assigner": {
+              "display": "Unknown"
+            }
+          }
+        ],
+        "status": "in-progress",
+        "effectivePeriod": {
+          "start": "2020-05-26T15:15:00-05:00",
+          "end": "2020-05-26T15:15:00-05:00"
+        },
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C28161",
+                "system": "2.16.840.1.113883.3.26.1.1",
+                "display": "INTRAMUSCULAR"
+              }
+            ],
+            "text": "INTRAMUSCULAR"
+          },
+          "dose": {
+            "value": 250,
+            "unit": "mg"
+          }
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/ed9eef1e-30d2-4ca6-5799-9cabdcc38fa9"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationAdministration/5323fb9d-b789-67b6-a0a7-21d0c186f35e"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ed9eef1e-30d2-4ca6-5799-9cabdcc38fa9",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "ed9eef1e-30d2-4ca6-5799-9cabdcc38fa9",
+        "code": {
+          "coding": [
+            {
+              "code": "309092",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "CEFTRIAXONE SODIUM"
+            },
+            {
+              "code": "25900",
+              "system": "2.16.840.1.113883.6.253"
+            },
+            {
+              "code": "02300090102105",
+              "system": "2.16.840.1.113883.6.68"
+            },
+            {
+              "code": "2880",
+              "system": "1.2.840.113619.21.100.12.998"
+            },
+            {
+              "code": "8229",
+              "system": "1.2.840.113619.21.100.12.999"
+            },
+            {
+              "code": "00143985925",
+              "system": "2.16.840.1.113883.6.69"
+            }
+          ],
+          "text": "(CEFTRIAXONE SODIUM) 250 MG SOLR"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/ed9eef1e-30d2-4ca6-5799-9cabdcc38fa9"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:790449eb-3662-3028-b8bf-c8f1091ba7ef",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "790449eb-3662-3028-b8bf-c8f1091ba7ef",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationStatement/1906120465392070",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          }
+        ],
+        "status": "active",
+        "effectivePeriod": {
+          "start": "2020-05-26T00:00:00-05:00"
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/65f63e94-64a1-cf89-3c94-11189604d417"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/790449eb-3662-3028-b8bf-c8f1091ba7ef"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:65f63e94-64a1-cf89-3c94-11189604d417",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "65f63e94-64a1-cf89-3c94-11189604d417",
+        "code": {
+          "coding": [
+            {
+              "code": "248656",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "AZITHROMYCIN"
+            },
+            {
+              "code": "749780",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "{3 (azithromycin 500 MG Oral Tablet) } Pack"
+            },
+            {
+              "code": "44793",
+              "system": "2.16.840.1.113883.6.253"
+            },
+            {
+              "code": "03400010000334",
+              "system": "2.16.840.1.113883.6.68"
+            },
+            {
+              "code": "5799",
+              "system": "1.2.840.113619.21.100.12.998"
+            },
+            {
+              "code": "1944",
+              "system": "1.2.840.113619.21.100.12.999"
+            },
+            {
+              "code": "50111078810",
+              "system": "2.16.840.1.113883.6.69"
+            }
+          ],
+          "text": "(AZITHROMYCIN) 500 MG TABS"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/65f63e94-64a1-cf89-3c94-11189604d417"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1cfd75a4-0dc4-d6bd-b3c8-8df533c567cb",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "1cfd75a4-0dc4-d6bd-b3c8-8df533c567cb",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationOrder/1906120465392130",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "F13B2611C129412E8D1D9516196A1F0D",
+            "assigner": {
+              "display": "Unknown"
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "authoredOn": "2020-05-26T13:58:38.570-05:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 0
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/65f63e94-64a1-cf89-3c94-11189604d417"
+        },
+        "requester": {
+          "reference": "Practitioner/b76a72ec-8cb8-1737-7eea-039b29cc078b"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/1cfd75a4-0dc4-d6bd-b3c8-8df533c567cb"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b76a72ec-8cb8-1737-7eea-039b29cc078b",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "b76a72ec-8cb8-1737-7eea-039b29cc078b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1882452288452680",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1848",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1174979397",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Uddin",
+            "given": [
+              "Juhi"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Komed Holman Health Center",
+              "4259 South Berkeley Avenue"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "7732687600",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "7732689088",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/b76a72ec-8cb8-1737-7eea-039b29cc078b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:baafa498-40db-da66-19ea-2ac8873b8bf1",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "baafa498-40db-da66-19ea-2ac8873b8bf1",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationStatement/1852361370653020",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          }
+        ],
+        "status": "active",
+        "effectivePeriod": {
+          "start": "2018-09-12T00:00:00-05:00"
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/367672bd-88e5-729d-53da-3cd499e330b0"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/baafa498-40db-da66-19ea-2ac8873b8bf1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:367672bd-88e5-729d-53da-3cd499e330b0",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "367672bd-88e5-729d-53da-3cd499e330b0",
+        "code": {
+          "coding": [
+            {
+              "code": "1000126",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "MEDROXYPROGESTERONE ACETATE"
+            },
+            {
+              "code": "48798",
+              "system": "2.16.840.1.113883.6.253"
+            },
+            {
+              "code": "25150035101820",
+              "system": "2.16.840.1.113883.6.68"
+            },
+            {
+              "code": "27085",
+              "system": "1.2.840.113619.21.100.12.998"
+            },
+            {
+              "code": "32864",
+              "system": "1.2.840.113619.21.100.12.999"
+            },
+            {
+              "code": "00703680101",
+              "system": "2.16.840.1.113883.6.69"
+            }
+          ],
+          "text": "(MEDROXYPROGESTERONE ACETATE) 150 MG/ML SUSP"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/367672bd-88e5-729d-53da-3cd499e330b0"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5c3b19b6-6e27-1672-b7b5-d0178ed47f6f",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "5c3b19b6-6e27-1672-b7b5-d0178ed47f6f",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationOrder/1867394440431020",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "15B0B9585FD24DFA99676A7F3CF1299D",
+            "assigner": {
+              "display": "Unknown"
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "authoredOn": "2019-03-05T08:42:48.340-06:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 3
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/367672bd-88e5-729d-53da-3cd499e330b0"
+        },
+        "requester": {
+          "reference": "Practitioner/9b452125-87e4-296c-bed4-9da1c0fd9cbb"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/5c3b19b6-6e27-1672-b7b5-d0178ed47f6f"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9b452125-87e4-296c-bed4-9da1c0fd9cbb",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "9b452125-87e4-296c-bed4-9da1c0fd9cbb",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1851695508419640",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1701",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1013499839",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "362197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Koch",
+            "given": [
+              "Andrew"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60610"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371076",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/9b452125-87e4-296c-bed4-9da1c0fd9cbb"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:20a80ff0-bfff-ab23-cfd5-4e90aa12a4e5",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "20a80ff0-bfff-ab23-cfd5-4e90aa12a4e5",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationStatement/1845112175376410",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          }
+        ],
+        "status": "active",
+        "effectivePeriod": {
+          "start": "2018-06-20T00:00:00-05:00"
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/3bec1c5d-529a-e0fd-7a26-cb7a47a19fc3"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/20a80ff0-bfff-ab23-cfd5-4e90aa12a4e5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3bec1c5d-529a-e0fd-7a26-cb7a47a19fc3",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "3bec1c5d-529a-e0fd-7a26-cb7a47a19fc3",
+        "code": {
+          "coding": [
+            {
+              "code": "1243415",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "CALCIUM CARBONATE-VITAMIN D"
+            },
+            {
+              "code": "56844",
+              "system": "2.16.840.1.113883.6.253"
+            },
+            {
+              "code": "79109902630345",
+              "system": "2.16.840.1.113883.6.68"
+            },
+            {
+              "code": "4601",
+              "system": "1.2.840.113619.21.100.12.998"
+            },
+            {
+              "code": "9983",
+              "system": "1.2.840.113619.21.100.12.999"
+            },
+            {
+              "code": "10267155107",
+              "system": "2.16.840.1.113883.6.69"
+            }
+          ],
+          "text": "OSCAL 500/200 D-3 (CALCIUM CARBONATE-VITAMIN D) 500-200 MG-UNIT TABS"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/3bec1c5d-529a-e0fd-7a26-cb7a47a19fc3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5efe41d7-eecd-e6d9-869a-1195c9304179",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "5efe41d7-eecd-e6d9-869a-1195c9304179",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationOrder/1845112275388690",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "3728E290F6AC41D2A0CC03ED43A3BB4D",
+            "assigner": {
+              "display": "Unknown"
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "authoredOn": "2018-06-20T11:11:53.560-05:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 3
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/3bec1c5d-529a-e0fd-7a26-cb7a47a19fc3"
+        },
+        "requester": {
+          "reference": "Practitioner/b353c2c0-2542-2f6c-7ab8-3f68f7e2ef87"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/5efe41d7-eecd-e6d9-869a-1195c9304179"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b353c2c0-2542-2f6c-7ab8-3f68f7e2ef87",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "b353c2c0-2542-2f6c-7ab8-3f68f7e2ef87",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1836662461973410",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1639",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1417359266",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Long",
+            "given": [
+              "Dayna"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60610"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/b353c2c0-2542-2f6c-7ab8-3f68f7e2ef87"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9686c1f1-bfc7-38d0-c8ef-033f868648bb",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "9686c1f1-bfc7-38d0-c8ef-033f868648bb",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationOrder/1875175811005140",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "78244EC0B3BA4E6A9C586A3C94D2C641",
+            "assigner": {
+              "display": "Unknown"
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "authoredOn": "2019-06-03T10:10:57.880-05:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 3
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "medicationReference": {
+          "reference": "Medication/3bec1c5d-529a-e0fd-7a26-cb7a47a19fc3"
+        },
+        "requester": {
+          "reference": "Practitioner/dd37482d-0d97-b7a9-e80f-d4af1427304a"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/9686c1f1-bfc7-38d0-c8ef-033f868648bb"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dd37482d-0d97-b7a9-e80f-d4af1427304a",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "dd37482d-0d97-b7a9-e80f-d4af1427304a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1849252276266540",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1678",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1760983092",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Chiarappa",
+            "given": [
+              "Ashley"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60610"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/dd37482d-0d97-b7a9-e80f-d4af1427304a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2555927b-6c35-2618-8783-d2eb1aea8e6c",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "2555927b-6c35-2618-8783-d2eb1aea8e6c",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Condition/1906120633396820",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "15628003",
+              "system": "http://snomed.info/sct",
+              "display": "Gonorrhea"
+            },
+            {
+              "code": "A54.9",
+              "system": "2.16.840.1.113883.6.90"
+            },
+            {
+              "code": "098.0",
+              "system": "2.16.840.1.113883.6.103"
+            },
+            {
+              "code": "ICD-098.0",
+              "system": "1.2.840.113619.21.1.139060385287897942.2.1.1.4"
+            }
+          ],
+          "text": "Gonorrhea"
+        },
+        "onsetDateTime": "2020-05-26T00:00:00-05:00",
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/2555927b-6c35-2618-8783-d2eb1aea8e6c"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1d3ec9ce-ace7-abf8-c0b3-be82fff56aa3",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "1d3ec9ce-ace7-abf8-c0b3-be82fff56aa3",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1906057021188080",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "30954-2",
+              "system": "http://loinc.org",
+              "display": "RESULTS"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        },
+        "result": [
+          {
+            "reference": "Observation/8ce253bb-d47d-4b40-adfc-1b168b940293"
+          },
+          {
+            "reference": "Observation/3580f709-fb0a-ce9e-1a4a-e0283f91faf1"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/1d3ec9ce-ace7-abf8-c0b3-be82fff56aa3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8ce253bb-d47d-4b40-adfc-1b168b940293",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8ce253bb-d47d-4b40-adfc-1b168b940293",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1906057021188080",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "24111-7",
+              "system": "http://loinc.org",
+              "display": "Neisseria gonorrhoeae DNA [Presence] in Unspecified specimen by NAA with probe detection"
+            },
+            {
+              "code": "2719",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "GC DNA PROBE"
+            }
+          ],
+          "text": "Neisseria gonorrhoeae DNA probe"
+        },
+        "effectiveDateTime": "2020-05-22T13:39:00-05:00",
+        "valueString": "Positive",
+        "referenceRange": [
+          {
+            "text": "Negative"
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "A",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "Abnormal"
+              }
+            ],
+            "text": "Abnormal"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/8ce253bb-d47d-4b40-adfc-1b168b940293"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3580f709-fb0a-ce9e-1a4a-e0283f91faf1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3580f709-fb0a-ce9e-1a4a-e0283f91faf1",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1906057021188060",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "21613-5",
+              "system": "http://loinc.org",
+              "display": "Chlamydia trachomatis DNA [Presence] in Unspecified specimen by NAA with probe detection"
+            },
+            {
+              "code": "14722",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "CHLAMYD DNA"
+            }
+          ],
+          "text": "chlamydia DNA probe"
+        },
+        "effectiveDateTime": "2020-05-22T13:39:00-05:00",
+        "valueString": "Negative",
+        "referenceRange": [
+          {
+            "text": "Negative"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/3580f709-fb0a-ce9e-1a4a-e0283f91faf1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dd0ec375-d6e2-f4be-3d2f-728621c50b40",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "dd0ec375-d6e2-f4be-3d2f-728621c50b40",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1906119989374040",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "549318",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "VAPE_USE"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked"
+        },
+        "effectiveDateTime": "2020-05-26T13:45:03-05:00",
+        "valueString": "No",
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/dd0ec375-d6e2-f4be-3d2f-728621c50b40"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b2c3bf75-8456-076c-b14b-a25298e03d0f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b2c3bf75-8456-076c-b14b-a25298e03d0f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905773033713240",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "549318",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "VAPE_USE"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked"
+        },
+        "effectiveDateTime": "2020-05-22T13:23:38-05:00",
+        "valueString": "No",
+        "subject": {
+          "reference": "Patient/5d5cdf0e-d621-f836-fbb9-9a1de6ace5e9"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/b2c3bf75-8456-076c-b14b-a25298e03d0f"
+      }
+    }
+  ]
+}
+}

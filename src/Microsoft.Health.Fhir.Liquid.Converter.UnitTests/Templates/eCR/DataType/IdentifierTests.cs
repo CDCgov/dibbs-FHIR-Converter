@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using DotLiquid;
 using Hl7.Fhir.Model;
 using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
@@ -28,7 +29,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Null(actualFhir.Value);
             Assert.Null(actualFhir.System);
-            Assert.Empty(actualFhir.Assigner.Display);
+            Assert.Null(actualFhir.Assigner);
         }
 
         [Fact]
@@ -117,18 +118,66 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public void RootUriValueURL()
+        public void KnownSystemMissingExtension()
         {
-            var xmlStr =
-                @"<id root=""2.16.840.1.113883.6.12"" extension=""http://www.ama-assn.org/go/cpt/1234"" />";
+            var xmlStr = @"<id root=""2.16.840.1.113883.6.1""/>";
             var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
 
             var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };
 
             var actualFhir = GetFhirObjectFromTemplate<Identifier>(ECRPath, attributes);
 
-            Assert.Equal("http://www.ama-assn.org/go/cpt", actualFhir.System);
-            Assert.Equal("1234", actualFhir.Value);
+            Assert.Equal("http://loinc.org", actualFhir.System);
+            Assert.Null(actualFhir.Value);
+            Assert.Equal(
+                "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                actualFhir.ValueElement.Extension.First().Url
+            );
+            Assert.Equal("unknown", actualFhir.ValueElement.Extension.First().Value.ToString());
+            Assert.Null(actualFhir.Assigner);
+        }
+
+        [Fact]
+        public void NullFlavorWithRoot()
+        {
+            var xmlStr = @"<id nullFlavor=""NA"" root=""1.2.3.4""/>";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };
+
+            var actualFhir = GetFhirObjectFromTemplate<Identifier>(ECRPath, attributes);
+
+            Assert.Equal("urn:oid:1.2.3.4", actualFhir.System);
+            Assert.Null(actualFhir.Value);
+            Assert.Equal(
+                actualFhir.ValueElement.Extension.First().Url,
+                "http://hl7.org/fhir/ValueSet/data-absent-reason"
+            );
+            Assert.Equal(
+                actualFhir.ValueElement.Extension.First().Value.ToString(),
+                "not-applicable"
+            );
+            Assert.Null(actualFhir.Assigner);
+        }
+
+        [Fact]
+        public void NullFlavorOnly()
+        {
+            var xmlStr = @"<id nullFlavor=""NA""/>";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };
+
+            var actualFhir = GetFhirObjectFromTemplate<Identifier>(ECRPath, attributes);
+
+            Assert.Null(actualFhir.System);
+            Assert.Null(actualFhir.Value);
+            Assert.Equal(
+                actualFhir.Extension.First().Url,
+                "http://hl7.org/fhir/ValueSet/data-absent-reason"
+            );
+            Assert.Equal(actualFhir.Extension.First().Value.ToString(), "not-applicable");
+            Assert.Null(actualFhir.Assigner);
         }
     }
 }

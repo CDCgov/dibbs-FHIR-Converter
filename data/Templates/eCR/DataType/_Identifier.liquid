@@ -1,23 +1,39 @@
 {
+{%- assign oid_pattern = "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" -%}
+{%- assign uuid_pattern = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" -%}
+{%- assign oid_pattern_match = Identifier.root | match: oid_pattern | size -%}
+{%- assign uuid_pattern_match = Identifier.root | match: uuid_pattern | size -%}
+{%- capture system -%}
+    {%- include 'ValueSet/SystemReference' code: Identifier.root -%}
+{%- endcapture %}
 {%- if Identifier.nullFlavor == null -%}
-    {%- assign oid_pattern = "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" -%}
-    {%- assign uuid_pattern = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" -%}
-    {%- assign uid_pattern = uuid_pattern | append: "|" | append: oid_pattern -%}
     {%- if Identifier.extension -%}
-        {%- assign oid_pattern_match = Identifier.root | match: oid_pattern | size -%}
         {%- if oid_pattern_match == 1 -%}
-            {%- capture system -%}
-                {%- include 'ValueSet/SystemReference' code: Identifier.root -%}
-            {%- endcapture %}
-            "system": {{- system -}},
+            "system": "{{- system | prepend_id -}}",
             "value": "{{- Identifier.extension | remove_prefix: system -}}",
         {%- else -%}
             "system": "{{- Identifier.root | prepend_id -}}",
             "value": "{{- Identifier.extension -}}",
         {%- endif -%}
     {%- elsif Identifier.root -%}
-        {%- assign uid_pattern_match = Identifier.root | match: uid_pattern | size -%}
-        {%- if uid_pattern_match == 1 -%}
+        {%- if system != '' -%}
+            {% comment %} If not empty root was an OID {% endcomment %}
+            {%- if Identifier.root == system -%}
+                {% comment %} if system did not change it is not a recognized system with a URI {% endcomment %}
+                "system": "urn:ietf:rfc:3986",
+                "value": "{{Identifier.root | prepend_id -}}",
+            {%- else -%}
+                {% comment %} if system changed it is a recognized system with a URI {% endcomment %}
+                "system": "{{- system -}}",
+                "_value": {
+                    "extension": {
+                        "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                        "valueCode": "{{ Identifier.nullFlavor | get_property: 'ValueSet/NullFlavor', 'code', true }}",
+                    },
+                },
+            {%- endif -%}
+        {%- elsif uuid_pattern_match == 1 -%}
+            {% comment %} system is a UUID {% endcomment %}
             "system": "urn:ietf:rfc:3986",
             "value": "{{Identifier.root | prepend_id -}}",
         {%- else -%}
@@ -25,9 +41,41 @@
             "value": "{{Identifier.root -}}",
         {%- endif -%}
     {%- endif -%}
+{%- else -%}
+    {%- if Identifier.root -%}
+        {%- if system != '' -%}
+            {% comment %} If not empty root was an OID {% endcomment %}
+            {%- if Identifier.root == system -%}
+                {% comment %} if system did not change it is not a recognized system with a URI {% endcomment %}
+                "system": "{{Identifier.root | prepend_id -}}",
+            {%- else -%}
+                {% comment %} if system changed it is a recognized system with a URI {% endcomment %}
+                "system": "{{- system -}}",
+            {%- endif -%}
+                "_value": {
+                    "extension": {
+                        "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                        "valueCode": "{{ Identifier.nullFlavor | default: "" | get_property: 'ValueSet/NullFlavor' }}",
+                    },
+                },
+        {%- elsif uuid_pattern_match == 1 -%}
+            {% comment %} system is a UUID {% endcomment %}
+            "system": "{{Identifier.root | prepend_id -}}",
+        {%- else -%}
+        {% comment %} This is means the root is an invalid UID as it is neither an UUID or OID. In this case we will just set it as the value. {% endcomment %}
+            "system": "{{Identifier.root -}}",
+        {%- endif -%}
+    {%- else -%}
 
-        "assigner": {
-            "display": "{{- Identifier.assigningAuthorityName -}}",
-        }
+        "extension": {
+            "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+            "valueCode": "{{ Identifier.nullFlavor | default: "" | get_property: 'ValueSet/NullFlavor' }}",
+        },
+    {%- endif -%}
+{%- endif -%}
+{%- if Identifier.assigningAuthorityName != null -%}
+    "assigner": {
+        "display": "{{- Identifier.assigningAuthorityName -}}",
+    }
 {%- endif -%}
 },

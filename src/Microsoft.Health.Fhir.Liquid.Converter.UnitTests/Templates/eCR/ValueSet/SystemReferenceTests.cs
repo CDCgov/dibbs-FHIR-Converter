@@ -23,7 +23,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             // SNOMED
             var systemOid = "2.16.840.1.113883.3.88.12.3221.8.9";
-            var expectedValue = @"""http://snomed.info/sct""";
+            var expectedValue = "http://snomed.info/sct";
 
             var attributes = new Dictionary<string, object> { { "code", systemOid }, };
 
@@ -34,21 +34,20 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         public void UnknownOid()
         {
             var systemOid = "1.2.3.4";
-            var expectedValue = @"""urn:oid:" + systemOid + @"""";
 
             var attributes = new Dictionary<string, object> { { "code", systemOid }, };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedValue);
+            ConvertCheckLiquidTemplate(ECRPath, attributes, systemOid);
         }
 
         [Fact]
         public void NotAnOid()
         {
-            var code = @"""not a oid""";
+            var code = "not a oid";
 
             var attributes = new Dictionary<string, object> { { "code", code }, };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, @"""""");
+            ConvertCheckLiquidTemplate(ECRPath, attributes, @"");
         }
     }
 }

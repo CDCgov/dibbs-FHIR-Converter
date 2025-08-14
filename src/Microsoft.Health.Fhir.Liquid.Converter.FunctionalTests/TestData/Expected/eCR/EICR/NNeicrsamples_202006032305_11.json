@@ -1,0 +1,3545 @@
+{
+  "Status": "OK",
+  "FhirResource": {
+  "resourceType": "Bundle",
+  "type": "batch",
+  "entry": [
+    {
+      "fullUrl": "1906844699671580",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "1906844699671580",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+          ]
+        },
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Initial Public Health Case Report"
+              }
+            ]
+          }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber"
+          },
+          {
+            "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+            "valueString": "2016-12-01"
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "55751-2",
+              "system": "http://loinc.org",
+              "display": "Initial Public Health Case Report"
+            }
+          ]
+        },
+        "date": "2020-06-03T23:05:04-05:00",
+        "title": "Initial Public Health Case Report",
+        "confidentiality": "N",
+        "event": [
+          {
+            "period": {
+              "start": "2020-06-03T23:05:04-05:00"
+            }
+          }
+        ],
+        "section": [
+          {
+            "id": "2e3df9a5-7657-7a97-0fe7-0eb5a09beab7",
+            "title": "HISTORY OF PRESENT ILLNESS",
+            "text": {
+              "status": "generated",
+              "div": "Abortion, threatened - Comment Only IUP @ 9 5/7 weeks per LMP+FHT todayReferal for dating US sent+Chlamydia-needs new Rx (see chief compliant)Rx sent for pt and Rx given for partner as wellSTD counseling, encourage condomsRepeat screening 1 monthPNVPregnancy/Preterm Labor/FM Percautions givenRTC 4 weeks for prenatal #2, Here for prenatal care and new dating US referal. Reports she split her prescription for Chlamydia with her partner yesterday (each took one 500mg tab).Denies ctx, leakage of fluid, vaginal bleeding or spotting. ., brief (1-3 elements), No, No, No, No, No, Abortion, threatened - New Threatend AbortionIUP @ 9 0/7 weeks per LMPNo FHT per dopplerHas dating US scheduled for 5/14 @ MercyQuant HCG todayRTC 2-3 days for repeat levelsPercautions given including ectopic percautions-go to ER if bleeding/cramping increase or have dizziness, Same Day- Reports vaginal spotting/cramping on and off x 3 weeks. Has dating US scheduled for May 14th at Mercy Hospital. Denies any other pregnancy issues, brief (1-3 elements), No, No, No, No, No, brief (1-3 elements), NOBsome spotting after sex, occ mild crampingself-scheduled dating sono at Mercy Hospital on May 14th. , No, No, No, No, Pregnancy care; other, unspecified trimester - New 26 y/o G5P3013 with EDD: 12/12/2020 based on LMP, currently at 6 5/7 weeks.PN labs today and U/S ordered;begin PNV.Will complete NOB 1 via E-visit and pt to RTC in 4 weeks for next in-person visit. COVID and early OB precautions/warning signs reviewed;Patient verbalizes understanding and is amenable to plan., brief (1-3 elements), Chameka Mcclellan is Age: 26 G: 4 P: 3 A: 1 presenting for verification of pregnancy visit. planned pregnancy, Last Menstrual Period: 03/07/2020; +HPT;spotting on 4/18 for one day; +fatigue, +breast tenderness; +urinary frequency no PNV yetworking FT as CNA at Lurie's hospital, all units including ID., No, No, No, No, No"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10164-2",
+                  "system": "http://loinc.org",
+                  "display": "HISTORY OF PRESENT ILLNESS"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "8eb78eb3-d3dc-d14a-8c70-d40e2e982307",
+            "title": "REASON FOR VISIT",
+            "text": {
+              "status": "generated",
+              "div": "prenatal visit, std follow up, Vaging spotting/cramping early pregnancy, NOB visit, verification of pregnancy, took preg tests at home and came back positive"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29299-5",
+                  "system": "http://loinc.org",
+                  "display": "REASON FOR VISIT"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
+                "valueString": "prenatal visit, std follow up, Vaging spotting/cramping early pregnancy, NOB visit, verification of pregnancy, took preg tests at home and came back positive"
+              }
+            ]
+          },
+          {
+            "id": "2f92c2d6-a6a6-4d48-e4fa-73ff18a27e4a",
+            "title": "SOCIAL HISTORY",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Date</th><th align=\"left\">Observation</th><th align=\"left\">Value</th><th align=\"left\">Provider</th></tr></thead><tbody><tr ID=\"d59242e13-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"left\">2020/05/14</td><td>assessment of health literacy (NCQA PCMH 2014 Standards, 3C10)</td><td>Adequate</td><td>Jacinda McCorkle </td></tr><tr ID=\"d59242e191-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>is there any chance that you could be pregnant?</td><td>Yes</td><td>Jacinda McCorkle </td></tr><tr ID=\"d59242e278-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked</td><td>No</td><td>Jacinda McCorkle </td></tr><tr ID=\"d59242e365-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>smoking status</td><td>never smoker</td><td>Jacinda McCorkle </td></tr><tr ID=\"d59242e472-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Exercise Program Referral</td><td>T</td><td>Jacinda McCorkle </td></tr><tr ID=\"d59242e564-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Weight Management Counseling Provided</td><td>T</td><td>Jacinda McCorkle </td></tr><tr ID=\"d59242e651-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Nutrition intervention</td><td>T</td><td>Jacinda McCorkle </td></tr><tr ID=\"d59242e738-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"left\">2020/05/13</td><td>time of call</td><td>05/13/2020 8:38 AM</td><td>Alejandro Perez-Mastache </td></tr><tr ID=\"d59242e825-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"left\">2020/05/06</td><td>social history reviewed E&amp;M</td><td>reviewed today</td><td>Ebony Markin </td></tr><tr ID=\"d59242e912-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>social history E&amp;M</td><td>Partnered since 2010. Not homeless. Born in USA. Birth City: chicago. Birth State: IL. Lives with boyfriend, and 3 children.Employed full-time. cna. Highest education level: high school graduate. Gender of partner(s): Male. </td><td>Ebony Markin </td></tr><tr ID=\"d59242e999-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"left\">2020/05/09</td><td>assessment of health literacy (NCQA PCMH 2014 Standards, 3C10)</td><td>Adequate</td><td>Evelyn Fuentes </td></tr><tr ID=\"d59242e1177-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>is there any chance that you could be pregnant?</td><td>Yes</td><td>Evelyn Fuentes </td></tr><tr ID=\"d59242e1264-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked</td><td>No</td><td>Evelyn Fuentes </td></tr><tr ID=\"d59242e1351-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>smoking status</td><td>never smoker</td><td>Evelyn Fuentes </td></tr><tr ID=\"d59242e1458-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Exercise Program Referral</td><td>T</td><td>Evelyn Fuentes </td></tr><tr ID=\"d59242e1550-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Weight Management Counseling Provided</td><td>T</td><td>Evelyn Fuentes </td></tr><tr ID=\"d59242e1637-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Nutrition intervention</td><td>T</td><td>Evelyn Fuentes </td></tr><tr ID=\"d59242e1724-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"left\">2020/05/06</td><td>patient's current support system</td><td>family</td><td>Ebony Markin </td></tr><tr ID=\"d59242e1811-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"left\">2020/05/05</td><td>social history E&amp;M</td><td>Partnered since 2010. Spouse/Partner/Significant Other: Corey. Not homeless. Born in USA. Birth City: chicago. Birth State: IL. Lives with boyfriend, and 2 children.Not employed. cna. Highest education level: high school graduate. Sex at birth: Female. Sexual orientation: Heterosexual. Gender identity: Female. Gender of partner(s): Male. Sexually Active: Yes. </td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e1898-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>social history reviewed E&amp;M</td><td>reviewed today</td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e1985-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"left\">2020/04/23</td><td>social history E&amp;M</td><td>Partnered since 2010. Spouse/Partner/Significant Other: Corey. Not homeless. Born in USA. Birth City: chicago. Birth State: IL. Lives with boyfriend, and 2 children.Not employed. cna. Highest education level: high school graduate. Sex at birth: Female. Sexual orientation: Heterosexual. Gender identity: Female. Gender of partner(s): Male. Sexually Active: Yes. </td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e2072-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>social history reviewed E&amp;M</td><td>reviewed today</td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e2159-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>environmental history</td><td>Reports exposure to: HIV/STIs.Denies exposure to: rubella, varicella, PKU, encephalitis, occupational chemicals, radiation, toxoplasma, tuberculosis.Other: Has cat; daughter changing litter box; hx Chlamydia 2017;.</td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e2246-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>drug use, illicit</td><td>Prior to Pregnancy</td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e2337-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>alcohol use</td><td>Prior to Pregnancy</td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e2428-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>home/family situation, assessment</td><td>Lives with boyfriend, and 3 children.</td><td>Claudia Whitaker </td></tr><tr ID=\"d59242e2516-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>assessment of health literacy (NCQA PCMH 2014 Standards, 3C10)</td><td>Adequate</td><td>Yolanda Freemon </td></tr><tr ID=\"d59242e2694-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>is there any chance that you could be pregnant?</td><td>Yes</td><td>Yolanda Freemon </td></tr><tr ID=\"d59242e2781-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>smoking status</td><td>never smoker</td><td>Yolanda Freemon </td></tr><tr ID=\"d59242e2888-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>passive cigarette smoke exposure</td><td>Yes</td><td>Yolanda Freemon </td></tr><tr ID=\"d59242e2979-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked</td><td>No</td><td>Yolanda Freemon </td></tr><tr ID=\"d59242e3066-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Exercise Program Referral</td><td>T</td><td>Yolanda Freemon </td></tr><tr ID=\"d59242e3157-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Weight Management Counseling Provided</td><td>T</td><td>Yolanda Freemon </td></tr><tr ID=\"d59242e3244-1.2.840.113619.21.1.139060385287897942.10.1591243505022.263905\"><td align=\"center\">\"</td><td>Nutrition intervention</td><td>T</td><td>Yolanda Freemon </td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29762-2",
+                  "system": "http://loinc.org",
+                  "display": "SOCIAL HISTORY"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/5df1f4fc-c9f1-bb5a-ba86-49c9638f6067"
+              },
+              {
+                "reference": "Observation/defb2256-290d-55ee-c794-bf17c1150a2b"
+              },
+              {
+                "reference": "Observation/231ad560-ccbb-eec6-5c7f-9e537cba6489"
+              },
+              {
+                "reference": "Observation/8243a5a2-fe3b-f050-ee20-206d2964a1a1"
+              },
+              {
+                "reference": "Observation/219a0488-4dc1-4a15-5160-fd08e1803447"
+              },
+              {
+                "reference": "Observation/223aae91-f8e2-559c-2715-3324a3c86b0a"
+              },
+              {
+                "reference": "Observation/3c5eb89f-28de-7100-cb63-bad77f0c3d5e"
+              },
+              {
+                "reference": "Observation/892a4a1e-cf6b-a945-841b-00f609f900f2"
+              },
+              {
+                "reference": "Observation/a5c41c89-29c3-b3bc-82d3-fd4c1ed17d70"
+              },
+              {
+                "reference": "Observation/2bcce242-2422-d73d-1235-99b56efcd950"
+              },
+              {
+                "reference": "Observation/c6f1c36c-a25e-8f1d-a266-42a5eef017cf"
+              },
+              {
+                "reference": "Observation/949958ff-3356-60e7-88c5-c32046b02f4d"
+              },
+              {
+                "reference": "Observation/22597640-3af5-7c76-76cf-4f8977033bd3"
+              },
+              {
+                "reference": "Observation/b6f33c0b-bebb-f4b0-f95e-345865008037"
+              },
+              {
+                "reference": "Observation/198ad94d-4b0d-e6e2-bdbd-9fda78829b2f"
+              },
+              {
+                "reference": "Observation/76cf1132-2b5f-eb85-3bf9-7553177ca469"
+              },
+              {
+                "reference": "Observation/52b9d45a-a872-84a9-0b9c-05d0db1ac8e6"
+              },
+              {
+                "reference": "Observation/47de74c4-fba6-84b2-5cc2-d1c0a08f3299"
+              },
+              {
+                "reference": "Observation/08293394-84ec-cc8d-98ae-9dd7a5313dee"
+              },
+              {
+                "reference": "Observation/474a2b1a-8673-a24d-ef54-46c125731988"
+              },
+              {
+                "reference": "Observation/2f732a20-fcae-e4b6-2de1-a8143f16c0bd"
+              },
+              {
+                "reference": "Observation/89ab7247-97c1-92a1-1886-bfa3bc46ea29"
+              },
+              {
+                "reference": "Observation/61c61cff-f6df-3be6-418b-b4e9b5ebe3b3"
+              },
+              {
+                "reference": "Observation/5d9d28be-4532-a982-aeb1-48dce24fabb5"
+              },
+              {
+                "reference": "Observation/52d2bb1f-1a60-80a2-fdf8-4293db1c5216"
+              },
+              {
+                "reference": "Observation/58285156-1767-d6c9-798d-59c462e4e8e8"
+              },
+              {
+                "reference": "Observation/5534bfbd-6db9-3eef-7fdd-f685cb6a94a2"
+              },
+              {
+                "reference": "Observation/588449f0-99fa-21bd-6cdc-76e1ad32826a"
+              },
+              {
+                "reference": "Observation/993c6afc-3f77-391a-01f6-91253dd44eaf"
+              },
+              {
+                "reference": "Observation/9b614b87-a526-15ea-97e2-ddbd4a6449eb"
+              },
+              {
+                "reference": "Observation/0aed045a-9246-f495-7751-07d1bc812f60"
+              },
+              {
+                "reference": "Observation/f9038d01-1249-42b3-0d71-88d55306b1e6"
+              },
+              {
+                "reference": "Observation/985fd9f6-7591-3b30-0928-f7ef4cf28c4b"
+              },
+              {
+                "reference": "Observation/7a4e70fe-2915-7d07-8233-19c4eb349c45"
+              }
+            ]
+          },
+          {
+            "id": "3cddb37e-cf33-8178-7614-2e1145d8766f",
+            "title": "ENCOUNTERS",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Date</th><th align=\"left\">Type</th><th align=\"left\">Provider</th><th align=\"left\">Location</th><th align=\"left\">Encounter Diagnosis</th></tr></thead><tbody><tr ID=\"d59232e13-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/28 - 2020/05/28</td><td>Imaging Report</td><td><list listType=\"unordered\"><item>Rayna Joseph </item><item>LinkLogic </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e98-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/27 - 2020/05/27</td><td>Phone Note</td><td><list listType=\"unordered\"><item>Alejandro Perez-Mastache </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e180-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/22 - 2020/05/22</td><td>Progress Note - Exp</td><td><list listType=\"unordered\"><item>Michelle Dotts </item></list></td><td>Komed Holman Health Center</td><td>UNK</td></tr><tr ID=\"d59232e262-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/14 - 2020/05/14</td><td>Office Visit</td><td><list listType=\"unordered\"><item>Rayna Joseph </item><item>Jacinda McCorkle </item></list></td><td>North and Kostner Health Center</td><td>UNK</td></tr><tr ID=\"d59232e359-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/13 - 2020/05/13</td><td>Chart Maintenance</td><td><list listType=\"unordered\"><item>Rayna Joseph </item></list></td><td>North and Kostner Health Center</td><td>UNK</td></tr><tr ID=\"d59232e439-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/13 - 2020/05/13</td><td>Phone Note</td><td><list listType=\"unordered\"><item>Rayna Joseph </item><item>Alejandro Perez-Mastache </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e528-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Lab Report</td><td><list listType=\"unordered\"><item>Rayna Joseph </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59232e616-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Lab Report</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59232e704-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/08 - 2020/05/08</td><td>NowPow</td><td><list listType=\"unordered\"><item>Care Coordination Desktop </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59232e792-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Lab Report</td><td><list listType=\"unordered\"><item>Rayna Joseph </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59232e880-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Lab Report</td><td><list listType=\"unordered\"><item>Rayna Joseph </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59232e968-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Append</td><td><list listType=\"unordered\"><item>Antonia Lowery </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1050-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Chart Maintenance</td><td><list listType=\"unordered\"><item>Rayna Joseph </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1130-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Append</td><td><list listType=\"unordered\"><item>Antonia Lowery </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1212-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Internal Correspondence</td><td><list listType=\"unordered\"><item>Rayna Joseph </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1294-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Office Visit</td><td><list listType=\"unordered\"><item>Rayna Joseph </item><item>Antonia Lowery </item><item>Evelyn Fuentes </item></list></td><td>Winfield Moody Health Center</td><td><list listType=\"unordered\"><item>Abortion, threatened</item></list></td></tr><tr ID=\"d59232e1399-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/09 - 2020/05/09</td><td>Phone Note</td><td><list listType=\"unordered\"><item>Abby Lankhorst </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1482-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/06 - 2020/05/06</td><td>Office Visit</td><td><list listType=\"unordered\"><item>Ebony Markin </item></list></td><td>North and Kostner Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1564-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/05 - 2020/05/05</td><td>Virtual Office Visit</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item><item>Antonia Lowery </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1661-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/05/05 - 2020/05/05</td><td>Phone Note</td><td><list listType=\"unordered\"><item>Tiffany Brown </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1743-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/28 - 2020/04/28</td><td>Phone Note</td><td><list listType=\"unordered\"><item>Ebony Markin </item></list></td><td>North and Kostner Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1825-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/28 - 2020/04/28</td><td>Chart Maintenance</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item></list></td><td>North and Kostner Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1907-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/27 - 2020/04/27</td><td>Chart Maintenance</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item></list></td><td>North and Kostner Health Center</td><td>UNK</td></tr><tr ID=\"d59232e1989-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Lab Report</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59232e2077-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Lab Report</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item><item>LinkLogic </item></list></td><td>Near North Health Service Corporation</td><td>UNK</td></tr><tr ID=\"d59232e2165-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Consent Forms</td><td><list listType=\"unordered\"><item>Registration NNHSC Desktop </item><item>LinkLogic </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2253-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Consent Forms</td><td><list listType=\"unordered\"><item>Registration NNHSC Desktop </item><item>LinkLogic </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2341-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Registration</td><td><list listType=\"unordered\"><item>Registration NNHSC Desktop </item><item>LinkLogic </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2430-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Progress Note - Exp</td><td><list listType=\"unordered\"><item>Michelle Dotts </item></list></td><td>Komed Holman Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2512-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Internal Correspondence</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2594-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Letter</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2676-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Letter</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2758-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Letter</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item></list></td><td>Winfield Moody Health Center</td><td>UNK</td></tr><tr ID=\"d59232e2840-1.2.840.113619.21.1.139060385287897942.10.1591243504975.971580\"><td>2020/04/23 - 2020/04/23</td><td>Office Visit</td><td><list listType=\"unordered\"><item>Claudia Whitaker </item><item>Antonia Lowery </item><item>Jessica Smith </item><item>Yolanda Freemon </item><item>Yvette Macias </item></list></td><td>Winfield Moody Health Center</td><td><list listType=\"unordered\"><item>FAMILY PLANNING</item><item>Vaginal spotting x1</item><item>BMI &lt; 20</item><item>Vaccine against influenza</item><item>Physical exam, routine</item><item>Screening Pap smear exam for cervical cancer</item><item>Postpartum examination</item><item>Vaginal discharge</item><item>IUD removal</item><item>Screening for pregnancy</item><item>Pregnancy care; other, unspecified trimester</item></list></td></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "46240-8",
+                  "system": "http://loinc.org",
+                  "display": "ENCOUNTERS"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "68852fb6-3114-1c8c-603d-e8ae399df138",
+            "title": "MEDICATIONS ADMINISTERED",
+            "text": {
+              "status": "generated",
+              "div": "No Known MEDICATIONS ADMINISTERED"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29549-3",
+                  "system": "http://loinc.org",
+                  "display": "MEDICATIONS ADMINISTERED"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationAdministration/5ca90f76-c313-3520-bc10-07f32ec262bd"
+              }
+            ]
+          },
+          {
+            "id": "4b06f105-51fb-28d2-1203-96fe09fae764",
+            "title": "HISTORY OF MEDICATION USE",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Medication</th><th align=\"left\">Status</th><th align=\"left\">Instructions</th><th align=\"left\">Dates</th><th align=\"left\">Provider</th><th align=\"left\">Indications</th><th align=\"left\">Comments</th></tr></thead><tbody><tr ID=\"d59226e18-1.2.840.113619.21.1.139060385287897942.10.1591243504975.912554\"><td ID=\"d59226e74\">PRENATAL VITAMINS 28-0.8 MG ORAL TABLET</td><td>active</td><td ID=\"d59226e77\">one tablet daily</td><td>2020/04/23 - 2021/04/23</td><td>Claudia Whitaker </td><td /><td /></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10160-0",
+                  "system": "http://loinc.org",
+                  "display": "HISTORY OF MEDICATION USE"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "d31d6cac-be4a-cb52-5f7c-df50515f6d48",
+            "title": "Problems",
+            "text": {
+              "status": "generated",
+              "div": "No Known Problems"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11450-4",
+                  "system": "http://loinc.org",
+                  "display": "Problem list - Reported"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "display": "Problem - Problem",
+                "reference": "Condition/86d378ec-bcf0-a6d1-8668-9745a9839340"
+              }
+            ]
+          },
+          {
+            "id": "2db7279a-5523-df36-d361-327ba541e805",
+            "title": "RESULTS",
+            "text": {
+              "status": "generated",
+              "div": "<table border=\"1\" width=\"100%\" xmlns=\"urn:hl7-org:v3\"><thead><tr><th align=\"left\">Date</th><th align=\"left\">Observation</th><th align=\"left\">Value</th><th align=\"left\">Provider</th><th align=\"left\">Reference Range</th><th align=\"left\">Interpretation</th><th align=\"left\">Location</th></tr></thead><tbody><tr ID=\"d59243e13-1.2.840.113619.21.1.139060385287897942.10.1591243505038.249107\"><td align=\"left\">2020/05/14</td><td>estimated date of confinement , mother of baby</td><td>12/12/2020</td><td>Rayna Joseph </td><td /><td /><td /></tr><tr ID=\"d59243e100-1.2.840.113619.21.1.139060385287897942.10.1591243505038.249107\"><td align=\"left\">2020/05/09</td><td>Neisseria gonorrhoeae DNA probe</td><td>Negative</td><td>LinkLogic </td><td>Negative</td><td /><td /></tr><tr ID=\"d59243e199-1.2.840.113619.21.1.139060385287897942.10.1591243505038.249107\"><td align=\"center\">\"</td><td>chlamydia DNA probe</td><td>Positive</td><td>LinkLogic </td><td>Negative</td><td>Abnormal</td><td /></tr><tr ID=\"d59243e304-1.2.840.113619.21.1.139060385287897942.10.1591243505038.249107\"><td align=\"left\">2020/04/23</td><td>rapid plasma reagin antibody, serum</td><td>Non Reactive</td><td>LinkLogic </td><td>Non Reactive</td><td /><td /></tr><tr ID=\"d59243e403-1.2.840.113619.21.1.139060385287897942.10.1591243505038.249107\"><td align=\"left\">2020/04/23</td><td>estimated date of confinement , mother of baby</td><td>12/12/2020</td><td>Claudia Whitaker </td><td /><td /><td /></tr></tbody></table>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "30954-2",
+                  "system": "http://loinc.org",
+                  "display": "RESULTS"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/950d6711-b9df-fcc5-b7ad-827a8f7f80e3",
+                "display": "estimated date of confinement , mother of baby"
+              },
+              {
+                "reference": "Observation/3e8b55a2-e5f5-87de-2752-8bc86959a42c",
+                "display": "Neisseria gonorrhoeae DNA probe"
+              },
+              {
+                "reference": "Observation/039674c6-b53a-5132-ed3e-86649bd3023c",
+                "display": "chlamydia DNA probe"
+              },
+              {
+                "reference": "Observation/65bd33bc-08f3-74af-4e10-08717c7ad8f5",
+                "display": "rapid plasma reagin antibody, serum"
+              },
+              {
+                "reference": "Observation/b00d17bb-d5fa-d79e-89e5-33bb039fe41a",
+                "display": "estimated date of confinement , mother of baby"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "encounter": {
+          "reference": "Encounter/bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a"
+        },
+        "custodian": {
+          "reference": "Organization/33cf6d5b-0363-ad99-7f26-ca0ee56e481a"
+        },
+        "author": [
+          {
+            "reference": "PractitionerRole/876b5cd3-71aa-6ae6-94a5-0413e5733a50"
+          },
+          {
+            "reference": "Device/48c756a8-18ae-5310-e8d7-2de6957e99b8"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Composition/1906844699671580"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a",
+        "status": "unknown",
+        "class": {
+          "code": "PHC2237",
+          "system": "2.16.840.1.114222.4.5.274",
+          "display": "External Encounter"
+        },
+        "identifier": [
+          {
+            "extension": {
+              "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+              "valueCode": "not-applicable"
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "location": [
+          {
+            "id": "2.16.840.1.113883.4.6",
+            "location": {
+              "reference": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db",
+              "display": "None"
+            },
+            "extension": [
+              {
+                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/sid/us-npi"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bdf4bd41-5f95-3434-7bad-c22f469af6db",
+      "resource": {
+        "resourceType": "Location",
+        "id": "bdf4bd41-5f95-3434-7bad-c22f469af6db",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "not-applicable"
+              }
+            }
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/sid/us-npi"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:42e178bb-0fd1-7329-a02e-c06b5c9782b8",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/42e178bb-0fd1-7329-a02e-c06b5c9782b8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e8d30303-e0a1-2dbb-bddb-d208c95aad77",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "e8d30303-e0a1-2dbb-bddb-d208c95aad77",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+            "valueString": "Responsible Party"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "not-applicable"
+              }
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "e8d30303-e0a1-2dbb-bddb-d208c95aad77",
+        "practitioner": {
+          "reference": "Practitioner/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
+        },
+        "organization": {
+          "reference": "Organization/43eaaf8e-f805-d37c-8e4e-77965eef87aa"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:43eaaf8e-f805-d37c-8e4e-77965eef87aa",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "43eaaf8e-f805-d37c-8e4e-77965eef87aa"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/43eaaf8e-f805-d37c-8e4e-77965eef87aa"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:33cf6d5b-0363-ad99-7f26-ca0ee56e481a",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "33cf6d5b-0363-ad99-7f26-ca0ee56e481a",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Organization/LO-1454411710000610",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "LO-1454411710000610",
+            "assigner": {
+              "display": "Organization Identifier"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Tax ID number"
+            }
+          }
+        ],
+        "name": "Winfield Moody Health Center",
+        "address": [
+          {
+            "line": [
+              "1276 N. Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "country": "USA",
+            "postalCode": "60610"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/33cf6d5b-0363-ad99-7f26-ca0ee56e481a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:406c3e36-d27a-041b-61a8-e29df69f50e1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "406c3e36-d27a-041b-61a8-e29df69f50e1",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1467041069000630",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "365",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Nurse Desk",
+            "given": [
+              "KH WH"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/406c3e36-d27a-041b-61a8-e29df69f50e1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:01fe444a-5df3-6915-447b-5b16fe2c6872",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "01fe444a-5df3-6915-447b-5b16fe2c6872",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Organization/DF-76",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "DF-76",
+            "assigner": {
+              "display": "Organization Identifier"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1821079088",
+            "assigner": {
+              "display": "National Provider Identifier"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Tax ID number"
+            }
+          }
+        ],
+        "name": "Winfield Moody Health Center",
+        "address": [
+          {
+            "line": [
+              "1276 N Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL ",
+            "postalCode": "60610     "
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073     ",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/01fe444a-5df3-6915-447b-5b16fe2c6872"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "876b5cd3-71aa-6ae6-94a5-0413e5733a50",
+        "organization": {
+          "reference": "Organization/01fe444a-5df3-6915-447b-5b16fe2c6872"
+        },
+        "practitioner": {
+          "reference": "Practitioner/406c3e36-d27a-041b-61a8-e29df69f50e1"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:48c756a8-18ae-5310-e8d7-2de6957e99b8",
+      "resource": {
+        "resourceType": "Device",
+        "id": "48c756a8-18ae-5310-e8d7-2de6957e99b8",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:1.2.840.113619.21.1.139060385287897942.11"
+          }
+        ],
+        "manufacturer": "12.3/9.12",
+        "version": [
+          {
+            "value": "GE Healthcare API Server"
+          }
+        ],
+        "property": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/device-category",
+                  "code": "software",
+                  "display": "software"
+                }
+              ]
+            }
+          }
+        ],
+        "owner": {
+          "reference": "Organization/33cf6d5b-0363-ad99-7f26-ca0ee56e481a"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Device/48c756a8-18ae-5310-e8d7-2de6957e99b8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1.1.1",
+            "value": "1457793358200610"
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1.1.2",
+            "value": "35987",
+            "assigner": {
+              "display": "GE EMR-CPS PatientId"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1.1",
+            "value": "089444",
+            "assigner": {
+              "display": "GE EMR-CPS PatientMRN"
+            }
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Patient11",
+            "given": [
+              "Sample"
+            ]
+          }
+        ],
+        "birthDate": "1991-11-01",
+        "deceasedBoolean": false,
+        "gender": "female",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2054-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Black or African American"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Black or African American"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2186-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "11 Sample Street",
+              "apt 2"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3129998888",
+            "use": "mobile"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5ca90f76-c313-3520-bc10-07f32ec262bd",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "5ca90f76-c313-3520-bc10-07f32ec262bd",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:1.2.840.113619.21.1.139060385287897942.10.1591243504940.816591"
+          }
+        ],
+        "status": "in-progress",
+        "effectivePeriod": {
+          "start": "1970-01-01T00:00:00",
+          "end": "2020-06-03T23:05:04.940-05:00"
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "medicationReference": {
+          "reference": "Medication/cfbe2a1a-c8da-ec09-57cb-0f4fdfc02412"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationAdministration/5ca90f76-c313-3520-bc10-07f32ec262bd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cfbe2a1a-c8da-ec09-57cb-0f4fdfc02412",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "cfbe2a1a-c8da-ec09-57cb-0f4fdfc02412",
+        "code": {
+          "coding": [
+            {
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm"
+            },
+            {
+              "code": "410942007",
+              "system": "http://snomed.info/sct",
+              "display": "drug or medication"
+            }
+          ]
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/cfbe2a1a-c8da-ec09-57cb-0f4fdfc02412"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3df93eb2-8575-bbe6-fdb3-30d0eb7d4184",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "3df93eb2-8575-bbe6-fdb3-30d0eb7d4184",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationStatement/1903277772962650",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          }
+        ],
+        "status": "active",
+        "dosage": [
+          {
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "value": 1,
+                  "unit": "{Tablet}"
+                }
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "medicationReference": {
+          "reference": "Medication/62af2fd5-5d4f-cde7-407e-174b1b2b5f07"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationStatement/3df93eb2-8575-bbe6-fdb3-30d0eb7d4184"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:62af2fd5-5d4f-cde7-407e-174b1b2b5f07",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "62af2fd5-5d4f-cde7-407e-174b1b2b5f07",
+        "code": {
+          "coding": [
+            {
+              "code": "177741",
+              "system": "2.16.840.1.113883.6.253",
+              "display": "PRENATAL VITAMINS (PRENATAL VIT-FE FUMARATE-FA) 28-0.8 MG TABS"
+            },
+            {
+              "code": "78512015000328",
+              "system": "2.16.840.1.113883.6.68"
+            },
+            {
+              "code": "26529",
+              "system": "1.2.840.113619.21.100.12.998"
+            },
+            {
+              "code": "4525",
+              "system": "1.2.840.113619.21.100.12.999"
+            },
+            {
+              "code": "00536408501",
+              "system": "2.16.840.1.113883.6.69"
+            }
+          ],
+          "text": "PRENATAL VITAMINS (PRENATAL VIT-FE FUMARATE-FA) 28-0.8 MG TABS"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Medication/62af2fd5-5d4f-cde7-407e-174b1b2b5f07"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2815ed45-acfa-99ce-89a7-c68c71c369a1",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "2815ed45-acfa-99ce-89a7-c68c71c369a1",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "MedicationOrder/1903277772962700",
+            "assigner": {
+              "display": " API Resource Identifier"
+            }
+          },
+          {
+            "system": "UNK",
+            "value": "3F6C4E77F76D465C90934B93DBE148B4",
+            "assigner": {
+              "display": "Unknown"
+            }
+          }
+        ],
+        "status": "completed",
+        "intent": "order",
+        "authoredOn": "2020-04-23T16:17:38.940-05:00",
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 11
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "medicationReference": {
+          "reference": "Medication/62af2fd5-5d4f-cde7-407e-174b1b2b5f07"
+        },
+        "requester": {
+          "reference": "Practitioner/f3b1f540-c19e-6a7e-903f-1c1fad3285ff"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "MedicationRequest/2815ed45-acfa-99ce-89a7-c68c71c369a1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f3b1f540-c19e-6a7e-903f-1c1fad3285ff",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "f3b1f540-c19e-6a7e-903f-1c1fad3285ff",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1836661042856240",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1636",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1528383197",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Whitaker",
+            "given": [
+              "Claudia"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60610"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/f3b1f540-c19e-6a7e-903f-1c1fad3285ff"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:86d378ec-bcf0-a6d1-8668-9745a9839340",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "86d378ec-bcf0-a6d1-8668-9745a9839340",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:1.2.840.113619.21.1.139060385287897942.10.1591243504975.948415"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "55607006",
+              "system": "http://snomed.info/sct",
+              "display": "Problem"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Condition/86d378ec-bcf0-a6d1-8668-9745a9839340"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:75a66658-558d-1d22-ea52-213c59a05f59",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "75a66658-558d-1d22-ea52-213c59a05f59",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905080279461470",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "30954-2",
+              "system": "http://loinc.org",
+              "display": "RESULTS"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "result": [
+          {
+            "reference": "Observation/950d6711-b9df-fcc5-b7ad-827a8f7f80e3"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/75a66658-558d-1d22-ea52-213c59a05f59"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:950d6711-b9df-fcc5-b7ad-827a8f7f80e3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "950d6711-b9df-fcc5-b7ad-827a8f7f80e3",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905080279461470",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "2683",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "EDC"
+            }
+          ],
+          "text": "estimated date of confinement , mother of baby"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueString": "12/12/2020",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/950d6711-b9df-fcc5-b7ad-827a8f7f80e3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e264c411-33af-35ad-b070-1ca947cd964f",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "e264c411-33af-35ad-b070-1ca947cd964f",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904966251112290",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "30954-2",
+              "system": "http://loinc.org",
+              "display": "RESULTS"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "result": [
+          {
+            "reference": "Observation/3e8b55a2-e5f5-87de-2752-8bc86959a42c"
+          },
+          {
+            "reference": "Observation/039674c6-b53a-5132-ed3e-86649bd3023c"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/e264c411-33af-35ad-b070-1ca947cd964f"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3e8b55a2-e5f5-87de-2752-8bc86959a42c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3e8b55a2-e5f5-87de-2752-8bc86959a42c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904966251112290",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "24111-7",
+              "system": "http://loinc.org",
+              "display": "Neisseria gonorrhoeae DNA [Presence] in Unspecified specimen by NAA with probe detection"
+            },
+            {
+              "code": "2719",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "GC DNA PROBE"
+            }
+          ],
+          "text": "Neisseria gonorrhoeae DNA probe"
+        },
+        "effectiveDateTime": "2020-05-09T10:09:00-05:00",
+        "valueString": "Negative",
+        "referenceRange": [
+          {
+            "text": "Negative"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/3e8b55a2-e5f5-87de-2752-8bc86959a42c"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:039674c6-b53a-5132-ed3e-86649bd3023c",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "039674c6-b53a-5132-ed3e-86649bd3023c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904966251112270",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "21613-5",
+              "system": "http://loinc.org",
+              "display": "Chlamydia trachomatis DNA [Presence] in Unspecified specimen by NAA with probe detection"
+            },
+            {
+              "code": "14722",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "CHLAMYD DNA"
+            }
+          ],
+          "text": "chlamydia DNA probe"
+        },
+        "effectiveDateTime": "2020-05-09T10:09:00-05:00",
+        "valueString": "Positive",
+        "referenceRange": [
+          {
+            "text": "Negative"
+          }
+        ],
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "A",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "display": "Abnormal"
+              }
+            ],
+            "text": "Abnormal"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/039674c6-b53a-5132-ed3e-86649bd3023c"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1dbdefcb-03fa-81ef-37aa-928e0c369720",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "1dbdefcb-03fa-81ef-37aa-928e0c369720",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903423081246630",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "30954-2",
+              "system": "http://loinc.org",
+              "display": "RESULTS"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "result": [
+          {
+            "reference": "Observation/65bd33bc-08f3-74af-4e10-08717c7ad8f5"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/1dbdefcb-03fa-81ef-37aa-928e0c369720"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:65bd33bc-08f3-74af-4e10-08717c7ad8f5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "65bd33bc-08f3-74af-4e10-08717c7ad8f5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903423081246630",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "5291-0",
+              "system": "http://loinc.org",
+              "display": "Reagin Ab [Units/volume] in Serum by VDRL"
+            },
+            {
+              "code": "308",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "RPR"
+            }
+          ],
+          "text": "rapid plasma reagin antibody, serum"
+        },
+        "effectiveDateTime": "2020-04-23T13:56:00-05:00",
+        "valueString": "Non Reactive",
+        "referenceRange": [
+          {
+            "text": "Non Reactive"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/65bd33bc-08f3-74af-4e10-08717c7ad8f5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d74325bc-4265-401c-d8ea-776238e69b06",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "d74325bc-4265-401c-d8ea-776238e69b06",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267452476830",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "30954-2",
+              "system": "http://loinc.org",
+              "display": "RESULTS"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        },
+        "result": [
+          {
+            "reference": "Observation/b00d17bb-d5fa-d79e-89e5-33bb039fe41a"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DiagnosticReport/d74325bc-4265-401c-d8ea-776238e69b06"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b00d17bb-d5fa-d79e-89e5-33bb039fe41a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b00d17bb-d5fa-d79e-89e5-33bb039fe41a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267452476830",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "2683",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "EDC"
+            }
+          ],
+          "text": "estimated date of confinement , mother of baby"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "12/12/2020",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/b00d17bb-d5fa-d79e-89e5-33bb039fe41a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5df1f4fc-c9f1-bb5a-ba86-49c9638f6067",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5df1f4fc-c9f1-bb5a-ba86-49c9638f6067",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905078590421080",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "502889",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "ASSMTHLTLTRY"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "assessment of health literacy (NCQA PCMH 2014 Standards, 3C10)"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueString": "Adequate",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/5df1f4fc-c9f1-bb5a-ba86-49c9638f6067"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:defb2256-290d-55ee-c794-bf17c1150a2b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "defb2256-290d-55ee-c794-bf17c1150a2b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905078572420540",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "418494",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "CHANCEPREGN"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "is there any chance that you could be pregnant?"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueString": "Yes",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/defb2256-290d-55ee-c794-bf17c1150a2b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:231ad560-ccbb-eec6-5c7f-9e537cba6489",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "231ad560-ccbb-eec6-5c7f-9e537cba6489",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905078572420500",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "549318",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "VAPE_USE"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueString": "No",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/231ad560-ccbb-eec6-5c7f-9e537cba6489"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8243a5a2-fe3b-f050-ee20-206d2964a1a1",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "8243a5a2-fe3b-f050-ee20-206d2964a1a1",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905078572420480",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "72166-2",
+              "system": "http://loinc.org",
+              "display": "Tobacco smoking status NHIS"
+            },
+            {
+              "code": "11366-2",
+              "system": "http://loinc.org",
+              "display": "History of tobacco use Narrative"
+            },
+            {
+              "code": "229819007",
+              "system": "http://snomed.info/sct",
+              "display": "Tobacco use and exposure"
+            },
+            {
+              "code": "300015",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SMOK STATUS"
+            }
+          ],
+          "text": "smoking status"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "266919005",
+              "system": "http://snomed.info/sct",
+              "display": "Never smoked tobacco (finding)"
+            },
+            {
+              "code": "72166-2",
+              "system": "http://loinc.org",
+              "display": "Tobacco smoking status NHIS"
+            }
+          ],
+          "text": "never smoker"
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/8243a5a2-fe3b-f050-ee20-206d2964a1a1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:219a0488-4dc1-4a15-5160-fd08e1803447",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "219a0488-4dc1-4a15-5160-fd08e1803447",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905078529419500",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "304549008",
+              "system": "http://snomed.info/sct",
+              "display": "Giving encouragement to exercise (procedure)"
+            },
+            {
+              "code": "156247",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "EXERPRG REF"
+            }
+          ],
+          "text": "Exercise Program Referral"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/219a0488-4dc1-4a15-5160-fd08e1803447"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:223aae91-f8e2-559c-2715-3324a3c86b0a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "223aae91-f8e2-559c-2715-3324a3c86b0a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905078529419480",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "156251",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "WGTMGMTCOUNS"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "Weight Management Counseling Provided"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/223aae91-f8e2-559c-2715-3324a3c86b0a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3c5eb89f-28de-7100-cb63-bad77f0c3d5e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3c5eb89f-28de-7100-cb63-bad77f0c3d5e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1905078529419460",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "241375",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "NUTRITIONIVN"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "Nutrition intervention"
+        },
+        "effectiveDateTime": "2020-05-14T12:27:51-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/3c5eb89f-28de-7100-cb63-bad77f0c3d5e"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:892a4a1e-cf6b-a945-841b-00f609f900f2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "892a4a1e-cf6b-a945-841b-00f609f900f2",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904978278204480",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "360265",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "TIME OF CALL"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "time of call"
+        },
+        "effectiveDateTime": "2020-05-13T08:37:58-05:00",
+        "valueString": "05/13/2020 8:38 AM",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/892a4a1e-cf6b-a945-841b-00f609f900f2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a5c41c89-29c3-b3bc-82d3-fd4c1ed17d70",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "a5c41c89-29c3-b3bc-82d3-fd4c1ed17d70",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904834935330780",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "4768",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SH REVIEWED"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "social history reviewed E&M"
+        },
+        "effectiveDateTime": "2020-05-06T13:57:32-05:00",
+        "valueString": "reviewed today",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/a5c41c89-29c3-b3bc-82d3-fd4c1ed17d70"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2bcce242-2422-d73d-1235-99b56efcd950",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2bcce242-2422-d73d-1235-99b56efcd950",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904834935330760",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "1056",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SOCIAL HX"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "social history E&M"
+        },
+        "effectiveDateTime": "2020-05-06T13:57:32-05:00",
+        "valueString": "Partnered since 2010. Not homeless. Born in USA. Birth City: chicago. Birth State: IL. Lives with boyfriend, and 3 children.Employed full-time. cna. Highest education level: high school graduate. Gender of partner(s): Male. ",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/2bcce242-2422-d73d-1235-99b56efcd950"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c6f1c36c-a25e-8f1d-a266-42a5eef017cf",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c6f1c36c-a25e-8f1d-a266-42a5eef017cf",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904392703077910",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8757",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SUPPORT SYST"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "patient's current support system"
+        },
+        "effectiveDateTime": "2020-05-06T13:57:32-05:00",
+        "valueString": "family",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/c6f1c36c-a25e-8f1d-a266-42a5eef017cf"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:949958ff-3356-60e7-88c5-c32046b02f4d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "949958ff-3356-60e7-88c5-c32046b02f4d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904639065346270",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "502889",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "ASSMTHLTLTRY"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "assessment of health literacy (NCQA PCMH 2014 Standards, 3C10)"
+        },
+        "effectiveDateTime": "2020-05-09T10:21:30-05:00",
+        "valueString": "Adequate",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/949958ff-3356-60e7-88c5-c32046b02f4d"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:22597640-3af5-7c76-76cf-4f8977033bd3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "22597640-3af5-7c76-76cf-4f8977033bd3",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904639037345280",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "418494",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "CHANCEPREGN"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "is there any chance that you could be pregnant?"
+        },
+        "effectiveDateTime": "2020-05-09T10:21:30-05:00",
+        "valueString": "Yes",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/22597640-3af5-7c76-76cf-4f8977033bd3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b6f33c0b-bebb-f4b0-f95e-345865008037",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "b6f33c0b-bebb-f4b0-f95e-345865008037",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904639037345240",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "549318",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "VAPE_USE"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked"
+        },
+        "effectiveDateTime": "2020-05-09T10:21:30-05:00",
+        "valueString": "No",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/b6f33c0b-bebb-f4b0-f95e-345865008037"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:198ad94d-4b0d-e6e2-bdbd-9fda78829b2f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "198ad94d-4b0d-e6e2-bdbd-9fda78829b2f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904639037345220",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "72166-2",
+              "system": "http://loinc.org",
+              "display": "Tobacco smoking status NHIS"
+            },
+            {
+              "code": "11366-2",
+              "system": "http://loinc.org",
+              "display": "History of tobacco use Narrative"
+            },
+            {
+              "code": "229819007",
+              "system": "http://snomed.info/sct",
+              "display": "Tobacco use and exposure"
+            },
+            {
+              "code": "300015",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SMOK STATUS"
+            }
+          ],
+          "text": "smoking status"
+        },
+        "effectiveDateTime": "2020-05-09T10:21:30-05:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "266919005",
+              "system": "http://snomed.info/sct",
+              "display": "Never smoked tobacco (finding)"
+            },
+            {
+              "code": "72166-2",
+              "system": "http://loinc.org",
+              "display": "Tobacco smoking status NHIS"
+            }
+          ],
+          "text": "never smoker"
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/198ad94d-4b0d-e6e2-bdbd-9fda78829b2f"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:76cf1132-2b5f-eb85-3bf9-7553177ca469",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "76cf1132-2b5f-eb85-3bf9-7553177ca469",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904638961343220",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "304549008",
+              "system": "http://snomed.info/sct",
+              "display": "Giving encouragement to exercise (procedure)"
+            },
+            {
+              "code": "156247",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "EXERPRG REF"
+            }
+          ],
+          "text": "Exercise Program Referral"
+        },
+        "effectiveDateTime": "2020-05-09T10:21:30-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/76cf1132-2b5f-eb85-3bf9-7553177ca469"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:52b9d45a-a872-84a9-0b9c-05d0db1ac8e6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "52b9d45a-a872-84a9-0b9c-05d0db1ac8e6",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904638961343200",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "156251",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "WGTMGMTCOUNS"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "Weight Management Counseling Provided"
+        },
+        "effectiveDateTime": "2020-05-09T10:21:30-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/52b9d45a-a872-84a9-0b9c-05d0db1ac8e6"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:47de74c4-fba6-84b2-5cc2-d1c0a08f3299",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "47de74c4-fba6-84b2-5cc2-d1c0a08f3299",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904638961343180",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "241375",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "NUTRITIONIVN"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "Nutrition intervention"
+        },
+        "effectiveDateTime": "2020-05-09T10:21:30-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/47de74c4-fba6-84b2-5cc2-d1c0a08f3299"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:08293394-84ec-cc8d-98ae-9dd7a5313dee",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "08293394-84ec-cc8d-98ae-9dd7a5313dee",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904328611848430",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "1056",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SOCIAL HX"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "social history E&M"
+        },
+        "effectiveDateTime": "2020-05-05T20:06:26-05:00",
+        "valueString": "Partnered since 2010. Spouse/Partner/Significant Other: Corey. Not homeless. Born in USA. Birth City: chicago. Birth State: IL. Lives with boyfriend, and 2 children.Not employed. cna. Highest education level: high school graduate. Sex at birth: Female. Sexual orientation: Heterosexual. Gender identity: Female. Gender of partner(s): Male. Sexually Active: Yes. ",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/08293394-84ec-cc8d-98ae-9dd7a5313dee"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:474a2b1a-8673-a24d-ef54-46c125731988",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "474a2b1a-8673-a24d-ef54-46c125731988",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1904328611848410",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "4768",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SH REVIEWED"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "social history reviewed E&M"
+        },
+        "effectiveDateTime": "2020-05-05T20:06:26-05:00",
+        "valueString": "reviewed today",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/474a2b1a-8673-a24d-ef54-46c125731988"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2f732a20-fcae-e4b6-2de1-a8143f16c0bd",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2f732a20-fcae-e4b6-2de1-a8143f16c0bd",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903268664533750",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "1056",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SOCIAL HX"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "social history E&M"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Partnered since 2010. Spouse/Partner/Significant Other: Corey. Not homeless. Born in USA. Birth City: chicago. Birth State: IL. Lives with boyfriend, and 2 children.Not employed. cna. Highest education level: high school graduate. Sex at birth: Female. Sexual orientation: Heterosexual. Gender identity: Female. Gender of partner(s): Male. Sexually Active: Yes. ",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/2f732a20-fcae-e4b6-2de1-a8143f16c0bd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:89ab7247-97c1-92a1-1886-bfa3bc46ea29",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "89ab7247-97c1-92a1-1886-bfa3bc46ea29",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903268421522260",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "4768",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SH REVIEWED"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "social history reviewed E&M"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "reviewed today",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/89ab7247-97c1-92a1-1886-bfa3bc46ea29"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:61c61cff-f6df-3be6-418b-b4e9b5ebe3b3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "61c61cff-f6df-3be6-418b-b4e9b5ebe3b3",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903268421522240",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "82144",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "ENV HX"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "environmental history"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Reports exposure to: HIV/STIs.Denies exposure to: rubella, varicella, PKU, encephalitis, occupational chemicals, radiation, toxoplasma, tuberculosis.Other: Has cat; daughter changing litter box; hx Chlamydia 2017;.",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/61c61cff-f6df-3be6-418b-b4e9b5ebe3b3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5d9d28be-4532-a982-aeb1-48dce24fabb5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5d9d28be-4532-a982-aeb1-48dce24fabb5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903268421522120",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "363908000",
+              "system": "http://snomed.info/sct",
+              "display": "Details of drug misuse behavior"
+            },
+            {
+              "code": "2315",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "DRUG USE"
+            }
+          ],
+          "text": "drug use, illicit"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Prior to Pregnancy",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/5d9d28be-4532-a982-aeb1-48dce24fabb5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:52d2bb1f-1a60-80a2-fdf8-4293db1c5216",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "52d2bb1f-1a60-80a2-fdf8-4293db1c5216",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903268275516420",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "72109-2",
+              "system": "http://loinc.org",
+              "display": "Alcohol use"
+            },
+            {
+              "code": "12882",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "ETOH USE"
+            }
+          ],
+          "text": "alcohol use"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Prior to Pregnancy",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/52d2bb1f-1a60-80a2-fdf8-4293db1c5216"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:58285156-1767-d6c9-798d-59c462e4e8e8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "58285156-1767-d6c9-798d-59c462e4e8e8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903268275516360",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "17171",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "HM/FM ASSESS"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "home/family situation, assessment"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Lives with boyfriend, and 3 children.",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/58285156-1767-d6c9-798d-59c462e4e8e8"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5534bfbd-6db9-3eef-7fdd-f685cb6a94a2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5534bfbd-6db9-3eef-7fdd-f685cb6a94a2",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267533482050",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "502889",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "ASSMTHLTLTRY"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "assessment of health literacy (NCQA PCMH 2014 Standards, 3C10)"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Adequate",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/5534bfbd-6db9-3eef-7fdd-f685cb6a94a2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:588449f0-99fa-21bd-6cdc-76e1ad32826a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "588449f0-99fa-21bd-6cdc-76e1ad32826a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267496480020",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "418494",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "CHANCEPREGN"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "is there any chance that you could be pregnant?"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Yes",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/588449f0-99fa-21bd-6cdc-76e1ad32826a"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:993c6afc-3f77-391a-01f6-91253dd44eaf",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "993c6afc-3f77-391a-01f6-91253dd44eaf",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267496480000",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "72166-2",
+              "system": "http://loinc.org",
+              "display": "Tobacco smoking status NHIS"
+            },
+            {
+              "code": "11366-2",
+              "system": "http://loinc.org",
+              "display": "History of tobacco use Narrative"
+            },
+            {
+              "code": "229819007",
+              "system": "http://snomed.info/sct",
+              "display": "Tobacco use and exposure"
+            },
+            {
+              "code": "300015",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "SMOK STATUS"
+            }
+          ],
+          "text": "smoking status"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "266919005",
+              "system": "http://snomed.info/sct",
+              "display": "Never smoked tobacco (finding)"
+            },
+            {
+              "code": "72166-2",
+              "system": "http://loinc.org",
+              "display": "Tobacco smoking status NHIS"
+            }
+          ],
+          "text": "never smoker"
+        },
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/993c6afc-3f77-391a-01f6-91253dd44eaf"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9b614b87-a526-15ea-97e2-ddbd4a6449eb",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "9b614b87-a526-15ea-97e2-ddbd4a6449eb",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267496479980",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "229819007",
+              "system": "http://snomed.info/sct",
+              "display": "Tobacco use and exposure"
+            },
+            {
+              "code": "2739",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "PAS CIG SMOK"
+            }
+          ],
+          "text": "passive cigarette smoke exposure"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "Yes",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/9b614b87-a526-15ea-97e2-ddbd4a6449eb"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0aed045a-9246-f495-7751-07d1bc812f60",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0aed045a-9246-f495-7751-07d1bc812f60",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267496479960",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "549318",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "VAPE_USE"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "if the patient is using/has used a vaping item, Current, Former, Never Used, Not asked"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "No",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/0aed045a-9246-f495-7751-07d1bc812f60"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f9038d01-1249-42b3-0d71-88d55306b1e6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "f9038d01-1249-42b3-0d71-88d55306b1e6",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267447475930",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "304549008",
+              "system": "http://snomed.info/sct",
+              "display": "Giving encouragement to exercise (procedure)"
+            },
+            {
+              "code": "156247",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "EXERPRG REF"
+            }
+          ],
+          "text": "Exercise Program Referral"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/f9038d01-1249-42b3-0d71-88d55306b1e6"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:985fd9f6-7591-3b30-0928-f7ef4cf28c4b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "985fd9f6-7591-3b30-0928-f7ef4cf28c4b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267447475910",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "156251",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "WGTMGMTCOUNS"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "Weight Management Counseling Provided"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/985fd9f6-7591-3b30-0928-f7ef4cf28c4b"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7a4e70fe-2915-7d07-8233-19c4eb349c45",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7a4e70fe-2915-7d07-8233-19c4eb349c45",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Observation/1903267447475890",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "241375",
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942",
+              "display": "NUTRITIONIVN"
+            },
+            {
+              "system": "1.2.840.113619.21.100.12.1053.139060385287897942"
+            }
+          ],
+          "text": "Nutrition intervention"
+        },
+        "effectiveDateTime": "2020-04-23T11:55:48-05:00",
+        "valueString": "T",
+        "subject": {
+          "reference": "Patient/42ecc2ca-0aa2-40e6-1c0c-8ae5a61f5737"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/7a4e70fe-2915-7d07-8233-19c4eb349c45"
+      }
+    }
+  ]
+}
+}

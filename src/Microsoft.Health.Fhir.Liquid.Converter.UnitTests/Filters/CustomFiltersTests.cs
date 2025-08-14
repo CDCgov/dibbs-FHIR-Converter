@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests;
@@ -439,5 +440,18 @@ public class CustomFilterTests
       "test.path",
       "hi");
     Assert.Equal(new object[] { new { test = new { path = "hi" } } }, actual);
+  }
+
+  [Fact]
+  public void NestedWhere_MatchIncludingValueList_ReturnsMatch()
+  {
+    var actual = Filters.NestedWhere(
+      new object[] {
+        new { test = new object[] { new { path = "hi" } , new { path = "nope"} } },
+        new { test = "bye" }
+      },
+      "test.path",
+      "hi");
+    Assert.Equal(1, actual.Count());
   }
 }

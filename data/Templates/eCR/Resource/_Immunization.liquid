@@ -34,18 +34,15 @@
 
         {% assign consumables = immunization.consumable | to_array -%}
         {% for consumable in consumables -%}
-            {% assign manufacturedProducts = consumable.manufacturedProduct | to_array -%}
-            {% for manufacturedProduct in manufacturedProducts -%}
-                {% if manufacturedProduct.templateId.root == "2.16.840.1.113883.10.20.22.4.54" -%}
-                    "vaccineCode":{ {% include 'DataType/CodeableConcept' CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%} },
-                    "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
-                    {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}
-                    {% assign fullManufacturerId = manufacturerId | prepend: 'Organization/' -%}
-                    "manufacturer": {
-                        "reference": "{{ fullManufacturerId }}",
-                    },
-                {% endif -%}
-            {% endfor -%}
+            {% comment %} only one per spec {% endcomment %}
+            {% assign manufacturedProduct = consumable.manufacturedProduct | to_array | nested_where: 'templateId.root', '2.16.840.1.113883.10.20.22.4.54' | first %}
+            "vaccineCode":{ {% include 'DataType/CodeableConcept' CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%} },
+            "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
+            {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}
+            {% assign fullManufacturerId = manufacturerId | prepend: 'Organization/' -%}
+            "manufacturer": {
+                "reference": "{{ fullManufacturerId }}",
+            },
         {% endfor -%}
 
         {% if immunization.statusCode.code -%}

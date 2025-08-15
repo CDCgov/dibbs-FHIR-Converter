@@ -124,22 +124,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
             string uuid_pattern = @"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
             string oid_pattern = @"^([0-2])((\.0)|(\.[1-9][0-9]*))*$";
-            string output = "urn:";
 
             if (Regex.IsMatch(input, uuid_pattern, RegexOptions.IgnoreCase))
             {
-                output = output + "uuid:" + input.ToLower();
+                return "urn:uuid:" + input.ToLower();
             }
             else if (Regex.IsMatch(input, oid_pattern, RegexOptions.IgnoreCase))
             {
-                output = output + "oid:" + input;
-            }
-            else
-            {
-                output = input;
+                return "urn:oid:" + input;
             }
 
-            return output;
+            return input;
         }
 
         /// <summary>

@@ -1,11 +1,13 @@
 using Dibbs.FhirConverterApi.Processors;
 
+namespace Dibbs.FhirConverterApi.UnitTests.Processors;
+
 public class Hl7ProcessorTest
 {
   [Fact]
   public void StandardizeHl7DateTimes_ShouldStandardizeDateTimes_WhenTimezoneIsIncluded()
   {
-    var timezoneInput = File.ReadAllText("../../../TestData/FileSingleMessageLongTZ.hl7");
+    var timezoneInput = File.ReadAllText("../../../../../data/SampleData/Hl7v2/FileSingleMessageLongTZ.hl7");
     var timezoneExpectedOutput = "MSH|^~\\&|WIR11.3.2^^|WIR^^||WIRPH^^|20200514010000-0400||VXU^V04"
          + "|2020051411020600|P^|2.4^^|||ER\n"
          + "PID|||3054790^^^^SR^~^^^^PI^||ZTEST^PEDIARIX^^^^^^|HEPB^DTAP^^^^^^"
@@ -22,7 +24,7 @@ public class Hl7ProcessorTest
   [Fact]
   public void StandardizeHl7DateTimes_ShouldShortenDatetimes_WhenTheyAreTooLong()
   {
-    var longDateInput = File.ReadAllText("../../../TestData/FileSingleMessageLongDate.hl7");
+    var longDateInput = File.ReadAllText("../../../../../data/SampleData/Hl7v2/FileSingleMessageLongDate.hl7");
     var longDateExpectedOutput = "MSH|^~\\&|WIR11.3.2^^|WIR^^||WIRPH^^|20200514010000||VXU^V04"
          + "|2020051411020600|P^|2.4^^|||ER\n"
          + "PID|||3054790^^^^SR^~^^^^PI^||ZTEST^PEDIARIX^^^^^^|HEPB^DTAP^^^^^^"
@@ -39,7 +41,7 @@ public class Hl7ProcessorTest
   [Fact]
   public void StandardizeHl7DateTimes_ShouldReturnInputMessage_WhenInputIsValid()
   {
-    var invalidSegmentsInput = File.ReadAllText("../../../TestData/FileSingleMessageInvalidSegments.hl7");
+    var invalidSegmentsInput = File.ReadAllText("../../../../../data/SampleData/Hl7v2/FileSingleMessageInvalidSegments.hl7");
     var invalidSegmentsExpectedOutput = "AAA|^~\\&|WIR11.3.2^^|WIR^^||WIRPH^^|2020051401000000||ADT^A31|"
          + "2020051411020600|P^|2.4^^|||ER\n"
          + "BBB|||3054790^^^^SR^~^^^^PI^||ZTEST^PEDIARIX^^^^^^|HEPB^DTAP^^^^^^"

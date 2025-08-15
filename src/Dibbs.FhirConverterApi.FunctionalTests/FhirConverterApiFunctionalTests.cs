@@ -4,6 +4,8 @@ using Dibbs.FhirConverterApi.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Snapshooter.Xunit;
 
+namespace Dibbs.FhirConverterApi.FunctionalTests;
+
 public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly HttpClient _client;
@@ -49,7 +51,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         var jsonResponse = await response.Content.ReadAsStringAsync();
         Assert.NotNull(jsonResponse);
 
-        Snapshot.Match(jsonResponse, CommonIgnoredFields);
+        Snapshot.Match(jsonResponse);
     }
 
     [Fact]
@@ -70,7 +72,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
 
         File.WriteAllText("actual.json", jsonResponse);
 
-        Snapshot.Match(jsonResponse, CommonIgnoredFields);
+        Snapshot.Match(jsonResponse);
     }
 
     [Fact]
@@ -179,16 +181,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.NotNull(jsonResponse);
 
         // Ignore provenance div because of generated on timestamp
-        Snapshot.Match(jsonResponse, matchOptions => CommonIgnoredFields(matchOptions)
-                    .IgnoreField("response.FhirResource.entry[1].resource.text.div"));
-    }
-
-    private static Snapshooter.MatchOptions CommonIgnoredFields(Snapshooter.MatchOptions matchOptions)
-    {
-        return matchOptions
-                    .IgnoreAllFields("id")
-                    .IgnoreAllFields("fullUrl")
-                    .IgnoreAllFields("reference")
-                    .IgnoreField("response.FhirResource.entry[*].request.url");
+        Snapshot.Match(jsonResponse, matchOptions => matchOptions.IgnoreField("response.FhirResource.entry[1].resource.text.div"));
     }
 }

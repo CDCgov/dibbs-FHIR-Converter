@@ -8,7 +8,7 @@ public class FhirProcessor
 {
     /// <summary>
     ///  Makes final changes to FHIR bundle before returning to caller.
-    ///  Replaces Patient resource IDs and adds source info to all resources.
+    ///  Adds source info to all resources.
     /// </summary>
     /// <param name="input">The FHIR bundle as a JSON string.</param>
     /// <param name="inputType">The original type of the source data that was converted.</param>
@@ -18,18 +18,6 @@ public class FhirProcessor
     public static string FhirBundlePostProcessing(string input, string inputType)
     {
         var bundleJson = JsonNode.Parse(input)!;
-        var oldId = string.Empty;
-        var newId = Guid.NewGuid().ToString();
-
-        foreach (var entry in (bundleJson["entry"] as JsonArray) ?? [])
-        {
-            if ((string)entry!["resource"]!["resourceType"]! == "Patient")
-            {
-                oldId = (string)entry["resource"]!["id"]!;
-                entry["resource"]!["id"] = newId;
-                break;
-            }
-        }
 
         bundleJson = AddDataSourceToBundle(bundleJson, inputType);
         var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}");
@@ -42,8 +30,6 @@ public class FhirProcessor
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         });
 
-        // update references to the patient ID
-        resultString = resultString.Replace(oldId, newId);
         return resultString;
     }
 

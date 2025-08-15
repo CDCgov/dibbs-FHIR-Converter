@@ -243,60 +243,10 @@
                   ]
                 },
                 "mode": "snapshot"
-              },
-              {
-                "id": "d62f4d09-f06d-5033-f372-01683abba2c8",
-                "title": "Reportability Response Information Section",
-                "text": {
-                  "status": "generated",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Reportability Response Information Section</div>"
-                },
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
-                    "valueCodeableConcept": {
-                      "text": "official",
-                      "coding": [
-                        {
-                          "code": "88085-6",
-                          "system": "http://loinc.org",
-                          "display": "Reportability response report Document Public health"
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
-                    "extension": [
-                      {
-                        "url": "eICRProcessingStatus",
-                        "valueReference": {
-                          "reference": "Observation/4b4065d5-b4e8-12e1-baeb-f148467d0808",
-                          "display": "eICR processed"
-                        }
-                      }
-                    ]
-                  }
-                ],
-                "code": {
-                  "coding": [
-                    {
-                      "code": "88085-6",
-                      "system": "http://loinc.org",
-                      "display": "Reportability response report Document Public health"
-                    }
-                  ]
-                },
-                "entry": [
-                  {
-                    "display": "Relevant Reportable Condition Observation - Zika virus disease (disorder)",
-                    "reference": "Observation/a054d401-7b23-4b15-bc28-c889c156ba6a"
-                  }
-                ]
               }
             ],
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             },
             "encounter": {
               "reference": "Encounter/3fef2f23-d5a0-bafd-3761-83a4c317d3ed"
@@ -327,7 +277,7 @@
               "display": "External Encounter"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             },
             "location": [
               {
@@ -450,144 +400,6 @@
           "request": {
             "method": "PUT",
             "url": "Organization/ba7129ae-138e-3bb4-f774-273d526e4b75"
-          }
-        },
-        {
-          "fullUrl": "urn:uuid:4b4065d5-b4e8-12e1-baeb-f148467d0808",
-          "resource": {
-            "resourceType": "Observation",
-            "id": "4b4065d5-b4e8-12e1-baeb-f148467d0808",
-            "meta": {
-              "profile": [
-                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation"
-              ],
-              "source": "ecr"
-            },
-            "identifier": [
-              {
-                "system": "urn:ietf:rfc:3986",
-                "value": "urn:uuid:39d966b9-8a3a-4024-93d8-138e97d5898a"
-              }
-            ],
-            "status": "final",
-            "code": {
-              "coding": [
-                {
-                  "code": "RRVS19",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
-                  "display": "eICR processed"
-                }
-              ]
-            }
-          },
-          "request": {
-            "method": "PUT",
-            "url": "Observation/4b4065d5-b4e8-12e1-baeb-f148467d0808"
-          }
-        },
-        {
-          "fullUrl": "urn:uuid:79a37dee-d5a9-30a4-66f6-efce5a523b8e",
-          "resource": {
-            "resourceType": "Organization",
-            "id": "79a37dee-d5a9-30a4-66f6-efce5a523b8e",
-            "meta": {
-              "profile": [
-                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"
-              ],
-              "source": "ecr"
-            },
-            "active": true,
-            "type": [
-              {
-                "coding": [
-                  {
-                    "system": "urn:oid:2.16.840.1.114222.4.5.232",
-                    "code": "RR7",
-                    "display": "Routing Entity"
-                  }
-                ]
-              }
-            ],
-            "name": "Coruscant Department of Health",
-            "address": [
-              {
-                "city": "Macrodata District",
-                "state": "Galactic City",
-                "country": "Coruscant",
-                "postalCode": "GC-50",
-                "district": "Administrative Core"
-              }
-            ],
-            "telecom": [
-              {
-                "system": "phone",
-                "value": "+1-555-555-3555",
-                "use": "work"
-              }
-            ]
-          },
-          "request": {
-            "method": "PUT",
-            "url": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e"
-          }
-        },
-        {
-          "fullUrl": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a",
-          "resource": {
-            "resourceType": "Observation",
-            "id": "a054d401-7b23-4b15-bc28-c889c156ba6a",
-            "meta": {
-              "profile": [
-                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
-              ],
-              "source": "ecr"
-            },
-            "identifier": [
-              {
-                "system": "urn:ietf:rfc:3986",
-                "value": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a"
-              }
-            ],
-            "status": "final",
-            "code": {
-              "coding": [
-                {
-                  "code": "64572001",
-                  "display": "Condition",
-                  "system": "http://snomed.info/sct"
-                },
-                {
-                  "code": "75323-6",
-                  "display": "Condition",
-                  "system": "http://loinc.org"
-                }
-              ]
-            },
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "code": "3928002",
-                  "system": "http://snomed.info/sct",
-                  "display": "Zika virus disease (disorder)"
-                }
-              ]
-            },
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension",
-                "valueString": "Rule used in                                                                reportability determination"
-              }
-            ],
-            "performer": [
-              {
-                "reference": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e",
-                "display": "Coruscant Department of Health"
-              }
-            ]
-          },
-          "request": {
-            "method": "PUT",
-            "url": "Observation/a054d401-7b23-4b15-bc28-c889c156ba6a"
           }
         },
         {
@@ -714,10 +526,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:a8db50f9-60d9-4a82-a52c-cfb166dd7e43",
+          "fullUrl": "urn:uuid:5812ebbf-0c54-644a-3d79-739f956806de",
           "resource": {
             "resourceType": "Patient",
-            "id": "a8db50f9-60d9-4a82-a52c-cfb166dd7e43",
+            "id": "5812ebbf-0c54-644a-3d79-739f956806de",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
@@ -863,7 +675,7 @@
           },
           "request": {
             "method": "PUT",
-            "url": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+            "url": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
           }
         },
         {
@@ -892,7 +704,7 @@
               "end": "2025-02-25"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             },
             "result": [
               {
@@ -967,7 +779,7 @@
               }
             ],
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1022,7 +834,7 @@
             },
             "valueString": "Jedi High Council Member, Jedi Temple, Temple District, Galactic City, Coruscant",
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1118,7 +930,7 @@
               "unit": "mm[Hg]"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1169,7 +981,7 @@
               "unit": "mm[Hg]"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1220,7 +1032,7 @@
               "unit": "/min"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1271,7 +1083,7 @@
               "unit": "[degF]"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1322,7 +1134,7 @@
               "unit": "/min"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1373,7 +1185,7 @@
               "unit": "[in_us]"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1424,7 +1236,7 @@
               "unit": "[lb_av]"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1475,7 +1287,7 @@
               "unit": "kg/m2"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {
@@ -1526,7 +1338,7 @@
               "unit": "%"
             },
             "subject": {
-              "reference": "Patient/a8db50f9-60d9-4a82-a52c-cfb166dd7e43"
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {

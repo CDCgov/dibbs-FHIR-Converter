@@ -3,6 +3,8 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using Dibbs.FhirConverterApi.Processors;
 
+namespace Dibbs.FhirConverterApi.UnitTests.Processors;
+
 public class EcrProcessorTest
 {
   [Fact]
@@ -33,8 +35,8 @@ public class EcrProcessorTest
   [Fact]
   public void MergeEicrAndRR_ShouldAddRRDataToEicr_WhenEicrHasNoRR()
   {
-    var rr = File.ReadAllText("../../../TestData/CDA_RR.xml");
-    var ecr = File.ReadAllText("../../../TestData/CDA_eICR.xml");
+    var rr = File.ReadAllText("../../../../../data/SampleData/eCR/RR_EveEverywoman.xml");
+    var ecr = File.ReadAllText("../../../../../data/SampleData/eCR/empty_eICR.xml");
     var ecrXDoc = XDocument.Parse(ecr);
     var mergedEcr = EcrProcessor.MergeEicrAndRR(ecrXDoc, rr);
     var names = new XmlNamespaceManager(mergedEcr.CreateNavigator().NameTable);
@@ -75,8 +77,8 @@ public class EcrProcessorTest
   [Fact]
   public void MergeEicrAndRR_ShouldNotAddRRDataToEicr_WhenEicrHasRR()
   {
-    var rr = File.ReadAllText("../../../TestData/CDA_RR.xml");
-    var ecr = File.ReadAllText("../../../TestData/merged_eICR.xml");
+    var rr = File.ReadAllText("../../../../../data/SampleData/eCR/RR_EveEverywoman.xml");
+    var ecr = File.ReadAllText("../../../../../data/SampleData/eCR/merged_eICR.xml");
     var ecrXDoc = XDocument.Parse(ecr);
     var mergedEcr = EcrProcessor.MergeEicrAndRR(ecrXDoc, rr);
 
@@ -86,9 +88,9 @@ public class EcrProcessorTest
   [Fact]
   public void MergeEicrAndRR_ShouldRemoveExtraRR_WhenEicrIs3_1()
   {
-    var ecr = File.ReadAllText("../../../TestData/3.1_CDA_eICR.xml");
+    var ecr = File.ReadAllText("../../../../../data/SampleData/eCR/3.1_CDA_eICR.xml");
     var ecrXDoc = XDocument.Parse(ecr);
-    var rr = File.ReadAllText("../../../TestData/3.1_CDA_RR.xml");
+    var rr = File.ReadAllText("../../../../../data/SampleData/eCR/3.1_CDA_RR.xml");
 
     var mergedEcr = EcrProcessor.MergeEicrAndRR(ecrXDoc, rr);
 

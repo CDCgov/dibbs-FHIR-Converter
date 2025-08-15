@@ -149,11 +149,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             root = root.StartsWith('"') ? root[1..] : root;
             root = root.EndsWith('"') ? root[..^1] : root;
 
-            var httpPrefix = "http://";
             if (
                 root != null
                 && extension != null
-                && extension.StartsWith(httpPrefix)
+                && extension.StartsWith("http://")
                 && extension.StartsWith(root))
             {
                 string newValue = extension[root.Length..];

@@ -1,11 +1,14 @@
-using Dibbs.FhirConverterApi;
+using System;
+using System.IO;
+using Microsoft.Health.Fhir.Liquid.Converter.Tool;
+using Xunit;
 
-namespace Dibbs.FhirConverterApi.UnitTests;
+namespace Microsoft.Health.Fhir.Liquid.Converter.Tool.UnitTests;
 
 public class ConverterLogicHandlerTest
 {
     [Fact]
-    public void Convert_ShouldThrowDirectoryNotFoundException_WhenTemplateDirectoryDoesNotExist()
+    public void ConvertWithoutSaving_ShouldThrowDirectoryNotFoundException_WhenTemplateDirectoryDoesNotExist()
     {
         var templateDirectory = "nonexistent_directory";
         var rootTemplate = "rootTemplate";
@@ -14,13 +17,13 @@ public class ConverterLogicHandlerTest
         var isTraceInfo = false;
 
         var exception = Assert.Throws<DirectoryNotFoundException>(() =>
-            ConverterLogicHandler.Convert(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo));
+            ConverterLogicHandler.ConvertWithoutSaving(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo));
 
         Assert.Equal($"Could not find template directory: {templateDirectory}", exception.Message);
     }
 
     [Fact]
-    public void Convert_ShouldThrowFileNotFoundException_WhenMetadataFileDoesNotExist()
+    public void ConvertWithoutSaving_ShouldThrowFileNotFoundException_WhenMetadataFileDoesNotExist()
     {
         var templateDirectory = "test_directory";
         Directory.CreateDirectory(templateDirectory);
@@ -32,7 +35,7 @@ public class ConverterLogicHandlerTest
         try
         {
             var exception = Assert.Throws<FileNotFoundException>(() =>
-                ConverterLogicHandler.Convert(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo));
+                ConverterLogicHandler.ConvertWithoutSaving(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo));
 
             Assert.Equal($"Could not find metadata.json in template directory: {templateDirectory}.", exception.Message);
         }
@@ -43,7 +46,7 @@ public class ConverterLogicHandlerTest
     }
 
     [Fact]
-    public void Convert_ShouldThrowNotImplementedException_WhenDataTypeIsNotSupported()
+    public void ConvertWithoutSaving_ShouldThrowNotImplementedException_WhenDataTypeIsNotSupported()
     {
         var templateDirectory = "test_directory";
         Directory.CreateDirectory(templateDirectory);
@@ -57,7 +60,7 @@ public class ConverterLogicHandlerTest
         try
         {
             var exception = Assert.Throws<NotImplementedException>(() =>
-                ConverterLogicHandler.Convert(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo));
+                ConverterLogicHandler.ConvertWithoutSaving(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo));
 
             Assert.Equal("The conversion from data type 'unsupportedType' to FHIR is not supported", exception.Message);
         }
@@ -69,7 +72,7 @@ public class ConverterLogicHandlerTest
     }
 
     [Fact]
-    public void Convert_ShouldReturnConvertedContent_WhenValidInputIsProvided()
+    public void ConvertWithoutSaving_ShouldReturnConvertedContent_WhenValidInputIsProvided()
     {
         var templateDirectory = "test_directory";
         Directory.CreateDirectory(templateDirectory);
@@ -84,7 +87,7 @@ public class ConverterLogicHandlerTest
 
         try
         {
-            var result = ConverterLogicHandler.Convert(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo);
+            var result = ConverterLogicHandler.ConvertWithoutSaving(templateDirectory, rootTemplate, inputDataContent, isVerboseEnabled, isTraceInfo);
 
             Assert.NotNull(result);
         }

@@ -62,6 +62,18 @@ jobs:
       - name: Run tests
         run: dotnet test --filter FullyQualifiedName~Converter.FunctionalTests --logger "console;verbosity=detailed"
 
+  unit-test-dotnet-fhir-converter-tool:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.x"
+      - name: Run tests
+        run: dotnet test --filter FullyQualifiedName~Tool.UnitTests
+
   validate-fhir-test-dotnet-fhir-converter:
     runs-on: ubuntu-latest
     steps:

@@ -49,8 +49,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.NotNull(jsonResponse);
-
         Snapshot.Match(jsonResponse);
     }
 
@@ -68,10 +66,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.NotNull(jsonResponse);
-
-        File.WriteAllText("actual.json", jsonResponse);
-
         Snapshot.Match(jsonResponse);
     }
 
@@ -178,7 +172,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.NotNull(jsonResponse);
 
         // Ignore provenance div because of generated on timestamp
         Snapshot.Match(jsonResponse, matchOptions => matchOptions.IgnoreField("response.FhirResource.entry[1].resource.text.div"));

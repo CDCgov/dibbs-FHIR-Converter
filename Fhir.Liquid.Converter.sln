@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dibbs.FhirConverterApi.Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dibbs.FhirConverterApi.FunctionalTests", "src\Dibbs.FhirConverterApi.FunctionalTests\Dibbs.FhirConverterApi.FunctionalTests.csproj", "{53583FEF-D7B1-4781-AF7A-98F59D3E477F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Health.Fhir.Liquid.Converter.Tool.UnitTests", "src\Microsoft.Health.Fhir.Liquid.Converter.Tool.UnitTests\Microsoft.Health.Fhir.Liquid.Converter.Tool.UnitTests.csproj", "{B67F74DB-4E8B-4C15-85AE-A3B32C91F644}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{53583FEF-D7B1-4781-AF7A-98F59D3E477F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53583FEF-D7B1-4781-AF7A-98F59D3E477F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53583FEF-D7B1-4781-AF7A-98F59D3E477F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B67F74DB-4E8B-4C15-85AE-A3B32C91F644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B67F74DB-4E8B-4C15-85AE-A3B32C91F644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B67F74DB-4E8B-4C15-85AE-A3B32C91F644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B67F74DB-4E8B-4C15-85AE-A3B32C91F644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,5 +93,6 @@ Global
 		{4CE994FB-1614-40F7-9FED-0314F8B02C04} = {56C74465-CD00-48C1-9A89-189FAFD44308}
 		{74C7362F-23E3-4C7A-A95D-5C0DBEEDCBD6} = {56C74465-CD00-48C1-9A89-189FAFD44308}
 		{53583FEF-D7B1-4781-AF7A-98F59D3E477F} = {56C74465-CD00-48C1-9A89-189FAFD44308}
+		{B67F74DB-4E8B-4C15-85AE-A3B32C91F644} = {56C74465-CD00-48C1-9A89-189FAFD44308}
 	EndGlobalSection
 EndGlobal

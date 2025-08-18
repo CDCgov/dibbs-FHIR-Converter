@@ -16,11 +16,22 @@ using Newtonsoft.Json;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.Tool
 {
-    internal static class ConverterLogicHandler
+    public static class ConverterLogicHandler
     {
         private const string MetadataFileName = "metadata.json";
         private static readonly List<string> CcdaExtensions = new List<string> { ".ccda", ".xml" };
         private static readonly ProcessorSettings DefaultProcessorSettings = new ProcessorSettings();
+
+        public static string ConvertWithoutSaving(string templateDirectory, string rootTemplate, string inputDataContent, bool isVerboseEnabled, bool isTraceInfo)
+        {
+            var dataType = GetDataTypes(templateDirectory);
+            var dataProcessor = CreateDataProcessor(dataType);
+            var templateProvider = CreateTemplateProvider(dataType, templateDirectory);
+            DefaultProcessorSettings.EnableTelemetryLogger = isVerboseEnabled;
+
+            var traceInfo = CreateTraceInfo(dataType, isTraceInfo);
+            return dataProcessor.Convert(inputDataContent, rootTemplate, templateProvider, traceInfo);
+        }
 
         internal static void Convert(ConverterOptions options)
         {

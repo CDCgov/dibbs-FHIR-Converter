@@ -1860,18 +1860,73 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:",
+      "fullUrl": "urn:uuid:8e3fb6f9-3ed0-58fb-5ebd-cc29919d7e2b",
       "resource": {
         "resourceType": "Practitioner",
+        "id": "8e3fb6f9-3ed0-58fb-5ebd-cc29919d7e2b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
           ]
-        }
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1635684796000010",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "8",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "99999999-19",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Alliance",
+            "given": [
+              "Admin"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "215 W. Ohio Street",
+              "4th Floor"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60654"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3122740068",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3122740069",
+            "use": "mobile"
+          }
+        ]
       },
       "request": {
         "method": "PUT",
-        "url": "Practitioner/"
+        "url": "Practitioner/8e3fb6f9-3ed0-58fb-5ebd-cc29919d7e2b"
       }
     },
     {
@@ -1917,6 +1972,76 @@
       "request": {
         "method": "PUT",
         "url": "ServiceRequest/48f1bc2e-fc10-15aa-bd4f-12377392c03c"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:eec2f44e-ee81-9c2c-9ea1-d40bb6b38878",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "eec2f44e-ee81-9c2c-9ea1-d40bb6b38878",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1635684796000010",
+            "assigner": {
+              "display": " Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "8",
+            "assigner": {
+              "display": " Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "99999999-19",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Alliance",
+            "given": [
+              "Admin"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "215 W. Ohio Street",
+              "4th Floor"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60654"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3122740068",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3122740069",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/eec2f44e-ee81-9c2c-9ea1-d40bb6b38878"
       }
     }
   ]

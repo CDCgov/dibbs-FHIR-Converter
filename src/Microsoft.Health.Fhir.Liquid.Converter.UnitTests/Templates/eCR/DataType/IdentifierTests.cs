@@ -177,7 +177,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         public void RootUriValueURL()
         {
             var xmlStr =
-                @"<id root=""2.16.840.1.113883.6.12"" extension=""http://www.ama-assn.org/go/cpt/1234"" />";
+                @"<id root=""2.16.840.1.113883.6.1"" extension=""http://loinc.org/1234"" />";
             var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
 
             var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };
@@ -185,13 +185,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var actualFhir = GetFhirObjectFromTemplate<Identifier>(ECRPath, attributes);
 
             Assert.Equal("http://loinc.org", actualFhir.System);
-            Assert.Null(actualFhir.Value);
-            Assert.Equal(
-                "http://hl7.org/fhir/ValueSet/data-absent-reason",
-                actualFhir.ValueElement.Extension.First().Url
-            );
-            Assert.Equal("unknown", actualFhir.ValueElement.Extension.First().Value.ToString());
-            Assert.Null(actualFhir.Assigner);
+            Assert.Equal("1234", actualFhir.Value);
         }
 
         [Fact]

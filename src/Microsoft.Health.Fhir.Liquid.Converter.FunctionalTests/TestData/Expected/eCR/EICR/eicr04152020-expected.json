@@ -1,6 +1,4 @@
 {
-  "Status": "OK",
-  "FhirResource": {
   "resourceType": "Bundle",
   "type": "batch",
   "entry": [
@@ -329,10 +327,12 @@
         },
         "identifier": [
           {
-            "extension": {
-              "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-              "valueCode": "not-applicable"
-            }
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "valueCode": "not-applicable"
+              }
+            ]
           }
         ],
         "subject": {
@@ -394,10 +394,12 @@
           {
             "system": "http://hl7.org/fhir/sid/us-npi",
             "_value": {
-              "extension": {
-                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-                "valueCode": "not-applicable"
-              }
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "valueCode": "not-applicable"
+                }
+              ]
             }
           }
         ],
@@ -447,10 +449,12 @@
           {
             "system": "http://hl7.org/fhir/sid/us-npi",
             "_value": {
-              "extension": {
-                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-                "valueCode": "not-applicable"
-              }
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "valueCode": "not-applicable"
+                }
+              ]
             }
           }
         ]
@@ -1916,5 +1920,4 @@
       }
     }
   ]
-}
 }

@@ -16,7 +16,7 @@
             "value": "{{- Identifier.extension -}}",
         {%- endif -%}
     {%- elsif Identifier.root -%}
-        {%- if system != '' -%}
+        {%- if oid_pattern_match == 1 -%}
             {% comment %} If not empty root was an OID {% endcomment %}
             {%- if Identifier.root == system -%}
                 {% comment %} if system did not change it is not a recognized system with a URI {% endcomment %}

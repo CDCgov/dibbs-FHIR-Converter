@@ -30,21 +30,16 @@ Congratulations, the FHIR Conversion service should now be running on `localhost
 
 ### Running from C# Source Code
 
-For local development, you may prefer to run the service directly from dotnet. To do so, follow the steps below.
-
-1. Ensure that both Git and Dotnet 8 are installed.
-2. Clone the dibbs-ecr-viewer repository with `git clone https://github.com/CDCgov/dibbs-ecr-viewer`.
-3. Navigate to `/dibbs-ecr-viewer/containers/fhir-converter/`.
-4. Run the FHIR Converter on `localhost:8080` with `dotnet run`.
+For local development, you may prefer to run the service directly from dotnet. To do so, simply run the command `dotnet run` from within `src/Dibbs.FhirConverterApi`
 
 ### Building the Docker Image
 
 To build the Docker image for the FHIR Conversion service from source code instead of downloading it from the dibbs-ecr-viewer repository, follow these steps.
 
-1. Ensure that both [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Docker](https://docs.docker.com/get-docker/) are installed.
-2. Clone the dibbs-ecr-viewer repository with `git clone https://github.com/CDCgov/dibbs-ecr-viewer`.
-3. Navigate to `/dibbs-ecr-viewer/containers/fhir-converter/`.
-4. Run the service with `docker compose up`.
+1. Ensure that [Docker](https://docs.docker.com/get-docker/) is installed.
+2. Navigate to the root of this repo.
+3. Build the image `docker build -t fhir-converter:latest .`.
+4. Run the image `docker run -it fhir-converter:latest`.
 
 #### Tips & Tricks
 
@@ -99,7 +94,7 @@ When testing, you can print from the liquid templates with the following command
 {{ objectName | print_object }}
 ```
 
-This will print objects or strings to the console for debugging purposes. You must set the environment variable `DEBUG_LOG` to `"true"`.
+This will print objects or strings to the console for debugging purposes. You must set either of the environment variables `DEBUG_LOG` or `DEV_MODE` to `"true"`.
 
 If debugging an exception, the below snippet of code can be helpful to get more information on where the exception is coming from.
 

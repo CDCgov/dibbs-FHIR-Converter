@@ -25,4 +25,4 @@ COPY --from=build /App/data/Templates ./templates
 EXPOSE 8080
 
 ENV TEMPLATES_PATH=./templates/
-ENTRYPOINT ["dotnet", "FHIRConverterAPI.dll"]
+ENTRYPOINT ["dotnet", "Dibbs.FhirConverterApi.dll"]

@@ -125,7 +125,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             var thisKey = keys[0];
             var thisTargetProperty = keys.Count() == 1 ? targetProperty : null;
             var res = DotLiquid.StandardFilters.Where(entry, thisKey, thisTargetProperty) as IEnumerable<object>;
-            if (res.Count() == 0)
+            if (res == null || res.Count() == 0)
             {
                 return false;
             }
@@ -135,9 +135,18 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             }
             else
             {
+                var nextPath = string.Join('.', keys[1..]);
+                var nextEntries = DotLiquid.StandardFilters.Map(res, thisKey).Cast<object>().ToList();
+
+                // If the nested property holds an array, recurse over each entry in it
+                if (nextEntries != null && nextEntries.Any() && nextEntries.All(element => element is IList<object>))
+                {
+                    return nextEntries.Any(nextEntry => HasMatchingPropertyRecursive(nextEntry as IEnumerable<object>, nextPath, targetProperty));
+                }
+
                 return HasMatchingPropertyRecursive(
-                    DotLiquid.StandardFilters.Map(res, thisKey) as IEnumerable<object>,
-                    string.Join('.', keys[1..]),
+                    nextEntries,
+                    nextPath,
                     targetProperty);
             }
         }

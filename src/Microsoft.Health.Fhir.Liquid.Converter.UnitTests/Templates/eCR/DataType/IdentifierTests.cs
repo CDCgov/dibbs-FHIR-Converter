@@ -32,6 +32,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Null(actualFhir.Assigner);
         }
 
+        /// <summary>
+        /// When we know the corresponding URL for a root OID, the URL should be used as the Identifier's system.
+        /// </summary>
         [Fact]
         public void RootAndExtensionUrlExists()
         {
@@ -46,6 +49,26 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("77777777777", actualFhir.Value);
         }
 
+        /// <summary>
+        /// If we do not know the corresponding URL for an OID root, it should be converted to a URI, by appending ":urn:oid"
+        /// </summary>
+        [Fact]
+        public void RootAndExtensionNoUrlExists()
+        {
+            var xmlStr = @"<id extension=""12345V7890"" root=""1.2.3.4"" />";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };
+
+            var actualFhir = GetFhirObjectFromTemplate<Identifier>(ECRPath, attributes);
+
+            Assert.Equal("urn:oid:1.2.3.4", actualFhir.System);
+            Assert.Equal("12345V7890", actualFhir.Value);
+        }
+
+        /// <summary>
+        /// If no corresponding URL exists for the root OID, and there is not extension, "urn:ietf:rfc:3986" is the Identifier system, and the prepended OID is the value.
+        /// </summary>
         [Fact]
         public void NoUrlExistsAndNoExtension()
         {
@@ -60,6 +83,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("urn:oid:2.16.840.1.113883.3.72.5.20", actualFhir.Value);
         }
 
+        /// <summary>
+        /// If the root is an UUID, prepend with "urn:uuid".
+        /// </summary>
         [Fact]
         public void UuidOnly()
         {
@@ -74,8 +100,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("urn:uuid:6c844c75-aa34-411c-b7bd-5e4a9f206e29", actualFhir.Value);
         }
 
+        /// <summary>
+        /// If the root is neither an OID nor an UUID, just set it as the value of the Identifier.
+        /// </summary>
         [Fact]
-        public void InvalidUuidOnly()
+        public void InvalidUidOnly()
         {
             var xmlStr = @"<id root=""7c0704bb-9c40-41b5-9c7d-26b2d59e234g"" />";
             var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
@@ -88,6 +117,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Null(actualFhir.System);
         }
 
+        /// <summary>
+        /// If the root is an UUID and there is an extension. Prepend the UUID and use that as the system, the extension becomes the Value.
+        /// </summary>
         [Fact]
         public void UuidWithExtension()
         {
@@ -103,6 +135,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("12345", actualFhir.Value);
         }
 
+        /// <summary>
+        /// If there is only an extension on the ID, use that as the Identifier value.
+        /// </summary>
         [Fact]
         public void ExtensionOnly()
         {
@@ -121,6 +156,28 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         public void KnownSystemMissingExtension()
         {
             var xmlStr = @"<id root=""2.16.840.1.113883.6.1""/>";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };
+            var actualFhir = GetFhirObjectFromTemplate<Identifier>(ECRPath, attributes);
+            Assert.Equal("http://loinc.org", actualFhir.System);
+            Assert.Null(actualFhir.Value);
+            Assert.Equal(
+                "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                actualFhir.ValueElement.Extension.First().Url
+            );
+            Assert.Equal("unknown", actualFhir.ValueElement.Extension.First().Value.ToString());
+            Assert.Null(actualFhir.Assigner);
+        }
+
+        /// <summary>
+        /// If the Root is an OID with a corresponding URL, and the extension begins with that URL, remove the root portion from the extension.
+        /// </summary>
+        [Fact]
+        public void RootUriValueURL()
+        {
+            var xmlStr =
+                @"<id root=""2.16.840.1.113883.6.12"" extension=""http://www.ama-assn.org/go/cpt/1234"" />";
             var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
 
             var attributes = new Dictionary<string, object> { { "Identifier", parsed["id"] }, };

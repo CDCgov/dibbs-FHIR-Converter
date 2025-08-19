@@ -2,7 +2,7 @@
 {%- capture codeSystemName -%}
   {%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}
 {%- endcapture -%}
-"system": "{{ codeSystemName }}",
+"system": "{{ codeSystemName -}}",
 {% if Coding.displayName -%}
   "display": "{{- Coding.displayName | clean_string_from_tabs | strip -}}",
 {% elsif Coding.originalText._ -%}

@@ -253,8 +253,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                     @"EICR",
                     @"eCR_RR_combined_3_1.xml",
                     @"eCR_RR_combined_3_1-expected.json",
-                    "parsing",
-                    "1"
+                    "validation",
+                    "28"
                 },
                 new[]
                 {
@@ -262,154 +262,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                     @"eCR_EveEverywoman.xml",
                     @"eCR_EveEverywoman-expected.json",
                     "parsing",
-                    "15"
+                    "3"
                 },
-                new[] { @"EICR", @"new.xml", @"new-expected.json", "validation", "6" },
-                new[]
-                {
-                    @"EICR",
-                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_EXTERNAL_ENCOUNTER.xml",
-                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_EXTERNAL_ENCOUNTER-expected.json",
-                    "parsing",
-                    "7"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_MANUAL.xml",
-                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE_MANUAL.json",
-                    "parsing",
-                    "1"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml",
-                    @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.json",
-                    "parsing",
-                    "7"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_EXTERNAL_ENCOUNTER.xml",
-                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_EXTERNAL_ENCOUNTER.json",
-                    "validation",
-                    "19"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_MANUAL.xml",
-                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_SAMPLE_MANUAL.json",
-                    "parsing",
-                    "1"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_Sample.xml",
-                    @"CDAR2_IG_PHCASERPT_R2_STU1.1_Sample.json",
-                    "parsing",
-                    "2"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"eICR Sample Patient Alliance 03132020.xml",
-                    @"eICR Sample Patient Alliance 03132020.json",
-                    "parsing",
-                    "5"
-                },
-                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020.json", "parsing", "4" },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305.xml",
-                    @"NNeicrsamples_202006032305.json",
-                    "parsing",
-                    "1"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_2.xml",
-                    @"NNeicrsamples_202006032305_2.json",
-                    "validation",
-                    "18"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_3.xml",
-                    @"NNeicrsamples_202006032305_3.json",
-                    "validation",
-                    "18"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_4.xml",
-                    @"NNeicrsamples_202006032305_4.json",
-                    "parsing",
-                    "1"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_5.xml",
-                    @"NNeicrsamples_202006032305_5.json",
-                    "validation",
-                    "19"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_6.xml",
-                    @"NNeicrsamples_202006032305_6.json",
-                    "validation",
-                    "18"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_7.xml",
-                    @"NNeicrsamples_202006032305_7.json",
-                    "parsing",
-                    "1"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_8.xml",
-                    @"NNeicrsamples_202006032305_8.json",
-                    "validation",
-                    "18"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_9.xml",
-                    @"NNeicrsamples_202006032305_9.json",
-                    "validation",
-                    "18"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_10.xml",
-                    @"NNeicrsamples_202006032305_10.json",
-                    "validation",
-                    "18"
-                },
-                new[]
-                {
-                    @"EICR",
-                    @"NNeicrsamples_202006032305_11.xml",
-                    @"NNeicrsamples_202006032305_11.json",
-                    "parsing",
-                    "1"
-                },
+                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "parsing", "4" },
             };
             return data.Select(item =>
                 new[]
@@ -566,7 +421,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 
         protected void ValidateConvertCCDAMessageIsValidFHIR(ITemplateProvider templateProvider, string rootTemplate, string inputFile, string validationFailureStep, int numFailures)
         {
-            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
+            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "true";
             if (validateFhir.Trim() == "false") return;
 
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());

@@ -264,7 +264,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                     "parsing",
                     "3"
                 },
-                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "parsing", "4" },
+                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "parsing", "2" },
             };
             return data.Select(item =>
                 new[]

@@ -2808,6 +2808,7 @@
             "code": {
               "coding": [
                 {
+                  "system": "http://loinc.org",
                   "display": "Ship Name"
                 }
               ],
@@ -2819,6 +2820,7 @@
             "code": {
               "coding": [
                 {
+                  "system": "http://loinc.org",
                   "display": "Cabin Number"
                 }
               ],
@@ -4458,6 +4460,13 @@
         },
         "status": "completed",
         "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "system": "urn:oid:2.16.840.1.113883.12.292"
+            }
+          ]
+        },
         "patient": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
@@ -4490,6 +4499,13 @@
         },
         "status": "completed",
         "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "system": "urn:oid:2.16.840.1.113883.12.292"
+            }
+          ]
+        },
         "patient": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
@@ -4519,6 +4535,7 @@
         "code": {
           "coding": [
             {
+              "system": "urn:oid:2.16.840.1.113883.12.292",
               "display": "Employee desk distance from mail sorter"
             }
           ],

@@ -3,7 +3,7 @@
   "type": "batch",
   "entry": [
     {
-      "fullUrl": "urn:uuid:1.2.840.114350.1.13.4304.2.7.8.688883.1374",
+      "fullUrl": "urn:oid:1.2.840.114350.1.13.4304.2.7.8.688883.1374",
       "resource": {
         "resourceType": "Composition",
         "id": "1.2.840.114350.1.13.4304.2.7.8.688883.1374",
@@ -1043,7 +1043,7 @@
         "id": "da341ef9-3cba-b10f-2f38-1a16afde1d65",
         "identifier": [
           {
-            "system": "urn:oid:http://hl7.org/fhir/sid/us-npi",
+            "system": "http://hl7.org/fhir/sid/us-npi",
             "value": "XX22521268"
           }
         ],
@@ -1165,6 +1165,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "2054-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "Black or African American"
                 }
               },
@@ -1181,6 +1182,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "2186-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "Not Hispanic or Latino"
                 }
               },

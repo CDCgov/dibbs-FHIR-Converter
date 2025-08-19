@@ -1,6 +1,13 @@
 {% evaluate practitionerId using 'Utils/GenerateId' obj: msg.ClinicalDocument.componentOf.encompassingEncounter.responsibleParty.assignedEntity -%}
-{% if msg.ClinicalDocument.id and msg.ClinicalDocument.id.root -%}
-  {% assign compositionId = msg.ClinicalDocument.id.root -%}
+{% assign compositionId = msg._originalData | generate_uuid -%}
+{% if msg.ClinicalDocument.id -%}
+  {% if msg.ClinicalDocument.id.extension -%}
+    {% comment %} If extension exists, use that {% endcomment %}
+    {% assign compositionId = msg.ClinicalDocument.id.extension -%}
+  {% elsif msg.ClinicalDocument.id.root -%}
+    {% comment %} If extension does not exist and root does, use that {% endcomment %}
+    {% assign compositionId = msg.ClinicalDocument.id.root -%}
+  {% endif -%}
 {% else -%}
   {% assign compositionId = msg._originalData | generate_uuid -%}
 {% endif -%}
@@ -14,7 +21,7 @@
 {% if msg.ClinicalDocument.componentOf.encompassingEncounter -%}
   {% assign encounterId = msg.ClinicalDocument.componentOf.encompassingEncounter | to_json_string | generate_uuid -%}
   {% include 'Resource/Encounter' encounter: msg.ClinicalDocument.componentOf.encompassingEncounter, ID: encounterId  -%}
-  {% assign encounterSection = msg | get_first_ccda_sections_by_template_id: '2.16.840.1.113883.10.20.22.2.22.1' %}  
+  {% assign encounterSection = msg | get_first_ccda_sections_by_template_id: '2.16.840.1.113883.10.20.22.2.22.1' %}
   {% assign encounterEntries = encounterSection.2_16_840_1_113883_10_20_22_2_22_1.entry | to_array %}
   {% assign diagnoses = encounterEntries | get_diagnosis_dictionary %}
   {% include 'Reference/Encounter/Subject' ID: encounterId, REF: fullPatientId -%}
@@ -53,7 +60,7 @@
   {% endif %}
 {% endif -%}
 
-{% assign encounterParticipants = msg.ClinicalDocument.componentOf.encompassingEncounter.encounterParticipant | to_array -%} 
+{% assign encounterParticipants = msg.ClinicalDocument.componentOf.encompassingEncounter.encounterParticipant | to_array -%}
 {% for encounterParticipant in encounterParticipants -%}
   {% if encounterParticipant.assignedEntity -%}
     {% assign encounterParticipantId = encounterParticipant | to_json_string | generate_uuid %}
@@ -62,7 +69,7 @@
     {% assign practitionerRoleId =  encounterParticipant.assignedEntity | to_json_string | generate_uuid %}
     {% assign fullPractitionerRoleId = practitionerRoleId | prepend: 'PractitionerRole/' %}
     {% include 'Reference/PractitionerRole/Practitioner', REF: fullPractitionerId, ID: practitionerRoleId -%}
-  
+
     {% include 'Reference/Encounter/Participant_Individual'  ID: encounterId, REF: fullPractitionerRoleId type: encounterParticipant.typeCode time: encounterParticipant.time -%}
     {% if encounterParticipant.assignedEntity.representedOrganization %}
       {% evaluate organizationId using 'Utils/GenerateId' obj: encounterParticipant.assignedEntity.representedOrganization -%}
@@ -85,7 +92,7 @@
       {% assign processingStatusId = entry.act | to_json_string | generate_uuid -%}
       {% include "Resource/ObservationRREICRProcessingStatus" ob: entry.act, ID: processingStatusId -%}
 
-      {% assign statusEntryRelats = entry.act.entryRelationship | to_array -%} 
+      {% assign statusEntryRelats = entry.act.entryRelationship | to_array -%}
       {% for statusEntryRelat in statusEntryRelats -%}
         {% if statusEntryRelat.observation and statusEntryRelat.observation.templateId.root == "2.16.840.1.113883.10.20.15.2.3.21" -%}
           {% comment %} Observation: eICR Processing Status Reason {% endcomment %}
@@ -180,7 +187,7 @@
   {% assign participants = msg.ClinicalDocument.participant | to_array %}
   {% include 'Section/SocialHistory' SOCIALOBS: socialObs SOCIALTEXT: socialHistoryText -%}
   {% include 'Resource/Patient' patientRole: msg.ClinicalDocument.recordTarget.patientRole ID: patientId SOCIALOBS: socialObs SOCIALTEXT: socialHistoryText participants: participants -%}
-  {% assign _careTeam = msg | get_first_ccda_sections_by_template_id: '2.16.840.1.113883.10.20.22.2.500' %} 
+  {% assign _careTeam = msg | get_first_ccda_sections_by_template_id: '2.16.840.1.113883.10.20.22.2.500' %}
   {% assign careTeam = _careTeam.2_16_840_1_113883_10_20_22_2_500 %}
   {% if careTeam %}
     {% assign careTeamId = careTeam | to_json_string | generate_uuid -%}

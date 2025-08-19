@@ -94,7 +94,7 @@ When testing, you can print from the liquid templates with the following command
 {{ objectName | print_object }}
 ```
 
-This will print objects or strings to the console for debugging purposes. You must set either of the environment variables `DEBUG_LOG` or `DEV_MODE` to `"true"`.
+This will print objects or strings to the console for debugging purposes. You must set both of the environment variables `DEBUG_LOG` and `DEV_MODE` to `"true"`.
 
 If debugging an exception, the below snippet of code can be helpful to get more information on where the exception is coming from.
 

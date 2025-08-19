@@ -281,7 +281,7 @@
             ]
           },
           {
-            "id": "56fbb469-df1b-4b55-c913-12bb7520c7e4",
+            "id": "a4e03037-4355-d5c1-90d9-4108f32d02a8",
             "title": "Immunizations",
             "text": {
               "status": "generated",
@@ -4439,6 +4439,11 @@
           {
             "system": "urn:uuid:00000000-5cf3-ec63-0513-4a4838595787",
             "value": "11369-6_3-1_1.3.6.1.4.1.22812.11.2016.163.1_14168"
+          }
+        ],
+        "protocolApplied": [
+          {
+            "doseNumberPositiveInt": 1
           }
         ],
         "occurrenceDateTime": "2020-11-07",

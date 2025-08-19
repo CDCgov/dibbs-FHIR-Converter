@@ -7,7 +7,7 @@
         [
             {% assign ids = diagnosticReport.id | to_array -%}
             {% for id in ids -%}
-            { {% include 'DataType/Identifier' Identifier: id -%} },
+                {% include 'DataType/Identifier' Identifier: id -%}
             {% endfor -%}
         ],
         {% assign obsLabResultStatus = nil %}
@@ -32,7 +32,7 @@
         },
         {% include 'Utils/EffectiveTime' effectiveTime: diagnosticReport.effectiveTime %}
         "extension":
-            [ 
+            [
             {% if obsLabResultStatus %}
                 {% comment %} Laboratory Result Status Extension {% endcomment %}
                 {

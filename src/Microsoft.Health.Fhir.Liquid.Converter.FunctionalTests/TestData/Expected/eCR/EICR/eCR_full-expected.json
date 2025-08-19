@@ -540,7 +540,7 @@
         "identifier": [
           {
             "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:2.16.840.1.113883.3.72.5.20"
+            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
           }
         ],
         "property": [
@@ -602,6 +602,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "1002-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "American Indian or Alaska Native"
                 }
               },
@@ -618,6 +619,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "2135-2",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "Hispanic or Latino"
                 }
               },
@@ -896,8 +898,7 @@
         "id": "8349f135-880d-bab1-e18b-5d060a7115d5",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:1234abcd-ef56-7890-gh12-34567890ijkl"
+            "value": "1234abcd-ef56-7890-gh12-34567890ijkl"
           }
         ],
         "status": "final",

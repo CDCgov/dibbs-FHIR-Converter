@@ -24,12 +24,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             Context context,
             string originalCode,
             string mapping,
-            string property = "code")
+            string property = "code",
+            bool applyDefaultIfNull = false)
         {
-            if (
-                string.IsNullOrEmpty(originalCode)
-                || string.IsNullOrEmpty(mapping)
-                || string.IsNullOrEmpty(property))
+            if (applyDefaultIfNull && string.IsNullOrEmpty(originalCode))
+            {
+                originalCode = string.Empty;
+            }
+
+            if (originalCode == null || string.IsNullOrEmpty(mapping) || string.IsNullOrEmpty(property))
             {
                 return null;
             }

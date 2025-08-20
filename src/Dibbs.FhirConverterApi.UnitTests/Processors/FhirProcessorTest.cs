@@ -6,7 +6,7 @@ namespace Dibbs.FhirConverterApi.UnitTests.Processors;
 public class FhirProcessorTest
 {
   [Fact]
-  public void FhirBundlePostProcessing_ShouldAddSourceToMetaAndReplacePatientId_WhenInputTypeIsProvided()
+  public void FhirBundlePostProcessing_ShouldAddSourceToMeta_WhenInputTypeIsProvided()
   {
     var fhirInput = File.ReadAllText("../../../../Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests/TestData/Expected/eCR/EICR/eCR_EveEverywoman-expected.json");
     var actual = FhirProcessor.FhirBundlePostProcessing(fhirInput, "ecr");

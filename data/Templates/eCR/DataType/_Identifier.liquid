@@ -20,7 +20,9 @@
                 {% comment %} if system changed it is a recognized system with a URI, but missing an extension, so we need to use the data absent reason extension. {% endcomment %}
                 "system": "{{- system -}}",
                 "_value": {
-                    {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
+                    "extension": [
+                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
+                    ],
                 },
             {%- endif -%}
         {%- else -%}
@@ -32,10 +34,14 @@
     {%- if Identifier.root -%}
         "system": "{{system | prepend_id -}}",
         "_value": {
-            {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+            "extension": [
+                {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+            ],
         },
     {%- else -%}
-        {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+        "extension": [
+            {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+        ],
     {%- endif -%}
 {%- endif -%}
 {%- if Identifier.assigningAuthorityName != null -%}

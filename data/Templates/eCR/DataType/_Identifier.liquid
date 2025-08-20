@@ -26,10 +26,7 @@
                 {% comment %} if system changed it is a recognized system with a URI {% endcomment %}
                 "system": "{{- system -}}",
                 "_value": {
-                    "extension": [{
-                        "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-                        "valueCode": "{{ Identifier.nullFlavor | get_property: 'ValueSet/NullFlavor', 'code', true }}",
-                    }],
+                    {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
                 },
             {%- endif -%}
         {%- elsif uuid_pattern_match == 1 -%}
@@ -53,10 +50,7 @@
                 "system": "{{- system -}}",
             {%- endif -%}
                 "_value": {
-                    "extension": [{
-                        "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-                        "valueCode": "{{ Identifier.nullFlavor | default: "" | get_property: 'ValueSet/NullFlavor' }}",
-                    }],
+                    {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
                 },
         {%- elsif uuid_pattern_match == 1 -%}
             {% comment %} system is a UUID {% endcomment %}
@@ -66,11 +60,7 @@
             "system": "{{Identifier.root -}}",
         {%- endif -%}
     {%- else -%}
-
-        "extension": [{
-            "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-            "valueCode": "{{ Identifier.nullFlavor | get_property: 'ValueSet/NullFlavor' }}",
-        }],
+        {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
     {%- endif -%}
 {%- endif -%}
 {%- if Identifier.assigningAuthorityName != null -%}

@@ -244,16 +244,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "parsing", "3" },
                 new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "parsing", "2" },
             };
-            return data.Select(item =>
-                new[]
-                {
-                    item[0],
-                    Path.Join(Constants.SampleDataDirectory, "eCR", item[1]),
-                    Path.Join(Constants.ExpectedDataFolder, "eCR", item[0], item[2]),
-                    item[3],
-                    item[4],
-                }
-            );
+            return data.Select(item => new[]
+            {
+                item[0],
+                Path.Join(Constants.SampleDataDirectory, "eCR", item[1]),
+                Path.Join(Constants.ExpectedDataFolder, "eCR", item[0], item[2]),
+                item[3],
+                item[4],
+            });
         }
 
         public static IEnumerable<object[]> GetDataForJson()

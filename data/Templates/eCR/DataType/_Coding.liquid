@@ -5,10 +5,6 @@
 "system": "{{ codeSystemName | prepend_id -}}",
 {% if Coding.displayName -%}
   "display": "{{- Coding.displayName | clean_string_from_tabs | strip -}}",
-{% elsif Coding.originalText._ -%}
-  "display": "{{- Coding.originalText._ | clean_string_from_tabs | strip -}}",
-{% elsif Coding.originalText.reference._ -%}
-  "display": "{{- Coding.originalText.reference._ -}}",
 {% elsif codeSystemName contains "loinc" -%}
   "display": "{{- Coding.code | get_loinc_name -}}",
 {% elsif codeSystemName contains "rxnorm" -%}

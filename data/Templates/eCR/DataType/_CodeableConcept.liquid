@@ -6,4 +6,9 @@
 	{ {% include 'DataType/Coding' Coding: concept -%} },
 	{% endfor -%}
 ],
-"text": "{{ CodeableConcept.originalText._ | clean_string_from_tabs | strip }}"
+"text": "{{ CodeableConcept.originalText._ | clean_string_from_tabs | strip }}",
+{%- if CodeableConcept.nullFlavor -%}
+"extension": [
+	{%- include "Extension/DataAbsentReason" nullFlavor: CodeableConcept.nullFlavor -%}
+],
+{%- endif -%}

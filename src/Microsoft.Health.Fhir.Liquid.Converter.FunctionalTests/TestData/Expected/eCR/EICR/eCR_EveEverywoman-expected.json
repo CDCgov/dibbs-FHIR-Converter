@@ -2806,23 +2806,25 @@
         "component": [
           {
             "code": {
-              "coding": [
+              "text": "Ship Name",
+              "extension": [
                 {
-                  "display": "Ship Name"
+                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "valueCode": "unsupported"
                 }
-              ],
-              "text": "Ship Name"
+              ]
             },
             "valueString": "Princess of the Sea"
           },
           {
             "code": {
-              "coding": [
+              "text": "Cabin Number",
+              "extension": [
                 {
-                  "display": "Cabin Number"
+                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "valueCode": "unsupported"
                 }
-              ],
-              "text": "Cabin Number"
+              ]
             },
             "valueString": "69B"
           }
@@ -4458,6 +4460,14 @@
         },
         "status": "completed",
         "primarySource": true,
+        "route": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
         "patient": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
@@ -4490,6 +4500,14 @@
         },
         "status": "completed",
         "primarySource": true,
+        "route": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
         "patient": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
@@ -4517,12 +4535,13 @@
         ],
         "status": "final",
         "code": {
-          "coding": [
+          "text": "Employee desk distance from mail sorter",
+          "extension": [
             {
-              "display": "Employee desk distance from mail sorter"
+              "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+              "valueCode": "unsupported"
             }
-          ],
-          "text": "Employee desk distance from mail sorter"
+          ]
         },
         "valueQuantity": {
           "value": 2,

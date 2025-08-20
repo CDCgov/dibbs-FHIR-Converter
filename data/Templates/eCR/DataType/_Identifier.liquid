@@ -42,16 +42,10 @@
     {%- if Identifier.root -%}
         {%- if system != '' -%}
             {% comment %} If not empty root was an OID {% endcomment %}
-            {%- if Identifier.root == system -%}
-                {% comment %} if system did not change it is not a recognized system with a URI {% endcomment %}
-                "system": "{{Identifier.root | prepend_id -}}",
-            {%- else -%}
-                {% comment %} if system changed it is a recognized system with a URI {% endcomment %}
-                "system": "{{- system -}}",
-            {%- endif -%}
-                "_value": {
-                    {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
-                },
+            "system": "{{- system | prepend_id -}}",
+            "_value": {
+                {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+            },
         {%- elsif uuid_pattern_match == 1 -%}
             {% comment %} system is a UUID {% endcomment %}
             "system": "{{Identifier.root | prepend_id -}}",

@@ -51,7 +51,7 @@
     {% if med.author %}
         {% assign authorId = med.author | to_json_string | generate_uuid -%}
         {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
-        {%- include 'Resource/Practitioner' ID: authorId, practitioner: service.author.assignedAuthor -%}
+        {%- include 'Resource/Practitioner' ID: authorId, practitioner: med.author.assignedAuthor -%}
         {% include 'Reference/MedicationRequest/Requester' ID: medId, REF: fullAuthorId -%}
     {% endif %}
 

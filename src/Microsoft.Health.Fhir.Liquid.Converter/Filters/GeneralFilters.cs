@@ -148,13 +148,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         /// <returns>The extension with the root removed, if the root was a URL prefix. Else return the extension unchanged.</returns>
         public static string RemovePrefix(string extension, string root)
         {
-            // We potentially have to strip quote marks from the root because the output of the SystemReference template includes the quote marks.
-
-            var httpPrefix = "http://";
             if (
                 root != null
                 && extension != null
-                && extension.StartsWith(httpPrefix)
+                && extension.StartsWith("http://")
                 && extension.StartsWith(root))
             {
                 string newValue = extension[root.Length..];

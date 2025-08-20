@@ -46,43 +46,43 @@ To build the Docker image for the FHIR Conversion service from source code inste
 - To run the unit tests, use the command `dotnet test src/Dibbs.FhirConverterApi.UnitTests`.
 - To run the integration tests, use the command `dotnet test src/Dibbs.FhirConverterApi.FunctionalTests`.
 
+## Using the FHIR Converter API
+
+To convert your source data to FHIR, make a `POST` request to the `/convert-to-fhir` endpoint. If you are running the API locally, the URL will be `http://localhost:8080/convert-to-fhir`.
+This request will include some number of the following values in the request body depending on your use case. **Please note: `input_data` and `rr_data` must be JSON escaped.**
+- `input_type`: **Required**. The type of data that is provided in `input_data`. Valid values are `eCR`, `ELR`, and `VXU`. Not case sensitive.
+- `input_data`: **Required**. The primary data payload that will be converted.
+- `rr_data`: Optional. Reportability Response information to be merged with input_data before conversion. **Only include this data if input_type is eCR.**
+- `root_template`: Optional. Name of the template that will be used for conversion. Defaults are `EICR` for `input_type: eCR`, `ORU_R01` for `input_type: ELR`, and `VXU_V04` for `input_type: VXU`.
+
+### Sample FHIR Conversion Request
+```
+curl -X POST -H "Content-Type: application/json" -d \
+'{"input_data": "MSH|^~\\&|WIR11.3.2^^|WIR^^||WIRPH^^|20200514010000-0400||VXU^V04|2020051411020600|P^|2.4^^|||ER\r\nPID|||3054790^^^^SR^~^^^^PI^||ZTEST^PEDIARIX^^^^^^|HEPB^DTAP^^^^^^|20180808|M|||||||||||||||||||||\r\nPD1|||||||||||02^^^^^|Y||||A\r\nNK1|1||BRO^BROTHER^HL70063^^^^^|^^NEW GLARUS^WI^^^^^^^|\r\nPV1||R||||||||||||||||||\r\nRXA|0|999|20180809|20180809|08^HepB pediatric^CVX^90744^HepB pediatric^CPT|1.0|||01^^^^^~38193939^WIR immunization id^IMM_ID^^^|||||||||||NA", "input_type": "vxu"}' \
+http://localhost:8080/convert-to-fhir
+```
+
 ## Architecture Diagram
 
 ```mermaid
 graph TD;
-    style user fill:#F5F5F5,stroke:#000000,stroke-width:2px,color:#000000;
     style webApp fill:#F5F5F5,stroke:#000000,stroke-width:2px,color:#000000;
     style apiConvert fill:#E8F4F8,stroke:#2C3E50,stroke-width:2px,color:#2C3E50;
-    style apiStatus fill:#E8F4F8,stroke:#2C3E50,stroke-width:2px,color:#2C3E50;
-    style apiHistory fill:#E8F4F8,stroke:#2C3E50,stroke-width:2px,color:#2C3E50;
-    style fhirConverterService fill:#D0ECE7,stroke:#1B4F72,stroke-width:2px,color:#1B4F72;
-    style microsoftFHIRConverter fill:#D0ECE7,stroke:#1B4F72,stroke-width:2px,color:#1B4F72;
-    style convertedMessages fill:#EBF5FB,stroke:#1A5276,stroke-width:2px,color:#1A5276;
-    style statusCheck fill:#D5F5E3,stroke:#1D8348,stroke-width:2px,color:#1D8348;
-    style historyService fill:#D5F5E3,stroke:#1D8348,stroke-width:2px,color:#1D8348;
+    style apiHealthCheck fill:#E8F4F8,stroke:#2C3E50,stroke-width:2px,color:#2C3E50;
+    style apiSwagger fill:#E8F4F8,stroke:#2C3E50,stroke-width:2px,color:#2C3E50;
 
-    user[User] -->|Requests| webApp[Web Application];
+    webApp[FHIR Converter Service];
 
     subgraph API Endpoints
-        webApp -->|POST /convert| apiConvert[Conversion API];
-        webApp -->|GET /status| apiStatus[Status API];
-        webApp -->|GET /history| apiHistory[History API];
+        direction TB
+        apiConvert[Conversion API]
+        apiHealthCheck[Health Check API]
+        apiSwagger[Swagger Documentation]
     end
 
-    apiConvert --> fhirConverterService[FHIR Converter API];
-    fhirConverterService --> microsoftFHIRConverter[Microsoft FHIR Converter];
-    microsoftFHIRConverter --> convertedMessages[Converted FHIR Messages];
-    convertedMessages -->|Response| webApp;
-
-    apiStatus --> statusCheck[Status Check Service];
-    apiHistory --> historyService[History Service];
-
-    subgraph Docker
-        fhirConverterService
-        microsoftFHIRConverter
-        statusCheck
-        historyService
-    end
+    webApp -->|POST /convert-to-fhir| apiConvert;
+    webApp -->|GET /| apiHealthCheck;
+    webApp -->|GET /swagger| apiSwagger;
 ```
 
 ## Testing / Debugging

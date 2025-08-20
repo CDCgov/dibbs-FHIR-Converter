@@ -108,7 +108,6 @@ string GetRootTemplate(string inputType)
         "ecr" => "EICR",
         "elr" => "ORU_R01",
         "vxu" => "VXU_V04",
-        "fhir" => string.Empty,
         _ => throw new UserFacingException($"Root template for {inputType} cannot be found. Please specify using the root_template parameter.", HttpStatusCode.BadRequest)
     };
 }

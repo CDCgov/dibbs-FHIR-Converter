@@ -30,19 +30,17 @@
             "value": "{{Identifier.root -}}",
         {%- endif -%}
     {%- endif -%}
-{%- else -%}
-    {%- if Identifier.root -%}
-        "system": "{{system | prepend_id -}}",
-        "_value": {
-            "extension": [
-                {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
-            ],
-        },
-    {%- else -%}
+{%- elsif Identifier.root -%}
+    "system": "{{system | prepend_id -}}",
+    "_value": {
         "extension": [
             {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
         ],
-    {%- endif -%}
+    },
+{%- else -%}
+    "extension": [
+        {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+    ],
 {%- endif -%}
 {%- if Identifier.assigningAuthorityName != null -%}
     "assigner": {

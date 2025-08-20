@@ -17,11 +17,11 @@ public class FhirProcessor
     /// </returns>
     public static string FhirBundlePostProcessing(string input, string inputType)
     {
-        var bundleJson = JsonNode.Parse(input)!;
+        var bundleJson = JsonNode.Parse(input) !;
 
         bundleJson = AddDataSourceToBundle(bundleJson, inputType);
         var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}");
-        resultsJson!["response"]!["FhirResource"] = bundleJson;
+        resultsJson!["response"] !["FhirResource"] = bundleJson;
         var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
         {
             WriteIndented = true,
@@ -45,7 +45,7 @@ public class FhirProcessor
     /// </returns>
     private static JsonNode AddDataSourceToBundle(JsonNode bundle, string dataSource)
     {
-        foreach (var entry in (bundle["entry"] as JsonArray) ?? [])
+        foreach (var entry in (bundle["entry"] as JsonArray) ?? new JsonArray())
         {
             var resource = entry!["resource"];
             if (resource is null)

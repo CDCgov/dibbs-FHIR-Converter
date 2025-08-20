@@ -19,7 +19,6 @@ public class EcrProcessor
         try
         {
             // Add xmlns:xsi if missing
-            // TODO: this seems fragile, do we need to add xmlns:xsi to the raw string or can we parse to XDocument first?
             var ecrLines = inputData.Split(
                 ["\n", "\r\n"],
                 StringSplitOptions.None).ToList();
@@ -45,7 +44,6 @@ public class EcrProcessor
         }
     }
 
-    // TODO: refactor, this is too big
     /// <summary>
     ///  Extracts relevant fields from an RR document, and inserts them into a
     ///  given eICR document. Ensures that the eICR contains properly formatted

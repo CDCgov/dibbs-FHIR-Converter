@@ -22,15 +22,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Tool
         private static readonly List<string> CcdaExtensions = new List<string> { ".ccda", ".xml" };
         private static readonly ProcessorSettings DefaultProcessorSettings = new ProcessorSettings();
 
-        public static string ConvertWithoutSaving(string templateDirectory, string rootTemplate, string inputDataContent, bool isVerboseEnabled, bool isTraceInfo)
+        public static string ConvertWithoutSaving(ConverterOptions options)
         {
-            var dataType = GetDataTypes(templateDirectory);
+            var dataType = GetDataTypes(options.TemplateDirectory);
             var dataProcessor = CreateDataProcessor(dataType);
-            var templateProvider = CreateTemplateProvider(dataType, templateDirectory);
-            DefaultProcessorSettings.EnableTelemetryLogger = isVerboseEnabled;
+            var templateProvider = CreateTemplateProvider(dataType, options.TemplateDirectory);
+            DefaultProcessorSettings.EnableTelemetryLogger = options.IsVerboseEnabled;
 
-            var traceInfo = CreateTraceInfo(dataType, isTraceInfo);
-            return dataProcessor.Convert(inputDataContent, rootTemplate, templateProvider, traceInfo);
+            var traceInfo = CreateTraceInfo(dataType, options.IsTraceInfo);
+            return dataProcessor.Convert(options.InputDataContent, options.RootTemplate, templateProvider, traceInfo);
         }
 
         internal static void Convert(ConverterOptions options)

@@ -20,7 +20,7 @@
                 {% comment %} if system changed it is a recognized system with a URI, but missing an extension, so we need to use the data absent reason extension. {% endcomment %}
                 "system": "{{- system -}}",
                 "_value": {
-                    {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+                    {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
                 },
             {%- endif -%}
         {%- else -%}

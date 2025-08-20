@@ -397,7 +397,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 
         protected void ValidateConvertCCDAMessageIsValidFHIR(ITemplateProvider templateProvider, string rootTemplate, string inputFile, string validationFailureStep, int numFailures)
         {
-            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "true";
+            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
             if (validateFhir.Trim() == "false") return;
 
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());

@@ -347,14 +347,7 @@
             },
             "extension": [
               {
-                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "system": "http://hl7.org/fhir/sid/us-npi"
-                    }
-                  ]
-                }
+                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type"
               }
             ]
           }
@@ -401,15 +394,6 @@
                 }
               ]
             }
-          }
-        ],
-        "type": [
-          {
-            "coding": [
-              {
-                "system": "http://hl7.org/fhir/sid/us-npi"
-              }
-            ]
           }
         ]
       },

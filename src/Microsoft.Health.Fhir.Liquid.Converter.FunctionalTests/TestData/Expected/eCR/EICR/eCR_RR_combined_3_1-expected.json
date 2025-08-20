@@ -1923,13 +1923,6 @@
           }
         ],
         "status": "final",
-        "code": {
-          "coding": [
-            {
-              "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.798268"
-            }
-          ]
-        },
         "effectiveDateTime": "1981-10-18T05:33:46Z",
         "valueCodeableConcept": {
           "coding": [
@@ -2980,9 +2973,6 @@
         "occurrenceDateTime": "1981-10-15",
         "vaccineCode": {
           "coding": [
-            {
-              "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.768076"
-            },
             {
               "code": "49281-400-10",
               "system": "urn:oid:2.16.840.1.113883.6.69"

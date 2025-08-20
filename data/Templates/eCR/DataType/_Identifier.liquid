@@ -69,7 +69,7 @@
 
         "extension": [{
             "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-            "valueCode": "{{ Identifier.nullFlavor | default: "" | get_property: 'ValueSet/NullFlavor' }}",
+            "valueCode": "{{ Identifier.nullFlavor | get_property: 'ValueSet/NullFlavor' }}",
         }],
     {%- endif -%}
 {%- endif -%}

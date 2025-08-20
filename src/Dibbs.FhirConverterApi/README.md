@@ -30,7 +30,7 @@ Congratulations, the FHIR Conversion service should now be running on `localhost
 
 ### Running from C# Source Code
 
-For local development, you may prefer to run the service directly from dotnet. To do so, simply run the command `dotnet run` from within `src/Dibbs.FhirConverterApi`
+For local development, you may prefer to run the service directly from dotnet. To do so, run the command `dotnet run` from within `src/Dibbs.FhirConverterApi`
 
 ### Building the Docker Image
 

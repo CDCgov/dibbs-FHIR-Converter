@@ -40,19 +40,10 @@
     {%- endif -%}
 {%- else -%}
     {%- if Identifier.root -%}
-        {%- if system != '' -%}
-            {% comment %} If not empty root was an OID {% endcomment %}
-            "system": "{{- system | prepend_id -}}",
-            "_value": {
-                {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
-            },
-        {%- elsif uuid_pattern_match == 1 -%}
-            {% comment %} system is a UUID {% endcomment %}
-            "system": "{{Identifier.root | prepend_id -}}",
-        {%- else -%}
-        {% comment %} This is means the root is an invalid UID as it is neither an UUID or OID. In this case we will just set it as the value. {% endcomment %}
-            "system": "{{Identifier.root -}}",
-        {%- endif -%}
+        "system": "{{system | prepend_id -}}",
+        "_value": {
+            {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+        },
     {%- else -%}
         {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
     {%- endif -%}

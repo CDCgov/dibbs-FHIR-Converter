@@ -253,8 +253,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                     @"EICR",
                     @"eCR_RR_combined_3_1.xml",
                     @"eCR_RR_combined_3_1-expected.json",
-                    "validation",
-                    "28"
+                    "parsing",
+                    "1"
                 },
                 new[]
                 {

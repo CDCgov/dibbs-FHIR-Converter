@@ -74,7 +74,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
     }
     catch (Exception ex)
     {
-        Console.WriteLine(ex);
+        Console.WriteLine("Ex: {1} StackTrace: '{0}'", Environment.StackTrace, ex);
         return Results.StatusCode(500);
     }
 })

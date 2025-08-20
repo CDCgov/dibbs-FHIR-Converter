@@ -47,7 +47,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             var attributes = new Dictionary<string, object> { { "code", code }, };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, @"");
+            ConvertCheckLiquidTemplate(ECRPath, attributes, code);
         }
     }
 }

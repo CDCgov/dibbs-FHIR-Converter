@@ -117,12 +117,19 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             var actual = RenderLiquidTemplate(templatePath, attributes);
             var actualJson = DeserializeJson(actual);
-            var actualResource = actualJson.GetProperty("resource");
+
+            // If the JSON is a FHIR resource, then it will have a `resource` property, and we just
+            // want the value of `resource. Otherwise, if it does not have a `resource` property, it
+            // is not a resource we do not need to change the JSON.
+            if (actualJson.TryGetProperty("resource", out var resourceElement))
+            {
+                actualJson = resourceElement;
+            }
 
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)
                 .UsingMode(DeserializerModes.Ostrich);
-            var actualFhir = JsonSerializer.Deserialize<T>(actualResource, fhirOptions);
+            var actualFhir = JsonSerializer.Deserialize<T>(actualJson, fhirOptions);
 
             return actualFhir;
         }

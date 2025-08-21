@@ -1866,6 +1866,18 @@
                                     </manufacturedMaterial>
                                 </manufacturedProduct>
                             </consumable>
+                            <entryRelationship typeCode="COMP" inversionInd="true">
+                                <sequenceNumber value="1" />
+                                <act classCode="ACT" moodCode="EVN">
+                                    <!-- Substance Administered Act -->
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.118" />
+                                    <id root="00000000-5CF3-EC63-0513-4A4838595787"
+                                        extension="11369-6_3-1_1.3.6.1.4.1.22812.11.2016.163.1_14169" />
+                                    <code code="416118004" codeSystem="2.16.840.1.113883.6.96" />
+                                    <statusCode value="completed"/>
+                                    <effectiveTime value="20201107" />
+                                </act>
+                            </entryRelationship>
                         </substanceAdministration>
                     </entry>
                     <entry>
@@ -2052,7 +2064,7 @@
                                     <td />
                                     <td>
                                         <list styleCode="none">
-                                            <item>Brazil</item>
+                                            <item ID="trvhx-1">Brazil</item>
                                         </list>
                                     </td>
                                 </tr>
@@ -2320,6 +2332,24 @@
                                         codeSystemName="Country (ISO 3166-1)" />
                                 </participantRole>
                             </participant>
+                        </act>
+                    </entry>
+                    <entry>
+                        <!-- Travel History - text with reference -->
+                        <act classCode="ACT" moodCode="EVN">
+                            <templateId extension="2016-12-01"
+                                root="2.16.840.1.113883.10.20.15.2.3.1" />
+                            <id root="3f3aa1dd-75c5-4f10-9881-374429241b03" />
+                            <code code="420008001" codeSystem="2.16.840.1.113883.6.96"
+                                codeSystemName="SNOMED CT" displayName="Travel" />
+                            <text>
+                                <reference value="#trvhx-1" />
+                            </text>
+                            <statusCode code="completed" />
+                            <effectiveTime>
+                                <low value="20180118" />
+                                <high value="20180218" />
+                            </effectiveTime>
                         </act>
                     </entry>
                     <entry typeCode="DRIV">

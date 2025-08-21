@@ -7,7 +7,7 @@
   		[
             {% assign ids = deviceEntry.id | to_array -%}
             {% for i in ids -%}
-                { {% include 'DataType/Identifier' Identifier: i -%} },
+                {% include 'DataType/Identifier' Identifier: i -%}
             {% endfor -%}
         ],
 		"type": { {% include 'DataType/CodeableConcept' CodeableConcept: deviceEntry.playingDevice.code -%} },

@@ -1,0 +1,3 @@
+{%- assign refVal = ref.value | replace: '#', '' -%}
+{%- assign valueString = origText | find_inner_text_by_id: refVal -%}
+{{- valueString | clean_string_from_tabs | escape_special_chars -}}

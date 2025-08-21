@@ -1,13 +1,33 @@
-{% if Identifier.nullFlavor == null -%}
-    {% if Identifier.extension -%}
-        "system":{% include 'ValueSet/SystemReference' code: Identifier.root -%},
-        "value":"{{Identifier.extension}}",
-        "assigner":
-        {
-            "display":"{{Identifier.assigningAuthorityName}}"
-        }
-    {% else -%}
-        "system":"urn:ietf:rfc:3986",
-        "value":"urn:uuid:{{Identifier.root}}",
-    {% endif -%}
-{% endif -%}
+{
+{%- if Identifier.nullFlavor == null -%}
+    {%- assign oid_pattern = "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" -%}
+    {%- assign uuid_pattern = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" -%}
+    {%- assign uid_pattern = uuid_pattern | append: "|" | append: oid_pattern -%}
+    {%- if Identifier.extension -%}
+        {%- assign oid_pattern_match = Identifier.root | match: oid_pattern | size -%}
+        {%- if oid_pattern_match == 1 -%}
+            {%- capture system -%}
+                {%- include 'ValueSet/SystemReference' code: Identifier.root -%}
+            {%- endcapture %}
+            "system": {{- system -}},
+            "value": "{{- Identifier.extension | remove_prefix: system -}}",
+        {%- else -%}
+            "system": "{{- Identifier.root | prepend_id -}}",
+            "value": "{{- Identifier.extension -}}",
+        {%- endif -%}
+    {%- elsif Identifier.root -%}
+        {%- assign uid_pattern_match = Identifier.root | match: uid_pattern | size -%}
+        {%- if uid_pattern_match == 1 -%}
+            "system": "urn:ietf:rfc:3986",
+            "value": "{{Identifier.root | prepend_id -}}",
+        {%- else -%}
+        {% comment %} This is means the root is an invalid UID as it is neither an UUID or OID. In this case we will just set it as the value. {% endcomment %}
+            "value": "{{Identifier.root -}}",
+        {%- endif -%}
+    {%- endif -%}
+
+    "assigner": {
+        "display": "{{- Identifier.assigningAuthorityName -}}",
+    }
+{%- endif -%}
+},

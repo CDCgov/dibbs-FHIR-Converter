@@ -36,7 +36,7 @@ jobs:
         with:
           dotnet-version: "8.0.x"
       - name: Run tests
-        run: dotnet test src/Dibbs.FhirConverterApi.FunctionalTests
+        run: dotnet test -l "console;verbosity=detailed" src/Dibbs.FhirConverterApi.FunctionalTests
 
   unit-test-dotnet-fhir-converter:
     runs-on: ubuntu-latest

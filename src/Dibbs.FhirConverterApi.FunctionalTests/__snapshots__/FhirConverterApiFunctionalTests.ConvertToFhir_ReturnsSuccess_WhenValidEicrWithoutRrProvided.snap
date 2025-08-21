@@ -569,6 +569,7 @@
                     "url": "detailed",
                     "valueCoding": {
                       "code": "UNK",
+                      "system": "urn:oid:2.16.840.1.113883.6.238",
                       "display": "Unknown"
                     }
                   },
@@ -585,6 +586,7 @@
                     "url": "ombCategory",
                     "valueCoding": {
                       "code": "2186-5",
+                      "system": "urn:oid:2.16.840.1.113883.6.238",
                       "display": "Not Hispanic or Latino"
                     }
                   },
@@ -864,6 +866,10 @@
               "text": "Travel History"
             },
             "status": "final",
+            "effectivePeriod": {
+              "start": "2025-01-15",
+              "end": "2025-02-05"
+            },
             "component": [
               {
                 "code": {
@@ -874,12 +880,20 @@
                       "display": "Location"
                     }
                   ]
+                },
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "BRA",
+                      "system": "urn:oid:1.0.3166.1",
+                      "display": "Brazil"
+                    }
+                  ]
                 }
               }
             ],
-            "effectivePeriod": {
-              "start": "2025-01-15",
-              "end": "2025-02-05"
+            "subject": {
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           },
           "request": {

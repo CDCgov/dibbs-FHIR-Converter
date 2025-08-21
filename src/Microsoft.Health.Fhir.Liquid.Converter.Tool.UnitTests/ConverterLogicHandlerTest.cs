@@ -16,8 +16,6 @@ public class ConverterLogicHandlerTest
             TemplateDirectory = "nonexistent_directory",
             RootTemplate = "rootTemplate",
             InputDataContent = "inputDataContent",
-            IsVerboseEnabled = false,
-            IsTraceInfo = false,
         };
 
         var exception = Assert.Throws<DirectoryNotFoundException>(() =>
@@ -34,8 +32,6 @@ public class ConverterLogicHandlerTest
             TemplateDirectory = "test_directory",
             RootTemplate = "rootTemplate",
             InputDataContent = "inputDataContent",
-            IsVerboseEnabled = false,
-            IsTraceInfo = false,
         };
 
         Directory.CreateDirectory(options.TemplateDirectory);
@@ -61,8 +57,6 @@ public class ConverterLogicHandlerTest
             TemplateDirectory = "test_directory",
             RootTemplate = "rootTemplate",
             InputDataContent = "inputDataContent",
-            IsVerboseEnabled = false,
-            IsTraceInfo = false,
         };
 
         Directory.CreateDirectory(options.TemplateDirectory);
@@ -91,8 +85,6 @@ public class ConverterLogicHandlerTest
             TemplateDirectory = "test_directory",
             RootTemplate = "eICR",
             InputDataContent = "<ClinicalDocument xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"></ClinicalDocument>",
-            IsVerboseEnabled = false,
-            IsTraceInfo = false,
         };
 
         Directory.CreateDirectory(options.TemplateDirectory);

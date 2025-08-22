@@ -240,7 +240,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 //   5. The number of expected failures at the step in (4)
                 // ]
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "13" },
-                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "28" },
+                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "27" },
                 new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "parsing", "3" },
                 new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "parsing", "2" },
             };

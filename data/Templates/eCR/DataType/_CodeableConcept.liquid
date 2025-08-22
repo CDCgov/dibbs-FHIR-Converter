@@ -1,5 +1,3 @@
-
-{% comment %} "minCardinality0": "{{minCardinality}}"", {% endcomment %}
 {%- assign minCardinality = minCardinality | default: 0 -%}
 {%- assign num_concepts = 0 -%}
 {%- assign org_text = CodeableConcept.originalText._ | clean_string_from_tabs | strip -%}

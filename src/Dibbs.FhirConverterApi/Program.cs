@@ -44,8 +44,9 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         {
             ecrDoc = XDocument.Parse(inputData);
         }
-        catch
+        catch (Exception ex)
         {
+            Console.WriteLine("Ex: {1} StackTrace: '{0}'", Environment.StackTrace, ex);
             return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
         }
 

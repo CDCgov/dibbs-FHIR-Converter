@@ -45,7 +45,7 @@
             {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
             "status":"{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationResultStatus' }}",
         {% endif %}
-        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
+        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code, mandatory: true -%} },
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         "bodySite":
         {

@@ -858,12 +858,6 @@
               "system": "http://snomed.info/sct",
               "display": "drug or medication"
             }
-          ],
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-              "valueCode": "unsupported"
-            }
           ]
         }
       },

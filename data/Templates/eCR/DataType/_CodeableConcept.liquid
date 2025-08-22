@@ -1,14 +1,27 @@
+
+{% assign num_concepts = 0 %}
 "coding":
 [
 	{% assign translations = CodeableConcept.translation | to_array -%}
 	{% assign concepts = CodeableConcept | to_array | concat: translations -%}
 	{% for concept in concepts -%}
-	{ {% include 'DataType/Coding' Coding: concept -%} },
+	{%- if concept.code != empty or concept.codeSystem != empty -%}
+	{%- if concept.code != nil or concept.codeSystem != nil -%}
+		{% assign num_concepts = num_concepts | plus: 1 %}
+		{ {% include 'DataType/Coding' Coding: concept -%} },
+	{% endif %}
+	{% endif %}
 	{% endfor -%}
 ],
-"text": "{{ CodeableConcept.originalText._ | clean_string_from_tabs | strip }}",
-{%- if CodeableConcept.nullFlavor -%}
+{%- assign org_text = CodeableConcept.originalText._ | clean_string_from_tabs | strip -%}
+"text": "{{ org_text }}",
+
+{%- if num_concepts == 0 and mandatory == true -%}
+{%- if org_text == empty or org_text == null -%}
+{%- if org_text == nil or org_text == nil -%}
 "extension": [
 	{%- include "Extension/DataAbsentReason" nullFlavor: CodeableConcept.nullFlavor -%}
 ],
+{%- endif -%}
+{%- endif -%}
 {%- endif -%}

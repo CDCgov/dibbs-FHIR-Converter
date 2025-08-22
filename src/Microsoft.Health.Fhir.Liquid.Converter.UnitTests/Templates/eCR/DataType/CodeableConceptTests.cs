@@ -44,10 +44,26 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             {
                 { "CodeableConcept", Hash.FromAnonymousObject(new { nullFlavor = "UNK" }) }
             };
-            attributes.Add("mandatory", true);
+            attributes.Add("minCardinality", 1);
+            attributes.Add("bindingStrength", "required");
 
             var expectedContent =
-                @"""coding"": [ ], ""text"": """", ""extension"": [ { ""url"": ""http://hl7.org/fhir/ValueSet/data-absent-reason"", ""valueCode"": ""unknown"", },],";
+                @"""coding"": [ ], ""text"": """", ""extension"": [ { ""url"": ""http://hl7.org/fhir/StructureDefinition/data-absent-reason"", ""valueCode"": ""unknown"", },],";
+            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+        }
+
+        [Fact]
+        public void AllFieldsEmptyExtensible()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                { "CodeableConcept", Hash.FromAnonymousObject(new { nullFlavor = "UNK" }) }
+            };
+            attributes.Add("minCardinality", 1);
+            attributes.Add("bindingStrength", "extensible");
+
+            var expectedContent =
+                @"""coding"": [ { ""code"": ""unknown"", ""system"": ""http://terminology.hl7.org/CodeSystem/data-absent-reason"", }, ], ""text"": """",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 

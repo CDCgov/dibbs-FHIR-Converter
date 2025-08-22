@@ -329,7 +329,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
                 "valueCode": "not-applicable"
               }
             ]
@@ -349,10 +349,10 @@
               {
                 "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
                 "valueCodeableConcept": {
-                  "extension": [
+                  "coding": [
                     {
-                      "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-                      "valueCode": "not-applicable"
+                      "code": "unknown",
+                      "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
                     }
                   ]
                 }
@@ -397,21 +397,11 @@
             "_value": {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
                   "valueCode": "not-applicable"
                 }
               ]
             }
-          }
-        ],
-        "type": [
-          {
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
-                "valueCode": "not-applicable"
-              }
-            ]
           }
         ]
       },
@@ -453,7 +443,7 @@
             "_value": {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
                   "valueCode": "not-applicable"
                 }
               ]

@@ -45,11 +45,11 @@
             {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
             "status":"{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationResultStatus' }}",
         {% endif %}
-        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code, mandatory: true -%} },
+        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code, minCardinality: 1 -%} },
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         "bodySite":
         {
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode -%}
+            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode, minCardinality: 0 -%}
         },
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText %}
         "referenceRange":

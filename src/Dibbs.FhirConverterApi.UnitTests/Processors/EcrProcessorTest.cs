@@ -8,18 +8,11 @@ namespace Dibbs.FhirConverterApi.UnitTests.Processors;
 public class EcrProcessorTest
 {
   [Fact]
-  public void ConvertStringToXDocument_ShouldAddXSI_WhenItIsMissing()
-  {
-    var input = "<ClinicalDocument xmlns=\"urn:hl7-org:v3\"></ClinicalDocument>";
-    var actual = EcrProcessor.ConvertStringToXDocument(input);
-    Assert.Contains("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", actual.ToString());
-  }
-
-  [Fact]
-  public void ConvertStringToXDocument_ResolvesReferences_WhenTheyExist()
+  public void ResolveReferences_ResolvesReferences_WhenTheyExist()
   {
     var input = "<ClinicalDocument xmlns=\"urn:hl7-org:v3\" xmlns:sdtc=\"urn:hl7-org:sdtc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><component><structuredBody><component><section><text><content ID=\"birthsex\">Female</content><content ID=\"gender-identity\">unknown</content></text><entry><observation classCode=\"OBS\" moodCode=\"EVN\"><reference value=\"#birthsex\"/></observation></entry><entry><observation classCode=\"OBS\" moodCode=\"EVN\"><reference value=\"#gender-identity\"/></observation></entry></section></component></structuredBody></component></ClinicalDocument>";
-    var actual = EcrProcessor.ConvertStringToXDocument(input);
+    var inputXDoc = XDocument.Parse(input);
+    var actual = EcrProcessor.ResolveReferences(inputXDoc);
     var names = new XmlNamespaceManager(actual.CreateNavigator().NameTable);
     names.AddNamespace("hl7", "urn:hl7-org:v3");
     var entries = actual.XPathSelectElements(

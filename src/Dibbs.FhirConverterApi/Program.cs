@@ -38,21 +38,32 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
     if (inputType == "ecr")
     {
+        XDocument ecrDoc;
+
         try
         {
-            XDocument ecrDoc = EcrProcessor.ConvertStringToXDocument(inputData);
+            ecrDoc = XDocument.Parse(inputData);
+        }
+        catch
+        {
+            return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
+        }
 
-            if (!string.IsNullOrEmpty(requestBody.RRData))
+        ecrDoc = EcrProcessor.ResolveReferences(ecrDoc);
+
+        if (!string.IsNullOrEmpty(requestBody.RRData))
+        {
+            try
             {
                 ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.RRData);
             }
+            catch (UserFacingException ex)
+            {
+                return Results.Json(new { detail = ex.Message }, statusCode: (int)ex.StatusCode);
+            }
+        }
 
-            inputData = ecrDoc.ToString();
-        }
-        catch (UserFacingException ex)
-        {
-            return Results.Json(new { detail = ex.Message }, statusCode: (int)ex.StatusCode);
-        }
+        inputData = ecrDoc.ToString();
     }
 
     if (inputType == "vxu" || inputType == "elr")

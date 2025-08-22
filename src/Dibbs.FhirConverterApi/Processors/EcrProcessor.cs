@@ -9,42 +9,6 @@ namespace Dibbs.FhirConverterApi.Processors;
 public class EcrProcessor
 {
     /// <summary>
-    ///  Adds XML Schema Instance if it is missing from document
-    ///  then converts document from string to XDocument.
-    /// </summary>
-    /// <param name="inputData">A serialized xml format electronic initial case report (eICR) document.</param>
-    /// <returns>An XDocument object containing an eICR.</returns>
-    public static XDocument ConvertStringToXDocument(string inputData)
-    {
-        try
-        {
-            // Add xmlns:xsi if missing
-            var ecrLines = inputData.Split(
-                ["\n", "\r\n"],
-                StringSplitOptions.None).ToList();
-            var startIndex = ecrLines.FindIndex(line => line.TrimStart().StartsWith("<ClinicalDocument"));
-            var endIndex = ecrLines.FindIndex(startIndex, line => line.TrimEnd().EndsWith('>'));
-            var count = endIndex - startIndex + 1;
-
-            if (ecrLines.FindIndex(startIndex, count, line => line.Contains("xmlns:xsi")) == -1)
-            {
-                var newRootElement = string.Join(" ", ecrLines.ToArray(), startIndex, endIndex - startIndex + 1);
-                newRootElement = newRootElement.Replace("xmlns=\"urn:hl7-org:v3\"", "xmlns=\"urn:hl7-org:v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
-                ecrLines.RemoveRange(startIndex, endIndex - startIndex + 1);
-                ecrLines.Insert(startIndex, newRootElement);
-                inputData = string.Join("\n", ecrLines.ToArray());
-            }
-
-            var ecrDoc = XDocument.Parse(inputData);
-            return ResolveReferences(ecrDoc);
-        }
-        catch (Exception ex)
-        {
-            throw new UserFacingException("EICR message must be valid XML message.", HttpStatusCode.UnprocessableEntity, ex);
-        }
-    }
-
-    /// <summary>
     ///  Extracts relevant fields from an RR document, and inserts them into a
     ///  given eICR document. Ensures that the eICR contains properly formatted
     ///  RR fields, including templateId, id, code, title, effectiveTime,
@@ -93,12 +57,12 @@ public class EcrProcessor
             string[] rrTags =
             [
                 "templateId",
-            "id",
-            "code",
-            "title",
-            "effectiveTime",
-            "confidentialityCode",
-        ];
+                "id",
+                "code",
+                "title",
+                "effectiveTime",
+                "confidentialityCode",
+            ];
 
             var rrElements = new List<XElement>();
             var rrNames = new XmlNamespaceManager(rrXDocument.CreateNavigator().NameTable);
@@ -130,6 +94,9 @@ public class EcrProcessor
             // and entry to insert in the eICR
             if (rrEntry is not null)
             {
+                // Makes sure xmlns:xsi is set since in case RR references it and eICR doesn't
+                XNamespace xsi = XNamespace.Get("http://www.w3.org/2001/XMLSchema-instance");
+                ecrXDocument.Root!.SetAttributeValue(XNamespace.Xmlns + "xsi", xsi);
                 XNamespace ns = "urn:hl7-org:v3";
                 var ecrSection = new XElement(ns + "section");
                 foreach (var element in rrElements)
@@ -162,7 +129,7 @@ public class EcrProcessor
     /// </summary>
     /// <param name="ecrXDocument">HL7 XML document.</param>
     /// <returns>XML document with text set for references.</returns>
-    private static XDocument ResolveReferences(XDocument ecrXDocument)
+    public static XDocument ResolveReferences(XDocument ecrXDocument)
     {
         var names = new XmlNamespaceManager(ecrXDocument.CreateNavigator().NameTable);
         names.AddNamespace("hl7", "urn:hl7-org:v3");

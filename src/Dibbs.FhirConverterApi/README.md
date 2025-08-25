@@ -23,8 +23,8 @@ To run the DIBBs FHIR Conversion service with Docker, follow these steps.
 Docker version 20.10.21, build baeda1f
 ```
 
-2. Download a copy of the Docker image from the dibbs-ecr-viewer repository by running `docker pull ghcr.io/cdcgov/dibbs-ecr-viewer:latest`.
-3. Run the service with ` docker run -p 8080:8080 ghcr.io/cdcgov/dibbs-ecr-viewer:latest`.
+2. Download a copy of the Docker image from the dibbs-ecr-viewer repository by running `docker pull ghcr.io/cdcgov/dibbs-ecr-viewer/fhir-converter:latest`.
+3. Run the service with ` docker run -p 8080:8080 ghcr.io/cdcgov/dibbs-ecr-viewer/fhir-converter:latest`.
 
 Congratulations, the FHIR Conversion service should now be running on `localhost:8080`!
 

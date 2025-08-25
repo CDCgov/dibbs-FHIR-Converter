@@ -329,7 +329,7 @@
           {
             "extension": [
               {
-                "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
                 "valueCode": "not-applicable"
               }
             ]
@@ -389,7 +389,7 @@
             "_value": {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
                   "valueCode": "not-applicable"
                 }
               ]
@@ -435,7 +435,7 @@
             "_value": {
               "extension": [
                 {
-                  "url": "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
                   "valueCode": "not-applicable"
                 }
               ]

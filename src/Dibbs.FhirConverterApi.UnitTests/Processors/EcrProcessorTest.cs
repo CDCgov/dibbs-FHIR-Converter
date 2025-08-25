@@ -37,15 +37,16 @@ public class EcrProcessorTest
     var section = mergedEcr.Root!.XPathSelectElement("hl7:section", names);
     Assert.NotNull(section);
 
-    string[] rrTags = [
-          "templateId",
-          "id",
-          "code",
-          "title",
-          "effectiveTime",
-          "confidentialityCode",
-          "entry",
-      ];
+    string[] rrTags =
+    [
+      "templateId",
+      "id",
+      "code",
+      "title",
+      "effectiveTime",
+      "confidentialityCode",
+      "entry",
+    ];
 
     foreach (var tag in rrTags)
     {

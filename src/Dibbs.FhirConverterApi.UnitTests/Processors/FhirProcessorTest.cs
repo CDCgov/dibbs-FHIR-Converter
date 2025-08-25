@@ -17,7 +17,7 @@ public class FhirProcessorTest
     foreach (var entry in entries)
     {
       Assert.NotNull(entry?["resource"]?["meta"]?["source"]);
-      Assert.Equal("ecr", (string)entry!["resource"]!["meta"]!["source"]!);
+      Assert.Equal("ecr", (string)entry!["resource"] !["meta"] !["source"] !);
     }
   }
 }

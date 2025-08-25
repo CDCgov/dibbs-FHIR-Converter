@@ -10,7 +10,32 @@ public class EcrProcessorTest
   [Fact]
   public void ResolveReferences_ResolvesReferences_WhenTheyExist()
   {
-    var input = "<ClinicalDocument xmlns=\"urn:hl7-org:v3\" xmlns:sdtc=\"urn:hl7-org:sdtc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><component><structuredBody><component><section><text><content ID=\"birthsex\">Female</content><content ID=\"gender-identity\">unknown</content></text><entry><observation classCode=\"OBS\" moodCode=\"EVN\"><reference value=\"#birthsex\"/></observation></entry><entry><observation classCode=\"OBS\" moodCode=\"EVN\"><reference value=\"#gender-identity\"/></observation></entry></section></component></structuredBody></component></ClinicalDocument>";
+    var input = @"
+    <ClinicalDocument xmlns=""urn:hl7-org:v3"" xmlns:sdtc=""urn:hl7-org:sdtc"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+      <component>
+        <structuredBody>
+          <component>
+            <section>
+              <text>
+                <content ID=""birthsex"">Female</content>
+                <content ID=""gender-identity"">unknown</content>
+              </text>
+              <entry>
+                <observation classCode=""OBS"" moodCode=""EVN"">
+                  <reference value=""#birthsex""/>
+                </observation>
+              </entry>
+              <entry>
+                <observation classCode=""OBS"" moodCode=""EVN"">
+                  <reference value=""#gender-identity""/>
+                </observation>
+              </entry>
+            </section>
+          </component>
+        </structuredBody>
+      </component>
+    </ClinicalDocument>
+";
     var inputXDoc = XDocument.Parse(input);
     var actual = EcrProcessor.ResolveReferences(inputXDoc);
     var names = new XmlNamespaceManager(actual.CreateNavigator().NameTable);

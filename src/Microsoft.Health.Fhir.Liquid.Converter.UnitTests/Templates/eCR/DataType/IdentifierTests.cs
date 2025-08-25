@@ -163,7 +163,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("http://loinc.org", actualFhir.System);
             Assert.Null(actualFhir.Value);
             Assert.Equal(
-                "http://hl7.org/fhir/ValueSet/data-absent-reason",
+                "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
                 actualFhir.ValueElement.Extension.First().Url
             );
             Assert.Equal("unknown", actualFhir.ValueElement.Extension.First().Value.ToString());
@@ -202,7 +202,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Null(actualFhir.Value);
             Assert.Equal(
                 actualFhir.ValueElement.Extension.First().Url,
-                "http://hl7.org/fhir/ValueSet/data-absent-reason"
+                "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
             );
             Assert.Equal(
                 actualFhir.ValueElement.Extension.First().Value.ToString(),
@@ -225,7 +225,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Null(actualFhir.Value);
             Assert.Equal(
                 actualFhir.Extension.First().Url,
-                "http://hl7.org/fhir/ValueSet/data-absent-reason"
+                "http://hl7.org/fhir/StructureDefinition/data-absent-reason"
             );
             Assert.Equal(actualFhir.Extension.First().Value.ToString(), "not-applicable");
             Assert.Null(actualFhir.Assigner);

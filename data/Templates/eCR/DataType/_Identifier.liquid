@@ -31,7 +31,7 @@
         {%- endif -%}
     {%- endif -%}
 {%- elsif Identifier.root -%}
-    "system": "{{system | prepend_id -}}",
+    "system": "{{- system | prepend_id -}}",
     "_value": {
         "extension": [
             {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}

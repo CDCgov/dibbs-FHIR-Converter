@@ -27,7 +27,7 @@
             {%- endif -%}
         {%- else -%}
         {% comment %} This is means the root is an invalid UID as it is neither an UUID or OID. In this case we will just set it as the value. {% endcomment %}
-            "value": "{{Identifier.root -}}",
+            "value": "{{- Identifier.root -}}",
         {%- endif -%}
     {%- endif -%}
 {%- elsif Identifier.root -%}

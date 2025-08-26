@@ -3954,6 +3954,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -3985,6 +3986,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -4016,6 +4018,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {

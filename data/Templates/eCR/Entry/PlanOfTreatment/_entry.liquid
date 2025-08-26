@@ -19,14 +19,14 @@
     {% for performer in performers %}
         {% assign performerId = performer| to_json_string | generate_uuid -%}
         {% assign fullPerformerId = performerId | prepend: 'Practitioner/' %}
-        {% include 'Resource/Practitioner' ID: performerId pracitioner: performer.assignedEntity %}
+        {%- include 'Resource/Practitioner' ID: performerId, practitioner: performer.assignedEntity -%}
         {% include 'Reference/ServiceRequest/Performer' ID: serviceId, REF: fullPerformerId -%}
     {% endfor %}
 
     {% if service.author %}
         {% assign authorId = service.author | to_json_string | generate_uuid -%}
         {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
-        {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
+        {%- include 'Resource/Practitioner' ID: authorId, practitioner: service.author.assignedAuthor -%}
         {% include 'Reference/ServiceRequest/Requester' ID: serviceId, REF: fullAuthorId -%}
     {% endif %}
 {% endif %}
@@ -44,14 +44,14 @@
     {% for performer in performers %}
         {% assign performerId = performer| to_json_string | generate_uuid -%}
         {% assign fullPerformerId = performerId | prepend: 'Practitioner/' %}
-        {% include 'Resource/Practitioner' ID: performerId pracitioner: performer.assignedEntity %}
+        {%- include 'Resource/Practitioner' ID: performerId, practitioner: performer.assignedEntity -%}
         {% include 'Reference/MedicationRequest/Performer' ID: medId, REF: fullPerformerId -%}
     {% endfor %}
 
     {% if med.author %}
         {% assign authorId = med.author | to_json_string | generate_uuid -%}
         {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
-        {% include 'Resource/Practitioner' ID: performerId pracitioner: author.assignedAuthor %}
+        {%- include 'Resource/Practitioner' ID: authorId, practitioner: med.author.assignedAuthor -%}
         {% include 'Reference/MedicationRequest/Requester' ID: medId, REF: fullAuthorId -%}
     {% endif %}
 

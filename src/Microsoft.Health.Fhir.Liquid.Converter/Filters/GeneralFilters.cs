@@ -24,12 +24,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             Context context,
             string originalCode,
             string mapping,
-            string property = "code")
+            string property = "code",
+            bool applyDefaultIfNull = false)
         {
-            if (
-                string.IsNullOrEmpty(originalCode)
-                || string.IsNullOrEmpty(mapping)
-                || string.IsNullOrEmpty(property))
+            if (applyDefaultIfNull && string.IsNullOrEmpty(originalCode))
+            {
+                originalCode = string.Empty;
+            }
+
+            if (originalCode == null || string.IsNullOrEmpty(mapping) || string.IsNullOrEmpty(property))
             {
                 return null;
             }
@@ -145,10 +148,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         /// <returns>The extension with the root removed, if the root was a URL prefix. Else return the extension unchanged.</returns>
         public static string RemovePrefix(string extension, string root)
         {
-            // We potentially have to strip quote marks from the root because the output of the SystemReference template includes the quote marks.
-            root = root.StartsWith('"') ? root[1..] : root;
-            root = root.EndsWith('"') ? root[..^1] : root;
-
             if (
                 root != null
                 && extension != null

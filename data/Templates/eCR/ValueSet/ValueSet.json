@@ -1,5 +1,46 @@
 {
   "Mapping": {
+    "ValueSet/NullFlavor": {
+      "NI": {
+        "code": "unknown"
+      },
+      "OTH": {
+        "code": "unsupported"
+      },
+      "NINF": {
+        "code": "negative-infinity"
+      },
+      "PINF": {
+        "code": "positive-infinity"
+      },
+      "MSK": {
+        "code": "masked"
+      },
+      "NA": {
+        "code": "not-applicable"
+      },
+      "UNK": {
+        "code": "unknown"
+      },
+      "ASKU": {
+        "code": "asked-unknown"
+      },
+      "NAV": {
+        "code": "temp-unknown"
+      },
+      "NASK": {
+        "code": "not-asked"
+      },
+      "TRC": {
+        "code": "unsupported"
+      },
+      "NP": {
+        "code": "unknown"
+      },
+      "__default__": {
+        "code": "unknown"
+      }
+    },
     "ValueSet/AddressUse": {
       "HP": {
         "code": "home"

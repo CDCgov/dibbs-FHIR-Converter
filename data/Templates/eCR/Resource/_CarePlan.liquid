@@ -46,6 +46,12 @@
                             {% comment %} planned activities use scheduledString instead of scheduledDateTime {% endcomment %}
                             {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
                             {{ time |  replace_first: "DateTime", "String" }}
+                            {%- assign location = act.location -%}
+                            {% comment %} {%- if fullLocationId -%}
+                            "location": {
+                                "reference": "{{fullLocationId}}",
+                            }
+                            {%- endif -%} {% endcomment %}
                         }
                     }
                 {% endif %}

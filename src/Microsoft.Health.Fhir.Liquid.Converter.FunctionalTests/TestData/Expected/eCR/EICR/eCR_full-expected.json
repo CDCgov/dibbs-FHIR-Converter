@@ -1,4 +1,6 @@
 {
+  "Status": "OK",
+  "FhirResource": {
   "resourceType": "Bundle",
   "type": "batch",
   "entry": [
@@ -1050,4 +1052,5 @@
       }
     }
   ]
+}
 }

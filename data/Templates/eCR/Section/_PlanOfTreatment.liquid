@@ -2,6 +2,15 @@
 {% assign carePlanResource = carePlan.2_16_840_1_113883_10_20_22_2_10 %}
 {% if carePlanResource %}
     {% assign carePlanId = carePlanResource | to_json_string | generate_uuid %}
-    {% include 'Resource/CarePlan' carePlan: carePlanResource ID: carePlanId patientReference: fullPatientId  %}
+    {%- include 'Resource/CarePlan' carePlan: carePlanResource ID: carePlanId patientReference: fullPatientId -%}
+    {%- assign encounterParticipants = carePlanResource.entry.encounter.participant | to_array -%}
+    {%- for participant in encounterParticipants -%}
+        {%- if participant.typeCode == "LOC"-%}
+            {% assign locationId = participant.participantRole | to_json_string | generate_uuid %}
+            {%- include 'Resource/Location' ID: locationId, location: participant.participantRole -%}
+            {% assign fullLocationId = locationId | prepend: 'Location/' -%}
+            {%- include 'Reference/CarePlan/Location' ID: carePlanId, REF: fullLocationId -%}
+        {%- endif -%}
+    {%- endfor -%}
     {{ carePlanResource.entry | to_array | batch_render: 'Entry/PlanOfTreatment/entry', 'entry' }}
 {% endif %}

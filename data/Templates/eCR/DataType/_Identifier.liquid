@@ -27,22 +27,20 @@
             {%- endif -%}
         {%- else -%}
         {% comment %} This is means the root is an invalid UID as it is neither an UUID or OID. In this case we will just set it as the value. {% endcomment %}
-            "value": "{{Identifier.root -}}",
+            "value": "{{- Identifier.root -}}",
         {%- endif -%}
     {%- endif -%}
-{%- else -%}
-    {%- if Identifier.root -%}
-        "system": "{{system | prepend_id -}}",
-        "_value": {
-            "extension": [
-                {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
-            ],
-        },
-    {%- else -%}
+{%- elsif Identifier.root -%}
+    "system": "{{- system | prepend_id -}}",
+    "_value": {
         "extension": [
             {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
         ],
-    {%- endif -%}
+    },
+{%- else -%}
+    "extension": [
+        {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+    ],
 {%- endif -%}
 {%- if Identifier.assigningAuthorityName != null -%}
     "assigner": {

@@ -6,15 +6,15 @@
 	{% assign translations = CodeableConcept.translation | to_array -%}
 	{% assign concepts = CodeableConcept | to_array | concat: translations -%}
 	{% for concept in concepts -%}
-		{%- if concept.code != null or concept.codeSystem != null -%}
+		{%- if concept.code != nil or concept.codeSystem != nil -%}
 			{%- assign num_concepts = num_concepts | plus: 1 -%}
 			{ {% include 'DataType/Coding' Coding: concept -%} },
 		{%- endif -%}
 	{% endfor -%}
-	{%- if concept.code != empty or concept.code != nil or concept.code != null -%}
-	{%- if concept.codeSystem != empty or concept.codeSystem != nil or concept.codeSystem != null -%}
+	{%- if concept.code != empty or concept.code != nil -%}
+	{%- if concept.codeSystem != empty or concept.codeSystem != nil -%}
 	{%- if minCardinality > 0 and bindingStrength != "required" and num_concepts == 0 -%}
-	{%- if org_text == empty or org_test == nil or org_text == null -%}
+	{%- if org_text == empty or org_test == nil -%}
 		{%- assign num_concepts = num_concepts | plus: 1 -%}
 		{
 			"code": "{{- nullFlavor | default: "" | get_property: 'ValueSet/NullFlavor' -}}",
@@ -27,7 +27,7 @@
 ],
 "text": "{{ org_text }}",
 {%- if num_concepts == 0 and minCardinality > 0 -%}
-{%- if org_text == empty or org_test == nil or org_text == null -%}
+{%- if org_text == empty or org_test == nil -%}
 {%- if bindingStrength == "required" -%}
 	"extension": [
 		{%- include "Extension/DataAbsentReason" nullFlavor: CodeableConcept.nullFlavor -%}

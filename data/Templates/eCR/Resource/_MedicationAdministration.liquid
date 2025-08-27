@@ -12,12 +12,16 @@
         ],
         "status":"{{ medicationAdministration.statusCode.code | get_property: 'ValueSet/MedicationAdministrationStatus' }}",
         {% assign effectiveTimes = medicationAdministration.effectiveTime | to_array -%}
-        {% for effectiveTime in effectiveTimes %}
-            {% if effectiveTime.operator != "A" %}
-                {%  comment  %} only one of the times should actually return anything here {% endcomment %}
-                {% include 'Utils/EffectiveTime' effectiveTime: effectiveTime %}
-            {% endif %}
-        {% endfor %}
+        {%- if effectiveTimes | size == 1 and medicationAdministration.effectiveTime.value -%}
+            {% include 'Utils/EffectiveTime' effectiveTime: medicationAdministration.effectiveTime %}
+        {%- else -%}
+            {% for effectiveTime in effectiveTimes %}
+                {% if effectiveTime.operator != "A" %}
+                    {%  comment  %} only one of the times should actually return anything here {% endcomment %}
+                    {% include 'Utils/EffectiveTime' effectiveTime: effectiveTime %}
+                {% endif %}
+            {% endfor %}
+        {%- endif -%}
         "dosage":
         {
             "route":

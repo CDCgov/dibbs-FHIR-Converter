@@ -2885,41 +2885,94 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         },
-        "activity": [
+        "encounter": {
+          "reference": "Encounter/6a1c14ce-629f-3b64-cd3b-9a74645abaed"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6a1c14ce-629f-3b64-cd3b-9a74645abaed",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "6a1c14ce-629f-3b64-cd3b-9a74645abaed",
+        "status": "in-progress",
+        "class": {
+          "code": "AMB",
+          "system": "urn:oid:2.16.840.1.113883.5.4"
+        },
+        "identifier": [
           {
-            "detail": {
-              "kind": "Appointment",
-              "code": {
-                "coding": [
-                  {
-                    "code": "AMB",
-                    "system": "urn:oid:2.16.840.1.113883.5.4"
-                  },
-                  {
-                    "code": "101",
-                    "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.4.698084.30"
-                  },
-                  {
-                    "code": "101",
-                    "system": "urn:oid:1.2.840.114350.1.72.1.30"
-                  },
-                  {
-                    "code": "4",
-                    "system": "urn:oid:1.2.840.114350.1.72.1.30.1"
-                  }
-                ]
-              },
-              "status": "scheduled",
-              "scheduledPeriod": {
-                "start": "1985-10-15"
-              }
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.3.698084.8",
+            "value": "XX887",
+            "assigner": {
+              "display": "EPIC"
+            }
+          }
+        ],
+        "period": {
+          "start": "1985-10-15"
+        },
+        "location": [
+          {
+            "id": "None",
+            "location": {
+              "reference": "Location/204ac267-509e-5211-e752-f95761014083",
+              "display": "None"
             }
           }
         ]
       },
       "request": {
         "method": "PUT",
-        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
+        "url": "Encounter/6a1c14ce-629f-3b64-cd3b-9a74645abaed"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:204ac267-509e-5211-e752-f95761014083",
+      "resource": {
+        "resourceType": "Location",
+        "id": "204ac267-509e-5211-e752-f95761014083",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.686980",
+            "value": "XX534260"
+          }
+        ],
+        "name": "University Medical Center & Pharmacy of Ando",
+        "address": {
+          "use": "work",
+          "line": [
+            "554 KAMINO OCEAN Street"
+          ],
+          "city": "Galactic City",
+          "state": "KZ",
+          "country": "AI",
+          "postalCode": "89170-2785",
+          "district": "Lah'mu"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "display": "Family Medicine"
+              },
+              {
+                "code": "19",
+                "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
+                "display": "Family Medicine"
+              }
+            ],
+            "text": "Family Medicine"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/204ac267-509e-5211-e752-f95761014083"
       }
     },
     {

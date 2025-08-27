@@ -8,13 +8,13 @@
 	{% for concept in concepts -%}
 		{%- if concept.code != nil or concept.codeSystem != nil -%}
 			{%- assign num_concepts = num_concepts | plus: 1 -%}
+			{% comment %} If there is at least a code or a system, add it as a coding {% endcomment %}
 			{ {% include 'DataType/Coding' Coding: concept -%} },
 		{%- endif -%}
 	{% endfor -%}
-	{%- if concept.code != empty or concept.code != nil -%}
-	{%- if concept.codeSystem != empty or concept.codeSystem != nil -%}
 	{%- if minCardinality > 0 and bindingStrength != "required" and num_concepts == 0 -%}
 	{%- if org_text == empty or org_test == nil -%}
+		{% comment %} We only need to use a data-absent-reason coding if there is no coding, it has to exist (has a minimum cardinality > 0), and it has a binding strenght that allows use to use the data absent coding (anything but "required") {% endcomment %}
 		{%- assign num_concepts = num_concepts | plus: 1 -%}
 		{
 			"code": "{{- nullFlavor | default: "" | get_property: 'ValueSet/NullFlavor' -}}",
@@ -22,16 +22,13 @@
 		},
 	{%- endif -%}
 	{%- endif -%}
-	{%- endif -%}
-	{%- endif -%}
 ],
 "text": "{{ org_text }}",
 {%- if num_concepts == 0 and minCardinality > 0 -%}
-{%- if org_text == empty or org_test == nil -%}
 {%- if bindingStrength == "required" -%}
+	{% comment %} If we have no codings but it is supposed to exist (a minimum cardinality > 0) and it has a binding strength that does not allow us to use the data absent coding, add a data absent reason extension to the codeable concept. {% endcomment %}
 	"extension": [
 		{%- include "Extension/DataAbsentReason" nullFlavor: CodeableConcept.nullFlavor -%}
 	],
-{%- endif -%}
 {%- endif -%}
 {%- endif -%}

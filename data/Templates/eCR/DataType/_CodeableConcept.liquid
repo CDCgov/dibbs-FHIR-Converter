@@ -1,3 +1,10 @@
+{% comment %}
+ Codeable concepts handle missing codings differently depending on whether:
+ 1) The minimum cardinality
+ 2) The binding strength
+ The default minimum cardinality is 0, as in, it is not required.
+ The default binding strength is undefined. However this is only important in the case when the binding is "required". In that case the coding must come from the specified value set.
+ {% endcomment %}
 {%- assign minCardinality = minCardinality | default: 0 -%}
 {%- assign num_concepts = 0 -%}
 {%- assign org_text = CodeableConcept.originalText._ | clean_string_from_tabs | strip -%}

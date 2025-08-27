@@ -2918,10 +2918,8 @@
         },
         "location": [
           {
-            "id": "None",
             "location": {
-              "reference": "Location/204ac267-509e-5211-e752-f95761014083",
-              "display": "None"
+              "reference": "Location/204ac267-509e-5211-e752-f95761014083"
             }
           }
         ]

@@ -346,7 +346,15 @@
             },
             "extension": [
               {
-                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type"
+                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "unknown",
+                      "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -1264,8 +1272,7 @@
           "coding": [
             {
               "code": "15628003",
-              "system": "http://snomed.info/sct",
-              "display": "Gonorrhea, acute"
+              "system": "http://snomed.info/sct"
             },
             {
               "code": "A54.9",
@@ -1824,8 +1831,7 @@
           "coding": [
             {
               "code": "83036",
-              "system": "http://www.ama-assn.org/go/cpt",
-              "display": "A1c"
+              "system": "http://www.ama-assn.org/go/cpt"
             }
           ],
           "text": "A1c"
@@ -1940,8 +1946,7 @@
           "coding": [
             {
               "code": "82274",
-              "system": "http://www.ama-assn.org/go/cpt",
-              "display": "FIT Occult Blood, Stool Test"
+              "system": "http://www.ama-assn.org/go/cpt"
             }
           ],
           "text": "FIT Occult Blood, Stool Test"

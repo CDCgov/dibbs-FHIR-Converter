@@ -2963,9 +2963,6 @@
           {
             "coding": [
               {
-                "display": "Family Medicine"
-              },
-              {
                 "code": "19",
                 "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
                 "display": "Family Medicine"

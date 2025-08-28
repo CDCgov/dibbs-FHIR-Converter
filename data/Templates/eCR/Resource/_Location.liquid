@@ -26,7 +26,7 @@
         [
             {% assign codes = location.code | to_array -%}
             {% for code in codes -%}
-            { {% include 'DataType/CodeableConcept' CodeableConcept: code -%} },
+            { {% include 'DataType/CodeableConcept' CodeableConcept: code, minCardinality: 0 -%} },
             {% endfor -%}
         ],
     },

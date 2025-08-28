@@ -51,7 +51,7 @@
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime | default: observationEntry.entryRelationship.organizer.effectiveTime %}
         "bodySite":
         {
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode -%}
+            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode, minCardinality: 0 -%}
         },
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
         "referenceRange":

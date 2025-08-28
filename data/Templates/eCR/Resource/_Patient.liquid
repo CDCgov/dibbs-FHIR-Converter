@@ -57,7 +57,7 @@
             {% endfor -%}
         ],
         "maritalStatus": {
-            {% include 'DataType/CodeableConcept' CodeableConcept: patientRole.patient.maritalStatusCode -%}
+            {% include 'DataType/CodeableConcept' CodeableConcept: patientRole.patient.maritalStatusCode, minCardinality: 0 -%}
         },
         "telecom":
         [
@@ -72,7 +72,7 @@
             {% if contact.classCode == "ECON" -%}
                 {
                     "relationship": [
-                        { {% include 'DataType/CodeableConcept' CodeableConcept: contact.code -%} }
+                        { {% include 'DataType/CodeableConcept' CodeableConcept: contact.code, minCardinality: 0 -%} }
                     ],
                     {% assign name = contact.associatedPerson.name | to_array | first-%}
                     "name": { {% include 'DataType/HumanName' HumanName: name -%} },

@@ -11,31 +11,31 @@ public class EcrProcessorTest
   public void ResolveReferences_ResolvesReferences_WhenTheyExist()
   {
     var input = @"
-    <ClinicalDocument xmlns=""urn:hl7-org:v3"" xmlns:sdtc=""urn:hl7-org:sdtc"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-      <component>
-        <structuredBody>
-          <component>
-            <section>
-              <text>
-                <content ID=""birthsex"">Female</content>
-                <content ID=""gender-identity"">unknown</content>
-              </text>
-              <entry>
-                <observation classCode=""OBS"" moodCode=""EVN"">
-                  <reference value=""#birthsex""/>
-                </observation>
-              </entry>
-              <entry>
-                <observation classCode=""OBS"" moodCode=""EVN"">
-                  <reference value=""#gender-identity""/>
-                </observation>
-              </entry>
-            </section>
-          </component>
-        </structuredBody>
-      </component>
-    </ClinicalDocument>
-";
+      <ClinicalDocument xmlns=""urn:hl7-org:v3"" xmlns:sdtc=""urn:hl7-org:sdtc"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+        <component>
+          <structuredBody>
+            <component>
+              <section>
+                <text>
+                  <content ID=""birthsex"">Female</content>
+                  <content ID=""gender-identity"">unknown</content>
+                </text>
+                <entry>
+                  <observation classCode=""OBS"" moodCode=""EVN"">
+                    <reference value=""#birthsex""/>
+                  </observation>
+                </entry>
+                <entry>
+                  <observation classCode=""OBS"" moodCode=""EVN"">
+                    <reference value=""#gender-identity""/>
+                  </observation>
+                </entry>
+              </section>
+            </component>
+          </structuredBody>
+        </component>
+      </ClinicalDocument>";
+
     var inputXDoc = XDocument.Parse(input);
     var actual = EcrProcessor.ResolveReferences(inputXDoc);
     var names = new XmlNamespaceManager(actual.CreateNavigator().NameTable);
@@ -48,6 +48,41 @@ public class EcrProcessorTest
     Assert.Equal("Female", entries?.ElementAt(0).Value);
     Assert.Equal("#gender-identity", entries?.ElementAt(1)?.XPathSelectElement("hl7:observation/hl7:reference", names)?.Attribute("value")?.Value);
     Assert.Equal("unknown", entries?.ElementAt(1).Value);
+  }
+
+  [Fact]
+  public void ResolveReferences_PreservesInnerTags_WhenResolvingReferences()
+  {
+    var input = @"
+      <ClinicalDocument xmlns=""urn:hl7-org:v3"" xmlns:sdtc=""urn:hl7-org:sdtc"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+        <component>
+          <structuredBody>
+            <component>
+              <section>
+                <text>
+                  <content ID=""trvhx-1"">Traveled to Singapore, Malaysia and Bali with<br />my family.</content>
+                </text>
+                <entry>
+                  <observation classCode=""OBS"" moodCode=""EVN"">
+                    <reference value=""#trvhx-1""/>
+                  </observation>
+                </entry>
+              </section>
+            </component>
+          </structuredBody>
+        </component>
+      </ClinicalDocument>";
+
+    var inputXDoc = XDocument.Parse(input);
+    var actual = EcrProcessor.ResolveReferences(inputXDoc);
+    var names = new XmlNamespaceManager(actual.CreateNavigator().NameTable);
+    names.AddNamespace("hl7", "urn:hl7-org:v3");
+    var entries = actual.XPathSelectElements(
+              "//hl7:component/hl7:structuredBody/hl7:component/hl7:section/hl7:entry",
+              names);
+
+    Assert.Equal("#trvhx-1", entries?.ElementAt(0)?.XPathSelectElement("hl7:observation/hl7:reference", names)?.Attribute("value")?.Value);
+    Assert.Equal("Traveled to Singapore, Malaysia and Bali with<br xmlns=\"urn:hl7-org:v3\" />my family.", entries?.ElementAt(0).Value);
   }
 
   [Fact]

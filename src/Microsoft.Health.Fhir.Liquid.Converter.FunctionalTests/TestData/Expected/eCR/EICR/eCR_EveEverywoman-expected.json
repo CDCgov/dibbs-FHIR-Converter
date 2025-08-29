@@ -4533,8 +4533,8 @@
         "valueCodeableConcept": {
           "coding": [
             {
+              "system": "http://terminology.hl7.org/CodeSystem/v2-0532",
               "code": "Y",
-              "system": "urn:oid:2.16.840.1.113883.12.136",
               "display": "Yes"
             }
           ]

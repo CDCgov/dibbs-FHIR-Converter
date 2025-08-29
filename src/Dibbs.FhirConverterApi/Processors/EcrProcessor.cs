@@ -144,14 +144,20 @@ public class EcrProcessor
             if (value is not null)
             {
                 var refId = value.Value[1..];
-                var refText = ecrXDocument.XPathEvaluate(
-                    $"//*[@ID='{refId}']/text()",
+
+                var element = ecrXDocument.XPathSelectElement(
+                    $"//*[@ID='{refId}']",
                     names);
 
-                if (refText is IEnumerable<object> enumerableSequence)
+                if (element != null)
                 {
-                    IEnumerable<XObject> enumerableText = enumerableSequence.Cast<XObject>();
-                    refElement.Value = string.Join(" ", enumerableText.Select(t => t.ToString()));
+                    string elementValue = string.Empty;
+                    foreach (var node in element.Nodes())
+                    {
+                        elementValue += node.ToString();
+                    }
+
+                    refElement.Value = elementValue;
                 }
             }
         }

@@ -1,4 +1,6 @@
 {
+  "Status": "OK",
+  "FhirResource": {
   "resourceType": "Bundle",
   "type": "batch",
   "entry": [
@@ -991,7 +993,7 @@
             {
               "code": "RR6",
               "system": "urn:oid:2.16.840.1.114222.4.5.232",
-              "display": "eICR processing status reason"
+              "display": "eICR Processing Status Reason"
             }
           ]
         },
@@ -3014,4 +3016,5 @@
       }
     }
   ]
+}
 }

@@ -186,7 +186,7 @@ EVN|A01|20050110045502|||||",
         public void RemovePrefix()
         {
             string extension = "http://example.com/user/1";
-            string root = "\"http://example.com/user\"";
+            string root = "http://example.com/user";
 
             Assert.Equal("1", Filters.RemovePrefix(extension, root));
         }
@@ -222,7 +222,7 @@ EVN|A01|20050110045502|||||",
         public void RemovePrefixRootExtensionWithMultipleSegments()
         {
             string extension = "http://example.com/category/user/1";
-            string root = "\"http://example.com\"";
+            string root = "http://example.com";
 
             string expected = "category/user/1";
 

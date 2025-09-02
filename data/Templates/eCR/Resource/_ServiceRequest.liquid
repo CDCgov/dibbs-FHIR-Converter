@@ -11,6 +11,7 @@
             {% endfor -%}
         ],
         "status":"{{ serviceEntry.statusCode.code | get_property: 'ValueSet/RequestStatus' }}",
+        "intent": "plan",
         "code":
         {
             {% include 'DataType/CodeableConcept' CodeableConcept: serviceEntry.code -%}

@@ -1517,7 +1517,7 @@
             {
               "code": "58410-2",
               "system": "http://loinc.org",
-              "display": "CBC"
+              "display": "CBC panel - Blood by Automated count"
             },
             {
               "code": "1698",
@@ -1580,8 +1580,7 @@
           "coding": [
             {
               "code": "119297000",
-              "system": "http://snomed.info/sct",
-              "display": "Blood"
+              "system": "http://snomed.info/sct"
             },
             {
               "code": "3",
@@ -1662,7 +1661,7 @@
             {
               "code": "30313-1",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Hemoglobin [Mass/volume] in Arterial blood"
             }
           ],
           "text": "REMOVED"
@@ -1719,7 +1718,7 @@
             {
               "code": "33765-9",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Leukocytes [#/volume] in Blood Product unit.platelet pheresis by Automated count"
             }
           ],
           "text": "REMOVED"
@@ -1793,7 +1792,7 @@
             {
               "code": "26515-7",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Platelets [#/volume] in Blood"
             }
           ],
           "text": "REMOVED"
@@ -1850,7 +1849,7 @@
             {
               "code": "50544-6",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Everolimus [Mass/volume] in Blood"
             }
           ],
           "text": "REMOVED"
@@ -1923,6 +1922,14 @@
           }
         ],
         "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
         "effectiveDateTime": "1981-10-18T05:33:46Z",
         "valueCodeableConcept": {
           "coding": [
@@ -2280,7 +2287,7 @@
             {
               "code": "8480-6",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Systolic blood pressure"
             }
           ],
           "text": "REMOVED"
@@ -2331,7 +2338,7 @@
             {
               "code": "8462-4",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Diastolic blood pressure"
             }
           ],
           "text": "REMOVED"
@@ -2382,7 +2389,7 @@
             {
               "code": "8867-4",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Heart rate"
             }
           ],
           "text": "REMOVED"
@@ -2433,7 +2440,7 @@
             {
               "code": "8310-5",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Body temperature"
             }
           ],
           "text": "REMOVED"
@@ -2484,7 +2491,7 @@
             {
               "code": "9279-1",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Respiratory rate"
             }
           ],
           "text": "REMOVED"
@@ -2535,7 +2542,7 @@
             {
               "code": "8302-2",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Body height"
             }
           ],
           "text": "REMOVED"
@@ -2586,7 +2593,7 @@
             {
               "code": "29463-7",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Body weight"
             }
           ],
           "text": "REMOVED"
@@ -2637,7 +2644,7 @@
             {
               "code": "39156-5",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Body mass index (BMI) [Ratio]"
             }
           ],
           "text": "REMOVED"
@@ -2688,7 +2695,7 @@
             {
               "code": "59576-9",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Body mass index (BMI) [Percentile] Per age and sex"
             }
           ],
           "text": "REMOVED"
@@ -2744,7 +2751,7 @@
             {
               "code": "8287-5",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Head Occipital-frontal circumference by Tape measure"
             }
           ],
           "text": "REMOVED"
@@ -2795,7 +2802,7 @@
             {
               "code": "8289-1",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Head Occipital-frontal circumference Percentile"
             }
           ],
           "text": "REMOVED"
@@ -2851,7 +2858,7 @@
             {
               "code": "77606-2",
               "system": "http://loinc.org",
-              "display": "REMOVED"
+              "display": "Weight-for-length Per age and sex"
             }
           ],
           "text": "REMOVED"
@@ -2885,41 +2892,89 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         },
-        "activity": [
+        "encounter": {
+          "reference": "Encounter/6a1c14ce-629f-3b64-cd3b-9a74645abaed"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6a1c14ce-629f-3b64-cd3b-9a74645abaed",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "6a1c14ce-629f-3b64-cd3b-9a74645abaed",
+        "status": "in-progress",
+        "class": {
+          "code": "AMB",
+          "system": "urn:oid:2.16.840.1.113883.5.4"
+        },
+        "identifier": [
           {
-            "detail": {
-              "kind": "Appointment",
-              "code": {
-                "coding": [
-                  {
-                    "code": "AMB",
-                    "system": "urn:oid:2.16.840.1.113883.5.4"
-                  },
-                  {
-                    "code": "101",
-                    "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.4.698084.30"
-                  },
-                  {
-                    "code": "101",
-                    "system": "urn:oid:1.2.840.114350.1.72.1.30"
-                  },
-                  {
-                    "code": "4",
-                    "system": "urn:oid:1.2.840.114350.1.72.1.30.1"
-                  }
-                ]
-              },
-              "status": "scheduled",
-              "scheduledPeriod": {
-                "start": "1985-10-15"
-              }
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.3.698084.8",
+            "value": "XX887",
+            "assigner": {
+              "display": "EPIC"
+            }
+          }
+        ],
+        "period": {
+          "start": "1985-10-15"
+        },
+        "location": [
+          {
+            "location": {
+              "reference": "Location/204ac267-509e-5211-e752-f95761014083"
             }
           }
         ]
       },
       "request": {
         "method": "PUT",
-        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
+        "url": "Encounter/6a1c14ce-629f-3b64-cd3b-9a74645abaed"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:204ac267-509e-5211-e752-f95761014083",
+      "resource": {
+        "resourceType": "Location",
+        "id": "204ac267-509e-5211-e752-f95761014083",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.686980",
+            "value": "XX534260"
+          }
+        ],
+        "name": "University Medical Center & Pharmacy of Ando",
+        "address": {
+          "use": "work",
+          "line": [
+            "554 KAMINO OCEAN Street"
+          ],
+          "city": "Galactic City",
+          "state": "KZ",
+          "country": "AI",
+          "postalCode": "89170-2785",
+          "district": "Lah'mu"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "19",
+                "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
+                "display": "Family Medicine"
+              }
+            ],
+            "text": "Family Medicine"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/204ac267-509e-5211-e752-f95761014083"
       }
     },
     {
@@ -2944,7 +2999,7 @@
             {
               "code": "58410-2",
               "system": "http://loinc.org",
-              "display": "CBC"
+              "display": "CBC panel - Blood by Automated count"
             }
           ],
           "text": "CBC"

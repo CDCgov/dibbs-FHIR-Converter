@@ -2806,22 +2806,12 @@
         "component": [
           {
             "code": {
-              "coding": [
-                {
-                  "display": "Ship Name"
-                }
-              ],
               "text": "Ship Name"
             },
             "valueString": "Princess of the Sea"
           },
           {
             "code": {
-              "coding": [
-                {
-                  "display": "Cabin Number"
-                }
-              ],
               "text": "Cabin Number"
             },
             "valueString": "69B"
@@ -3964,6 +3954,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -3995,6 +3986,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -4026,6 +4018,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -4517,11 +4510,6 @@
         ],
         "status": "final",
         "code": {
-          "coding": [
-            {
-              "display": "Employee desk distance from mail sorter"
-            }
-          ],
           "text": "Employee desk distance from mail sorter"
         },
         "valueQuantity": {

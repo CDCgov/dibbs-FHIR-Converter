@@ -238,7 +238,15 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Immunization/007787d7-b7e4-26af-fba4-1ce1f439a903"
+              },
+              {
+                "reference": "Immunization/3a0ef01d-9da9-63dc-e03b-bdffa3ee0b1d"
+              }
+            ]
           },
           {
             "id": "9cf99ab0-8905-d839-b313-98cbc80ee805",

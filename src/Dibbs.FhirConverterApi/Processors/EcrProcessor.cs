@@ -145,6 +145,9 @@ public class EcrProcessor
             {
                 var refId = value.Value[1..];
 
+                // We need to loop over the nodes inside the element returned by this XPath
+                // rather than getting the text dirtectly via the XPath so that we are able to
+                // retain inner XHTML tags.
                 var element = ecrXDocument.XPathSelectElement(
                     $"//*[@ID='{refId}']",
                     names);

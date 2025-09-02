@@ -7,7 +7,7 @@
         {
             "profile":
             [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient",
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-patient",
             ],
         },
         "identifier":
@@ -72,7 +72,7 @@
             {% if contact.classCode == "ECON" -%}
                 {
                     "relationship": [
-                        { {% include 'DataType/CodeableConcept' CodeableConcept: contact.code, minCardinality: 0 -%} }
+                        { {% include 'DataType/CodeableConcept' CodeableConcept: contact.code, minCardinality: 1 -%} }
                     ],
                     {% assign name = contact.associatedPerson.name | to_array | first-%}
                     "name": { {% include 'DataType/HumanName' HumanName: name -%} },
@@ -83,7 +83,15 @@
                         {% endfor -%}
                     ],
                     {% assign addr = contact.addr | to_array | first -%}
+                    {%- if addr.nullFlavor -%}
+                    "address": {
+                        "extension": [
+                            {%- include 'Extension/DataAbsentReason' dataAbsentReason: "masked" -%}
+                        ],
+                    },
+                    {%- else -%}
                     "address": { {% include 'DataType/Address' Address: addr -%} },
+                    {%- endif -%}
                 },
             {% endif contact  -%}
         {% endfor -%}

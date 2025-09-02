@@ -1,4 +1,5 @@
+{%- assign _nullFlavor = nullFlavor | get_property: 'ValueSet/NullFlavor' -%}
 {
   "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-  "valueCode": "{{ nullFlavor | default: "" | get_property: 'ValueSet/NullFlavor' }}",
+  "valueCode": "QQQ{{ dataAbsentReason | Default: _nullFlavor }}",
 },

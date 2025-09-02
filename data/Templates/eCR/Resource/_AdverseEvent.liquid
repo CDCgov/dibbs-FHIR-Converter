@@ -1,0 +1,37 @@
+{
+"fullUrl":"urn:uuid:{{ID}}",
+"resource":{
+    "resourceType": "AdverseEvent",
+    "id":"{{ID}}",
+    "identifier":
+    [
+    {% assign ids = adverseEventEntry.id | to_array -%}
+    {% for i in ids -%}
+        { {% include 'DataType/Identifier' Identifier: i -%} },
+    {% endfor -%}
+    ],
+    "status": "{{ adverseEventEntry.statusCode.code }}",
+    "actuality": "actual",
+    {% if adverseEventEntry.effectiveTime.low.value -%}
+    "detected": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}"
+    {% endif -%}
+    {% if adverseEventEntry.effectiveTime.high.value -%},
+        "note": [{ "text": "Reaction resolved on {{ adverseEventEntry.effectiveTime.high.value | format_as_date_time }}" }],
+    {% endif -%}
+    {% if adverseEventEntry.effectiveTime.low.value -%}
+    "date": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}",
+    {% endif -%}
+    "event": {
+    "coding": [
+        { {% include 'DataType/CodeableConcept' CodeableConcept: adverseEventEntry.value -%} }
+    ]
+    },
+    "suspectEntity": [
+    { "instance": { "reference": "{{ REF }}" } }
+    ]
+    },
+"request":{
+"method":"PUT",
+"url":"AdverseEvent/{{ID}}",
+},
+},

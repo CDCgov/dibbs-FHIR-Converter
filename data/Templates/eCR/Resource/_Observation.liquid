@@ -19,7 +19,7 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for id in ids -%}
-            { {% include 'DataType/Identifier' Identifier: id -%} },
+                {% include 'DataType/Identifier' Identifier: id -%}
             {% endfor -%}
         ],
         "category":
@@ -45,11 +45,11 @@
             {% comment %} Or from http://hl7.org/fhir/observation-status {% endcomment %}
             "status":"{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationResultStatus' }}",
         {% endif %}
-        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
+        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code, minCardinality: 1 -%} },
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         "bodySite":
         {
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode -%}
+            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.targetSiteCode, minCardinality: 0 -%}
         },
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText %}
         "referenceRange":
@@ -99,7 +99,7 @@
                 {% if entry.act.templateId.root == "2.16.840.1.113883.10.20.22.4.64" -%}
                     {% assign obsRefVal = entry.act.text.reference.value| replace: '#', '' -%}
                     {% assign noteString = text._innerText | find_inner_text_by_id: obsRefVal -%}
-                    "note": 
+                    "note":
                     [
                         {
                             "text": "{{ noteString | clean_string_from_tabs | escape_special_chars }}"

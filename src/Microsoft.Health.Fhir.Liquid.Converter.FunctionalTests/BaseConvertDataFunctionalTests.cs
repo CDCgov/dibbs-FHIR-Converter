@@ -7,13 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Models.Hl7v2;
-using Microsoft.Health.Fhir.Liquid.Converter.Processors;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Xunit;
-
+using System.Text.Json;
 using Firely.Fhir.Packages;
 using Firely.Fhir.Validation;
 using Firely.Fhir.Validation.Compilation;
@@ -25,6 +19,13 @@ using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Specification.Terminology;
 using Hl7.Fhir.Support;
 using Hl7.Fhir.Utility;
+using Hl7.Fhir.Validation;
+using Microsoft.Health.Fhir.Liquid.Converter.Models;
+using Microsoft.Health.Fhir.Liquid.Converter.Models.Hl7v2;
+using Microsoft.Health.Fhir.Liquid.Converter.Processors;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 {
@@ -232,15 +233,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             {
                 // Array has the following fields:
                 // [
-                //   1. Root template, 
-                //   2. ecr file, 
-                //   3. expected fhir file, 
+                //   1. Root template,
+                //   2. ecr file,
+                //   3. expected fhir file,
                 //   4. whether the file should fail at parsing or validation when testing if valid (if it is fully valid, "validation" is what should be there)
                 //   5. The number of expected failures at the step in (4)
                 // ]
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "13" },
-                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "parsing", "3" },
-                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "parsing", "19" },
+                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "27" },
+                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "63" },
+                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "22" },
+                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "34" },
             };
             return data.Select(item => new[]
             {
@@ -343,7 +346,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             var traceInfo = new Hl7v2TraceInfo();
             var actualContent = hl7v2Processor.Convert(inputContent, rootTemplate, templateProvider, traceInfo);
 
-            JsonSerializer serializer = new JsonSerializer();
+            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
             var expectedObject = serializer.Deserialize<JObject>(new JsonTextReader(new StringReader(expectedContent)));
             var actualObject = serializer.Deserialize<JObject>(new JsonTextReader(new StringReader(actualContent)));
 
@@ -402,11 +405,21 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             var inputContent = File.ReadAllText(inputFile);
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, templateProvider);
 
-            var _jsonPocoDeserializer = new FhirJsonPocoDeserializer();
+            var fhirJsonPocoDeserializerSettings = new FhirJsonPocoDeserializerSettings()
+            {
+                ValidateOnFailedParse = true
+            };
+            var serializerOptions = new JsonSerializerOptions()
+                .ForFhir(ModelInfo.ModelInspector, fhirJsonPocoDeserializerSettings)
+                .Ignoring([CodedValidationException.DATETIME_LITERAL_INVALID_CODE]);
+            // Ignoring datetime formatting because FHIR does not like datetimes with times without a time zone.
 
             try
             {
-                var poco = _jsonPocoDeserializer.DeserializeResource(actualContent);
+                var poco = System.Text.Json.JsonSerializer.Deserialize<Bundle>(
+                    actualContent,
+                    serializerOptions
+                );
                 var packageSource = new FhirPackageSource(
                     ModelInfo.ModelInspector,
                     "https://packages2.fhir.org/packages",

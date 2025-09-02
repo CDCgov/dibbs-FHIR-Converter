@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using DotLiquid;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -19,15 +20,29 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
-        public static string GetProperty(Context context, string originalCode, string mapping, string property = "code")
+        public static string GetProperty(
+            Context context,
+            string originalCode,
+            string mapping,
+            string property = "code",
+            bool applyDefaultIfNull = false)
         {
-            if (string.IsNullOrEmpty(originalCode) || string.IsNullOrEmpty(mapping) || string.IsNullOrEmpty(property))
+            if (applyDefaultIfNull && string.IsNullOrEmpty(originalCode))
+            {
+                originalCode = string.Empty;
+            }
+
+            if (originalCode == null || string.IsNullOrEmpty(mapping) || string.IsNullOrEmpty(property))
             {
                 return null;
             }
 
-            var map = (context["CodeMapping"] as CodeMapping)?.Mapping?.GetValueOrDefault(mapping, null);
-            var codeMapping = map?.GetValueOrDefault(originalCode, null) ?? map?.GetValueOrDefault("__default__", null);
+            var map = (context["CodeMapping"] as CodeMapping)?.Mapping?.GetValueOrDefault(
+                mapping,
+                null);
+            var codeMapping =
+                map?.GetValueOrDefault(originalCode, null)
+                ?? map?.GetValueOrDefault("__default__", null);
             return codeMapping?.GetValueOrDefault(property, null)
                 ?? ((property.Equals("code") || property.Equals("display")) ? originalCode : null);
         }
@@ -57,20 +72,30 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             return memberToken.ToString();
         }
 
-        public static string GenerateIdInput(string segment, string resourceType, bool isBaseIdRequired, string baseId = null)
+        public static string GenerateIdInput(
+            string segment,
+            string resourceType,
+            bool isBaseIdRequired,
+            string baseId = null)
         {
             if (string.IsNullOrWhiteSpace(segment))
             {
                 return null;
             }
 
-            if (string.IsNullOrEmpty(resourceType) || (isBaseIdRequired && string.IsNullOrEmpty(baseId)))
+            if (
+                string.IsNullOrEmpty(resourceType)
+                || (isBaseIdRequired && string.IsNullOrEmpty(baseId)))
             {
-                throw new RenderException(FhirConverterErrorCode.InvalidIdGenerationInput, Resources.InvalidIdGenerationInput);
+                throw new RenderException(
+                    FhirConverterErrorCode.InvalidIdGenerationInput,
+                    Resources.InvalidIdGenerationInput);
             }
 
             segment = segment.Trim();
-            return baseId != null ? $"{resourceType}_{segment}_{baseId}" : $"{resourceType}_{segment}";
+            return baseId != null
+                ? $"{resourceType}_{segment}_{baseId}"
+                : $"{resourceType}_{segment}";
         }
 
         public static string GenerateUUID(string input)
@@ -86,6 +111,58 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             var guid = new byte[16];
             Array.Copy(hash, 0, guid, 0, 16);
             return new Guid(guid).ToString();
+        }
+
+        /// <summary>
+        /// Prepend UUIDs or OIDs to make them valid URNs.
+        /// </summary>
+        /// <param name="input">String of the ID</param>
+        /// <returns>If input string matches the UUID pattern return string prepended with `urn:uuid:`, else if it matches the OIN pattern return the input string prepended with `urn:oid:`. It matches neither return the input string unchanged. </returns>
+        public static string PrependID(string input)
+        {
+            if (input == null)
+            {
+                return input;
+            }
+
+            string uuid_pattern = @"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
+            string oid_pattern = @"^([0-2])((\.0)|(\.[1-9][0-9]*))*$";
+
+            if (Regex.IsMatch(input, uuid_pattern, RegexOptions.IgnoreCase))
+            {
+                return "urn:uuid:" + input.ToLower();
+            }
+            else if (Regex.IsMatch(input, oid_pattern, RegexOptions.IgnoreCase))
+            {
+                return "urn:oid:" + input;
+            }
+
+            return input;
+        }
+
+        /// <summary>
+        /// This is used to split an ID root from the ID extension when the root and extensions are both URLs.
+        /// </summary>
+        /// <param name="extension">The extension of the ID. This will become the value of the Identifier</param>
+        /// <param name="root">The root of the ID. This will become the system of the Identifier</param>
+        /// <returns>The extension with the root removed, if the root was a URL prefix. Else return the extension unchanged.</returns>
+        public static string RemovePrefix(string extension, string root)
+        {
+            if (
+                root != null
+                && extension != null
+                && extension.StartsWith("http://")
+                && extension.StartsWith(root))
+            {
+                string newValue = extension[root.Length..];
+
+                if (newValue.StartsWith('/'))
+                {
+                    return newValue[1..];
+                }
+            }
+
+            return extension;
         }
     }
 }

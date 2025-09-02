@@ -65,16 +65,12 @@
                     ],
                 },
                 "preferred":"{{ languageCommunication.preferenceInd.value }}",
-                "extension": 
+                "extension":
                 [
                     { {% include 'Extension/PatientProficiency', modeCode: languageCommunication.modeCode, proficiencyLevelCode: languageCommunication.proficiencyLevelCode -%} },
                 ],
             },
             {% endfor -%}
         ],
-    },
-    "request":{
-        "method":"PUT",
-        "url":"RelatedPerson/{{ ID }}",
     },
 },

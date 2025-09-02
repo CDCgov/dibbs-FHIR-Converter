@@ -36,8 +36,4 @@
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
     },
-    "request":{
-        "method":"PUT",
-        "url":"Observation/{{ ID }}",
-    },
 },

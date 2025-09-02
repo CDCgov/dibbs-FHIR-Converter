@@ -1,11 +1,26 @@
+{% assign eicrDocumentId = msg._originalData | generate_uuid -%}
+{% if msg.ClinicalDocument.id -%}
+  {% if msg.ClinicalDocument.id.extension -%}
+    {% comment %} If extension exists, use that {% endcomment %}
+    {% assign eicrDocumentId = msg.ClinicalDocument.id.extension -%}
+  {% elsif msg.ClinicalDocument.id.root -%}
+    {% comment %} If extension does not exist and root does, use that {% endcomment %}
+    {% assign eicrDocumentId = msg.ClinicalDocument.id.root -%}
+  {% endif -%}
+{% else -%}
+  {% assign eicrDocumentId = msg._originalData | generate_uuid -%}
+{% endif -%}
 {
 "resourceType": "Bundle",
-    "type": "batch",
+    "type": "document",
     "meta": {
         "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"
         ]
     },
+    "id": "{{eicrDocumentId}}",
+    "identifier": {% include 'DataType/Identifier' Identifier: msg.ClinicalDocument.id -%}
+    "timestamp": {%- include 'DataType/Instant' dateTime: msg.ClinicalDocument.effectiveTime -%}
     "entry": [{% evaluate patientId using 'Utils/GenerateId' obj: msg.ClinicalDocument.recordTarget.patientRole -%}
 {% assign fullPatientId = patientId | prepend: 'Patient/' -%}
 

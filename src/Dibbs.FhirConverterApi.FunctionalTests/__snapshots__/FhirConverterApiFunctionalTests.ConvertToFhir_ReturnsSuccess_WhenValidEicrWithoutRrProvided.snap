@@ -276,6 +276,16 @@
               "system": "urn:oid:2.16.840.1.114222.4.5.274",
               "display": "External Encounter"
             },
+            "identifier": [
+              {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "not-applicable"
+                  }
+                ]
+              }
+            ],
             "subject": {
               "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             },
@@ -283,12 +293,19 @@
               {
                 "id": "2.16.840.1.113883.4.6",
                 "location": {
-                  "reference": "Location/bea8eaff-b016-f74b-10ab-9d0440257223",
-                  "display": "None"
+                  "reference": "Location/bea8eaff-b016-f74b-10ab-9d0440257223"
                 },
                 "extension": [
                   {
-                    "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type"
+                    "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
+                    "valueCodeableConcept": {
+                      "coding": [
+                        {
+                          "code": "unknown",
+                          "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+                        }
+                      ]
+                    }
                   }
                 ]
               }
@@ -327,6 +344,19 @@
           "resource": {
             "resourceType": "Location",
             "id": "bea8eaff-b016-f74b-10ab-9d0440257223",
+            "identifier": [
+              {
+                "system": "http://hl7.org/fhir/sid/us-npi",
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                      "valueCode": "not-applicable"
+                    }
+                  ]
+                }
+              }
+            ],
             "meta": {
               "source": "ecr"
             }
@@ -365,6 +395,19 @@
               {
                 "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
                 "valueString": "Responsible Party"
+              }
+            ],
+            "identifier": [
+              {
+                "system": "http://hl7.org/fhir/sid/us-npi",
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                      "valueCode": "not-applicable"
+                    }
+                  ]
+                }
               }
             ]
           },

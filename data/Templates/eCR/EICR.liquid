@@ -1,6 +1,11 @@
 {
 "resourceType": "Bundle",
     "type": "batch",
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"
+        ]
+    },
     "entry": [{% evaluate patientId using 'Utils/GenerateId' obj: msg.ClinicalDocument.recordTarget.patientRole -%}
 {% assign fullPatientId = patientId | prepend: 'Patient/' -%}
 

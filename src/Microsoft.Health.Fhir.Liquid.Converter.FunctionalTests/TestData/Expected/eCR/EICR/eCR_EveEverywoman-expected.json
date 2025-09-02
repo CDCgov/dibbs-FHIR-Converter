@@ -3,10 +3,10 @@
   "type": "batch",
   "entry": [
     {
-      "fullUrl": "urn:uuid:2.16.840.1.113883.9.9.9.9.9",
+      "fullUrl": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e704",
       "resource": {
         "resourceType": "Composition",
-        "id": "2.16.840.1.113883.9.9.9.9.9",
+        "id": "db734647-fc99-424c-a864-7e3cda82e704",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -281,7 +281,7 @@
             ]
           },
           {
-            "id": "56fbb469-df1b-4b55-c913-12bb7520c7e4",
+            "id": "a4e03037-4355-d5c1-90d9-4108f32d02a8",
             "title": "Immunizations",
             "text": {
               "status": "generated",
@@ -543,7 +543,7 @@
       },
       "request": {
         "method": "PUT",
-        "url": "Composition/2.16.840.1.113883.9.9.9.9.9"
+        "url": "Composition/db734647-fc99-424c-a864-7e3cda82e704"
       }
     },
     {
@@ -1324,7 +1324,7 @@
         "identifier": [
           {
             "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:2.16.840.1.113883.3.72.5.20"
+            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
           }
         ],
         "property": [
@@ -1395,6 +1395,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "2106-3",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "White"
                 }
               },
@@ -1411,6 +1412,7 @@
                 "url": "ombCategory",
                 "valueCoding": {
                   "code": "2186-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
                   "display": "Not Hispanic or Latino"
                 }
               },
@@ -2171,8 +2173,7 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:7c0704bb-9c40-41b5-9c7d-26b2d59e234g"
+            "value": "7c0704bb-9c40-41b5-9c7d-26b2d59e234g"
           }
         ],
         "category": [
@@ -3102,22 +3103,12 @@
         "component": [
           {
             "code": {
-              "coding": [
-                {
-                  "display": "Ship Name"
-                }
-              ],
               "text": "Ship Name"
             },
             "valueString": "Princess of the Sea"
           },
           {
             "code": {
-              "coding": [
-                {
-                  "display": "Cabin Number"
-                }
-              ],
               "text": "Cabin Number"
             },
             "valueString": "69B"
@@ -3319,8 +3310,7 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:3adc7f4d-ff0a-4b38-9252-bd65edbe3dfg"
+            "value": "3adc7f4d-ff0a-4b38-9252-bd65edbe3dfg"
           }
         ],
         "category": [
@@ -3558,7 +3548,7 @@
         "id": "3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
         "identifier": [
           {
-            "system": "urn:oid:58822180-ab0d-42e4-90c6-35336bf55654",
+            "system": "urn:uuid:58822180-ab0d-42e4-90c6-35336bf55654",
             "value": "12345"
           }
         ],
@@ -4261,6 +4251,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -4292,6 +4283,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -4323,6 +4315,7 @@
           }
         ],
         "status": "active",
+        "intent": "plan",
         "code": {
           "coding": [
             {
@@ -4734,8 +4727,13 @@
         "id": "007787d7-b7e4-26af-fba4-1ce1f439a903",
         "identifier": [
           {
-            "system": "urn:oid:00000000-5CF3-EC63-0513-4A4838595787",
+            "system": "urn:uuid:00000000-5cf3-ec63-0513-4a4838595787",
             "value": "11369-6_3-1_1.3.6.1.4.1.22812.11.2016.163.1_14168"
+          }
+        ],
+        "protocolApplied": [
+          {
+            "doseNumberPositiveInt": 1
           }
         ],
         "occurrenceDateTime": "2020-11-07",
@@ -4766,7 +4764,7 @@
         "id": "3a0ef01d-9da9-63dc-e03b-bdffa3ee0b1d",
         "identifier": [
           {
-            "system": "urn:oid:00000000-5CF3-EC63-0513-4A4838595787",
+            "system": "urn:uuid:00000000-5cf3-ec63-0513-4a4838595787",
             "value": "11369-6_2-1_1.3.6.1.4.1.22812.11.2016.163.1_14168"
           }
         ],
@@ -4809,11 +4807,6 @@
         ],
         "status": "final",
         "code": {
-          "coding": [
-            {
-              "display": "Employee desk distance from mail sorter"
-            }
-          ],
           "text": "Employee desk distance from mail sorter"
         },
         "valueQuantity": {

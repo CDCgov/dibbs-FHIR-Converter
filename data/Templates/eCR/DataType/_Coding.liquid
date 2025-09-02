@@ -1,16 +1,12 @@
-"code": "{{ Coding.code | strip }}",
+"code": "{{- Coding.code | strip -}}",
 {%- capture codeSystemName -%}
-  {% include 'ValueSet/SystemReference' code: Coding.codeSystem %}
+  {%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}
 {%- endcapture -%}
-"system": {{ codeSystemName }},
+"system": "{{ codeSystemName | prepend_id -}}",
 {% if Coding.displayName -%}
-  "display": "{{ Coding.displayName | clean_string_from_tabs | strip }}",
-{% elsif Coding.originalText._ -%}
-  "display": "{{ Coding.originalText._ | clean_string_from_tabs | strip }}",
-{% elsif Coding.originalText.reference._ -%}
-  "display": "{{ Coding.originalText.reference._ }}",
+  "display": "{{- Coding.displayName | clean_string_from_tabs | strip -}}",
 {% elsif codeSystemName contains "loinc" -%}
-  "display": "{{ Coding.code | get_loinc_name }}",
+  "display": "{{- Coding.code | get_loinc_name -}}",
 {% elsif codeSystemName contains "rxnorm" -%}
-  "display": "{{ Coding.code | get_rxnorm_name }}",
+  "display": "{{- Coding.code | get_rxnorm_name -}}",
 {% endif -%}

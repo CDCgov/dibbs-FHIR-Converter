@@ -7,10 +7,10 @@
         [
             {% assign ids = location.id | to_array -%}
             {% for id in ids -%}
-            { {% include 'DataType/Identifier' Identifier: id -%} },
+                {% include 'DataType/Identifier' Identifier: id -%}
             {% endfor -%}
         ],
-        
+
         {% if location.location.name and location.location.name._ -%}
             "name":"{{ location.location.name._ }}",
         {% elsif location.serviceProviderOrganization and location.serviceProviderOrganization.name and location.serviceProviderOrganization.name._ -%}
@@ -41,7 +41,7 @@
         [
             {% assign codes = location.code | to_array -%}
             {% for code in codes -%}
-            { {% include 'DataType/CodeableConcept' CodeableConcept: code -%} },
+            { {% include 'DataType/CodeableConcept' CodeableConcept: code, minCardinality: 0 -%} },
             {% endfor -%}
         ],
     },

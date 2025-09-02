@@ -7,7 +7,7 @@
         [
             {% assign ids = carePlan.id | to_array -%}
             {% for id in ids -%}
-                { {% include 'DataType/Identifier' Identifier: id -%} }
+                {% include 'DataType/Identifier' Identifier: id -%}
             {% endfor -%}
         ],
         "status": "unknown",
@@ -19,9 +19,6 @@
             {% assign entries = carePlan.entry | to_array %}
             {% for entry in entries %}
                 {% assign act = entry.act %}
-                {% if entry.encounter %}
-                    {% assign act = entry.encounter %}
-                {% endif %}
                 {% comment %} Other entry types are handled in `Entry/PlanOfTreatment/entry` {% endcomment %}
                 {% if act %}
                     {

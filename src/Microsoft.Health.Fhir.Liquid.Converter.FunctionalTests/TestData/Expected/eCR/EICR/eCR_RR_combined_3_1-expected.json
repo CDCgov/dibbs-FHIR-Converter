@@ -451,7 +451,7 @@
       "resource": {
         "resourceType": "Encounter",
         "id": "975e40cc-b7ba-f547-c5ec-69624a428444",
-        "status": "unknown",
+        "status": "in-progress",
         "class": {
           "code": "3",
           "system": "urn:oid:1.2.840.114350.1.72.1.30",
@@ -953,7 +953,7 @@
           "coding": [
             {
               "code": "RRVS20",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "http://terminology.hl7.org/NamingSystem/CDCLocal",
               "display": "eICR was processed - with a warning"
             }
           ]
@@ -999,7 +999,7 @@
           "coding": [
             {
               "code": "RRVS29",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "http://terminology.hl7.org/NamingSystem/CDCLocal",
               "display": "The eICR was processed with the warning of: outdated eRSD (RCTC) version."
             }
           ]
@@ -1010,7 +1010,7 @@
               "coding": [
                 {
                   "code": "RRVS31",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "http://terminology.hl7.org/NamingSystem/CDCLocal",
                   "display": "Outdated eRSD (RCTC) Version Detail"
                 }
               ]
@@ -1022,7 +1022,7 @@
               "coding": [
                 {
                   "code": "RRVS33",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "http://terminology.hl7.org/NamingSystem/CDCLocal",
                   "display": "Expected eRSD (RCTC) Version Detail"
                 }
               ]
@@ -2909,7 +2909,7 @@
         "status": "in-progress",
         "class": {
           "code": "AMB",
-          "system": "urn:oid:2.16.840.1.113883.5.4"
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode"
         },
         "identifier": [
           {

@@ -30,5 +30,9 @@
             {%- assign url = "http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS" -%}
         {%- when "2.16.840.1.113883.6.12" -%}
             {%- assign url = "http://www.ama-assn.org/go/cpt" -%}
+        {%- when "2.16.840.1.113883.5.4" -%}
+            {%- assign url = "http://terminology.hl7.org/CodeSystem/v3-ActCode" -%}
+        {%- when "2.16.840.1.114222.4.5.274" -%}
+            {%- assign url = "http://terminology.hl7.org/NamingSystem/CDCLocal" -%}
     {%- endcase -%}
 {{- url | clean_string_from_tabs -}}

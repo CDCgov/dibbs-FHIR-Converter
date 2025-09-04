@@ -267,10 +267,10 @@
       "resource": {
         "resourceType": "Encounter",
         "id": "6a378637-4997-3349-af9d-c2044181541e",
-        "status": "unknown",
+        "status": "finished",
         "class": {
           "code": "IMP",
-          "system": "urn:oid:2.16.840.1.113883.5.4",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
           "display": "inpatient encounter"
         },
         "identifier": [

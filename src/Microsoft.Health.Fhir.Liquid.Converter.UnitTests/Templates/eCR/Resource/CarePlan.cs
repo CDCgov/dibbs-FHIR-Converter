@@ -29,7 +29,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                     Hash.FromAnonymousObject(
                         new {
                             id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
-                            entry = new {
+                            entry = new { 
                                 act = new {
                                     id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a55", },
                                     moodCode = "RQO",
@@ -86,7 +86,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                     Hash.FromAnonymousObject(
                         new {
                             id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
-                            entry = new {
+                            entry = new { 
                                 encounter = new {
                                     id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a55", },
                                     moodCode = "ARQ",
@@ -116,7 +116,13 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("CarePlan", actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
             Assert.Equal(actualFhir.Status, RequestStatus.Unknown);
-            Assert.Empty(actualFhir.Activity);
+            Assert.NotEmpty(actualFhir.Activity);
+            Assert.Equal(1, actualFhir.Activity.Count());
+            var detail = actualFhir.Activity.First().Detail;
+            Assert.Equal(CarePlan.CarePlanActivityStatus.Scheduled, detail.Status);
+            Assert.NotEmpty(detail.Scheduled);
+            Assert.Equal(CarePlan.CarePlanActivityKind.Appointment, detail.Kind);
+            Assert.Equal("Why not", detail.ReasonCode.First().Coding.First().Code);
         }
     }
 }

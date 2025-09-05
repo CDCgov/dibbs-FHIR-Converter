@@ -8,7 +8,8 @@
                 {% assign ids = LOC.id | to_array -%}
                 {% if ids.first and ids.first.root -%}
                     "id": "{{ids.first.root}}",
-
+                {% else -%}
+                    "id": "None",
                 {% endif -%}
                 "location":
                 {
@@ -17,6 +18,8 @@
                         "display":"{{ LOC.location.name._ }}",
                     {% elsif LOC.serviceProviderOrganization and LOC.serviceProviderOrganization.name and LOC.serviceProviderOrganization.name._ -%}
                         "display":"{{ LOC.serviceProviderOrganization.name._ }}",
+                    {% else -%}
+                        "display": "None",
                     {% endif -%}
 
                 },

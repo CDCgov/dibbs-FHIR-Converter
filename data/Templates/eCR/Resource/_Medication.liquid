@@ -5,8 +5,4 @@
         "id":"{{ ID }}",
         "code": { {% include 'DataType/CodeableConcept' CodeableConcept: medication.code -%} },
     },
-    "request":{
-        "method":"PUT",
-        "url":"Medication/{{ ID }}",
-    },
 },

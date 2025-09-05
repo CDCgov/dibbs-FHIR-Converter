@@ -32,8 +32,4 @@
         {% comment %} May need to use this ValueSet: http://hl7.org/fhir/us/core/STU6.1/ValueSet-us-core-sexual-orientation.html {% endcomment %}
         {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
     },
-    "request":{
-        "method":"PUT",
-        "url":"Observation/{{ ID }}",
-    },
 },

@@ -4,7 +4,7 @@
     "line": [
         {%- assign lines = Address.streetAddressLine | to_array -%}
         {%- for l in lines -%}
-            "{{l._}}",
+            "{{ l._ | clean_string_from_tabs | escape_special_chars }}",
         {%- endfor -%}
     ],
     "city": "{{Address.city._}}",

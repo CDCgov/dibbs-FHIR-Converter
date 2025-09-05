@@ -104,33 +104,9 @@
 
     {% comment %} Reportability Response Coded Information Organizer {% endcomment %}
     {% if entry.organizer.templateId.root and entry.organizer.templateId.root == "2.16.840.1.113883.10.20.15.2.3.34" -%}
-      {% assign comps = entry.organizer.component | to_array -%}
-      {% for comp in comps -%}
-        {% assign obs = comp.observation | to_array -%}
-        {% for ob in obs -%}
-          {% if ob.code.codeSystem == "2.16.840.1.113883.6.96" and ob.code.code == "64572001" and ob.value.code and ob.value.code != "NA" -%}
-            {% if ob.id and ob.id.root -%}
-              {% assign observationId = ob.id.root -%}
-            {% else -%}
-              {% assign observationId = ob.value | to_json_string | generate_uuid -%}
-            {% endif -%}
-
-            {% if ob.entryRelationship and ob.entryRelationship.organizer and ob.entryRelationship.organizer.participant %}
-              {% assign participants = ob.entryRelationship.organizer.participant | to_array %}
-              {% for participant in participants %}
-                {% if participant.participantRole and participant.participantRole.code.codeSystem == "2.16.840.1.114222.4.5.232" and participant.participantRole.code.code == "RR7" %}
-                  {% assign organizationRoutingEntityId = participant | to_json_string | generate_uuid %}
-                  {% assign organizationRoutingEntityName = participant.participantRole.playingEntity.name._ %}
-                  {% include "Resource/OrganizationRRRoutingEntity" organization: participant.participantRole, ID: organizationRoutingEntityId  %}
-                {% endif %}
-              {% endfor %}
-            {% endif -%}
-
-            {% include "Resource/ObservationRRCondition" observationEntry: ob, ID: observationId, RoutingEntityId: organizationRoutingEntityId, RoutingEntityName: organizationRoutingEntityName-%}
-          {% endif -%}
-        {% endfor -%}
-      {% endfor -%}
+      {% include 'Entry/RRCodedInfoOrganizer/entry' entry: entry %}
     {% endif -%}
+
   {% endfor -%}
 {% endif -%}
 

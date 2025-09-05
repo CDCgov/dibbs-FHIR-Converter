@@ -349,7 +349,8 @@
           {
             "id": "2.16.840.1.113883.4.6",
             "location": {
-              "reference": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db"
+              "reference": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db",
+              "display": "None"
             },
             "extension": [
               {

@@ -36,7 +36,7 @@
         [
             {% assign telecoms = relatedPerson.telecom | to_array -%}
             {% for telecom in telecoms -%}
-            { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+                {% include 'DataType/ContactPoint' ContactPoint: telecom -%}
             {% endfor -%}
         ],
         "birthDate":"{{ relatedPerson.guardianPerson.birthTime.value | add_hyphens_date }}",
@@ -65,7 +65,7 @@
                     ],
                 },
                 "preferred":"{{ languageCommunication.preferenceInd.value }}",
-                "extension": 
+                "extension":
                 [
                     { {% include 'Extension/PatientProficiency', modeCode: languageCommunication.modeCode, proficiencyLevelCode: languageCommunication.proficiencyLevelCode -%} },
                 ],

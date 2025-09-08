@@ -41,7 +41,7 @@
         [
             {% assign telecoms = practitioner.telecom | to_array -%}
             {% for telecom in telecoms -%}
-            { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+                {% include 'DataType/ContactPoint' ContactPoint: telecom -%}
             {% endfor -%}
         ],
         "qualification":

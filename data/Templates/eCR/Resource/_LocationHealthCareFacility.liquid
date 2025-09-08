@@ -34,7 +34,7 @@
                 {% assign telecoms = location.serviceProviderOrganization.telecom | to_array -%}
             {% endif -%}
             {% for telecom in telecoms -%}
-            { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+                {% include 'DataType/ContactPoint' ContactPoint: telecom -%}
             {% endfor -%}
         ],
         "type":

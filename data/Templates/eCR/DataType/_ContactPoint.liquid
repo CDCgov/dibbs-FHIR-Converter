@@ -1,4 +1,9 @@
-{% if ContactPoint.value -%}
+{
+{%- if ContactPoint.nullFlavor -%}
+	"extension": [
+		{% include 'Extension/DataAbsentReason' nullFlavor: ContactPoint.nullFlavor -%}
+	],
+{% elsif ContactPoint.value -%}
 	{% if ContactPoint.use == 'PG' -%}
 		"system":"pager",
 		"value": "{{ContactPoint.value | replace: 'tel:\s*', ''}}",
@@ -19,3 +24,4 @@
 		"use": "{{ ContactPoint.use | get_property: 'ValueSet/TelecomUse' }}",
 	{% endif -%}
 {% endif -%}
+},

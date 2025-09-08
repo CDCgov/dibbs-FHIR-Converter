@@ -62,9 +62,18 @@
         "telecom":
         [
             {% assign telecoms = patientRole.telecom | to_array -%}
-            {% for telecom in telecoms -%}
-            { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
-            {% endfor -%}
+            {%- if telecoms | size > 0 -%}
+                {% for telecom in telecoms -%}
+                    {% include 'DataType/ContactPoint' ContactPoint: telecom -%}
+                {% endfor -%}
+            {%- else -%}
+                {
+                    "system": "phone",
+                    "extension": [
+                        {% include 'Extension/DataAbsentReason' dataAbsentReason: "masked" -%},
+                    ]
+                }
+            {%- endif -%}
         ],
         "contact": [
         {% for participant in participants -%}
@@ -79,7 +88,7 @@
                     "telecom": [
                         {% assign telecoms = contact.telecom | to_array -%}
                         {% for telecom in telecoms -%}
-                        { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+                            {% include 'DataType/ContactPoint' ContactPoint: telecom -%}
                         {% endfor -%}
                     ],
                     {% assign addr = contact.addr | to_array | first -%}

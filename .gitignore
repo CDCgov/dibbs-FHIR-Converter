@@ -378,3 +378,9 @@ FodyWeavers.xsd
 /input.xml
 /output.json
 output/
+
+# Mismatched snapshots from snapshot tests
+src/FHIRConverterAPI.FunctionalTests/api/__snapshots__/__mismatch__
+
+# macOS
+.DS_Store

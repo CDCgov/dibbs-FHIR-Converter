@@ -1235,7 +1235,7 @@
           "coding": [
             {
               "code": "RRVS19",
-              "system": "http://terminology.hl7.org/NamingSystem/CDCLocal",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
               "display": "eICR processed"
             }
           ]
@@ -2529,7 +2529,7 @@
           "coding": [
             {
               "code": "PHC2266",
-              "system": "http://terminology.hl7.org/NamingSystem/CDCLocal",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
               "display": "Animal with confirmed or suspected case"
             }
           ]
@@ -2614,7 +2614,7 @@
           "coding": [
             {
               "code": "PHC2267",
-              "system": "http://terminology.hl7.org/NamingSystem/CDCLocal",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
               "display": "Contact with known case"
             }
           ]

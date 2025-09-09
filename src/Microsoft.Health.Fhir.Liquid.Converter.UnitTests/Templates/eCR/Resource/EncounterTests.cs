@@ -364,7 +364,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 );
                 Assert.Equal("AMB", actualFhir.Class.Code);
                 Assert.Equal(
-                    "urn:oid:2.16.840.1.113883.5.4",
+                    "http://terminology.hl7.org/CodeSystem/v3-ActCode",
                     actualFhir.Class.System
                 );
                 Assert.Equal("Ambulatory", actualFhir.Class.Display);

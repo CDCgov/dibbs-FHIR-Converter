@@ -852,10 +852,6 @@
             "reference": "Observation/af32957a-f928-596e-fead-6ef42fa94c2a"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/a66d09ae-2b5a-4170-af3f-4ca4df7a02a6"
       }
     },
     {
@@ -940,10 +936,6 @@
             "reference": "Organization/c56015b1-ec87-3ccf-4f38-5a16943cf505"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/af32957a-f928-596e-fead-6ef42fa94c2a"
       }
     },
     {
@@ -969,10 +961,6 @@
           }
         ],
         "name": "Los Angeles County Department of Public Health"
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/8d0d153a-1f2a-a25b-1843-cdee40c84354"
       }
     },
     {
@@ -1058,10 +1046,6 @@
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "DocumentReference/f306806d-91b0-c2f1-8230-7af5a13ac504"
       }
     },
     {
@@ -1172,10 +1156,6 @@
             "reference": "Observation/19dff51c-e53e-1b1e-ae25-717a97a65e18"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/10bd27fb-e882-4acb-8efb-ed2051b86691"
       }
     },
     {

@@ -561,10 +561,6 @@
                 "reference": "Observation/91e9ed13-0c4f-10f9-4022-5de6456cf865"
               }
             ]
-          },
-          "request": {
-            "method": "PUT",
-            "url": "Observation/a054d401-7b23-4b15-bc28-c889c156ba6a"
           }
         },
         {
@@ -630,10 +626,6 @@
                 "reference": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e"
               }
             ]
-          },
-          "request": {
-            "method": "PUT",
-            "url": "Observation/91e9ed13-0c4f-10f9-4022-5de6456cf865"
           }
         },
         {
@@ -718,10 +710,6 @@
                 "use": "work"
               }
             ]
-          },
-          "request": {
-            "method": "PUT",
-            "url": "Organization/57c9d325-ffcb-5040-fb1c-8b3f13b8f16e"
           }
         },
         {

@@ -54,8 +54,4 @@
         "route":{ {% include 'DataType/CodeableConcept' CodeableConcept: immunization.routeCode -%}},
         "site":{ {% include 'DataType/CodeableConcept' CodeableConcept: immunization.approachSiteCode -%} },
     },
-    "request":{
-        "method":"PUT",
-        "url":"Immunization/{{ID}}",
-    },
 },

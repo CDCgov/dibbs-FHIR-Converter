@@ -50,8 +50,4 @@
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         {% include 'Utils/ValueHelper' value: observationEntry.value -%}
     },
-    "request":{
-        "method":"PUT",
-        "url":"Observation/{{ ID }}",
-    },
 },

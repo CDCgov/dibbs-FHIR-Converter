@@ -1,12 +1,26 @@
 {
   "resourceType": "Bundle",
-  "type": "batch",
+  "type": "document",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"
+    ]
+  },
+  "id": "1.2.840.114350.1.13.4304.2.7.8.688883.1374",
+  "identifier": {
+    "system": "urn:ietf:rfc:3986",
+    "value": "urn:oid:1.2.840.114350.1.13.4304.2.7.8.688883.1374",
+    "assigner": {
+      "display": "EPC"
+    }
+  },
+  "timestamp": "1985-07-28T23:28:26-06:00",
   "entry": [
     {
-      "fullUrl": "urn:oid:1.2.840.114350.1.13.4304.2.7.8.688883.1374",
+      "fullUrl": "urn:uuid:5f12868a-339f-8294-770c-dcf7a4427bbe",
       "resource": {
         "resourceType": "Composition",
-        "id": "1.2.840.114350.1.13.4304.2.7.8.688883.1374",
+        "id": "5f12868a-339f-8294-770c-dcf7a4427bbe",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -440,10 +454,6 @@
             "reference": "Device/82ff72e2-f27f-882f-95bb-fbffa2fc2fb0"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Composition/1.2.840.114350.1.13.4304.2.7.8.688883.1374"
       }
     },
     {
@@ -566,10 +576,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Encounter/975e40cc-b7ba-f547-c5ec-69624a428444"
       }
     },
     {
@@ -619,10 +625,6 @@
             "text": "Pediatrics"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Location/b1affa82-31b4-92c5-b881-76271fecbb39"
       }
     },
     {
@@ -657,10 +659,6 @@
             "use": "work"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/f81ca8a7-28b7-f5cd-06ca-eb2428574fdc"
       }
     },
     {
@@ -725,10 +723,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/0336fa14-9dff-ad05-5971-64a8ac7e4827"
       }
     },
     {
@@ -763,10 +757,6 @@
             "district": "Lah'mu"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/efbb6154-ef3e-32fe-91ef-0e6801e5037d"
       }
     },
     {
@@ -840,10 +830,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/5a1ed5b4-e7f6-bc39-d09f-458e8904c85a"
       }
     },
     {
@@ -926,10 +912,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/8a5c403d-7cc4-f077-bfb7-4e2f9d65efd5"
       }
     },
     {
@@ -963,10 +945,6 @@
             "reference": "Observation/c53c48e6-db9a-3523-7d00-c52fbbd3f7ea"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/1f41508f-a752-fb3a-9091-7473d7d3b40a"
       }
     },
     {
@@ -1030,10 +1008,6 @@
             "valueString": "The expected eRSD (RCTC) version should be one of the following: [\"2024-06-28\",\"1.2.4.0\",\"3.x.x\",\"2024-04-05\"] "
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/c53c48e6-db9a-3523-7d00-c52fbbd3f7ea"
       }
     },
     {
@@ -1069,10 +1043,6 @@
             "use": "work"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/da341ef9-3cba-b10f-2f38-1a16afde1d65"
       }
     },
     {
@@ -1120,10 +1090,6 @@
         "owner": {
           "reference": "Organization/da341ef9-3cba-b10f-2f38-1a16afde1d65"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Device/82ff72e2-f27f-882f-95bb-fbffa2fc2fb0"
       }
     },
     {
@@ -1283,10 +1249,6 @@
             "preferred": true
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
       }
     },
     {
@@ -1330,10 +1292,6 @@
         "medicationReference": {
           "reference": "Medication/24e97f2a-194d-e99f-415a-ef7c7b024f09"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "MedicationAdministration/dbd52596-33a3-ad0c-4085-537a69085dae"
       }
     },
     {
@@ -1366,10 +1324,6 @@
             }
           ]
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Medication/24e97f2a-194d-e99f-415a-ef7c7b024f09"
       }
     },
     {
@@ -1430,10 +1384,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Condition/f7e19101-6043-0b0d-6661-340aa0e4b4ac"
       }
     },
     {
@@ -1494,10 +1444,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Condition/5c19c722-3850-da4c-f3c4-9793e31ab05e"
       }
     },
     {
@@ -1559,10 +1505,6 @@
             "reference": "Observation/5b1d7d64-ee1b-64e7-75a4-d7ff29fc9e77"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "DiagnosticReport/ce037697-81e6-973a-10e7-58d070f9f77b"
       }
     },
     {
@@ -1609,10 +1551,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Specimen/a0364c3a-0124-b1f1-c4f5-518c0d810ece"
       }
     },
     {
@@ -1623,10 +1561,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Specimen/c625e261-fcd2-030c-7ddf-2145afdbb2a6"
       }
     },
     {
@@ -1680,10 +1614,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/bcdfa648-971b-836c-5a7e-5eff675f405c"
       }
     },
     {
@@ -1754,10 +1684,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/607da054-fb30-24cc-7ad4-c551f3913320"
       }
     },
     {
@@ -1811,10 +1737,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/89ef1c4f-2ad2-ad2b-ff6c-145df1e8521a"
       }
     },
     {
@@ -1889,10 +1811,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/080f8e03-814d-d5b7-82a8-4788ce8e62ed"
       }
     },
     {
@@ -1942,10 +1860,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/5b1d7d64-ee1b-64e7-75a4-d7ff29fc9e77"
       }
     },
     {
@@ -1997,10 +1911,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/6350e7fb-da2f-eeab-75b8-c0e6ae25968f"
       }
     },
     {
@@ -2057,10 +1967,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/41173172-a928-8b21-a48d-d7d2156fe7ec"
       }
     },
     {
@@ -2117,10 +2023,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/699b9556-f7cb-9164-b312-849989c064a8"
       }
     },
     {
@@ -2163,10 +2065,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/e12e58c0-5b1c-ea6b-a474-26184e35bb54"
       }
     },
     {
@@ -2218,10 +2116,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/83f9f9b0-3066-d990-9b77-5144f5e60333"
       }
     },
     {
@@ -2249,10 +2143,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/8b1f2408-8c91-1d46-3d3f-e8699b463149"
       }
     },
     {
@@ -2300,10 +2190,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/06ab2e28-7e5d-3031-b644-29bd38bef2e8"
       }
     },
     {
@@ -2351,10 +2237,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/55b63b40-395c-6c58-dc5a-84d8fe84bfab"
       }
     },
     {
@@ -2402,10 +2284,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/66c220d3-6ce9-4cfd-bb8e-1efdfc035457"
       }
     },
     {
@@ -2453,10 +2331,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/7855a3c3-145b-158c-97f8-c4d6325d1b9b"
       }
     },
     {
@@ -2504,10 +2378,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/0c44d586-e6b0-2400-b615-fde6a667b249"
       }
     },
     {
@@ -2555,10 +2425,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/5c96eaaa-9117-bb37-58a0-64ae4dc1811c"
       }
     },
     {
@@ -2606,10 +2472,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/b30b4fc2-107e-c8d6-a5a7-a566656c0e0f"
       }
     },
     {
@@ -2657,10 +2519,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/826393fd-144f-86b4-5aa3-fd6a696c36cb"
       }
     },
     {
@@ -2713,10 +2571,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/ce6ae68e-af02-5134-0b92-5abc3a93791b"
       }
     },
     {
@@ -2764,10 +2618,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/c409dfdf-6a85-6710-cf2c-8287a88b2392"
       }
     },
     {
@@ -2820,10 +2670,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/66300dc8-8fc2-9c3b-b23d-4c8d9c398a39"
       }
     },
     {
@@ -2876,10 +2722,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/6794b82a-7175-3150-38fb-9f5b295198eb"
       }
     },
     {
@@ -2923,10 +2765,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
       }
     },
     {
@@ -2960,10 +2798,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Procedure/e2811748-41a6-95b2-b7fb-eb3271baed16"
       }
     },
     {
@@ -2995,10 +2829,6 @@
         "patient": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Immunization/c099eff8-da24-9e93-1961-f040da84ca62"
       }
     },
     {
@@ -3007,10 +2837,6 @@
         "resourceType": "Organization",
         "id": "b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
         "name": "Sanofi Pasteur"
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/b5c77b86-2764-79f9-10bf-5da5e63eb7c1"
       }
     }
   ]

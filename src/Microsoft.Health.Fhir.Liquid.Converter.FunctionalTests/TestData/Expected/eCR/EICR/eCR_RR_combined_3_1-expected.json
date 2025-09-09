@@ -2737,10 +2737,6 @@
         "encounter": {
           "reference": "Encounter/6a1c14ce-629f-3b64-cd3b-9a74645abaed"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "CarePlan/15ad6219-c9bb-2f48-416a-816612931a67"
       }
     },
     {
@@ -2772,9 +2768,6 @@
             }
           }
         ]
-      "request": {
-        "method": "PUT",
-        "url": "Encounter/6a1c14ce-629f-3b64-cd3b-9a74645abaed"
       }
     },
     {
@@ -2812,10 +2805,6 @@
             "text": "Family Medicine"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Location/204ac267-509e-5211-e752-f95761014083"
       }
     },
     {

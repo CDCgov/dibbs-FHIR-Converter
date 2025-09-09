@@ -243,53 +243,32 @@
       }
     },
     "ValueSet/EncounterStatus": {
-      "planned": {
-        "code": "planned"
-      },
-      "arrived": {
-        "code": "arrived"
-      },
-      "triaged": {
-        "code": "triaged"
-      },
-      "accepted": {
-        "code": "triaged"
+      "aborted": {
+        "code": "unknown"
       },
       "active": {
         "code": "in-progress"
       },
-      "onleave": {
-        "code": "onleave"
+      "cancelled": {
+        "code": "cancelled"
+      },
+      "completed": {
+        "code": "finished"
+      },
+      "held": {
+        "code": "planned"
+      },
+      "new": {
+        "code": "unknown"
       },
       "suspended": {
         "code": "onleave"
       },
-      "normal": {
-        "code": "finished"
-      },
-      "complete": {
-        "code": "finished"
-      },
-      "finished": {
-        "code": "finished"
-      },
-      "cancelled": {
-        "code": "cancelled"
-      },
-      "abandoned": {
-        "code": "cancelled"
-      },
-      "entered-in-error": {
+      "nullified": {
         "code": "entered-in-error"
-      },
-      "error": {
-        "code": "entered-in-error"
-      },
-      "unknown": {
-        "code": "unknown"
       },
       "__default__": {
-        "code": ""
+        "code": "unknown"
       }
     },
     "ValueSet/EventStatus": {

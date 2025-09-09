@@ -530,6 +530,222 @@
           }
         },
         {
+          "fullUrl": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a",
+          "resource": {
+            "resourceType": "Observation",
+            "id": "a054d401-7b23-4b15-bc28-c889c156ba6a",
+            "meta": {
+              "profile": [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation"
+              ],
+              "source": "ecr"
+            },
+            "identifier": [
+              {
+                "system": "urn:ietf:rfc:3986",
+                "value": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a"
+              }
+            ],
+            "status": "final",
+            "code": {
+              "coding": [
+                {
+                  "code": "64572001",
+                  "display": "Condition",
+                  "system": "http://snomed.info/sct"
+                },
+                {
+                  "code": "75323-6",
+                  "display": "Condition",
+                  "system": "http://loinc.org"
+                }
+              ]
+            },
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "3928002",
+                  "system": "http://snomed.info/sct",
+                  "display": "Zika virus disease (disorder)"
+                }
+              ]
+            },
+            "subject": {
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
+            },
+            "hasMember": [
+              {
+                "reference": "Observation/91e9ed13-0c4f-10f9-4022-5de6456cf865"
+              }
+            ]
+          },
+          "request": {
+            "method": "PUT",
+            "url": "Observation/a054d401-7b23-4b15-bc28-c889c156ba6a"
+          }
+        },
+        {
+          "fullUrl": "urn:uuid:91e9ed13-0c4f-10f9-4022-5de6456cf865",
+          "resource": {
+            "resourceType": "Observation",
+            "id": "91e9ed13-0c4f-10f9-4022-5de6456cf865",
+            "meta": {
+              "profile": [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
+              ],
+              "source": "ecr"
+            },
+            "identifier": [
+              {
+                "system": "urn:ietf:rfc:3986",
+                "value": "urn:uuid:fcf92143-4289-450e-9550-8d574facf626"
+              }
+            ],
+            "status": "final",
+            "code": {
+              "coding": [
+                {
+                  "code": "RRVS7",
+                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "display": "Both patient home address and provider facility address"
+                }
+              ]
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-extension",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "code": "RRVS1",
+                      "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                      "display": "Reportable"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-reason-extension",
+                "valueString": "Reason for determination of reportability"
+              },
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension",
+                "valueString": "Rule used in reportability determination"
+              }
+            ],
+            "performer": [
+              {
+                "display": "Coruscant Department of Health",
+                "reference": "Organization/e69f6311-724d-a226-e2f1-eb79ea9fc545"
+              },
+              {
+                "display": "Coruscant Department of Health",
+                "reference": "Organization/57c9d325-ffcb-5040-fb1c-8b3f13b8f16e"
+              },
+              {
+                "display": "Coruscant Department of Health",
+                "reference": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e"
+              }
+            ]
+          },
+          "request": {
+            "method": "PUT",
+            "url": "Observation/91e9ed13-0c4f-10f9-4022-5de6456cf865"
+          }
+        },
+        {
+          "fullUrl": "urn:uuid:e69f6311-724d-a226-e2f1-eb79ea9fc545",
+          "resource": {
+            "resourceType": "Organization",
+            "id": "e69f6311-724d-a226-e2f1-eb79ea9fc545",
+            "meta": {
+              "profile": [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization"
+              ],
+              "source": "ecr"
+            },
+            "active": true,
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "urn:oid:2.16.840.1.114222.4.5.232",
+                    "code": "RR8",
+                    "display": "Responsible Agency"
+                  }
+                ]
+              }
+            ],
+            "name": "Coruscant Department of Health",
+            "address": [
+              {
+                "city": "Macrodata District",
+                "state": "Galactic City",
+                "country": "Coruscant",
+                "postalCode": "GC-50",
+                "district": "Administrative Core"
+              }
+            ],
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+1-555-555-3555",
+                "use": "work"
+              }
+            ]
+          },
+          "request": {
+            "method": "PUT",
+            "url": "Organization/e69f6311-724d-a226-e2f1-eb79ea9fc545"
+          }
+        },
+        {
+          "fullUrl": "urn:uuid:57c9d325-ffcb-5040-fb1c-8b3f13b8f16e",
+          "resource": {
+            "resourceType": "Organization",
+            "id": "57c9d325-ffcb-5040-fb1c-8b3f13b8f16e",
+            "meta": {
+              "profile": [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"
+              ],
+              "source": "ecr"
+            },
+            "active": true,
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "urn:oid:2.16.840.1.114222.4.5.232",
+                    "code": "RR12",
+                    "display": "Rules Authoring Agency"
+                  }
+                ]
+              }
+            ],
+            "name": "Coruscant Department of Health",
+            "address": [
+              {
+                "city": "Macrodata District",
+                "state": "Galactic City",
+                "country": "Coruscant",
+                "postalCode": "GC-50",
+                "district": "Administrative Core"
+              }
+            ],
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+1-555-555-3555",
+                "use": "work"
+              }
+            ]
+          },
+          "request": {
+            "method": "PUT",
+            "url": "Organization/57c9d325-ffcb-5040-fb1c-8b3f13b8f16e"
+          }
+        },
+        {
           "fullUrl": "urn:uuid:79a37dee-d5a9-30a4-66f6-efce5a523b8e",
           "resource": {
             "resourceType": "Organization",
@@ -573,65 +789,6 @@
           "request": {
             "method": "PUT",
             "url": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e"
-          }
-        },
-        {
-          "fullUrl": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a",
-          "resource": {
-            "resourceType": "Observation",
-            "id": "a054d401-7b23-4b15-bc28-c889c156ba6a",
-            "meta": {
-              "profile": [
-                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
-              ],
-              "source": "ecr"
-            },
-            "identifier": [
-              {
-                "system": "urn:ietf:rfc:3986",
-                "value": "urn:uuid:a054d401-7b23-4b15-bc28-c889c156ba6a"
-              }
-            ],
-            "status": "final",
-            "code": {
-              "coding": [
-                {
-                  "code": "64572001",
-                  "display": "Condition",
-                  "system": "http://snomed.info/sct"
-                },
-                {
-                  "code": "75323-6",
-                  "display": "Condition",
-                  "system": "http://loinc.org"
-                }
-              ]
-            },
-            "valueCodeableConcept": {
-              "coding": [
-                {
-                  "code": "3928002",
-                  "system": "http://snomed.info/sct",
-                  "display": "Zika virus disease (disorder)"
-                }
-              ]
-            },
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-determination-of-reportability-rule-extension",
-                "valueString": "Rule used in                                                                reportability determination"
-              }
-            ],
-            "performer": [
-              {
-                "reference": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e",
-                "display": "Coruscant Department of Health"
-              }
-            ]
-          },
-          "request": {
-            "method": "PUT",
-            "url": "Observation/a054d401-7b23-4b15-bc28-c889c156ba6a"
           }
         },
         {

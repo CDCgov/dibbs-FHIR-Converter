@@ -1208,7 +1208,7 @@
         "id": "4e7f8ad6-3b2a-91e0-0d2a-42f0b0d5719d",
         "meta": {
           "profile": [
-            "http://hl7.org/fhir/us/ecr/2.1.2/StructureDefinition-us-ph-postpartum-status"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-postpartum-status"
           ]
         },
         "identifier": [

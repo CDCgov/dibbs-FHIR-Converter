@@ -7,14 +7,14 @@
         {
             "profile":
             [
-                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization",
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization",
             ],
         },
         "identifier":
         [
             {% assign ids = participant.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+            {% include 'DataType/Identifier' Identifier: id -%}
             {% endfor -%}
         ],
         "active": true,
@@ -25,8 +25,8 @@
                 [
                     {
                         "system" : "urn:oid:2.16.840.1.114222.4.5.232",
-                        "code" : "RR7",
-                        "display" : "Routing Entity",
+                        "code" : "RR12",
+                        "display" : "Rules Authoring Agency",
                     },
                 ]
             },
@@ -46,5 +46,9 @@
             { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
             {% endfor -%}
         ],
+    },
+    "request":{
+        "method":"PUT",
+        "url":"Organization/{{ ID }}",
     },
 },

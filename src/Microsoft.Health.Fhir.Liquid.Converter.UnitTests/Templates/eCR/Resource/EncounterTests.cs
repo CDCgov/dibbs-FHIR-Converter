@@ -364,7 +364,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 );
                 Assert.Equal("AMB", actualFhir.Class.Code);
                 Assert.Equal(
-                    "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "urn:oid:2.16.840.1.113883.5.4",
                     actualFhir.Class.System
                 );
                 Assert.Equal("Ambulatory", actualFhir.Class.Display);
@@ -376,7 +376,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 var actualFhir = ConvertEncompassingEncounter(eicr04152020EncompassingEncounterXml);
                 Assert.Equal("PHC2237", actualFhir.Class.Code);
                 Assert.Equal(
-                    "http://terminology.hl7.org/NamingSystem/CDCLocal",
+                    "urn:oid:2.16.840.1.114222.4.5.274",
                     actualFhir.Class.System
                 );
                 Assert.Equal("External Encounter", actualFhir.Class.Display);

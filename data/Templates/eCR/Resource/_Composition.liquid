@@ -136,6 +136,21 @@
                                 },
                             {% endfor %}
                         {% endif %}
+                        {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2.1" %}
+                            {% assign entries = component.section.entry | to_array -%}
+                            {% for entry in entries -%}
+                                {%- if entry.substanceAdministration -%}
+                                    {% evaluate immunizationId using 'Utils/GenerateId' obj: entry.substanceAdministration -%}
+                                {
+                                    "reference": "Immunization/{{immunizationId}}"
+                                },
+                                {%-  elsif entry.observation -%}
+                                {
+                                    "reference": "Observation/{{entry.observation | to_json_string | generate_uuid -%}}"
+                                },
+                                {%- endif -%}
+                            {% endfor -%}
+                        {% endif %}
                         {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.10" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.10" %}
                             {% assign carePlanId = component.section | to_json_string | generate_uuid -%}
                             {% assign fullCarePlanId = carePlanId | prepend: 'CarePlan/' -%}
@@ -334,9 +349,5 @@
                 {% endif -%}
             },
         ],
-    },
-    "request":{
-        "method":"PUT",
-        "url":"Composition/{{ ID }}",
     },
 },

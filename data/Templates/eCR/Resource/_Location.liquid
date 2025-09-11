@@ -3,6 +3,11 @@
     "resource":{
         "resourceType": "Location",
         "id":"{{ ID }}",
+        "meta": {
+            "profile": [
+                "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+            ]
+        },
         "identifier":
         [
             {% assign ids = location.id | to_array -%}

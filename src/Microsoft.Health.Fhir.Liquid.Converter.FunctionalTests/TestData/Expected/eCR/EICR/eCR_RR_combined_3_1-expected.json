@@ -564,7 +564,7 @@
         "resourceType": "Location",
         "meta": {
           "profile": [
-            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
           ]
         },
         "id": "b1affa82-31b4-92c5-b881-76271fecbb39",

@@ -625,7 +625,7 @@
         "resourceType": "Location",
         "meta": {
           "profile": [
-            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
           ]
         },
         "id": "ed3a7a6d-0b21-3b61-28d1-4fe4e97540ca",
@@ -4187,9 +4187,15 @@
         "id": "7df7cf78-ecc5-75ec-0746-e14deee862a3",
         "meta": {
           "profile": [
-            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
           ]
         },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:7df7cf78-ecc5-75ec-0746-e14deee862a3"
+          }
+        ],
         "name": "Community Health and Hospitals",
         "address": {
           "line": [

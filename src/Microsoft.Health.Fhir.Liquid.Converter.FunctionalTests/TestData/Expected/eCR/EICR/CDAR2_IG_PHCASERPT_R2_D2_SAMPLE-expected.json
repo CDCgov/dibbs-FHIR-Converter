@@ -447,7 +447,7 @@
         "resourceType": "Location",
         "meta": {
           "profile": [
-            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
           ]
         },
         "id": "14383c1c-7f95-3974-3e55-9d730de06b9e",

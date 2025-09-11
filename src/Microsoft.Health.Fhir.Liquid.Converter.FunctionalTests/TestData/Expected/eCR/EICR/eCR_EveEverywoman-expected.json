@@ -594,21 +594,7 @@
             "location": {
               "reference": "Location/ed3a7a6d-0b21-3b61-28d1-4fe4e97540ca",
               "display": "Good Health Hospital"
-            },
-            "extension": [
-              {
-                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "OF",
-                      "system": "urn:oid:2.16.840.1.113883.5.111",
-                      "display": "Outpatient facility"
-                    }
-                  ]
-                }
-              }
-            ]
+            }
           }
         ],
         "serviceProvider": {
@@ -637,6 +623,11 @@
       "fullUrl": "urn:uuid:ed3a7a6d-0b21-3b61-28d1-4fe4e97540ca",
       "resource": {
         "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+          ]
+        },
         "id": "ed3a7a6d-0b21-3b61-28d1-4fe4e97540ca",
         "identifier": [
           {
@@ -4194,6 +4185,11 @@
       "resource": {
         "resourceType": "Location",
         "id": "7df7cf78-ecc5-75ec-0746-e14deee862a3",
+        "meta": {
+          "profile": [
+            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+          ]
+        },
         "name": "Community Health and Hospitals",
         "address": {
           "line": [

@@ -351,20 +351,7 @@
             "location": {
               "reference": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db",
               "display": "None"
-            },
-            "extension": [
-              {
-                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "unknown",
-                      "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-                    }
-                  ]
-                }
-              }
-            ]
+            }
           }
         ],
         "serviceProvider": {
@@ -393,6 +380,11 @@
       "fullUrl": "urn:uuid:bdf4bd41-5f95-3434-7bad-c22f469af6db",
       "resource": {
         "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+          ]
+        },
         "id": "bdf4bd41-5f95-3434-7bad-c22f469af6db",
         "identifier": [
           {

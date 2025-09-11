@@ -416,21 +416,7 @@
             "location": {
               "reference": "Location/14383c1c-7f95-3974-3e55-9d730de06b9e",
               "display": "Good Health Hospital"
-            },
-            "extension": [
-              {
-                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "OF",
-                      "system": "urn:oid:2.16.840.1.113883.5.111",
-                      "display": "Outpatient facility"
-                    }
-                  ]
-                }
-              }
-            ]
+            }
           }
         ],
         "serviceProvider": {
@@ -459,6 +445,11 @@
       "fullUrl": "urn:uuid:14383c1c-7f95-3974-3e55-9d730de06b9e",
       "resource": {
         "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+          ]
+        },
         "id": "14383c1c-7f95-3974-3e55-9d730de06b9e",
         "identifier": [
           {

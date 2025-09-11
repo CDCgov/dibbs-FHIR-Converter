@@ -485,27 +485,7 @@
             "location": {
               "reference": "Location/b1affa82-31b4-92c5-b881-76271fecbb39",
               "display": " Sissubo School Neighbourhood Laboratory"
-            },
-            "extension": [
-              {
-                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "1081-9",
-                      "system": "urn:oid:2.16.840.1.113883.6.259",
-                      "display": "Pediatric Medical-Surgical Ward"
-                    },
-                    {
-                      "code": "82",
-                      "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
-                      "display": "Pediatrics"
-                    }
-                  ],
-                  "text": "Pediatrics"
-                }
-              }
-            ]
+            }
           }
         ],
         "serviceProvider": {
@@ -582,6 +562,11 @@
       "fullUrl": "urn:uuid:b1affa82-31b4-92c5-b881-76271fecbb39",
       "resource": {
         "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+          ]
+        },
         "id": "b1affa82-31b4-92c5-b881-76271fecbb39",
         "identifier": [
           {

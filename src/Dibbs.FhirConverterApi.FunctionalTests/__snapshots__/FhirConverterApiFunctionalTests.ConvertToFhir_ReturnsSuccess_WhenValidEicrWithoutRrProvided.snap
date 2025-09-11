@@ -336,7 +336,7 @@
             "resourceType": "Location",
             "meta": {
               "profile": [
-                "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
               ],
               "source": "ecr"
             },
@@ -352,6 +352,42 @@
                     }
                   ]
                 }
+              }
+            ],
+            "_name": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            },
+            "address": {
+              "_city": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "unknown"
+                  }
+                ]
+              },
+              "_state": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                    "valueCode": "unknown"
+                  }
+                ]
+              }
+            },
+            "type": [
+              {
+                "coding": [
+                  {
+                    "code": "unknown",
+                    "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+                  }
+                ]
               }
             ]
           }

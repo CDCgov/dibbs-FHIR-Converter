@@ -5,21 +5,53 @@
         "id":"{{ ID }}",
         "meta": {
             "profile": [
-                "https://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location.html"
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
             ]
         },
         "identifier":
         [
             {% assign ids = location.id | to_array -%}
-            {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
-            {% endfor -%}
+            {% if ids != empty -%}
+                {% for id in ids -%}
+                    {% include 'DataType/Identifier' Identifier: id -%}
+                {% endfor -%}
+            {% else %}
+                {
+                    "system": "urn:ietf:rfc:3986",
+                    "value": "urn:uuid:{{ ID }}"
+                }
+            {% endif %}
         ],
-        "name":"{{ location.playingEntity.name._ }}",
-        "address":
-        {
-            {% include 'DataType/Address' Address: location.addr -%}
-        },
+
+        {% if location.playingEntity.name._ %}
+            "name":"{{ location.playingEntity.name._ }}",
+        {% else %}
+            "_name": {
+                "extension": [
+                    {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
+                ],
+            },
+        {% endif %}
+
+        {% if location.addr -%}
+            "address": {
+                {% include 'DataType/Address' Address: location.addr -%}
+            },
+        {% else %}
+            "address": {
+                "_city": {
+                    "extension": [
+                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
+                    ],
+                },
+                "_state": {
+                    "extension": [
+                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
+                    ],
+                }
+            },
+        {% endif %}
+
         "telecom":
         [
             {% assign telecoms = location.telecom | to_array -%}
@@ -31,7 +63,7 @@
         [
             {% assign codes = location.code | to_array -%}
             {% for code in codes -%}
-            { {% include 'DataType/CodeableConcept' CodeableConcept: code, minCardinality: 0 -%} },
+            { {% include 'DataType/CodeableConcept' CodeableConcept: code, minCardinality: 1 -%} },
             {% endfor -%}
         ],
     },

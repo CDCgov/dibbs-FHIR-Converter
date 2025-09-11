@@ -31,7 +31,7 @@
                 ]
             },
         ],
-        "name":"{{ organization.playingEntity.name._ }}",
+        "name":"{{ organization.playingEntity.name._ | clean_string_from_tabs | escape_special_chars }}",
         "address":
         [
             {% assign addrs = organization.addr | to_array -%}
@@ -46,9 +46,5 @@
             { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
             {% endfor -%}
         ],
-    },
-    "request":{
-        "method":"PUT",
-        "url":"Organization/{{ ID }}",
     },
 },

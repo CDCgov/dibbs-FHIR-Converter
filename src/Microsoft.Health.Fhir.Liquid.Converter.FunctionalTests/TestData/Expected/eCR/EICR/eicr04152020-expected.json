@@ -1,12 +1,23 @@
 {
   "resourceType": "Bundle",
-  "type": "batch",
+  "type": "document",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"
+    ]
+  },
+  "id": "1902575681659620",
+  "identifier": {
+    "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.5.3",
+    "value": "1902575681659620"
+  },
+  "timestamp": "2020-04-15T14:52:59-05:00",
   "entry": [
     {
-      "fullUrl": "1902575681659620",
+      "fullUrl": "urn:uuid:12e53284-c739-8c6d-ef72-09b2bc0b1aa1",
       "resource": {
         "resourceType": "Composition",
-        "id": "1902575681659620",
+        "id": "12e53284-c739-8c6d-ef72-09b2bc0b1aa1",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -308,10 +319,6 @@
             "reference": "Device/48c756a8-18ae-5310-e8d7-2de6957e99b8"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Composition/1902575681659620"
       }
     },
     {
@@ -342,7 +349,8 @@
           {
             "id": "2.16.840.1.113883.4.6",
             "location": {
-              "reference": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db"
+              "reference": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db",
+              "display": "None"
             },
             "extension": [
               {
@@ -379,10 +387,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Encounter/bb44bb8e-af4d-7cf5-b8a0-bfed3557d83a"
       }
     },
     {
@@ -403,10 +407,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Location/bdf4bd41-5f95-3434-7bad-c22f469af6db"
       }
     },
     {
@@ -414,10 +414,6 @@
       "resource": {
         "resourceType": "Organization",
         "id": "42e178bb-0fd1-7329-a02e-c06b5c9782b8"
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/42e178bb-0fd1-7329-a02e-c06b5c9782b8"
       }
     },
     {
@@ -449,10 +445,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
       }
     },
     {
@@ -472,10 +464,6 @@
       "resource": {
         "resourceType": "Organization",
         "id": "43eaaf8e-f805-d37c-8e4e-77965eef87aa"
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/43eaaf8e-f805-d37c-8e4e-77965eef87aa"
       }
     },
     {
@@ -525,10 +513,6 @@
             "use": "work"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/f1121cca-2fca-f2bf-c5d4-df22ebd6c14b"
       }
     },
     {
@@ -588,10 +572,6 @@
             "use": "mobile"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/406c3e36-d27a-041b-61a8-e29df69f50e1"
       }
     },
     {
@@ -647,10 +627,6 @@
             "use": "work"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Organization/01fe444a-5df3-6915-447b-5b16fe2c6872"
       }
     },
     {
@@ -698,10 +674,6 @@
         "owner": {
           "reference": "Organization/f1121cca-2fca-f2bf-c5d4-df22ebd6c14b"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Device/48c756a8-18ae-5310-e8d7-2de6957e99b8"
       }
     },
     {
@@ -798,10 +770,6 @@
             "preferred": true
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
       }
     },
     {
@@ -826,10 +794,6 @@
         "medicationReference": {
           "reference": "Medication/cfbe2a1a-c8da-ec09-57cb-0f4fdfc02412"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "MedicationAdministration/356ab391-204b-b035-6f34-0e9f3b979817"
       }
     },
     {
@@ -849,10 +813,6 @@
             }
           ]
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Medication/cfbe2a1a-c8da-ec09-57cb-0f4fdfc02412"
       }
     },
     {
@@ -879,10 +839,6 @@
         "medicationReference": {
           "reference": "Medication/8ea50ec3-2528-2efc-16ee-84d008e58028"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "MedicationStatement/d4e3bf84-beb1-6b15-f64e-328ab96b5c23"
       }
     },
     {
@@ -920,10 +876,6 @@
           ],
           "text": "(BUSPIRONE HCL) 10 MG TABS"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Medication/8ea50ec3-2528-2efc-16ee-84d008e58028"
       }
     },
     {
@@ -961,10 +913,6 @@
         "requester": {
           "reference": "Practitioner/a6b0af6d-f143-8909-01fc-e0a006b2b20a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "MedicationRequest/5fa9f4bc-86fd-1482-603e-a74bba9c33c4"
       }
     },
     {
@@ -1038,10 +986,6 @@
             "use": "mobile"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/a6b0af6d-f143-8909-01fc-e0a006b2b20a"
       }
     },
     {
@@ -1077,10 +1021,6 @@
         "medicationReference": {
           "reference": "Medication/5184d9e6-fb8f-8b98-185c-e1bd2823fd24"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "MedicationStatement/4e8d9868-1eb8-4409-6933-2e9ba8025068"
       }
     },
     {
@@ -1118,10 +1058,6 @@
           ],
           "text": "(LISINOPRIL) 10 MG TABS"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Medication/5184d9e6-fb8f-8b98-185c-e1bd2823fd24"
       }
     },
     {
@@ -1160,10 +1096,6 @@
         "requester": {
           "reference": "Practitioner/8ed57322-ace2-52ab-fc67-a15e99c4854f"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "MedicationRequest/7f271226-7531-ae46-4dd4-4bb974cf6646"
       }
     },
     {
@@ -1237,10 +1169,6 @@
             "use": "mobile"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/8ed57322-ace2-52ab-fc67-a15e99c4854f"
       }
     },
     {
@@ -1293,10 +1221,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Condition/c77e90a3-c881-8e38-6f18-0fca7db20d56"
       }
     },
     {
@@ -1352,10 +1276,6 @@
             "reference": "Observation/24819ebf-d5b4-683e-0110-660edae43ea2"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "DiagnosticReport/67e2b289-1fab-a613-ddb9-45c38a666738"
       }
     },
     {
@@ -1403,10 +1323,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/7ea37105-1ac1-cd38-764b-2e39e6e68f69"
       }
     },
     {
@@ -1454,10 +1370,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/9fe67f48-f8ad-873d-3247-608da094b936"
       }
     },
     {
@@ -1505,10 +1417,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/57e614e8-359c-fa8b-2168-ec93def3e31d"
       }
     },
     {
@@ -1556,10 +1464,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/a7e27fda-c763-de96-d489-9375d0adad40"
       }
     },
     {
@@ -1612,10 +1516,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/ae7dcc09-ea9b-4df9-6151-ac1313350852"
       }
     },
     {
@@ -1663,10 +1563,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/6ab463a2-db27-4390-2543-a664d3878d85"
       }
     },
     {
@@ -1714,10 +1610,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/964d5fd3-14da-bb7a-3d1e-8891af5af477"
       }
     },
     {
@@ -1770,10 +1662,6 @@
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Observation/24819ebf-d5b4-683e-0110-660edae43ea2"
       }
     },
     {
@@ -1798,10 +1686,6 @@
             }
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "CarePlan/9e9adf1a-222b-7a7a-8b50-d47644138a2c"
       }
     },
     {
@@ -1843,10 +1727,6 @@
         "requester": {
           "reference": "Practitioner/8e3fb6f9-3ed0-58fb-5ebd-cc29919d7e2b"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "ServiceRequest/c3a02171-e2a0-a9f0-7738-f4d2829607e2"
       }
     },
     {
@@ -1913,10 +1793,6 @@
             "use": "mobile"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/8e3fb6f9-3ed0-58fb-5ebd-cc29919d7e2b"
       }
     },
     {
@@ -1958,10 +1834,6 @@
         "requester": {
           "reference": "Practitioner/eec2f44e-ee81-9c2c-9ea1-d40bb6b38878"
         }
-      },
-      "request": {
-        "method": "PUT",
-        "url": "ServiceRequest/48f1bc2e-fc10-15aa-bd4f-12377392c03c"
       }
     },
     {
@@ -2028,10 +1900,6 @@
             "use": "mobile"
           }
         ]
-      },
-      "request": {
-        "method": "PUT",
-        "url": "Practitioner/eec2f44e-ee81-9c2c-9ea1-d40bb6b38878"
       }
     }
   ]

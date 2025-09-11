@@ -1,0 +1,47 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "DocumentReference",
+        "id":"{{ ID }}",
+        "meta": {
+            "profile": [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-documentreference"
+            ]
+        },
+        "status": "current",
+        "type": {
+            "coding":
+            [
+                {
+                    "system": "http://loinc.org",
+                    "code": "83910-0",
+                    "display": "Public health Note"
+                }
+            ],
+            "text": "Public health information",
+        },
+        "category": [
+            {
+                {% include "DataType/CodeableConcept" CodeableConcept: documentReference.code %}
+            },
+        ],
+        "content":
+        [
+            {
+                "attachment": {
+                    "contentType": "{{ documentReference.reference.externalDocument.text.mediaType }}",
+                    "url": "{{ documentReference.reference.externalDocument.text.reference.value }}",
+                },
+            },
+        ],
+        "description": "{{ documentReference.reference.externalDocument.code.originalText._ | clean_string_from_tabs | escape_special_chars }}",
+        "extension": [
+            {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension",
+                "valueCodeableConcept": {
+                    {% include "DataType/CodeableConcept" CodeableConcept: documentReference.priorityCode %}
+                }
+            }
+        ]
+    },
+},

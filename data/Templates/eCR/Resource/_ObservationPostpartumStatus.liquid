@@ -7,7 +7,7 @@
         {
             "profile":
             [
-                "http://hl7.org/fhir/us/ecr/2.1.2/StructureDefinition-us-ph-postpartum-status",
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-postpartum-status",
             ],
         },
         "identifier":
@@ -49,9 +49,5 @@
         },
         {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
         {% include 'Utils/ValueHelper' value: observationEntry.value -%}
-    },
-    "request":{
-        "method":"PUT",
-        "url":"Observation/{{ ID }}",
     },
 },

@@ -5,6 +5,15 @@
 
 using System;
 using System.Collections.Generic;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Rest;
+using Hl7.Fhir.Serialization;
+using Hl7.Fhir.Specification;
+using Hl7.Fhir.Specification.Source;
+using Hl7.Fhir.Specification.Terminology;
+using Hl7.Fhir.Support;
+using Hl7.Fhir.Utility;
+using Hl7.Fhir.Validation;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
@@ -97,8 +106,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void GunzipBase64StringTest()
         {
             // Different base64string will be decompressed to the same result.
-            Assert.Equal("uncompressed", Filters.GunzipBase64String("H4sIAAAAAAAAEyvNS87PLShKLS5OTQEA3a5CsQwAAAA="));
-            Assert.Equal("uncompressed", Filters.GunzipBase64String("H4sIAAAAAAAACivNS87PLShKLS5OTQEA3a5CsQwAAAA="));
+            Assert.Equal(
+                "uncompressed",
+                Filters.GunzipBase64String("H4sIAAAAAAAAEyvNS87PLShKLS5OTQEA3a5CsQwAAAA=")
+            );
+            Assert.Equal(
+                "uncompressed",
+                Filters.GunzipBase64String("H4sIAAAAAAAACivNS87PLShKLS5OTQEA3a5CsQwAAAA=")
+            );
             Assert.Equal(string.Empty, Filters.GunzipBase64String(string.Empty));
 
             Assert.Throws<ArgumentNullException>(() => Filters.GunzipBase64String(null));
@@ -108,7 +123,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void Sha1HashTest()
         {
             Assert.Equal("a9993e364706816aba3e25717850c26c9cd0d89d", Filters.Sha1Hash("abc"));
-            Assert.Equal("da39a3ee5e6b4b0d3255bfef95601890afd80709", Filters.Sha1Hash(string.Empty));
+            Assert.Equal(
+                "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+                Filters.Sha1Hash(string.Empty)
+            );
 
             Assert.Throws<ArgumentNullException>(() => Filters.Sha1Hash(null));
         }
@@ -129,6 +147,49 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
             Assert.Equal(string.Empty, Filters.Base64Decode(string.Empty));
 
             Assert.Throws<ArgumentNullException>(() => Filters.Base64Decode(null));
+        }
+
+        [Fact]
+        public void ToXhtmlTest()
+        {
+            var testString = @"
+<list>
+    <li ID=""Patient/1234"">Content</li>
+</list>
+";
+            var result = Filters.ToXhtml(testString);
+
+            Assert.Equal(testString, result);
+        }
+
+        [Fact]
+        public void ToXhtmlTest_multiple()
+        {
+            var testString = "<table>Content</table><div>More stuff</div>";
+            var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">{testString}</div>";
+            var result = Filters.ToXhtml(testString);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ToXhtmlTest_nestedBadTag()
+        {
+            var testString = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><paragraph>Content</paragraph></div>";
+            var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+            var result = Filters.ToXhtml(testString);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void ToXhtmlTest_topLevelBadTag()
+        {
+            var testString = "<paragraph>Content</paragraph>";
+            var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+            var result = Filters.ToXhtml(testString);
+
+            Assert.Equal(expected, result);
         }
     }
 }

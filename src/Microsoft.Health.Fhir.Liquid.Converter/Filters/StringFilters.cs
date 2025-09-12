@@ -11,6 +11,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Linq;
 using Microsoft.Health.Fhir.Liquid.Converter.InputProcessors;
 using Newtonsoft.Json;
 
@@ -59,7 +61,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
         public static string ToJsonString(object data)
         {
-            return data == null ? null : JsonConvert.SerializeObject(data, Formatting.None);
+            return data == null
+                ? null
+                : JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.None);
         }
 
         public static string Gzip(string data)
@@ -104,6 +108,143 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         {
             var bytes = Convert.FromBase64String(data);
             return Encoding.UTF8.GetString(bytes);
+        }
+
+        public static string ConvertParagraphTagsWithAttributeRegex(string xmlString)
+        {
+            var attribute = "xmlns=\"http://www.w3.org/1999/xhtml\"";
+            if (string.IsNullOrEmpty(xmlString))
+                return xmlString;
+
+            // Replace opening tags - if there are existing attributes, add the new one; if not, just add it
+            xmlString = Regex.Replace(
+                xmlString,
+                @"<paragraph(\s[^>]*)?(?<!/)>",
+                match =>
+                {
+                    string existingAttrs = match.Groups[1].Value;
+                    return $"<p{existingAttrs} {attribute}\">";
+                }
+            );
+
+            // Replace closing tags
+            xmlString = Regex.Replace(xmlString, @"</paragraph>", "</p>");
+
+            // Replace self-closing tags
+            xmlString = Regex.Replace(
+                xmlString,
+                @"<paragraph(\s[^>]*)?\s*/>",
+                match =>
+                {
+                    string existingAttrs = match.Groups[1].Value;
+                    return $"<p{existingAttrs} {attribute}\"/>";
+                }
+            );
+
+            return xmlString;
+        }
+
+        public static string ToXhtml(string xmlString)
+        {
+            XNamespace xhtmlNamespace = "http://www.w3.org/1999/xhtml";
+            XDocument doc;
+            try
+            {
+                doc = XDocument.Parse(xmlString);
+
+                if (doc.Root.Name.LocalName != "div")
+                {
+                    doc = XDocument.Parse($"<div xmlns=\"http://www.w3.org/1999/xhtml\">{xmlString}</div>");
+                }
+            }
+            catch (XmlException)
+            {
+                doc = XDocument.Parse($"<div xmlns=\"http://www.w3.org/1999/xhtml\">{xmlString}</div>");
+            }
+
+            // Convert all elements and their descendants to the XHTML namespace
+            ConvertToNamespace(doc.Root, xhtmlNamespace);
+
+            return doc.ToString(SaveOptions.DisableFormatting);
+        }
+
+        private static void ConvertToNamespace(XElement element, XNamespace targetNamespace)
+        {
+            string[] initialStrings = { "paragraph", "content", "caption" };
+            string name;
+            switch (element.Name.LocalName)
+            {
+                case "paragraph":
+                case "content":
+                    if (element.Ancestors().Any(a => a.Name.LocalName == "p"))
+                    {
+                        name = "span";
+                    }
+                    else
+                    {
+                        name = "p";
+                    }
+                    break;
+                case "caption":
+                    if (element.Parent.Name.LocalName == "li")
+                    {
+                        name = "p";
+                    }
+                    else
+                    {
+                        name = "caption";
+                    }
+                    break;
+                case "list":
+                    name = "ul";
+                    break;
+                case "item":
+                    name = "li";
+                    break;
+                case "footnote":
+                    name = "small";
+                    break;
+                case "linkHtml":
+                    name = "a";
+                    break;
+                default:
+                    name = element.Name.LocalName;
+                    break;
+            }
+
+            // Change the element's name to use the target namespace
+            element.Name = targetNamespace + name;
+
+            // Remove all namespace declaration attributes
+            element.Attributes()
+                .Where(a => a.IsNamespaceDeclaration)
+                .Remove();
+
+            // Convert attribute names to local names (removes namespace prefixes)
+            var attributesToUpdate = element.Attributes().ToList();
+            foreach (var attr in attributesToUpdate)
+            {
+                if (attr.Name.Namespace != XNamespace.None)
+                {
+                    element.SetAttributeValue(attr.Name.LocalName, attr.Value);
+                    attr.Remove();
+                }
+                else if (attr.Name.LocalName == "ID")
+                {
+                    element.SetAttributeValue("id", attr.Value);
+                    attr.Remove();
+                }
+                else
+                {
+                    attr.Remove();
+                }
+            }
+
+            // Recursively process child elements
+            foreach (var child in element.Elements())
+            {
+                ConvertToNamespace(child, targetNamespace);
+            }
         }
     }
 }

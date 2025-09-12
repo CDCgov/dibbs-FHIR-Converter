@@ -148,6 +148,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                     {
                         name = "p";
                     }
+
                     break;
                 case "caption":
                     if (element.Parent.Name.LocalName == "li")
@@ -158,6 +159,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                     {
                         name = "caption";
                     }
+
                     break;
                 case "list":
                     name = "ul";
@@ -193,6 +195,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                     element.SetAttributeValue(attr.Name.LocalName, attr.Value);
                     attr.Remove();
                 }
+
                 if (attr.Name.LocalName == "ID")
                 {
                     element.SetAttributeValue("id", attr.Value);

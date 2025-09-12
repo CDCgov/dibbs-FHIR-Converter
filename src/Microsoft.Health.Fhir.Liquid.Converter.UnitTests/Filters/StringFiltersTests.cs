@@ -152,11 +152,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void ToXhtmlTest()
         {
-            var testString = @"
-<list>
-    <li ID=""Patient/1234"">Content</li>
-</list>
-";
+            var testString = @"<div xmlns=""http://www.w3.org/1999/xhtml"">Content</div>";
             var result = Filters.ToXhtml(testString);
 
             Assert.Equal(testString, result);

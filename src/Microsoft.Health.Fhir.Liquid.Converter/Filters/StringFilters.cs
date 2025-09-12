@@ -110,40 +110,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             return Encoding.UTF8.GetString(bytes);
         }
 
-        public static string ConvertParagraphTagsWithAttributeRegex(string xmlString)
-        {
-            var attribute = "xmlns=\"http://www.w3.org/1999/xhtml\"";
-            if (string.IsNullOrEmpty(xmlString))
-                return xmlString;
-
-            // Replace opening tags - if there are existing attributes, add the new one; if not, just add it
-            xmlString = Regex.Replace(
-                xmlString,
-                @"<paragraph(\s[^>]*)?(?<!/)>",
-                match =>
-                {
-                    string existingAttrs = match.Groups[1].Value;
-                    return $"<p{existingAttrs} {attribute}\">";
-                }
-            );
-
-            // Replace closing tags
-            xmlString = Regex.Replace(xmlString, @"</paragraph>", "</p>");
-
-            // Replace self-closing tags
-            xmlString = Regex.Replace(
-                xmlString,
-                @"<paragraph(\s[^>]*)?\s*/>",
-                match =>
-                {
-                    string existingAttrs = match.Groups[1].Value;
-                    return $"<p{existingAttrs} {attribute}\"/>";
-                }
-            );
-
-            return xmlString;
-        }
-
         public static string ToXhtml(string xmlString)
         {
             XNamespace xhtmlNamespace = "http://www.w3.org/1999/xhtml";

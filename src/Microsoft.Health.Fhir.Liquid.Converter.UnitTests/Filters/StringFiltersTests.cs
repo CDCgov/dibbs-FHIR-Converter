@@ -149,43 +149,76 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
             Assert.Throws<ArgumentNullException>(() => Filters.Base64Decode(null));
         }
 
-        [Fact]
-        public void ToXhtmlTest()
+        public class ToXHtml
         {
-            var testString = @"<div xmlns=""http://www.w3.org/1999/xhtml"">Content</div>";
-            var result = Filters.ToXhtml(testString);
+            [Fact]
+            public void Basic()
+            {
+                var testString = "<div xmlns=\"http://www.w3.org/1999/xhtml\">Content</div>";
+                var result = Filters.ToXhtml(testString);
 
-            Assert.Equal(testString, result);
-        }
+                Assert.Equal(testString, result);
+            }
 
-        [Fact]
-        public void ToXhtmlTest_multiple()
-        {
-            var testString = "<table>Content</table><div>More stuff</div>";
-            var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">{testString}</div>";
-            var result = Filters.ToXhtml(testString);
+            [Fact]
+            public void MultipleRoot()
+            {
+                var testString = "<table>Content</table><div>More stuff</div>";
+                var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">{testString}</div>";
+                var result = Filters.ToXhtml(testString);
 
-            Assert.Equal(expected, result);
-        }
+                Assert.Equal(expected, result);
+            }
 
-        [Fact]
-        public void ToXhtmlTest_nestedBadTag()
-        {
-            var testString = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><paragraph>Content</paragraph></div>";
-            var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
-            var result = Filters.ToXhtml(testString);
+            [Fact]
+            public void NestedBadTag()
+            {
+                var testString = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><paragraph>Content</paragraph></div>";
+                var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var result = Filters.ToXhtml(testString);
 
-            Assert.Equal(expected, result);
-        }
+                Assert.Equal(expected, result);
+            }
 
-        [Fact]
-        public void ToXhtmlTest_topLevelBadTag()
-        {
-            var testString = "<paragraph>Content</paragraph>";
-            var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
-            var result = Filters.ToXhtml(testString);
+            [Fact]
+            public void TopLevelBadTag()
+            {
+                var testString = "<paragraph>Content</paragraph>";
+                var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var result = Filters.ToXhtml(testString);
 
-            Assert.Equal(expected, result);
+                Assert.Equal(expected, result);
+            }
+
+            [Fact]
+            public void BadNamespace()
+            {
+                var testString = "<p xmlns=\"urn:hl7-org:v3\">Content</p>";
+                var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var result = Filters.ToXhtml(testString);
+
+                Assert.Equal(expected, result);
+            }
+
+            [Fact]
+            public void IdAttribute()
+            {
+                var testString = "<p ID=\"1234\">Content</p>";
+                var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\"><p id=\"1234\">Content</p></div>";
+                var result = Filters.ToXhtml(testString);
+
+                Assert.Equal(expected, result);
+            }
+
+            [Fact]
+            public void BadAttribute()
+            {
+                var testString = "<p TEST=\"test\">Content</p>";
+                var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var result = Filters.ToXhtml(testString);
+
+                Assert.Equal(expected, result);
+            }
         }
     }
 }

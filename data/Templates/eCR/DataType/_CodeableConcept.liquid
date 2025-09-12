@@ -20,7 +20,7 @@
 		{%- endif -%}
 	{% endfor -%}
 	{%- if minCardinality > 0 and bindingStrength != "required" and num_concepts == 0 -%}
-	{%- if org_text == empty or org_test == nil -%}
+	{%- if org_text == empty or org_text == nil -%}
 		{% comment %} We only need to use a data-absent-reason coding if there is no coding, it has to exist (has a minimum cardinality > 0), and it has a binding strenght that allows use to use the data absent coding (anything but "required") {% endcomment %}
 		{%- assign num_concepts = num_concepts | plus: 1 -%}
 		{

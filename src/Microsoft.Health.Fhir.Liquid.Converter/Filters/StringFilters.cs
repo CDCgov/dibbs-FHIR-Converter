@@ -128,7 +128,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                 doc = XDocument.Parse($"<div xmlns=\"http://www.w3.org/1999/xhtml\">{xmlString}</div>");
             }
 
-            // Convert all elements and their descendants to the XHTML namespace
             ConvertToNamespace(doc.Root, xhtmlNamespace);
 
             return doc.ToString(SaveOptions.DisableFormatting);
@@ -136,7 +135,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
         private static void ConvertToNamespace(XElement element, XNamespace targetNamespace)
         {
-            string[] initialStrings = { "paragraph", "content", "caption" };
             string name;
             switch (element.Name.LocalName)
             {
@@ -195,7 +193,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                     element.SetAttributeValue(attr.Name.LocalName, attr.Value);
                     attr.Remove();
                 }
-                else if (attr.Name.LocalName == "ID")
+                if (attr.Name.LocalName == "ID")
                 {
                     element.SetAttributeValue("id", attr.Value);
                     attr.Remove();
@@ -206,7 +204,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                 }
             }
 
-            // Recursively process child elements
             foreach (var child in element.Elements())
             {
                 ConvertToNamespace(child, targetNamespace);

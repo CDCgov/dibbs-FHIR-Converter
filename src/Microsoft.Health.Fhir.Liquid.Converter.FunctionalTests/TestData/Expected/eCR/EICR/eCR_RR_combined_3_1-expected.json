@@ -71,7 +71,7 @@
             "title": "Miscellaneous Notes",
             "text": {
               "status": "generated",
-              "div": "<list styleCode=\"xTOC\" xmlns=\"urn:hl7-org:v3\"><item><caption>REMOVED</caption><content ID=\"Note2\"><content><content styleCode=\"xLabel\">REMOVED.</content><br />REMOVED </content><br /><content styleCode=\"xLabel\">REMOVED</content><br /></content></item><item><caption>REMOVED</caption><content ID=\"Note3\"><content><content styleCode=\"xLabel\">REMOVED.</content><br />REMOVED </content><br /><content styleCode=\"xLabel\">REMOVED</content><br /></content></item></list><footnote ID=\"subTitle1\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented in this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><p>REMOVED</p><p id=\"Note2\"><span><span>REMOVED.</span><br />REMOVED </span><br /><span>REMOVED</span><br /></p></li><li><p>REMOVED</p><p id=\"Note3\"><span><span>REMOVED.</span><br />REMOVED </span><br /><span>REMOVED</span><br /></p></li></ul><small id=\"subTitle1\">documented in this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -89,7 +89,7 @@
             "title": "Immunizations",
             "text": {
               "status": "generated",
-              "div": "<table xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"25%\" /><col width=\"50%\" /><col width=\"25%\" /></colgroup><thead><tr><th>Immunization</th><th>Administration Dates</th><th>Next Due</th></tr></thead><tbody><tr ID=\"immunization6\"><td ID=\"immunization6Name\">REMOVED</td><td><content>REMOVED</content></td><td /></tr></tbody></table><footnote ID=\"subTitle5\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented as of this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /><col /><col /></colgroup><thead><tr><th>Immunization</th><th>Administration Dates</th><th>Next Due</th></tr></thead><tbody><tr id=\"immunization6\"><td id=\"immunization6Name\">REMOVED</td><td><p>REMOVED</p></td><td /></tr></tbody></table><small id=\"subTitle5\">documented as of this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -107,7 +107,7 @@
             "title": "Administered Medications",
             "text": {
               "status": "generated",
-              "div": "<table ID=\"admMedTable10\" xmlns=\"urn:hl7-org:v3\"><caption>REMOVED</caption><colgroup><col width=\"40%\" /><col width=\"10%\" span=\"6\" /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>Dose</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th></tr></thead><tbody><tr styleCode=\"xRowNormal xmedRow\"><td rowspan=\"1\" styleCode=\"Rrule\"><paragraph ID=\"med7\">removed</paragraph><paragraph ID=\"sig7\" styleCode=\"xIndent\">REMOVED</paragraph><content styleCode=\"xallIndent\">REMOVED <content ID=\"indication8\">Cleft hard palate</content></content></td><td>REMOVED</td><td>REMOVED</td><td>removed</td><td /><td /><td /></tr><tr styleCode=\"xRowNormal xMergeUp\"><td styleCode=\"Rrule\" /><td colspan=\"6\" /></tr></tbody></table><footnote ID=\"subTitle9\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented in this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table id=\"admMedTable10\"><caption>REMOVED</caption><colgroup><col /><col /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>Dose</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th></tr></thead><tbody><tr><td><p id=\"med7\">removed</p><p id=\"sig7\">REMOVED</p><p>REMOVED <span id=\"indication8\">Cleft hard palate</span></p></td><td>REMOVED</td><td>REMOVED</td><td>removed</td><td /><td /><td /></tr><tr><td /><td /></tr></tbody></table><small id=\"subTitle9\">documented in this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -130,7 +130,7 @@
             "title": "Plan of Treatment",
             "text": {
               "status": "generated",
-              "div": "<table xmlns=\"urn:hl7-org:v3\"><caption>REMOVED</caption><colgroup><col width=\"10%\" /><col width=\"15%\" /><col width=\"25%\" span=\"3\" /></colgroup><thead><tr><th>Date</th><th>Type</th><th>Department</th><th>REMOVED</th><th>Description</th></tr></thead><tbody><tr ID=\"encounter12\" styleCode=\"xRowNormal\"><td>REMOVED</td><td ID=\"encounter12type\">REMOVED</td><td><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>608-271-9000</paragraph></td><td><paragraph styleCode=\"Bold\">REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph></td><td /></tr></tbody></table><footnote ID=\"subTitle11\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented as of this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><caption>REMOVED</caption><colgroup><col /><col /><col /></colgroup><thead><tr><th>Date</th><th>Type</th><th>Department</th><th>REMOVED</th><th>Description</th></tr></thead><tbody><tr id=\"encounter12\"><td>REMOVED</td><td id=\"encounter12type\">REMOVED</td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>608-271-9000</p></td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p></td><td /></tr></tbody></table><small id=\"subTitle11\">documented as of this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -153,7 +153,7 @@
             "title": "Active Problems",
             "text": {
               "status": "generated",
-              "div": "<table xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"60%\" /><col width=\"15%\" /><col width=\"25%\" /></colgroup><thead><tr><th>Problem</th><th>Noted Date</th><th>REMOVED</th></tr></thead><tbody><tr ID=\"problem16\" styleCode=\"xRowNormal\"><td ID=\"problem16name\">Zika virus disease</td><td>REMOVED</td><td /></tr><tr ID=\"problem15\" styleCode=\"xRowAlt\"><td ID=\"problem15name\">Cleft hard palate</td><td>REMOVED</td><td /></tr></tbody></table><footnote ID=\"subTitle14\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">removed</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /><col /><col /></colgroup><thead><tr><th>Problem</th><th>Noted Date</th><th>REMOVED</th></tr></thead><tbody><tr id=\"problem16\"><td id=\"problem16name\">Zika virus disease</td><td>REMOVED</td><td /></tr><tr id=\"problem15\"><td id=\"problem15name\">Cleft hard palate</td><td>REMOVED</td><td /></tr></tbody></table><small id=\"subTitle14\">removed</small></div>"
             },
             "code": {
               "coding": [
@@ -181,7 +181,7 @@
             "title": "Chief Complaint",
             "text": {
               "status": "generated",
-              "div": "REMOVED "
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">REMOVED </div>"
             },
             "code": {
               "coding": [
@@ -199,7 +199,7 @@
             "title": "Results",
             "text": {
               "status": "generated",
-              "div": "<list styleCode=\"xTOC\" xmlns=\"urn:hl7-org:v3\"><item ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603\"><caption ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Procedure\"> REMOVED</caption><table><colgroup><col width=\"20%\" /><col width=\"12%\" /><col width=\"8%\" /><col width=\"20%\" /><col width=\"10%\" span=\"2\" /><col width=\"20%\" /></colgroup><thead><tr><th>Component</th><th>Value</th><th>Ref Range</th><th>Test Method</th><th>Analysis Time</th><th>Performed At</th><th>Pathologist Signature</th></tr></thead><tbody><tr ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1\" styleCode=\"xRowNormal\"><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1Name\"> REMOVED</td><td>12</td><td>REMOVED</td><td /><td /><td /><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1Signature\" /></tr><tr ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2\" styleCode=\"xRowAlt\"><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2Name\"> WBC</td><td>REMOVED</td><td>REMOVED</td><td /><td /><td /><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2Signature\" /></tr><tr ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3\" styleCode=\"xRowNormal\"><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3Name\"> PLT</td><td>300</td><td>REMOVED</td><td /><td /><td /><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3Signature\" /></tr><tr ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4\" styleCode=\"xRowAlt\"><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4Name\"> REMOVED</td><td>5</td><td>REMOVED</td><td /><td /><td /><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4Signature\" /></tr></tbody></table><table><colgroup><col width=\"20%\" span=\"5\" /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th></tr></thead><tbody><tr styleCode=\"xRowNormal\"><td ID=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Specimen\"> Blood</td><td>REMOVED</td><td /><td>REMOVED</td><td /></tr></tbody></table><table><thead><tr><th>Narrative</th></tr></thead><tbody><tr><td styleCode=\"xpre\"><paragraph /></td></tr></tbody></table><table><colgroup><col width=\"20%\" span=\"2\" /><col width=\"60%\" /></colgroup><thead><tr><th>Authorizing Provider</th><th>Result Type</th><th>REMOVED</th></tr></thead><tbody><tr><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td></tr></tbody></table></item></list><footnote ID=\"subTitle17\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented in this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603\"><p id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Procedure\"> REMOVED</p><table><colgroup><col /><col /><col /><col /><col /><col /></colgroup><thead><tr><th>Component</th><th>Value</th><th>Ref Range</th><th>Test Method</th><th>Analysis Time</th><th>Performed At</th><th>Pathologist Signature</th></tr></thead><tbody><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1Name\"> REMOVED</td><td>12</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1Signature\" /></tr><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2Name\"> WBC</td><td>REMOVED</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2Signature\" /></tr><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3Name\"> PLT</td><td>300</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3Signature\" /></tr><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4Name\"> REMOVED</td><td>5</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4Signature\" /></tr></tbody></table><table><colgroup><col /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th></tr></thead><tbody><tr><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Specimen\"> Blood</td><td>REMOVED</td><td /><td>REMOVED</td><td /></tr></tbody></table><table><thead><tr><th>Narrative</th></tr></thead><tbody><tr><td><p /></td></tr></tbody></table><table><colgroup><col /><col /></colgroup><thead><tr><th>Authorizing Provider</th><th>Result Type</th><th>REMOVED</th></tr></thead><tbody><tr><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td></tr></tbody></table></li></ul><small id=\"subTitle17\">documented in this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -235,7 +235,7 @@
             "title": "Social History",
             "text": {
               "status": "generated",
-              "div": "<table ID=\"sochist19\" xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"25%\" span=\"2\" /><col width=\"13%\" /><col width=\"12%\" /><col width=\"25%\" /></colgroup><thead><tr><th>Tobacco Use</th><th>Types</th><th>Packs/Day</th><th>Years Used</th><th>Date</th></tr></thead><tbody><tr><td>Smoking Tobacco: Never</td><td /><td ID=\"sochist19packsperday\" /><td /><td /></tr><tr ID=\"sochist19smokeless\" styleCode=\"xRowAlt\"><td>REMOVED</td><td /><td /><td /><td /></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"25%\" span=\"2\" /><col width=\"50%\" /></colgroup><thead><tr><th>Alcohol Use</th><th>Standard Drinks/Week</th><th>Comments</th></tr></thead><tbody><tr><td ID=\"alcoholStatus\">Never</td><td>removed</td><td /></tr></tbody></table><table xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"50%\" /><col width=\"25%\" span=\"2\" /></colgroup><thead><tr><th>REMOVED</th><th>Value</th><th>Date Recorded</th></tr></thead><tbody><tr ID=\"BirthSex22\"><td>Sex Assigned at Birth</td><td ID=\"BirthSex22Value\">Male</td><td>REMOVED</td></tr><tr ID=\"LegalSex23\"><td>REMOVED</td><td ID=\"LegalSex23Value\">Male</td><td>REMOVED</td></tr><tr ID=\"GenderIdentity20\"><td>Gender Identity</td><td ID=\"GenderIdentity20Value\">Not on file</td><td /></tr><tr ID=\"SexualOrientation21\"><td>Sexual Orientation</td><td ID=\"SexualOrientation21Value\">Not on file</td><td /></tr></tbody></table><footnote ID=\"subTitle18\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented as of this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table id=\"sochist19\"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th>Tobacco Use</th><th>Types</th><th>Packs/Day</th><th>Years Used</th><th>Date</th></tr></thead><tbody><tr><td>Smoking Tobacco: Never</td><td /><td id=\"sochist19packsperday\" /><td /><td /></tr><tr id=\"sochist19smokeless\"><td>REMOVED</td><td /><td /><td /><td /></tr></tbody></table><table><colgroup><col /><col /></colgroup><thead><tr><th>Alcohol Use</th><th>Standard Drinks/Week</th><th>Comments</th></tr></thead><tbody><tr><td id=\"alcoholStatus\">Never</td><td>removed</td><td /></tr></tbody></table><table><colgroup><col /><col /></colgroup><thead><tr><th>REMOVED</th><th>Value</th><th>Date Recorded</th></tr></thead><tbody><tr id=\"BirthSex22\"><td>Sex Assigned at Birth</td><td id=\"BirthSex22Value\">Male</td><td>REMOVED</td></tr><tr id=\"LegalSex23\"><td>REMOVED</td><td id=\"LegalSex23Value\">Male</td><td>REMOVED</td></tr><tr id=\"GenderIdentity20\"><td>Gender Identity</td><td id=\"GenderIdentity20Value\">Not on file</td><td /></tr><tr id=\"SexualOrientation21\"><td>Sexual Orientation</td><td id=\"SexualOrientation21Value\">Not on file</td><td /></tr></tbody></table><small id=\"subTitle18\">documented as of this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -273,7 +273,7 @@
             "title": "Last Filed Vital Signs",
             "text": {
               "status": "generated",
-              "div": "<table xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"25%\" span=\"4\" /></colgroup><thead><tr><th>Vital Sign</th><th>REMOVED</th><th>REMOVED</th><th>Comments</th></tr></thead><tbody><tr styleCode=\"xRowNormal\"><td styleCode=\"xcellHeader\">REMOVED</td><td><content ID=\"sysBP_5689278360\">90</content>/ <content ID=\"diaBP_5689278360\">50</content></td><td>REMOVED</td><td /></tr><tr ID=\"pulse_5689278360\" styleCode=\"xRowAlt\"><td styleCode=\"xcellHeader\">Pulse</td><td>80</td><td>REMOVED</td><td /></tr><tr ID=\"temp_5689278360\" styleCode=\"xRowNormal\"><td styleCode=\"xcellHeader\">REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr ID=\"resp_5689278360\" styleCode=\"xRowAlt\"><td styleCode=\"xcellHeader\">REMOVED</td><td>20</td><td>REMOVED</td><td /></tr><tr ID=\"SpO2_\" styleCode=\"xRowNormal\"><td styleCode=\"xcellHeader\">REMOVED</td><td>-</td><td>-</td><td /></tr><tr ID=\"inhaled_\" styleCode=\"xRowAlt\"><td styleCode=\"xcellHeader\">REMOVED</td><td>-</td><td>-</td><td /></tr><tr ID=\"weight_5689278360\" styleCode=\"xRowNormal\"><td styleCode=\"xcellHeader\">Weight</td><td>removed</td><td>REMOVED</td><td /></tr><tr ID=\"height_5689278360\" styleCode=\"xRowAlt\"><td styleCode=\"xcellHeader\">Height</td><td>removed</td><td>REMOVED</td><td /></tr><tr ID=\"wflPerc_5689278360\" styleCode=\"xRowNormal\"><td styleCode=\"xcellHeader\">REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr styleCode=\"xRowNormal xmergeUp\"><td colspan=\"4\"><content ID=\"wflPerc5689278360GCSource4\" styleCode=\"xIndent\"> REMOVED</content></td></tr><tr ID=\"circum_5689278360\" styleCode=\"xRowAlt\"><td styleCode=\"xcellHeader\">Head Circumference</td><td>removed</td><td>REMOVED</td><td /></tr><tr ID=\"circumPerc_5689278360\" styleCode=\"xRowNormal\"><td styleCode=\"xcellHeader\">REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr styleCode=\"xRowNormal xmergeUp\"><td colspan=\"4\"><content ID=\"circumPerc5689278360GCSource2\" styleCode=\"xIndent\">REMOVED</content></td></tr><tr ID=\"bmi_5689278360\" styleCode=\"xRowAlt\"><td styleCode=\"xcellHeader\">REMOVED</td><td>17.17</td><td>REMOVED</td><td /></tr><tr ID=\"bmiPerc_5689278360\" styleCode=\"xRowNormal\"><td styleCode=\"xcellHeader\">REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr styleCode=\"xRowNormal xmergeUp\"><td colspan=\"4\"><content ID=\"bmiPerc5689278360GCSource4\" styleCode=\"xIndent\"> REMOVED</content></td></tr></tbody></table><footnote ID=\"subTitle24\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented in this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /></colgroup><thead><tr><th>Vital Sign</th><th>REMOVED</th><th>REMOVED</th><th>Comments</th></tr></thead><tbody><tr><td>REMOVED</td><td><p id=\"sysBP_5689278360\">90</p>/ <p id=\"diaBP_5689278360\">50</p></td><td>REMOVED</td><td /></tr><tr id=\"pulse_5689278360\"><td>Pulse</td><td>80</td><td>REMOVED</td><td /></tr><tr id=\"temp_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr id=\"resp_5689278360\"><td>REMOVED</td><td>20</td><td>REMOVED</td><td /></tr><tr id=\"SpO2_\"><td>REMOVED</td><td>-</td><td>-</td><td /></tr><tr id=\"inhaled_\"><td>REMOVED</td><td>-</td><td>-</td><td /></tr><tr id=\"weight_5689278360\"><td>Weight</td><td>removed</td><td>REMOVED</td><td /></tr><tr id=\"height_5689278360\"><td>Height</td><td>removed</td><td>REMOVED</td><td /></tr><tr id=\"wflPerc_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr><td><p id=\"wflPerc5689278360GCSource4\"> REMOVED</p></td></tr><tr id=\"circum_5689278360\"><td>Head Circumference</td><td>removed</td><td>REMOVED</td><td /></tr><tr id=\"circumPerc_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr><td><p id=\"circumPerc5689278360GCSource2\">REMOVED</p></td></tr><tr id=\"bmi_5689278360\"><td>REMOVED</td><td>17.17</td><td>REMOVED</td><td /></tr><tr id=\"bmiPerc_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr><td><p id=\"bmiPerc5689278360GCSource4\"> REMOVED</p></td></tr></tbody></table><small id=\"subTitle24\">documented in this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -291,7 +291,7 @@
             "title": "Procedures",
             "text": {
               "status": "generated",
-              "div": "<list xmlns=\"urn:hl7-org:v3\"><item><content styleCode=\"xAlert\">REMOVED.</content></item></list><br xmlns=\"urn:hl7-org:v3\" /><table xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"25%\" /><col width=\"10%\" /><col width=\"15%\" /><col width=\"25%\" span=\"2\" /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>Date/Time</th><th>REMOVED</th><th>Comments</th></tr></thead><tbody><tr ID=\"procedure27\" styleCode=\"xRowNormal\"><td><content ID=\"procedure27name\">CBC</content></td><td>Routine</td><td>REMOVED</td><td /><td><paragraph styleCode=\"Bold\">REMOVED <content styleCode=\"xLink2-Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603\"> removed</content>. </paragraph></td></tr></tbody></table><footnote ID=\"subTitle26\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented in this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><p>REMOVED.</p></li></ul><br /><table><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>Date/Time</th><th>REMOVED</th><th>Comments</th></tr></thead><tbody><tr id=\"procedure27\"><td><p id=\"procedure27name\">CBC</p></td><td>Routine</td><td>REMOVED</td><td /><td><p>REMOVED <span> removed</span>. </p></td></tr></tbody></table><small id=\"subTitle26\">documented in this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -314,7 +314,7 @@
             "title": "Admitting Diagnoses",
             "text": {
               "status": "generated",
-              "div": "<content ID=\"nof31\" xmlns=\"urn:hl7-org:v3\">Not on file</content><footnote ID=\"subTitle30\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">documented in this encounter</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p id=\"nof31\">Not on file</p><small id=\"subTitle30\">documented in this encounter</small></div>"
             },
             "code": {
               "coding": [
@@ -337,7 +337,7 @@
             "title": "Reason for Visit",
             "text": {
               "status": "generated",
-              "div": "<list xmlns=\"urn:hl7-org:v3\"><item><table><colgroup><col width=\"25%\" /><col width=\"75%\" /></colgroup><thead><tr><th>Reason</th><th>Comments</th></tr></thead><tbody><tr ID=\"rfv33\"><td ID=\"reasonrfv33\">REMOVED</td><td /></tr></tbody></table></item></list>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><table><colgroup><col /><col /></colgroup><thead><tr><th>Reason</th><th>Comments</th></tr></thead><tbody><tr id=\"rfv33\"><td id=\"reasonrfv33\">REMOVED</td><td /></tr></tbody></table></li></ul></div>"
             },
             "code": {
               "coding": [
@@ -361,7 +361,7 @@
             "title": "Medications",
             "text": {
               "status": "generated",
-              "div": "<content ID=\"nof35\" xmlns=\"urn:hl7-org:v3\">Not on file</content><footnote ID=\"subTitle34\" styleCode=\"xSectionSubTitle\" xmlns=\"urn:hl7-org:v3\">removed</footnote>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p id=\"nof35\">Not on file</p><small id=\"subTitle34\">removed</small></div>"
             },
             "code": {
               "coding": [
@@ -379,7 +379,7 @@
             "title": "Encounter Details",
             "text": {
               "status": "generated",
-              "div": "<table xmlns=\"urn:hl7-org:v3\"><colgroup><col width=\"10%\" /><col width=\"15%\" /><col width=\"25%\" span=\"3\" /></colgroup><thead><tr><th>Date</th><th>Type</th><th>Department</th><th>REMOVED</th><th>Description</th></tr></thead><tbody><tr ID=\"encounter36\" styleCode=\"xRowNormal\"><td>REMOVED</td><td ID=\"encounter36type\">REMOVED</td><td><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>608-271-9000</paragraph></td><td><paragraph styleCode=\"Bold\">REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph><paragraph>REMOVED</paragraph></td><td><content ID=\"encounter36desc\">REMOVED</content></td></tr></tbody></table>"
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /><col /><col /></colgroup><thead><tr><th>Date</th><th>Type</th><th>Department</th><th>REMOVED</th><th>Description</th></tr></thead><tbody><tr id=\"encounter36\"><td>REMOVED</td><td id=\"encounter36type\">REMOVED</td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>608-271-9000</p></td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p></td><td><p id=\"encounter36desc\">REMOVED</p></td></tr></tbody></table></div>"
             },
             "code": {
               "coding": [

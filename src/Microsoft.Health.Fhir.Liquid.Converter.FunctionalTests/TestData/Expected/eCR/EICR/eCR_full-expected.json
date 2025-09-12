@@ -299,21 +299,7 @@
             "location": {
               "reference": "Location/e8f66012-7749-d740-13cd-06327a5693dc",
               "display": "Sacramento Hospital"
-            },
-            "extension": [
-              {
-                "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "HOSP",
-                      "system": "urn:oid:2.16.840.1.113883.5.111",
-                      "display": "Hospital"
-                    }
-                  ]
-                }
-              }
-            ]
+            }
           }
         ],
         "serviceProvider": {
@@ -342,6 +328,11 @@
       "fullUrl": "urn:uuid:e8f66012-7749-d740-13cd-06327a5693dc",
       "resource": {
         "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
         "id": "e8f66012-7749-d740-13cd-06327a5693dc",
         "identifier": [
           {

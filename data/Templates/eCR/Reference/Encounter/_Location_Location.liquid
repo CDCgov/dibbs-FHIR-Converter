@@ -21,14 +21,9 @@
                     {% else -%}
                         "display": "None",
                     {% endif -%}
-
                 },
                 {% assign codes = LOC.code | to_array -%}
                 {% if codes.first -%}
-                "extension": [{
-                    "url": "http://build.fhir.org/ig/HL7/case-reporting/StructureDefinition-us-ph-location-definitions.html#Location.type",
-                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: codes.first, minCardinality: 1 -%} },
-                },],
                 {% endif -%}
             },
         ],

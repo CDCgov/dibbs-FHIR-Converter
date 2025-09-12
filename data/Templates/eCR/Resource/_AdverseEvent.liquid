@@ -21,7 +21,7 @@
     {% if adverseEventEntry.effectiveTime.low.value -%}
     "date": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}",
     {% endif -%}
-    "code": { {% include 'DataType/CodeableConcept' CodeableConcept: adverseEventEntry.value -%} },
+    "event": { {% include 'DataType/CodeableConcept' CodeableConcept: adverseEventEntry.value -%} },
     "suspectEntity": [
     { "instance": { "reference": "{{ REF }}" } }
     ]

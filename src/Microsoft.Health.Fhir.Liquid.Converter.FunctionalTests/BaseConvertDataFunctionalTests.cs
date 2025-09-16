@@ -241,9 +241,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 // ]
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "13" },
                 new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "26" },
-                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "58" },
+                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "46" },
                 new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "22" },
-                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "32" },
+                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "28" },
             };
             return data.Select(item => new[]
             {
@@ -398,7 +398,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 
         protected void ValidateConvertCCDAMessageIsValidFHIR(ITemplateProvider templateProvider, string rootTemplate, string inputFile, string validationFailureStep, int numFailures)
         {
-            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
+            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "true";
             if (validateFhir.Trim() == "false") return;
 
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
@@ -428,9 +428,23 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                     }
                 );
                 var profileSource = new CachedResolver(packageSource);
-                var terminologyService = new LocalTerminologyService(profileSource);
+                var loincClient = new FhirClient("https://fhir.loinc.org");
+                loincClient.RequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue(
+                        "Basic",
+                        "am55Z2FhcmQ6NE1AIUdtWXIjR2ppQVRD"
+                        // Environment.GetEnvironmentVariable("LOINC_AUTH")
 
-                var validator = new Validator(profileSource, terminologyService);
+                    );
+                var loincTerminologyService = new ExternalTerminologyService(loincClient);
+
+                var terminologyService = new LocalTerminologyService(profileSource);
+                var mulTermSer = new MultiTerminologyService(
+                    terminologyService,
+                    loincTerminologyService
+                );
+
+                var validator = new Validator(profileSource, mulTermSer);
                 var result = validator.Validate(poco);
                 var outcomeText = result.ToString();
                 var numFailed = result.Issue.Count();

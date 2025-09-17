@@ -21,6 +21,7 @@
                 "url": "http://hl7.org/fhir/uv/ae-research-backport-ig/StructureDefinition/resolve-date",
                 "valueDateTime": "{{ adverseEventEntry.effectiveTime.high.value | format_as_date_time }}"
               }
+            ],
     {% endif -%}
     {% if adverseEventEntry.effectiveTime.low.value -%}
     "date": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}",

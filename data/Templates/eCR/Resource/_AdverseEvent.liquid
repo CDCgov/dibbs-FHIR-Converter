@@ -13,9 +13,9 @@
     "status": "{{ adverseEventEntry.statusCode.code }}",
     "actuality": "actual",
     {% if adverseEventEntry.effectiveTime.low.value -%}
-    "date": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}",
+        "date": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}",
     {% endif -%}
-    {% if adverseEventEntry.effectiveTime.high.value -%},
+    {% if adverseEventEntry.effectiveTime.high.value -%}
         "extension": [
               {
                 "url": "http://hl7.org/fhir/uv/ae-research-backport-ig/StructureDefinition/resolve-date",
@@ -23,6 +23,7 @@
               }
             ],
     {% endif -%}
+
     "event": { {% include 'DataType/CodeableConcept' CodeableConcept: adverseEventEntry.value -%} },
     "suspectEntity": [
     { "instance": { "reference": "{{ REF }}" } }

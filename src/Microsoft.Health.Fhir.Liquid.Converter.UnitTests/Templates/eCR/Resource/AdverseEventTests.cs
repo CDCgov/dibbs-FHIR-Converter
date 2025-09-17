@@ -52,7 +52,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal("AdverseEvent", actualFhir.TypeName);
             Assert.Equal("1234" ,actualFhir.Id);
-            Assert.Equal("2008-02-26T08:05:00-08:00", actualFhir.Detected);
+            Assert.Equal("2008-02-26T08:05:00-08:00", actualFhir.Date);
             Assert.NotNull(actualFhir.Event);
             Assert.NotEmpty(actualFhir.Event.Coding);
             var coding = actualFhir.Event.Coding.First();

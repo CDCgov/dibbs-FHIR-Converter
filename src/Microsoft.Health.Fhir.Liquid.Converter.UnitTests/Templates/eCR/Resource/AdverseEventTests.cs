@@ -51,16 +51,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var actualFhir = GetFhirObjectFromTemplate<AdverseEvent>(ECRPath, attributes);
 
             Assert.Equal("AdverseEvent", actualFhir.TypeName);
-//            Assert.Equal(AdverseEvent.AdverseEventIntent.Plan, actualFhir.Intent);
             Assert.Equal("1234" ,actualFhir.Id);
-//            Assert.Equal(AdverseEvent.MedicationrequestStatus.Active, actualFhir.Status);
-//            Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);
-//            Assert.Equal(RequestPriority.Asap , actualFhir.Priority);
-//            Assert.Equal(1, actualFhir.DispenseRequest.NumberOfRepeatsAllowed);
-//            var dosage = actualFhir.DosageInstruction.First();
-//            Assert.NotEmpty(dosage.Site);
-//            Assert.NotEmpty(dosage.DoseAndRate);
-//            Assert.NotEmpty(dosage.Route);
+            Assert.Equal("2008-02-26T08:05:00-08:00", actualFhir.Detected);
+            Assert.NotNull(actualFhir.Event);
+            Assert.NotEmpty(actualFhir.Event.Coding);
+            var coding = actualFhir.Event.Coding.First();
+            Assert.Equal("Nausea", coding.Display);
         }
     }
 }

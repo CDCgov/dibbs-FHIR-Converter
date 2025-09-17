@@ -15,23 +15,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
     public class AdverseEventTests : BaseECRLiquidTests
     {
 
-        private readonly ITestOutputHelper _output;
-
-        public AdverseEventTests(ITestOutputHelper output)
-        {
-            _output = output;
-            Console.SetOut(new TestOutputTextWriter(_output));
-        }
-
-        private sealed class TestOutputTextWriter : TextWriter
-        {
-            private readonly ITestOutputHelper _output;
-            public TestOutputTextWriter(ITestOutputHelper output) => _output = output;
-            public override Encoding Encoding => Encoding.UTF8;
-            public override void WriteLine(string? value) => _output.WriteLine(value ?? string.Empty);
-            public override void Write(char value) => _output.WriteLine(value.ToString());
-        }
-
         private static readonly string ECRPath = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "Resource",
@@ -66,7 +49,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                          { "adverseEventEntry", parsed["observation"]},
                      };
             var actualFhir = GetFhirObjectFromTemplate<AdverseEvent>(ECRPath, attributes);
-            Console.WriteLine("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
             Assert.Equal("AdverseEvent", actualFhir.TypeName);
 //            Assert.Equal(AdverseEvent.AdverseEventIntent.Plan, actualFhir.Intent);

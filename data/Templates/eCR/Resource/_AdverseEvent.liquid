@@ -16,7 +16,11 @@
     "detected": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}"
     {% endif -%}
     {% if adverseEventEntry.effectiveTime.high.value -%},
-        "note": [{ "text": "Reaction resolved on {{ adverseEventEntry.effectiveTime.high.value | format_as_date_time }}" }],
+        "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/ae-research-backport-ig/StructureDefinition/resolve-date",
+                "valueDateTime": "{{ adverseEventEntry.effectiveTime.high.value | format_as_date_time }}"
+              }
     {% endif -%}
     {% if adverseEventEntry.effectiveTime.low.value -%}
     "date": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}",

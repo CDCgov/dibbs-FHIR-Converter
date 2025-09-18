@@ -12,7 +12,7 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-  
+
 jobs:
   unit-test-dotnet-fhir-converter-api:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "9.0.x"
       - name: Run tests
         run: dotnet test src/Dibbs.FhirConverterApi.UnitTests
 
@@ -34,7 +34,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "9.0.x"
       - name: Run tests
         run: dotnet test src/Dibbs.FhirConverterApi.FunctionalTests
 
@@ -46,7 +46,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "9.0.x"
       - name: Run tests
         run: dotnet test --filter FullyQualifiedName~Converter.UnitTests
 
@@ -58,7 +58,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "9.0.x"
       - name: Run tests
         run: dotnet test --filter FullyQualifiedName~Converter.FunctionalTests --logger "console;verbosity=detailed"
 
@@ -70,7 +70,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "9.0.x"
       - name: Run tests
         run: dotnet test --filter FullyQualifiedName~Tool.UnitTests
 
@@ -82,6 +82,6 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "9.0.x"
       - name: Run tests
         run: VALIDATE_FHIR=true dotnet test --filter FullyQualifiedName~Converter.FunctionalTests.ConvertDataTemplateDirectoryProviderFunctionalTests.GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid --logger "console;verbosity=detailed"

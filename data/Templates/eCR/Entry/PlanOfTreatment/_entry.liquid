@@ -36,7 +36,7 @@
 {% if med %}
     {% assign medId = med | to_json_string | generate_uuid -%}
     {% assign fullMedId = medId | prepend: 'MedicationRequest/' %}
-    {% include 'Reference/CarePlan/ActivityReference' ID: carePlanId,  REF: fullMedId -%}
+    {% include 'Reference/CarePlan/Activity_Reference' ID: carePlanId,  REF: fullMedId -%}
     {% include 'Resource/MedicationRequest' medicationRequest: med, ID: medId, intent: "plan" -%}
     {% include 'Reference/MedicationRequest/Subject' ID: medId, REF: fullPatientId -%}
 

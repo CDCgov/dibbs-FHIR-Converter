@@ -1,0 +1,23 @@
+{% assign substanceAdministrationId = relationship.substanceAdministration | to_json_string | generate_uuid -%}
+{% include 'Resource/MedicationAdministration' medicationAdministration: relationship.substanceAdministration, ID: substanceAdministrationId -%}
+{% assign manufacturedMaterialId = relationship.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial | to_json_string | generate_uuid -%}
+{% include 'Resource/Medication' medication: relationship.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial, ID: manufacturedMaterialId -%}
+{% if relationship.substanceAdministration.author -%}
+    {% evaluate practitionerAuthorId using 'Utils/GenerateId' obj: relationship.substanceAdministration.author.assignedAuthor -%}
+    {% include 'Resource/Practitioner', practitioner: relationship.substanceAdministration.author.assignedAuthor, ID: practitionerAuthorId -%}
+    {% assign fullPractitionerAuthorId = practitionerAuthorId | prepend: 'Practitioner/' -%}
+    {% include 'Reference/MedicationAdministration/Performer_Actor' ID: substanceAdministrationId, REF: fullPractitionerAuthorId -%}
+{% endif -%}
+{% if relationship.substanceAdministration.author -%}
+    {% evaluate practitionerAuthorId using 'Utils/GenerateId' obj: relationship.substanceAdministration.author.assignedAuthor -%}
+    {% include 'Resource/Practitioner', practitioner: relationship.substanceAdministration.author.assignedAuthor, ID: practitionerAuthorId -%}
+    {% assign fullPractitionerAuthorId = practitionerAuthorId | prepend: 'Practitioner/' -%}
+    {% include 'Reference/MedicationAdministration/Performer_Actor' ID: substanceAdministrationId, REF: fullPractitionerAuthorId -%}
+{% endif -%}
+{% include 'Reference/MedicationAdministration/Subject' ID: substanceAdministrationId, REF: fullPatientId -%}
+{% assign fullManufacturedMaterialId = manufacturedMaterialId | prepend: 'Medication/' -%}
+{% include 'Reference/MedicationAdministration/MedicationReference' ID: substanceAdministrationId, REF: fullManufacturedMaterialId -%}
+
+
+
+{{ relationship.substanceAdministration.entryRelationship | to_array | batch_render: 'Entry/AdmissionMedication/entry_act_entryRelationship_substanceAdministration_entryRelationship', 'entryRelationship' }}

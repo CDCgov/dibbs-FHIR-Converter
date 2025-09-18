@@ -47,7 +47,7 @@
                             {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
                             {{ time |  replace_first: "DateTime", "String" }}
                         }
-                    }
+                    },
                 {% endif %}
             {% endfor %}
         ]

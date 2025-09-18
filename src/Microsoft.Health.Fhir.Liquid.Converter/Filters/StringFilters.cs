@@ -120,7 +120,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
                 if (doc.Root.Name.LocalName != "div")
                 {
-                    doc = XDocument.Parse($"<div xmlns=\"http://www.w3.org/1999/xhtml\">{xmlString}</div>");
+                    doc = new XDocument(new XElement(xhtmlNamespace + "div", doc.Root));
                 }
             }
             catch (XmlException)

@@ -1,0 +1,32 @@
+{
+"fullUrl":"urn:uuid:{{ID}}",
+"resource":{
+    "resourceType": "AdverseEvent",
+    "id":"{{ID}}",
+    "identifier":
+    [
+    {% assign ids = adverseEventEntry.id | to_array -%}
+    {% for i in ids -%}
+         {% include 'DataType/Identifier' Identifier: i -%}
+    {% endfor -%}
+    ],
+    "status": "{{ adverseEventEntry.statusCode.code }}",
+    "actuality": "actual",
+    {% if adverseEventEntry.effectiveTime.low.value -%}
+        "date": "{{ adverseEventEntry.effectiveTime.low.value | format_as_date_time }}",
+    {% endif -%}
+    {% if adverseEventEntry.effectiveTime.high.value -%}
+        "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/ae-research-backport-ig/StructureDefinition/resolve-date",
+                "valueDateTime": "{{ adverseEventEntry.effectiveTime.high.value | format_as_date_time }}"
+              }
+            ],
+    {% endif -%}
+
+    "event": { {% include 'DataType/CodeableConcept' CodeableConcept: adverseEventEntry.value -%} },
+    "suspectEntity": [
+    { "instance": { "reference": "{{ REF }}" } }
+    ]
+    },
+},

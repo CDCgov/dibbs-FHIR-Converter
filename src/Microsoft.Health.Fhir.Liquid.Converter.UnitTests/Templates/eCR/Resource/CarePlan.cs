@@ -118,5 +118,76 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(actualFhir.Status, RequestStatus.Unknown);
             Assert.Empty(actualFhir.Activity);
         }
+        
+        [Fact]
+        public void CarePlan_AllFields_MultipleEntries()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "patientReference", "Patient/4566" },
+                {
+                    "carePlan",
+                    Hash.FromAnonymousObject(
+                        new {
+                            id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
+                            entry = new object[] {
+                                new {
+                                    act = new {
+                                        id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a55", },
+                                        moodCode = "RQO",
+                                        code = new
+                                        {
+                                            originalText = new
+                                            {
+                                                _ = "Colonoscopy",
+                                            },
+                                        },
+                                        effectiveTime = new {
+                                            value = "20201101"
+                                        },
+                                        entryRelationship = new object[] {
+                                            new {
+                                                typeCode = "RSON",
+                                                observation = new { value = new { code = "Why not" } },
+                                            },
+                                            new {
+                                                typeCode = "RSON",
+                                                observation = new { value =  new { code = "Couldn't hurt" } },
+                                            },
+                                        },
+                                    }
+                                },
+                                new {
+                                    act = new {
+                                        id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a56", },
+                                        moodCode = "RQO",
+                                        code = new
+                                        {
+                                            originalText = new
+                                            {
+                                                _ = "Esophagogastroduodenoscopy",
+                                            },
+                                        },
+                                        effectiveTime = new {
+                                            value = "20201101"
+                                        },
+                                        entryRelationship = new object[] {
+                                            new {
+                                                typeCode = "RSON",
+                                                observation = new { value = new { code = "Another one" } },
+                                            },
+                                        },
+                                    }
+                                },
+                            }
+                        }
+                    )
+                },
+            };
+            var actualFhir = GetFhirObjectFromTemplate<CarePlan>(ECRPath, attributes);
+
+            Assert.Equal(2, actualFhir.Activity.Count());
+        }
     }
 }

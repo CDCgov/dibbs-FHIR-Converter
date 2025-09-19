@@ -3,16 +3,23 @@
     "resource":{
         "resourceType": "Encounter",
         "id":"{{ ID }}",
-        {% if encounter.statusCode.code -%}
-        "status":"{{ encounter.statusCode.code | get_property: 'ValueSet/EncounterStatus' }}",
-        {% endif -%}
-        {% if encounter.statusCode.code == null -%}
-        "status":"unknown",
+        {%- if encounter.statusCode.code and encounter.statusCode.code != "completed" and encounter.statusCode.code != "active" -%}
+            "status": "{{ encounter.statusCode.code | get_property: 'ValueSet/EncounterStatus' }}",
+        {%- elsif encounter.effectiveTime.value and encounter.effectiveTime.value.nullFlavor == nil and encounter.effectiveTime.low == nil and encounter.effectiveTime.high == nil -%}
+            "status": "finished",
+        {%- elsif encounter.effectiveTime.high and encounter.effectiveTime.high.nullFlavor == nil -%}
+            "status": "finished",
+        {%-  elsif encounter.effectiveTime.low and encounter.effectiveTime.low.nullFlavor == nil and encounter.effectiveTime.high == nil -%}
+            "status": "in-progress",
+        {%- elseif encounter.statusCode.code -%}
+            "status": "{{ encounter.statusCode.code | get_property: 'ValueSet/EncounterStatus' }}",
+        {%- else -%}
+            "status": "unknown",
         {% endif -%}
         "class": {
-                    {% if encounter.code -%}
-                        {% include 'DataType/Coding' Coding: encounter.code -%}
-                    {% endif -%}
+            {% if encounter.code -%}
+                {% include 'DataType/Coding' Coding: encounter.code -%}
+            {% endif -%}
         },
         "identifier":
         [

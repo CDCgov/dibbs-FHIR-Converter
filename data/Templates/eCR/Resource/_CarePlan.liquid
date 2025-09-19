@@ -19,9 +19,6 @@
             {% assign entries = carePlan.entry | to_array %}
             {% for entry in entries %}
                 {% assign act = entry.act %}
-                {% if entry.encounter %}
-                    {% assign act = entry.encounter %}
-                {% endif %}
                 {% comment %} Other entry types are handled in `Entry/PlanOfTreatment/entry` {% endcomment %}
                 {% if act %}
                     {
@@ -47,7 +44,7 @@
                             {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
                             {{ time |  replace_first: "DateTime", "String" }}
                         }
-                    }
+                    },
                 {% endif %}
             {% endfor %}
         ]

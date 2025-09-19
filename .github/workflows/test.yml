@@ -61,6 +61,8 @@ jobs:
           dotnet-version: "8.0.x"
       - name: Run tests
         run: dotnet test --filter FullyQualifiedName~Converter.FunctionalTests --logger "console;verbosity=detailed"
+        env:
+          VALIDATE_FHIR: false
 
   unit-test-dotnet-fhir-converter-tool:
     runs-on: ubuntu-latest
@@ -84,6 +86,7 @@ jobs:
         with:
           dotnet-version: "8.0.x"
       - name: Run tests
-        run: VALIDATE_FHIR=true dotnet test --filter FullyQualifiedName~Converter.FunctionalTests.ConvertDataTemplateDirectoryProviderFunctionalTests.GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid --logger "console;verbosity=detailed"
+        run: dotnet test --filter FullyQualifiedName~Converter.FunctionalTests.ConvertDataTemplateDirectoryProviderFunctionalTests.GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid --logger "console;verbosity=detailed"
         env:
+          VALIDATE_FHIR: true
           LOINC_AUTH: ${{ secrets.LOINC_AUTH }}

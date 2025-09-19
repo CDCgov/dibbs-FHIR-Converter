@@ -189,7 +189,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var AddressStateDataAbsentReason = (AddressState.Value as Code)?.Value;
             Assert.Equal("not-asked", AddressStateDataAbsentReason);
 
-            Assert.Equal("unknown", actualFhir.Type.First().Coding.First().Code);
+            Assert.Equal("not-applicable", actualFhir.Type.First().Coding.First().Code);
             Assert.Equal("http://terminology.hl7.org/CodeSystem/data-absent-reason", actualFhir.Type.First().Coding.First().System);
         }
 

@@ -358,7 +358,7 @@
               "extension": [
                 {
                   "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                  "valueCode": "unknown"
+                  "valueCode": "not-applicable"
                 }
               ]
             },
@@ -367,7 +367,7 @@
                 "extension": [
                   {
                     "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                    "valueCode": "unknown"
+                    "valueCode": "not-applicable"
                   }
                 ]
               },
@@ -375,7 +375,7 @@
                 "extension": [
                   {
                     "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-                    "valueCode": "unknown"
+                    "valueCode": "not-applicable"
                   }
                 ]
               }
@@ -384,7 +384,7 @@
               {
                 "coding": [
                   {
-                    "code": "unknown",
+                    "code": "not-applicable",
                     "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
                   }
                 ]

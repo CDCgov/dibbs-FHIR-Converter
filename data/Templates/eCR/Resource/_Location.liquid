@@ -28,7 +28,7 @@
         {% else %}
             "_name": {
                 "extension": [
-                    {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
+                    {%- include 'Extension/DataAbsentReason' nullFlavor: location.playingEntity.name.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' -%}
                 ],
             },
         {% endif %}
@@ -64,7 +64,7 @@
         [
             {% assign codes = location.code | to_array -%}
             {% for code in codes -%}
-            { {% include 'DataType/CodeableConcept' CodeableConcept: code, minCardinality: 1 -%} },
+            { {% include 'DataType/CodeableConcept' CodeableConcept: code, minCardinality: 1, nullFlavor: code.nullFlavor -%} },
             {% endfor -%}
         ],
     },

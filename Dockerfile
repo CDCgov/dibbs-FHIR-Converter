@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /App
 
 COPY . ./
@@ -18,7 +18,7 @@ RUN curl 'https://rxnav.nlm.nih.gov/REST/allstatus.json?status=active' \
   | jq --raw-output '[["code", "name"]] + [.minConceptGroup.minConcept[] | [.rxcui, .name]] | .[] | @csv' \
   > output/rxnorm.csv
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /App
 COPY --from=build /App/output .
 COPY --from=build /App/data/Templates ./templates

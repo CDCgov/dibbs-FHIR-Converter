@@ -76,11 +76,11 @@
                     {
                         "status":"generated",
                         {% if component.section.text -%}
-                            "div": "{{ component.section.text._innerText | clean_string_from_tabs | escape_special_chars }}",
+                            "div": "{{ component.section.text._innerText | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
                         {% elsif component.section.title._ -%}
-                            "div":"<div xmlns=\"http://www.w3.org/1999/xhtml\">{{ component.section.title._ | escape }}</div>",
+                            "div":{{ component.section.title._ | to_xhtml | clean_string_from_tabs | escape_special_chars }}"",
                         {% else -%}
-                            "div":"<div xmlns=\"http://www.w3.org/1999/xhtml\">{{ component.section.code.displayName | escape }}</div>",
+                            "div":"{{ component.section.code.displayName | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
                         {% endif -%}
                     },
                     "code":

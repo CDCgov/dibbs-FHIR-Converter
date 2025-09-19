@@ -33,24 +33,25 @@
             },
         {% endif %}
 
-        {% if location.addr -%}
-            "address": {
-                {% include 'DataType/Address' Address: location.addr -%}
-            },
-        {% else %}
-            "address": {
+        "address": {
+            {% include 'DataType/Address' Address: location.addr -%}
+            {% if location.addr.city._ == null %}
                 "_city": {
                     "extension": [
-                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
-                    ],
+                        {% assign nfCity = location.addr.city.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
+                        {%- include 'Extension/DataAbsentReason' nullFlavor: nfCity | get_property: 'ValueSet/NullFlavor' -%}
+                    ]
                 },
+            {% endif %}
+            {% if location.addr.state._ == null %}
                 "_state": {
                     "extension": [
-                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
-                    ],
-                }
-            },
-        {% endif %}
+                        {% assign nfState = location.addr.state.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
+                        {%- include 'Extension/DataAbsentReason' nullFlavor: nfState | get_property: 'ValueSet/NullFlavor' -%}
+                    ]
+                },
+            {% endif %}
+        },
 
         "telecom":
         [

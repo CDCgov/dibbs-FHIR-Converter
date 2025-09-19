@@ -35,28 +35,34 @@
             },
         {% endif %}
 
-        {% if location.location.addr and location.location.addr.state._ -%}
-            "address": {
-                {% include 'DataType/Address' Address: location.location.addr -%}
-            },
-        {% elsif location.serviceProviderOrganization.addr and location.serviceProviderOrganization.addr.state._ -%}
-            "address": {
-                {% include 'DataType/Address' Address: location.serviceProviderOrganization.addr -%}
-            },
-        {% else %}
-            "address": {
+        "address": {
+            {% if location.location %}
+                {% assign addressLocation = location.location %}
+            {% elsif location.serviceProviderOrganization %}
+                {% assign addressLocation = location.serviceProviderOrganization %}
+            {% else %}
+                {% assign addressLocation = null %}
+            {% endif %}
+            {% if addressLocation.addr -%}
+                {% include 'DataType/Address' Address: addressLocation.addr -%}
+            {% endif %}
+            {% if addressLocation.addr.city._ == null %}
                 "_city": {
                     "extension": [
-                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
-                    ],
+                        {%- assign nfCity = addressLocation.addr.city.nullFlavor | default: addressLocation.addr.nullFlavor | default: "unknown" -%}
+                        {%- include 'Extension/DataAbsentReason' nullFlavor: nfCity | get_property: 'ValueSet/NullFlavor' -%}
+                    ]
                 },
+            {% endif %}
+            {% if addressLocation.addr.state._ == null %}
                 "_state": {
                     "extension": [
-                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
-                    ],
-                }
-            },
-        {% endif -%}
+                        {%- assign nfState = addressLocation.addr.state.nullFlavor | default: addressLocation.addr.nullFlavor | default: "unknown" -%}
+                        {%- include 'Extension/DataAbsentReason' nullFlavor: nfState | get_property: 'ValueSet/NullFlavor' -%}
+                    ]
+                },
+            {% endif %}
+        },
 
         "telecom":
         [

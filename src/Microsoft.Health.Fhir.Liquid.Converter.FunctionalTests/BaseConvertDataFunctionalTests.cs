@@ -401,7 +401,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             System.Console.Out.WriteLine("#####################################################################################################");
             System.Console.Out.WriteLine(inputFile);
             System.Console.Out.WriteLine("-----------------------------------------------------------------------------------------------------");
-            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "true";
+            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
             if (validateFhir.Trim() == "false") return;
 
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());

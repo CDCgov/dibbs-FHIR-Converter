@@ -45,7 +45,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal(ResourceType.Encounter.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
-            Assert.Equal("Unknown", actualFhir.Status.ToString());
+            Assert.Equal("Finished", actualFhir.Status.ToString());
 
             Assert.Equal("urn:oid:2.16.840.1.113883.19", actualFhir.Identifier.First().System);
             Assert.Equal("9937012", actualFhir.Identifier.First().Value);

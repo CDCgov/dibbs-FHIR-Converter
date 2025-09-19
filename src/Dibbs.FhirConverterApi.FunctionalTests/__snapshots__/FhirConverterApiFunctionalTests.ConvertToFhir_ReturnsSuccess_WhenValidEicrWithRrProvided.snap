@@ -350,8 +350,7 @@
               {
                 "id": "2.16.840.1.113883.4.6",
                 "location": {
-                  "reference": "Location/bea8eaff-b016-f74b-10ab-9d0440257223",
-                  "display": "None"
+                  "reference": "Location/bea8eaff-b016-f74b-10ab-9d0440257223"
                 }
               }
             ],

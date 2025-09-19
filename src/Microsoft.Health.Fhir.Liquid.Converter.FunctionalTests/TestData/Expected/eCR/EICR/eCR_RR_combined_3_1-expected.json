@@ -2760,6 +2760,11 @@
       "resource": {
         "resourceType": "Location",
         "id": "204ac267-509e-5211-e752-f95761014083",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
         "identifier": [
           {
             "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.686980",
@@ -2820,6 +2825,16 @@
           "text": "CBC"
         },
         "performedDateTime": "1981-10-16",
+        "bodySite": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ],
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
@@ -2836,6 +2851,14 @@
             "value": "XX291"
           }
         ],
+        "statusReason": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
         "occurrenceDateTime": "1981-10-15",
         "vaccineCode": {
           "coding": [
@@ -2851,6 +2874,22 @@
         },
         "status": "completed",
         "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "site": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
         "patient": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }

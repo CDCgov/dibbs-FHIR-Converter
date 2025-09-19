@@ -36,7 +36,7 @@
 {% if med %}
     {% assign medId = med | to_json_string | generate_uuid -%}
     {% assign fullMedId = medId | prepend: 'MedicationRequest/' %}
-    {% include 'Reference/CarePlan/ActivityReference' ID: carePlanId,  REF: fullMedId -%}
+    {% include 'Reference/CarePlan/Activity_Reference' ID: carePlanId,  REF: fullMedId -%}
     {% include 'Resource/MedicationRequest' medicationRequest: med, ID: medId, intent: "plan" -%}
     {% include 'Reference/MedicationRequest/Subject' ID: medId, REF: fullPatientId -%}
 
@@ -56,3 +56,22 @@
     {% endif %}
 
 {% endif %}
+
+{%- assign encounter = entry.encounter -%}
+{%- if encounter -%}
+    {% assign encounterId = encounter | to_json_string | generate_uuid -%}
+    {% assign fullEncounterId = encounterId | prepend: 'Encounter/' %}
+
+    {% include 'Reference/CarePlan/Encounter' ID: carePlanId,  REF: fullEncounterId -%}
+    {% include 'Resource/Encounter' serviceEntry: encounter, ID: encounterId -%}
+
+    {% assign participants = encounter.participant | to_array %}
+    {%- for participant in participants -%}
+        {%- if participant.typeCode == "LOC" -%}
+            {% assign locationId = participant.participantRole | to_json_string | generate_uuid %}
+            {% assign fullLocationId = locationId | prepend: 'Location/' %}
+            {% include 'Resource/Location' ID: locationId, location: participant.participantRole %}
+            {% include 'Reference/Encounter/Location_Location' ID: encounterId, REF: fullLocationId -%}
+        {% endif %}
+    {%- endfor -%}
+{%- endif -%}

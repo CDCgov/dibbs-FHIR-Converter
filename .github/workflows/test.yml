@@ -12,7 +12,7 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-  
+
 jobs:
   unit-test-dotnet-fhir-converter-api:
     runs-on: ubuntu-latest
@@ -85,3 +85,5 @@ jobs:
           dotnet-version: "8.0.x"
       - name: Run tests
         run: VALIDATE_FHIR=true dotnet test --filter FullyQualifiedName~Converter.FunctionalTests.ConvertDataTemplateDirectoryProviderFunctionalTests.GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid --logger "console;verbosity=detailed"
+        env:
+          LOINC_AUTH: ${{ secrets.LOINC_AUTH }}

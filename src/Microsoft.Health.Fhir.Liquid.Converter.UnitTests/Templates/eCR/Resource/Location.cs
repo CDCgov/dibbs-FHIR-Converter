@@ -152,8 +152,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                     </playingEntity>
                     <addr>
                         <streetAddressLine nullFlavor=""NA""/>
-                        <city nullFlavor=""NA""/>
-                        <state nullFlavor=""NA""/>
+                        <city/>
+                        <state nullFlavor=""NASK""/>
                         <postalCode nullFlavor=""NA""/>
                     </addr>
                 </participantRole>
@@ -179,8 +179,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Null(actualFhir.Name);
 
             Assert.NotNull(actualFhir.Address);
-            Assert.Null(actualFhir.Address.City);
-            Assert.Null(actualFhir.Address.State);
+            Assert.NotEmpty(actualFhir.Address.CityElement.Extension);
+            var AddressCity = actualFhir.Address.CityElement.Extension.FirstOrDefault(e => e.Url == "http://hl7.org/fhir/StructureDefinition/data-absent-reason");
+            var AddressCityDataAbsentReason = (AddressCity.Value as Code)?.Value;
+            Assert.Equal("unknown", AddressCityDataAbsentReason);
+
+            Assert.NotEmpty(actualFhir.Address.StateElement.Extension);
+            var AddressState = actualFhir.Address.StateElement.Extension.FirstOrDefault(e => e.Url == "http://hl7.org/fhir/StructureDefinition/data-absent-reason");
+            var AddressStateDataAbsentReason = (AddressState.Value as Code)?.Value;
+            Assert.Equal("not-asked", AddressStateDataAbsentReason);
 
             Assert.Equal("unknown", actualFhir.Type.First().Coding.First().Code);
             Assert.Equal("http://terminology.hl7.org/CodeSystem/data-absent-reason", actualFhir.Type.First().Coding.First().System);

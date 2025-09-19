@@ -51,7 +51,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("9937012", actualFhir.Identifier.First().Value);
 
             Assert.Equal("AMB", actualFhir.Class.Code);
-            Assert.Equal("urn:oid:2.16.840.1.113883.5.4", actualFhir.Class.System);
+            Assert.Equal("http://terminology.hl7.org/CodeSystem/v3-ActCode", actualFhir.Class.System);
             Assert.Equal("Ambulatory", actualFhir.Class.Display);
 
             Assert.Equal("2020-11-07T08:44:21-05:00", actualFhir.Period.Start);

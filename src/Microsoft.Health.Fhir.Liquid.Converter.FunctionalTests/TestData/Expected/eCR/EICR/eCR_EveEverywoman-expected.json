@@ -569,10 +569,10 @@
       "resource": {
         "resourceType": "Encounter",
         "id": "76318a56-b9e2-db52-1123-ff869795db80",
-        "status": "unknown",
+        "status": "finished",
         "class": {
           "code": "AMB",
-          "system": "urn:oid:2.16.840.1.113883.5.4",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
           "display": "Ambulatory"
         },
         "identifier": [

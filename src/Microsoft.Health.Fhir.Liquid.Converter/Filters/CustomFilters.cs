@@ -504,9 +504,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     /// </summary>
     /// <param name="loinc">The LOINC code for which to retrieve the name.</param>
     /// <returns>The name associated with the specified LOINC code, or null if the code is not found in the dictionary.</returns>
-    public static string? GetLoincName(string loinc)
+    public static string? GetLoincName(string? loinc)
     {
-      loinc = loinc.Trim();
+      loinc = loinc?.Trim();
       var outDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
       loincDict ??= CSVMapDictionary(Path.Combine(outDir, @"Loinc.csv"));
       loincDict.TryGetValue(loinc ?? string.Empty, out string? element);

@@ -30,7 +30,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public Health Case Report"
+                "display": "Public health Case report"
               }
             ]
           },
@@ -52,7 +52,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public Health Case Report"
+              "display": "Public health Case report"
             }
           ]
         },
@@ -72,7 +72,7 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of Treatment"
+                  "display": "Plan of care note"
                 }
               ]
             },
@@ -95,7 +95,7 @@
                 {
                   "code": "46240-8",
                   "system": "http://loinc.org",
-                  "display": "History of encounters"
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
                 }
               ]
             },
@@ -113,7 +113,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "HISTORY OF PRESENT ILLNESS"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -131,7 +131,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "Medications Administered"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -154,7 +154,7 @@
                 {
                   "code": "11450-4",
                   "system": "http://loinc.org",
-                  "display": "Problem List"
+                  "display": "Problem list - Reported"
                 }
               ]
             },
@@ -232,7 +232,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests and/or laboratory data"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -268,7 +268,7 @@
                 {
                   "code": "47519-4",
                   "system": "http://loinc.org",
-                  "display": "History of Procedures"
+                  "display": "History of Procedures Document"
                 }
               ]
             },
@@ -303,7 +303,7 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "Hx of Immunization"
+                  "display": "History of Immunization note"
                 }
               ]
             },
@@ -332,7 +332,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social History"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -432,7 +432,7 @@
                 {
                   "code": "8716-3",
                   "system": "http://loinc.org",
-                  "display": "Vital Signs"
+                  "display": "Vital signs note"
                 }
               ]
             },
@@ -1550,7 +1550,7 @@
             {
               "code": "248656",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Azithromycin 500 MG Oral Tablet"
+              "display": "azithromycin 500 MG Oral Tablet"
             }
           ]
         }
@@ -1680,7 +1680,7 @@
                 {
                   "code": "11780-4",
                   "system": "http://loinc.org",
-                  "display": "Delivery date estimated from ovulation date"
+                  "display": "Delivery date Estimated from ovulation date"
                 }
               ]
             },
@@ -1904,7 +1904,7 @@
             {
               "code": "57021-8",
               "system": "http://loinc.org",
-              "display": "CBC W Auto Differential panel in Blood"
+              "display": "CBC W Auto Differential panel - Blood"
             }
           ]
         },
@@ -2015,7 +2015,7 @@
             {
               "code": "20570-8",
               "system": "http://loinc.org",
-              "display": "Hematocrit"
+              "display": "Hematocrit [Volume Fraction] of Blood by calculation"
             }
           ]
         },
@@ -2093,7 +2093,7 @@
             {
               "code": "731-0",
               "system": "http://loinc.org",
-              "display": "Lymphocytes [#/​volume] in Blood by Automated count"
+              "display": "Lymphocytes [#/volume] in Blood by Automated count"
             }
           ]
         },
@@ -2450,8 +2450,7 @@
           "coding": [
             {
               "code": "C3841750",
-              "system": "http://loinc.org",
-              "display": "Mass gathering"
+              "system": "http://loinc.org"
             }
           ],
           "text": "Football game"
@@ -2932,8 +2931,7 @@
           "coding": [
             {
               "code": "21812002",
-              "system": "http://loinc.org",
-              "display": "Ocean liner, device (physical object)"
+              "system": "http://loinc.org"
             }
           ]
         },
@@ -3154,7 +3152,7 @@
             {
               "code": "77983-5",
               "system": "http://loinc.org",
-              "display": "Country of usual residence"
+              "display": "Country of usual residence [Location]"
             }
           ]
         },
@@ -3254,7 +3252,7 @@
             {
               "code": "69856-3",
               "system": "http://loinc.org",
-              "display": "Are you deaf, or do you have serious difficulty hearing [HHS.ACA Section 4302]"
+              "display": "Are you deaf, or do you have serious difficulty hearing"
             }
           ]
         },
@@ -3297,7 +3295,7 @@
             {
               "code": "21843-8",
               "system": "http://loinc.org",
-              "display": "Usual Occupation"
+              "display": "History of Usual occupation"
             }
           ]
         },
@@ -3325,7 +3323,7 @@
                 {
                   "code": "21844-6",
                   "system": "http://loinc.org",
-                  "display": "Usual Industry"
+                  "display": "History of Usual industry"
                 }
               ]
             },
@@ -3458,7 +3456,7 @@
                 {
                   "code": "86188-0",
                   "system": "http://loinc.org",
-                  "display": "Occupation Industry"
+                  "display": "History of Occupation industry"
                 }
               ]
             },
@@ -3516,7 +3514,7 @@
             {
               "code": "74165-2",
               "system": "http://loinc.org",
-              "display": "History of Employment Status"
+              "display": "History of employment status NIOSH"
             }
           ]
         },
@@ -3569,7 +3567,7 @@
             {
               "code": "8480-6",
               "system": "http://loinc.org",
-              "display": "SYSTOLIC BLOOD PRESSURE"
+              "display": "Systolic blood pressure"
             }
           ]
         },
@@ -3615,7 +3613,7 @@
             {
               "code": "8462-4",
               "system": "http://loinc.org",
-              "display": "DIASTOLIC BLOOD PRESSURE"
+              "display": "Diastolic blood pressure"
             }
           ]
         },
@@ -3661,7 +3659,7 @@
             {
               "code": "8867-4",
               "system": "http://loinc.org",
-              "display": "HEART RATE"
+              "display": "Heart rate"
             }
           ]
         },
@@ -3707,7 +3705,7 @@
             {
               "code": "8310-5",
               "system": "http://loinc.org",
-              "display": "BODY TEMPERATURE"
+              "display": "Body temperature"
             }
           ]
         },
@@ -3753,7 +3751,7 @@
             {
               "code": "9279-1",
               "system": "http://loinc.org",
-              "display": "RESPIRATORY RATE"
+              "display": "Respiratory rate"
             }
           ]
         },
@@ -3799,7 +3797,7 @@
             {
               "code": "8302-2",
               "system": "http://loinc.org",
-              "display": "HEIGHT"
+              "display": "Body height"
             }
           ]
         },
@@ -3845,7 +3843,7 @@
             {
               "code": "3141-9",
               "system": "http://loinc.org",
-              "display": "WEIGHT"
+              "display": "Body weight Measured"
             }
           ]
         },
@@ -3891,7 +3889,7 @@
             {
               "code": "39156-5",
               "system": "http://loinc.org",
-              "display": "BODY MASS INDEX"
+              "display": "Body mass index (BMI) [Ratio]"
             }
           ]
         },
@@ -3937,7 +3935,7 @@
             {
               "code": "2710-2",
               "system": "http://loinc.org",
-              "display": "OXYGEN SATURATION"
+              "display": "Deprecated Oxygen saturation in Capillary blood by Oximetry"
             }
           ]
         },
@@ -4014,7 +4012,7 @@
             {
               "code": "80825-3",
               "system": "http://loinc.org",
-              "display": "Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method"
+              "display": "Zika virus envelope E gene [Presence] in Serum by NAA with probe detection"
             }
           ]
         },
@@ -4277,7 +4275,7 @@
             {
               "code": "197380",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Atenolol 25 MG Oral Tablet"
+              "display": "atenolol 25 MG Oral Tablet"
             }
           ]
         }

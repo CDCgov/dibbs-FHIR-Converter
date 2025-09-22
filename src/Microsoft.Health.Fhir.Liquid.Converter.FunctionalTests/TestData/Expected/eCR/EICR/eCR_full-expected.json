@@ -30,7 +30,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public Health Case Report"
+                "display": "Public health Case report"
               }
             ]
           },
@@ -52,7 +52,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public Health Case Report"
+              "display": "Public health Case report"
             }
           ]
         },
@@ -72,7 +72,7 @@
                 {
                   "code": "46240-8",
                   "system": "http://loinc.org",
-                  "display": "History of encounters"
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
                 }
               ]
             },
@@ -90,7 +90,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "History of Present Illness"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -108,7 +108,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "Medications Administered"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -131,7 +131,7 @@
                 {
                   "code": "11450-4",
                   "system": "http://loinc.org",
-                  "display": "Problem List"
+                  "display": "Problem list - Reported"
                 }
               ]
             },
@@ -155,7 +155,7 @@
                 {
                   "code": "29299-5",
                   "system": "http://loinc.org",
-                  "display": "Reason for visit"
+                  "display": "Reason for visit Narrative"
                 }
               ]
             },
@@ -179,7 +179,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests and/or laboratory data"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -205,7 +205,7 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of Treatment"
+                  "display": "Plan of care note"
                 }
               ]
             },
@@ -223,7 +223,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social History"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -246,7 +246,7 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "History of immunizations"
+                  "display": "History of Immunization note"
                 }
               ]
             },
@@ -747,7 +747,7 @@
             {
               "code": "2284960",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Remdesivir 100 mg injection"
+              "display": "remdesivir 100 MG Injection"
             }
           ]
         }
@@ -769,8 +769,7 @@
           "coding": [
             {
               "code": "94308-4",
-              "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "system": "http://loinc.org"
             }
           ]
         },
@@ -820,7 +819,7 @@
             {
               "code": "94310-0",
               "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "display": "SARS-related coronavirus N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N3"
             }
           ]
         },
@@ -860,8 +859,7 @@
           "coding": [
             {
               "code": "31600-9",
-              "system": "http://loinc.org",
-              "display": "Neisseria gonorrhoeae [Presence] in Urine by NAA"
+              "system": "http://loinc.org"
             }
           ]
         },
@@ -910,8 +908,7 @@
           "coding": [
             {
               "code": "31600-9",
-              "system": "http://loinc.org",
-              "display": "Neisseria gonorrhoeae [Presence] in Urine by NAA"
+              "system": "http://loinc.org"
             }
           ]
         },

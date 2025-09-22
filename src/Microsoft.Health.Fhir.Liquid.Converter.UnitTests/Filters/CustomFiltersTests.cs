@@ -218,7 +218,7 @@ public class CustomFilterTests
   {
     var loinc = "94308-4 ";
     var actual = Filters.GetLoincName(loinc);
-    Assert.Equal("SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N2", actual);
+    Assert.Equal("SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)", actual);
   }
 
   [Fact]

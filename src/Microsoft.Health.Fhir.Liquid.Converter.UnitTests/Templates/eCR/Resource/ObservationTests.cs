@@ -90,7 +90,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ObservationStatus.Final, actualFhir.Status);
 
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("Bordetella pertussis Ab [Units/volume] in Serum", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("B. pertussis Ab Qn (S)", actualFhir.Code?.Coding?.First().Display);
             Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
 
 

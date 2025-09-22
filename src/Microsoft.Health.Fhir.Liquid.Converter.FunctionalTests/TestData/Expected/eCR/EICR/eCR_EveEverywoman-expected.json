@@ -2450,7 +2450,8 @@
           "coding": [
             {
               "code": "C3841750",
-              "system": "http://loinc.org"
+              "system": "http://loinc.org",
+              "display": "Mass gathering"
             }
           ],
           "text": "Football game"
@@ -2931,7 +2932,8 @@
           "coding": [
             {
               "code": "21812002",
-              "system": "http://loinc.org"
+              "system": "http://loinc.org",
+              "display": "Ocean liner, device (physical object)"
             }
           ]
         },

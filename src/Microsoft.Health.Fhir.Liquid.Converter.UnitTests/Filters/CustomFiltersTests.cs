@@ -214,6 +214,14 @@ public class CustomFilterTests
   }
 
   [Fact]
+  public void GetLoincName_TrailingWhitespace()
+  {
+    var loinc = "94308-4 ";
+    var actual = Filters.GetLoincName(loinc);
+    Assert.Equal("SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N2", actual);
+  }
+
+  [Fact]
   public void GetRxnormName_ValidRxnorm_ReturnsName()
   {
     var rxnorm = "1044916";

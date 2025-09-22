@@ -769,7 +769,8 @@
           "coding": [
             {
               "code": "94308-4",
-              "system": "http://loinc.org"
+              "system": "http://loinc.org",
+              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
             }
           ]
         },
@@ -859,7 +860,8 @@
           "coding": [
             {
               "code": "31600-9",
-              "system": "http://loinc.org"
+              "system": "http://loinc.org",
+              "display": "Neisseria gonorrhoeae [Presence] in Urine by NAA"
             }
           ]
         },
@@ -908,7 +910,8 @@
           "coding": [
             {
               "code": "31600-9",
-              "system": "http://loinc.org"
+              "system": "http://loinc.org",
+              "display": "Neisseria gonorrhoeae [Presence] in Urine by NAA"
             }
           ]
         },

@@ -1448,7 +1448,7 @@
             {
               "code": "58410-2",
               "system": "http://loinc.org",
-              "display": "CBC panel - Blood by Automated count"
+              "display": "CBC panel Auto (Bld)"
             },
             {
               "code": "1698",
@@ -1580,7 +1580,7 @@
             {
               "code": "30313-1",
               "system": "http://loinc.org",
-              "display": "Hemoglobin [Mass/volume] in Arterial blood"
+              "display": "Hemoglobin (BldA) [Mass/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1633,7 +1633,7 @@
             {
               "code": "33765-9",
               "system": "http://loinc.org",
-              "display": "Leukocytes [#/volume] in Blood Product unit.platelet pheresis by Automated count"
+              "display": "WBC Auto (Blood Product unit.platelet pheresis) [#/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1703,7 +1703,7 @@
             {
               "code": "26515-7",
               "system": "http://loinc.org",
-              "display": "Platelets [#/volume] in Blood"
+              "display": "Platelets (Bld) [#/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1756,7 +1756,7 @@
             {
               "code": "50544-6",
               "system": "http://loinc.org",
-              "display": "Everolimus [Mass/volume] in Blood"
+              "display": "Everolimus (Bld) [Mass/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1935,7 +1935,7 @@
             {
               "code": "88031-0",
               "system": "http://loinc.org",
-              "display": "Smokeless tobacco status"
+              "display": "Smokeless tobacco status Nom"
             }
           ]
         },
@@ -2819,7 +2819,7 @@
             {
               "code": "58410-2",
               "system": "http://loinc.org",
-              "display": "CBC panel - Blood by Automated count"
+              "display": "CBC panel Auto (Bld)"
             }
           ],
           "text": "CBC"

@@ -770,7 +770,7 @@
             {
               "code": "94308-4",
               "system": "http://loinc.org",
-              "display": "SARS-CoV-2 (COVID-19) N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N2"
+              "display": "SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)"
             }
           ]
         },
@@ -820,7 +820,7 @@
             {
               "code": "94310-0",
               "system": "http://loinc.org",
-              "display": "SARS-related coronavirus N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N3"
+              "display": "SARS-related CoV N gene NAA+probe CDC primer-probe set N3 Ql (Specimen)"
             }
           ]
         },

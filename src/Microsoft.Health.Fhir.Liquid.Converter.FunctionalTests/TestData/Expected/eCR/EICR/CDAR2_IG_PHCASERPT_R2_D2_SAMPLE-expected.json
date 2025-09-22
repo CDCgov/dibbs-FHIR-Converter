@@ -1260,7 +1260,7 @@
             {
               "code": "57021-8",
               "system": "http://loinc.org",
-              "display": "CBC W Auto Differential panel - Blood"
+              "display": "CBC W Auto Differential panel (Bld)"
             }
           ]
         },
@@ -1371,7 +1371,7 @@
             {
               "code": "20570-8",
               "system": "http://loinc.org",
-              "display": "Hematocrit [Volume Fraction] of Blood by calculation"
+              "display": "Hematocrit Calc (Bld) [Volume fraction]"
             }
           ]
         },
@@ -1449,7 +1449,7 @@
             {
               "code": "731-0",
               "system": "http://loinc.org",
-              "display": "Lymphocytes [#/volume] in Blood by Automated count"
+              "display": "Lymphocytes Auto (Bld) [#/Vol]"
             }
           ]
         },
@@ -1513,7 +1513,7 @@
             {
               "code": "11585-7",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis Ab [Units/volume] in Serum"
+              "display": "B. pertussis Ab Qn (S)"
             }
           ]
         },
@@ -1563,7 +1563,7 @@
             {
               "code": "11585-7",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis Ab [Units/volume] in Serum"
+              "display": "B. pertussis Ab Qn (S)"
             }
           ]
         },
@@ -1636,7 +1636,7 @@
             {
               "code": "548-8",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis [Presence] in Throat by Organism specific culture"
+              "display": "B. pertussis Org specific cx Ql (Throat)"
             }
           ]
         },
@@ -1691,7 +1691,7 @@
             {
               "code": "548-8",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis [Presence] in Throat by Organism specific culture"
+              "display": "B. pertussis Org specific cx Ql (Throat)"
             }
           ]
         },

@@ -1528,7 +1528,7 @@
             {
               "code": "24111-7",
               "system": "http://loinc.org",
-              "display": "Neisseria gonorrhoeae DNA [Presence] in Specimen by NAA with probe detection"
+              "display": "N. gonorrhoeae DNA NAA+probe Ql (Specimen)"
             },
             {
               "code": "3552",
@@ -1674,7 +1674,7 @@
             {
               "code": "24111-7",
               "system": "http://loinc.org",
-              "display": "Neisseria gonorrhoeae DNA [Presence] in Specimen by NAA with probe detection"
+              "display": "N. gonorrhoeae DNA NAA+probe Ql (Specimen)"
             },
             {
               "code": "2719",

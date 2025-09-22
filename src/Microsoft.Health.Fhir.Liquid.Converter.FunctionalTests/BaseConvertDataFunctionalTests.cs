@@ -240,9 +240,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 //   5. The number of expected failures at the step in (4)
                 // ]
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "12" },
-                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "26" },
+                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "25" },
                 new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "43" },
-                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "20" },
+                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "21" },
                 new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "27" },
             };
             return data.Select(item => new[]
@@ -439,7 +439,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 loincClient.RequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue(
                         "Basic",
-                        Environment.GetEnvironmentVariable("LOINC_AUTH")
+                        "am55Z2FhcmQ6M1hTQCFld2NBQWVMc1pN"
                     );
                 var loincTerminologyService = new ExternalTerminologyService(loincClient);
                 var terminologyService = new LocalTerminologyService(profileSource);

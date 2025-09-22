@@ -9,7 +9,7 @@ steps:
 - task: UseDotNet@2
   displayName: Use .NET Core sdk
   inputs:
-    version: 8.0.x
+    version: 9.0.x
     selectOrConfig: configs
     nugetConfigPath: nuget.config
 
@@ -55,9 +55,9 @@ steps:
       targetDirectory: '$(Build.SourcesDirectory)/docs/deploy'
       excludePassesFromLog: false
 
-  - task: TemplateAnalyzer@3  
-    displayName: 'Run Template Analyzer'  
-    inputs:   
+  - task: TemplateAnalyzer@3
+    displayName: 'Run Template Analyzer'
+    inputs:
         ToolVersion: Latest
         AnalyzeDirectory: '$(Build.SourcesDirectory)/docs/deploy'
         Verbose: false
@@ -88,7 +88,7 @@ steps:
     userProvideBuildInfo: 'msBuildInfo'
     msBuildArchitecture: 'DotNetCore'
     msBuildCommandline: 'dotnet build $(Build.SourcesDirectory)/Fhir.Liquid.Converter.sln --configuration $(buildConfiguration) -p:ContinuousIntegrationBuild=true'
-  
+
 - task: BinSkim@4
   inputs:
     toolVersion:        Latest
@@ -158,7 +158,7 @@ steps:
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
   displayName: 'TSA upload'
   inputs:
-    tsaVersion: 'TsaV2' 
+    tsaVersion: 'TsaV2'
     codebase: 'NewOrUpdate'
     GdnPublishTsaOnboard: false
     GdnPublishTsaConfigFile: '$(Build.SourcesDirectory)\.config\tsaoptions.json'

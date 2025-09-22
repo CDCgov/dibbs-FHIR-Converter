@@ -2,11 +2,15 @@
 {%- capture codeSystemName -%}
   {%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}
 {%- endcapture -%}
+{%- assign display = nil - %}
 "system": "{{ codeSystemName | prepend_id -}}",
-{% if codeSystemName contains "loinc" -%}
-  "display": "{{- Coding.code | get_loinc_name -}}",
-{% elsif codeSystemName contains "rxnorm" -%}
-  "display": "{{- Coding.code | get_rxnorm_name -}}",
-{% elsif Coding.displayName -%}
-  "display": "{{- Coding.displayName | clean_string_from_tabs | strip -}}",
-{% endif -%}
+{%- if codeSystemName contains "loinc" -%}
+  {%- assign display = Coding.code | get_loinc_name -%}
+{%- endif -%}
+{%- if codeSystemName contains "rxnorm" and display == nil -%}
+  {%- assign display = Coding.code | get_rxnorm_name -%}
+{%- endif -%}
+{%- if Coding.displayName and display == nil -%}
+  {%- assign display = Coding.displayName | clean_string_from_tabs | strip -%}
+{%- endif -%}
+"display": "{{display}}",

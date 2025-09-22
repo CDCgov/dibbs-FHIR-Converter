@@ -1062,7 +1062,7 @@
                 {
                   "code": "80825-3",
                   "system": "http://loinc.org",
-                  "display": "Zika virus envelope E gene [Presence] in Serum by NAA with probe detection"
+                  "display": "ZIKV E gene NAA+probe Ql (S)"
                 }
               ]
             },
@@ -1116,7 +1116,7 @@
                 {
                   "code": "80825-3",
                   "system": "http://loinc.org",
-                  "display": "Zika virus envelope E gene [Presence] in Serum by NAA with probe detection"
+                  "display": "ZIKV E gene NAA+probe Ql (S)"
                 }
               ]
             },

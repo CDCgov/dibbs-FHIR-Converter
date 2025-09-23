@@ -836,7 +836,7 @@
             {
               "code": "410942007",
               "system": "http://snomed.info/sct",
-              "display": "drug or medication"
+              "display": "Drug or medicament"
             }
           ]
         }
@@ -1227,7 +1227,8 @@
           "coding": [
             {
               "code": "15628003",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Gonorrhea"
             },
             {
               "code": "A54.9",

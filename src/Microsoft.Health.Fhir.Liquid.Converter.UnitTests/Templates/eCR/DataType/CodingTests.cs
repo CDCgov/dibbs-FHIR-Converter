@@ -44,7 +44,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public void RaceCoding()
+        public void NoDisplay()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -79,6 +79,29 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             };
             var expectedContent =
                 @"""code"": ""TEST"", ""system"": ""http://loinc.org"", ""display"": ""Test Display Name"",";
+            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+        }
+
+        [Fact]
+        public void SnomedCode()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                {
+                    "Coding",
+                    Hash.FromAnonymousObject(
+                        new
+                        {
+                            code = "1000004",
+                            displayName = "Test",
+                            codeSystem = "2.16.840.1.113883.6.96",
+                            codeSystemName = "SNOMED CT",
+                        }
+                    )
+                }
+            };
+            var expectedContent =
+                @"""code"": ""1000004"", ""system"": ""http://snomed.info/sct"", ""display"": ""Sprain"",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
     }

@@ -4,19 +4,20 @@ Creates `src/Microsoft.Health.Fhir.Liquid.Converter/Loinc.csv`
 Will first check if a code has a `DisplayName`. Otherwise will use the code's `LONG_COMMON_NAME`
 
 Parameters:
-output_file (str): Path to LoincTable/Loinc.csv in the LOINC database downloaded from https://loinc.org
+loinc_csv_path (str): Path to LoincTable/Loinc.csv in the LOINC database downloaded from https://loinc.org/downloads/
 
 Returns:
-None: Recreates `src/Microsoft.Health.Fhir.Liquid.Converter/Loinc.csv` from the given Loinc CSV.
+None: Writes `src/Microsoft.Health.Fhir.Liquid.Converter/Loinc.csv` from the given Loinc CSV.
 """
+
 import csv
 from argparse import ArgumentParser
 
 
-argparser = ArgumentParser()
-argparser.add_argument("loinc_csv_path")
+parser = ArgumentParser()
+parser.add_argument("loinc_csv_path")
 
-args = argparser.parse_args()
+args = parser.parse_args()
 
 LOINC_NUM_HEADER = "LOINC_NUM"
 LONG_COMMON_NAME_HEADER = "LONG_COMMON_NAME"

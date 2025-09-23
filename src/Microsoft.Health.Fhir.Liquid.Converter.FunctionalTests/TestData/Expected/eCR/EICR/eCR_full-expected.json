@@ -830,7 +830,7 @@
             {
               "code": "260373001",
               "system": "http://snomed.info/sct",
-              "display": "Detected (qualifier value)"
+              "display": "Detected"
             }
           ]
         },
@@ -921,7 +921,7 @@
             {
               "code": "260373001",
               "system": "http://snomed.info/sct",
-              "display": "Detected (qualifier value)"
+              "display": "Detected"
             }
           ]
         },
@@ -982,7 +982,7 @@
             {
               "code": "159606005",
               "system": "http://snomed.info/sct",
-              "display": "Sales"
+              "display": "Selling occupation"
             }
           ]
         },

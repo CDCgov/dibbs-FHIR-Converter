@@ -348,13 +348,7 @@
                 }
               ]
             },
-            "mode": "snapshot",
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
-                "valueString": "REMOVED"
-              }
-            ]
+            "mode": "snapshot"
           },
           {
             "id": "36C1EC28-DA66-11EF-B655-005056BE2511",

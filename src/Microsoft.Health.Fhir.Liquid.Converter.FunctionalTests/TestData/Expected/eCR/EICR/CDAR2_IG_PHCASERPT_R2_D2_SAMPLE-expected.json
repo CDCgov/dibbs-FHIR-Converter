@@ -484,7 +484,7 @@
             "coding": [
               {
                 "code": "OF",
-                "system": "urn:oid:2.16.840.1.113883.5.111",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
                 "display": "Outpatient facility"
               }
             ]
@@ -760,7 +760,7 @@
                   "coding": [
                     {
                       "code": "F",
-                      "system": "urn:oid:2.16.840.1.113883.5.1",
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
                       "display": "Female"
                     }
                   ]
@@ -868,7 +868,7 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
                 "display": "ORAL"
               }
             ]
@@ -1275,7 +1275,7 @@
               "coding": [
                 {
                   "code": "F",
-                  "system": "urn:oid:2.16.840.1.113883.18.51",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0123",
                   "display": "Final results; results stored and verified. Can only be changed with a corrected result."
                 }
               ]
@@ -1607,7 +1607,7 @@
               "coding": [
                 {
                   "code": "F",
-                  "system": "urn:oid:2.16.840.1.113883.18.34",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0085",
                   "display": "Final results"
                 }
               ]
@@ -1723,7 +1723,7 @@
               "coding": [
                 {
                   "code": "P",
-                  "system": "urn:oid:2.16.840.1.113883.18.34",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0085",
                   "display": "Preliminary results"
                 }
               ]
@@ -1872,7 +1872,7 @@
               "coding": [
                 {
                   "code": "BRA",
-                  "system": "urn:oid:1.0.3166.1",
+                  "system": "urn:iso:std:iso:3166",
                   "display": "Brazil"
                 }
               ]
@@ -2142,7 +2142,7 @@
           "coding": [
             {
               "code": "1200",
-              "system": "urn:oid:2.16.840.1.114222.4.5.314",
+              "system": "http://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010",
               "display": "Actuaries"
             }
           ]
@@ -2162,7 +2162,7 @@
               "coding": [
                 {
                   "code": "7280",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.315",
+                  "system": "http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010",
                   "display": "Accounting, tax preparation, bookkeeping, and payroll services"
                 }
               ]
@@ -2253,7 +2253,7 @@
           "coding": [
             {
               "code": "1200",
-              "system": "urn:oid:2.16.840.1.114222.4.5.314",
+              "system": "http://terminology.hl7.org/CodeSystem/PHOccupationCDCCensus2010",
               "display": "Actuaries"
             }
           ]
@@ -2285,7 +2285,7 @@
               "coding": [
                 {
                   "code": "7280",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.315",
+                  "system": "http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010",
                   "display": "Accounting, tax preparation, bookkeeping, and payroll services"
                 }
               ]
@@ -2728,7 +2728,7 @@
           "coding": [
             {
               "code": "106",
-              "system": "urn:oid:2.16.840.1.113883.12.292",
+              "system": "http://hl7.org/fhir/sid/cvx",
               "display": "diphtheria, tetanus toxoids and acellular pertussis vaccine, 5 pertussis antigens"
             }
           ]
@@ -2756,7 +2756,7 @@
           "coding": [
             {
               "code": "88",
-              "system": "urn:oid:2.16.840.1.113883.12.292",
+              "system": "http://hl7.org/fhir/sid/cvx",
               "display": "influenza virus vaccine, unspecified formulation"
             }
           ]

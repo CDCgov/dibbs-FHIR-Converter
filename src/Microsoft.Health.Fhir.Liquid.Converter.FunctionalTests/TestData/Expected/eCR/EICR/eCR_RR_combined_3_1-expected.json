@@ -598,7 +598,7 @@
             "coding": [
               {
                 "code": "1081-9",
-                "system": "urn:oid:2.16.840.1.113883.6.259",
+                "system": "http://terminology.hl7.org/CodeSystem/hsloc",
                 "display": "Pediatric Medical-Surgical Ward"
               },
               {
@@ -920,7 +920,7 @@
           "coding": [
             {
               "code": "RRVS20",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "eICR was processed - with a warning"
             }
           ]
@@ -962,7 +962,7 @@
           "coding": [
             {
               "code": "RRVS29",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "The eICR was processed with the warning of: outdated eRSD (RCTC) version."
             }
           ]
@@ -973,7 +973,7 @@
               "coding": [
                 {
                   "code": "RRVS31",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Outdated eRSD (RCTC) Version Detail"
                 }
               ]
@@ -985,7 +985,7 @@
               "coding": [
                 {
                   "code": "RRVS33",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Expected eRSD (RCTC) Version Detail"
                 }
               ]
@@ -1152,7 +1152,7 @@
                   "coding": [
                     {
                       "code": "M",
-                      "system": "urn:oid:2.16.840.1.113883.5.1"
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender"
                     }
                   ]
                 }
@@ -1204,7 +1204,7 @@
           "coding": [
             {
               "code": "S",
-              "system": "urn:oid:2.16.840.1.113883.5.2",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
               "display": "Single"
             }
           ]
@@ -1256,7 +1256,7 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
                 "display": "Oral"
               }
             ],
@@ -1293,15 +1293,15 @@
             },
             {
               "code": "0363-0897-26",
-              "system": "urn:oid:2.16.840.1.113883.6.69"
+              "system": "http://hl7.org/fhir/sid/ndc"
             },
             {
               "code": "27912",
-              "system": "urn:oid:2.16.840.1.113883.6.253"
+              "system": "http://terminology.hl7.org/CodeSystem/mddid"
             },
             {
               "code": "66100020001820",
-              "system": "urn:oid:2.16.840.1.113883.6.68"
+              "system": "http://terminology.hl7.org/CodeSystem/MGPI"
             },
             {
               "code": "27912",
@@ -1351,12 +1351,12 @@
             },
             {
               "code": "Q35.1",
-              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "system": "http://terminology.hl7.org/CodeSystem/icd10CM",
               "display": "Cleft hard palate"
             },
             {
               "code": "749.00",
-              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "system": "http://hl7.org/fhir/sid/icd-9-cm",
               "display": "Cleft hard palate"
             },
             {
@@ -1412,12 +1412,12 @@
             },
             {
               "code": "A92.5",
-              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "system": "http://terminology.hl7.org/CodeSystem/icd10CM",
               "display": "Zika virus disease"
             },
             {
               "code": "066.3",
-              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "system": "http://hl7.org/fhir/sid/icd-9-cm",
               "display": "Zika virus disease"
             },
             {
@@ -2867,7 +2867,7 @@
           "coding": [
             {
               "code": "49281-400-10",
-              "system": "urn:oid:2.16.840.1.113883.6.69"
+              "system": "http://hl7.org/fhir/sid/ndc"
             }
           ]
         },

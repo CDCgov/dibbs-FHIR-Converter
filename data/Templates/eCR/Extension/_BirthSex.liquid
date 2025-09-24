@@ -14,27 +14,10 @@
 {%- else -%}
     {%- assign normalizedBirthSex = '' -%}
 {%- endif -%}
-{%- assign dataAbsentReasonCode = '' -%}
-{%- if normalizedBirthSex == '' -%}
-    {%- case birthSexNullFlavor -%}
-        {%- when 'ASKU' -%}{%- assign dataAbsentReasonCode = 'asked-unknown' -%}
-        {%- when 'NASK' -%}{%- assign dataAbsentReasonCode = 'not-asked' -%}
-        {%- when 'NAV' -%}{%- assign dataAbsentReasonCode = 'temp-unknown' -%}
-        {%- when 'NA' -%}{%- assign dataAbsentReasonCode = 'not-applicable' -%}
-        {%- when 'MSK' -%}{%- assign dataAbsentReasonCode = 'masked' -%}
-        {%- when 'OTH' -%}{%- assign dataAbsentReasonCode = 'other' -%}
-        {%- when 'UNK' -%}{%- assign dataAbsentReasonCode = 'unknown' -%}
-        {%- else -%}{%- assign dataAbsentReasonCode = 'unknown' -%}
-    {%- endcase -%}
-{%- endif -%}
+{%- assign dataAbsentNullFlavor = birthSexNullFlavor | default: 'UNK' -%}
 "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
 {%- if normalizedBirthSex != '' -%}
     "valueCode": "{{ normalizedBirthSex }}"
 {%- else -%}
-    "extension": [
-    {
-    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
-    "valueCode": "{{ dataAbsentReasonCode | default: 'unknown' }}"
-    }
-    ]
+    "extension": [ {% include 'Extension/DataAbsentReason' nullFlavor: dataAbsentNullFlavor -%} ]
 {%- endif -%}

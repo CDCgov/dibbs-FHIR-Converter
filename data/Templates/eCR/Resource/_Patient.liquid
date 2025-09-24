@@ -37,17 +37,18 @@
             { {% include 'Extension/Race' Race: patientRole.patient -%} },
             { {% include 'Extension/Ethnicity' Ethnicity: patientRole.patient -%} },
             { {% include 'Extension/Religion' patient: patientRole.patient -%}},
+            {%- assign birthSexObs = '' -%}
             {% for entry in SOCIALOBS -%}
                 {% assign firstTemplate = entry.observation.templateId | to_array | first -%}
                 {% if firstTemplate.root == '2.16.840.1.113883.10.20.34.3.45' or entry.observation.code.code == '76691-5' -%}
                     { {% include 'Extension/GenderIdentity' gendIdOb: entry.observation -%} },
                 {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.2.3.48' -%}
                     { {% include 'Extension/TribalAffiliation' tribeAOb: entry.observation -%} },
-                {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.22.4.200' -%}
-                     { {% include 'Extension/BirthSex' birthSObs: entry.observation -%} },
+                {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.22.4.200' and birthSexObs == '' -%}
+                    {% assign birthSexObs = entry.observation -%}
                 {% endif -%}
             {% endfor -%}
-
+            { {% include 'Extension/BirthSex' birthSObs: birthSexObs -%} },
         ],
         "address":
         [

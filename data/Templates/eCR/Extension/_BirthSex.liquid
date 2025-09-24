@@ -1,9 +1,40 @@
-{% if birthSObs -%}
-    "url" : "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-    "extension" : [
-        {
-          "url" : "value",
-          {% include 'Utils/ValueHelper' value: birthSObs.value, origText: SOCIALTEXT -%}
-        },
-      ],
-{% endif -%}
+{%- assign birthSexRawValue = '' -%}
+{%- assign birthSexNullFlavor = '' -%}
+{%- if birthSObs and birthSObs.value -%}
+    {%- assign birthSexRawValue = birthSObs.value.code | default: birthSObs.value.displayName | default: birthSObs.value.originalText._ | default: '' | strip -%}
+    {%- assign birthSexNullFlavor = birthSObs.value.nullFlavor | default: birthSObs.nullFlavor | default: '' | upcase | strip -%}
+{%- endif -%}
+{%- assign normalizedBirthSex = birthSexRawValue | downcase | strip -%}
+{%- if normalizedBirthSex == 'm' or normalizedBirthSex == 'male' -%}
+    {%- assign normalizedBirthSex = 'M' -%}
+{%- elsif normalizedBirthSex == 'f' or normalizedBirthSex == 'female' -%}
+    {%- assign normalizedBirthSex = 'F' -%}
+{%- elsif normalizedBirthSex == 'u' or normalizedBirthSex == 'unk' or normalizedBirthSex == 'unknown' -%}
+    {%- assign normalizedBirthSex = 'UNK' -%}
+{%- else -%}
+    {%- assign normalizedBirthSex = '' -%}
+{%- endif -%}
+{%- assign dataAbsentReasonCode = '' -%}
+{%- if normalizedBirthSex == '' -%}
+    {%- case birthSexNullFlavor -%}
+        {%- when 'ASKU' -%}{%- assign dataAbsentReasonCode = 'asked-unknown' -%}
+        {%- when 'NASK' -%}{%- assign dataAbsentReasonCode = 'not-asked' -%}
+        {%- when 'NAV' -%}{%- assign dataAbsentReasonCode = 'temp-unknown' -%}
+        {%- when 'NA' -%}{%- assign dataAbsentReasonCode = 'not-applicable' -%}
+        {%- when 'MSK' -%}{%- assign dataAbsentReasonCode = 'masked' -%}
+        {%- when 'OTH' -%}{%- assign dataAbsentReasonCode = 'other' -%}
+        {%- when 'UNK' -%}{%- assign dataAbsentReasonCode = 'unknown' -%}
+        {%- else -%}{%- assign dataAbsentReasonCode = 'unknown' -%}
+    {%- endcase -%}
+{%- endif -%}
+"url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+{%- if normalizedBirthSex != '' -%}
+    "valueCode": "{{ normalizedBirthSex }}"
+{%- else -%}
+    "extension": [
+    {
+    "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+    "valueCode": "{{ dataAbsentReasonCode | default: 'unknown' }}"
+    }
+    ]
+{%- endif -%}

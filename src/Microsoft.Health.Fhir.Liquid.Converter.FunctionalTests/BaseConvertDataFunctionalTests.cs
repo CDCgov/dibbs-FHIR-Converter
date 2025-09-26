@@ -369,8 +369,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             var inputContent = File.ReadAllText(inputFile);
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, templateProvider);
 
-            var updateSnaphot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";
-            if (updateSnaphot.Trim() == "true")
+            var updateSnapshot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";
+            if (updateSnapshot.Trim() == "true")
             {
                 File.WriteAllText(expectedFile, actualContent);
             }

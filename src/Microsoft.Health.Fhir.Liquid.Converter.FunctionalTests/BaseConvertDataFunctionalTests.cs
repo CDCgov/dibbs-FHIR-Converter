@@ -239,11 +239,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 //   4. whether the file should fail at parsing or validation when testing if valid (if it is fully valid, "validation" is what should be there)
                 //   5. The number of expected failures at the step in (4) for the numFailures parameter
                 // ]
-                new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "9" },
-                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "13" },
-                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "37" },
+                new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "7" },
+                new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "11" },
+                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "35" },
                 new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "18" },
-                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "21" },
+                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "19" },
             };
             return data.Select(item => new[]
             {

@@ -772,6 +772,10 @@
                 "valueString": "Unknown"
               }
             ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "UNK"
           }
         ],
         "address": [
@@ -788,11 +792,13 @@
         "communication": [
           {
             "language": {
-              "coding": [
+              "extension": [
                 {
-                  "system": "urn:ietf:bcp:47"
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unsupported"
                 }
-              ]
+              ],
+              "text": "dz"
             },
             "preferred": true
           }

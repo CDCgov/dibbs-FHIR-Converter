@@ -19,5 +19,5 @@
 {%- if normalizedBirthSex != '' -%}
     "valueCode": "{{ normalizedBirthSex }}"
 {%- else -%}
-    "extension": [ {% include 'Extension/DataAbsentReason' nullFlavor: dataAbsentNullFlavor -%} ]
+    "valueCode": "UNK"
 {%- endif -%}

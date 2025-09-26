@@ -21,12 +21,21 @@
                         {% endif -%}
                     },
                 {% else -%}
-                    {% if e.code == '2135-2' or e.code == '2186-5' -%}
+                    {% if e.code == '2135-2' -%}
                         "url" : "ombCategory",
+                        "valueCoding" : { {% include 'DataType/Coding' Coding: e -%} },
+                     {%- elsif e.code == '2186-5' -%}
+                        {% comment %} Hardcoding for 'non Hispanic' because the profile we use on patient is expecting an older version of the valueset. {% endcomment %}
+                        "url" : "ombCategory",
+                        "valueCoding" : {
+                            "system": "urn:oid:2.16.840.1.113883.6.238",
+                            "code": "2186-5",
+                            "display": "Non Hispanic or Latino"
+                        },
                     {% else -%}
                         "url" : "detailed",
-                    {% endif -%}                   
-                    "valueCoding" : { {% include 'DataType/Coding' Coding: e -%} },
+                        "valueCoding" : { {% include 'DataType/Coding' Coding: e -%} },
+                    {% endif -%}
                 {% endif -%}
             },
         {% endfor -%}
@@ -45,5 +54,5 @@
                 "valueString":"{{Ethnicity.ethnicGroupCode.displayName}}",
             {% endif -%}
         }
-    ],                        
+    ],
 {% endif -%}

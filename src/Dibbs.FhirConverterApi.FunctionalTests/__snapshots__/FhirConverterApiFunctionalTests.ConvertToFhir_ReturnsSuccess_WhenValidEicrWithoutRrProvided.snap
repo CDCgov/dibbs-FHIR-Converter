@@ -180,13 +180,7 @@
                     }
                   ]
                 },
-                "mode": "snapshot",
-                "extension": [
-                  {
-                    "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
-                    "valueString": "No information"
-                  }
-                ]
+                "mode": "snapshot"
               },
               {
                 "id": "4f5e5135-21ef-80b6-9565-7c8879002754",

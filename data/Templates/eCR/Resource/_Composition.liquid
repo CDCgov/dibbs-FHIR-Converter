@@ -57,10 +57,15 @@
         ],
         "section":
         [
+            {% assign templatesInComp = "" %}
             {% assign components = composition.component.structuredBody.component | to_array -%}
             {% for component in components -%}
             {
                 {% if component.section -%}
+                    {% assign templateIds = component.section.templateId | to_array %}
+                    {% for templateId in templateIds -%}
+                        {% assign templatesInComp = templatesInComp | append: templateId.root | append: "|" %}
+                    {% endfor %}
                     {% if component.section.id.root -%}
                     "id": "{{ component.section.id.root }}",
                     {% else -%}
@@ -161,6 +166,7 @@
                                 {%- endif -%}
                             {% endfor -%}
                         {% endif %}
+                        {% comment %} TODO ANGELA: Plan of Treatment is missing entries {% endcomment %}
                         {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.10" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.10" %}
                             {% assign carePlanId = component.section | to_json_string | generate_uuid -%}
                             {% assign fullCarePlanId = carePlanId | prepend: 'CarePlan/' -%}
@@ -280,6 +286,10 @@
                 {% endif -%}
             },
             {% endfor -%}
+            {% assign templatesInComp = templatesInComp | split: "|" | uniq | join: "|" %}
+            {% include 'Utils/AddMissingRequiredSections' | templatesInComp: templatesInComp %}
+
+            {% comment %} TODO ANGELA: Remove duplicate RR Info Section {% endcomment %}
             {
                 {% if composition.section.code.code and composition.section.code.code == "88085-6" -%}
                 {% assign sectionId = composition.section | to_json_string | generate_uuid -%}

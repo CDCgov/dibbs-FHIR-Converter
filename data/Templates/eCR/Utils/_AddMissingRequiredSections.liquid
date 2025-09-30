@@ -1,0 +1,31 @@
+{% comment %} TODO ANGELA: multiple template Id weirdness? which version? {% endcomment %}
+{% comment %} TODO ANGELA: Add comment about what are the Composition required sections / what this template does {% endcomment %}
+
+{% assign requiredSections = "2.16.840.1.113883.10.20.22.2.12|1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1|1.3.6.1.4.1.19376.1.5.3.1.3.4|2.16.840.1.113883.10.20.22.2.5|2.16.840.1.113883.10.20.22.2.5.1|2.16.840.1.113883.10.20.22.2.38|2.16.840.1.113883.10.20.22.2.3|2.16.840.1.113883.10.20.22.2.3.1|2.16.840.1.113883.10.20.22.2.17" | split: "|" %}
+{% assign missingSections = "" %}
+
+{% comment %} Find missing required sections {% endcomment %}
+{% for req in requiredSections %}
+  {% unless templatesInComp contains req %}
+    {% assign missingSectionIds = missingSections | append: req | append: "|" %}
+  {% endunless %}
+{% endfor %}
+{% assign missingSectionIds = missingSectionIds | split: "|" %}
+
+{% comment %} Build out missing required sections {% endcomment %}
+{% for missingSectionId in missingSectionIds %}
+  {
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          {%- include 'ValueSet/CompositionSectionCode' id: missingSectionId -%}
+        }
+      ]
+    },
+    "text": {
+      "status": "empty",
+      "div": "{{ "" | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+    }
+  },
+{% endfor %}

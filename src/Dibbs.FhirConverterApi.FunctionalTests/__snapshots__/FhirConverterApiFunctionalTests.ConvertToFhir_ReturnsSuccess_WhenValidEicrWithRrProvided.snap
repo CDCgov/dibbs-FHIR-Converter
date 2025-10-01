@@ -324,7 +324,7 @@
             "status": "unknown",
             "class": {
               "code": "PHC2237",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "External Encounter"
             },
             "identifier": [
@@ -524,7 +524,7 @@
               "coding": [
                 {
                   "code": "RRVS19",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "eICR processed"
                 }
               ]
@@ -604,7 +604,7 @@
               "coding": [
                 {
                   "code": "RRVS7",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Both patient home address and provider facility address"
                 }
               ]
@@ -616,7 +616,7 @@
                   "coding": [
                     {
                       "code": "RRVS1",
-                      "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                      "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                       "display": "Reportable"
                     }
                   ]
@@ -968,7 +968,7 @@
                       "coding": [
                         {
                           "code": "M",
-                          "system": "urn:oid:2.16.840.1.113883.5.1",
+                          "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
                           "display": "Male"
                         }
                       ]
@@ -1232,7 +1232,7 @@
                   "coding": [
                     {
                       "code": "BRA",
-                      "system": "urn:oid:1.0.3166.1",
+                      "system": "urn:iso:std:iso:3166",
                       "display": "Brazil"
                     }
                   ]

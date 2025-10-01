@@ -166,7 +166,6 @@
                                 {%- endif -%}
                             {% endfor -%}
                         {% endif %}
-                        {% comment %} TODO ANGELA: Plan of Treatment is missing entries {% endcomment %}
                         {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.10" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.10" %}
                             {% assign carePlanId = component.section | to_json_string | generate_uuid -%}
                             {% assign fullCarePlanId = carePlanId | prepend: 'CarePlan/' -%}
@@ -289,7 +288,7 @@
             {% assign templatesInComp = templatesInComp | split: "|" | uniq | join: "|" %}
             {% include 'Utils/AddMissingRequiredSections' | templatesInComp: templatesInComp %}
 
-            {% comment %} TODO ANGELA: Remove duplicate RR Info Section {% endcomment %}
+            {% comment %} Reportability Response Information Section (from RR) {% endcomment %}
             {
                 {% if composition.section.code.code and composition.section.code.code == "88085-6" -%}
                 {% assign sectionId = composition.section | to_json_string | generate_uuid -%}
@@ -313,6 +312,7 @@
                     },
                     {
                         "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
+                        {% comment %} TODO ANGELA: Extra extension? {% endcomment %}
                         "extension": [
                             {% assign rrentries = composition.section.entry | to_array -%}
                             {% for rrentry in rrentries -%}

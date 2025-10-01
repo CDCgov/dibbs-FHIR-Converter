@@ -10,21 +10,23 @@
     {% assign missingSectionIds = missingSections | append: req | append: "|" %}
   {% endunless %}
 {% endfor %}
-{% assign missingSectionIds = missingSectionIds | split: "|" %}
 
-{% for missingSectionId in missingSectionIds %}
-  {
-    "code": {
-      "coding": [
-        {
-          "system": "http://loinc.org",
-          {%- include 'ValueSet/CompositionSectionCode' id: missingSectionId -%}
-        }
-      ]
+{% if missingSectionIds %}
+  {% assign missingSectionIds = missingSectionIds | split: "|" %}
+  {% for missingSectionId in missingSectionIds %}
+    {
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            {%- include 'ValueSet/CompositionSectionCode' id: missingSectionId -%}
+          }
+        ]
+      },
+      "text": {
+        "status": "empty",
+        "div": "{{ "No Information Available" | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+      }
     },
-    "text": {
-      "status": "empty",
-      "div": "{{ "No Information Available" | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
-    }
-  },
-{% endfor %}
+  {% endfor %}
+{% endif %}

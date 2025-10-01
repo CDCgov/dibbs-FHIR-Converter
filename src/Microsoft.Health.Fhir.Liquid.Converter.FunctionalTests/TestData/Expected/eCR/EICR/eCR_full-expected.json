@@ -14,10 +14,10 @@
   "timestamp": "2020-05-05T11:05:15-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:6ac4a092-04f0-def5-6be2-1f86d1d93e84",
+      "fullUrl": "urn:uuid:3dad2d9f-20c3-72a6-e9f6-37b9da3cf126",
       "resource": {
         "resourceType": "Composition",
-        "id": "6ac4a092-04f0-def5-6be2-1f86d1d93e84",
+        "id": "3dad2d9f-20c3-72a6-e9f6-37b9da3cf126",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -194,7 +194,7 @@
             ]
           },
           {
-            "id": "2fa50662-fbf8-5a7c-0ada-8c0a06866262",
+            "id": "eb1e0e1d-5263-d530-45fd-d42871b50fbf",
             "title": "Plan of Treatment",
             "text": {
               "status": "generated",
@@ -209,7 +209,12 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "CarePlan/96c06f28-1cd0-30ef-2f7c-d1cc7f943a33"
+              }
+            ]
           },
           {
             "id": "580fccb2-a450-a6be-1568-380fb083cc79",
@@ -251,6 +256,21 @@
               ]
             },
             "mode": "snapshot"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "10154-3",
+                  "display": "Chief complaint Narrative - Reported"
+                }
+              ]
+            },
+            "text": {
+              "status": "empty",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">No Information Available</div>"
+            }
           }
         ],
         "subject": {
@@ -986,6 +1006,53 @@
             }
           ]
         },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:96c06f28-1cd0-30ef-2f7c-d1cc7f943a33",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "96c06f28-1cd0-30ef-2f7c-d1cc7f943a33",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "activity": [
+          {
+            "reference": {
+              "reference": "ServiceRequest/385725b4-a41c-d88b-81dc-90cd5b34049c"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:385725b4-a41c-d88b-81dc-90cd5b34049c",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "385725b4-a41c-d88b-81dc-90cd5b34049c",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:f724d510-c8d7-4c30-851d-69e90a50ea7d"
+          }
+        ],
+        "status": "active",
+        "intent": "plan",
+        "code": {
+          "coding": [
+            {
+              "code": "94308-4",
+              "system": "http://loinc.org",
+              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+            }
+          ]
+        },
+        "occurrenceDateTime": "2020-05-13",
         "subject": {
           "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
         }

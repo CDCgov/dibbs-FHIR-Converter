@@ -189,13 +189,7 @@
                 }
               ]
             },
-            "mode": "snapshot",
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
-                "valueString": "Dark stools"
-              }
-            ]
+            "mode": "snapshot"
           },
           {
             "id": "d887e17f-f7d9-15f6-24e0-73c549af07d6",

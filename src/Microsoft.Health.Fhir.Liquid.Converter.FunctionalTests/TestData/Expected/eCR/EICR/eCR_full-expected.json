@@ -159,13 +159,7 @@
                 }
               ]
             },
-            "mode": "snapshot",
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
-                "valueString": "recent travel for vacation to Wuhan China from April 22, 2020 to                            May 5, 2020 "
-              }
-            ]
+            "mode": "snapshot"
           },
           {
             "id": "59bb13bd-ad44-eedb-b5a7-8c0e56eff9df",

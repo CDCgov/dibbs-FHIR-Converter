@@ -12,6 +12,7 @@
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.8.0" />
     <PackageReference Include="DotLiquid" Version="2.2.580" />
     <PackageReference Include="Ensure.That" Version="10.1.0" />
+    <PackageReference Include="Fluid.Core" Version="2.25.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" NoWarn="NU1605" />

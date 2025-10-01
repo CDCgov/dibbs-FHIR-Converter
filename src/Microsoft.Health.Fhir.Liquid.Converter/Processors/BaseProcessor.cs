@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Threading;
 using DotLiquid;
 using EnsureThat;
+using Fluid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -72,7 +73,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return context;
         }
 
-        protected virtual void CreateTraceInfo(object data, Context context, TraceInfo traceInfo)
+        protected virtual void CreateTraceInfo(object data, TemplateContext context, TraceInfo traceInfo)
         {
         }
 
@@ -91,14 +92,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             rootTemplate = templateProvider.IsDefaultTemplateProvider ? string.Format("{0}/{1}", DefaultRootTemplateParentPath, rootTemplate) : rootTemplate;
 
             // Step: Retrieve Template
-            Template template = templateProvider.GetTemplate(rootTemplate);
+            IFluidTemplate template = templateProvider.GetTemplate(rootTemplate);
             if (template == null)
             {
                 throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, rootTemplate));
             }
 
             var dictionary = new Dictionary<string, object> { { DataKey, data } };
-            var context = CreateContext(templateProvider, dictionary, rootTemplate);
+            var context = new TemplateContext(dictionary, new TemplateOptions(templateProvider));//CreateContext(templateProvider, dictionary, rootTemplate);
 
             // Step: Render Template
             string rawResult = RenderTemplates(template, context);
@@ -110,12 +111,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return result.ToString(Formatting.Indented);
         }
 
-        protected string RenderTemplates(Template template, Context context)
+        protected string RenderTemplates(IFluidTemplate template, TemplateContext context)
         {
             try
             {
-                template.MakeThreadSafe();
-                return template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture));
+                // template.MakeThreadSafe();
+                return template.Render(context);
             }
             catch (TimeoutException ex)
             {

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml;
 using DotLiquid.Util;
 using Microsoft.VisualBasic.FileIO;
@@ -12,13 +13,13 @@ using Newtonsoft.Json.Linq;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter
 {
-    /// <summary>
-    /// Filters for conversion
-    /// </summary>
-    public partial class Filters
+  /// <summary>
+  /// Filters for conversion
+  /// </summary>
+  public partial class Filters
   {
-    private static readonly HashSet<string> SupportedTags = new (StringComparer.OrdinalIgnoreCase) { "br", "li", "ol", "p", "span", "table", "tbody", "td", "textarea", "th", "thead", "tr", "u", "ul", "caption" };
-    private static readonly Dictionary<string, string> ReplaceTags = new ()
+    private static readonly HashSet<string> SupportedTags = new(StringComparer.OrdinalIgnoreCase) { "br", "li", "ol", "p", "span", "table", "tbody", "td", "textarea", "th", "thead", "tr", "u", "ul", "caption" };
+    private static readonly Dictionary<string, string> ReplaceTags = new()
     {
         { "list", "ul" },
         { "item", "li" },
@@ -309,7 +310,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     {
       if (value == null)
       {
-          return null;
+        return null;
       }
 
       const string reduceMultiSpace = @"[ ]{2,}";
@@ -338,7 +339,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         return;
       }
 
-      string indent = new (' ', level * 4);
+      string indent = new(' ', level * 4);
 
       if (obj is Dictionary<string, object> dict)
       {
@@ -477,8 +478,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     /// <returns>A dictionary where the keys are codes and the values are descriptions.</returns>
     private static Dictionary<string, string> CSVMapDictionary(string filename)
     {
-      TextFieldParser parser = new (filename);
-      Dictionary<string, string> csvData = new ();
+      TextFieldParser parser = new(filename);
+      Dictionary<string, string> csvData = new();
 
       parser.HasFieldsEnclosedInQuotes = true;
       parser.SetDelimiters(",");
@@ -497,6 +498,24 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
       }
 
       return csvData;
+    }
+
+    public static string? GetCodeDisplay(string? code, string? codeSystem)
+    {
+      if (code == null || codeSystem == null)
+      {
+        return null;
+      }
+      var display = ConformanceManager.GetCodeDisplay(
+                            codeSystem,
+                            code);
+
+      return display;
+    }
+
+    public static string? GetCodeSystemUri(string? oid)
+    {
+      return ConformanceManager.GetCodeSystemUri(oid);
     }
 
     /// <summary>
@@ -534,7 +553,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     /// <returns>A string with the content of the node with the specified ID, or null if not found.</returns>
     public static string? FindInnerTextById(string fullText, string id)
     {
-      XmlDocument doc = new ();
+      XmlDocument doc = new();
 
       // Add wrapper <doc> as the fragment may not have one root node.
       doc.LoadXml($"<doc>{fullText}</doc>");
@@ -642,9 +661,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     public static string ConcatStrings(object input)
     {
       if (input == null)
-            {
-                return string.Empty;
-            }
+      {
+        return string.Empty;
+      }
 
       if (input is IList list)
       {
@@ -656,7 +675,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         }
         else
         {
-          List<string> result = new ();
+          List<string> result = new();
 
           foreach (var item in list)
           {
@@ -682,7 +701,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
       }
       else if (input is IDictionary<string, object> dictObject)
       {
-        List<string> result = new ();
+        List<string> result = new();
 
         foreach (var kvp in dictObject)
         {
@@ -697,7 +716,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
           }
           else if (kvp.Value is IList nestedList)
           {
-            List<string> nestedValues = new ();
+            List<string> nestedValues = new();
             for (int i = nestedList.Count - 1; i >= 0; i--)
             {
               var item = nestedList[i];

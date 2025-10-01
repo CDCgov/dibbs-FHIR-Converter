@@ -8,8 +8,15 @@
   },
   "id": "38e6a983-38ad-484f-a7d2-b294cdbe5435",
   "identifier": {
-    "system": "urn:ietf:rfc:3986",
-    "value": "urn:uuid:38e6a983-38ad-484f-a7d2-b294cdbe5435"
+    "system": "urn:oid:38e6a983-38ad-484f-a7d2-b294cdbe5435",
+    "_value": {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+          "valueCode": "unknown"
+        }
+      ]
+    }
   },
   "timestamp": "2020-05-05T11:05:15-04:00",
   "entry": [
@@ -30,7 +37,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public Health Case Report"
+                "display": "Public health case report Document"
               }
             ]
           },
@@ -52,7 +59,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public Health Case Report"
+              "display": "Public health case report Document"
             }
           ]
         },
@@ -72,7 +79,7 @@
                 {
                   "code": "46240-8",
                   "system": "http://loinc.org",
-                  "display": "History of encounters"
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
                 }
               ]
             },
@@ -90,7 +97,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "History of Present Illness"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -108,7 +115,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "Medications Administered"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -131,7 +138,7 @@
                 {
                   "code": "11450-4",
                   "system": "http://loinc.org",
-                  "display": "Problem List"
+                  "display": "Problem list - Reported"
                 }
               ]
             },
@@ -155,7 +162,7 @@
                 {
                   "code": "29299-5",
                   "system": "http://loinc.org",
-                  "display": "Reason for visit"
+                  "display": "Reason for visit Narrative"
                 }
               ]
             },
@@ -173,7 +180,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests and/or laboratory data"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -199,7 +206,7 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of Treatment"
+                  "display": "Plan of care note"
                 }
               ]
             },
@@ -217,7 +224,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social History"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -240,7 +247,7 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "History of immunizations"
+                  "display": "History of Immunization note"
                 }
               ]
             },
@@ -361,7 +368,7 @@
             "coding": [
               {
                 "code": "HOSP",
-                "system": "urn:oid:2.16.840.1.113883.5.111",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
                 "display": "Hospital"
               }
             ]
@@ -511,8 +518,15 @@
         "id": "a5f0a672-a5e7-af78-b2e5-2f5bbc9ea5a7",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
+            "system": "urn:oid:2.16.840.1.113883.3.72.5.20",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "property": [
@@ -603,7 +617,7 @@
               "coding": [
                 {
                   "code": "1013",
-                  "system": "urn:oid:2.16.840.1.113883.5.1076",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
                   "display": "Christian (non-Catholic, non-specific)"
                 }
               ]
@@ -618,7 +632,7 @@
                   "coding": [
                     {
                       "code": "M",
-                      "system": "urn:oid:2.16.840.1.113883.5.1",
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
                       "display": "Male"
                     }
                   ]
@@ -696,8 +710,15 @@
         "id": "580cd575-265a-3e62-3b81-f270db5bda69",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:6c844c75-aa34-411c-b7bd-5e4a9f206e29"
+            "system": "urn:oid:6c844c75-aa34-411c-b7bd-5e4a9f206e29",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "completed",
@@ -709,8 +730,8 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
-                "display": "IM"
+                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
+                "display": "Oral Route of Administration"
               }
             ]
           },
@@ -741,7 +762,7 @@
             {
               "code": "2284960",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Remdesivir 100 mg injection"
+              "display": "remdesivir 100 MG Injection"
             }
           ]
         }
@@ -754,8 +775,15 @@
         "id": "8a3d8100-34d9-4914-1ef3-f3a2d97831c5",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:8804d278-ab10-4e00-a5cd-88dfa96ba83b"
+            "system": "urn:oid:8804d278-ab10-4e00-a5cd-88dfa96ba83b",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -794,8 +822,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:077fe949-6bbb-44b2-9430-f4f00cc4877d"
+            "system": "urn:oid:077fe949-6bbb-44b2-9430-f4f00cc4877d",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -814,7 +849,7 @@
             {
               "code": "94310-0",
               "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "display": "SARS-related coronavirus N gene [Presence] in Specimen by Nucleic acid amplification using CDC primer-probe set N3"
             }
           ]
         },
@@ -885,8 +920,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:5a3c1d72-9f88-41e7-b2d5-ec9a7f6b8c4f"
+            "system": "urn:oid:5a3c1d72-9f88-41e7-b2d5-ec9a7f6b8c4f",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -942,8 +984,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:9db6c612-f85d-4637-aaab-0db6a880dd4d"
+            "system": "urn:oid:9db6c612-f85d-4637-aaab-0db6a880dd4d",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -962,7 +1011,7 @@
             {
               "code": "364703007",
               "system": "http://snomed.info/sct",
-              "display": "Employment detail"
+              "display": "Employment detail (observable entity)"
             },
             {
               "code": "11295-3",
@@ -976,7 +1025,7 @@
             {
               "code": "159606005",
               "system": "http://snomed.info/sct",
-              "display": "Sales"
+              "display": "Selling occupation"
             }
           ]
         },

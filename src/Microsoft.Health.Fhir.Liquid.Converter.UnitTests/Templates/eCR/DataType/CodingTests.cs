@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using DotLiquid;
 using Xunit;
 
@@ -44,19 +45,20 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public void RaceCoding()
+        public async Task RaceCodingAsync()
         {
+            await ConformanceManager.InitializeAsync();
             var attributes = new Dictionary<string, object>
             {
                 {
                     "Coding",
                     Hash.FromAnonymousObject(
-                        new { code = "2106-3", codeSystem = "2.16.840.1.113883.6.238" }
+                        new { code = "2135-2", codeSystem = "urn:oid:2.16.840.1.113883.6.238" }
                     )
                 }
             };
             var expectedContent =
-                @"""code"": ""2106-3"", ""system"": ""urn:oid:2.16.840.1.113883.6.238"",";
+                @"""code"": ""2135-2"", ""system"": ""urn:oid:2.16.840.1.113883.6.238"", ""display"": ""Hispanic or Latino"",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
     }

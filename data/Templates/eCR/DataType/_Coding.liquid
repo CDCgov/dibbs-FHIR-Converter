@@ -1,12 +1,8 @@
 "code": "{{- Coding.code | strip -}}",
-{%- capture codeSystemName -%}
-  {%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}
-{%- endcapture -%}
-"system": "{{ codeSystemName | prepend_id -}}",
-{% if Coding.displayName -%}
-  "display": "{{- Coding.displayName | clean_string_from_tabs | strip -}}",
-{% elsif codeSystemName contains "loinc" -%}
-  "display": "{{- Coding.code | get_loinc_name -}}",
-{% elsif codeSystemName contains "rxnorm" -%}
-  "display": "{{- Coding.code | get_rxnorm_name -}}",
-{% endif -%}
+{%- assign codeSystem = Coding.codeSystem | get_code_system_uri -%}
+"system": "{{- codeSystem -}}",
+{%- assign display = Coding.code | get_code_display: codeSystem -%}
+{%- if display == nil -%}
+  {%- assign display = Coding.displayName | clean_string_from_tabs | strip -%}
+{%- endif -%}
+"display": "{{- display -}}"

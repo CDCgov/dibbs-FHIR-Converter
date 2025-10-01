@@ -401,7 +401,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
             System.Console.Out.WriteLine("#####################################################################################################");
             System.Console.Out.WriteLine(inputFile);
             System.Console.Out.WriteLine("-----------------------------------------------------------------------------------------------------");
-            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
+            var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "true";
             if (validateFhir.Trim() == "false") return;
 
             var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
@@ -439,7 +439,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
                 loincClient.RequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue(
                         "Basic",
-                        "am55Z2FhcmQ6M1hTQCFld2NBQWVMc1pN"
+                        Environment.GetEnvironmentVariable("LOINC_AUTH")
                     );
                 var loincTerminologyService = new ExternalTerminologyService(loincClient);
                 var terminologyService = new LocalTerminologyService(profileSource);

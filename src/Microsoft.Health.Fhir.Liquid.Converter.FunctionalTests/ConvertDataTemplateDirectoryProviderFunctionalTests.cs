@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using DotLiquid;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -100,8 +101,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests
 
         [Theory]
         [MemberData(nameof(GetDataForEcr))]
-        public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid(string rootTemplate, string inputFile, string expectedFile, string validationFailureStep, string numFailures)
+        public async Task GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid(string rootTemplate, string inputFile, string expectedFile, string validationFailureStep, string numFailures)
         {
+
+            await ConformanceManager.InitializeAsync();
             var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "eCR");
             var templateProvider = new TemplateProvider(templateDirectory, DataType.Ccda);
 

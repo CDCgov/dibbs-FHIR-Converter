@@ -30,7 +30,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public Health Case Report"
+                "display": "Public health case report Document"
               }
             ]
           },
@@ -52,7 +52,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public Health Case Report"
+              "display": "Public health case report Document"
             }
           ]
         },
@@ -72,7 +72,7 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of Treatment"
+                  "display": "Plan of care note"
                 }
               ]
             },
@@ -95,7 +95,7 @@
                 {
                   "code": "46240-8",
                   "system": "http://loinc.org",
-                  "display": "History of encounters"
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
                 }
               ]
             },
@@ -113,7 +113,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "HISTORY OF PRESENT ILLNESS"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -131,7 +131,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "Medications Administered"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -154,7 +154,7 @@
                 {
                   "code": "11450-4",
                   "system": "http://loinc.org",
-                  "display": "Problem List"
+                  "display": "Problem list - Reported"
                 }
               ]
             },
@@ -232,7 +232,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests and/or laboratory data"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -268,7 +268,7 @@
                 {
                   "code": "47519-4",
                   "system": "http://loinc.org",
-                  "display": "History of Procedures"
+                  "display": "History of Procedures Document"
                 }
               ]
             },
@@ -303,7 +303,7 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "Hx of Immunization"
+                  "display": "History of Immunization note"
                 }
               ]
             },
@@ -332,7 +332,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social History"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -432,7 +432,7 @@
                 {
                   "code": "8716-3",
                   "system": "http://loinc.org",
-                  "display": "Vital Signs"
+                  "display": "Vital signs note"
                 }
               ]
             },
@@ -573,7 +573,7 @@
         "class": {
           "code": "AMB",
           "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-          "display": "Ambulatory"
+          "display": "ambulatory"
         },
         "identifier": [
           {
@@ -662,7 +662,7 @@
             "coding": [
               {
                 "code": "OF",
-                "system": "urn:oid:2.16.840.1.113883.5.111",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
                 "display": "Outpatient facility"
               }
             ]
@@ -807,8 +807,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:a66d09ae-2b5a-4170-af3f-4ca4df7a02a6"
+            "system": "urn:oid:a66d09ae-2b5a-4170-af3f-4ca4df7a02a6",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -831,7 +838,7 @@
             {
               "code": "840539006",
               "system": "http://snomed.info/sct",
-              "display": "Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)"
+              "display": "Disease caused by Severe acute respiratory syndrome coronavirus 2 (disorder)"
             }
           ]
         },
@@ -857,8 +864,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:b0bd7770-283f-44b1-9dda-5590707d29fe"
+            "system": "urn:oid:b0bd7770-283f-44b1-9dda-5590707d29fe",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -866,7 +880,7 @@
           "coding": [
             {
               "code": "RRVS5",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Patient home address"
             }
           ]
@@ -878,7 +892,7 @@
               "coding": [
                 {
                   "code": "RRVS1",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Reportable"
                 }
               ]
@@ -1005,7 +1019,7 @@
             "coding": [
               {
                 "code": "RRVS13",
-                "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                 "display": "Outbreak- or Cluster related"
               }
             ]
@@ -1027,7 +1041,7 @@
               "coding": [
                 {
                   "code": "RRVS15",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Information only"
                 }
               ]
@@ -1065,7 +1079,7 @@
             "coding": [
               {
                 "code": "RRVS12",
-                "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                 "display": "PHA Contact Information"
               }
             ]
@@ -1087,7 +1101,7 @@
               "coding": [
                 {
                   "code": "RRVS15",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Information only"
                 }
               ]
@@ -1111,8 +1125,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:10bd27fb-e882-4acb-8efb-ed2051b86691"
+            "system": "urn:oid:10bd27fb-e882-4acb-8efb-ed2051b86691",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -1161,8 +1182,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:f4ea9439-0626-4b65-b6de-6e64554bd427"
+            "system": "urn:oid:f4ea9439-0626-4b65-b6de-6e64554bd427",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -1170,7 +1198,7 @@
           "coding": [
             {
               "code": "RRVS5",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Patient home address"
             }
           ]
@@ -1182,7 +1210,7 @@
               "coding": [
                 {
                   "code": "RRVS1",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Reportable"
                 }
               ]
@@ -1217,8 +1245,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:39d966b9-8a3a-4024-93d8-138e97d5898a"
+            "system": "urn:oid:39d966b9-8a3a-4024-93d8-138e97d5898a",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -1226,7 +1261,7 @@
           "coding": [
             {
               "code": "RRVS19",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "eICR processed"
             }
           ]
@@ -1272,8 +1307,15 @@
         "id": "d0ae0527-f36b-de1d-e26b-1560599be6d5",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
+            "system": "urn:oid:2.16.840.1.113883.3.72.5.20",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "property": [
@@ -1358,7 +1400,7 @@
                 "valueCoding": {
                   "code": "2186-5",
                   "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "display": "Not Hispanic or Latino"
+                  "display": "Non Hispanic or Latino"
                 }
               },
               {
@@ -1376,7 +1418,7 @@
                   "coding": [
                     {
                       "code": "F",
-                      "system": "urn:oid:2.16.840.1.113883.5.1",
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
                       "display": "Female"
                     }
                   ]
@@ -1493,8 +1535,15 @@
         "id": "10b5eb67-b60e-0272-b5af-026b77fa9253",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:6c844c75-aa34-411c-b7bd-5e4a9f206e29"
+            "system": "urn:oid:6c844c75-aa34-411c-b7bd-5e4a9f206e29",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "completed",
@@ -1504,8 +1553,8 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
-                "display": "ORAL"
+                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
+                "display": "Oral Route of Administration"
               }
             ]
           },
@@ -1550,7 +1599,7 @@
             {
               "code": "248656",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Azithromycin 500 MG Oral Tablet"
+              "display": "azithromycin 500 MG Oral Tablet"
             }
           ]
         }
@@ -1622,8 +1671,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:bab77407-f76d-4a51-a2ed-980c8a59fe28"
+            "system": "urn:oid:bab77407-f76d-4a51-a2ed-980c8a59fe28",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -1654,7 +1710,7 @@
             {
               "code": "77386006",
               "system": "http://snomed.info/sct",
-              "display": "Pregnant"
+              "display": "Pregnancy"
             }
           ]
         },
@@ -1680,7 +1736,7 @@
                 {
                   "code": "11780-4",
                   "system": "http://loinc.org",
-                  "display": "Delivery date estimated from ovulation date"
+                  "display": "Delivery date Estimated from ovulation date"
                 }
               ]
             },
@@ -1735,8 +1791,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:6df3e951-e6f8-441d-a298-d9d6d3f405db"
+            "system": "urn:oid:6df3e951-e6f8-441d-a298-d9d6d3f405db",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -1805,8 +1868,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:5ffea0ae-9ae5-4313-956a-30219b4a6afa"
+            "system": "urn:oid:5ffea0ae-9ae5-4313-956a-30219b4a6afa",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -1848,8 +1918,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:9701b264-0f70-47f9-bfbf-aa4f9686cd3a"
+            "system": "urn:oid:9701b264-0f70-47f9-bfbf-aa4f9686cd3a",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -1894,8 +1971,15 @@
         "id": "d48a8db3-dcea-9283-8af5-68cf694ef489",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:7d5a02b0-67a4-11db-bd13-0800200c9a66"
+            "system": "urn:oid:7d5a02b0-67a4-11db-bd13-0800200c9a66",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -1904,7 +1988,7 @@
             {
               "code": "57021-8",
               "system": "http://loinc.org",
-              "display": "CBC W Auto Differential panel in Blood"
+              "display": "CBC W Auto Differential panel - Blood"
             }
           ]
         },
@@ -1919,8 +2003,8 @@
               "coding": [
                 {
                   "code": "F",
-                  "system": "urn:oid:2.16.840.1.113883.18.51",
-                  "display": "Final results; results stored and verified. Can only be changed with a corrected result."
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0123",
+                  "display": "Final results; results stored and verified.  Can only be changed with a corrected result."
                 }
               ]
             }
@@ -1951,8 +2035,15 @@
         "id": "f6ead144-a7d0-a2c9-2938-723d4c3c8fa6",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:44fd0410-6115-4b8e-8ee9-a51b3817df66"
+            "system": "urn:oid:44fd0410-6115-4b8e-8ee9-a51b3817df66",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "type": {
@@ -1995,8 +2086,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:7c0704bb-9c40-41b5-9c7d-26b2d59e234f"
+            "system": "urn:oid:7c0704bb-9c40-41b5-9c7d-26b2d59e234f",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -2015,7 +2113,7 @@
             {
               "code": "20570-8",
               "system": "http://loinc.org",
-              "display": "Hematocrit"
+              "display": "Hematocrit [Volume Fraction] of Blood"
             }
           ]
         },
@@ -2093,7 +2191,7 @@
             {
               "code": "731-0",
               "system": "http://loinc.org",
-              "display": "Lymphocytes [#/​volume] in Blood by Automated count"
+              "display": "Lymphocytes [#/volume] in Blood by Automated count"
             }
           ]
         },
@@ -2147,8 +2245,15 @@
         "id": "4d7742d0-7c59-6c90-d4de-9c7724df8470",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:a4307cb2-b3b4-4f42-be03-1d9077376f4a"
+            "system": "urn:oid:a4307cb2-b3b4-4f42-be03-1d9077376f4a",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -2187,8 +2292,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:bf9c0a26-4524-4395-b3ce-100450b9c9ad"
+            "system": "urn:oid:bf9c0a26-4524-4395-b3ce-100450b9c9ad",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -2251,8 +2363,8 @@
               "coding": [
                 {
                   "code": "F",
-                  "system": "urn:oid:2.16.840.1.113883.18.34",
-                  "display": "Final results"
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0085",
+                  "display": "Final results; Can only be changed with a corrected result."
                 }
               ]
             }
@@ -2270,8 +2382,15 @@
         "id": "84c92aee-b1f9-d4b8-0f08-68fdfe99d5b8",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:a4307cb2-b3b4-4f42-be03-1d9077376f4b"
+            "system": "urn:oid:a4307cb2-b3b4-4f42-be03-1d9077376f4b",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "preliminary",
@@ -2310,8 +2429,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:bf9c0a26-4524-4395-b3ce-100450b9c9ac"
+            "system": "urn:oid:bf9c0a26-4524-4395-b3ce-100450b9c9ac",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -2367,7 +2493,7 @@
               "coding": [
                 {
                   "code": "P",
-                  "system": "urn:oid:2.16.840.1.113883.18.34",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0085",
                   "display": "Preliminary results"
                 }
               ]
@@ -2391,8 +2517,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:37f76c51-6411-4e1d-8a37-957fd49d2ced"
+            "system": "urn:oid:37f76c51-6411-4e1d-8a37-957fd49d2ced",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -2442,8 +2575,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:5f2e0ab0-b505-438a-9d50-f22d78ad1567"
+            "system": "urn:oid:5f2e0ab0-b505-438a-9d50-f22d78ad1567",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "code": {
@@ -2476,7 +2616,7 @@
             {
               "code": "264379009",
               "system": "http://snomed.info/sct",
-              "display": "Sports stadium (environment)"
+              "display": "Sports stadium"
             }
           ],
           "text": "City Football Stadium"
@@ -2512,15 +2652,22 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:a78adeed-d623-49cb-95df-42a0a2c33fca"
+            "system": "urn:oid:a78adeed-d623-49cb-95df-42a0a2c33fca",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "code": {
           "coding": [
             {
               "code": "PHC2266",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Animal with confirmed or suspected case"
             }
           ]
@@ -2597,15 +2744,22 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:a78adeed-d623-49cb-95df-42a0a2c33fca"
+            "system": "urn:oid:a78adeed-d623-49cb-95df-42a0a2c33fca",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "code": {
           "coding": [
             {
               "code": "PHC2267",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Contact with known case"
             }
           ]
@@ -2762,7 +2916,7 @@
               "coding": [
                 {
                   "code": "BRA",
-                  "system": "urn:oid:1.0.3166.1",
+                  "system": "urn:iso:std:iso:3166",
                   "display": "Brazil"
                 }
               ]
@@ -2880,8 +3034,8 @@
               "coding": [
                 {
                   "code": "C0683587",
-                  "system": "urn:oid:2.16.840.1.113883.6.86",
-                  "display": "tourism"
+                  "system": "http://terminology.hl7.org/CodeSystem/umls",
+                  "display": "Tourism"
                 }
               ]
             }
@@ -3154,7 +3308,7 @@
             {
               "code": "77983-5",
               "system": "http://loinc.org",
-              "display": "Country of usual residence"
+              "display": "Country of Usual Residence"
             }
           ]
         },
@@ -3162,7 +3316,7 @@
           "coding": [
             {
               "code": "GB",
-              "system": "urn:oid:1.0.3166.1.2.2",
+              "system": "http://terminology.hl7.org/CodeSystem/iso3166-1edition2alpha2",
               "display": "United Kingdom of Great Britain and Northern Ireland"
             }
           ]
@@ -3184,8 +3338,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:3adc7f4d-ff0a-4b38-9252-bd65edbe3dfa"
+            "system": "urn:oid:3adc7f4d-ff0a-4b38-9252-bd65edbe3dfa",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3212,7 +3373,7 @@
           "coding": [
             {
               "code": "AU",
-              "system": "urn:oid:1.0.3166.1.2.2",
+              "system": "http://terminology.hl7.org/CodeSystem/iso3166-1edition2alpha2",
               "display": "Australia"
             }
           ]
@@ -3234,8 +3395,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:c09ac074-605e-47bd-8b1c-735e7321fbc2"
+            "system": "urn:oid:c09ac074-605e-47bd-8b1c-735e7321fbc2",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3254,7 +3422,7 @@
             {
               "code": "69856-3",
               "system": "http://loinc.org",
-              "display": "Are you deaf, or do you have serious difficulty hearing [HHS.ACA Section 4302]"
+              "display": "Are you deaf, or do you have serious difficulty hearing"
             }
           ]
         },
@@ -3277,8 +3445,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:4f4b3876-8570-41a0-b995-cf34f37c5cbf"
+            "system": "urn:oid:4f4b3876-8570-41a0-b995-cf34f37c5cbf",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3297,7 +3472,7 @@
             {
               "code": "21843-8",
               "system": "http://loinc.org",
-              "display": "Usual Occupation"
+              "display": "Occupation"
             }
           ]
         },
@@ -3308,12 +3483,12 @@
           "coding": [
             {
               "code": "3600",
-              "system": "urn:oid:2.16.840.1.113883.6.240",
-              "display": "Nursing, psychiatric, and home health aides"
+              "system": "http://terminology.hl7.org/CodeSystem/USCOC",
+              "display": "Nursing, psychiatric, and home health aides (Service Occupations)"
             },
             {
               "code": "31-1014.00.007136",
-              "system": "urn:oid:2.16.840.1.114222.4.5.327",
+              "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
               "display": "Certified Nursing Assistant (CNA) [Nursing Assistants]"
             }
           ]
@@ -3325,7 +3500,7 @@
                 {
                   "code": "21844-6",
                   "system": "http://loinc.org",
-                  "display": "Usual Industry"
+                  "display": "Industry"
                 }
               ]
             },
@@ -3333,13 +3508,13 @@
               "coding": [
                 {
                   "code": "8270",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.315",
-                  "display": "Nursing care facilities"
+                  "system": "http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010",
+                  "display": "Nursing care facilities [8270]"
                 },
                 {
                   "code": "621610.008495",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.327",
-                  "display": "Home nursing services"
+                  "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
+                  "display": "Home nursing services (except private practices) [Home Health Care Services]"
                 }
               ]
             }
@@ -3357,7 +3532,7 @@
         "id": "3f173e4d-0ac7-bc1b-dd38-1df99c48640e",
         "identifier": [
           {
-            "system": "urn:uuid:58822180-ab0d-42e4-90c6-35336bf55654",
+            "system": "urn:oid:58822180-ab0d-42e4-90c6-35336bf55654",
             "value": "12345"
           }
         ],
@@ -3398,8 +3573,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:1728123a-7b6c-418c-adc2-f78417caf62c"
+            "system": "urn:oid:1728123a-7b6c-418c-adc2-f78417caf62c",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3429,12 +3611,12 @@
           "coding": [
             {
               "code": "3600",
-              "system": "urn:oid:2.16.840.1.113883.6.240",
-              "display": "Nursing, psychiatric, and home health aides"
+              "system": "http://terminology.hl7.org/CodeSystem/USCOC",
+              "display": "Nursing, psychiatric, and home health aides (Service Occupations)"
             },
             {
               "code": "31-1014.00.007136",
-              "system": "urn:oid:2.16.840.1.114222.4.5.327",
+              "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
               "display": "Certified Nursing Assistant (CNA) [Nursing Assistants]"
             }
           ]
@@ -3458,7 +3640,7 @@
                 {
                   "code": "86188-0",
                   "system": "http://loinc.org",
-                  "display": "Occupation Industry"
+                  "display": "History of Occupation industry"
                 }
               ]
             },
@@ -3466,13 +3648,13 @@
               "coding": [
                 {
                   "code": "8270",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.315",
-                  "display": "Nursing care facilities"
+                  "system": "http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010",
+                  "display": "Nursing care facilities [8270]"
                 },
                 {
                   "code": "621610.008495",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.327",
-                  "display": "Home nursing services"
+                  "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
+                  "display": "Home nursing services (except private practices) [Home Health Care Services]"
                 }
               ]
             }
@@ -3496,8 +3678,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:c1e39467-4b79-474e-9c75-927b45e8616a"
+            "system": "urn:oid:c1e39467-4b79-474e-9c75-927b45e8616a",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3516,7 +3705,7 @@
             {
               "code": "74165-2",
               "system": "http://loinc.org",
-              "display": "History of Employment Status"
+              "display": "History of employment status NIOSH"
             }
           ]
         },
@@ -3527,7 +3716,7 @@
           "coding": [
             {
               "code": "Employed",
-              "system": "urn:oid:2.16.840.1.113883.5.1063",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationValue",
               "display": "Employed"
             }
           ]
@@ -3549,8 +3738,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:2721acc5-0d05-4402-9e62-79943ea3901c"
+            "system": "urn:oid:2721acc5-0d05-4402-9e62-79943ea3901c",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3569,7 +3765,7 @@
             {
               "code": "8480-6",
               "system": "http://loinc.org",
-              "display": "SYSTOLIC BLOOD PRESSURE"
+              "display": "Systolic blood pressure"
             }
           ]
         },
@@ -3595,8 +3791,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:88a01c83-a096-4705-a992-b5f59eca8c8c"
+            "system": "urn:oid:88a01c83-a096-4705-a992-b5f59eca8c8c",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3615,7 +3818,7 @@
             {
               "code": "8462-4",
               "system": "http://loinc.org",
-              "display": "DIASTOLIC BLOOD PRESSURE"
+              "display": "Diastolic blood pressure"
             }
           ]
         },
@@ -3641,8 +3844,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:83bbffe1-54e5-4984-a32d-ad8f8d6896d8"
+            "system": "urn:oid:83bbffe1-54e5-4984-a32d-ad8f8d6896d8",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3661,7 +3871,7 @@
             {
               "code": "8867-4",
               "system": "http://loinc.org",
-              "display": "HEART RATE"
+              "display": "Heart rate"
             }
           ]
         },
@@ -3687,8 +3897,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:85f5784f-2958-4321-b7b6-3030d1577dc0"
+            "system": "urn:oid:85f5784f-2958-4321-b7b6-3030d1577dc0",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3707,7 +3924,7 @@
             {
               "code": "8310-5",
               "system": "http://loinc.org",
-              "display": "BODY TEMPERATURE"
+              "display": "Body temperature"
             }
           ]
         },
@@ -3733,8 +3950,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:b618fa98-6596-4e19-a9e7-6bdb48012fc8"
+            "system": "urn:oid:b618fa98-6596-4e19-a9e7-6bdb48012fc8",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3753,7 +3977,7 @@
             {
               "code": "9279-1",
               "system": "http://loinc.org",
-              "display": "RESPIRATORY RATE"
+              "display": "Respiratory rate"
             }
           ]
         },
@@ -3779,8 +4003,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:1b1274a9-b45f-449a-8493-08eaeaeba7d6"
+            "system": "urn:oid:1b1274a9-b45f-449a-8493-08eaeaeba7d6",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3799,7 +4030,7 @@
             {
               "code": "8302-2",
               "system": "http://loinc.org",
-              "display": "HEIGHT"
+              "display": "Body height"
             }
           ]
         },
@@ -3825,8 +4056,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:1c1f89f1-8e93-4a46-b37f-9434f99727b8"
+            "system": "urn:oid:1c1f89f1-8e93-4a46-b37f-9434f99727b8",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3845,7 +4083,7 @@
             {
               "code": "3141-9",
               "system": "http://loinc.org",
-              "display": "WEIGHT"
+              "display": "Body weight Measured"
             }
           ]
         },
@@ -3871,8 +4109,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:fd4ccd0b-c045-4587-8976-a17e2e064a1e"
+            "system": "urn:oid:fd4ccd0b-c045-4587-8976-a17e2e064a1e",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3891,7 +4136,7 @@
             {
               "code": "39156-5",
               "system": "http://loinc.org",
-              "display": "BODY MASS INDEX"
+              "display": "Body mass index (BMI) [Ratio]"
             }
           ]
         },
@@ -3917,8 +4162,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:0ef4afda-1638-4ad2-9978-7321bbceb0cb"
+            "system": "urn:oid:0ef4afda-1638-4ad2-9978-7321bbceb0cb",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -3937,7 +4189,7 @@
             {
               "code": "2710-2",
               "system": "http://loinc.org",
-              "display": "OXYGEN SATURATION"
+              "display": "Deprecated Oxygen saturation in Capillary blood by Oximetry"
             }
           ]
         },
@@ -4003,8 +4255,15 @@
         "id": "c85c8602-76f8-1866-3bb7-20be7950ef7a",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:b52bee94-c34b-4e2c-8c15-5ad9d6def205"
+            "system": "urn:oid:b52bee94-c34b-4e2c-8c15-5ad9d6def205",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "active",
@@ -4014,7 +4273,7 @@
             {
               "code": "80825-3",
               "system": "http://loinc.org",
-              "display": "Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method"
+              "display": "Zika virus envelope E gene [Presence] in Serum by NAA with probe detection"
             }
           ]
         },
@@ -4031,8 +4290,15 @@
         "id": "224b95cc-df73-aee0-4522-b6ac683ea13b",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:9a6d1bac-17d3-4195-89c4-1121bc809b5a"
+            "system": "urn:oid:9a6d1bac-17d3-4195-89c4-1121bc809b5a",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "active",
@@ -4059,8 +4325,15 @@
         "id": "5b68e715-e34e-01cc-7c5e-d7c43f1484e7",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:b52bee94-c34b-4e2c-8c15-5ad9d6def204"
+            "system": "urn:oid:b52bee94-c34b-4e2c-8c15-5ad9d6def204",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "active",
@@ -4092,8 +4365,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:d68b7e32-7810-4f5b-9cc2-acd54b0fd85d"
+            "system": "urn:oid:d68b7e32-7810-4f5b-9cc2-acd54b0fd85d",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "completed",
@@ -4102,7 +4382,7 @@
             {
               "code": "73761001",
               "system": "http://snomed.info/sct",
-              "display": "Colonoscopy"
+              "display": "Colonoscopy (procedure)"
             }
           ]
         },
@@ -4118,7 +4398,7 @@
                 {
                   "code": "309266009",
                   "system": "http://snomed.info/sct",
-                  "display": "anal polyp"
+                  "display": "Anal polyp specimen (specimen)"
                 }
               ]
             }
@@ -4130,7 +4410,7 @@
                 {
                   "code": "57259009",
                   "system": "http://snomed.info/sct",
-                  "display": "bile duct"
+                  "display": "Gallbladder bile (substance)"
                 }
               ]
             }
@@ -4174,7 +4454,7 @@
             {
               "code": "90412006",
               "system": "http://snomed.info/sct",
-              "display": "Colonoscope"
+              "display": "Colonoscope, device (physical object)"
             }
           ]
         }
@@ -4218,8 +4498,8 @@
             "coding": [
               {
                 "code": "1160-1",
-                "system": "urn:oid:2.16.840.1.113883.6.259",
-                "display": "Community Health and Hospitals"
+                "system": "https://www.cdc.gov/nhsn/cdaportal/terminology/codesystem/hsloc.html",
+                "display": "Urgent Care Center"
               }
             ]
           }
@@ -4233,8 +4513,15 @@
         "id": "04117137-af0d-8f70-177c-01b862866ed2",
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:6c844c75-aa34-411c-b7bd-5e4a9f206e29"
+            "system": "urn:oid:6c844c75-aa34-411c-b7bd-5e4a9f206e29",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "in-progress",
@@ -4246,8 +4533,8 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
-                "display": "ORAL"
+                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
+                "display": "Oral Route of Administration"
               }
             ]
           },
@@ -4277,7 +4564,7 @@
             {
               "code": "197380",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Atenolol 25 MG Oral Tablet"
+              "display": "atenolol 25 MG Oral Tablet"
             }
           ]
         }
@@ -4295,8 +4582,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:6dab0739-749d-4c62-8f5e-eea77a045ce8"
+            "system": "urn:oid:6dab0739-749d-4c62-8f5e-eea77a045ce8",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -4315,7 +4609,7 @@
             {
               "code": "274025005",
               "system": "http://snomed.info/sct",
-              "display": "Colonic polypectomy"
+              "display": "Colonic polypectomy (procedure)"
             }
           ]
         },
@@ -4346,8 +4640,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:609a7b3b-3bd1-4e83-b621-c4afe4a90cd7"
+            "system": "urn:oid:609a7b3b-3bd1-4e83-b621-c4afe4a90cd7",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "completed",
@@ -4378,8 +4679,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:941aee94-1f69-4fa8-91c8-7eee00915728"
+            "system": "urn:oid:941aee94-1f69-4fa8-91c8-7eee00915728",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "completed",
@@ -4388,7 +4696,7 @@
             {
               "code": "409524006",
               "system": "http://snomed.info/sct",
-              "display": "Airborn precautions (procedure)"
+              "display": "Airborne precautions (procedure)"
             }
           ]
         },
@@ -4410,8 +4718,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:e535eb92-829f-45bb-8602-a49f59bb4e2c"
+            "system": "urn:oid:e535eb92-829f-45bb-8602-a49f59bb4e2c",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "category": [
@@ -4447,7 +4762,7 @@
         "id": "007787d7-b7e4-26af-fba4-1ce1f439a903",
         "identifier": [
           {
-            "system": "urn:uuid:00000000-5cf3-ec63-0513-4a4838595787",
+            "system": "urn:oid:00000000-5CF3-EC63-0513-4A4838595787",
             "value": "11369-6_3-1_1.3.6.1.4.1.22812.11.2016.163.1_14168"
           }
         ],
@@ -4461,7 +4776,7 @@
           "coding": [
             {
               "code": "106",
-              "system": "urn:oid:2.16.840.1.113883.12.292",
+              "system": "http://hl7.org/fhir/sid/cvx",
               "display": "diphtheria, tetanus toxoids and acellular pertussis vaccine, 5 pertussis antigens"
             }
           ]
@@ -4480,7 +4795,7 @@
         "id": "3a0ef01d-9da9-63dc-e03b-bdffa3ee0b1d",
         "identifier": [
           {
-            "system": "urn:uuid:00000000-5cf3-ec63-0513-4a4838595787",
+            "system": "urn:oid:00000000-5CF3-EC63-0513-4A4838595787",
             "value": "11369-6_2-1_1.3.6.1.4.1.22812.11.2016.163.1_14168"
           }
         ],
@@ -4489,8 +4804,8 @@
           "coding": [
             {
               "code": "24",
-              "system": "urn:oid:2.16.840.1.113883.12.292",
-              "display": "anthrax vaccine"
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "display": "Anthrax vaccine, adsorbed, pre-exposure and post-exposure prophylaxis"
             }
           ]
         },
@@ -4513,8 +4828,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:3adc7f4d-ff0a-4b38-9252-bd65edbe3dff"
+            "system": "urn:oid:3adc7f4d-ff0a-4b38-9252-bd65edbe3dff",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",
@@ -4551,8 +4873,15 @@
         },
         "identifier": [
           {
-            "system": "urn:ietf:rfc:3986",
-            "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a54"
+            "system": "urn:oid:ab1791b0-5c71-11db-b0de-0800200c9a54",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            }
           }
         ],
         "status": "final",

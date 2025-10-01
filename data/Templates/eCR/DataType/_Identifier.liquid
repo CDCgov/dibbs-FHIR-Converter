@@ -4,7 +4,7 @@
 {%- assign oid_pattern_match = Identifier.root | match: oid_pattern | size -%}
 {%- assign uuid_pattern_match = Identifier.root | match: uuid_pattern | size -%}
 {%- capture system -%}
-    {%- include 'ValueSet/SystemReference' code: Identifier.root -%}
+  {{- Identifier.root | get_code_system_uri -}}
 {%- endcapture %}
 {%- if Identifier.nullFlavor == null -%}
     {%- if Identifier.extension -%}

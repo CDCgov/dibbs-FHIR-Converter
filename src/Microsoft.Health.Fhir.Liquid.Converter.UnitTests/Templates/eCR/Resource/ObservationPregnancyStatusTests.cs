@@ -168,7 +168,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("11780-4", eddComponent.Code.Coding.First().Code);
             Assert.Equal("http://loinc.org", eddComponent.Code.Coding.First().System);
             Assert.Equal(
-                "Delivery date estimated from ovulation date",
+                "Delivery date Estimated from ovulation date",
                 eddComponent.Code.Coding.First().Display
             );
             ////// Estimated gestational age (days)

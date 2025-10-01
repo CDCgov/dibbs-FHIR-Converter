@@ -30,7 +30,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public Health Case Report"
+                "display": "Public health Case report"
               }
             ]
           },
@@ -52,7 +52,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public Health Case Report"
+              "display": "Public health Case report"
             }
           ]
         },
@@ -72,7 +72,7 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of Treatment"
+                  "display": "Plan of care note"
                 }
               ]
             },
@@ -95,7 +95,7 @@
                 {
                   "code": "46240-8",
                   "system": "http://loinc.org",
-                  "display": "History of encounters"
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
                 }
               ]
             },
@@ -113,7 +113,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "HISTORY OF PRESENT ILLNESS"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -131,7 +131,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "Medications Administered"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -154,7 +154,7 @@
                 {
                   "code": "11450-4",
                   "system": "http://loinc.org",
-                  "display": "Problem List"
+                  "display": "Problem list - Reported"
                 }
               ]
             },
@@ -226,7 +226,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests and/or laboratory data"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -262,7 +262,7 @@
                 {
                   "code": "47519-4",
                   "system": "http://loinc.org",
-                  "display": "History of Procedures"
+                  "display": "History of Procedures Document"
                 }
               ]
             },
@@ -297,7 +297,7 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "Hx of Immunization"
+                  "display": "History of Immunization note"
                 }
               ]
             },
@@ -326,7 +326,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social History"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -426,7 +426,7 @@
                 {
                   "code": "8716-3",
                   "system": "http://loinc.org",
-                  "display": "Vital Signs"
+                  "display": "Vital signs note"
                 }
               ]
             },
@@ -656,7 +656,7 @@
             "coding": [
               {
                 "code": "OF",
-                "system": "urn:oid:2.16.840.1.113883.5.111",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
                 "display": "Outpatient facility"
               }
             ]
@@ -825,7 +825,7 @@
             {
               "code": "840539006",
               "system": "http://snomed.info/sct",
-              "display": "Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)"
+              "display": "COVID-19"
             }
           ]
         },
@@ -860,7 +860,7 @@
           "coding": [
             {
               "code": "RRVS5",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Patient home address"
             }
           ]
@@ -872,7 +872,7 @@
               "coding": [
                 {
                   "code": "RRVS1",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Reportable"
                 }
               ]
@@ -999,7 +999,7 @@
             "coding": [
               {
                 "code": "RRVS13",
-                "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                 "display": "Outbreak- or Cluster related"
               }
             ]
@@ -1021,7 +1021,7 @@
               "coding": [
                 {
                   "code": "RRVS15",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Information only"
                 }
               ]
@@ -1059,7 +1059,7 @@
             "coding": [
               {
                 "code": "RRVS12",
-                "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                 "display": "PHA Contact Information"
               }
             ]
@@ -1081,7 +1081,7 @@
               "coding": [
                 {
                   "code": "RRVS15",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Information only"
                 }
               ]
@@ -1129,7 +1129,7 @@
             {
               "code": "58750007",
               "system": "http://snomed.info/sct",
-              "display": "Plague (disorder)"
+              "display": "Plague"
             }
           ]
         },
@@ -1164,7 +1164,7 @@
           "coding": [
             {
               "code": "RRVS5",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Patient home address"
             }
           ]
@@ -1176,7 +1176,7 @@
               "coding": [
                 {
                   "code": "RRVS1",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                   "display": "Reportable"
                 }
               ]
@@ -1220,7 +1220,7 @@
           "coding": [
             {
               "code": "RRVS19",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "eICR processed"
             }
           ]
@@ -1350,9 +1350,9 @@
               {
                 "url": "ombCategory",
                 "valueCoding": {
-                  "code": "2186-5",
                   "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "display": "Not Hispanic or Latino"
+                  "code": "2186-5",
+                  "display": "Non Hispanic or Latino"
                 }
               },
               {
@@ -1370,7 +1370,7 @@
                   "coding": [
                     {
                       "code": "F",
-                      "system": "urn:oid:2.16.840.1.113883.5.1",
+                      "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
                       "display": "Female"
                     }
                   ]
@@ -1388,7 +1388,7 @@
                     {
                       "code": "407377005",
                       "system": "http://snomed.info/sct",
-                      "display": "Female-to-male transsexual (finding)"
+                      "display": "Female-to-male transsexual"
                     }
                   ]
                 }
@@ -1498,7 +1498,7 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
                 "display": "ORAL"
               }
             ]
@@ -1520,7 +1520,7 @@
                 {
                   "code": "268910001",
                   "system": "http://snomed.info/sct",
-                  "display": "Patient's condition improved (finding)"
+                  "display": "Patient's condition improved"
                 }
               ]
             }
@@ -1544,7 +1544,7 @@
             {
               "code": "248656",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Azithromycin 500 MG Oral Tablet"
+              "display": "azithromycin 500 MG Oral Tablet"
             }
           ]
         }
@@ -1648,7 +1648,7 @@
             {
               "code": "77386006",
               "system": "http://snomed.info/sct",
-              "display": "Pregnant"
+              "display": "Pregnancy"
             }
           ]
         },
@@ -1657,7 +1657,7 @@
             {
               "code": "16310003",
               "system": "http://snomed.info/sct",
-              "display": "Diagnostic ultrasonography (procedure)"
+              "display": "Ultrasonography"
             }
           ]
         },
@@ -1674,7 +1674,7 @@
                 {
                   "code": "11780-4",
                   "system": "http://loinc.org",
-                  "display": "Delivery date estimated from ovulation date"
+                  "display": "Delivery date Estimated from ovulation date"
                 }
               ]
             },
@@ -1759,7 +1759,7 @@
             {
               "code": "237364002",
               "system": "http://snomed.info/sct",
-              "display": "Stillbirth (finding)"
+              "display": "Stillbirth"
             }
           ]
         },
@@ -1872,7 +1872,7 @@
             {
               "code": "42814007",
               "system": "http://snomed.info/sct",
-              "display": "Mid postpartum state (finding)"
+              "display": "Mid postpartum state"
             }
           ]
         },
@@ -1898,7 +1898,7 @@
             {
               "code": "57021-8",
               "system": "http://loinc.org",
-              "display": "CBC W Auto Differential panel in Blood"
+              "display": "CBC W Auto Differential panel (Bld)"
             }
           ]
         },
@@ -1913,7 +1913,7 @@
               "coding": [
                 {
                   "code": "F",
-                  "system": "urn:oid:2.16.840.1.113883.18.51",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0123",
                   "display": "Final results; results stored and verified. Can only be changed with a corrected result."
                 }
               ]
@@ -1954,7 +1954,7 @@
             {
               "code": "119297000",
               "system": "http://snomed.info/sct",
-              "display": "Blood specimen (specimen)"
+              "display": "Blood specimen"
             }
           ]
         },
@@ -1967,7 +1967,7 @@
               {
                 "code": "368208006",
                 "system": "http://snomed.info/sct",
-                "display": "Left upper arm structure (body structure)"
+                "display": "Left upper arm structure"
               }
             ]
           }
@@ -2009,7 +2009,7 @@
             {
               "code": "20570-8",
               "system": "http://loinc.org",
-              "display": "Hematocrit"
+              "display": "Hematocrit Calc (Bld) [Volume fraction]"
             }
           ]
         },
@@ -2087,7 +2087,7 @@
             {
               "code": "731-0",
               "system": "http://loinc.org",
-              "display": "Lymphocytes [#/​volume] in Blood by Automated count"
+              "display": "Lymphocytes Auto (Bld) [#/Vol]"
             }
           ]
         },
@@ -2151,7 +2151,7 @@
             {
               "code": "11585-7",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis Ab [Units/volume] in Serum"
+              "display": "B. pertussis Ab Qn (S)"
             }
           ]
         },
@@ -2201,7 +2201,7 @@
             {
               "code": "11585-7",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis Ab [Units/volume] in Serum"
+              "display": "B. pertussis Ab Qn (S)"
             }
           ]
         },
@@ -2245,7 +2245,7 @@
               "coding": [
                 {
                   "code": "F",
-                  "system": "urn:oid:2.16.840.1.113883.18.34",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0085",
                   "display": "Final results"
                 }
               ]
@@ -2274,7 +2274,7 @@
             {
               "code": "548-8",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis [Presence] in Throat by Organism specific culture"
+              "display": "B. pertussis Org specific cx Ql (Throat)"
             }
           ]
         },
@@ -2329,7 +2329,7 @@
             {
               "code": "548-8",
               "system": "http://loinc.org",
-              "display": "Bordetella pertussis [Presence] in Throat by Organism specific culture"
+              "display": "B. pertussis Org specific cx Ql (Throat)"
             }
           ]
         },
@@ -2339,7 +2339,7 @@
             {
               "code": "5247005",
               "system": "http://snomed.info/sct",
-              "display": "Bordetella pertussis (organism)"
+              "display": "Bordetella pertussis"
             }
           ]
         },
@@ -2361,7 +2361,7 @@
               "coding": [
                 {
                   "code": "P",
-                  "system": "urn:oid:2.16.840.1.113883.18.34",
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0085",
                   "display": "Preliminary results"
                 }
               ]
@@ -2415,7 +2415,7 @@
             {
               "code": "32911000",
               "system": "http://snomed.info/sct",
-              "display": "Homeless (finding)"
+              "display": "Homeless"
             }
           ]
         },
@@ -2470,7 +2470,7 @@
             {
               "code": "264379009",
               "system": "http://snomed.info/sct",
-              "display": "Sports stadium (environment)"
+              "display": "Sports stadium"
             }
           ],
           "text": "City Football Stadium"
@@ -2514,7 +2514,7 @@
           "coding": [
             {
               "code": "PHC2266",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Animal with confirmed or suspected case"
             }
           ]
@@ -2568,7 +2568,7 @@
                 {
                   "code": "35794008",
                   "system": "http://snomed.info/sct",
-                  "display": "Wild mink (organism)"
+                  "display": "Wild mink"
                 }
               ]
             }
@@ -2599,7 +2599,7 @@
           "coding": [
             {
               "code": "PHC2267",
-              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
               "display": "Contact with known case"
             }
           ]
@@ -2635,7 +2635,7 @@
                 {
                   "code": "840533007",
                   "system": "http://snomed.info/sct",
-                  "display": "Severe acute respiratory syndrome coronavirus 2 (organism)"
+                  "display": "SARS-CoV-2"
                 }
               ]
             }
@@ -2756,7 +2756,7 @@
               "coding": [
                 {
                   "code": "BRA",
-                  "system": "urn:oid:1.0.3166.1",
+                  "system": "urn:iso:std:iso:3166",
                   "display": "Brazil"
                 }
               ]
@@ -2874,7 +2874,7 @@
               "coding": [
                 {
                   "code": "C0683587",
-                  "system": "urn:oid:2.16.840.1.113883.6.86",
+                  "system": "http://terminology.hl7.org/CodeSystem/umls",
                   "display": "tourism"
                 }
               ]
@@ -3148,7 +3148,7 @@
             {
               "code": "77983-5",
               "system": "http://loinc.org",
-              "display": "Country of usual residence"
+              "display": "Country of usual residence [Location]"
             }
           ]
         },
@@ -3156,7 +3156,7 @@
           "coding": [
             {
               "code": "GB",
-              "system": "urn:oid:1.0.3166.1.2.2",
+              "system": "http://terminology.hl7.org/CodeSystem/iso3166-1edition2alpha2",
               "display": "United Kingdom of Great Britain and Northern Ireland"
             }
           ]
@@ -3198,7 +3198,7 @@
             {
               "code": "186034007",
               "system": "http://snomed.info/sct",
-              "display": "Ethnicity / related nationality data (observable entity)"
+              "display": "Ethnicity / related nationality data"
             }
           ]
         },
@@ -3206,7 +3206,7 @@
           "coding": [
             {
               "code": "AU",
-              "system": "urn:oid:1.0.3166.1.2.2",
+              "system": "http://terminology.hl7.org/CodeSystem/iso3166-1edition2alpha2",
               "display": "Australia"
             }
           ]
@@ -3248,7 +3248,7 @@
             {
               "code": "69856-3",
               "system": "http://loinc.org",
-              "display": "Are you deaf, or do you have serious difficulty hearing [HHS.ACA Section 4302]"
+              "display": "Are you deaf, or do you have serious difficulty hearing"
             }
           ]
         },
@@ -3291,7 +3291,7 @@
             {
               "code": "21843-8",
               "system": "http://loinc.org",
-              "display": "Usual Occupation"
+              "display": "History of Usual occupation"
             }
           ]
         },
@@ -3302,12 +3302,12 @@
           "coding": [
             {
               "code": "3600",
-              "system": "urn:oid:2.16.840.1.113883.6.240",
+              "system": "http://terminology.hl7.org/CodeSystem/USCOC",
               "display": "Nursing, psychiatric, and home health aides"
             },
             {
               "code": "31-1014.00.007136",
-              "system": "urn:oid:2.16.840.1.114222.4.5.327",
+              "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
               "display": "Certified Nursing Assistant (CNA) [Nursing Assistants]"
             }
           ]
@@ -3319,7 +3319,7 @@
                 {
                   "code": "21844-6",
                   "system": "http://loinc.org",
-                  "display": "Usual Industry"
+                  "display": "History of Usual industry"
                 }
               ]
             },
@@ -3327,12 +3327,12 @@
               "coding": [
                 {
                   "code": "8270",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.315",
+                  "system": "http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010",
                   "display": "Nursing care facilities"
                 },
                 {
                   "code": "621610.008495",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.327",
+                  "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
                   "display": "Home nursing services"
                 }
               ]
@@ -3423,12 +3423,12 @@
           "coding": [
             {
               "code": "3600",
-              "system": "urn:oid:2.16.840.1.113883.6.240",
+              "system": "http://terminology.hl7.org/CodeSystem/USCOC",
               "display": "Nursing, psychiatric, and home health aides"
             },
             {
               "code": "31-1014.00.007136",
-              "system": "urn:oid:2.16.840.1.114222.4.5.327",
+              "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
               "display": "Certified Nursing Assistant (CNA) [Nursing Assistants]"
             }
           ]
@@ -3452,7 +3452,7 @@
                 {
                   "code": "86188-0",
                   "system": "http://loinc.org",
-                  "display": "Occupation Industry"
+                  "display": "History of Occupation industry"
                 }
               ]
             },
@@ -3460,12 +3460,12 @@
               "coding": [
                 {
                   "code": "8270",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.315",
+                  "system": "http://terminology.hl7.org/CodeSystem/PHIndustryCDCCensus2010",
                   "display": "Nursing care facilities"
                 },
                 {
                   "code": "621610.008495",
-                  "system": "urn:oid:2.16.840.1.114222.4.5.327",
+                  "system": "http://terminology.hl7.org/CodeSystem/PHOccupationalDataForHealthODH",
                   "display": "Home nursing services"
                 }
               ]
@@ -3510,7 +3510,7 @@
             {
               "code": "74165-2",
               "system": "http://loinc.org",
-              "display": "History of Employment Status"
+              "display": "History of employment status NIOSH"
             }
           ]
         },
@@ -3521,7 +3521,7 @@
           "coding": [
             {
               "code": "Employed",
-              "system": "urn:oid:2.16.840.1.113883.5.1063",
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationValue",
               "display": "Employed"
             }
           ]
@@ -3563,7 +3563,7 @@
             {
               "code": "8480-6",
               "system": "http://loinc.org",
-              "display": "SYSTOLIC BLOOD PRESSURE"
+              "display": "Systolic blood pressure"
             }
           ]
         },
@@ -3609,7 +3609,7 @@
             {
               "code": "8462-4",
               "system": "http://loinc.org",
-              "display": "DIASTOLIC BLOOD PRESSURE"
+              "display": "Diastolic blood pressure"
             }
           ]
         },
@@ -3655,7 +3655,7 @@
             {
               "code": "8867-4",
               "system": "http://loinc.org",
-              "display": "HEART RATE"
+              "display": "Heart rate"
             }
           ]
         },
@@ -3701,7 +3701,7 @@
             {
               "code": "8310-5",
               "system": "http://loinc.org",
-              "display": "BODY TEMPERATURE"
+              "display": "Body temperature"
             }
           ]
         },
@@ -3747,7 +3747,7 @@
             {
               "code": "9279-1",
               "system": "http://loinc.org",
-              "display": "RESPIRATORY RATE"
+              "display": "Respiratory rate"
             }
           ]
         },
@@ -3793,7 +3793,7 @@
             {
               "code": "8302-2",
               "system": "http://loinc.org",
-              "display": "HEIGHT"
+              "display": "Body height"
             }
           ]
         },
@@ -3839,7 +3839,7 @@
             {
               "code": "3141-9",
               "system": "http://loinc.org",
-              "display": "WEIGHT"
+              "display": "Body weight Measured"
             }
           ]
         },
@@ -3885,7 +3885,7 @@
             {
               "code": "39156-5",
               "system": "http://loinc.org",
-              "display": "BODY MASS INDEX"
+              "display": "Body mass index (BMI) [Ratio]"
             }
           ]
         },
@@ -3931,7 +3931,7 @@
             {
               "code": "2710-2",
               "system": "http://loinc.org",
-              "display": "OXYGEN SATURATION"
+              "display": "Deprecated Oxygen saturation in Capillary blood by Oximetry"
             }
           ]
         },
@@ -3964,7 +3964,7 @@
                   {
                     "code": "409524006",
                     "system": "http://snomed.info/sct",
-                    "display": "Airborne precautions (procedure)"
+                    "display": "Airborne precautions"
                   }
                 ]
               },
@@ -4008,7 +4008,7 @@
             {
               "code": "80825-3",
               "system": "http://loinc.org",
-              "display": "Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method"
+              "display": "ZIKV E gene NAA+probe Ql (S)"
             }
           ]
         },
@@ -4036,7 +4036,7 @@
             {
               "code": "233573008",
               "system": "http://snomed.info/sct",
-              "display": "Extracorporeal membrane oxygenation (procedure)"
+              "display": "Extracorporeal membrane oxygenation"
             }
           ]
         },
@@ -4064,7 +4064,7 @@
             {
               "code": "385857005",
               "system": "http://snomed.info/sct",
-              "display": "Ventilator care and adjustment (regime/therapy)"
+              "display": "Ventilator care and adjustment"
             }
           ]
         },
@@ -4112,7 +4112,7 @@
                 {
                   "code": "309266009",
                   "system": "http://snomed.info/sct",
-                  "display": "anal polyp"
+                  "display": "Anal polyp specimen"
                 }
               ]
             }
@@ -4124,7 +4124,7 @@
                 {
                   "code": "57259009",
                   "system": "http://snomed.info/sct",
-                  "display": "bile duct"
+                  "display": "Gallbladder bile"
                 }
               ]
             }
@@ -4212,7 +4212,7 @@
             "coding": [
               {
                 "code": "1160-1",
-                "system": "urn:oid:2.16.840.1.113883.6.259",
+                "system": "http://terminology.hl7.org/CodeSystem/hsloc",
                 "display": "Community Health and Hospitals"
               }
             ]
@@ -4240,7 +4240,7 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
                 "display": "ORAL"
               }
             ]
@@ -4271,7 +4271,7 @@
             {
               "code": "197380",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Atenolol 25 MG Oral Tablet"
+              "display": "atenolol 25 MG Oral Tablet"
             }
           ]
         }
@@ -4350,7 +4350,7 @@
             {
               "code": "233573008",
               "system": "http://snomed.info/sct",
-              "display": "Extracorporeal membrane oxygenation (procedure)"
+              "display": "Extracorporeal membrane oxygenation"
             }
           ]
         },
@@ -4382,7 +4382,7 @@
             {
               "code": "409524006",
               "system": "http://snomed.info/sct",
-              "display": "Airborn precautions (procedure)"
+              "display": "Airborne precautions"
             }
           ]
         },
@@ -4424,7 +4424,7 @@
             {
               "code": "385857005",
               "system": "http://snomed.info/sct",
-              "display": "Ventilator care and adjustment (regime/therapy)"
+              "display": "Ventilator care and adjustment"
             }
           ]
         },
@@ -4455,7 +4455,7 @@
           "coding": [
             {
               "code": "106",
-              "system": "urn:oid:2.16.840.1.113883.12.292",
+              "system": "http://hl7.org/fhir/sid/cvx",
               "display": "diphtheria, tetanus toxoids and acellular pertussis vaccine, 5 pertussis antigens"
             }
           ]
@@ -4483,7 +4483,7 @@
           "coding": [
             {
               "code": "24",
-              "system": "urn:oid:2.16.840.1.113883.12.292",
+              "system": "http://hl7.org/fhir/sid/cvx",
               "display": "anthrax vaccine"
             }
           ]

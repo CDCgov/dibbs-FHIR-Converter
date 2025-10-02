@@ -57,10 +57,15 @@
         ],
         "section":
         [
+            {% assign templatesInComp = "" %}
             {% assign components = composition.component.structuredBody.component | to_array -%}
             {% for component in components -%}
             {
                 {% if component.section -%}
+                    {% assign templateIds = component.section.templateId | to_array %}
+                    {% for templateId in templateIds -%}
+                        {% assign templatesInComp = templatesInComp | append: templateId.root | append: "|" %}
+                    {% endfor %}
                     {% if component.section.id.root -%}
                     "id": "{{ component.section.id.root }}",
                     {% else -%}
@@ -244,6 +249,10 @@
                 {% endif -%}
             },
             {% endfor -%}
+            {% assign templatesInComp = templatesInComp | split: "|" | uniq | join: "|" %}
+            {% include 'Utils/AddMissingRequiredSections' | templatesInComp: templatesInComp %}
+
+            {% comment %} Reportability Response Information Section (from RR) {% endcomment %}
             {
                 {% if composition.section.code.code and composition.section.code.code == "88085-6" -%}
                 {% assign sectionId = composition.section | to_json_string | generate_uuid -%}
@@ -255,7 +264,6 @@
                 },
                 "extension":
                 [
-
                     {
                         "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
                         "valueCodeableConcept":

@@ -1,0 +1,27 @@
+{%- comment -%} See https://hl7.org/fhir/us/ecr/2.1.2/StructureDefinition-eicr-composition.html for finding the corresponding LOINC code for a Composition section {%- endcomment -%}
+
+{%- assign code = id | default: "" -%}
+{%- assign display = "" -%}
+    {%- case id -%}
+        {%- when "2.16.840.1.113883.10.20.22.2.12" -%} {% comment %} Reason for Visit {% endcomment %}
+            "code": "29299-5",
+            "display": "Reason for visit Narrative",
+        {%- when "1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1" -%} {% comment %} Chief Complaint {% endcomment %}
+            "code": "10154-3",
+            "display": "Chief complaint Narrative - Reported",
+        {%- when "1.3.6.1.4.1.19376.1.5.3.1.3.4" -%} {% comment %} History of Present Illness {% endcomment %}
+            "code": "10164-2",
+            "display": "History of Present illness Narrative",
+        {%- when "2.16.840.1.113883.10.20.22.2.5.1" -%} {% comment %} Problem Section - entries required {% endcomment %}
+            "code": "11450-4",
+            "display": "Problem list - Reported",
+        {%- when "2.16.840.1.113883.10.20.22.2.38" -%} {% comment %} Medications Administered {% endcomment %}
+            "code": "29549-3",
+            "display": "Medication administered Narrative",
+        {%- when "2.16.840.1.113883.10.20.22.2.3.1" -%} {% comment %} Results Section - entries required {% endcomment %}
+            "code": "30954-2",
+            "display": "Relevant diagnostic tests/laboratory data note",
+        {%- when "2.16.840.1.113883.10.20.22.2.17" -%} {% comment %} Social History {% endcomment %}
+            "code": "29762-2",
+            "display": "Social history note",
+    {%- endcase -%}

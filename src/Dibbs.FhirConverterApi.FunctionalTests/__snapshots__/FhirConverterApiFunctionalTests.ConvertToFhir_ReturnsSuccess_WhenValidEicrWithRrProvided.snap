@@ -250,6 +250,21 @@
                 "mode": "snapshot"
               },
               {
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://loinc.org",
+                      "code": "10154-3",
+                      "display": "Chief complaint Narrative - Reported"
+                    }
+                  ]
+                },
+                "text": {
+                  "status": "empty",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">No Information Available</div>"
+                }
+              },
+              {
                 "id": "d62f4d09-f06d-5033-f372-01683abba2c8",
                 "title": "Reportability Response Information Section",
                 "text": {

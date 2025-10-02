@@ -32,13 +32,6 @@ public class EcrProcessor
 
         try
         {
-            // Check for eICR Processing Status entry (required & only available in RR)
-            if (ecrXDocument.XPathSelectElement("//*[@root=\"2.16.840.1.113883.10.20.15.2.3.29\"]") is not null)
-            {
-                Console.WriteLine("This eCR has already been merged with RR data.");
-                return ecrXDocument;
-            }
-
             // If eICR >=R3, remove (optional) RR section that came from eICR
             // This is duplicate/incomplete info from RR
             var ecrVersion = ecrXDocument.XPathEvaluate("string(//*[@root=\"2.16.840.1.113883.10.20.15.2\"]/@extension)")?.ToString();
@@ -51,6 +44,13 @@ public class EcrProcessor
                     names);
 
                 rrFromEicr?.Remove();
+            }
+
+            // Check for eICR Processing Status entry (required & only available in RR)
+            if (ecrXDocument.XPathSelectElement("//*[@root=\"2.16.840.1.113883.10.20.15.2.3.29\"]") is not null)
+            {
+                Console.WriteLine("This eCR has already been merged with RR data.");
+                return ecrXDocument;
             }
 
             // Create the tags for elements we'll be looking for

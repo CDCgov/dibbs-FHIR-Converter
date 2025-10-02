@@ -264,7 +264,6 @@
                 },
                 "extension":
                 [
-                    {% comment %} TODO ANGELA: Codeable concept is repeated? {% endcomment %}
                     {
                         "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
                         "valueCodeableConcept":
@@ -276,7 +275,6 @@
                     },
                     {
                         "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
-                        {% comment %} TODO ANGELA: Extra extension? {% endcomment %}
                         "extension": [
                             {% assign rrentries = composition.section.entry | to_array -%}
                             {% for rrentry in rrentries -%}

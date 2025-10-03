@@ -6,7 +6,7 @@
 {%- endif -%}
 {%- assign normalizedBirthSex = birthSexRawValue | downcase | strip -%}
 
-{%- assign normalizedBirthSex  = normalizedBirthSex | get_property: 'ValueSet/Sex', 'code' -%}
+{%- assign normalizedBirthSex  = normalizedBirthSex | get_property: 'ValueSet/BirthSex', 'code' -%}
 
 {%- assign dataAbsentNullFlavor = birthSexNullFlavor | default: 'UNK' -%}
 "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",

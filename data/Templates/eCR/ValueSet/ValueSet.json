@@ -364,7 +364,7 @@
         "code": ""
       }
     },
-    "ValueSet/Sex": {
+    "ValueSet/BirthSex": {
       "m": {
         "code": "M"
       },

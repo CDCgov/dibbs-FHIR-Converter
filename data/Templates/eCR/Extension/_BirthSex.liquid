@@ -5,15 +5,9 @@
     {%- assign birthSexNullFlavor = birthSObs.value.nullFlavor | default: birthSObs.nullFlavor | default: '' | upcase | strip -%}
 {%- endif -%}
 {%- assign normalizedBirthSex = birthSexRawValue | downcase | strip -%}
-{%- if normalizedBirthSex == 'm' or normalizedBirthSex == 'male' -%}
-    {%- assign normalizedBirthSex = 'M' -%}
-{%- elsif normalizedBirthSex == 'f' or normalizedBirthSex == 'female' -%}
-    {%- assign normalizedBirthSex = 'F' -%}
-{%- elsif normalizedBirthSex == 'u' or normalizedBirthSex == 'unk' or normalizedBirthSex == 'unknown' -%}
-    {%- assign normalizedBirthSex = 'UNK' -%}
-{%- else -%}
-    {%- assign normalizedBirthSex = '' -%}
-{%- endif -%}
+
+{%- assign normalizedBirthSex  = normalizedBirthSex | get_property: 'ValueSet/Sex', 'code' -%}
+
 {%- assign dataAbsentNullFlavor = birthSexNullFlavor | default: 'UNK' -%}
 "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
 {%- if normalizedBirthSex != '' -%}

@@ -93,7 +93,7 @@
         [
             {% assign languageCommunications = patientRole.patient.languageCommunication | to_array -%}
             {% for languageCommunication in languageCommunications -%}
-                {%- assign langCode        = languageCommunication.languageCode.code | downcase | strip | default: '' -%}
+                {%- assign langCode       = languageCommunication.languageCode.code | downcase | strip | default: '' -%}
                 {%- assign mappedCode     = langCode | get_property: 'ValueSet/Language', 'code' -%}
                 {%- assign mappedDisplay  = langCode | get_property: 'ValueSet/Language', 'display' -%}
                 {%- assign cdaNullFlavor  = languageCommunication.languageCode.nullFlavor | upcase | strip | default: '' -%}

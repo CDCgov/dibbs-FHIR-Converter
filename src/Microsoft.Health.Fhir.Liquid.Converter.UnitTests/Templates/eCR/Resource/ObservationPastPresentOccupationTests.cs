@@ -74,7 +74,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var occupation = (CodeableConcept)actualFhir.Value;
 
             Assert.Equal("3600", occupation.Coding.First().Code);
-            Assert.Equal("urn:oid:2.16.840.1.113883.6.240", occupation.Coding.First().System);
+            Assert.Equal("http://terminology.hl7.org/CodeSystem/USCOC", occupation.Coding.First().System);
             Assert.Equal("Nursing, psychiatric, and home health aides", occupation.Coding.First().Display);
         }
     }

@@ -70,7 +70,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("99999", actualFhir.Address.PostalCode);
 
             Assert.Equal("1160-1", actualFhir.Type.First().Coding.First().Code);
-            Assert.Equal("urn:oid:2.16.840.1.113883.6.259", actualFhir.Type.First().Coding.First().System);
+            Assert.Equal("http://terminology.hl7.org/CodeSystem/hsloc", actualFhir.Type.First().Coding.First().System);
             Assert.Equal("Community Health and Hospitals", actualFhir.Type.First().Coding.First().Display);
 
             // Not required fields: telecom
@@ -130,7 +130,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("99999", actualFhir.Address.PostalCode);
 
             Assert.Equal("OF", actualFhir.Type.First().Coding.First().Code);
-            Assert.Equal("urn:oid:2.16.840.1.113883.5.111", actualFhir.Type.First().Coding.First().System);
+            System.Console.WriteLine(actualFhir.Type.First().Coding.First().System);
+            Assert.Equal("http://terminology.hl7.org/CodeSystem/v3-RoleCode", actualFhir.Type.First().Coding.First().System);
             Assert.Equal("Outpatient facility", actualFhir.Type.First().Coding.First().Display);
 
             // Not required fields: telecom

@@ -112,7 +112,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             );
 
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("urn:oid:2.16.840.1.114222.4.5.274", actualFhir.Code?.Coding?.First().System);
+            Assert.Equal("https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274", actualFhir.Code?.Coding?.First().System);
             Assert.Equal("Both patient home address and provider facility address", actualFhir.Code?.Coding?.First().Display);
             Assert.Equal("RRVS7", actualFhir.Code?.Coding?.First().Code);
 

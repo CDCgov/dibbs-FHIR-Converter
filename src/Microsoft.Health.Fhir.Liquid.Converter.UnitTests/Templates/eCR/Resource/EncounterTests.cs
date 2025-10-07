@@ -376,7 +376,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 var actualFhir = ConvertEncompassingEncounter(eicr04152020EncompassingEncounterXml);
                 Assert.Equal("PHC2237", actualFhir.Class.Code);
                 Assert.Equal(
-                    "urn:oid:2.16.840.1.114222.4.5.274",
+                    "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
                     actualFhir.Class.System
                 );
                 Assert.Equal("External Encounter", actualFhir.Class.Display);

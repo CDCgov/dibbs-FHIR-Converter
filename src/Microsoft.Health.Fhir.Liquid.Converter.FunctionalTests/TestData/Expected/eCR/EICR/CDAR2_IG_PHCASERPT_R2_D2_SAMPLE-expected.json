@@ -14,10 +14,10 @@
   "timestamp": "2018-11-07T09:44:21-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:2b770e9c-b18a-9525-38cb-91f54fc00591",
+      "fullUrl": "urn:uuid:aaa69599-0ffa-78ec-738e-9cc338cf9b37",
       "resource": {
         "resourceType": "Composition",
-        "id": "2b770e9c-b18a-9525-38cb-91f54fc00591",
+        "id": "aaa69599-0ffa-78ec-738e-9cc338cf9b37",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -61,7 +61,7 @@
         "confidentiality": "N",
         "section": [
           {
-            "id": "65430f0b-1a9a-b6bd-9648-ab44350d5794",
+            "id": "c3d2f642-e339-8c65-1d0d-ff7a6a0eeb45",
             "title": "Plan of Treatment",
             "text": {
               "status": "generated",
@@ -76,7 +76,12 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "CarePlan/cb80de39-1dcf-4c6a-417a-bd959b762dc2"
+              }
+            ]
           },
           {
             "id": "1caa3252-d724-801f-5f8c-8cbf7dad60f4",
@@ -349,6 +354,21 @@
               ]
             },
             "mode": "snapshot"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "10154-3",
+                  "display": "Chief complaint Narrative - Reported"
+                }
+              ]
+            },
+            "text": {
+              "status": "empty",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">No Information Available</div>"
+            }
           }
         ],
         "subject": {
@@ -2688,6 +2708,53 @@
           "value": 98,
           "unit": "%"
         },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cb80de39-1dcf-4c6a-417a-bd959b762dc2",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "cb80de39-1dcf-4c6a-417a-bd959b762dc2",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "activity": [
+          {
+            "reference": {
+              "reference": "ServiceRequest/4c848e74-e9e1-f1fb-051c-c5b52bef3557"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4c848e74-e9e1-f1fb-051c-c5b52bef3557",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "4c848e74-e9e1-f1fb-051c-c5b52bef3557",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b52bee94-c34b-4e2c-8c15-5ad9d6def205"
+          }
+        ],
+        "status": "active",
+        "intent": "plan",
+        "code": {
+          "coding": [
+            {
+              "code": "80825-3",
+              "system": "http://loinc.org",
+              "display": "Zika virus envelope (E) gene [Presence] in Serum by Probe and target amplification method"
+            }
+          ]
+        },
+        "occurrenceDateTime": "2018-11-08",
         "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }

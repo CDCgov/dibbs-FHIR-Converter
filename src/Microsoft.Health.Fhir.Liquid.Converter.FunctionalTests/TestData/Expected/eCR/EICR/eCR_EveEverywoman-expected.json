@@ -14,10 +14,10 @@
   "timestamp": "2020-11-07T09:44:21-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:2c8b8ccb-bc2e-3c42-6fe5-66e5ffb2c087",
+      "fullUrl": "urn:uuid:52e6fd94-fac1-e99e-c4d4-94eebdea093d",
       "resource": {
         "resourceType": "Composition",
-        "id": "2c8b8ccb-bc2e-3c42-6fe5-66e5ffb2c087",
+        "id": "52e6fd94-fac1-e99e-c4d4-94eebdea093d",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -454,24 +454,6 @@
                 "reference": "Observation/26d05bcc-1b0f-fc8a-a85e-4c6c6512478f"
               }
             ]
-          },
-          {
-            "id": "da0ea5c7-14e0-2a20-10bf-a7f460548b37",
-            "title": "Reportability Response Information Section",
-            "text": {
-              "status": "generated",
-              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><thead><tr><th>TODO</th></tr></thead><tbody><tr><td>TODO</td></tr></tbody></table></div>"
-            },
-            "code": {
-              "coding": [
-                {
-                  "code": "88085-6",
-                  "system": "http://loinc.org",
-                  "display": "Reportability response report Document Public health"
-                }
-              ]
-            },
-            "mode": "snapshot"
           },
           {
             "id": "73edfe11-ed5f-eea4-52b7-d79e77d6e1ad",

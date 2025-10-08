@@ -22,8 +22,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             // from 3.1 spec
             var xmlStr = @"
-            <observation 
-                classCode=""OBS"" 
+            <observation
+                classCode=""OBS""
                 moodCode=""EVN""
                 xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                 xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
@@ -92,7 +92,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal("264379009", value.Coding.First().Code);
             Assert.Equal("http://snomed.info/sct", value.Coding.First().System);
-            Assert.Equal("Sports stadium (environment)", value.Coding.First().Display);
+            Assert.Equal("Sports stadium", value.Coding.First().Display);
             Assert.Equal("City Football Stadium", value.Text);
 
             var extensions = actualFhir.Extension;
@@ -113,8 +113,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             ";
             // from 3.1 spec
             var xmlStr = @$"
-            <observation 
-                classCode=""OBS"" 
+            <observation
+                classCode=""OBS""
                 moodCode=""EVN""
                 xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                 xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
@@ -217,8 +217,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             ";
             // from 3.1 spec
             var xmlStr = @$"
-            <observation 
-                classCode=""OBS"" 
+            <observation
+                classCode=""OBS""
                 moodCode=""EVN""
                 xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                 xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
@@ -296,7 +296,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 "http://hl7.org/fhir/StructureDefinition/practitioner-animalSpecies",
                 animalFhir.Extension[0].Url);
             var value = (CodeableConcept)animalFhir.Extension[0].Value;
-            Assert.Equal("Wild mink (organism)", value.Coding[0].Display);
+            Assert.Equal("Wild mink", value.Coding[0].Display);
             Assert.Equal("35794008", value.Coding[0].Code);
         }
     }

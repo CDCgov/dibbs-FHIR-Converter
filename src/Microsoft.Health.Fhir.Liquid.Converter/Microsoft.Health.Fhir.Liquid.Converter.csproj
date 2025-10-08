@@ -6,7 +6,7 @@
     <IsPackable>false</IsPackable>
     <Nullable>annotations</Nullable>
   </PropertyGroup>
-  
+
 
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.8.0" />
@@ -52,6 +52,12 @@
 
   <ItemGroup>
     <Content Include="Loinc.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Snomed.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

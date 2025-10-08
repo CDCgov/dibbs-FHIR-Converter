@@ -19,8 +19,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             // from 3.1 spec
             var xmlStr = @"
-            <observation 
-                classCode=""OBS"" 
+            <observation
+                classCode=""OBS""
                 moodCode=""EVN""
                 xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                 xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
@@ -90,7 +90,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ObservationStatus.Final, actualFhir.Status);
 
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("Bordetella pertussis Ab [Units/volume] in Serum", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("B. pertussis Ab Qn (S)", actualFhir.Code?.Coding?.First().Display);
             Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
 
 
@@ -123,8 +123,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             // from 3.1 spec
             var xmlStr = @"
-            <observation 
-                classCode=""OBS"" 
+            <observation
+                classCode=""OBS""
                 moodCode=""EVN""
                 xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                 xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
@@ -160,7 +160,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ObservationStatus.Final, actualFhir.Status);
 
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("Height", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("Body height", actualFhir.Code?.Coding?.First().Display);
             Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
 
 

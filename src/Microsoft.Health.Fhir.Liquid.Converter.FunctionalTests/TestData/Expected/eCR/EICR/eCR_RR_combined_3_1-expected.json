@@ -1138,22 +1138,6 @@
             ]
           },
           {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-            "extension": [
-              {
-                "url": "value",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "M",
-                      "system": "urn:oid:2.16.840.1.113883.5.1"
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension",
             "extension": [
               {
@@ -1161,6 +1145,10 @@
                 "valueString": "Not on file"
               }
             ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
           }
         ],
         "address": [

@@ -640,20 +640,7 @@
               },
               {
                 "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-                "extension": [
-                  {
-                    "url": "value",
-                    "valueCodeableConcept": {
-                      "coding": [
-                        {
-                          "code": "M",
-                          "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
-                          "display": "Male"
-                        }
-                      ]
-                    }
-                  }
-                ]
+                "valueCode": "M"
               }
             ],
             "address": [

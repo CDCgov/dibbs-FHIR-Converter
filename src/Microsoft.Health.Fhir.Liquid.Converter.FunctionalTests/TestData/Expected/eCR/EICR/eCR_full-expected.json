@@ -361,7 +361,7 @@
             "coding": [
               {
                 "code": "HOSP",
-                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                "system": "urn:oid:2.16.840.1.113883.5.111",
                 "display": "Hospital"
               }
             ]
@@ -603,7 +603,7 @@
               "coding": [
                 {
                   "code": "1013",
-                  "system": "http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation",
+                  "system": "urn:oid:2.16.840.1.113883.5.1076",
                   "display": "Christian (non-Catholic, non-specific)"
                 }
               ]
@@ -618,7 +618,7 @@
                   "coding": [
                     {
                       "code": "M",
-                      "system": "http://terminology.hl7.org/CodeSystem/v3-AdministrativeGender",
+                      "system": "urn:oid:2.16.840.1.113883.5.1",
                       "display": "Male"
                     }
                   ]
@@ -709,7 +709,7 @@
             "coding": [
               {
                 "code": "C38288",
-                "system": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl",
+                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
                 "display": "IM"
               }
             ]

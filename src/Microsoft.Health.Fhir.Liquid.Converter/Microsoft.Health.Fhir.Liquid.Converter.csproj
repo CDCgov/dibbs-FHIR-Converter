@@ -68,10 +68,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="CodeSystems.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
 </Project>

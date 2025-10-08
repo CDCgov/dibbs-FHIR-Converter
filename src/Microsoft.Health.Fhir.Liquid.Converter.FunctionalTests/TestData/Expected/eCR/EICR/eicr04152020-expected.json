@@ -323,7 +323,7 @@
         "status": "unknown",
         "class": {
           "code": "PHC2237",
-          "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
+          "system": "urn:oid:2.16.840.1.114222.4.5.274",
           "display": "External Encounter"
         },
         "identifier": [
@@ -876,11 +876,11 @@
             },
             {
               "code": "25493",
-              "system": "http://terminology.hl7.org/CodeSystem/mddid"
+              "system": "urn:oid:2.16.840.1.113883.6.253"
             },
             {
               "code": "57200005100320",
-              "system": "http://terminology.hl7.org/CodeSystem/MGPI"
+              "system": "urn:oid:2.16.840.1.113883.6.68"
             },
             {
               "code": "3022",
@@ -892,7 +892,7 @@
             },
             {
               "code": "00093005401",
-              "system": "http://hl7.org/fhir/sid/ndc"
+              "system": "urn:oid:2.16.840.1.113883.6.69"
             }
           ],
           "text": "(BUSPIRONE HCL) 10 MG TABS"
@@ -1058,11 +1058,11 @@
             },
             {
               "code": "28360",
-              "system": "http://terminology.hl7.org/CodeSystem/mddid"
+              "system": "urn:oid:2.16.840.1.113883.6.253"
             },
             {
               "code": "36100030000310",
-              "system": "http://terminology.hl7.org/CodeSystem/MGPI"
+              "system": "urn:oid:2.16.840.1.113883.6.68"
             },
             {
               "code": "4643",
@@ -1074,7 +1074,7 @@
             },
             {
               "code": "00143126701",
-              "system": "http://hl7.org/fhir/sid/ndc"
+              "system": "urn:oid:2.16.840.1.113883.6.69"
             }
           ],
           "text": "(LISINOPRIL) 10 MG TABS"
@@ -1226,11 +1226,11 @@
             },
             {
               "code": "A54.9",
-              "system": "http://terminology.hl7.org/CodeSystem/icd10CM"
+              "system": "urn:oid:2.16.840.1.113883.6.90"
             },
             {
               "code": "098.0",
-              "system": "http://hl7.org/fhir/sid/icd-9-cm"
+              "system": "urn:oid:2.16.840.1.113883.6.103"
             },
             {
               "code": "ICD-098.0",

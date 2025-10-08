@@ -29,7 +29,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         private static Dictionary<string, string>? loincDict;
         private static Dictionary<string, string>? snomedDict;
         private static Dictionary<string, string>? rxnormDict;
-        private static Dictionary<string, string>? codeSystemDict;
 
         // Items from the filter could be arrays or objects, process them to be the same
         private static List<Dictionary<string, object>> ProcessItem(object item)
@@ -538,16 +537,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         public static string? GetRxnormName(string code)
         {
             return GetTerminology(code, rxnormDict, "rxnorm.csv");
-        }
-
-        /// <summary>
-        /// Retrieves the name associated with the specified RxNorm code from the RxNorm dictionary.
-        /// </summary>
-        /// <param name="code">The RxNorm code for which to retrieve the name.</param>
-        /// <returns>The name associated with the specified RxNorm code, or null if the code is not found in the dictionary.</returns>
-        public static string? GetCodeSystem(string oid)
-        {
-            return GetTerminology(oid, codeSystemDict, "CodeSystems.csv");
         }
 
         /// <summary>

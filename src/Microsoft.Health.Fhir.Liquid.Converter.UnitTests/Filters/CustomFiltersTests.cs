@@ -234,16 +234,6 @@ public class CustomFilterTests
                 Assert.Equal("BITTER-3", actual);
             }
         }
-        public class GetCodeSystem()
-        {
-            [Fact]
-            public void ReturnsName()
-            {
-                var code = "2.16.840.1.113883.18.45";
-                var actual = Filters.GetCodeSystem(code);
-                Assert.Equal("http://terminology.hl7.org/CodeSystem/v2-0108", actual);
-            }
-        }
 
         public class GetRxNormName()
         {

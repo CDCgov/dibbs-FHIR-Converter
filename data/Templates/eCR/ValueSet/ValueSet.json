@@ -364,6 +364,32 @@
         "code": ""
       }
     },
+    "ValueSet/BirthSex": {
+      "m": {
+        "code": "M"
+      },
+      "male": {
+        "code": "M"
+      },
+      "f": {
+        "code": "F"
+      },
+      "female": {
+        "code": "F"
+      },
+      "u": {
+        "code": "UNK"
+      },
+      "unk": {
+        "code": "UNK"
+      },
+      "unknown": {
+        "code": "UNK"
+      },
+      "__default__": {
+        "code": ""
+      }
+    },
     "ValueSet/ImmunizationStatus": {
       "cancelled": {
         "code": "not-done"

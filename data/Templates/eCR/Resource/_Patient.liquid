@@ -37,17 +37,18 @@
             { {% include 'Extension/Race' Race: patientRole.patient -%} },
             { {% include 'Extension/Ethnicity' Ethnicity: patientRole.patient -%} },
             { {% include 'Extension/Religion' patient: patientRole.patient -%}},
+            {%- assign birthSexObs = '' -%}
             {% for entry in SOCIALOBS -%}
                 {% assign firstTemplate = entry.observation.templateId | to_array | first -%}
                 {% if firstTemplate.root == '2.16.840.1.113883.10.20.34.3.45' or entry.observation.code.code == '76691-5' -%}
                     { {% include 'Extension/GenderIdentity' gendIdOb: entry.observation -%} },
                 {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.2.3.48' -%}
                     { {% include 'Extension/TribalAffiliation' tribeAOb: entry.observation -%} },
-                {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.22.4.200' -%}
-                     { {% include 'Extension/BirthSex' birthSObs: entry.observation -%} },
+                {% elsif entry.observation.code.code == '76689-9' and birthSexObs == '' -%}
+                    {% assign birthSexObs = entry.observation -%}
                 {% endif -%}
             {% endfor -%}
-
+            { {% include 'Extension/BirthSex' birthSObs: birthSexObs -%} },
         ],
         "address":
         [
@@ -92,17 +93,20 @@
         [
             {% assign languageCommunications = patientRole.patient.languageCommunication | to_array -%}
             {% for languageCommunication in languageCommunications -%}
+                {%- assign langCode       = languageCommunication.languageCode.code | downcase | strip | default: '' -%}
+                {%- assign mappedCode     = langCode | get_property: 'ValueSet/Language', 'code' -%}
+                {%- assign mappedDisplay  = langCode | get_property: 'ValueSet/Language', 'display' -%}
+                {%- assign cdaNullFlavor  = languageCommunication.languageCode.nullFlavor | upcase | strip | default: '' -%}
+                {%- assign nullFlavorToUse = cdaNullFlavor | default: 'OTH' -%}
             {
                 "language":
                 {
-                    "coding":
-                    [
-                        {
-                            "system":"urn:ietf:bcp:47",
-                            "code":"{{ languageCommunication.languageCode.code | downcase | get_property: 'ValueSet/Language', , 'code'  }}",
-                            "display":"{{ languageCommunication.languageCode.code | downcase | get_property: 'ValueSet/Language', , 'display'  }}",
-                        },
-                    ],
+                    {%- if mappedCode != '' -%}
+                        "coding": [ { "system":"urn:ietf:bcp:47", "code":"{{ mappedCode }}", "display":"{{ mappedDisplay }}" } ]
+                    {%- else -%}
+                        "extension": [ {% include 'Extension/DataAbsentReason' nullFlavor: nullFlavorToUse -%} ],
+                        "text": "{{ languageCommunication.languageCode.displayName | default: languageCommunication.languageCode.code }}"
+                    {%- endif -%}
                 },
                 {% if languageCommunication.preferenceInd.value -%}
                     "preferred": {{ languageCommunication.preferenceInd.value }},

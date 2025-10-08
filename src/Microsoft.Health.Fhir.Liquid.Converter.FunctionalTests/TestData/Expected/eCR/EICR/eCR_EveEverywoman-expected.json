@@ -1344,23 +1344,6 @@
             ]
           },
           {
-            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-            "extension": [
-              {
-                "url": "value",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "F",
-                      "system": "urn:oid:2.16.840.1.113883.5.1",
-                      "display": "Female"
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension",
             "extension": [
               {
@@ -1393,6 +1376,10 @@
                 "valueBoolean": true
               }
             ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "F"
           }
         ],
         "address": [

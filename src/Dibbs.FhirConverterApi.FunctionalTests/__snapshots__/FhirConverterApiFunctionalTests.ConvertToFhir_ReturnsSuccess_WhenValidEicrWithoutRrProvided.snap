@@ -289,7 +289,7 @@
             "status": "unknown",
             "class": {
               "code": "PHC2237",
-              "system": "https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
               "display": "External Encounter"
             },
             "identifier": [
@@ -913,7 +913,7 @@
                   "coding": [
                     {
                       "code": "BRA",
-                      "system": "urn:iso:std:iso:3166",
+                      "system": "urn:oid:1.0.3166.1",
                       "display": "Brazil"
                     }
                   ]

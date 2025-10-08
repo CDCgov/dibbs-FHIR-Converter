@@ -176,7 +176,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.NotNull(actualFhir.Code);
             Assert.Equal("Contact with known case", actualFhir.Code?.Coding?.First().Display);
-            Assert.Equal("https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274", actualFhir.Code?.Coding?.First().System);
+            Assert.Equal("urn:oid:2.16.840.1.114222.4.5.274", actualFhir.Code?.Coding?.First().System);
 
             Assert.Equal("2020-11-09", (actualFhir.Effective as Period).Start);
             Assert.Equal("2020-11-13", (actualFhir.Effective as Period).End);
@@ -271,7 +271,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.NotNull(actualFhir.Code);
             Assert.Equal("Animal with confirmed or suspected case", actualFhir.Code?.Coding?.First().Display);
-            Assert.Equal("https://phinvads.cdc.gov/vads/ViewCodeSystem.action?id=2.16.840.1.114222.4.5.274", actualFhir.Code?.Coding?.First().System);
+            Assert.Equal("urn:oid:2.16.840.1.114222.4.5.274", actualFhir.Code?.Coding?.First().System);
 
             Assert.Equal("2020-11-09", (actualFhir.Effective as Period).Start);
             Assert.Equal("2020-11-13", (actualFhir.Effective as Period).End);

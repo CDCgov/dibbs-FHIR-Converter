@@ -58,6 +58,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json")
             );
             var codeMapping = TemplateUtility.ParseCodeMapping(codeContent);
+            Console.WriteLine(codeMapping);
             if (codeMapping?.Root?.NodeList?.First() != null)
             {
                 context["CodeMapping"] = codeMapping.Root.NodeList.First();

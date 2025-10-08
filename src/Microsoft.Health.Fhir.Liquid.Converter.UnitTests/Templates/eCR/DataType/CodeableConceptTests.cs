@@ -94,7 +94,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""coding"": [ { ""code"": ""49281-400-10"", ""system"": ""http://hl7.org/fhir/sid/ndc"", ""display"": """",}, ], ""text"": """",";
+                @"""coding"": [ { ""code"": ""49281-400-10"", ""system"": ""urn:oid:2.16.840.1.113883.6.69"", ""display"": """",}, ], ""text"": """",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 

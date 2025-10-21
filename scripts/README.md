@@ -4,7 +4,7 @@
 
 Updates the `src/Microsoft.Health.Fhir.Liquid.Converter/Loinc.csv` file. First download the Loinc database from here https://loinc.org/downloads/. Unzip file and locate the `LoincTable/Loinc.csv` file. Then run the script:
 ```
-python loinc_names.py /path/to//Loinc.csv
+python loinc_names.py /path/to/Loinc.csv
 ```
 
 Last ran on Loinc version 2.8.1

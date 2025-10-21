@@ -18,7 +18,7 @@ uv syc
 
 Once the Python environment is set up, download the Snomed database from here https://www.nlm.nih.gov/healthit/snomedct/us_edition.html. Unzip file, then run the script:
 ```
-python loinc_names.py /path/to//Loinc.csv
+python loinc_names.py /path/to/Loinc.csv
 ```
 
 Last ran on Snomed version 20250901

@@ -1668,20 +1668,6 @@
               "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
             }
           }
-        },
-        {
-          "fullUrl": "urn:uuid:eb16bc05-7e63-8e9f-c008-15ac52e714c7",
-          "resource": {
-            "resourceType": "Encounter",
-            "id": "eb16bc05-7e63-8e9f-c008-15ac52e714c7",
-            "status": "unknown",
-            "subject": {
-              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
-            },
-            "meta": {
-              "source": "ecr"
-            }
-          }
         }
       ]
     }

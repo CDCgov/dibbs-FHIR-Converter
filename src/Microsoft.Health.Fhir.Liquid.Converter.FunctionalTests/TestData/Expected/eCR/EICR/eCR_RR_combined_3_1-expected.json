@@ -480,6 +480,11 @@
               "reference": "Location/b1affa82-31b4-92c5-b881-76271fecbb39",
               "display": " Sissubo School Neighbourhood Laboratory"
             }
+          },
+          {
+            "location": {
+              "reference": "Location/cdf11765-5f1b-a972-9bf2-d91a64640fc5"
+            }
           }
         ],
         "serviceProvider": {
@@ -536,17 +541,27 @@
             "individual": {
               "reference": "PractitionerRole/2292332c-3705-aa46-e48d-453f81784d54"
             }
+          },
+          {
+            "individual": {
+              "reference": "Practitioner/143adc9c-ffdd-935a-29b2-eca1d1ebaf3f"
+            }
           }
         ],
         "diagnosis": [
           {
             "condition": {
-              "reference": "Condition/f7e19101-6043-0b0d-6661-340aa0e4b4ac"
+              "reference": "Condition/b04fce0b-0506-7d5e-59c8-db316acd86fd"
             }
           },
           {
             "condition": {
-              "reference": "Condition/5c19c722-3850-da4c-f3c4-9793e31ab05e"
+              "reference": "Condition/2a7be43f-d2b5-d6b1-6ef5-762321535b39"
+            }
+          },
+          {
+            "condition": {
+              "reference": "Condition/f644c661-edc8-a392-6de6-bfce24490ef8"
             }
           }
         ]
@@ -2689,64 +2704,6 @@
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:673d8d93-74d8-b67b-8616-8541c50cdd00",
-      "resource": {
-        "resourceType": "Encounter",
-        "id": "673d8d93-74d8-b67b-8616-8541c50cdd00",
-        "status": "unknown",
-        "class": {
-          "code": "AMB",
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode"
-        },
-        "identifier": [
-          {
-            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.3.698084.8",
-            "value": "XX692",
-            "assigner": {
-              "display": "EPIC"
-            }
-          }
-        ],
-        "period": {
-          "start": "1981-10-16T12:14:46-05:00"
-        },
-        "subject": {
-          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-        },
-        "participant": [
-          {
-            "individual": {
-              "reference": "Practitioner/143adc9c-ffdd-935a-29b2-eca1d1ebaf3f"
-            }
-          }
-        ],
-        "location": [
-          {
-            "location": {
-              "reference": "Location/cdf11765-5f1b-a972-9bf2-d91a64640fc5"
-            }
-          }
-        ],
-        "diagnosis": [
-          {
-            "condition": {
-              "reference": "Condition/b04fce0b-0506-7d5e-59c8-db316acd86fd"
-            }
-          },
-          {
-            "condition": {
-              "reference": "Condition/2a7be43f-d2b5-d6b1-6ef5-762321535b39"
-            }
-          },
-          {
-            "condition": {
-              "reference": "Condition/f644c661-edc8-a392-6de6-bfce24490ef8"
-            }
-          }
-        ]
       }
     },
     {

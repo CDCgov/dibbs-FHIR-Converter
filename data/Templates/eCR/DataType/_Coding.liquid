@@ -3,8 +3,8 @@
   {%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}
 {%- endcapture -%}
 {%- assign codeSystemName = codeSystemName | strip -%}
-{%- assign display = nil -%}
 "system": "{{- codeSystemName | prepend_id -}}",
+{%- assign display = nil -%}
 {%- if codeSystemName contains "loinc" -%}
   {%- assign display = Coding.code | get_loinc_name -%}
 {%- elsif codeSystemName contains "snomed" -%}

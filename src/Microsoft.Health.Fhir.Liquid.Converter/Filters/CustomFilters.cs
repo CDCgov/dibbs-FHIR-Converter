@@ -19,16 +19,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     {
         private static readonly HashSet<string> SupportedTags = new (StringComparer.OrdinalIgnoreCase) { "br", "li", "ol", "p", "span", "table", "tbody", "td", "textarea", "th", "thead", "tr", "u", "ul", "caption" };
         private static readonly Dictionary<string, string> ReplaceTags = new ()
-    {
-        { "list", "ul" },
-        { "item", "li" },
-        { "paragraph", "p" },
-        { "content", "span" },
-    };
+            {
+                { "list", "ul" },
+                { "item", "li" },
+                { "paragraph", "p" },
+                { "content", "span" },
+            };
 
-        private static Dictionary<string, string>? loincDict;
-        private static Dictionary<string, string>? snomedDict;
-        private static Dictionary<string, string>? rxnormDict;
+        private static string outDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        private static Dictionary<string, string> loincDict = CSVMapDictionary(Path.Combine(outDir, @"Loinc.csv"));
+        private static Dictionary<string, string> snomedDict = CSVMapDictionary(Path.Combine(outDir, @"Snomed.csv"));
+        private static Dictionary<string, string> rxnormDict = CSVMapDictionary(Path.Combine(outDir, @"rxnorm.csv"));
 
         // Items from the filter could be arrays or objects, process them to be the same
         private static List<Dictionary<string, object>> ProcessItem(object item)
@@ -500,11 +501,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             return csvData;
         }
 
-        private static string? GetTerminology(string? code, Dictionary<string, string>? terminologyDict, string csvFileName)
+        private static string? GetTerminology(string? code, Dictionary<string, string>? terminologyDict)
         {
             code = code?.Trim();
-            var outDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            terminologyDict ??= CSVMapDictionary(Path.Combine(outDir, csvFileName));
             terminologyDict.TryGetValue(code ?? string.Empty, out string? element);
             return element;
         }
@@ -516,7 +515,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         /// <returns>The name associated with the specified LOINC code, or null if the code is not found in the dictionary.</returns>
         public static string? GetLoincName(string? code)
         {
-            return GetTerminology(code, loincDict, "Loinc.csv");
+            return GetTerminology(code, loincDict);
         }
 
         /// <summary>
@@ -526,7 +525,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         /// <returns>The name associated with the specified Snomed code, or null if the code is not found in the dictionary.</returns>
         public static string? GetSnomedName(string? code)
         {
-            return GetTerminology(code, snomedDict, "Snomed.csv");
+            return GetTerminology(code, snomedDict);
         }
 
         /// <summary>
@@ -536,7 +535,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         /// <returns>The name associated with the specified RxNorm code, or null if the code is not found in the dictionary.</returns>
         public static string? GetRxnormName(string code)
         {
-            return GetTerminology(code, rxnormDict, "rxnorm.csv");
+            return GetTerminology(code, rxnormDict);
         }
 
         /// <summary>

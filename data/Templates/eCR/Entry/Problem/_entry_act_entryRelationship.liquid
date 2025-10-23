@@ -4,7 +4,6 @@
             {% assign conditionId = probRelationship.observation | to_json_string | generate_uuid -%}
             {% include 'Resource/Condition' conditionEntry: probRelationship.observation, ID: conditionId, text: text, relatedEntries: relatedEntries -%}
             {% include 'Reference/Condition/Subject' ID: conditionId, REF: fullPatientId -%}
-            {% assign isDiagnosis = diagnoses[probRelationship.observation.value.code] %}
         {% endif -%}
     {% endif -%}
 {% endif -%}

@@ -22,6 +22,7 @@
   {% comment %} Encompassing Encounter - Facility / Service Provider {% endcomment %}
   {% if encompassingEncounter.location.healthCareFacility -%}
     {% assign locationId = encompassingEncounter.location.healthCareFacility | to_json_string | generate_uuid -%}
+    {% assign facilityId = encompassingEncounter.location.healthCareFacility.id %}
     {% include 'Resource/LocationHealthCareFacility' location: encompassingEncounter.location.healthCareFacility ID: locationId -%}
     {% assign fullLocationId = locationId | prepend: 'Location/' -%}
     {% include 'Reference/Encounter/Location_Location' ID: encounterId, REF: fullLocationId, LOC: encompassingEncounter.location.healthCareFacility -%}

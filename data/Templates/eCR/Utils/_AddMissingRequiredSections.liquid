@@ -11,7 +11,7 @@
   {% endunless %}
 {% endfor %}
 
-{% if missingSectionIds %}
+{% if missingSectionIds != "" %}
   {% assign missingSectionIds = missingSectionIds | split: "|" %}
   {% for missingSectionId in missingSectionIds %}
     {

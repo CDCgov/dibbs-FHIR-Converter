@@ -61,7 +61,8 @@
             {% assign components = composition.component.structuredBody.component | to_array -%}
             {% for component in components -%}
             {
-                {% if component.section -%}
+                {% comment %} Section will be created if 1) section exists, AND 2) either null Flavor DNE OR section has entries {% endcomment %}
+                {% if component.section and component.section.nullFlavor == null or component.section.entry -%}
                     {% assign templateIds = component.section.templateId | to_array %}
                     {% for templateId in templateIds -%}
                         {% assign templatesInComp = templatesInComp | append: templateId.root | append: "|" %}
@@ -116,7 +117,6 @@
                             {% endfor %}
                         {% endif %}
                         {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2" %}
-                            {% assign print = "there's immunization" | print_object %}
                             {% assign entries = component.section.entry | to_array -%}
                             {% for entry in entries -%}
                                 {%- if entry.substanceAdministration -%}

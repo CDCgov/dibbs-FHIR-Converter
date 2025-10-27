@@ -105,7 +105,7 @@
                                 },
                             {% endfor %}
                         {% endif %}
-                    {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.44" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.44" %}
+                        {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.44" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.44" %}
                             {% assign entries = component.section.entry | to_array -%}
                             {% for entry in entries -%}
                                 {% assign medicationAdministrationId = entry.act.entryRelationship.substanceAdministration | to_json_string | generate_uuid -%}
@@ -115,7 +115,8 @@
                                 },
                             {% endfor %}
                         {% endif %}
-                        {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2.1" %}
+                        {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2" %}
+                            {% assign print = "there's immunization" | print_object %}
                             {% assign entries = component.section.entry | to_array -%}
                             {% for entry in entries -%}
                                 {%- if entry.substanceAdministration -%}

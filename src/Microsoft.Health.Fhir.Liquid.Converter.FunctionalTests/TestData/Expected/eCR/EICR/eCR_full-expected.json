@@ -14,10 +14,10 @@
   "timestamp": "2020-05-05T11:05:15-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:3dad2d9f-20c3-72a6-e9f6-37b9da3cf126",
+      "fullUrl": "urn:uuid:90be8ddc-f46c-6d22-3d92-4453e39d6efe",
       "resource": {
         "resourceType": "Composition",
-        "id": "3dad2d9f-20c3-72a6-e9f6-37b9da3cf126",
+        "id": "90be8ddc-f46c-6d22-3d92-4453e39d6efe",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -234,7 +234,7 @@
             ]
           },
           {
-            "id": "0e63823f-5012-8a41-fd2d-8ddbc94ed599",
+            "id": "b7609b19-9b48-8659-76b0-f2a1d4d076a5",
             "title": "Immunizations",
             "text": {
               "status": "generated",
@@ -249,7 +249,12 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Immunization/ad2218d0-6210-488e-c141-f5191e47d591"
+              }
+            ]
           },
           {
             "code": {
@@ -1037,6 +1042,55 @@
         "subject": {
           "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ad2218d0-6210-488e-c141-f5191e47d591",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "ad2218d0-6210-488e-c141-f5191e47d591",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e6f1ba43-c0ed-4b9b-9f12-f435d8ad8f92"
+          }
+        ],
+        "occurrenceDateTime": "1998-12-15",
+        "vaccineCode": {
+          "coding": [
+            {
+              "code": "166",
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "display": "influenza, intradermal, quadrivalent, preservative free, injectable"
+            }
+          ]
+        },
+        "lotNumber": "LOT12345",
+        "manufacturer": {
+          "reference": "Organization/b5c77b86-2764-79f9-10bf-5da5e63eb7c1"
+        },
+        "status": "completed",
+        "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "code": "C28161",
+              "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+              "display": "Intramuscular injection"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+        "name": "Sanofi Pasteur"
       }
     }
   ]

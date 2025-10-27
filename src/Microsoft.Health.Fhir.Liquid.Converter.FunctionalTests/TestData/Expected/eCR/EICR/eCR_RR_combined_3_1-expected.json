@@ -100,7 +100,12 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Immunization/c099eff8-da24-9e93-1961-f040da84ca62"
+              }
+            ]
           },
           {
             "id": "368CF1FF-DA66-11EF-B655-005056BE2511",
@@ -310,29 +315,6 @@
             ]
           },
           {
-            "id": "36C0CA42-DA66-11EF-B655-005056BE2511",
-            "title": "Admitting Diagnoses",
-            "text": {
-              "status": "generated",
-              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p id=\"nof31\">Not on file</p><small id=\"subTitle30\">documented in this encounter</small></div>"
-            },
-            "code": {
-              "coding": [
-                {
-                  "code": "46241-6",
-                  "system": "http://loinc.org",
-                  "display": "Hospital admission diagnosis Narrative - Reported"
-                },
-                {
-                  "code": "42347-5",
-                  "system": "http://loinc.org",
-                  "display": "Admission diagnosis (narrative)"
-                }
-              ]
-            },
-            "mode": "snapshot"
-          },
-          {
             "id": "cffd1a3b-142e-62cc-7d3d-621225bdf09c",
             "title": "Reason for Visit",
             "text": {
@@ -345,24 +327,6 @@
                   "code": "29299-5",
                   "system": "http://loinc.org",
                   "display": "REASON FOR VISIT"
-                }
-              ]
-            },
-            "mode": "snapshot"
-          },
-          {
-            "id": "36C1EC28-DA66-11EF-B655-005056BE2511",
-            "title": "Medications",
-            "text": {
-              "status": "generated",
-              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p id=\"nof35\">Not on file</p><small id=\"subTitle34\">removed</small></div>"
-            },
-            "code": {
-              "coding": [
-                {
-                  "code": "10160-0",
-                  "system": "http://loinc.org",
-                  "display": "History of Medication use Narrative"
                 }
               ]
             },

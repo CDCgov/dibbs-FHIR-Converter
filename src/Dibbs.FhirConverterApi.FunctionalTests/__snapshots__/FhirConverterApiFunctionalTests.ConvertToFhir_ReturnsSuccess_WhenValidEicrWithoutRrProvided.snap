@@ -83,24 +83,6 @@
                 "mode": "snapshot"
               },
               {
-                "id": "58d903bb-abb6-9ca8-944a-b434e5403814",
-                "title": "Encounters",
-                "text": {
-                  "status": "generated",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">No information</div>"
-                },
-                "code": {
-                  "coding": [
-                    {
-                      "code": "46240-8",
-                      "system": "http://loinc.org",
-                      "display": "History of encounters"
-                    }
-                  ]
-                },
-                "mode": "snapshot"
-              },
-              {
                 "id": "8c9db562-27fd-957c-e00a-ddc6373fec2e",
                 "title": "History of Present Illness",
                 "text": {

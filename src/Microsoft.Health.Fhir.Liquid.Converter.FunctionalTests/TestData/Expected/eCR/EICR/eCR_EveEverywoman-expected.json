@@ -3915,6 +3915,117 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:85744e06-7bb7-62ca-a543-0357159d4f87",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "85744e06-7bb7-62ca-a543-0357159d4f87",
+        "status": "finished",
+        "class": {
+          "code": "99213",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office outpatient visit 15 minutes"
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:2a620155-9d11-439e-92b3-5d9815ff4de8"
+          }
+        ],
+        "period": {
+          "start": "2020-11-07"
+        },
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/607e2d2f-19cf-79dd-31dc-275476eb4399"
+            }
+          },
+          {
+            "condition": {
+              "reference": "Condition/350d4497-d22c-8e23-ba25-657f671b8ada"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:607e2d2f-19cf-79dd-31dc-275476eb4399",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "607e2d2f-19cf-79dd-31dc-275476eb4399",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e705"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "27836007",
+              "system": "http://snomed.info/sct",
+              "display": "Pertussis (disorder)"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-11-07",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:350d4497-d22c-8e23-ba25-657f671b8ada",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "350d4497-d22c-8e23-ba25-657f671b8ada",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e704"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "282291009",
+              "system": "http://snomed.info/sct",
+              "display": "A non-trigger code diagnosis (disorder)"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-11-07",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      }
+    },
+    {
       "fullUrl": "urn:uuid:49200334-0c15-5a04-bf2c-b96a087ec490",
       "resource": {
         "resourceType": "CarePlan",

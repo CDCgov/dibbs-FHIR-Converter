@@ -536,17 +536,27 @@
             "individual": {
               "reference": "PractitionerRole/2292332c-3705-aa46-e48d-453f81784d54"
             }
+          },
+          {
+            "individual": {
+              "reference": "Practitioner/143adc9c-ffdd-935a-29b2-eca1d1ebaf3f"
+            }
           }
         ],
         "diagnosis": [
           {
             "condition": {
-              "reference": "Condition/f7e19101-6043-0b0d-6661-340aa0e4b4ac"
+              "reference": "Condition/b04fce0b-0506-7d5e-59c8-db316acd86fd"
             }
           },
           {
             "condition": {
-              "reference": "Condition/5c19c722-3850-da4c-f3c4-9793e31ab05e"
+              "reference": "Condition/2a7be43f-d2b5-d6b1-6ef5-762321535b39"
+            }
+          },
+          {
+            "condition": {
+              "reference": "Condition/f644c661-edc8-a392-6de6-bfce24490ef8"
             }
           }
         ]
@@ -2689,6 +2699,261 @@
             "text": "REMOVED"
           }
         ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:143adc9c-ffdd-935a-29b2-eca1d1ebaf3f",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "143adc9c-ffdd-935a-29b2-eca1d1ebaf3f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "XX13576542"
+          }
+        ],
+        "name": [
+          {
+            "family": "Baba",
+            "given": [
+              "Elzar"
+            ],
+            "suffix": [
+              "MD"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "54018 KAMINO OCEAN Spire",
+              "STE 820"
+            ],
+            "city": "Keren",
+            "state": "YA",
+            "postalCode": "81303"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6-901-374-4286",
+            "use": "work"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "208D00000X",
+                  "system": "http://nucc.org/provider-taxonomy",
+                  "display": "General Practice Physician"
+                },
+                {
+                  "code": "32",
+                  "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160",
+                  "display": "Internal Medicine"
+                },
+                {
+                  "code": "17",
+                  "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.10.836982.1050",
+                  "display": "Internal Medicine"
+                }
+              ],
+              "text": "Internal Medicine"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b04fce0b-0506-7d5e-59c8-db316acd86fd",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "b04fce0b-0506-7d5e-59c8-db316acd86fd",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1099.1",
+            "value": "XX773-399227"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "448915004",
+              "system": "http://snomed.info/sct"
+            },
+            {
+              "code": "Q35.1",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "749.00",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "745491",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Cleft hard palate"
+            }
+          ],
+          "text": "Cleft hard palate"
+        },
+        "onsetDateTime": "1981-10-15",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2a7be43f-d2b5-d6b1-6ef5-762321535b39",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "2a7be43f-d2b5-d6b1-6ef5-762321535b39",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1099.1",
+            "value": "XX773-399227"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "448915004",
+              "system": "http://snomed.info/sct"
+            },
+            {
+              "code": "Q35.1",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "749.00",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "745491",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Cleft hard palate"
+            }
+          ],
+          "text": "Cleft hard palate"
+        },
+        "onsetDateTime": "1981-10-15",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f644c661-edc8-a392-6de6-bfce24490ef8",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "f644c661-edc8-a392-6de6-bfce24490ef8",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1099.1",
+            "value": "XX383-28881"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3928002",
+              "system": "http://snomed.info/sct"
+            },
+            {
+              "code": "A92.5",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "066.3",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "25447",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Zika virus disease"
+            }
+          ],
+          "text": "Zika virus disease"
+        },
+        "onsetDateTime": "1981-10-15",
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }

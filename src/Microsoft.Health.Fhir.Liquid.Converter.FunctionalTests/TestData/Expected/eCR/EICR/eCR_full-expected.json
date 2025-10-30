@@ -993,6 +993,75 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:9d4c195a-1b20-2ca8-3241-33f028acfa97",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "9d4c195a-1b20-2ca8-3241-33f028acfa97",
+        "status": "finished",
+        "class": {
+          "code": "99252",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Inpatient consultation for a new or established patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 40 minutes are spent at the bedside and on the patient's hospital floor or unit."
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:97793b4b-560e-468a-9235-19e720c1a438"
+          }
+        ],
+        "period": {
+          "start": "2020-05-13"
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/d7854fc2-3c60-dbed-feb5-ee95d0a87959"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e945f578-d795-4ec3-a403-ea8f3319f37c"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "B97.2",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Coronavirus as the cause of diseases classified elsewhere"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-05-14",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
       "fullUrl": "urn:uuid:96c06f28-1cd0-30ef-2f7c-d1cc7f943a33",
       "resource": {
         "resourceType": "CarePlan",

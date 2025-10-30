@@ -1707,6 +1707,2256 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:40b7b5c8-db3e-b6a2-ef7c-69a27639ea7f",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "40b7b5c8-db3e-b6a2-ef7c-69a27639ea7f",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1896602119238660",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2020-02-06",
+          "end": "2020-02-06"
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/51bb3f76-b722-0b47-5b6b-9b1efd74138f"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/1b0af1ec-2db3-0a7b-d55d-7367ceb9ee97"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:51bb3f76-b722-0b47-5b6b-9b1efd74138f",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "51bb3f76-b722-0b47-5b6b-9b1efd74138f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1635684796000010",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "8",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "99999999-19",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Alliance",
+            "given": [
+              "Admin"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "215 W. Ohio Street",
+              "4th Floor"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60654"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3122740068",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3122740069",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1b0af1ec-2db3-0a7b-d55d-7367ceb9ee97",
+      "resource": {
+        "resourceType": "Location",
+        "id": "1b0af1ec-2db3-0a7b-d55d-7367ceb9ee97",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:1b0af1ec-2db3-0a7b-d55d-7367ceb9ee97"
+          }
+        ],
+        "_name": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
+        "address": {
+          "line": [
+            "1276 N Clybourn"
+          ],
+          "city": "Chicago",
+          "state": "IL ",
+          "country": "USA",
+          "postalCode": "60610"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "wtijani@nmh.org"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ae64e9d0-1bb4-10c8-8b15-c0ef945e0006",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "ae64e9d0-1bb4-10c8-8b15-c0ef945e0006",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1895841505726540",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2020-01-28",
+          "end": "2020-01-28"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/0621b792-a4d4-c1f8-9ff6-12e269b23a18"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0621b792-a4d4-c1f8-9ff6-12e269b23a18",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "0621b792-a4d4-c1f8-9ff6-12e269b23a18",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1727085086053410",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            },
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1080",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Reid",
+            "given": [
+              "Fredrick"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn Ave"
+            ],
+            "city": "Chicago",
+            "state": "IL ",
+            "postalCode": "60619"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f1a23588-038e-4cdb-3c4d-6c06e83cfcfe",
+      "resource": {
+        "resourceType": "Location",
+        "id": "f1a23588-038e-4cdb-3c4d-6c06e83cfcfe",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+          }
+        ],
+        "_name": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
+        "address": {
+          "line": [
+            "4259 S. Berkeley"
+          ],
+          "city": "Chicago",
+          "state": "IL",
+          "country": "USA",
+          "postalCode": "60653"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "7732687600",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "nnhsc.emrcoordinator@nm.org"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0cd60340-f685-5e6d-08bd-b29d9a462dd7",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "0cd60340-f685-5e6d-08bd-b29d9a462dd7",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1887444137204410",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-10-23",
+          "end": "2019-10-23"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/e8008478-e986-f4cd-b324-9c3ff2a690dd"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e8008478-e986-f4cd-b324-9c3ff2a690dd",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "e8008478-e986-f4cd-b324-9c3ff2a690dd",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1697100898957460",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "921",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1336395078",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Herzan-Taylor",
+            "given": [
+              "Elizabeth"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Denny Community Health Center",
+              "30 W. Chicago"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60610"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3129263964",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3129263028",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e8150770-912c-00c4-f368-f6a5beb127e3",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "e8150770-912c-00c4-f368-f6a5beb127e3",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1887444093198930",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-10-23",
+          "end": "2019-10-23"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/e8008478-e986-f4cd-b324-9c3ff2a690dd"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6cc3e9db-ae38-9771-0c8b-d06df7fff803",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "6cc3e9db-ae38-9771-0c8b-d06df7fff803",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1885564907118950",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-10-01",
+          "end": "2019-10-01"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/51bb3f76-b722-0b47-5b6b-9b1efd74138f"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/b1780490-5522-b399-cb1d-3e23f748c549"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b1780490-5522-b399-cb1d-3e23f748c549",
+      "resource": {
+        "resourceType": "Location",
+        "id": "b1780490-5522-b399-cb1d-3e23f748c549",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b1780490-5522-b399-cb1d-3e23f748c549"
+          }
+        ],
+        "_name": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
+        "address": {
+          "line": [
+            "800 N Kedzie"
+          ],
+          "city": "Chicago",
+          "state": "IL",
+          "country": "USA",
+          "postalCode": "60651"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "7738263450",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "nnhsc.emrcoordinator@nm.org"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4817ca16-b315-0ab5-fa82-d035df6b14c9",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "4817ca16-b315-0ab5-fa82-d035df6b14c9",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1885542739218570",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-10-04",
+          "end": "2019-10-04"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "location": [
+          {
+            "location": {
+              "reference": "Location/f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4ec437dd-bf28-93df-d3d5-314d1b68ee30",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "4ec437dd-bf28-93df-d3d5-314d1b68ee30",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1884468964206710",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-09-18",
+          "end": "2019-09-18"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "location": [
+          {
+            "location": {
+              "reference": "Location/1b0af1ec-2db3-0a7b-d55d-7367ceb9ee97"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:575ed18b-9b24-17a8-8470-5e32bea75b0e",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "575ed18b-9b24-17a8-8470-5e32bea75b0e",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1884336474247660",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-09-17",
+          "end": "2019-09-17"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/e8008478-e986-f4cd-b324-9c3ff2a690dd"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/2933fd8b-4b3f-097b-c19e-e6f695d43d5a"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2933fd8b-4b3f-097b-c19e-e6f695d43d5a",
+      "resource": {
+        "resourceType": "Location",
+        "id": "2933fd8b-4b3f-097b-c19e-e6f695d43d5a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:2933fd8b-4b3f-097b-c19e-e6f695d43d5a"
+          }
+        ],
+        "_name": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
+        "address": {
+          "line": [
+            "834 E. 50th Street"
+          ],
+          "city": "Chicago",
+          "state": "IL",
+          "country": "USA",
+          "postalCode": "60615"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "7733586767",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123371073"
+          },
+          {
+            "system": "email",
+            "value": "nnhsc.emrcoordinator@nm.org"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:98d386cc-5e8c-8b20-573b-c49ff11e59ea",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "98d386cc-5e8c-8b20-573b-c49ff11e59ea",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1884336313231950",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-09-17",
+          "end": "2019-09-17"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/e8008478-e986-f4cd-b324-9c3ff2a690dd"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/2933fd8b-4b3f-097b-c19e-e6f695d43d5a"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:513c1993-fad0-2167-47cb-3327cfadd9fc",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "513c1993-fad0-2167-47cb-3327cfadd9fc",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1884327523454390",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-09-17",
+          "end": "2019-09-17"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/e8008478-e986-f4cd-b324-9c3ff2a690dd"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/2933fd8b-4b3f-097b-c19e-e6f695d43d5a"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:76c76e89-32e8-c92f-738e-441210380855",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "76c76e89-32e8-c92f-738e-441210380855",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1883998051014080",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-09-13",
+          "end": "2019-09-13"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/1b9aa655-b28f-7714-7a67-55cb0474fd60"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/37a038a3-4bea-accc-43fa-c65d4c07b35b"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1b9aa655-b28f-7714-7a67-55cb0474fd60",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "1b9aa655-b28f-7714-7a67-55cb0474fd60",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1837940096111040",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            },
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1644",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Greyer",
+            "given": [
+              "Rhonda"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "North Kostner Health Center",
+              "1520 N. Kostner Ave."
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "country": "USA",
+            "postalCode": "60651"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "12 6 820",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "73 2 476",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:37a038a3-4bea-accc-43fa-c65d4c07b35b",
+      "resource": {
+        "resourceType": "Location",
+        "id": "37a038a3-4bea-accc-43fa-c65d4c07b35b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:37a038a3-4bea-accc-43fa-c65d4c07b35b"
+          }
+        ],
+        "_name": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
+        "address": {
+          "line": [
+            "4501 N Sheridan Road"
+          ],
+          "city": "Chicago",
+          "state": "IL ",
+          "postalCode": "60640"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "7738788098",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "nnhsc.emrcoordinator@nm.org"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:835223f5-be80-b129-792a-279dd51efa33",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "835223f5-be80-b129-792a-279dd51efa33",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1882804434610870",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-08-30",
+          "end": "2019-08-30"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/51bb3f76-b722-0b47-5b6b-9b1efd74138f"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/b1780490-5522-b399-cb1d-3e23f748c549"
+            }
+          }
+        ],
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/23a71596-92ef-6b5e-c9b1-5ed83aa52e18"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:23a71596-92ef-6b5e-c9b1-5ed83aa52e18",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "23a71596-92ef-6b5e-c9b1-5ed83aa52e18",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Condition/1882804434611020",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "text": "Manual eICR document generated from Athenahealth API Server"
+        },
+        "onsetDateTime": "2019-08-30T00:00:00-05:00",
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:eb2c3b5a-9251-19ea-57d5-64f9f402be32",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "eb2c3b5a-9251-19ea-57d5-64f9f402be32",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1879409482907420",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-09-09",
+          "end": "2019-09-09"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "location": [
+          {
+            "location": {
+              "reference": "Location/35599744-9c09-bdfc-c47e-2d4a0392ea18"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:35599744-9c09-bdfc-c47e-2d4a0392ea18",
+      "resource": {
+        "resourceType": "Location",
+        "id": "35599744-9c09-bdfc-c47e-2d4a0392ea18",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:35599744-9c09-bdfc-c47e-2d4a0392ea18"
+          }
+        ],
+        "_name": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
+        "address": {
+          "line": [
+            "1276 N. Clybourn"
+          ],
+          "city": "Chicago",
+          "state": "IL",
+          "country": "USA",
+          "postalCode": "60610"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "nnhsc.emrcoordinator@nm.org"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4c6ba8be-e240-aff1-41c5-9819d2934055",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "4c6ba8be-e240-aff1-41c5-9819d2934055",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1876487014968240",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-06-18",
+          "end": "2019-06-18"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/51bb3f76-b722-0b47-5b6b-9b1efd74138f"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/b1780490-5522-b399-cb1d-3e23f748c549"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d41fb6aa-732f-a2ea-acc0-a3e7d93eaecb",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "d41fb6aa-732f-a2ea-acc0-a3e7d93eaecb",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1872341657865040",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-05-01",
+          "end": "2019-05-01"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "location": [
+          {
+            "location": {
+              "reference": "Location/f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5314492b-87d6-ec44-f994-bf52f5c955f0",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "5314492b-87d6-ec44-f994-bf52f5c955f0",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1868191486625310",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2019-04-02",
+          "end": "2019-04-02"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/fe04476b-a393-14f6-43e0-232f300708e5"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fe04476b-a393-14f6-43e0-232f300708e5",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "fe04476b-a393-14f6-43e0-232f300708e5",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1839664557867350",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            },
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1647",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Midgett",
+            "given": [
+              "Regina"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Komed Holman Health Center",
+              "4259 South Berkeley Avenue"
+            ],
+            "city": "Chicago",
+            "state": "IL ",
+            "country": "USA",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3133337676",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8241220d-203d-d193-9be5-4e734af71fce",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "8241220d-203d-d193-9be5-4e734af71fce",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1857906924838580",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2018-11-15",
+          "end": "2018-11-15"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/1fb7d942-7e38-6c29-a618-35fc98579df7"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/35599744-9c09-bdfc-c47e-2d4a0392ea18"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1fb7d942-7e38-6c29-a618-35fc98579df7",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "1fb7d942-7e38-6c29-a618-35fc98579df7",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1688979404007640",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "_value": {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+                  "valueCode": "unknown"
+                }
+              ]
+            },
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "898",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Lightbourne",
+            "given": [
+              "Amber"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "1276 N Clybourn",
+              "WM"
+            ],
+            "city": "Chicago",
+            "state": "IIl",
+            "country": "USA"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c89adda3-daab-f87e-db3c-c946cfb2ed14",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "c89adda3-daab-f87e-db3c-c946cfb2ed14",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1852904265166980",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2018-09-18",
+          "end": "2018-09-18"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/1fb7d942-7e38-6c29-a618-35fc98579df7"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/35599744-9c09-bdfc-c47e-2d4a0392ea18"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3a371143-5926-a5f5-5f6f-f634fd1eaae5",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "3a371143-5926-a5f5-5f6f-f634fd1eaae5",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1852904235160920",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2018-09-18",
+          "end": "2018-09-18"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/1fb7d942-7e38-6c29-a618-35fc98579df7"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/35599744-9c09-bdfc-c47e-2d4a0392ea18"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cb3f684d-6fbb-c1b5-3852-a21c997a35f9",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "cb3f684d-6fbb-c1b5-3852-a21c997a35f9",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1848144603546080",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2018-07-25",
+          "end": "2018-07-25"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/b7cb653c-56d3-9ab1-ee6d-7326671ac45e"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/889cae63-a0a1-0356-f839-44e3592a9a33"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b7cb653c-56d3-9ab1-ee6d-7326671ac45e",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "b7cb653c-56d3-9ab1-ee6d-7326671ac45e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1831906828922920",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1612",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1508107657",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Kittisopikul",
+            "given": [
+              "Crystal"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60610"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3123371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "3123377616",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:889cae63-a0a1-0356-f839-44e3592a9a33",
+      "resource": {
+        "resourceType": "Location",
+        "id": "889cae63-a0a1-0356-f839-44e3592a9a33",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:889cae63-a0a1-0356-f839-44e3592a9a33"
+          }
+        ],
+        "_name": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/data-absent-reason",
+              "valueCode": "unknown"
+            }
+          ]
+        },
+        "address": {
+          "line": [
+            "30 West Chicago"
+          ],
+          "city": "Chicago",
+          "state": "IL",
+          "country": "USA",
+          "postalCode": "60610"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "3129263964",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "nnhsc.emrcoordinator@nm.org"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a1f8fef2-8e7d-31a0-405b-0f471e48de49",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "a1f8fef2-8e7d-31a0-405b-0f471e48de49",
+        "status": "finished",
+        "class": {
+          "code": "99201",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Office Visit"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
+            "value": "Encounter/1843899613817250",
+            "assigner": {
+              "display": "31913-41995-12761042 API Resource Identifier"
+            }
+          }
+        ],
+        "period": {
+          "start": "2018-06-06",
+          "end": "2018-06-06"
+        },
+        "priority": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "hospitalization": {
+          "dischargeDisposition": {
+            "coding": [
+              {
+                "code": "unknown",
+                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
+        },
+        "participant": [
+          {
+            "individual": {
+              "reference": "Practitioner/48f667ba-481b-d116-e830-6ed088221db8"
+            }
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/f1a23588-038e-4cdb-3c4d-6c06e83cfcfe"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:48f667ba-481b-d116-e830-6ed088221db8",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "48f667ba-481b-d116-e830-6ed088221db8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.2",
+            "value": "1757592685652660",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by PVID"
+            }
+          },
+          {
+            "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.2.1",
+            "value": "1222",
+            "assigner": {
+              "display": "31913-41995-12761042 Providers by DoctorFacility"
+            }
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1497072987",
+            "assigner": {
+              "display": "US National Provider Identifiers"
+            }
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.4.2",
+            "value": "363197647",
+            "assigner": {
+              "display": "Federal Tax Identifier"
+            }
+          }
+        ],
+        "name": [
+          {
+            "family": "Arendt",
+            "given": [
+              "Adam"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "Komed Holman Health Center",
+              "4259 South Berkeley Avenue"
+            ],
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60653"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "7733371073",
+            "use": "work"
+          },
+          {
+            "system": "phone",
+            "value": "7732689088",
+            "use": "mobile"
+          }
+        ]
+      }
+    },
+    {
       "fullUrl": "urn:uuid:9e9adf1a-222b-7a7a-8b50-d47644138a2c",
       "resource": {
         "resourceType": "CarePlan",

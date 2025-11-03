@@ -2777,7 +2777,7 @@
             {
               "code": "27836007",
               "system": "http://snomed.info/sct",
-              "display": "Pertussis (disorder)"
+              "display": "Pertussis"
             }
           ]
         },
@@ -2814,7 +2814,7 @@
             {
               "code": "282291009",
               "system": "http://snomed.info/sct",
-              "display": "A non-trigger code diagnosis (disorder)"
+              "display": "Diagnosis interpretation"
             }
           ]
         },

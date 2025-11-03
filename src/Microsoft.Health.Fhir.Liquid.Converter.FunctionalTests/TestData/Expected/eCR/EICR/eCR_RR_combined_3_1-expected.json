@@ -2811,7 +2811,8 @@
           "coding": [
             {
               "code": "448915004",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
             },
             {
               "code": "Q35.1",
@@ -2872,7 +2873,8 @@
           "coding": [
             {
               "code": "448915004",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
             },
             {
               "code": "Q35.1",
@@ -2933,7 +2935,8 @@
           "coding": [
             {
               "code": "3928002",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Zika virus disease"
             },
             {
               "code": "A92.5",

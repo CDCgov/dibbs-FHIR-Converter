@@ -30,7 +30,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public Health Case Report"
+                "display": "Public health Case report"
               }
             ]
           },
@@ -52,7 +52,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public Health Case Report"
+              "display": "Public health Case report"
             }
           ]
         },
@@ -72,7 +72,7 @@
                 {
                   "code": "46240-8",
                   "system": "http://loinc.org",
-                  "display": "History of encounters"
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
                 }
               ]
             },
@@ -90,7 +90,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "History of Present Illness"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -108,7 +108,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "Medications Administered"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -131,7 +131,7 @@
                 {
                   "code": "11450-4",
                   "system": "http://loinc.org",
-                  "display": "Problem List"
+                  "display": "Problem list - Reported"
                 }
               ]
             },
@@ -155,7 +155,7 @@
                 {
                   "code": "29299-5",
                   "system": "http://loinc.org",
-                  "display": "Reason for visit"
+                  "display": "Reason for visit Narrative"
                 }
               ]
             },
@@ -173,7 +173,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests and/or laboratory data"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -199,7 +199,7 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of Treatment"
+                  "display": "Plan of care note"
                 }
               ]
             },
@@ -222,7 +222,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social History"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -245,7 +245,7 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "History of immunizations"
+                  "display": "History of Immunization note"
                 }
               ]
             },
@@ -753,7 +753,7 @@
             {
               "code": "2284960",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Remdesivir 100 mg injection"
+              "display": "remdesivir 100 MG Injection"
             }
           ]
         }
@@ -776,7 +776,7 @@
             {
               "code": "94308-4",
               "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "display": "SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)"
             }
           ]
         },
@@ -826,7 +826,7 @@
             {
               "code": "94310-0",
               "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "display": "SARS-related CoV N gene NAA+probe CDC primer-probe set N3 Ql (Specimen)"
             }
           ]
         },
@@ -836,7 +836,7 @@
             {
               "code": "260373001",
               "system": "http://snomed.info/sct",
-              "display": "Detected (qualifier value)"
+              "display": "Detected"
             }
           ]
         },
@@ -927,7 +927,7 @@
             {
               "code": "260373001",
               "system": "http://snomed.info/sct",
-              "display": "Detected (qualifier value)"
+              "display": "Detected"
             }
           ]
         },
@@ -988,10 +988,79 @@
             {
               "code": "159606005",
               "system": "http://snomed.info/sct",
-              "display": "Sales"
+              "display": "Selling occupation"
             }
           ]
         },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9d4c195a-1b20-2ca8-3241-33f028acfa97",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "9d4c195a-1b20-2ca8-3241-33f028acfa97",
+        "status": "finished",
+        "class": {
+          "code": "99252",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Inpatient consultation for a new or established patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 40 minutes are spent at the bedside and on the patient's hospital floor or unit."
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:97793b4b-560e-468a-9235-19e720c1a438"
+          }
+        ],
+        "period": {
+          "start": "2020-05-13"
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/d7854fc2-3c60-dbed-feb5-ee95d0a87959"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e945f578-d795-4ec3-a403-ea8f3319f37c"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "B97.2",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Coronavirus as the cause of diseases classified elsewhere"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-05-14",
         "subject": {
           "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
         }
@@ -1034,7 +1103,7 @@
             {
               "code": "94308-4",
               "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "display": "SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)"
             }
           ]
         },

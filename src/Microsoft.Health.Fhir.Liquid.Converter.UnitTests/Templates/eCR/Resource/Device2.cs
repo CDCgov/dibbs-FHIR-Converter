@@ -3,10 +3,8 @@ using System.IO;
 using System.Linq;
 using DotLiquid;
 using Hl7.Fhir.Model;
-using Xunit;
 using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
-using System;
-using Hl7.Fhir.Serialization;
+using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 {
@@ -52,7 +50,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.NotEmpty(actualFhir.Identifier);
             Assert.Equal("87405001", actualFhir.Type.Coding.First().Code);
             Assert.Equal("http://snomed.info/sct", actualFhir.Type.Coding.First().System);
-            Assert.Equal("cane", actualFhir.Type.Coding.First().Display);
+            Assert.Equal("Cane", actualFhir.Type.Coding.First().Display);
             Assert.Equal("\"Good Health Durable Medical Equipment\"", actualFhir.Manufacturer);
             Assert.Equal("", actualFhir.DeviceName.First().Name);
         }
@@ -93,7 +91,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.NotEmpty(actualFhir.Identifier);
             Assert.Equal("87405001", actualFhir.Type.Coding.First().Code);
             Assert.Equal("http://snomed.info/sct", actualFhir.Type.Coding.First().System);
-            Assert.Equal("cane", actualFhir.Type.Coding.First().Display);
+            Assert.Equal("Cane", actualFhir.Type.Coding.First().Display);
             Assert.Equal("\"Good Health Durable Medical Equipment\"", actualFhir.Manufacturer);
             Assert.Equal("", actualFhir.DeviceName.First().Name);
         }

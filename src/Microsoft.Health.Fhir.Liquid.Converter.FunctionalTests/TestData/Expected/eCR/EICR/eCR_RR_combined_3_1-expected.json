@@ -33,7 +33,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Initial Public Health Case Report"
+                "display": "Public health Case report"
               }
             ]
           },
@@ -58,7 +58,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Initial Public Health Case Report"
+              "display": "Public health Case report"
             }
           ]
         },
@@ -78,7 +78,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "HISTORY OF PRESENT ILLNESS"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -96,7 +96,7 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "History of Immunization Narrative"
+                  "display": "History of Immunization note"
                 }
               ]
             },
@@ -114,7 +114,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "MEDICATIONS ADMINISTERED"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -188,7 +188,7 @@
                 {
                   "code": "10154-3",
                   "system": "http://loinc.org",
-                  "display": "CHIEF COMPLAINT"
+                  "display": "Chief complaint Narrative - Reported"
                 }
               ]
             },
@@ -206,7 +206,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests/laboratory data Narrative"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -242,7 +242,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social history Narrative"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -280,7 +280,7 @@
                 {
                   "code": "8716-3",
                   "system": "http://loinc.org",
-                  "display": "Vital signs"
+                  "display": "Vital signs note"
                 }
               ]
             },
@@ -344,7 +344,7 @@
                 {
                   "code": "29299-5",
                   "system": "http://loinc.org",
-                  "display": "REASON FOR VISIT"
+                  "display": "Reason for visit Narrative"
                 }
               ]
             },
@@ -1136,9 +1136,9 @@
               {
                 "url": "ombCategory",
                 "valueCoding": {
-                  "code": "2186-5",
                   "system": "urn:oid:2.16.840.1.113883.6.238",
-                  "display": "Not Hispanic or Latino"
+                  "code": "2186-5",
+                  "display": "Non Hispanic or Latino"
                 }
               },
               {
@@ -1338,7 +1338,8 @@
           "coding": [
             {
               "code": "448915004",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
             },
             {
               "code": "Q35.1",
@@ -1398,7 +1399,8 @@
           "coding": [
             {
               "code": "3928002",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Zika virus disease"
             },
             {
               "code": "A92.5",
@@ -1440,7 +1442,7 @@
             {
               "code": "58410-2",
               "system": "http://loinc.org",
-              "display": "CBC panel - Blood by Automated count"
+              "display": "CBC panel Auto (Bld)"
             },
             {
               "code": "1698",
@@ -1499,7 +1501,8 @@
           "coding": [
             {
               "code": "119297000",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Blood specimen"
             },
             {
               "code": "3",
@@ -1515,7 +1518,7 @@
               {
                 "code": "122555007",
                 "system": "http://snomed.info/sct",
-                "display": "Venous blood specimen (specimen)"
+                "display": "Venous blood specimen"
               },
               {
                 "code": "310",
@@ -1572,7 +1575,7 @@
             {
               "code": "30313-1",
               "system": "http://loinc.org",
-              "display": "Hemoglobin [Mass/volume] in Arterial blood"
+              "display": "Hemoglobin (BldA) [Mass/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1625,7 +1628,7 @@
             {
               "code": "33765-9",
               "system": "http://loinc.org",
-              "display": "Leukocytes [#/volume] in Blood Product unit.platelet pheresis by Automated count"
+              "display": "WBC Auto (Blood Product unit.platelet pheresis) [#/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1695,7 +1698,7 @@
             {
               "code": "26515-7",
               "system": "http://loinc.org",
-              "display": "Platelets [#/volume] in Blood"
+              "display": "Platelets (Bld) [#/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1748,7 +1751,7 @@
             {
               "code": "50544-6",
               "system": "http://loinc.org",
-              "display": "Everolimus [Mass/volume] in Blood"
+              "display": "Everolimus (Bld) [Mass/Vol]"
             }
           ],
           "text": "REMOVED"
@@ -1871,7 +1874,7 @@
             {
               "code": "72166-2",
               "system": "http://loinc.org",
-              "display": "Tobacco smoking status NHIS"
+              "display": "Tobacco smoking status"
             }
           ]
         },
@@ -1927,7 +1930,7 @@
             {
               "code": "88031-0",
               "system": "http://loinc.org",
-              "display": "Smokeless tobacco status"
+              "display": "Smokeless tobacco status Nom"
             }
           ]
         },
@@ -1983,7 +1986,7 @@
             {
               "code": "11331-6",
               "system": "http://loinc.org",
-              "display": "History of Alcohol Use"
+              "display": "History of Alcohol use"
             }
           ]
         },
@@ -1993,7 +1996,7 @@
             {
               "code": "228274009",
               "system": "http://snomed.info/sct",
-              "display": "Lifetime non-drinker (finding)"
+              "display": "Lifetime non-drinker"
             }
           ]
         },
@@ -2086,7 +2089,7 @@
             {
               "code": "248153007",
               "system": "http://snomed.info/sct",
-              "display": "Male (finding)"
+              "display": "Male"
             }
           ]
         },
@@ -2808,7 +2811,8 @@
           "coding": [
             {
               "code": "448915004",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
             },
             {
               "code": "Q35.1",
@@ -2869,7 +2873,8 @@
           "coding": [
             {
               "code": "448915004",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
             },
             {
               "code": "Q35.1",
@@ -2930,7 +2935,8 @@
           "coding": [
             {
               "code": "3928002",
-              "system": "http://snomed.info/sct"
+              "system": "http://snomed.info/sct",
+              "display": "Zika virus disease"
             },
             {
               "code": "A92.5",
@@ -3066,7 +3072,7 @@
             {
               "code": "58410-2",
               "system": "http://loinc.org",
-              "display": "CBC panel - Blood by Automated count"
+              "display": "CBC panel Auto (Bld)"
             }
           ],
           "text": "CBC"

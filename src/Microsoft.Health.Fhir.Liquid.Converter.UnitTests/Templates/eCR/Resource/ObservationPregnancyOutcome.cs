@@ -22,8 +22,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             // from 3.1 spec
             var xmlStr = @"
-            <observation 
-                classCode=""OBS"" 
+            <observation
+                classCode=""OBS""
                 moodCode=""EVN""
                 xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                 xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
@@ -83,8 +83,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal("21243004", value.Coding.First().Code);
             Assert.Equal("http://snomed.info/sct", value.Coding.First().System);
-            Assert.Equal("Term birth of newborn (finding)", value.Coding.First().Display);
-            
+            Assert.Equal("Term birth of newborn", value.Coding.First().Display);
+
             var components = actualFhir.Component;
             Assert.Equal(1, components.Count());
             Assert.Equal("2", components[0].Value.ToString());

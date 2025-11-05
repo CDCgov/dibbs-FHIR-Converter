@@ -22,7 +22,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         {
             // from 3.1 eCR
             var xmlStr = @"
-            <observation classCode=""OBS"" moodCode=""EVN""                 
+            <observation classCode=""OBS"" moodCode=""EVN""
                 xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                 xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
                 xmlns=""urn:hl7-org:v3""
@@ -65,7 +65,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var value = (CodeableConcept)actualFhir.Value;
             Assert.Equal("3928002", value.Coding.First().Code);
             Assert.Equal("http://snomed.info/sct", value.Coding.First().System);
-            Assert.Equal("Zika virus disease (disorder)", value.Coding.First().Display);
+            Assert.Equal("Zika virus disease", value.Coding.First().Display);
         }
     }
 }

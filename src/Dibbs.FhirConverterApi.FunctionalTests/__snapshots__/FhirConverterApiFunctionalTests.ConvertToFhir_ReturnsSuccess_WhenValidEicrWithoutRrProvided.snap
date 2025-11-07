@@ -17,10 +17,10 @@
       "timestamp": "2025-02-25T01:32:00Z",
       "entry": [
         {
-          "fullUrl": "urn:uuid:325db749-e1d6-8ffc-0b75-785f2a8acdcf",
+          "fullUrl": "urn:uuid:39763635-2c0e-ec11-db3a-403f008d713f",
           "resource": {
             "resourceType": "Composition",
-            "id": "325db749-e1d6-8ffc-0b75-785f2a8acdcf",
+            "id": "39763635-2c0e-ec11-db3a-403f008d713f",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -65,7 +65,7 @@
             "confidentiality": "N",
             "section": [
               {
-                "id": "2792de2c-8448-d401-6012-845090b2afbe",
+                "id": "e01329fd-9f38-6bc5-30f4-222316c5dd07",
                 "title": "Plan of Treatment",
                 "text": {
                   "status": "generated",
@@ -80,25 +80,12 @@
                     }
                   ]
                 },
-                "mode": "snapshot"
-              },
-              {
-                "id": "58d903bb-abb6-9ca8-944a-b434e5403814",
-                "title": "Encounters",
-                "text": {
-                  "status": "generated",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">No information</div>"
-                },
-                "code": {
-                  "coding": [
-                    {
-                      "code": "46240-8",
-                      "system": "http://loinc.org",
-                      "display": "History of Hospitalizations+Outpatient visits Narrative"
-                    }
-                  ]
-                },
-                "mode": "snapshot"
+                "mode": "snapshot",
+                "entry": [
+                  {
+                    "reference": "CarePlan/0e3c9726-0979-3127-7cde-e7082a96fbfc"
+                  }
+                ]
               },
               {
                 "id": "8c9db562-27fd-957c-e00a-ddc6373fec2e",
@@ -1345,6 +1332,64 @@
             },
             "subject": {
               "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
+            }
+          }
+        },
+        {
+          "fullUrl": "urn:uuid:0e3c9726-0979-3127-7cde-e7082a96fbfc",
+          "resource": {
+            "resourceType": "CarePlan",
+            "id": "0e3c9726-0979-3127-7cde-e7082a96fbfc",
+            "status": "unknown",
+            "intent": "proposal",
+            "subject": {
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
+            },
+            "activity": [
+              {
+                "reference": {
+                  "reference": "ServiceRequest/af2029b4-a2fc-1531-8857-e8f5fddba862"
+                }
+              }
+            ],
+            "meta": {
+              "source": "ecr"
+            }
+          }
+        },
+        {
+          "fullUrl": "urn:uuid:af2029b4-a2fc-1531-8857-e8f5fddba862",
+          "resource": {
+            "resourceType": "ServiceRequest",
+            "id": "af2029b4-a2fc-1531-8857-e8f5fddba862",
+            "identifier": [
+              {
+                "system": "urn:ietf:rfc:3986",
+                "value": "urn:uuid:b52bee94-c34b-4e2c-8c15-5ad9d6def205"
+              }
+            ],
+            "status": "active",
+            "intent": "plan",
+            "code": {
+              "coding": [
+                {
+                  "code": "80825-3",
+                  "system": "http://loinc.org",
+                  "display": "ZIKV E gene NAA+probe Ql (S)"
+                },
+                {
+                  "code": "80825-3",
+                  "system": "http://loinc.org",
+                  "display": "ZIKV E gene NAA+probe Ql (S)"
+                }
+              ]
+            },
+            "occurrenceDateTime": "2025-02-07",
+            "subject": {
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
+            },
+            "meta": {
+              "source": "ecr"
             }
           }
         }

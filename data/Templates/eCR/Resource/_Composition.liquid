@@ -252,6 +252,7 @@
                 {% endif -%}
             },
             {% endfor -%}
+            {% assign templatesInComp = templatesInComp | split: "|" | uniq %}
             {% include 'Utils/AddMissingRequiredSections' | templatesInComp: templatesInComp %}
 
             {% comment %} Reportability Response Information Section (from RR) {% endcomment %}

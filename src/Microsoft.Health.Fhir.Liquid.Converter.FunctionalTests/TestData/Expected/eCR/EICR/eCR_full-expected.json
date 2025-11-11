@@ -14,10 +14,10 @@
   "timestamp": "2020-05-05T11:05:15-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:6ac4a092-04f0-def5-6be2-1f86d1d93e84",
+      "fullUrl": "urn:uuid:90be8ddc-f46c-6d22-3d92-4453e39d6efe",
       "resource": {
         "resourceType": "Composition",
-        "id": "6ac4a092-04f0-def5-6be2-1f86d1d93e84",
+        "id": "90be8ddc-f46c-6d22-3d92-4453e39d6efe",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -30,7 +30,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public Health Case Report"
+                "display": "Public health Case report"
               }
             ]
           },
@@ -52,7 +52,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public Health Case Report"
+              "display": "Public health Case report"
             }
           ]
         },
@@ -72,7 +72,7 @@
                 {
                   "code": "46240-8",
                   "system": "http://loinc.org",
-                  "display": "History of encounters"
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
                 }
               ]
             },
@@ -90,7 +90,7 @@
                 {
                   "code": "10164-2",
                   "system": "http://loinc.org",
-                  "display": "History of Present Illness"
+                  "display": "History of Present illness Narrative"
                 }
               ]
             },
@@ -108,7 +108,7 @@
                 {
                   "code": "29549-3",
                   "system": "http://loinc.org",
-                  "display": "Medications Administered"
+                  "display": "Medication administered Narrative"
                 }
               ]
             },
@@ -131,7 +131,7 @@
                 {
                   "code": "11450-4",
                   "system": "http://loinc.org",
-                  "display": "Problem List"
+                  "display": "Problem list - Reported"
                 }
               ]
             },
@@ -155,17 +155,11 @@
                 {
                   "code": "29299-5",
                   "system": "http://loinc.org",
-                  "display": "Reason for visit"
+                  "display": "Reason for visit Narrative"
                 }
               ]
             },
-            "mode": "snapshot",
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/cda/ccda/StructureDefinition/2.16.840.1.113883.10.20.22.2.12",
-                "valueString": "recent travel for vacation to Wuhan China from April 22, 2020 to                            May 5, 2020 "
-              }
-            ]
+            "mode": "snapshot"
           },
           {
             "id": "59bb13bd-ad44-eedb-b5a7-8c0e56eff9df",
@@ -179,7 +173,7 @@
                 {
                   "code": "30954-2",
                   "system": "http://loinc.org",
-                  "display": "Relevant diagnostic tests and/or laboratory data"
+                  "display": "Relevant diagnostic tests/laboratory data note"
                 }
               ]
             },
@@ -194,7 +188,7 @@
             ]
           },
           {
-            "id": "2fa50662-fbf8-5a7c-0ada-8c0a06866262",
+            "id": "eb1e0e1d-5263-d530-45fd-d42871b50fbf",
             "title": "Plan of Treatment",
             "text": {
               "status": "generated",
@@ -205,11 +199,16 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of Treatment"
+                  "display": "Plan of care note"
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "CarePlan/96c06f28-1cd0-30ef-2f7c-d1cc7f943a33"
+              }
+            ]
           },
           {
             "id": "580fccb2-a450-a6be-1568-380fb083cc79",
@@ -223,7 +222,7 @@
                 {
                   "code": "29762-2",
                   "system": "http://loinc.org",
-                  "display": "Social History"
+                  "display": "Social history note"
                 }
               ]
             },
@@ -235,7 +234,7 @@
             ]
           },
           {
-            "id": "0e63823f-5012-8a41-fd2d-8ddbc94ed599",
+            "id": "b7609b19-9b48-8659-76b0-f2a1d4d076a5",
             "title": "Immunizations",
             "text": {
               "status": "generated",
@@ -246,11 +245,31 @@
                 {
                   "code": "11369-6",
                   "system": "http://loinc.org",
-                  "display": "History of immunizations"
+                  "display": "History of Immunization note"
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Immunization/ad2218d0-6210-488e-c141-f5191e47d591"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "10154-3",
+                  "display": "Chief complaint Narrative - Reported"
+                }
+              ]
+            },
+            "text": {
+              "status": "empty",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">No Information Available</div>"
+            }
           }
         ],
         "subject": {
@@ -617,20 +636,7 @@
           },
           {
             "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-            "extension": [
-              {
-                "url": "value",
-                "valueCodeableConcept": {
-                  "coding": [
-                    {
-                      "code": "M",
-                      "system": "urn:oid:2.16.840.1.113883.5.1",
-                      "display": "Male"
-                    }
-                  ]
-                }
-              }
-            ]
+            "valueCode": "M"
           }
         ],
         "address": [
@@ -747,7 +753,7 @@
             {
               "code": "2284960",
               "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
-              "display": "Remdesivir 100 mg injection"
+              "display": "remdesivir 100 MG Injection"
             }
           ]
         }
@@ -770,7 +776,7 @@
             {
               "code": "94308-4",
               "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "display": "SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)"
             }
           ]
         },
@@ -820,7 +826,7 @@
             {
               "code": "94310-0",
               "system": "http://loinc.org",
-              "display": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2"
+              "display": "SARS-related CoV N gene NAA+probe CDC primer-probe set N3 Ql (Specimen)"
             }
           ]
         },
@@ -830,7 +836,7 @@
             {
               "code": "260373001",
               "system": "http://snomed.info/sct",
-              "display": "Detected (qualifier value)"
+              "display": "Detected"
             }
           ]
         },
@@ -921,7 +927,7 @@
             {
               "code": "260373001",
               "system": "http://snomed.info/sct",
-              "display": "Detected (qualifier value)"
+              "display": "Detected"
             }
           ]
         },
@@ -982,13 +988,178 @@
             {
               "code": "159606005",
               "system": "http://snomed.info/sct",
-              "display": "Sales"
+              "display": "Selling occupation"
             }
           ]
         },
         "subject": {
           "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
         }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9d4c195a-1b20-2ca8-3241-33f028acfa97",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "9d4c195a-1b20-2ca8-3241-33f028acfa97",
+        "status": "finished",
+        "class": {
+          "code": "99252",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Inpatient consultation for a new or established patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 40 minutes are spent at the bedside and on the patient's hospital floor or unit."
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:97793b4b-560e-468a-9235-19e720c1a438"
+          }
+        ],
+        "period": {
+          "start": "2020-05-13"
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/d7854fc2-3c60-dbed-feb5-ee95d0a87959"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e945f578-d795-4ec3-a403-ea8f3319f37c"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "B97.2",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Coronavirus as the cause of diseases classified elsewhere"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-05-14",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:96c06f28-1cd0-30ef-2f7c-d1cc7f943a33",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "96c06f28-1cd0-30ef-2f7c-d1cc7f943a33",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "activity": [
+          {
+            "reference": {
+              "reference": "ServiceRequest/385725b4-a41c-d88b-81dc-90cd5b34049c"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:385725b4-a41c-d88b-81dc-90cd5b34049c",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "385725b4-a41c-d88b-81dc-90cd5b34049c",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:f724d510-c8d7-4c30-851d-69e90a50ea7d"
+          }
+        ],
+        "status": "active",
+        "intent": "plan",
+        "code": {
+          "coding": [
+            {
+              "code": "94308-4",
+              "system": "http://loinc.org",
+              "display": "SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)"
+            }
+          ]
+        },
+        "occurrenceDateTime": "2020-05-13",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ad2218d0-6210-488e-c141-f5191e47d591",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "ad2218d0-6210-488e-c141-f5191e47d591",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e6f1ba43-c0ed-4b9b-9f12-f435d8ad8f92"
+          }
+        ],
+        "occurrenceDateTime": "1998-12-15",
+        "vaccineCode": {
+          "coding": [
+            {
+              "code": "166",
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "display": "influenza, intradermal, quadrivalent, preservative free, injectable"
+            }
+          ]
+        },
+        "lotNumber": "LOT12345",
+        "manufacturer": {
+          "reference": "Organization/b5c77b86-2764-79f9-10bf-5da5e63eb7c1"
+        },
+        "status": "completed",
+        "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "code": "C28161",
+              "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+              "display": "Intramuscular injection"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+        "name": "Sanofi Pasteur"
       }
     }
   ]

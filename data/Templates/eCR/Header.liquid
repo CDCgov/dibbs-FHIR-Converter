@@ -1,5 +1,5 @@
-{% evaluate practitionerId using 'Utils/GenerateId' obj: msg.ClinicalDocument.componentOf.encompassingEncounter.responsibleParty.assignedEntity -%}
 {% assign compositionId = msg.ClinicalDocument | to_json_string | generate_uuid -%}
+{% evaluate practitionerId using 'Utils/GenerateId' obj: msg.ClinicalDocument.componentOf.encompassingEncounter.responsibleParty.assignedEntity -%}
 {% include 'Resource/Composition' composition: msg.ClinicalDocument, practitionerId: practitionerId, ID: compositionId -%}
 {% include 'Reference/Composition/Subject' ID: compositionId, REF: fullPatientId -%}
 
@@ -7,30 +7,36 @@
   {% include 'Reference/Composition/RelatesTo_TargetReference' ID: compositionId, relatedDOC: msg.ClinicalDocument.relatedDocument -%}
 {% endif -%}
 
-{% if msg.ClinicalDocument.componentOf.encompassingEncounter -%}
-  {% assign encounterId = msg.ClinicalDocument.componentOf.encompassingEncounter | to_json_string | generate_uuid -%}
-  {% include 'Resource/Encounter' encounter: msg.ClinicalDocument.componentOf.encompassingEncounter, ID: encounterId  -%}
-  {% assign encounterSection = msg | get_first_ccda_sections_by_template_id: '2.16.840.1.113883.10.20.22.2.22.1' %}
-  {% assign encounterEntries = encounterSection.2_16_840_1_113883_10_20_22_2_22_1.entry | to_array %}
-  {% assign diagnoses = encounterEntries | get_diagnosis_dictionary %}
+
+
+{% comment %} Encompassing Encounter {% endcomment %}
+{% assign encompassingEncounter = msg.ClinicalDocument.componentOf.encompassingEncounter %}
+{% if encompassingEncounter -%}
+  {% assign encounterId = encompassingEncounter | to_json_string | generate_uuid -%}
+  {% assign encompassingEncounterId = encompassingEncounter.id %}
+  {% include 'Resource/Encounter' encounter: encompassingEncounter, ID: encounterId  -%}
+
   {% include 'Reference/Encounter/Subject' ID: encounterId, REF: fullPatientId -%}
   {% assign fullEncounterId = encounterId | prepend: 'Encounter/' -%}
   {% include 'Reference/Composition/Encounter' ID: compositionId, REF: fullEncounterId -%}
-  {% if msg.ClinicalDocument.componentOf.encompassingEncounter.location.healthCareFacility -%}
-    {% assign locationId = msg.ClinicalDocument.componentOf.encompassingEncounter.location.healthCareFacility | to_json_string | generate_uuid -%}
-    {% include 'Resource/LocationHealthCareFacility' location: msg.ClinicalDocument.componentOf.encompassingEncounter.location.healthCareFacility ID: locationId -%}
+  {% comment %} Encompassing Encounter - Facility / Service Provider {% endcomment %}
+  {% if encompassingEncounter.location.healthCareFacility -%}
+    {% assign locationId = encompassingEncounter.location.healthCareFacility | to_json_string | generate_uuid -%}
+    {% assign facilityId = encompassingEncounter.location.healthCareFacility.id %}
+    {% include 'Resource/LocationHealthCareFacility' location: encompassingEncounter.location.healthCareFacility ID: locationId -%}
     {% assign fullLocationId = locationId | prepend: 'Location/' -%}
-    {% include 'Reference/Encounter/Location_Location' ID: encounterId, REF: fullLocationId, LOC: msg.ClinicalDocument.componentOf.encompassingEncounter.location.healthCareFacility -%}
-    {% if msg.ClinicalDocument.componentOf.encompassingEncounter.location.healthCareFacility.serviceProviderOrganization -%}
-      {% assign serviceProviderId = msg.ClinicalDocument.componentOf.encompassingEncounter.location.healthCareFacility.serviceProviderOrganization | to_json_string | generate_uuid -%}
-      {% include 'Resource/Organization' organization: msg.ClinicalDocument.componentOf.encompassingEncounter.location.healthCareFacility.serviceProviderOrganization ID: serviceProviderId -%}
+    {% include 'Reference/Encounter/Location_Location' ID: encounterId, REF: fullLocationId, LOC: encompassingEncounter.location.healthCareFacility -%}
+    {% if encompassingEncounter.location.healthCareFacility.serviceProviderOrganization -%}
+      {% assign serviceProviderId = encompassingEncounter.location.healthCareFacility.serviceProviderOrganization | to_json_string | generate_uuid -%}
+      {% include 'Resource/Organization' organization: encompassingEncounter.location.healthCareFacility.serviceProviderOrganization ID: serviceProviderId -%}
       {% assign fullServiceProviderId = serviceProviderId | prepend: 'Organization/' -%}
       {% include 'Reference/Encounter/ServiceProvider' ID: encounterId, REF: fullServiceProviderId -%}
     {% endif -%}
   {% endif -%}
 {% endif -%}
 
-{% assign responsibleParty = msg.ClinicalDocument.componentOf.encompassingEncounter.responsibleParty.assignedEntity -%}
+{% comment %} Encompassing Encounter - Responsible Party {% endcomment %}
+{% assign responsibleParty = encompassingEncounter.responsibleParty.assignedEntity -%}
 {% if responsibleParty -%}
   {% include 'Resource/PractitionerResponsibleParty' practitioner: responsibleParty ID: practitionerId -%}
   {% assign fullPractitionerId = practitionerId | prepend: 'Practitioner/' -%}
@@ -49,7 +55,8 @@
   {% endif %}
 {% endif -%}
 
-{% assign encounterParticipants = msg.ClinicalDocument.componentOf.encompassingEncounter.encounterParticipant | to_array -%}
+{% comment %} Encompassing Encounter - Practitioner {% endcomment %}
+{% assign encounterParticipants = encompassingEncounter.encounterParticipant | to_array -%}
 {% for encounterParticipant in encounterParticipants -%}
   {% if encounterParticipant.assignedEntity -%}
     {% assign encounterParticipantId = encounterParticipant | to_json_string | generate_uuid %}
@@ -71,8 +78,8 @@
   {% endif -%}
 {% endfor -%}
 
+{% comment %} Reportability Response {% endcomment %}
 {% if msg.ClinicalDocument.section.code.code and msg.ClinicalDocument.section.code.code == "88085-6" -%}
-  {% comment %} Reportability Response {% endcomment %}
   {% assign sectionId = msg.ClinicalDocument.section | to_json_string | generate_uuid -%}
   {% assign entries = msg.ClinicalDocument.section.entry | to_array -%}
   {% for entry in entries -%}

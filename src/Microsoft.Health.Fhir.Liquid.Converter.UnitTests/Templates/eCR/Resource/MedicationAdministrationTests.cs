@@ -108,7 +108,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(12, dosageRateQuantity.Value);
             Assert.Equal("h", dosageRateQuantity.Unit);
 
-            Assert.Equal("Patient\u0027s condition improved (finding)", actualFhir.GetExtensionValue<CodeableConcept>("http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension").Coding.First().Display);
+            Assert.Equal("Patient\u0027s condition improved", actualFhir.GetExtensionValue<CodeableConcept>("http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension").Coding.First().Display);
         }
     }
 }

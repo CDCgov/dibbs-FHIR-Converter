@@ -26,7 +26,10 @@
             {% if rel.typeCode == "RSON" %}
                 "reasonCode":
                 [
-                    { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
+                {
+                {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%},
+                "text": "{{ rel.observation.text._ }}"
+                },
                 ],
             {% elseif rel.typeCode == "COMP" and rel.observation.templateId.root == "2.16.840.1.113883.10.20.22.4.9" %}
                 {% comment %} Reaction observation {% endcomment %}

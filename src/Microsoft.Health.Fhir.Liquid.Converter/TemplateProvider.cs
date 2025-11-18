@@ -4,8 +4,7 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using DotLiquid;
-using DotLiquid.FileSystems;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 
@@ -21,7 +20,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             _fileSystem = new TemplateLocalFileSystem(templateDirectory, dataType);
         }
 
-        public TemplateProvider(List<Dictionary<string, Template>> templateCollection, bool isDefaultTemplateProvider = false)
+        public TemplateProvider(List<Dictionary<string, IFluidTemplate>> templateCollection, bool isDefaultTemplateProvider = false)
         {
             _fileSystem = new MemoryFileSystem(templateCollection);
             _isDefaultTemplateProvider = isDefaultTemplateProvider;
@@ -29,12 +28,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
         public bool IsDefaultTemplateProvider => _isDefaultTemplateProvider;
 
-        public Template GetTemplate(string templateName)
+        public IFluidTemplate GetTemplate(string templateName)
         {
             return _fileSystem.GetTemplate(templateName);
         }
 
-        public ITemplateFileSystem GetTemplateFileSystem()
+        public IFhirConverterTemplateFileSystem GetTemplateFileSystem()
         {
             return _fileSystem;
         }

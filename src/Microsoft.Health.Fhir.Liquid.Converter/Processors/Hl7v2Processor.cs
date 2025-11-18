@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DotLiquid;
+using Fluid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Models.Hl7v2;
@@ -33,20 +33,20 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return InternalConvertFromObject(hl7v2Data, rootTemplate, templateProvider, traceInfo);
         }
 
-        protected override Context CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
+        protected override TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
         {
             // Load code system mapping
             var context = base.CreateContext(templateProvider, data, rootTemplate);
             var codeMapping = templateProvider.GetTemplate(GetCodeMappingTemplatePath(context));
             if (codeMapping?.Root?.NodeList?.First() != null)
             {
-                context["CodeMapping"] = codeMapping.Root.NodeList.First();
+                context.SetValue("CodeMapping") = codeMapping.Root.NodeList.First();
             }
 
             return context;
         }
 
-        protected override void CreateTraceInfo(object data, Context context, TraceInfo traceInfo)
+        protected override void CreateTraceInfo(object data, TemplateContext context, TraceInfo traceInfo)
         {
             if (traceInfo is Hl7v2TraceInfo hl7v2TraceInfo)
             {
@@ -54,9 +54,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             }
         }
 
-        private string GetCodeMappingTemplatePath(Context context)
+        private string GetCodeMappingTemplatePath(TemplateContext context)
         {
-            var rootTemplateParentPath = context[TemplateUtility.RootTemplateParentPathScope]?.ToString();
+            var rootTemplateParentPath = context.GetValue(TemplateUtility.RootTemplateParentPathScope)?.ToString();
             var codeSystemTemplateName = "CodeSystem/CodeSystem";
             return TemplateUtility.GetFormattedTemplatePath(codeSystemTemplateName, rootTemplateParentPath);
         }

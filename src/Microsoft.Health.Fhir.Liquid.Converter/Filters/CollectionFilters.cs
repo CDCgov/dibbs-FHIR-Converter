@@ -4,14 +4,13 @@
 // -------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
-using DotLiquid.Util;
+using Fluid;
+using Fluid.Values;
 using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -39,116 +38,150 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             return new List<object>().Concat(l1 ?? new List<object>()).Concat(l2 ?? new List<object>()).ToList();
         }
 
-        public static string BatchRender(Context context, List<object> collection, string templateName, string variableName, string collectionVarName = null)
+        public static async ValueTask<FluidValue> BatchRenderAsync(
+            FluidValue input,
+            FilterArguments arguments,
+            TemplateContext context)
         {
-            var template = GetTemplate(context, templateName);
+            if (input.IsNil()) {
+                return StringValue.Empty;
+            }
 
+            var collection = input.ToObjectValue() as List<object>;
+            if (collection == null) {
+                throw new ArgumentException("BatchRender filter requires a list as input.");
+            }
+
+            var templateName = arguments.At(0).ToStringValue();
+            var variableName = arguments.At(1).ToStringValue();
+            var collectionVarName = arguments.Count > 2 ? arguments.At(2).ToStringValue() : null;
+            var template = GetTemplate(context, templateName);
             var sb = new StringBuilder();
-            context.Stack(() =>
+
+            foreach (var entry in collection)
             {
-                collection?.ForEach(entry =>
+                context.EnterChildScope();
+                try
                 {
-                    context[variableName] = entry;
+                    context.SetValue(variableName, entry);
                     if (!string.IsNullOrWhiteSpace(collectionVarName))
                     {
-                        context[collectionVarName] = collection;
+                        context.SetValue(collectionVarName, collection);
                     }
 
-                    var result = template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture));
-
+                    var result = await template.RenderAsync(context);
                     sb.Append(result);
                     sb.Append(',');
-                });
-            });
+                }
+                finally
+                {
+                    context.ReleaseScope();
+                }
+            }
 
-            return sb.ToString();
+            if (sb.Length > 0) {
+                sb.Length--;
+            }
+
+            return new StringValue(sb.ToString());
         }
 
-        public static string BatchRenderParallel(Context context, List<object> collection, string templateName, string variableName, string collectionVarName = null)
+        public static async ValueTask<FluidValue> BatchRenderParallelAsync(
+                FluidValue input,
+                FilterArguments arguments,
+                TemplateContext context)
         {
+            if (input.IsNil()) {
+                return StringValue.Empty;
+            }
+
+            // Convert input to collection
+            var collection = input.ToObjectValue() as IEnumerable<object>;
+            if (collection == null) {
+                throw new ArgumentException("BatchRenderParallel filter requires a list as input.");
+            }
+
+            var templateName = arguments.At(0).ToStringValue();
+            var variableName = arguments.At(1).ToStringValue();
+            var collectionVarName = arguments.Count > 2 ? arguments.At(2).ToStringValue() : null;
             var template = GetTemplate(context, templateName);
 
-            var sb = new StringBuilder();
-            context.Stack(() =>
+            var results = new ConcurrentQueue<string>();
+
+            // Run parallel rendering
+            var tasks = collection.Select(async entry =>
             {
-                if (collection != null && collection.Any())
+                // Create a new context per item to avoid race conditions
+                var localContext = CloneContext(context);
+
+                localContext.SetValue(variableName, entry);
+                if (!string.IsNullOrWhiteSpace(collectionVarName))
                 {
-                    Parallel.ForEach(collection, entry =>
-                    {
-                        // Create a new context for each parallel task to avoid race conditions
-                        var localContext = new Context(context.Environments, new Hash(), context.Registers, ErrorsOutputMode.Rethrow, context.MaxIterations, CultureInfo.InvariantCulture, CancellationToken.None);
-
-                        foreach (var scope in context.Scopes)
-                        {
-                            foreach (var key in scope.Keys)
-                            {
-                                localContext[key] = scope[key];
-                            }
-                        }
-
-                        localContext[variableName] = entry;
-                        if (!string.IsNullOrWhiteSpace(collectionVarName))
-                        {
-                            localContext[collectionVarName] = collection;
-                        }
-
-                        var result = template.Render(RenderParameters.FromContext(localContext, CultureInfo.InvariantCulture));
-
-                        lock (sb)
-                        {
-                            sb.Append(result);
-                            sb.Append(',');
-                        }
-                    });
+                    localContext.SetValue(collectionVarName, collection.ToList());
                 }
+
+                var rendered = await template.RenderAsync(localContext);
+                results.Enqueue(rendered);
             });
 
-            return sb.ToString();
-        }
+            await Task.WhenAll(tasks);
 
-        private static Template GetTemplate(Context context, string templateName)
-        {
-            var templateFileSystem = context.Registers["file_system"] as IFhirConverterTemplateFileSystem;
-            var template = templateFileSystem?.GetTemplate(templateName, context[TemplateUtility.RootTemplateParentPathScope]?.ToString());
-
-            if (template == null)
+            // Concatenate results with commas
+            var sb = new StringBuilder();
+            while (results.TryDequeue(out var item))
             {
-                throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, templateName));
+                sb.Append(item);
+                sb.Append(',');
             }
 
-            return template;
+            if (sb.Length > 0) {
+                sb.Length--; // Remove trailing comma
+            }
+
+            return new StringValue(sb.ToString());
         }
 
-        private static bool HasMatchingPropertyRecursive(IEnumerable<object> entry, string keyPath, string targetProperty = null)
+        private static bool HasMatchingPropertyRecursive(IEnumerable<object> entries, string keyPath, string targetProperty = null)
         {
-            var keys = keyPath.Split(".");
-            var thisKey = keys[0];
-            var thisTargetProperty = keys.Count() == 1 ? targetProperty : null;
-            var res = DotLiquid.StandardFilters.Where(entry, thisKey, thisTargetProperty) as IEnumerable<object>;
-            if (res == null || res.Count() == 0)
-            {
+            if (entries == null || string.IsNullOrEmpty(keyPath)) {
                 return false;
             }
-            else if (keys.Count() == 1)
-            {
+
+            var keys = keyPath.Split('.', StringSplitOptions.RemoveEmptyEntries);
+            var thisKey = keys[0];
+            var thisTargetProperty = keys.Length == 1 ? targetProperty : null;
+
+            // Filter entries where this key matches the target property (if provided)
+            var filtered = entries
+                .Select(e => GetValue(e, thisKey))
+                .Where(v => v != null && (thisTargetProperty == null || v.Equals(thisTargetProperty)))
+                .ToList();
+
+            if (!filtered.Any()) {
+                return false;
+            }
+
+            if (keys.Length == 1) {
                 return true;
             }
-            else
+
+            // Recurse into nested entries
+            var nextPath = string.Join('.', keys[1..]);
+            var nextEntries = new List<object>();
+
+            foreach (var item in filtered)
             {
-                var nextPath = string.Join('.', keys[1..]);
-                var nextEntries = DotLiquid.StandardFilters.Map(res, thisKey).Cast<object>().ToList();
-
-                // If the nested property holds an array, recurse over each entry in it
-                if (nextEntries != null && nextEntries.Any() && nextEntries.All(element => element is IList<object>))
+                if (item is IEnumerable<object> list)
                 {
-                    return nextEntries.Any(nextEntry => HasMatchingPropertyRecursive(nextEntry as IEnumerable<object>, nextPath, targetProperty));
+                    nextEntries.AddRange(list);
                 }
-
-                return HasMatchingPropertyRecursive(
-                    nextEntries,
-                    nextPath,
-                    targetProperty);
+                else
+                {
+                    nextEntries.Add(item);
+                }
             }
+
+            return HasMatchingPropertyRecursive(nextEntries, nextPath, targetProperty);
         }
 
         /// <summary>
@@ -167,6 +200,61 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             }
 
             return entries.Cast<object>().Where(entry => HasMatchingPropertyRecursive(new[] { entry }, keyPath, targetProperty));
+        }
+
+        private static TemplateContext CloneContext(TemplateContext original)
+        {
+            var options = original.Options;
+            var model = new Dictionary<string, object>();
+
+            foreach (var key in original.ValueNames)
+            {
+                model[key] = original.GetValue(key).ToObjectValue();
+            }
+
+            return new TemplateContext(model, options);
+        }
+
+        private static IFluidTemplate GetTemplate(TemplateContext context, string templateName)
+        {
+            var templateFileSystem = context.GetValue("file_system") as IFhirConverterTemplateFileSystem;
+            var template = templateFileSystem?.GetTemplate(templateName, context.GetValue(TemplateUtility.RootTemplateParentPathScope)?.ToString());
+
+            if (template == null)
+            {
+                throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, templateName));
+            }
+
+            return template;
+        }
+
+        /// <summary>
+        /// Helper to get a property or dictionary value by key
+        /// </summary>
+        private static object GetValue(object obj, string key)
+        {
+            if (obj == null || string.IsNullOrEmpty(key)) {
+                return null;
+            }
+
+            // If obj is a dictionary
+            if (obj is IDictionary<string, object> dict && dict.TryGetValue(key, out var val))
+            {
+                return val;
+            }
+
+            // If obj is a FluidValue (from TemplateContext), unwrap it
+            if (obj is FluidValue fv) {
+                obj = fv.ToObjectValue();
+            }
+
+            // Try reflection for POCOs
+            var prop = obj.GetType().GetProperty(key);
+            if (prop != null) {
+                return prop.GetValue(obj);
+            }
+
+            return null;
         }
     }
 }

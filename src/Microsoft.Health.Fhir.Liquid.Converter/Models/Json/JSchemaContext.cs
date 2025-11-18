@@ -6,15 +6,15 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using DotLiquid;
+using Fluid;
 using NJsonSchema;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.Models.Json
 {
-    public class JSchemaContext : Context
+    public class JSchemaContext : TemplateContext
     {
-        public JSchemaContext(List<Hash> environments, Hash outerScope, Hash registers, ErrorsOutputMode errorsOutputMode, int maxIterations, IFormatProvider formatProvider, CancellationToken cancellationToken)
-             : base(environments, outerScope, registers, errorsOutputMode, maxIterations, formatProvider, cancellationToken)
+        public JSchemaContext(object data, TemplateOptions options)
+             : base(data, options)
         {
             ValidateSchemas = new List<JsonSchema>();
         }

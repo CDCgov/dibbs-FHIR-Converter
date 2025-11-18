@@ -9,8 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using DotLiquid;
-using DotLiquid.Exceptions;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -29,13 +28,16 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
         private const string JsonSchemaTemplateFileExtension = ".schema.json";
         private const string MetaJsonSchemaFileName = "meta-schema.json";
         private static readonly JsonSchema MetaJsonSchema;
+        private static readonly FluidParser Parser;
 
         // Register "evaluate" tag in before Template.Parse
         static TemplateUtility()
         {
-            Template.RegisterTag<Evaluate>("evaluate");
-            Template.RegisterTag<MergeDiff>("mergeDiff");
-            Template.RegisterTag<Validate>("validate");
+            Parser = new FluidParser();
+            // Parser.RegisterExpressionTag("evaluate", new Evaluate());
+            // Template.RegisterTag<Evaluate>("evaluate");
+            // Template.RegisterTag<MergeDiff>("mergeDiff");
+            // Template.RegisterTag<Validate>("validate");
             MetaJsonSchema = LoadEmbeddedMetaJsonSchema();
         }
 
@@ -46,9 +48,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
         /// </summary>
         /// <param name="templates">A dictionary, key is the name, value is the template content in string format</param>
         /// <returns>A dictionary, key is the name, value is Template</returns>
-        public static Dictionary<string, Template> ParseTemplates(IDictionary<string, string> templates)
+        public static Dictionary<string, IFluidTemplate> ParseTemplates(IDictionary<string, string> templates)
         {
-            var parsedTemplates = new Dictionary<string, Template>();
+            var parsedTemplates = new Dictionary<string, IFluidTemplate>();
             foreach (var entry in templates)
             {
                 var formattedEntryKey = FormatRegex.Replace(entry.Key, "/");
@@ -90,7 +92,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
             }
         }
 
-        public static Template ParseTemplate(string templateKey, string content)
+        public static IFluidTemplate ParseTemplate(string templateKey, string content)
         {
             if (IsCodeMappingTemplate(templateKey))
             {
@@ -106,9 +108,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
             }
         }
 
-        public static Template ParseCodeMapping(string content)
+        public static IFluidTemplate ParseCodeMapping(string content)
         {
-            if (content == null)
+            if (string.IsNullOrWhiteSpace(content))
             {
                 return null;
             }
@@ -120,35 +122,61 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
                 {
                     throw new TemplateLoadException(FhirConverterErrorCode.InvalidCodeMapping, Resources.InvalidCodeMapping);
                 }
-
-                var template = Template.Parse(string.Empty);
-                template.Root = new CodeMappingDocument(new List<CodeMapping>() { mapping });
-                return template;
             }
             catch (JsonException ex)
             {
                 throw new TemplateLoadException(FhirConverterErrorCode.InvalidCodeMapping, Resources.InvalidCodeMapping, ex);
             }
+
+            var parser = new FluidParser();
+
+            // Provide an empty template since the data is in the model
+            if (!parser.TryParse(string.Empty, out var template, out var error))
+            {
+                throw new TemplateLoadException(
+                    FhirConverterErrorCode.TemplateSyntaxError,
+                    $"Failed to parse code mapping template: {error}"
+                );
+            }
+
+            // The caller will later do:
+            // var options = new TemplateOptions();
+            // options.MemberAccessStrategy.Register<List<CodeMapping>>();
+            // var context = new TemplateContext(new CodeMappingDocument(new List<CodeMapping> { mapping }), options);
+            // var result = await template.RenderAsync(context);
+
+            return template;
         }
 
-        public static Template ParseLiquidTemplate(string templateName, string content)
+        public static IFluidTemplate ParseLiquidTemplate(string templateName, string content)
         {
             if (content == null)
             {
                 return null;
             }
 
+            var parser = new FluidParser();
+
             try
             {
-                return Template.Parse(content);
+                if (parser.TryParse(content, out var template, out var error))
+                {
+                    return template;
+                }
+                else
+                {
+                    throw new TemplateLoadException(
+                        FhirConverterErrorCode.TemplateSyntaxError,
+                        string.Format(Resources.TemplateSyntaxError, templateName, error));
+                }
             }
-            catch (SyntaxException ex)
+            catch (Exception ex)
             {
                 throw new TemplateLoadException(FhirConverterErrorCode.TemplateSyntaxError, string.Format(Resources.TemplateSyntaxError, templateName, ex.Message), ex);
             }
         }
 
-        public static Template ParseJsonSchemaTemplate(string content)
+        public static IFluidTemplate ParseJsonSchemaTemplate(string content)
         {
             if (string.IsNullOrWhiteSpace(content))
             {
@@ -182,8 +210,16 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
                 throw new TemplateLoadException(FhirConverterErrorCode.InvalidJsonSchema, string.Format(Resources.InvalidJsonSchemaContent, ex.Message), ex);
             }
 
-            var template = Template.Parse(string.Empty);
-            template.Root = new JSchemaDocument(schema);
+            var parser = new FluidParser();
+            parser.TryParse(string.Empty, out var template, out _);
+
+            // Instead of Template.Root = ..., just return the template.
+            // You’ll attach the model at render time.
+            //
+            // Example of later usage:
+            //   var context = new TemplateContext(new JSchemaDocument(schema));
+            //   var output = template.Render(context);
+
             return template;
         }
 

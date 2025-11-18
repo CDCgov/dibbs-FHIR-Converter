@@ -9,8 +9,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using DotLiquid;
 using EnsureThat;
+using Fluid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Extensions;
@@ -218,7 +218,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return sb.ToString();
         }
 
-        protected override Context CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
+        protected override TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
         {
             // Load data and templates
             var cancellationToken = Settings.TimeOut > 0 ? new CancellationTokenSource(Settings.TimeOut).Token : CancellationToken.None;
@@ -240,7 +240,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return context;
         }
 
-        protected override void CreateTraceInfo(object data, Context context, TraceInfo traceInfo)
+        protected override void CreateTraceInfo(object data, TemplateContext context, TraceInfo traceInfo)
         {
             if ((traceInfo is JSchemaTraceInfo jsonTraceInfo) && (context is JSchemaContext jsonContext))
             {

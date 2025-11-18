@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DotLiquid;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
@@ -18,7 +18,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
     {
         private readonly string _templateDirectory;
 
-        private Dictionary<string, Template> _templateCache;
+        private Dictionary<string, IFluidTemplate> _templateCache;
 
         public TemplateLocalFileSystem(string templateDirectory, DataType dataType)
         {
@@ -28,17 +28,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
             }
 
             _templateDirectory = templateDirectory;
-            _templateCache = new Dictionary<string, Template>();
+            _templateCache = new Dictionary<string, IFluidTemplate>();
         }
 
-        public string ReadTemplateFile(Context context, string templateName)
+        public string ReadTemplateFile(TemplateContext context, string templateName)
         {
             throw new NotImplementedException();
         }
 
-        public Template GetTemplate(Context context, string templateName)
+        public IFluidTemplate GetTemplate(TemplateContext context, string templateName)
         {
-            var templateKey = (string)context[templateName];
+            var templateKey = (string)context.GetValue(templateName);
             if (templateKey == null)
             {
                 throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, templateName));
@@ -47,7 +47,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
             return GetTemplate(templateKey) ?? throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, templateKey));
         }
 
-        public Template GetTemplate(string templateKey, string rootTemplateParentPath = "")
+        public IFluidTemplate GetTemplate(string templateKey, string rootTemplateParentPath = "")
         {
             if (string.IsNullOrEmpty(templateKey))
             {
@@ -63,7 +63,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
             // If not cached, search local file system
             var templateContent = ReadTemplateFile(templateKey);
 
-            Template template = TemplateUtility.ParseTemplate(templateKey, templateContent);
+            IFluidTemplate template = TemplateUtility.ParseTemplate(templateKey, templateContent);
             _templateCache[templateKey] = template;
 
             return template;

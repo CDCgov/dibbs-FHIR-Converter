@@ -17,7 +17,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public void AllFieldsEmptyOptional()
         {
-            var expectedContent = @"""coding"": [ ], ""text"": """",";
+            var expectedContent = @"""coding"": [ ],";
             ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), expectedContent);
         }
 
@@ -48,7 +48,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             attributes.Add("bindingStrength", "required");
 
             var expectedContent =
-                @"""coding"": [ ], ""text"": """", ""extension"": [ { ""url"": ""http://hl7.org/fhir/StructureDefinition/data-absent-reason"", ""valueCode"": ""unknown"", },],";
+                @"""coding"": [ ], ""extension"": [ { ""url"": ""http://hl7.org/fhir/StructureDefinition/data-absent-reason"", ""valueCode"": ""unknown"", },],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -63,7 +63,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             attributes.Add("bindingStrength", "extensible");
 
             var expectedContent =
-                @"""coding"": [ { ""code"": ""unknown"", ""system"": ""http://terminology.hl7.org/CodeSystem/data-absent-reason"", }, ], ""text"": """",";
+                @"""coding"": [ { ""code"": ""unknown"", ""system"": ""http://terminology.hl7.org/CodeSystem/data-absent-reason"", }, ],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 

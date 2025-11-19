@@ -46,10 +46,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                                 new {
                                     typeCode = "RSON",
                                     observation = new { value = new { code = "Why not" } },
+                                    text = new { _ = "Why not" }
                                 },
                                 new {
                                     typeCode = "RSON",
                                     observation = new { value =  new { code = "Couldn't hurt" } },
+                                    text = new { _ = "Couldn't hurt" }
                                 },
                                 new {
                                     typeCode = "COMP",

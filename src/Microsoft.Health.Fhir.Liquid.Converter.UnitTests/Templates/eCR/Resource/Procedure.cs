@@ -45,13 +45,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                             entryRelationship = new object[] {
                                 new {
                                     typeCode = "RSON",
-                                    observation = new { value = new { code = "Why not" } },
-                                    text = new { _ = "Why not" }
+                                    observation = new {
+                                        value = new { code = "Why not" },
+                                        text = new { _ = "Why not" }
+                                    }
                                 },
                                 new {
                                     typeCode = "RSON",
-                                    observation = new { value =  new { code = "Couldn't hurt" } },
-                                    text = new { _ = "Couldn't hurt" }
+                                    observation = new {
+                                        value = new { code = "Couldn't hurt" },
+                                        text = new { _ = "Couldn't hurt" }
+                                    }
                                 },
                                 new {
                                     typeCode = "COMP",

@@ -7,7 +7,7 @@
         {
             "profile":
             [
-                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure",
+                "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
             ]
         },
         "identifier":
@@ -22,16 +22,16 @@
             { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.targetSiteCode -%} },
         ],
         {% assign rels = procedureEntry.entryRelationship | to_array %}
+        {% assign rels = procedureEntry.entryRelationship | to_array %}
 
         {%- assign reasons = rels | where: "typeCode", "RSON" -%}
         {%- if reasons.size > 0 -%}
-            "reasonCode": [
-            {%- for r in reasons -%}
+            "reasonCode":
+            [
+            {%- for rel in reasons -%}
                 {
-                {% include 'DataType/CodeableConcept' CodeableConcept: r.observation.value -%}
-                {%- if r.observation.text and r.observation.text._ -%}
-                    , "text": "{{ r.observation.text._ }}"
-                {%- endif -%}
+                {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%},
+                "text": "{{ rel.observation.text._ }}"
                 }{%- if forloop.last == false -%},{%- endif -%}
             {%- endfor -%}
             ],
@@ -39,6 +39,7 @@
 
         {% for rel in rels %}
             {% if rel.typeCode == "COMP" and rel.observation.templateId.root == "2.16.840.1.113883.10.20.22.4.9" %}
+                {% comment %} Reaction observation {% endcomment %}
                 "complication":
                 [
                 { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
@@ -46,7 +47,8 @@
             {% endif %}
         {% endfor %}
 
-        "extension": [
+
+"extension": [
             {% if procedureEntry.methodCode %}
                 {
                     "url": "http://hl7.org/fhir/StructureDefinition/procedure-method",

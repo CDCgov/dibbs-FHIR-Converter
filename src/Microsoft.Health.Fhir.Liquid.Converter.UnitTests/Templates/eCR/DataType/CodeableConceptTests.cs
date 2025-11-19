@@ -125,7 +125,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""coding"": [ { ""code"": """", ""system"": ""http://www.nlm.nih.gov/research/umls/rxnorm"", ""display"": """",}, { ""code"": ""410942007"", ""system"": ""http://snomed.info/sct"", ""display"": ""Drug or medicament"",}, ], ""text"": """",";
+                @"""coding"": [ { ""code"": """", ""system"": ""http://www.nlm.nih.gov/research/umls/rxnorm"", ""display"": """",}, { ""code"": ""410942007"", ""system"": ""http://snomed.info/sct"", ""display"": ""Drug or medicament"",}, ],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
     }

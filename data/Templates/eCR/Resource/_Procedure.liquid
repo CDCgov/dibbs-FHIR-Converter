@@ -22,20 +22,26 @@
             { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.targetSiteCode -%} },
         ],
         {% assign rels = procedureEntry.entryRelationship | to_array %}
-        {% for rel in rels %}
-            {% if rel.typeCode == "RSON" %}
-                "reasonCode":
-                [
+
+        {%- assign reasons = rels | where: "typeCode", "RSON" -%}
+        {%- if reasons.size > 0 -%}
+            "reasonCode": [
+            {%- for r in reasons -%}
                 {
-                {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%},
-                "text": "{{ rel.observation.text._ }}"
-                },
-                ],
-            {% elseif rel.typeCode == "COMP" and rel.observation.templateId.root == "2.16.840.1.113883.10.20.22.4.9" %}
-                {% comment %} Reaction observation {% endcomment %}
+                {% include 'DataType/CodeableConcept' CodeableConcept: r.observation.value -%}
+                {%- if r.observation.text and r.observation.text._ -%}
+                    , "text": "{{ r.observation.text._ }}"
+                {%- endif -%}
+                }{%- if forloop.last == false -%},{%- endif -%}
+            {%- endfor -%}
+            ],
+        {%- endif -%}
+
+        {% for rel in rels %}
+            {% if rel.typeCode == "COMP" and rel.observation.templateId.root == "2.16.840.1.113883.10.20.22.4.9" %}
                 "complication":
                 [
-                    { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
+                { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
                 ],
             {% endif %}
         {% endfor %}

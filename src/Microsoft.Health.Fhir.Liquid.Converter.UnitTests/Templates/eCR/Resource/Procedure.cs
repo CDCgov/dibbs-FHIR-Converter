@@ -104,8 +104,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.NotNull(actualFhir.Code);
             Assert.NotNull(actualFhir.Performed);
             Assert.NotEmpty(actualFhir.BodySite);
-            Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);
-            Assert.Equal("Couldn't hurt", actualFhir.ReasonCode.Last().Coding.First().Code);
+            Assert.Equal("Why not", actualFhir.ReasonCode.First().text);
+            Assert.Equal("Couldn't hurt", actualFhir.ReasonCode.Last().text);
             Assert.Equal(
                 "METHOD", 
                 actualFhir.GetExtensionValue<CodeableConcept>("http://hl7.org/fhir/StructureDefinition/procedure-method").Coding.First().Code

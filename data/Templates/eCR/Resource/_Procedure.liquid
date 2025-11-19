@@ -30,9 +30,9 @@
             [
             {%- for rel in reasons -%}
                 {
-                {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%},
+                {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%}
                 "text": "{{ rel.observation.text._ }}"
-                }{%- if forloop.last == false -%},{%- endif -%}
+                },
             {%- endfor -%}
             ],
         {%- endif -%}

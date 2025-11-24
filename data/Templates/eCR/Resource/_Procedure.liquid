@@ -21,9 +21,8 @@
         [
             { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.targetSiteCode -%} },
         ],
-        {% assign rels = procedureEntry.entryRelationship | to_array %}
-        {% assign rels = procedureEntry.entryRelationship | to_array %}
 
+        {% assign rels = procedureEntry.entryRelationship | to_array %}
         {%- assign reasons = rels | where: "typeCode", "RSON" -%}
         {%- if reasons.size > 0 -%}
             "reasonCode":

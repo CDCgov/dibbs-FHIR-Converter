@@ -128,5 +128,22 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 @"""coding"": [ { ""code"": """", ""system"": ""http://www.nlm.nih.gov/research/umls/rxnorm"", ""display"": """",}, { ""code"": ""410942007"", ""system"": ""http://snomed.info/sct"", ""display"": ""Drug or medicament"",}, ], ""text"": """",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
+
+        [Fact]
+        public void OriginalTextContainsSpecialCharacter()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                {
+                    "CodeableConcept",
+                    Hash.FromAnonymousObject(
+                        new { originalText = new { _ = @"Ship \ Name" } }
+                    )
+                }
+            };
+            
+            var actualFhir = GetFhirObjectFromPartialTemplate<CodeableConcept>(ECRPath, attributes);
+            Assert.Equal(actualFhir.Text, "Ship \\ Name");
+        }
     }
 }

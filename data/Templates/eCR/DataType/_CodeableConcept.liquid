@@ -7,7 +7,7 @@
  {% endcomment %}
 {%- assign minCardinality = minCardinality | default: 0 -%}
 {%- assign num_concepts = 0 -%}
-{%- assign org_text = CodeableConcept.originalText._ | clean_string_from_tabs | strip -%}
+{%- assign org_text = CodeableConcept.originalText._ | clean_string_from_tabs | strip | escape_special_chars -%}
 "coding":
 [
 	{% assign translations = CodeableConcept.translation | to_array -%}

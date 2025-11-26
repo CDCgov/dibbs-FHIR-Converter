@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using DotLiquid;
+using Hl7.Fhir.Model;
 using Xunit;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
@@ -103,6 +105,24 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             var expectedContent =
                 @"""code"": ""1000004"", ""system"": ""http://snomed.info/sct"", ""display"": ""Sprain"",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+        }
+
+        [Fact]
+        public void DisplayNameContainsSpecialCharacter()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                {
+                    "Coding",
+                    Hash.FromAnonymousObject(
+                        new { displayName =  @"Sprai\n" }
+                    )
+                }
+            };
+            
+            var actualFhir = GetFhirObjectFromPartialTemplate<Coding>(ECRPath, attributes);
+            Console.WriteLine(actualFhir.Display.Length);
+            Assert.Equal(actualFhir.Display, "Sprai\\n");
         }
     }
 }

@@ -48,7 +48,7 @@
         "vaccineCode": {
         {% include 'DataType/CodeableConcept' CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%}
         {% if vaccineDisplay -%}
-            ,"text": "{{ vaccineDisplay }}"
+            "text": "{{ vaccineDisplay }}"
         {% endif -%}
         },
         "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",

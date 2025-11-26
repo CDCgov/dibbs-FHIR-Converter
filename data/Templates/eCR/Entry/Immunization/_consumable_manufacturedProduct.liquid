@@ -4,7 +4,7 @@
         {% if manProduct.manufacturedMaterial.code.translation -%}
             {% assign codeTranslations = manProduct.manufacturedMaterial.code.translation | to_array -%}
             {% for codeTranslation in codeTranslations -%}
-                {% include 'Resource/Immunization' immunization: entrySub, ID: immunizationId -%}
+                {% include 'Resource/Immunization' immunization: entrySub, 'immunizationsText: immunizationsText', ID: immunizationId -%}
                 {% if entrySub.informant.assignedEntity.id.root == 'FACILITY' -%}
                     {% if entrySub.informant.assignedEntity.representedOrganization.name._ -%}
                         {% assign organizationId = entrySub.informant.assignedEntity.representedOrganization | to_json_string | generate_uuid -%}
@@ -20,7 +20,7 @@
                 {% include 'Reference/Immunization/Patient' ID: immunizationId, REF: fullPatientId -%}
             {% endfor -%}
         {% else -%}
-            {% include 'Resource/Immunization' immunization: entrySub, ID: immunizationId -%}
+            {% include 'Resource/Immunization' immunization: entrySub, 'immunizationsText: immunizationsText', ID: immunizationId -%}
             {% if entrySub.informant.assignedEntity.id.root == 'FACILITY' -%}
                 {% if entrySub.informant.assignedEntity.representedOrganization.name._ -%}
                     {% assign organizationId = entrySub.informant.assignedEntity.representedOrganization | to_json_string | generate_uuid -%}
@@ -35,7 +35,7 @@
             {% endif -%}
         {% endif -%}            
     {% else -%}
-        {% include 'Resource/Immunization' immunization: entrySub, ID: immunizationId -%}
+        {% include 'Resource/Immunization' immunization: entrySub, 'immunizationsText: immunizationsText', ID: immunizationId -%}
         {% if entrySub.informant.assignedEntity.id.root == 'FACILITY' -%}
             {% if entrySub.informant.assignedEntity.representedOrganization.name._ -%}
                 {% assign organizationId = entrySub.informant.assignedEntity.representedOrganization | to_json_string | generate_uuid -%}

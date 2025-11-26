@@ -32,36 +32,31 @@
             "occurrenceString": "Unknown",
         {% endif -%}
 
-        {% assign consumables = immunization.consumable | to_array -%}
-        {% for consumable in consumables -%}
-            {% comment %} per spec, only one vaccine {% endcomment %}
-            {% assign manufacturedProduct = consumable.manufacturedProduct | to_array | nested_where: 'templateId.root', '2.16.840.1.113883.10.20.22.4.54' | first %}
+        {% comment %} Sometimes vaccine names exist as a reference to a separate html table in the narrative text {% endcomment %}
+        {% comment %} This chunk of logic grabs the passed in table and splits the string to return the vaccine name substring {% endcomment %}
+        {% comment %} It also chops out common wrapping tags that could mess things up e.g. <content> {% endcomment %}
+        {% assign refId = immunization.text.reference.value | remove: '#' %}
+        {% assign startTag = 'ID="' | append: refId | append: 'Name"' %}
+        {% assign afterId = immunizationsText._innerText | split: startTag | last %}
+        {% assign normalized = afterId | replace: '/>', '>' %}
+        {% assign parts = normalized | split: '>' %}
+        {% assign namePart = parts[1] %}
+        {% assign vaccineDisplay = namePart | split: '<' | first | strip%}
 
-            {% comment %} Sometimes vaccine names exist as a reference to a separate html table in the narrative text {% endcomment %}
-            {% comment %} This chunk of logic grabs the passed in table and splits the string to return the vaccine name substring {% endcomment %}
-            {% comment %} It also chops out common wrapping tags that could mess things up e.g. <content> {% endcomment %}
-            {% assign refId = immunization.text.reference.value | remove: '#' %}
-            {% assign startTag = 'ID="' | append: refId | append: 'Name"' %}
-            {% assign afterId = immunizationsText._innerText | split: startTag | last %}
-            {% assign normalized = afterId | replace: '/>', '>' %}
-            {% assign parts = normalized | split: '>' %}
-            {% assign namePart = parts[1] %}
-            {% assign vaccineDisplay = namePart | split: '<' | first | strip%}
-            {{ vaccineDisplay | to_json_string | print_object }}
-            {{ "3-----------------------------------------" | print_object }}
-            "vaccineCode": {
-            {% include 'DataType/CodeableConcept' CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%}
-            {% if vaccineDisplay -%}
-                ,"text": "{{ vaccineDisplay }}"
-            {% endif -%}
-            },
-            "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
-            {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}
-            {% assign fullManufacturerId = manufacturerId | prepend: 'Organization/' -%}
-            "manufacturer": {
-                "reference": "{{ fullManufacturerId }}",
-            },
-        {% endfor -%}
+        {% assign manufacturedProduct = immunization.consumable.manufacturedProduct %}
+
+        "vaccineCode": {
+        {% include 'DataType/CodeableConcept' CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%}
+        {% if vaccineDisplay -%}
+            ,"text": "{{ vaccineDisplay }}"
+        {% endif -%}
+        },
+        "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
+        {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}
+        {% assign fullManufacturerId = manufacturerId | prepend: 'Organization/' -%}
+        "manufacturer": {
+            "reference": "{{ fullManufacturerId }}",
+        },
 
         {% if immunization.statusCode.code -%}
             "status":"{{immunization.statusCode.code | get_property: 'ValueSet/ImmunizationStatus' }}",

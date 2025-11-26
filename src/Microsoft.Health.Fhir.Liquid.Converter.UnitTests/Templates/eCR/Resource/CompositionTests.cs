@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DotLiquid;
 using Hl7.Fhir.Model;
 using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
 using Xunit;

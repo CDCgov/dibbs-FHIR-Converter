@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using DotLiquid;
@@ -121,7 +120,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             };
             
             var actualFhir = GetFhirObjectFromPartialTemplate<Coding>(ECRPath, attributes);
-            Console.WriteLine(actualFhir.Display.Length);
             Assert.Equal(actualFhir.Display, "Sprai\\n");
         }
     }

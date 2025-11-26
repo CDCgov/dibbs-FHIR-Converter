@@ -32,24 +32,25 @@
             "occurrenceString": "Unknown",
         {% endif -%}
 
-        {% comment %} Sometimes vaccine names exist as a reference to a separate html table in the narrative text {% endcomment %}
-        {% comment %} This chunk of logic grabs the passed in table and splits the string to return the vaccine name substring {% endcomment %}
-        {% comment %} It also chops out common wrapping tags that could mess things up e.g. <content> {% endcomment %}
-        {% assign refId = immunization.text.reference.value | remove: '#' %}
-        {% assign startTag = 'ID="' | append: refId | append: 'Name"' %}
-        {% assign afterId = immunizationsText._innerText | split: startTag | last %}
-        {% assign normalized = afterId | replace: '/>', '>' %}
-        {% assign parts = normalized | split: '>' %}
-        {% assign namePart = parts[1] %}
-        {% assign vaccineDisplay = namePart | split: '<' | first | strip%}
-
         {% assign manufacturedProduct = immunization.consumable.manufacturedProduct %}
 
         "vaccineCode": {
         {% include 'DataType/CodeableConcept' CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%}
-        {% if vaccineDisplay -%}
-            "text": "{{ vaccineDisplay }}"
-        {% endif -%}
+        {% if immunizationsText and immunizationsText._innerText %}
+
+            {% comment %} Sometimes vaccine names exist as a reference to a separate html table in the narrative text {% endcomment %}
+            {% comment %} This chunk of logic grabs the passed in table and splits the string to return the vaccine name substring {% endcomment %}
+            {% comment %} It also chops out common wrapping tags that could mess things up e.g. <content> {% endcomment %}
+            {% assign refId = immunization.text.reference.value | remove: '#' %}
+            {% assign startTag = 'ID="' | append: refId | append: 'Name"' %}
+            {% assign afterId = immunizationsText._innerText | split: startTag | last %}
+            {% assign normalized = afterId | replace: '/>', '>' %}
+            {% assign parts = normalized | split: '>' %}
+            {% assign namePart = parts[1] %}
+            {% assign vaccineDisplay = namePart | split: '<' | first | strip%}
+
+            "text": {{ vaccineDisplay | to_json_string }},
+        {% endif %}
         },
         "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
         {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}

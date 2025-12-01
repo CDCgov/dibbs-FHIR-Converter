@@ -45,11 +45,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                             entryRelationship = new object[] {
                                 new {
                                     typeCode = "RSON",
-                                    observation = new { value = new { code = "Why not" } },
+                                    observation = new {
+                                        value = new { code = "Why not" },
+                                        text = new { _ = "Why not" }
+                                    }
                                 },
                                 new {
                                     typeCode = "RSON",
-                                    observation = new { value =  new { code = "Couldn't hurt" } },
+                                    observation = new {
+                                        value = new { code = "Couldn't hurt" },
+                                        text = new { _ = "Couldn't hurt" }
+                                    }
                                 },
                                 new {
                                     typeCode = "COMP",
@@ -104,8 +110,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Assert.NotNull(actualFhir.Code);
             Assert.NotNull(actualFhir.Performed);
             Assert.NotEmpty(actualFhir.BodySite);
-            Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);
-            Assert.Equal("Couldn't hurt", actualFhir.ReasonCode.Last().Coding.First().Code);
+            Assert.Equal("Why not", actualFhir.ReasonCode.First().Text);
+            Assert.Equal("Couldn't hurt", actualFhir.ReasonCode.Last().Text);
             Assert.Equal(
                 "METHOD", 
                 actualFhir.GetExtensionValue<CodeableConcept>("http://hl7.org/fhir/StructureDefinition/procedure-method").Coding.First().Code

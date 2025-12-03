@@ -134,6 +134,29 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             return actualFhir;
         }
 
+        /// <summary>
+        /// Create a FHIR object from the output of a template that does not return fully formed JSON.
+        /// </summary>
+        /// <typeparam name="T">FHIR Type</typeparam>
+        /// <param name="templatePath">Path to the template being tested</param>
+        /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
+        /// <returns>FHIR object of type T</returns>
+        protected static T GetFhirObjectFromPartialTemplate<T>(
+            string templatePath,
+            Dictionary<string, object> attributes
+        )
+        {
+            // Wraps the rendered template in curly braces to make it a valid JSON object.
+            var actual = $"{{ { RenderLiquidTemplate(templatePath, attributes) } }}";
+            var actualJson = DeserializeJson(actual);
+            var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
+                .ForFhir(ModelInfo.ModelInspector)
+                .UsingMode(DeserializerModes.Ostrich);
+            var actualFhir = JsonSerializer.Deserialize<T>(actualJson, fhirOptions);
+
+            return actualFhir;
+        }
+
         protected static void CompareJSONOutput(
             string templatePath,
             Dictionary<string, object> attributes,

@@ -69,15 +69,15 @@
                             {% assign templatesInComp = templatesInComp | append: templateId.root | append: "|" %}
                         {% endfor %}
                         {% if component.section.id.root -%}
-                        "id": "{{ component.section.id.root }}",
+                            "id": "{{ component.section.id.root }}",
                         {% else -%}
-                        {% assign sectionId = component | to_json_string | generate_uuid -%}
-                        "id": "{{ sectionId }}",
+                            {% assign sectionId = component | to_json_string | generate_uuid -%}
+                            "id": "{{ sectionId }}",
                         {% endif -%}
                         {% if component.section.title._ -%}
-                        "title":"{{ component.section.title._ }}",
+                            "title":"{{ component.section.title._ }}",
                         {% else -%}
-                        "title":"{{ component.section.code.displayName }}",
+                            "title":"{{ component.section.code.displayName }}",
                         {% endif -%}
                         "text":
                         {
@@ -157,10 +157,10 @@
                                             {% assign fullConditionId = conditionId | prepend: 'Condition/' -%}
                                             {
                                                 {% if er.observation.value.displayName -%}
-                                                    "display": "Problem - {{ er.observation.value.displayName }}",
+                                                    "display": "Problem - {{ er.observation.value.displayName | escape_special_chars }}",
                                                 {% elsif er.observation.value.translation -%}
                                                     {% assign translations = er.observation.value.translation | to_array -%}
-                                                    "display": "Problem - {{translations.first.displayName}}",
+                                                    "display": "Problem - {{ translations.first.displayName | escape_special_chars }}",
                                                 {% endif -%}
                                                 "reference": "{{ fullConditionId }}",
                                             },
@@ -177,10 +177,10 @@
                                             {
                                                 "reference": "{{ fullObservationId }}",
                                                 {% if orgComp.observation.code.originalText._ -%}
-                                                    "display": "{{orgComp.observation.code.originalText._ | clean_string_from_tabs | strip}}",
+                                                    "display": "{{ orgComp.observation.code.originalText._ | clean_string_from_tabs | strip | escape_special_chars }}",
                                                 {% elsif orgComp.observation.code.translation -%}
                                                     {% assign translations = orgComp.observation.code.translation | to_array -%}
-                                                    "display": "{{translations.first.displayName | strip}}",
+                                                    "display": "{{ translations.first.displayName | strip | escape_special_chars }}",
                                                 {% endif -%}
                                             },
                                             {% endif -%}
@@ -273,7 +273,7 @@
                         {
                             "text":"official",
                             {% assign codes = composition.section.code | to_array -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%},
+                            {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%}
                         },
                     },
                     {
@@ -322,7 +322,7 @@
                                         {% endif -%}
                                         {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
                                         {
-                                            "display": "Relevant Reportable Condition Observation - {{ ob.value.displayName }}",
+                                            "display": "Relevant Reportable Condition Observation - {{ ob.value.displayName | escape_special_chars }}",
                                             "reference": "{{ fullObservationId }}",
                                         },
                                     {% endif -%}

@@ -96,7 +96,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
     catch (Exception ex)
     {
         Console.WriteLine("Ex: {1} StackTrace: '{0}'", Environment.StackTrace, ex);
-        return Results.StatusCode(500);
+        return Results.Json(new { detail = "Error converting input data." }, statusCode: (int)HttpStatusCode.InternalServerError);
     }
 })
 .Accepts<dynamic>("application/json")

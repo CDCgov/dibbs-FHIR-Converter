@@ -4538,7 +4538,8 @@
               "system": "urn:oid:2.16.840.1.113883.12.292",
               "display": "diphtheria, tetanus toxoids and acellular pertussis vaccine, 5 pertussis antigens"
             }
-          ]
+          ],
+          "text": "thead"
         },
         "status": "completed",
         "primarySource": true,
@@ -4566,7 +4567,8 @@
               "system": "urn:oid:2.16.840.1.113883.12.292",
               "display": "anthrax vaccine"
             }
-          ]
+          ],
+          "text": "thead"
         },
         "status": "completed",
         "primarySource": true,

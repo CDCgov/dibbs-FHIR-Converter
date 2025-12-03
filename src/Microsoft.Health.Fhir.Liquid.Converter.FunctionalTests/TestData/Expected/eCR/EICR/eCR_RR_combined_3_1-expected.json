@@ -3083,7 +3083,8 @@
               "code": "49281-400-10",
               "system": "urn:oid:2.16.840.1.113883.6.69"
             }
-          ]
+          ],
+          "text": "td"
         },
         "lotNumber": "651414",
         "manufacturer": {

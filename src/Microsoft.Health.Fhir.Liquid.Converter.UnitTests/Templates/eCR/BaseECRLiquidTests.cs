@@ -146,6 +146,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
             Dictionary<string, object> attributes
         )
         {
+            // Wraps the rendered template in curly braces to make it a valid JSON object.
             var actual = $"{{ { RenderLiquidTemplate(templatePath, attributes) } }}";
             var actualJson = DeserializeJson(actual);
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }

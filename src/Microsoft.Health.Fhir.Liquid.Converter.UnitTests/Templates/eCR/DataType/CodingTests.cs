@@ -119,6 +119,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 }
             };
             
+            // We need to make the output of the template into a complete JSON object and attempt to deserialize 
+            // in order for this to fail if the implementation is not correct
             var actualFhir = GetFhirObjectFromPartialTemplate<Coding>(ECRPath, attributes);
             Assert.Equal(actualFhir.Display, "Sprai\\n");
         }

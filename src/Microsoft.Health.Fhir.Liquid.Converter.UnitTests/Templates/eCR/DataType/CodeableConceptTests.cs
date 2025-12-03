@@ -128,5 +128,24 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
                 @"""coding"": [ { ""code"": """", ""system"": ""http://www.nlm.nih.gov/research/umls/rxnorm"", ""display"": """",}, { ""code"": ""410942007"", ""system"": ""http://snomed.info/sct"", ""display"": ""Drug or medicament"",}, ],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
+
+        [Fact]
+        public void OriginalTextContainsSpecialCharacter()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                {
+                    "CodeableConcept",
+                    Hash.FromAnonymousObject(
+                        new { originalText = new { _ = @"Ship \ Name" } }
+                    )
+                }
+            };
+            
+            // We need to make the output of the template into a complete JSON object and attempt to deserialize 
+            // in order for this to fail if the implementation is not correct
+            var actualFhir = GetFhirObjectFromPartialTemplate<CodeableConcept>(ECRPath, attributes);
+            Assert.Equal(actualFhir.Text, "Ship \\ Name");
+        }
     }
 }

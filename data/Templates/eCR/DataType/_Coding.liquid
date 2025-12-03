@@ -13,6 +13,6 @@
   {%- assign display = Coding.code | get_rxnorm_name -%}
 {%- endif -%}
 {%- if Coding.displayName and display == nil -%}
-  {%- assign display = Coding.displayName | clean_string_from_tabs | strip -%}
+  {%- assign display = Coding.displayName | clean_string_from_tabs | strip | escape_special_chars -%}
 {%- endif -%}
 "display": "{{display}}",

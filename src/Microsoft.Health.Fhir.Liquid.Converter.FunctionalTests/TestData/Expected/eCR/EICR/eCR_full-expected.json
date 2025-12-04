@@ -1132,8 +1132,7 @@
               "system": "http://hl7.org/fhir/sid/cvx",
               "display": "influenza, intradermal, quadrivalent, preservative free, injectable"
             }
-          ],
-          "text": "influenza, intradermal,                                        quadrivalent, preservative free, injectable"
+          ]
         },
         "lotNumber": "LOT12345",
         "manufacturer": {

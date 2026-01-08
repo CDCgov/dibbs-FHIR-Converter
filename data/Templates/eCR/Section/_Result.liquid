@@ -2,5 +2,5 @@
 {% assign entries = firstSections.2_16_840_1_113883_10_20_22_2_3_1.entry | to_array %}
 {% assign text = firstSections.2_16_840_1_113883_10_20_22_2_3_1.text %}
 {% for entry in entries %}
-  {% include 'Entry/Result/entry' with entry, text: text %}
+  {% include 'Entry/Result/entry' entry: entry, text: text %}
 {% endfor %}

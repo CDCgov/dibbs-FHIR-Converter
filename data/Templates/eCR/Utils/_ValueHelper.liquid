@@ -11,9 +11,11 @@
         {% if value.value != "" %}
         "value":
             {% if value.value startswith "." %}
+                {% comment %} {{ "0" | append: value.value | escape_special_chars }}, {% endcomment %}
                 {{ "0" | append: value.value }},
             {% else %}
-                {{ value.value }},
+                {% comment %} {{ value.value | escape_special_chars }}, {% endcomment %}
+                 {{ value.value }},
             {% endif %}
         {% endif %}
         {% if value.unit and value.unit != "null" -%}

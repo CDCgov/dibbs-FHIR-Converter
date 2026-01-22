@@ -1,0 +1,32 @@
+{
+{%- if Identifier.root or Identifier.extension -%}
+
+    {%- if Identifier.root and Identifier.extension -%}
+        {% comment %} Standard mapping (Both present) {% endcomment %}
+        "system": "{{ Identifier.root | prepend_id }}",
+        "value": "{{ Identifier.extension }}",
+
+    {%- elsif Identifier.root -%}
+        {% comment %} Root only root as value {% endcomment %}
+        "system": "urn:ietf:rfc:3986",
+        "value": "{{ Identifier.root | prepend_id }}",
+
+    {%- elsif Identifier.extension -%}
+        {% comment %} Extension only (Technically invalid CDA, but just in case) {% endcomment %}
+        "system": "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+        "value": "{{ Identifier.extension }}",
+        "_system": {
+        "extension": [
+        {%- include 'Extension/DataAbsentReason' nullFlavor: "UNK" -%}
+        ]
+        },
+    {%- endif -%}
+
+    {%- if Identifier.assigningAuthorityName -%}
+        "assigner": {
+        "display": "{{ Identifier.assigningAuthorityName }}"
+        }
+    {%- endif -%}
+
+{%- endif -%}
+},

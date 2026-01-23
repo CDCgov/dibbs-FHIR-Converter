@@ -7,7 +7,7 @@
         [
             {% assign ids = conditionEntry.id | to_array -%}
             {% for id in ids -%}
-            {% include 'DataType/Identifier' Identifier: id -%}
+            {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "clinicalStatus":
@@ -16,9 +16,9 @@
             {% for entryRelationship in entryRelationships -%}
                 {% assign templateIdString = entryRelationship.observation.templateId | to_json_string -%}
                 {% if  templateIdString  contains '"2.16.840.1.113883.10.20.22.4.5"' -%}
-                    {% include 'DataType/CodeableConcept' CodeableConcept: entryRelationship.observation.value -%}
+                    {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
                 {% elsif templateIdString  contains '"2.16.840.1.113883.10.20.22.4.6"' -%}
-                    {% include 'DataType/CodeableConcept' CodeableConcept: entryRelationship.observation.value -%}
+                    {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
                 {% endif -%}
             {% endfor -%}
         },
@@ -36,7 +36,7 @@
             {% endif -%}
         },
         ],
-        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: conditionEntry.value -%} },
+        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: conditionEntry.value -%} },
         {% if conditionEntry.effectiveTime.low.value -%}
             "onsetDateTime":"{{ conditionEntry.effectiveTime.low.value | format_as_date_time }}",
         {% elsif conditionEntry.author.time and conditionEntry.author.time.value -%}
@@ -48,7 +48,7 @@
             {% for entryRelationship in entryRelationships -%}
                 {% assign templateIdString = entryRelationship.observation.templateId | to_json_string -%}
                 {% if templateIdString contains '"2.16.840.1.113883.10.20.22.4.31"' -%}
-                    {% include 'DataType/CodeableConcept' CodeableConcept: entryRelationship.observation.value.value -%}
+                    {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value.value -%}
                 {% endif -%}
             {% endfor -%}
         },

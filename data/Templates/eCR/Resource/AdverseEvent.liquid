@@ -7,7 +7,7 @@
     [
     {% assign ids = adverseEventEntry.id | to_array -%}
     {% for i in ids -%}
-         {% include 'DataType/Identifier' Identifier: i -%}
+         {% include 'DataType/Identifier', Identifier: i -%}
     {% endfor -%}
     ],
     "status": "{{ adverseEventEntry.statusCode.code }}",
@@ -24,7 +24,7 @@
             ],
     {% endif -%}
 
-    "event": { {% include 'DataType/CodeableConcept' CodeableConcept: adverseEventEntry.value -%} },
+    "event": { {% include 'DataType/CodeableConcept', CodeableConcept: adverseEventEntry.value -%} },
     "suspectEntity": [
     { "instance": { "reference": "{{ REF }}" } }
     ]

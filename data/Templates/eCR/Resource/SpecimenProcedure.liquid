@@ -7,7 +7,7 @@
         [
             {% assign ids = specimenProc.participant.participantRole.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         {% assign rels = specimenProc.entryRelationship | to_array %}
@@ -26,7 +26,7 @@
             "status": "unsatisfactory",
         {% endif %}
         "type": {
-            {% include 'DataType/CodeableConcept' CodeableConcept: specimenProc.participant.participantRole.playingEntity.code %}
+            {% include 'DataType/CodeableConcept', CodeableConcept: specimenProc.participant.participantRole.playingEntity.code %}
         },
         {% assign receivedTime = nil %}
         {% comment %} This is based on observed data and not per spec {% endcomment %}
@@ -44,16 +44,16 @@
             "receivedTime": "{{ receivedTime | format_as_date_time }}",
         {% endif %}
         "collection": {
-            {% include 'Utils/EffectiveTime' timeType: "collected", effectiveTime: specimenProc.effectiveTime %}
+            {% include 'Utils/EffectiveTime', timeType: "collected", effectiveTime: specimenProc.effectiveTime %}
             "bodySite": {
-                {% include 'DataType/CodeableConcept' CodeableConcept: specimenProc.targetSiteCode %}
+                {% include 'DataType/CodeableConcept', CodeableConcept: specimenProc.targetSiteCode %}
             },
         },
         "condition": [
         {% assign conditionObs = obs | nested_where: 'templateId.root', '2.16.840.1.113883.10.20.22.4.421' %}
         {% for ob in conditionObs %}
             {
-                {% include 'DataType/CodeableConcept' CodeableConcept: ob.value %}
+                {% include 'DataType/CodeableConcept', CodeableConcept: ob.value %}
             },
         {% endfor %}
         ],

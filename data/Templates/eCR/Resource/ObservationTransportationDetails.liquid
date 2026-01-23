@@ -36,16 +36,16 @@
             {% else -%}
                 "{{ transitOrganizer.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
             {% endif -%}
-        {% include 'Utils/ValueHelper' value: transitOrganizer.code %}
-        {% include 'Utils/EffectiveTime' effectiveTime: transitOrganizer.effectiveTime %}
+        {% include 'Utils/ValueHelper', value: transitOrganizer.code %}
+        {% include 'Utils/EffectiveTime', effectiveTime: transitOrganizer.effectiveTime %}
         "component":
         [
             {% assign comps = transitOrganizer.component | to_array %}
             {% for comp in comps %}
                 {% if comp.observation.value %}
                     {
-                        "code" : { {% include 'DataType/CodeableConcept' CodeableConcept: comp.observation.code %}},
-                        {% include 'Utils/ValueHelper' value: comp.observation.value %}
+                        "code" : { {% include 'DataType/CodeableConcept', CodeableConcept: comp.observation.code %}},
+                        {% include 'Utils/ValueHelper', value: comp.observation.value %}
                     },
                 {% endif %}
             {% endfor %}

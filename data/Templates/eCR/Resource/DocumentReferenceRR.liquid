@@ -22,7 +22,7 @@
         },
         "category": [
             {
-                {% include "DataType/CodeableConcept" CodeableConcept: documentReference.code %}
+                {% include "DataType/CodeableConcept", CodeableConcept: documentReference.code %}
             },
         ],
         "content":
@@ -39,7 +39,7 @@
             {
                 "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-priority-extension",
                 "valueCodeableConcept": {
-                    {% include "DataType/CodeableConcept" CodeableConcept: documentReference.priorityCode %}
+                    {% include "DataType/CodeableConcept", CodeableConcept: documentReference.priorityCode %}
                 }
             }
         ]

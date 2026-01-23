@@ -14,7 +14,7 @@
             "type":
             {
                 {% assign codes = composition.code | to_array -%}
-                {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%}
+                {% include 'DataType/CodeableConcept', CodeableConcept: codes.first -%}
             },
             "value":"{{ composition.setId.extension }}",
             "assigner":
@@ -40,7 +40,7 @@
         "type":
         {
             {% assign codes = composition.code | to_array -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%}
+            {% include 'DataType/CodeableConcept', CodeableConcept: codes.first -%}
         },
         "date":"{{ composition.effectiveTime.value | format_as_date_time }}",
         "title":"{{ composition.title._ }}",
@@ -63,7 +63,7 @@
             {
                 {% comment %} Section will be created if 1) section exists, AND 2) either null Flavor DNE OR section has entries {% endcomment %}
                 {% if component.section -%}
-                    {% if component.section.nullFlavor == null or component.section.entry -%}
+                    {% if component.section.nullFlavor == nil or component.section.entry -%}
                         {% assign templateIds = component.section.templateId | to_array %}
                         {% for templateId in templateIds -%}
                             {% assign templatesInComp = templatesInComp | append: templateId.root | append: "|" %}
@@ -85,14 +85,14 @@
                             {% if component.section.text -%}
                                 "div": "{{ component.section.text._innerText | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
                             {% elsif component.section.title._ -%}
-                                "div":{{ component.section.title._ | to_xhtml | clean_string_from_tabs | escape_special_chars }}"",
+                                "div":"{{ component.section.title._ | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
                             {% else -%}
                                 "div":"{{ component.section.code.displayName | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
                             {% endif -%}
                         },
                         "code":
                         {
-                            {% include 'DataType/CodeableConcept' CodeableConcept: component.section.code -%}
+                            {% include 'DataType/CodeableConcept', CodeableConcept: component.section.code -%}
                         },
                         "mode":"snapshot",
                         "entry":
@@ -127,7 +127,7 @@
                                     },
                                     {%-  elsif entry.observation -%}
                                     {
-                                        "reference": "Observation/{{entry.observation | to_json_string | generate_uuid -%}}"
+                                        "reference": "Observation/{{entry.observation | to_json_string | generate_uuid }}"
                                     },
                                     {%- endif -%}
                                 {% endfor -%}
@@ -170,7 +170,7 @@
                                     {% assign orgComps = sectionEntry.organizer.component | to_array -%}
                                     {% for orgComp in orgComps -%}
                                         {% if orgComp.observation -%}
-                                            {% if orgComp.observation.code.nullFlavor && orgComp.observation.code.nullFlavor != "UNK" -%}
+                                            {% if orgComp.observation.code.nullFlavor and orgComp.observation.code.nullFlavor != "UNK" -%}
                                             {% else -%}
                                             {% assign observationId = orgComp.observation | to_json_string | generate_uuid -%}
                                             {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
@@ -194,7 +194,7 @@
                                     },
                                 {% elsif component.section.code.code == "29762-2" -%}
                                     {% capture shouldRender -%}
-                                        {%- include 'Utils/IsSocialHistoryObservation' observation: sectionEntry.observation -%}
+                                        {%- include 'Utils/IsSocialHistoryObservation', observation: sectionEntry.observation -%}
                                     {%- endcapture -%}
                                     {%- if shouldRender contains "true" -%}
                                         {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
@@ -220,14 +220,14 @@
                                         {
                                             "reference": "{{ fullProcedureId }}",
                                         },
-                                    {% elseif sectionEntry.observation %}
+                                    {% elsif sectionEntry.observation %}
                                         {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
                                         {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
                                         {
                                             "reference": "{{ fullObservationId }}",
                                         },
                                     {% endif %}
-                                {% elsif sectionEntry.observation != null and component.section.templateId.root == '2.16.840.1.113883.10.20.22.2.80' %}
+                                {% elsif sectionEntry.observation != nil and component.section.templateId.root == '2.16.840.1.113883.10.20.22.2.80' %}
                                     {% comment %} Pregnancy observations {% endcomment %}
                                     {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
                                     {% assign fullObservationId = observationId | prepend: 'Observation/' %}
@@ -253,7 +253,7 @@
             },
             {% endfor -%}
             {% assign templatesInComp = templatesInComp | split: "|" | uniq %}
-            {% include 'Utils/AddMissingRequiredSections' | templatesInComp: templatesInComp %}
+            {% include 'Utils/AddMissingRequiredSections', templatesInComp: templatesInComp %}
 
             {% comment %} Reportability Response Information Section (from RR) {% endcomment %}
             {
@@ -273,7 +273,7 @@
                         {
                             "text":"official",
                             {% assign codes = composition.section.code | to_array -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%}
+                            {% include 'DataType/CodeableConcept', CodeableConcept: codes.first -%}
                         },
                     },
                     {
@@ -300,7 +300,7 @@
                 "code": {
                     "coding": [
                         {
-                            {% include 'DataType/Coding' Coding: composition.section.code -%}
+                            {% include 'DataType/Coding', Coding: composition.section.code -%}
                         }
                     ],
                 },

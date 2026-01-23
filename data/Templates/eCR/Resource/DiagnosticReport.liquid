@@ -7,7 +7,7 @@
         [
             {% assign ids = diagnosticReport.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         {% assign obsLabResultStatus = nil %}
@@ -28,16 +28,16 @@
         {% endif %}
         "code":
         {
-            {% include 'DataType/CodeableConcept' CodeableConcept: diagnosticReport.code -%}
+            {% include 'DataType/CodeableConcept', CodeableConcept: diagnosticReport.code -%}
         },
-        {% include 'Utils/EffectiveTime' effectiveTime: diagnosticReport.effectiveTime %}
+        {% include 'Utils/EffectiveTime', effectiveTime: diagnosticReport.effectiveTime %}
         "extension":
             [
             {% if obsLabResultStatus %}
                 {% comment %} Laboratory Result Status Extension {% endcomment %}
                 {
                     "url": "http://terminology.hl7.org/CodeSystem/v2-0123",
-                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: obsLabResultStatus.observation.value -%} },
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept', CodeableConcept: obsLabResultStatus.observation.value -%} },
                 }
             {% endif %}
             ],

@@ -14,7 +14,7 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "category":
@@ -37,9 +37,9 @@
             {% else -%}
                 "final",
             {% endif -%}
-        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
-        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
-        {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
+        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.code -%} },
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
+        {% include 'Utils/ValueHelper', value: observationEntry.value, origText: text._innerText -%}
         "component" : [
             {% assign obsRelationships = observationEntry.entryRelationship | to_array -%}
             {% for obsRelation in obsRelationships -%}
@@ -47,13 +47,13 @@
                 "code":
                     {
                         {% if obsRelation.observation.code.translation.code -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code.translation -%}
+                            {% include 'DataType/CodeableConcept', CodeableConcept: obsRelation.observation.code.translation -%}
                         {% endif -%}
-                        {% if obsRelation.observation.code.translation.code == null -%}
-                            {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code -%}
+                        {% if obsRelation.observation.code.translation.code == nil -%}
+                            {% include 'DataType/CodeableConcept', CodeableConcept: obsRelation.observation.code -%}
                         {% endif -%}
                     },
-                {% include 'Utils/ValueHelper' value: obsRelation.observation.value, origText: text._innerText -%}
+                {% include 'Utils/ValueHelper', value: obsRelation.observation.value, origText: text._innerText -%}
             },
             {% endfor -%}
         ],

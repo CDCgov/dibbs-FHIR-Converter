@@ -14,7 +14,7 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "category":
@@ -47,10 +47,10 @@
                 }
             ]
         },
-        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
-        {% include 'Utils/ValueHelper' value: observationEntry.value, origText: text._innerText -%}
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
+        {% include 'Utils/ValueHelper', value: observationEntry.value, origText: text._innerText -%}
         "method": {
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.methodCode %}
+            {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.methodCode %}
         },
         "component" : [
             {% assign obsRelationships = observationEntry.entryRelationship | to_array -%}
@@ -67,9 +67,9 @@
                     {% endif -%}
                 ],
                 "code": {
-                    {% include 'DataType/CodeableConcept' CodeableConcept: obsRelation.observation.code -%}
+                    {% include 'DataType/CodeableConcept', CodeableConcept: obsRelation.observation.code -%}
                 },
-                {% include 'Utils/ValueHelper' value: obsRelation.observation.value, origText: text._innerText -%}
+                {% include 'Utils/ValueHelper', value: obsRelation.observation.value, origText: text._innerText -%}
             },
             {% endif -%}
             {% endfor -%}

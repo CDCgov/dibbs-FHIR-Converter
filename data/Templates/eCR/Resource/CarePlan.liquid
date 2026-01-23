@@ -7,7 +7,7 @@
         [
             {% assign ids = carePlan.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "status": "unknown",
@@ -28,11 +28,11 @@
                             {% else %}
                                 "kind": "Task",
                             {% endif %}
-                            "code": { {% include 'DataType/CodeableConcept' CodeableConcept: act.code %} },
+                            "code": { {% include 'DataType/CodeableConcept', CodeableConcept: act.code %} },
                             {% assign reasons = act.entryRelationship | to_array | where: "typeCode", "RSON" %}
                             "reasonCode": [
                                 {% for reason in reasons %}
-                                    { {% include 'DataType/CodeableConcept' CodeableConcept: reason.observation.value %} },
+                                    { {% include 'DataType/CodeableConcept', CodeableConcept: reason.observation.value %} },
                                 {% endfor %}
                             ],
                             {% if act.effectiveTime %}
@@ -41,7 +41,7 @@
                                 "status": "not-started",
                             {% endif %}
                             {% comment %} planned activities use scheduledString instead of scheduledDateTime {% endcomment %}
-                            {% capture time %}{% include 'Utils/EffectiveTime' effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
+                            {% capture time %}{% include 'Utils/EffectiveTime', effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
                             {{ time |  replace_first: "DateTime", "String" }}
                         }
                     },

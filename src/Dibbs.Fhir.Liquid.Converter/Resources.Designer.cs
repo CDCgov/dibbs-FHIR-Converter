@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Health.Fhir.Liquid.Converter {
+namespace Dibbs.Fhir.Liquid.Converter {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Health.Fhir.Liquid.Converter.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Dibbs.Fhir.Liquid.Converter.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -65,7 +65,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter {
         /// </summary>
         internal static string DuplicateHl7v2Separators {
             get {
-                return ResourceManager.GetString("DuplicateHl7v2Separators", resourceCulture);
+                return ResourceManager.GetString("DuplicateHl7v2Separators7v2Separators", resourceCulture);
             }
         }
         

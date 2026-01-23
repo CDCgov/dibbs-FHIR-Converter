@@ -13,7 +13,7 @@
             {% assign ids = location.id | to_array -%}
             {% if ids != empty -%}
                 {% for id in ids -%}
-                    {% include 'DataType/Identifier' Identifier: id -%}
+                    {% include 'DataType/Identifier', Identifier: id -%}
                 {% endfor -%}
             {% else %}
                 {
@@ -28,26 +28,27 @@
         {% else %}
             "_name": {
                 "extension": [
-                    {%- include 'Extension/DataAbsentReason' nullFlavor: location.playingEntity.name.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' -%}
+                    {% assign playingEntityNullFlavor = location.playingEntity.name.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' %}
+                    {%- include 'Extension/DataAbsentReason', nullFlavor: playingEntityNullFlavor -%}
                 ],
             },
         {% endif %}
 
         "address": {
-            {% include 'DataType/Address' Address: location.addr -%}
-            {% if location.addr.city._ == null %}
+            {% include 'DataType/Address', Address: location.addr -%}
+            {% if location.addr.city._ == nil %}
                 "_city": {
                     "extension": [
-                        {% assign nfCity = location.addr.city.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
-                        {%- include 'Extension/DataAbsentReason' nullFlavor: nfCity | get_property: 'ValueSet/NullFlavor' -%}
+                        {% assign nfCity = location.addr.city.nullFlavor | default: location.addr.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' %}
+                        {%- include 'Extension/DataAbsentReason', nullFlavor: nfCity -%}
                     ]
                 },
             {% endif %}
-            {% if location.addr.state._ == null %}
+            {% if location.addr.state._ == nil %}
                 "_state": {
                     "extension": [
-                        {% assign nfState = location.addr.state.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
-                        {%- include 'Extension/DataAbsentReason' nullFlavor: nfState | get_property: 'ValueSet/NullFlavor' -%}
+                        {% assign nfState = location.addr.state.nullFlavor | default: location.addr.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' %}
+                        {%- include 'Extension/DataAbsentReason', nullFlavor: nfState -%}
                     ]
                 },
             {% endif %}
@@ -57,14 +58,14 @@
         [
             {% assign telecoms = location.telecom | to_array -%}
             {% for telecom in telecoms -%}
-            { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+            { {% include 'DataType/ContactPoint', ContactPoint: telecom -%} },
             {% endfor -%}
         ],
         "type":
         [
             {% assign codes = location.code | to_array -%}
             {% for code in codes -%}
-            { {% include 'DataType/CodeableConcept' CodeableConcept: code, minCardinality: 1, nullFlavor: code.nullFlavor -%} },
+            { {% include 'DataType/CodeableConcept', CodeableConcept: code, minCardinality: 1, nullFlavor: code.nullFlavor -%} },
             {% endfor -%}
         ],
     },

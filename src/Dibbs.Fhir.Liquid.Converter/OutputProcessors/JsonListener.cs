@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using static jsonParser;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.OutputProcessors
+namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
 {
     public class JsonListener : jsonBaseListener
     {

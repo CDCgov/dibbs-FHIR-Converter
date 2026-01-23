@@ -27,7 +27,7 @@
             {% else -%}
                 "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
             {% endif -%}
-        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
         "component":
         [
             {% assign locs = observationEntry.participant | to_array | where: "typeCode", "LOC" %}
@@ -44,14 +44,14 @@
                         ]
                     },
                     {% if loc.participantRole.code %}
-                        {% include 'Utils/ValueHelper' value: loc.participantRole.code %}
+                        {% include 'Utils/ValueHelper', value: loc.participantRole.code %}
                     {% endif %}
                     {% if loc.participantRole.addr %}
                         "extension": [
                             {
                                 "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
                                 "valueAddress": {
-                                    {% include 'DataType/Address' Address: loc.participantRole.addr %}
+                                    {% include 'DataType/Address', Address: loc.participantRole.addr %}
                                 },
                             },
                         ],
@@ -59,9 +59,9 @@
                 },
             {% endfor %}
             {% capture entryText -%}
-                {%- include 'Utils/TextHelper' text: observationEntry.text, origText: socialHistoryText -%}
+                {%- include 'Utils/TextHelper', text: observationEntry.text, origText: socialHistoryText -%}
             {%- endcapture %}
-            {% if entryText and entryText != '' %}
+            {% if entryText and entryText != blank %}
                  {
                     "code" : {
                         "coding" :
@@ -93,7 +93,7 @@
                                 }
                             ]
                         },
-                        {% include 'Utils/ValueHelper' value: rel.observation.value %}
+                        {% include 'Utils/ValueHelper', value: rel.observation.value %}
                     },
                 {% endif %}
             {% endfor %}

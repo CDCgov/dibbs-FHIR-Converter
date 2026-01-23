@@ -4,101 +4,86 @@
 // -------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using DotLiquid;
-using DotLiquid.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Models.Json;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Fluid;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NJsonSchema;
-using NJsonSchema.Validation;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
+namespace Dibbs.Fhir.Liquid.Converter.Utilities
 {
     public static class TemplateUtility
     {
-        private static readonly Regex FormatRegex = new Regex(@"(\\|/)_?");
-        private const string LiquidTemplateFileExtension = ".liquid";
-        private const string JsonSchemaTemplateFileExtension = ".schema.json";
-        private const string MetaJsonSchemaFileName = "meta-schema.json";
-        private static readonly JsonSchema MetaJsonSchema;
+        private static string templateDirectory = Environment.GetEnvironmentVariable("TEMPLATES_PATH") ?? "../../data/Templates/eCR";
 
-        // Register "evaluate" tag in before Template.Parse
+        // We only use one instance of TemplateOptions because it caches templates that are referenced by include or render tags and we can re-use them for other eCRs
+        private static TemplateOptions templateOptions;
+
+        // Instantiating a FluidParser instance is expensive
+        // so this is the one we will use across the whole application
+        public static readonly FluidParser Parser;
+
         static TemplateUtility()
         {
-            Template.RegisterTag<Evaluate>("evaluate");
-            Template.RegisterTag<MergeDiff>("mergeDiff");
-            Template.RegisterTag<Validate>("validate");
-            MetaJsonSchema = LoadEmbeddedMetaJsonSchema();
+            Parser = new FluidParser();
+            Parser.RegisterParserTag("evaluate", EvaluateParser.Parser, async (evaluateTag, w, e, c) =>
+            {
+                return await evaluateTag.WriteToAsync(w, e, c);
+            });
+
+            // CollectionFilters
+            templateOptions = new TemplateOptions();
+            templateOptions.Filters.AddFilter("to_array", Filters.ToArray);
+            templateOptions.Filters.AddFilter("batch_render", Filters.BatchRender);
+            templateOptions.Filters.AddFilter("nested_where", Filters.NestedWhere);
+
+            // CustomFilters
+            templateOptions.Filters.AddFilter("clean_string_from_tabs", Filters.CleanStringFromTabs);
+            templateOptions.Filters.AddFilter("print_object", Filters.PrintObject);
+            templateOptions.Filters.AddFilter("get_loinc_name", Filters.GetLoincName);
+            templateOptions.Filters.AddFilter("get_snomed_name", Filters.GetSnomedName);
+            templateOptions.Filters.AddFilter("get_rxnorm_name", Filters.GetRxnormName);
+            templateOptions.Filters.AddFilter("find_inner_text_by_id", Filters.FindInnerTextById);
+            templateOptions.Filters.AddFilter("format_quantity", Filters.FormatQuantity);
+
+            // DateFilters
+            templateOptions.Filters.AddFilter("add_hyphens_date", Filters.AddHyphensDate);
+            templateOptions.Filters.AddFilter("format_as_date_time", Filters.FormatAsDateTime);
+            templateOptions.Filters.AddFilter("now", Filters.Now);
+            templateOptions.Filters.AddFilter("format_width_as_period", Filters.FormatWidthAsPeriod);
+
+            // GeneralFilters
+            templateOptions.Filters.AddFilter("prepend_id", Filters.PrependID);
+            templateOptions.Filters.AddFilter("generate_uuid", Filters.GenerateUUID);
+            templateOptions.Filters.AddFilter("get_property", Filters.GetProperty);
+            templateOptions.Filters.AddFilter("remove_prefix", Filters.RemovePrefix);
+
+            // SectionFilters
+            templateOptions.Filters.AddFilter("get_first_ccda_sections_by_template_id", Filters.GetFirstCcdaSectionsByTemplateId);
+
+            // StringFilters
+            templateOptions.Filters.AddFilter("remove_regex", Filters.RemoveRegex);
+            templateOptions.Filters.AddFilter("match", Filters.Match);
+            templateOptions.Filters.AddFilter("to_xhtml", Filters.ToXhtml);
+            templateOptions.Filters.AddFilter("escape_special_chars", Filters.EscapeSpecialChars);
+            templateOptions.Filters.AddFilter("prepend", Filters.Prepend);
+            templateOptions.Filters.AddFilter("append", Filters.Append);
+            templateOptions.Filters.AddFilter("to_json_string", Filters.ToJsonString);
+            templateOptions.Filters.AddFilter("gzip", Filters.Gzip);
         }
 
         public static string RootTemplateParentPathScope => "RootTemplateParentPath";
 
-        /// <summary>
-        /// Parse templates from string, "CodeSystem/CodeSystem.json" and "ValueSet/ValueSet.json" are used for Hl7v2 and C-CDA data type code mapping respectively
-        /// </summary>
-        /// <param name="templates">A dictionary, key is the name, value is the template content in string format</param>
-        /// <returns>A dictionary, key is the name, value is Template</returns>
-        public static Dictionary<string, Template> ParseTemplates(IDictionary<string, string> templates)
-        {
-            var parsedTemplates = new Dictionary<string, Template>();
-            foreach (var entry in templates)
-            {
-                var formattedEntryKey = FormatRegex.Replace(entry.Key, "/");
+        public static string RootTemplate => "EICR";
 
-                string templateKey = GetTemplateKey(formattedEntryKey);
+        public static string TemplateDirectory => templateDirectory;
 
-                if (templateKey != null)
-                {
-                    parsedTemplates[templateKey] = ParseTemplate(templateKey, entry.Value);
-                }
-            }
+        public static TemplateOptions TemplateOptions => templateOptions;
 
-            return parsedTemplates;
-        }
-
-        /// <summary>
-        /// Get template key from template file path.
-        /// Liquid template keys and code mapping template keys have no suffix extension, like "CodeSystem/CodeSystem", "ValueSet/ValueSet".
-        /// Json schema template keys have the suffix ".schema.json".
-        /// Will return null if extension of given template file is not supported.
-        /// </summary>
-        /// <param name="templatePath">A template file path</param>
-        /// <returns>A template key</returns>
-        public static string GetTemplateKey(string templatePath)
-        {
-            if (templatePath.Contains("CodeSystem/CodeSystem.json", StringComparison.InvariantCultureIgnoreCase)
-                || templatePath.Contains("ValueSet/ValueSet.json", StringComparison.InvariantCultureIgnoreCase)
-                || string.Equals(Path.GetExtension(templatePath), LiquidTemplateFileExtension, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return Path.ChangeExtension(templatePath, null);
-            }
-            else if (IsJsonSchemaTemplate(templatePath))
-            {
-                return templatePath;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public static Template ParseTemplate(string templateKey, string content)
+        public static IFluidTemplate ParseTemplate(string templateKey, string content)
         {
             if (IsCodeMappingTemplate(templateKey))
             {
                 return ParseCodeMapping(content);
-            }
-            else if (IsJsonSchemaTemplate(templateKey))
-            {
-                return ParseJsonSchemaTemplate(content);
             }
             else
             {
@@ -106,9 +91,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
             }
         }
 
-        public static Template ParseCodeMapping(string content)
+        public static IFluidTemplate ParseCodeMapping(string content)
         {
-            if (content == null)
+            if (string.IsNullOrWhiteSpace(content))
             {
                 return null;
             }
@@ -120,18 +105,24 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
                 {
                     throw new TemplateLoadException(FhirConverterErrorCode.InvalidCodeMapping, Resources.InvalidCodeMapping);
                 }
-
-                var template = Template.Parse(string.Empty);
-                template.Root = new CodeMappingDocument(new List<CodeMapping>() { mapping });
-                return template;
             }
             catch (JsonException ex)
             {
                 throw new TemplateLoadException(FhirConverterErrorCode.InvalidCodeMapping, Resources.InvalidCodeMapping, ex);
             }
+
+            // Provide an empty template since the data is in the model
+            if (!Parser.TryParse(string.Empty, out var template, out var error))
+            {
+                throw new TemplateLoadException(
+                    FhirConverterErrorCode.TemplateSyntaxError,
+                    $"Failed to parse code mapping template: {error}");
+            }
+
+            return template;
         }
 
-        public static Template ParseLiquidTemplate(string templateName, string content)
+        public static IFluidTemplate ParseLiquidTemplate(string templateName, string content)
         {
             if (content == null)
             {
@@ -140,83 +131,26 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
 
             try
             {
-                return Template.Parse(content);
+                if (Parser.TryParse(content, out var template, out var error))
+                {
+                    return template;
+                }
+                else
+                {
+                    throw new TemplateLoadException(
+                        FhirConverterErrorCode.TemplateSyntaxError,
+                        string.Format(Resources.TemplateSyntaxError, templateName, error));
+                }
             }
-            catch (SyntaxException ex)
+            catch (Exception ex)
             {
                 throw new TemplateLoadException(FhirConverterErrorCode.TemplateSyntaxError, string.Format(Resources.TemplateSyntaxError, templateName, ex.Message), ex);
             }
         }
 
-        public static Template ParseJsonSchemaTemplate(string content)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                throw new TemplateLoadException(FhirConverterErrorCode.InvalidJsonSchema, "Schema cannot be null or empty.");
-            }
-
-            // Validate input Json schema
-            ICollection<ValidationError> errors;
-            try
-            {
-                var schemaObject = JObject.Parse(content);
-                errors = MetaJsonSchema.Validate(content);
-            }
-            catch (Exception ex)
-            {
-                throw new TemplateLoadException(FhirConverterErrorCode.InvalidJsonSchema, string.Format(Resources.InvalidJsonSchemaContent, ex.Message), ex);
-            }
-
-            if (errors.Any())
-            {
-                throw new TemplateLoadException(FhirConverterErrorCode.InvalidJsonSchema, string.Format(Resources.InvalidJsonSchemaContent, string.Join(";", errors)));
-            }
-
-            JsonSchema schema;
-            try
-            {
-                schema = JsonSchema.FromJsonAsync(content).GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-                throw new TemplateLoadException(FhirConverterErrorCode.InvalidJsonSchema, string.Format(Resources.InvalidJsonSchemaContent, ex.Message), ex);
-            }
-
-            var template = Template.Parse(string.Empty);
-            template.Root = new JSchemaDocument(schema);
-            return template;
-        }
-
         public static bool IsCodeMappingTemplate(string templateKey)
         {
-            return templateKey.EndsWith("CodeSystem/CodeSystem", StringComparison.InvariantCultureIgnoreCase) ||
-                   templateKey.EndsWith("ValueSet/ValueSet", StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        public static bool IsJsonSchemaTemplate(string templateKey)
-        {
-            return templateKey.EndsWith(JsonSchemaTemplateFileExtension, StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        private static JsonSchema LoadEmbeddedMetaJsonSchema()
-        {
-            var executingAssembly = Assembly.GetExecutingAssembly();
-            var metaSchemaAssemblyName = string.Format("{0}.{1}", executingAssembly.GetName().Name, MetaJsonSchemaFileName);
-
-            string metaSchemaContent;
-            using (Stream stream = executingAssembly.GetManifestResourceStream(metaSchemaAssemblyName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                metaSchemaContent = reader.ReadToEnd();
-            }
-
-            return JsonSchema.FromJsonAsync(metaSchemaContent).GetAwaiter().GetResult();
-        }
-
-        public static string GetRootTemplateParentPath(string rootTemplate)
-        {
-            string[] rootTemplateParts = rootTemplate.Split('/');
-            return string.Join("/", rootTemplateParts, 0, rootTemplateParts.Length - 1);
+            return templateKey.EndsWith("ValueSet/ValueSet", StringComparison.InvariantCultureIgnoreCase);
         }
 
         public static string GetFormattedTemplatePath(string templateName, string rootTemplateParentPath = "")

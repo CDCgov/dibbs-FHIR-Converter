@@ -2,5 +2,5 @@
 {%- if textVal -%}
     {{- textVal | clean_string_from_tabs | escape_special_chars -}}
 {%- elsif text.reference -%}
-    {%- include 'Utils/TextRefHelper' ref: text.reference, origText: origText -%}
+    {%- include 'Utils/TextRefHelper', ref: text.reference, origText: origText -%}
 {%- endif -%}

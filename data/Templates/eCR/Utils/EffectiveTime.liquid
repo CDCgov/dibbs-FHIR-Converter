@@ -4,9 +4,9 @@
     {% assign _effectiveTime = effectiveTime | format_width_as_period %}
 {% endif %}
 {% if _effectiveTime.low.value or _effectiveTime.high.value -%}
-    "{{ _timeType }}Period": { {% include 'DataType/Period' Period: _effectiveTime %} },
-{%- elseif _effectiveTime.value -%}
+    "{{ _timeType }}Period": { {% include 'DataType/Period', Period: _effectiveTime %} },
+{%- elsif _effectiveTime.value -%}
     "{{ _timeType }}DateTime":"{{ _effectiveTime.value | format_as_date_time }}",
-{%- elseif _effectiveTime.center.value -%}
+{%- elsif _effectiveTime.center.value -%}
     "{{ _timeType }}DateTime":"{{ _effectiveTime.center.value | format_as_date_time }}",
 {%- endif -%}

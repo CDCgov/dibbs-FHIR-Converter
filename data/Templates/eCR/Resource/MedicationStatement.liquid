@@ -7,11 +7,11 @@
         [
             {% assign ids = medicationStatement.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "status":"{{ medicationStatement.statusCode.code | downcase | get_property: 'ValueSet/MedicationStatementStatus' }}",
-        {% include 'Utils/EffectiveTime' effectiveTime: medicationStatement.effectiveTime %}
+        {% include 'Utils/EffectiveTime', effectiveTime: medicationStatement.effectiveTime %}
         "dosage":
         [
             {

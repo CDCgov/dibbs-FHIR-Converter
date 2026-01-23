@@ -1,12 +1,13 @@
 {
-{%- assign oid_pattern = "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" -%}
+{%- assign oid_pattern = "^([0-2])((\\.0)|(\\.[1-9][0-9]*))*$" -%}
 {%- assign uuid_pattern = "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" -%}
 {%- assign oid_pattern_match = Identifier.root | match: oid_pattern | size -%}
 {%- assign uuid_pattern_match = Identifier.root | match: uuid_pattern | size -%}
 {%- capture system -%}
-    {%- include 'ValueSet/SystemReference' code: Identifier.root -%}
+    {%- include 'ValueSet/SystemReference', code: Identifier.root -%}
 {%- endcapture %}
-{%- if Identifier.nullFlavor == null -%}
+{% assign system = system | strip %}
+{%- if Identifier.nullFlavor == nil -%}
     {%- if Identifier.extension -%}
         "system": "{{- system | prepend_id -}}",
         "value": "{{- Identifier.extension | remove_prefix: system -}}",
@@ -21,7 +22,7 @@
                 "system": "{{- system -}}",
                 "_value": {
                     "extension": [
-                        {%- include 'Extension/DataAbsentReason' nullFlavor: "unknown" -%}
+                        {%- include 'Extension/DataAbsentReason', nullFlavor: "unknown" -%}
                     ],
                 },
             {%- endif -%}
@@ -34,15 +35,15 @@
     "system": "{{- system | prepend_id -}}",
     "_value": {
         "extension": [
-            {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+            {%- include 'Extension/DataAbsentReason', nullFlavor: Identifier.nullFlavor -%}
         ],
     },
 {%- else -%}
     "extension": [
-        {%- include 'Extension/DataAbsentReason' nullFlavor: Identifier.nullFlavor -%}
+        {%- include 'Extension/DataAbsentReason', nullFlavor: Identifier.nullFlavor -%}
     ],
 {%- endif -%}
-{%- if Identifier.assigningAuthorityName != null -%}
+{%- if Identifier.assigningAuthorityName != nil -%}
     "assigner": {
         "display": "{{- Identifier.assigningAuthorityName -}}",
     }

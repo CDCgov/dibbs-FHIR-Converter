@@ -5,7 +5,7 @@
 
 using System.Text.RegularExpressions;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.InputProcessors
+namespace Dibbs.Fhir.Liquid.Converter.InputProcessors
 {
     public static class SpecialCharProcessor
     {

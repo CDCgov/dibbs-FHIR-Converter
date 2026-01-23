@@ -4,11 +4,10 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using DotLiquid;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.Models
+namespace Dibbs.Fhir.Liquid.Converter.Models
 {
-    public class CodeMapping : Drop
+    public class CodeMapping
     {
         public CodeMapping(Dictionary<string, Dictionary<string, Dictionary<string, string>>> mapping)
         {

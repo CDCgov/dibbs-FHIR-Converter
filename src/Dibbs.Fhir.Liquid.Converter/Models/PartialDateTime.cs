@@ -6,7 +6,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.Models
+namespace Dibbs.Fhir.Liquid.Converter.Models
 {
     public class PartialDateTime
     {

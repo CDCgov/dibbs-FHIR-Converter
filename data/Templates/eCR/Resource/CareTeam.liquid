@@ -7,7 +7,7 @@
         [
             {% assign ids = careTeamEntry.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "status": "{{ careTeamEntry.statusCode.code }}",
@@ -24,7 +24,7 @@
             {% for component in components -%}
                 {
                     "role": {
-                        {% include 'DataType/CodeableConcept' CodeableConcept:  component.act.performer.['sdtc_functionCode'] %}
+                        {% include 'DataType/CodeableConcept', CodeableConcept:  component.act.performer.['sdtc_functionCode'] %}
                     },
                     {% assign practitionerId = component.act.performer.assignedEntity | to_json_string | generate_uuid -%}
                     {% assign fullPractitionerId = practitionerId | prepend: 'Practitioner/' -%}

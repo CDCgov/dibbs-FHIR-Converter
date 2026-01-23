@@ -12,5 +12,5 @@
     "country": "{{Address.country._}}",
     "postalCode": "{{Address.postalCode._}}",
     "district": "{{Address.county._}}",
-    "period": { {% include 'DataType/Period' Period: Address.useablePeriod %} },
+    "period": { {% include 'DataType/Period', Period: Address.useablePeriod %} },
 {% endif -%}

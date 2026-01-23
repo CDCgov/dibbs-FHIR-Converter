@@ -8,66 +8,82 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using Microsoft.Health.Fhir.Liquid.Converter.InputProcessors;
-using Newtonsoft.Json;
+using Dibbs.Fhir.Liquid.Converter.InputProcessors;
+using Fluid;
+using Fluid.Values;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter
 {
     /// <summary>
     /// Filters for conversion
     /// </summary>
     public partial class Filters
     {
-        public static double ToDouble(string data)
+        public static ValueTask<FluidValue> EscapeSpecialChars(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            return double.Parse(data);
+            var data = input.ToStringValue();
+            var result = string.IsNullOrEmpty(data) ? data : SpecialCharProcessor.Escape(data);
+            return new StringValue(result);
         }
 
-        public static char CharAt(string data, int index)
+        public static ValueTask<FluidValue> Match(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            return data[index];
-        }
-
-        public static bool Contains(string parentString, string childString)
-        {
-            return parentString != null && parentString.Contains(childString);
-        }
-
-        public static string EscapeSpecialChars(string data)
-        {
-            return string.IsNullOrEmpty(data) ? data : SpecialCharProcessor.Escape(data);
-        }
-
-        public static string UnescapeSpecialChars(string data)
-        {
-            return string.IsNullOrEmpty(data) ? data : SpecialCharProcessor.Unescape(data);
-        }
-
-        public static List<string> Match(string data, string regexString)
-        {
-            if (string.IsNullOrEmpty(data))
+            var inputString = input.ToStringValue();
+            if (string.IsNullOrEmpty(inputString))
             {
-                return new List<string>();
+                return ArrayValue.Empty;
             }
 
-            var regex = new Regex(regexString);
-            return regex.Match(data).Captures.Select(capture => capture.Value).ToList();
+            var regex = new Regex(arguments.At(0).ToStringValue());
+            var matches = regex.Match(inputString).Captures.Select(capture => new StringValue(capture.Value)).ToList();
+            return new ArrayValue(matches);
         }
 
-        public static string ToJsonString(object data)
+        // Overriding Fluid's prepend filter to mimic the behavior of older versions of DotLiquid
+        public static ValueTask<FluidValue> Prepend(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            return data == null
-                ? null
-                : JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.None);
+            if (input.IsNil())
+            {
+                return NilValue.Instance;
+            }
+
+            return Fluid.Filters.StringFilters.Prepend(input, arguments, context);
         }
 
-        public static string Gzip(string data)
+        // Overriding Fluid's append filter to mimic the behavior of older versions of DotLiquid
+        public static ValueTask<FluidValue> Append(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
+            if (input.IsNil())
+            {
+                return NilValue.Instance;
+            }
+
+            return Fluid.Filters.StringFilters.Append(input, arguments, context);
+        }
+
+        public static ValueTask<FluidValue> ToJsonString(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            if (input.IsNil())
+            {
+                return NilValue.Instance;
+            }
+
+            return Fluid.Filters.MiscFilters.Json(input, arguments, context);
+        }
+
+        public static ValueTask<FluidValue> Gzip(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            var data = input.ToStringValue();
+            if (string.IsNullOrEmpty(data))
+            {
+                return StringValue.Empty;
+            }
+
             using var inputStream = new MemoryStream(Encoding.UTF8.GetBytes(data));
             using var outputStream = new MemoryStream();
             using (var gzipStream = new GZipStream(outputStream, CompressionMode.Compress))
@@ -75,45 +91,14 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
                 inputStream.CopyTo(gzipStream);
             }
 
-            return Convert.ToBase64String(outputStream.ToArray());
+            return StringValue.Create(Convert.ToBase64String(outputStream.ToArray()));
         }
 
-        public static string GunzipBase64String(string data)
-        {
-            using var inputStream = new MemoryStream(Convert.FromBase64String(data));
-            using var outputStream = new MemoryStream();
-            using (var gzipStream = new GZipStream(inputStream, CompressionMode.Decompress))
-            {
-                gzipStream.CopyTo(outputStream);
-            }
-
-            return Encoding.UTF8.GetString(outputStream.ToArray());
-        }
-
-        public static string Sha1Hash(string data)
-        {
-#pragma warning disable CA5350
-            using var sha1 = new SHA1Managed(); // lgtm[cs/weak-crypto]
-#pragma warning restore CA5350
-            var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(data));
-            return string.Concat(hash.Select(b => b.ToString("x2")));
-        }
-
-        public static string Base64Encode(string data)
-        {
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(data));
-        }
-
-        public static string Base64Decode(string data)
-        {
-            var bytes = Convert.FromBase64String(data);
-            return Encoding.UTF8.GetString(bytes);
-        }
-
-        public static string ToXhtml(string xmlString)
+        public static ValueTask<FluidValue> ToXhtml(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             XNamespace xhtmlNamespace = "http://www.w3.org/1999/xhtml";
             XDocument doc;
+            var xmlString = input.ToStringValue();
             try
             {
                 doc = XDocument.Parse(xmlString);
@@ -130,7 +115,18 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
             ConvertToNamespace(doc.Root, xhtmlNamespace);
 
-            return doc.ToString(SaveOptions.DisableFormatting);
+            return new StringValue(doc.ToString(SaveOptions.DisableFormatting));
+        }
+
+        public static ValueTask<FluidValue> RemoveRegex(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            if (arguments.Count != 1)
+            {
+                throw new ArgumentException("RemoveRegex requires one argument.");
+            }
+
+            string result = Regex.Replace(input.ToStringValue(), arguments.At(0).ToStringValue(), string.Empty);
+            return new StringValue(result);
         }
 
         private static void ConvertToNamespace(XElement element, XNamespace targetNamespace)

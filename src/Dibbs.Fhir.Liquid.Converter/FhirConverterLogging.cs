@@ -6,7 +6,7 @@
 using System;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter
 {
     public static class FhirConverterLogging
     {

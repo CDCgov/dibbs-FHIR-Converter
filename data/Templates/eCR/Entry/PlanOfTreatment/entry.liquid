@@ -11,23 +11,23 @@
     {% assign serviceId = service | to_json_string | generate_uuid -%}
     {% assign fullServiceId = serviceId | prepend: 'ServiceRequest/' %}
 
-    {% include 'Reference/CarePlan/Activity_Reference' ID: carePlanId,  REF: fullServiceId -%}
-    {% include 'Resource/ServiceRequest' serviceEntry: service, ID: serviceId -%}
-    {% include 'Reference/ServiceRequest/Subject' ID: serviceId, REF: fullPatientId -%}
+    {% include 'Reference/CarePlan/Activity_Reference', ID: carePlanId,  REF: fullServiceId -%}
+    {% include 'Resource/ServiceRequest', serviceEntry: service, ID: serviceId -%}
+    {% include 'Reference/ServiceRequest/Subject', ID: serviceId, REF: fullPatientId -%}
 
     {% assign performers = service.performer | to_array %}
     {% for performer in performers %}
         {% assign performerId = performer| to_json_string | generate_uuid -%}
         {% assign fullPerformerId = performerId | prepend: 'Practitioner/' %}
-        {%- include 'Resource/Practitioner' ID: performerId, practitioner: performer.assignedEntity -%}
-        {% include 'Reference/ServiceRequest/Performer' ID: serviceId, REF: fullPerformerId -%}
+        {%- include 'Resource/Practitioner', ID: performerId, practitioner: performer.assignedEntity -%}
+        {% include 'Reference/ServiceRequest/Performer', ID: serviceId, REF: fullPerformerId -%}
     {% endfor %}
 
     {% if service.author %}
         {% assign authorId = service.author | to_json_string | generate_uuid -%}
         {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
-        {%- include 'Resource/Practitioner' ID: authorId, practitioner: service.author.assignedAuthor -%}
-        {% include 'Reference/ServiceRequest/Requester' ID: serviceId, REF: fullAuthorId -%}
+        {%- include 'Resource/Practitioner', ID: authorId, practitioner: service.author.assignedAuthor -%}
+        {% include 'Reference/ServiceRequest/Requester', ID: serviceId, REF: fullAuthorId -%}
     {% endif %}
 {% endif %}
 
@@ -36,23 +36,23 @@
 {% if med %}
     {% assign medId = med | to_json_string | generate_uuid -%}
     {% assign fullMedId = medId | prepend: 'MedicationRequest/' %}
-    {% include 'Reference/CarePlan/Activity_Reference' ID: carePlanId,  REF: fullMedId -%}
-    {% include 'Resource/MedicationRequest' medicationRequest: med, ID: medId, intent: "plan" -%}
-    {% include 'Reference/MedicationRequest/Subject' ID: medId, REF: fullPatientId -%}
+    {% include 'Reference/CarePlan/Activity_Reference', ID: carePlanId,  REF: fullMedId -%}
+    {% include 'Resource/MedicationRequest', medicationRequest: med, ID: medId, intent: "plan" -%}
+    {% include 'Reference/MedicationRequest/Subject', ID: medId, REF: fullPatientId -%}
 
     {% assign performers = med.performer | to_array %}
     {% for performer in performers %}
         {% assign performerId = performer| to_json_string | generate_uuid -%}
         {% assign fullPerformerId = performerId | prepend: 'Practitioner/' %}
-        {%- include 'Resource/Practitioner' ID: performerId, practitioner: performer.assignedEntity -%}
-        {% include 'Reference/MedicationRequest/Performer' ID: medId, REF: fullPerformerId -%}
+        {%- include 'Resource/Practitioner', ID: performerId, practitioner: performer.assignedEntity -%}
+        {% include 'Reference/MedicationRequest/Performer', ID: medId, REF: fullPerformerId -%}
     {% endfor %}
 
     {% if med.author %}
         {% assign authorId = med.author | to_json_string | generate_uuid -%}
         {% assign fullAuthorId = authorId | prepend: 'Practitioner/' %}
-        {%- include 'Resource/Practitioner' ID: authorId, practitioner: med.author.assignedAuthor -%}
-        {% include 'Reference/MedicationRequest/Requester' ID: medId, REF: fullAuthorId -%}
+        {%- include 'Resource/Practitioner', ID: authorId, practitioner: med.author.assignedAuthor -%}
+        {% include 'Reference/MedicationRequest/Requester', ID: medId, REF: fullAuthorId -%}
     {% endif %}
 
 {% endif %}
@@ -62,16 +62,16 @@
     {% assign encounterId = encounter | to_json_string | generate_uuid -%}
     {% assign fullEncounterId = encounterId | prepend: 'Encounter/' %}
 
-    {% include 'Reference/CarePlan/Encounter' ID: carePlanId,  REF: fullEncounterId -%}
-    {% include 'Resource/Encounter' serviceEntry: encounter, ID: encounterId -%}
+    {% include 'Reference/CarePlan/Encounter', ID: carePlanId,  REF: fullEncounterId -%}
+    {% include 'Resource/Encounter', serviceEntry: encounter, ID: encounterId -%}
 
     {% assign participants = encounter.participant | to_array %}
     {%- for participant in participants -%}
         {%- if participant.typeCode == "LOC" -%}
             {% assign locationId = participant.participantRole | to_json_string | generate_uuid %}
             {% assign fullLocationId = locationId | prepend: 'Location/' %}
-            {% include 'Resource/Location' ID: locationId, location: participant.participantRole %}
-            {% include 'Reference/Encounter/Location_Location' ID: encounterId, REF: fullLocationId -%}
+            {% include 'Resource/Location', ID: locationId, location: participant.participantRole %}
+            {% include 'Reference/Encounter/Location_Location', ID: encounterId, REF: fullLocationId -%}
         {% endif %}
     {%- endfor -%}
 {%- endif -%}

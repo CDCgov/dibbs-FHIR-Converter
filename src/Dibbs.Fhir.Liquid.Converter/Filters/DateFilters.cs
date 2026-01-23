@@ -4,12 +4,15 @@
 // -------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
+using System.Threading.Tasks;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Fluid;
+using Fluid.Values;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter
 {
     /// <summary>
     /// Filters for conversion
@@ -38,98 +41,83 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             }
         }
 
-        public static string AddSeconds(string input, double seconds, string timeZoneHandling = "preserve")
+        private static StringValue ConvertStringToDateTime(string inputString, string inputTzHandling, bool convertToDate = false)
         {
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(inputString))
             {
-                return input;
+                return StringValue.Empty;
             }
 
+            var timeZoneHandling = string.IsNullOrEmpty(inputTzHandling) ? "preserve" : inputTzHandling;
             var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Fhir);
+            var dateTimeObject = ParsePartialDate(inputString, DateTimeType.Hl7v2);
 
-            dateTimeObject.AddSeconds(seconds);
-            return dateTimeObject.ToFhirString(outputTimeZoneHandling);
+            if (convertToDate)
+            {
+                dateTimeObject.ConvertToDate();
+            }
+
+            return StringValue.Create(dateTimeObject.ToFhirString(outputTimeZoneHandling));
         }
 
-        public static string AddHyphensDate(string input, string timeZoneHandling = "preserve")
+        public static ValueTask<FluidValue> AddHyphensDate(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            if (string.IsNullOrEmpty(input))
+            var inputString = input.ToStringValue();
+            var timeZonehandling = arguments.At(0).ToStringValue();
+            return ConvertStringToDateTime(inputString, timeZonehandling, true);
+        }
+
+        public static ValueTask<FluidValue> FormatAsDateTime(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            var inputString = input.ToStringValue();
+            var timeZonehandling = arguments.At(0).ToStringValue();
+            return ConvertStringToDateTime(inputString, timeZonehandling);
+        }
+
+        public static ValueTask<FluidValue> Now(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            var format = arguments.At(0).ToStringValue();
+            if (string.IsNullOrEmpty(format))
+            {
+                format = "yyyy-MM-ddTHH:mm:ss.FFFZ";
+            }
+
+            return StringValue.Create(DateTime.UtcNow.ToString(format));
+        }
+
+        public static ValueTask<FluidValue> FormatWidthAsPeriod(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            if (input.IsNil() || input is not DictionaryValue)
             {
                 return input;
             }
 
-            var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Hl7v2);
-
-            dateTimeObject.ConvertToDate();
-            return dateTimeObject.ToFhirString(outputTimeZoneHandling);
-        }
-
-        public static string FormatAsDateTime(string input, string timeZoneHandling = "preserve")
-        {
-            if (string.IsNullOrEmpty(input))
-            {
-                return input;
-            }
-
-            var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Hl7v2);
-
-            return dateTimeObject.ToFhirString(outputTimeZoneHandling);
-        }
-
-        public static string Now(string input, string format = "yyyy-MM-ddTHH:mm:ss.FFFZ")
-        {
-            return DateTime.UtcNow.ToString(format);
-        }
-
-        public static string FormatAsHl7v2DateTime(string input, string timeZoneHandling = "preserve")
-        {
-            if (string.IsNullOrEmpty(input))
-            {
-                return input;
-            }
-
-            var outputTimeZoneHandling = ParseTimeZone(timeZoneHandling);
-            var dateTimeObject = ParsePartialDate(input, DateTimeType.Fhir);
-            return dateTimeObject.ToHl7v2Date(outputTimeZoneHandling);
-        }
-
-        public static object FormatWidthAsPeriod(object input)
-        {
-            if (input == null)
-            {
-                return input;
-            }
-            else if (input is not IDictionary<string, object>)
-            {
-                return input;
-            }
-
-            var obj = (IDictionary<string, object>)input;
+            var obj = input as DictionaryValue;
+            var width = obj.GetValueAsync("width", context).Result;
 
             // bail out if no width present
-            if (!obj.ContainsKey("width"))
+            if (width.IsNil())
             {
                 return input;
             }
 
             PartialDateTime lowDate;
             PartialDateTime highDate;
-            if (obj.ContainsKey("high"))
+            var high = obj.GetValueAsync("high", context).Result;
+            var low = obj.GetValueAsync("low", context).Result;
+            if (!high.IsNil())
             {
-                var highDateObj = (IDictionary<string, object>)obj["high"];
-                var highDateStr = (string)highDateObj["value"];
+                var highDateObj = high as DictionaryValue;
+                var highDateStr = highDateObj.GetValueAsync("value", context).Result.ToStringValue();
                 highDate = ParsePartialDate(highDateStr, DateTimeType.Hl7v2);
-                lowDate = AddWidthToDate(highDate, -1, obj["width"] as IDictionary<string, object>);
+                lowDate = AddWidthToDate(highDate, -1, width as DictionaryValue, context);
             }
-            else if (obj.ContainsKey("low"))
+            else if (!low.IsNil())
             {
-                var lowDateObj = (IDictionary<string, object>)obj["low"];
-                var lowDateStr = (string)lowDateObj["value"];
+                var lowDateObj = low as DictionaryValue;
+                var lowDateStr = lowDateObj.GetValueAsync("value", context).Result.ToStringValue();
                 lowDate = ParsePartialDate(lowDateStr, DateTimeType.Hl7v2);
-                highDate = AddWidthToDate(lowDate, 1, obj["width"] as IDictionary<string, object>);
+                highDate = AddWidthToDate(lowDate, 1, width as DictionaryValue, context);
             }
             else
             {
@@ -144,27 +132,29 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
             var result = new Dictionary<string, object>();
             result.Add("low", lowDict);
             result.Add("high", highDict);
-            return result;
+            return FluidValue.Create(result, TemplateUtility.TemplateOptions);
         }
 
-        private static PartialDateTime AddWidthToDate(PartialDateTime origDate, int intervalMultiplier, IDictionary<string, object> width)
+        private static PartialDateTime AddWidthToDate(PartialDateTime origDate, int intervalMultiplier, DictionaryValue width, TemplateContext context)
         {
-            if (!width.ContainsKey("unit"))
+            var unit = width.GetValueAsync("unit", context).Result;
+            if (unit.IsNil())
             {
                 throw new RenderException(
                     FhirConverterErrorCode.InvalidDateTimeFormat,
                     $"Invalid datetime width: no unit");
             }
 
-            if (!width.ContainsKey("value"))
+            var value = width.GetValueAsync("value", context).Result;
+            if (value.IsNil())
             {
                 throw new RenderException(
                     FhirConverterErrorCode.InvalidDateTimeFormat,
                     $"Invalid datetime width: no value");
             }
 
-            var widthUnit = ((string)width["unit"]).ToLower();
-            var widthValue = int.Parse((string)width["value"]);
+            var widthUnit = unit.ToStringValue().ToLower();
+            var widthValue = int.Parse(value.ToStringValue());
             var date = origDate.Copy();
 
             if (widthUnit.StartsWith("s"))

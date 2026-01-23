@@ -11,7 +11,7 @@
   {% endunless %}
 {% endfor %}
 
-{% if missingSectionIds != "" %}
+{% if missingSectionIds != blank %} 
   {% assign missingSectionIds = missingSectionIds | split: "|" %}
   {% for missingSectionId in missingSectionIds %}
     {
@@ -19,7 +19,7 @@
         "coding": [
           {
             "system": "http://loinc.org",
-            {%- include 'ValueSet/CompositionSectionCode' id: missingSectionId -%}
+            {%- include 'ValueSet/CompositionSectionCode', id: missingSectionId -%}
           }
         ]
       },

@@ -3,5 +3,5 @@
 {% assign text = firstSections.2_16_840_1_113883_10_20_22_2_5_1.text %}
 
 {% for entry in entries %}
-  {% include 'Entry/Problem/entry' entry: entry, text: text %}
+  {% include 'Entry/Problem/entry', entry: entry, text: text %}
 {% endfor %}

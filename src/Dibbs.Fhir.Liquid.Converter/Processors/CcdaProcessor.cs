@@ -4,50 +4,53 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Linq;
-using DotLiquid;
+using System.IO;
+using System.Text.Json;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Fluid;
+using Fluid.Values;
 using Microsoft.Extensions.Logging;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
-using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
+namespace Dibbs.Fhir.Liquid.Converter.Processors
 {
     public class CcdaProcessor : BaseProcessor
     {
-        private readonly IDataParser _parser = new CcdaDataParser();
+        private readonly CcdaDataParser parser = new CcdaDataParser();
+        private readonly CodeMapping codeMapping;
 
-        public CcdaProcessor(ProcessorSettings processorSettings, ILogger<CcdaProcessor> logger)
-            : base(processorSettings, logger)
+        public CcdaProcessor(ILogger<CcdaProcessor> logger)
+            : base(logger)
         {
+            var codeMappingText = File.ReadAllText(GetCodeMappingTemplatePath());
+            codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeMappingText);
         }
 
         protected override DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; } = DefaultRootTemplateParentPath.Ccda;
 
-        protected override string InternalConvert(string data, string rootTemplate, ITemplateProvider templateProvider, TraceInfo traceInfo = null)
+        protected override string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider)
         {
-            object ccdaData = _parser.Parse(data);
-            return InternalConvertFromObject(ccdaData, rootTemplate, templateProvider, traceInfo);
+            object ccdaData = parser.Parse(data);
+            return InternalConvertFromObject(ccdaData, rootTemplate, templatesPath, templateProvider);
         }
 
-        protected override Context CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
+        protected override TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
         {
-            // Load value set mapping
             var context = base.CreateContext(templateProvider, data, rootTemplate);
-            var codeMapping = templateProvider.GetTemplate(GetCodeMappingTemplatePath(context));
-            if (codeMapping?.Root?.NodeList?.First() != null)
+
+            if (codeMapping.Mapping.Keys.Count > 0)
             {
-                context["CodeMapping"] = codeMapping.Root.NodeList.First();
+                context.SetValue("CodeMapping", new ObjectValue(codeMapping));
             }
 
             return context;
         }
 
-        private string GetCodeMappingTemplatePath(Context context)
+        private static string GetCodeMappingTemplatePath()
         {
-            var rootTemplateParentPath = context[TemplateUtility.RootTemplateParentPathScope]?.ToString();
-            var codeSystemTemplateName = "ValueSet/ValueSet";
-            return TemplateUtility.GetFormattedTemplatePath(codeSystemTemplateName, rootTemplateParentPath);
+            var codeSystemTemplateName = "ValueSet/ValueSet.json";
+            return TemplateUtility.GetFormattedTemplatePath(codeSystemTemplateName, TemplateUtility.TemplateDirectory);
         }
     }
 }

@@ -14,9 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Health.Fhir.Liquid.Converter\Microsoft.Health.Fhir.Liquid.Converter.csproj" />
     <ProjectReference
-      Include="..\Microsoft.Health.Fhir.Liquid.Converter.Tool\Microsoft.Health.Fhir.Liquid.Converter.Tool.csproj" />
-    <ProjectReference Include="..\Microsoft.Health.Fhir.TemplateManagement\Microsoft.Health.Fhir.TemplateManagement.csproj" />
+      Include="..\Dibbs.Fhir.Liquid.Converter\Dibbs.Fhir.Liquid.Converter.csproj" />
   </ItemGroup>
+
 </Project>

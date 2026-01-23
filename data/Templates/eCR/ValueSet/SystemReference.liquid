@@ -1,6 +1,6 @@
 {%- comment -%} See https://www.hl7.org/fhir/terminologies.html#system for finding the corresponding URI for a system OID {%- endcomment -%}
 {%- assign url = code | default: "" -%}
-{%- assign s = code | match: "^([0-2])((\.0)|(\.[1-9][0-9]*))*$" | size -%}
+{%- assign s = code | match: "^([0-2])((\\.0)|(\\.[1-9][0-9]*))*$" | size -%}
     {%- case code -%}
         {%- when "2.16.840.1.113883.6.1" -%}
             {%- assign url = "http://loinc.org" -%}

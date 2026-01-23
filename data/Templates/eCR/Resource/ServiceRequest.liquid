@@ -7,14 +7,14 @@
         [
             {% assign ids = serviceEntry.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "status":"{{ serviceEntry.statusCode.code | get_property: 'ValueSet/RequestStatus' }}",
         "intent": "plan",
         "code":
         {
-            {% include 'DataType/CodeableConcept' CodeableConcept: serviceEntry.code -%}
+            {% include 'DataType/CodeableConcept', CodeableConcept: serviceEntry.code -%}
         },
 
         {% assign rels = serviceEntry.entryRelationship | to_array %}
@@ -29,21 +29,21 @@
         {% endfor %}
         "priority":"{{ priorityCode | get_property: 'ValueSet/ServiceRequestPriority' }}",
 
-        {% include 'Utils/EffectiveTime' effectiveTime: serviceEntry.effectiveTime, timeType: "occurrence" %}
+        {% include 'Utils/EffectiveTime', effectiveTime: serviceEntry.effectiveTime, timeType: "occurrence" %}
 
         "authoredOn": "{{ serviceEntry.author.time.value | format_as_date_time }}",
 
         {% assign reasons = rels | where: 'typeCode', 'RSON' %}
         "reasonCode": [
             {% for reason in reasons %}
-                { {% include 'DataType/CodeableConcept' CodeableConcept: reason.observation.value %} },
+                { {% include 'DataType/CodeableConcept', CodeableConcept: reason.observation.value %} },
             {% endfor %}
         ],
 
         "bodySite": [
             {% assign sites = serviceEntry.targetSiteCode | to_array %}
             {% for site in sites %}
-                { {% include 'DataType/CodeableConcept' CodeableConcept: site %} },
+                { {% include 'DataType/CodeableConcept', CodeableConcept: site %} },
             {% endfor %}
         ],
     },

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter
 {
     /// <summary>
     /// One-way JsonConverter to deserialize XML-converted JSON string to IDictionary

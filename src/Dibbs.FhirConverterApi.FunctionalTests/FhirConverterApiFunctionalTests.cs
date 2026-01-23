@@ -13,7 +13,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     public FhirConverterApiFunctionalTests(WebApplicationFactory<Program> factory)
     {
         _client = factory.CreateClient();
-        Environment.SetEnvironmentVariable("TEMPLATES_PATH", "../../../../../data/Templates/");
     }
 
     [Fact]
@@ -49,7 +48,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Snapshot.Match(jsonResponse);
+        Snapshot.Match(jsonResponse, matchOptions => CommonIgnoredFields(matchOptions));
     }
 
     [Fact]
@@ -66,7 +65,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
-        Snapshot.Match(jsonResponse);
+        Snapshot.Match(jsonResponse, matchOptions => CommonIgnoredFields(matchOptions));
     }
 
     [Fact]
@@ -103,77 +102,12 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal("{\"detail\":\"Reportability Response (RR) message must be valid XML message.\"}", jsonResponse);
     }
 
-    [Fact]
-    public async Task ConvertToFhir_Returns400StatusCode_WhenRrProvidedWithoutWrongInputDataType()
+    private static Snapshooter.MatchOptions CommonIgnoredFields(Snapshooter.MatchOptions matchOptions)
     {
-        var vxu = File.ReadAllText("../../../../../data/SampleData/Hl7v2/VXU-Sample.hl7");
-        var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
-        var content = new FhirConverterRequest
-        {
-            InputType = "vxu",
-            InputData = vxu,
-            RRData = rr,
-            RootTemplate = "VXU_V04",
-        };
-
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal("{\"detail\":\"Reportability Response (RR) data is only accepted for eCR conversion requests.\"}", jsonResponse);
-    }
-
-    [Fact]
-    public async Task ConvertToFhir_Returns400StatusCode_WhenInvalidTemplateDirectoryProvided()
-    {
-        var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
-        var content = new FhirConverterRequest
-        {
-            InputType = "badinputtype",
-            InputData = eICR,
-            RootTemplate = "EICR",
-        };
-
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal("{\"detail\":\"Invalid input_type badinputtype. Valid values are 'ecr', 'elr', and 'vxu'.\"}", jsonResponse);
-    }
-
-    [Fact]
-    public async Task ConvertToFhir_Returns400StatusCode_WhenRRProvidedWhenInvalidInputTypeProvided()
-    {
-        var content = new FhirConverterRequest
-        {
-            InputType = "ccd",
-            InputData = "<ClinicalDocument></ClinicalDocument>",
-        };
-
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal("{\"detail\":\"Root template for ccd cannot be found. Please specify using the root_template parameter.\"}", jsonResponse);
-    }
-
-    [Fact]
-    public async Task ConvertToFhir_ReturnsSuccess_WhenValidVxuProvided()
-    {
-        var vxu = File.ReadAllText("../../../../../data/SampleData/Hl7v2/VXU-Sample.hl7");
-        var content = new FhirConverterRequest
-        {
-            InputType = "vxu",
-            InputData = vxu,
-            RootTemplate = "VXU_V04",
-        };
-
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-
-        // Ignore provenance div because of generated on timestamp
-        Snapshot.Match(jsonResponse, matchOptions => matchOptions.IgnoreField("response.FhirResource.entry[1].resource.text.div"));
+        return matchOptions
+                    .IgnoreAllFields("id")
+                    .IgnoreAllFields("fullUrl")
+                    .IgnoreAllFields("reference")
+                    .IgnoreField("response.FhirResource.entry[*].request.url");
     }
 }

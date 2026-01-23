@@ -1,7 +1,0 @@
-{
-    "id": "1",
-    "valueReference" : "testReference",
-    "data" : "newData",
-    "resourceType" : "newType",
-    "extension" : "replace"
-}

@@ -14,14 +14,14 @@
         [
             {% assign ids = patientRole.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "name":
         [
             {% assign names = patientRole.patient.name | to_array -%}
             {% for name in names -%}
-            { {% include 'DataType/HumanName' HumanName: name -%} },
+            { {% include 'DataType/HumanName', HumanName: name -%} },
             {% endfor -%}
         ],
         "birthDate":"{{ patientRole.patient.birthTime.value | add_hyphens_date }}",
@@ -34,37 +34,37 @@
         "gender":"{{ patientRole.patient.administrativeGenderCode.code | get_property: 'ValueSet/Gender' }}",
         "extension":
         [
-            { {% include 'Extension/Race' Race: patientRole.patient -%} },
-            { {% include 'Extension/Ethnicity' Ethnicity: patientRole.patient -%} },
-            { {% include 'Extension/Religion' patient: patientRole.patient -%}},
+            { {% include 'Extension/Race', Race: patientRole.patient -%} },
+            { {% include 'Extension/Ethnicity', Ethnicity: patientRole.patient -%} },
+            { {% include 'Extension/Religion', patient: patientRole.patient -%}},
             {%- assign birthSexObs = '' -%}
             {% for entry in SOCIALOBS -%}
                 {% assign firstTemplate = entry.observation.templateId | to_array | first -%}
                 {% if firstTemplate.root == '2.16.840.1.113883.10.20.34.3.45' or entry.observation.code.code == '76691-5' -%}
-                    { {% include 'Extension/GenderIdentity' gendIdOb: entry.observation -%} },
+                    { {% include 'Extension/GenderIdentity', gendIdOb: entry.observation -%} },
                 {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.2.3.48' -%}
-                    { {% include 'Extension/TribalAffiliation' tribeAOb: entry.observation -%} },
-                {% elsif entry.observation.code.code == '76689-9' and birthSexObs == '' -%}
+                    { {% include 'Extension/TribalAffiliation', tribeAOb: entry.observation -%} },
+                {% elsif entry.observation.code.code == '76689-9' and birthSexObs == blank -%}
                     {% assign birthSexObs = entry.observation -%}
                 {% endif -%}
             {% endfor -%}
-            { {% include 'Extension/BirthSex' birthSObs: birthSexObs -%} },
+            { {% include 'Extension/BirthSex', birthSObs: birthSexObs -%} },
         ],
         "address":
         [
             {% assign addrs = patientRole.addr | to_array -%}
             {% for addr in addrs -%}
-            { {% include 'DataType/Address' Address: addr -%} },
+            { {% include 'DataType/Address', Address: addr -%} },
             {% endfor -%}
         ],
         "maritalStatus": {
-            {% include 'DataType/CodeableConcept' CodeableConcept: patientRole.patient.maritalStatusCode, minCardinality: 0 -%}
+            {% include 'DataType/CodeableConcept', CodeableConcept: patientRole.patient.maritalStatusCode, minCardinality: 0 -%}
         },
         "telecom":
         [
             {% assign telecoms = patientRole.telecom | to_array -%}
             {% for telecom in telecoms -%}
-            { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+            { {% include 'DataType/ContactPoint', ContactPoint: telecom -%} },
             {% endfor -%}
         ],
         "contact": [
@@ -73,20 +73,20 @@
             {% if contact.classCode == "ECON" -%}
                 {
                     "relationship": [
-                        { {% include 'DataType/CodeableConcept' CodeableConcept: contact.code, minCardinality: 0 -%} }
+                        { {% include 'DataType/CodeableConcept', CodeableConcept: contact.code, minCardinality: 0 -%} }
                     ],
                     {% assign name = contact.associatedPerson.name | to_array | first-%}
-                    "name": { {% include 'DataType/HumanName' HumanName: name -%} },
+                    "name": { {% include 'DataType/HumanName', HumanName: name -%} },
                     "telecom": [
                         {% assign telecoms = contact.telecom | to_array -%}
                         {% for telecom in telecoms -%}
-                        { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+                        { {% include 'DataType/ContactPoint', ContactPoint: telecom -%} },
                         {% endfor -%}
                     ],
                     {% assign addr = contact.addr | to_array | first -%}
-                    "address": { {% include 'DataType/Address' Address: addr -%} },
+                    "address": { {% include 'DataType/Address', Address: addr -%} },
                 },
-            {% endif contact  -%}
+            {% endif -%}
         {% endfor -%}
         ],
         "communication":
@@ -101,10 +101,10 @@
             {
                 "language":
                 {
-                    {%- if mappedCode != '' -%}
+                    {%- if mappedCode != blank -%}
                         "coding": [ { "system":"urn:ietf:bcp:47", "code":"{{ mappedCode }}", "display":"{{ mappedDisplay }}" } ]
                     {%- else -%}
-                        "extension": [ {% include 'Extension/DataAbsentReason' nullFlavor: nullFlavorToUse -%} ],
+                        "extension": [ {% include 'Extension/DataAbsentReason', nullFlavor: nullFlavorToUse -%} ],
                         "text": "{{ languageCommunication.languageCode.displayName | default: languageCommunication.languageCode.code }}"
                     {%- endif -%}
                 },

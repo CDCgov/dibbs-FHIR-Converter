@@ -6,7 +6,7 @@
         "status":"{{ communicationEntry.statusCode.code }}",
         "category":
         [
-            { {% include 'DataType/CodeableConcept' CodeableConcept: communicationEntry.code -%} },
+            { {% include 'DataType/CodeableConcept', CodeableConcept: communicationEntry.code -%} },
         ],
     },
 },

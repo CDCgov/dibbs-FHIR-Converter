@@ -14,11 +14,11 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "code" : {
-            {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code %}
+            {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.code %}
         },
         "status":
              {% if observationEntry.statusCode._ -%}
@@ -36,8 +36,8 @@
                 ]
             }
         ],
-        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime %}
-        {% include 'Utils/ValueHelper' value: observationEntry.value %}
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
+        {% include 'Utils/ValueHelper', value: observationEntry.value %}
         "component": [
             {% assign agents = observationEntry.participant | to_array | where: "typeCode", "CSM" %}
             {% for agent in agents %}
@@ -52,7 +52,7 @@
                             }
                         ]
                     },
-                    {% include 'Utils/ValueHelper' value: agent.participantRole.playingEntity.code %}
+                    {% include 'Utils/ValueHelper', value: agent.participantRole.playingEntity.code %}
                 },
             {% endfor %}
         ],
@@ -61,7 +61,7 @@
             {% for loc in locs %}
                 {
                     "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
-                    "valueAddress": { {% include 'DataType/Address' Address: loc.participantRole.addr %} }
+                    "valueAddress": { {% include 'DataType/Address', Address: loc.participantRole.addr %} }
                 },
             {% endfor %}
         ],

@@ -6,7 +6,7 @@
         "type":
         {
             {% assign codes = documentReference.ClinicalDocument.code | to_array -%}
-            {% include 'DataType/CodeableConcept' CodeableConcept: codes.first -%}
+            {% include 'DataType/CodeableConcept', CodeableConcept: codes.first -%}
         },
         "date":"{{ "" | now }}",
         "status":"current",

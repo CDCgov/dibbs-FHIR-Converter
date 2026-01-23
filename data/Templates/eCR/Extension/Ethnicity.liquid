@@ -23,7 +23,7 @@
                 {% else -%}
                     {% if e.code == '2135-2' -%}
                         "url" : "ombCategory",
-                        "valueCoding" : { {% include 'DataType/Coding' Coding: e -%} },
+                        "valueCoding" : { {% include 'DataType/Coding', Coding: e -%} },
                      {%- elsif e.code == '2186-5' -%}
                         {% comment %} Hardcoding for 'non Hispanic' because the profile we use on patient is expecting an older version of the valueset. {% endcomment %}
                         "url" : "ombCategory",
@@ -34,7 +34,7 @@
                         },
                     {% else -%}
                         "url" : "detailed",
-                        "valueCoding" : { {% include 'DataType/Coding' Coding: e -%} },
+                        "valueCoding" : { {% include 'DataType/Coding', Coding: e -%} },
                     {% endif -%}
                 {% endif -%}
             },

@@ -3,5 +3,5 @@
 {% assign observation = firstSections.2_16_840_1_113883_10_20_22_2_7_1.entry.procedure.entryRelationship.observation %}
 {% if observation %}
     {% assign observationID = observation | to_json_string | generate_uuid %}
-    {% include 'Resource/Observation' ID: observationID observationEntry: observation %}
+    {% include 'Resource/Observation', ID: observationID, observationEntry: observation %}
 {% endif %}

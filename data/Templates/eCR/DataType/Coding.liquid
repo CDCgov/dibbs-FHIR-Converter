@@ -1,6 +1,6 @@
 "code": "{{- Coding.code | strip -}}",
 {%- capture codeSystemName -%}
-  {%- include 'ValueSet/SystemReference' code: Coding.codeSystem -%}
+  {%- include 'ValueSet/SystemReference', code: Coding.codeSystem -%}
 {%- endcapture -%}
 {%- assign codeSystemName = codeSystemName | strip -%}
 "system": "{{- codeSystemName | prepend_id -}}",

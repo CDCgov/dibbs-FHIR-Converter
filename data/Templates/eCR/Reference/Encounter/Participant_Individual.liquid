@@ -5,7 +5,7 @@
         "participant":
         [
             {
-                {% if type != null -%}
+                {% if type != nil -%}
                     "type": [
                         {
                             "coding": [
@@ -18,10 +18,10 @@
                         },
                     ],
                 {% endif -%}
-                {% if time != null -%}
+                {% if time != nil -%}
                     "period":
                     {
-                        {% include 'DataType/Period' Period: time -%}
+                        {% include 'DataType/Period', Period: time -%}
                     },
                 {% endif -%}
                 "individual":

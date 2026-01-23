@@ -4,24 +4,23 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using DotLiquid;
-using DotLiquid.FileSystems;
-using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.FileSystems;
+using Fluid;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter
 {
     public class TemplateProvider : ITemplateProvider
     {
         private readonly IFhirConverterTemplateFileSystem _fileSystem;
         private readonly bool _isDefaultTemplateProvider = false;
 
-        public TemplateProvider(string templateDirectory, DataType dataType)
+        public TemplateProvider(string templateDirectory)
         {
-            _fileSystem = new TemplateLocalFileSystem(templateDirectory, dataType);
+            _fileSystem = new TemplateLocalFileSystem(templateDirectory);
         }
 
-        public TemplateProvider(List<Dictionary<string, Template>> templateCollection, bool isDefaultTemplateProvider = false)
+        // TODO: We don't use MemoryFileSystem in our implementation but I'm keeping support for it for now in case it is helpful in our testing
+        public TemplateProvider(List<Dictionary<string, IFluidTemplate>> templateCollection, bool isDefaultTemplateProvider = false)
         {
             _fileSystem = new MemoryFileSystem(templateCollection);
             _isDefaultTemplateProvider = isDefaultTemplateProvider;
@@ -29,12 +28,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
         public bool IsDefaultTemplateProvider => _isDefaultTemplateProvider;
 
-        public Template GetTemplate(string templateName)
+        public IFluidTemplate GetTemplate(string templateName)
         {
             return _fileSystem.GetTemplate(templateName);
         }
 
-        public ITemplateFileSystem GetTemplateFileSystem()
+        public IFhirConverterTemplateFileSystem GetTemplateFileSystem()
         {
             return _fileSystem;
         }

@@ -14,12 +14,12 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for i in ids -%}
-                {% include 'DataType/Identifier' Identifier: i -%}
+                {% include 'DataType/Identifier', Identifier: i -%}
             {% endfor -%}
         ],
         "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
-        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: observationEntry.code -%} },
-        {% include 'Utils/ValueHelper' value: observationEntry.value, origText: observationEntry.text._innerText -%}
-        {% include 'Utils/EffectiveTime' effectiveTime: observationEntry.effectiveTime -%}
+        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.code -%} },
+        {% include 'Utils/ValueHelper', value: observationEntry.value, origText: observationEntry.text._innerText -%}
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime -%}
     },
 },

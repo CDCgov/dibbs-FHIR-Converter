@@ -14,16 +14,16 @@
         [
             {% assign ids = observationEntry.id | to_array -%}
             {% for id in ids -%}
-            {% include 'DataType/Identifier' Identifier: id -%}
+            {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "status":"final",
         "code":
         {
-          {% include "DataType/CodeableConcept" CodeableConcept: observationEntry.code %}
+          {% include "DataType/CodeableConcept", CodeableConcept: observationEntry.code %}
         },
         "extension": [
-            {% include 'Extension/DeterminationOfReportability' obs: observationEntry %}
+            {% include 'Extension/DeterminationOfReportability', obs: observationEntry %}
         ],
         {% if observationEntry.component %}
             {% assign components = observationEntry.component | to_array %}
@@ -33,9 +33,9 @@
                     "component": [
                         {
                             "code": {
-                                {% include "DataType/CodeableConcept" CodeableConcept: component.observation.code %}
+                                {% include "DataType/CodeableConcept", CodeableConcept: component.observation.code %}
                             },
-                            {% include "Utils/ValueHelper" value: component.observation.value %}
+                            {% include "Utils/ValueHelper", value: component.observation.value %}
                         },
                     ],
                 {% endif %}

@@ -7,7 +7,7 @@
         [
             {% assign ids = medicationRequest.id | to_array -%}
             {% for id in ids -%}
-                {% include 'DataType/Identifier' Identifier: id -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
         "status":"{{ medicationRequest.statusCode.code }}",
@@ -20,7 +20,7 @@
         "medicationCodeableConcept":
         {
             {% assign code = medicationRequest.consumable.manufacturedProduct.manufacturedMaterial.code %}
-            {% include 'DataType/CodeableConcept' CodeableConcept: code -%}
+            {% include 'DataType/CodeableConcept', CodeableConcept: code -%}
         },
 
         "authoredOn": "{{ medicationRequest.author.time.value | format_as_date_time }}",
@@ -28,16 +28,17 @@
         {% assign reasons = rels | where: 'typeCode', 'RSON' %}
         "reasonCode": [
             {% for reason in reasons %}
-                { {% include 'DataType/CodeableConcept' CodeableConcept: reason.observation.value %} },
+                { {% include 'DataType/CodeableConcept', CodeableConcept: reason.observation.value %} },
             {% endfor %}
         ],
 
         "dosageInstruction": [
             {
                 "site": {
-                    {% include 'DataType/CodeableConcept' CodeableConcept: medicationRequest.approachSiteCode | first %}
+                    {% comment %} trust but verify {% endcomment %}
+                    {% include 'DataType/CodeableConcept', CodeableConcept: medicationRequest.approachSiteCode.first %}
                 },
-                "route": { {% include 'DataType/CodeableConcept' CodeableConcept: medicationRequest.routeCode -%} },
+                "route": { {% include 'DataType/CodeableConcept', CodeableConcept: medicationRequest.routeCode -%} },
                 {% if medicationRequest.doseQuantity.value %}
                     "doseAndRate": {
                         "doseQuantity": {

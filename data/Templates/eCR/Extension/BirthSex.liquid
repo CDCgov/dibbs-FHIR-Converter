@@ -10,7 +10,7 @@
 
 {%- assign dataAbsentNullFlavor = birthSexNullFlavor | default: 'UNK' -%}
 "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
-{%- if normalizedBirthSex != '' -%}
+{%- if normalizedBirthSex != blank -%}
     "valueCode": "{{ normalizedBirthSex }}"
 {%- else -%}
     "valueCode": "UNK"

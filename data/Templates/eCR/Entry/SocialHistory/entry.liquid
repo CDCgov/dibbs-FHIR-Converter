@@ -1,52 +1,52 @@
 {% if entry.observation -%}
     {% capture shouldRender -%}
-        {%- include 'Utils/IsSocialHistoryObservation' observation: entry.observation -%}
+        {%- include 'Utils/IsSocialHistoryObservation', observation: entry.observation -%}
     {%- endcapture -%}
     {% if shouldRender contains "true" -%}
         {% assign observationId = entry.observation | to_json_string | generate_uuid -%}
         {% assign firstTemplate = entry.observation.templateId | to_array | first -%}
         {% if firstTemplate.root == '2.16.840.1.113883.10.20.22.4.109' -%}
-            {% include 'Resource/ObservationHomeEnv' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% include 'Resource/ObservationHomeEnv', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.2.3.47' -%}
-            {% include 'Resource/ObservationDisabilityStatus' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% include 'Resource/ObservationDisabilityStatus', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.22.4.217' -%}
             {% if entry.observation.participant.participantRole %}
                 {% assign organizationId = entry.observation.participant.participantRole | to_json_string | generate_uuid -%}
-                {% include 'Resource/Organization' organization: entry.observation.participant.participantRole, ID: organizationId %}
+                {% include 'Resource/Organization', organization: entry.observation.participant.participantRole, ID: organizationId %}
                 {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
-                {% include 'Reference/Observation/Employer' ID: observationId, employerRef: fullOrganizationId %}
+                {% include 'Reference/Observation/Employer', ID: observationId, employerRef: fullOrganizationId %}
             {% endif %}
-            {% include 'Resource/ObservationPastPresentOccupation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% include 'Resource/ObservationPastPresentOccupation', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.22.4.221' -%}
-            {% include 'Resource/ObservationUsualWork' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% include 'Resource/ObservationUsualWork', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.3.8' -%}
-            {% include 'Resource/ObservationPregnancyStatus' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% include 'Resource/ObservationPregnancyStatus', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif entry.observation.code.code == '76690-7' -%}
-            {% include 'Resource/ObservationSexualOrientation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% include 'Resource/ObservationSexualOrientation', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% elsif firstTemplate.root == '2.16.840.1.113883.10.20.15.2.3.52' %}
-            {% include 'Entry/ObservationExposureContact/entry' observationId: observationId, entry: entry %}
+            {% include 'Entry/ObservationExposureContact/entry', observationId: observationId, entry: entry %}
         {% else -%}
-            {% include 'Resource/Observation' observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% include 'Resource/Observation', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
         {% endif -%}
-        {% include 'Reference/Observation/Subject' ID: observationId, REF: fullPatientId -%}
+        {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
     {% endif %}
 {% elsif entry.act %}
     {% assign observationId = entry.act | to_json_string | generate_uuid -%}
     {% if entry.act.templateId and entry.act.templateId.root and entry.act.templateId.root == "2.16.840.1.113883.10.20.15.2.3.1" %}
-        {% include 'Resource/ObservationTravelHistory' observationCategory: 'social-history', observationEntry: entry.act, ID: observationId, text: text -%}
-        {% include 'Reference/Observation/Subject' ID: observationId, REF: fullPatientId -%}
+        {% include 'Resource/ObservationTravelHistory', observationCategory: 'social-history', observationEntry: entry.act, ID: observationId, text: text -%}
+        {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
         {% assign rels = entry.act.entryRelationship | to_array %}
         {% for rel in rels %}
             {% assign relObsId = rel | to_json_string | generate_uuid %}
             {% assign fullRelObsId = relObsId |  prepend: 'Observation/' %}
             {% if rel.observation.templateId.root == '2.16.840.1.113883.10.20.15.2.3.52' %}
-                {% include 'Entry/ObservationExposureContact/entry' observationId: relObsId, entry: rel %}
-                {% include 'Reference/Observation/HasMember' ID: observationId, REF: fullRelObsId %}
-                {% include 'Reference/Observation/Subject' ID: relObsId, REF: fullPatientId -%}
+                {% include 'Entry/ObservationExposureContact/entry', observationId: relObsId, entry: rel %}
+                {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
+                {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
             {% elsif rel.organizer.templateId.root == '2.16.840.1.113883.10.20.15.2.3.50' %}
-                {% include 'Resource/ObservationTransportationDetails' ID: relObsId, transitOrganizer: rel.organizer %}
-                {% include 'Reference/Observation/HasMember' ID: observationId, REF: fullRelObsId %}
-                {% include 'Reference/Observation/Subject' ID: relObsId, REF: fullPatientId -%}
+                {% include 'Resource/ObservationTransportationDetails', ID: relObsId, transitOrganizer: rel.organizer %}
+                {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
+                {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
             {% endif %}
         {% endfor %}
     {% endif %}

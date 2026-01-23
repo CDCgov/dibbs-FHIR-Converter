@@ -5,150 +5,168 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
-using DotLiquid.Util;
-using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.FileSystems;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Fluid;
+using Fluid.Values;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter
 {
     /// <summary>
     /// Filters for conversion
     /// </summary>
     public partial class Filters
     {
-        public static List<object> ToArray(object input)
+        public static ValueTask<FluidValue> ToArray(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             return input switch
             {
-                null => new List<object>(),
-                IEnumerable<object> enumerableObject => enumerableObject.ToList(),
-                _ => new List<object> { input }
+                NilValue => ArrayValue.Empty,
+                ArrayValue enumerableObject => enumerableObject,
+                _ => new ArrayValue([input])
             };
         }
 
-        public static List<object> Concat(List<object> l1, List<object> l2)
+        public static async ValueTask<FluidValue> BatchRender(
+            FluidValue input,
+            FilterArguments arguments,
+            TemplateContext context)
         {
-            return new List<object>().Concat(l1 ?? new List<object>()).Concat(l2 ?? new List<object>()).ToList();
-        }
-
-        public static string BatchRender(Context context, List<object> collection, string templateName, string variableName, string collectionVarName = null)
-        {
-            var template = GetTemplate(context, templateName);
-
-            var sb = new StringBuilder();
-            context.Stack(() =>
+            var inputArray = input as ArrayValue;
+            if (input.IsNil() || inputArray.Values.Count() == 0)
             {
-                collection?.ForEach(entry =>
-                {
-                    context[variableName] = entry;
-                    if (!string.IsNullOrWhiteSpace(collectionVarName))
-                    {
-                        context[collectionVarName] = collection;
-                    }
-
-                    var result = template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture));
-
-                    sb.Append(result);
-                    sb.Append(',');
-                });
-            });
-
-            return sb.ToString();
-        }
-
-        public static string BatchRenderParallel(Context context, List<object> collection, string templateName, string variableName, string collectionVarName = null)
-        {
-            var template = GetTemplate(context, templateName);
-
-            var sb = new StringBuilder();
-            context.Stack(() =>
-            {
-                if (collection != null && collection.Any())
-                {
-                    Parallel.ForEach(collection, entry =>
-                    {
-                        // Create a new context for each parallel task to avoid race conditions
-                        var localContext = new Context(context.Environments, new Hash(), context.Registers, ErrorsOutputMode.Rethrow, context.MaxIterations, CultureInfo.InvariantCulture, CancellationToken.None);
-
-                        foreach (var scope in context.Scopes)
-                        {
-                            foreach (var key in scope.Keys)
-                            {
-                                localContext[key] = scope[key];
-                            }
-                        }
-
-                        localContext[variableName] = entry;
-                        if (!string.IsNullOrWhiteSpace(collectionVarName))
-                        {
-                            localContext[collectionVarName] = collection;
-                        }
-
-                        var result = template.Render(RenderParameters.FromContext(localContext, CultureInfo.InvariantCulture));
-
-                        lock (sb)
-                        {
-                            sb.Append(result);
-                            sb.Append(',');
-                        }
-                    });
-                }
-            });
-
-            return sb.ToString();
-        }
-
-        private static Template GetTemplate(Context context, string templateName)
-        {
-            var templateFileSystem = context.Registers["file_system"] as IFhirConverterTemplateFileSystem;
-            var template = templateFileSystem?.GetTemplate(templateName, context[TemplateUtility.RootTemplateParentPathScope]?.ToString());
-
-            if (template == null)
-            {
-                throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, templateName));
+                return StringValue.Empty;
             }
 
-            return template;
+            var templateName = arguments.At(0).ToStringValue();
+            var variableName = arguments.At(1).ToStringValue();
+            var collectionVarName = arguments.At(2).ToStringValue();
+            var template = GetTemplate(context, templateName);
+            var sb = new StringBuilder();
+
+            foreach (var entry in inputArray.Enumerate(context))
+            {
+                context.SetValue(variableName, entry);
+                if (!string.IsNullOrWhiteSpace(collectionVarName))
+                {
+                    context.SetValue(collectionVarName, inputArray);
+                }
+
+                var result = await template.RenderAsync(context);
+                sb.Append(result);
+                sb.Append(',');
+            }
+
+            if (sb.Length > 0)
+            {
+                sb.Length--;
+            }
+
+            return StringValue.Create(sb.ToString());
         }
 
-        private static bool HasMatchingPropertyRecursive(IEnumerable<object> entry, string keyPath, string targetProperty = null)
+        // TODO: I'd like to explore this futher when we get the chance
+        /* public static async ValueTask<FluidValue> BatchRenderParallel(
+                FluidValue input,
+                FilterArguments arguments,
+                TemplateContext context)
         {
-            var keys = keyPath.Split(".");
-            var thisKey = keys[0];
-            var thisTargetProperty = keys.Count() == 1 ? targetProperty : null;
-            var res = DotLiquid.StandardFilters.Where(entry, thisKey, thisTargetProperty) as IEnumerable<object>;
-            if (res == null || res.Count() == 0)
+            if (input.IsNil()) {
+                return StringValue.Empty;
+            }
+
+            // Convert input to collection
+            var collection = input.ToObjectValue() as IEnumerable<object>;
+            if (collection == null) {
+                throw new ArgumentException("BatchRenderParallel filter requires a list as input.");
+            }
+
+            var templateName = arguments.At(0).ToStringValue();
+            var variableName = arguments.At(1).ToStringValue();
+            var collectionVarName = arguments.Count > 2 ? arguments.At(2).ToStringValue() : null;
+            var template = GetTemplate(context, templateName);
+
+            var results = new ConcurrentQueue<string>();
+
+            // Run parallel rendering
+            var tasks = collection.Select(async entry =>
+            {
+                context.SetValue(variableName, entry);
+                if (!string.IsNullOrWhiteSpace(collectionVarName))
+                {
+                    context.SetValue(collectionVarName, collection.ToList());
+                }
+
+                var rendered = await template.RenderAsync(context);
+                results.Enqueue(rendered);
+            });
+
+            await Task.WhenAll(tasks);
+
+            // Concatenate results with commas
+            var sb = new StringBuilder();
+            while (results.TryDequeue(out var item))
+            {
+                sb.Append(item);
+                sb.Append(',');
+            }
+
+            if (sb.Length > 0) {
+                sb.Length--; // Remove trailing comma
+            }
+
+            return StringValue.Create(sb.ToString());
+        } */
+
+        private static bool HasMatchingPropertyRecursive(IEnumerable<FluidValue> entries, string keyPath, TemplateContext context, string targetProperty = null)
+        {
+            if (entries == null || string.IsNullOrEmpty(keyPath))
             {
                 return false;
             }
-            else if (keys.Count() == 1)
+
+            var keys = keyPath.Split('.', StringSplitOptions.RemoveEmptyEntries);
+            var thisKey = keys[0];
+            var thisTargetProperty = keys.Length == 1 ? targetProperty : null;
+
+            // Filter entries where this key matches the target property (if provided)
+            var filtered = entries
+                .Select(e => (e as DictionaryValue).GetValueAsync(thisKey, context).Result)
+                .Where(v => !v.IsNil() && (thisTargetProperty == null || v.ToStringValue() == thisTargetProperty))
+                .ToList();
+
+            if (!filtered.Any())
+            {
+                return false;
+            }
+
+            if (keys.Length == 1)
             {
                 return true;
             }
-            else
+
+            // Recurse into nested entries
+            var nextPath = string.Join('.', keys[1..]);
+            var nextEntries = new List<FluidValue>();
+
+            foreach (var item in filtered)
             {
-                var nextPath = string.Join('.', keys[1..]);
-                var nextEntries = DotLiquid.StandardFilters.Map(res, thisKey).Cast<object>().ToList();
-
-                // If the nested property holds an array, recurse over each entry in it
-                if (nextEntries != null && nextEntries.Any() && nextEntries.All(element => element is IList<object>))
+                if (item is ArrayValue list)
                 {
-                    return nextEntries.Any(nextEntry => HasMatchingPropertyRecursive(nextEntry as IEnumerable<object>, nextPath, targetProperty));
+                    nextEntries.AddRange(list.Enumerate(context));
                 }
-
-                return HasMatchingPropertyRecursive(
-                    nextEntries,
-                    nextPath,
-                    targetProperty);
+                else
+                {
+                    nextEntries.Add(item);
+                }
             }
+
+            return HasMatchingPropertyRecursive(nextEntries, nextPath, context, targetProperty);
         }
 
         /// <summary>
@@ -159,14 +177,32 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         /// <param name="keyPath">A period delimited set of keys to search.</param>
         /// <param name="targetProperty">Optionally, the expected value of the item at the end of the keypath, if not present, truthiness is tested.</param>
         /// <returns>A list of the items that match. If no matching elements are found, an empty list is returned.</returns>
-        public static IEnumerable<object> NestedWhere(IEnumerable<object> entries, string keyPath, string targetProperty = null)
+        public static ValueTask<FluidValue> NestedWhere(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            if (entries == null)
+            if (input.IsNil())
             {
-                return null;
+                return NilValue.Instance;
             }
 
-            return entries.Cast<object>().Where(entry => HasMatchingPropertyRecursive(new[] { entry }, keyPath, targetProperty));
+            var castedInput = input as ArrayValue;
+            var inputEnumerable = castedInput.Enumerate(context);
+            var filteredInput = inputEnumerable.Where(entry => HasMatchingPropertyRecursive(new List<FluidValue>() { entry }, arguments.At(0).ToStringValue(), context, arguments.At(1).ToStringValue()));
+
+            return new ArrayValue(filteredInput.ToList());
+        }
+
+        private static IFluidTemplate GetTemplate(TemplateContext context, string templateName)
+        {
+            // Using this rather than context.Options.FileProvider since TemplateFileSystem handles caching for us
+            var templateFileSystem = context.GetValue("file_system").ToObjectValue() as IFhirConverterTemplateFileSystem;
+            var template = templateFileSystem?.GetTemplate(templateName, TemplateUtility.TemplateDirectory);
+
+            if (template == null)
+            {
+                throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, templateName));
+            }
+
+            return template;
         }
     }
 }

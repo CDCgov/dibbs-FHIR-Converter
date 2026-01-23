@@ -3,7 +3,7 @@
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.Models
+namespace Dibbs.Fhir.Liquid.Converter.Models
 {
     public enum DateTimeType
     {

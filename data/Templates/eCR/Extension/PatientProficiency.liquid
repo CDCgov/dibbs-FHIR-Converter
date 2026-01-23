@@ -1,19 +1,19 @@
-{% if modeCode != null or proficiencyLevelCode != null %}
+{% if modeCode != nil or proficiencyLevelCode != nil %}
 {% assign modeCodeDisplay = modeCode.code | downcase | get_property: 'ValueSet/LanguageAbilityMode', 'display' -%}
 {% assign proficiencyLevelCodeDisplay = proficiencyLevelCode.code | downcase | get_property: 'ValueSet/LanguageAbilityProficiency', 'display' -%}
 
-{% if modeCodeDisplay != "" and modeCodeDisplay != null %}
-    {% assign hasData = true %}
+{% if modeCodeDisplay != blank and modeCodeDisplay != nil %}
+    {% assign hasModeCodeDisplay = true %}
 {% endif -%}
-{% if proficiencyLevelCodeDisplay != "" and proficiencyLevelCodeDisplay != null %}
-    {% assign hasData = true %}
+{% if proficiencyLevelCodeDisplay != blank and proficiencyLevelCodeDisplay != nil %}
+    {% assign hasProficiencyLevelCodeDisplay = true %}
 {% endif -%}
 
-{% if hasData == true %}
+{% if hasModeCodeDisplay or hasProficiencyLevelCodeDisplay %}
 "url": "http://hl7.org/fhir/StructureDefinition/patient-proficiency",
 "extension": 
 [
-    {% if modeCodeDisplay %}
+    {% if hasModeCodeDisplay %}
     {
         "url": "type",
         "valueCoding": 
@@ -24,7 +24,7 @@
         },
     },
     {% endif -%}
-    {% if proficiencyLevelCodeDisplay %}
+    {% if hasProficiencyLevelCodeDisplay %}
     {
         "url": "level",
         "valueCoding": 

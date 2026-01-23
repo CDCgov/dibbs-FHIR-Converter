@@ -4,12 +4,12 @@
         {
           "url" : "TribeName",
           "valueCoding":
-                    { {% include 'DataType/Coding' Coding: tribeAOb.code -%} },
+                    { {% include 'DataType/Coding', Coding: tribeAOb.code -%} },
         },
         {% if tribeAOb.value -%}
           {
             "url" : "EnrolledTribeMember",
-            {% include 'Utils/ValueHelper' value: tribeAOb.value, origText: SOCIALTEXT -%}
+            {% include 'Utils/ValueHelper', value: tribeAOb.value, origText: SOCIALTEXT -%}
           },
         {% endif -%}
       ],

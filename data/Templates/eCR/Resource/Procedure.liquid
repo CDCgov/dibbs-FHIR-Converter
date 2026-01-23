@@ -12,16 +12,15 @@
         },
         "identifier":
         [
-            {% include 'DataType/Identifier' Identifier: procedureEntry.id -%}
+            {% include 'DataType/Identifier', Identifier: procedureEntry.id -%}
         ],
         "status":"{{ procedureEntry.statusCode.code | get_property: 'ValueSet/EventStatus' }}",
-        "code": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.code -%} },
-        {% include 'Utils/EffectiveTime' effectiveTime: procedureEntry.effectiveTime, timeType: "performed" %}
+        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: procedureEntry.code -%} },
+        {% include 'Utils/EffectiveTime', effectiveTime: procedureEntry.effectiveTime, timeType: "performed" %}
         "bodySite":
         [
-            { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.targetSiteCode -%} },
+            { {% include 'DataType/CodeableConcept', CodeableConcept: procedureEntry.targetSiteCode -%} },
         ],
-
         {% assign rels = procedureEntry.entryRelationship | to_array %}
         {%- assign reasons = rels | where: "typeCode", "RSON" -%}
         {%- if reasons.size > 0 -%}
@@ -29,19 +28,18 @@
             [
             {%- for rel in reasons -%}
                 {
-                {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%}
+                {% include 'DataType/CodeableConcept', CodeableConcept: rel.observation.value -%}
                 "text": "{{ rel.observation.text._ }}"
                 },
             {%- endfor -%}
             ],
         {%- endif -%}
-
         {% for rel in rels %}
             {% if rel.typeCode == "COMP" and rel.observation.templateId.root == "2.16.840.1.113883.10.20.22.4.9" %}
                 {% comment %} Reaction observation {% endcomment %}
                 "complication":
                 [
-                { {% include 'DataType/CodeableConcept' CodeableConcept: rel.observation.value -%} },
+                { {% include 'DataType/CodeableConcept', CodeableConcept: rel.observation.value -%} },
                 ],
             {% endif %}
         {% endfor %}
@@ -51,14 +49,14 @@
             {% if procedureEntry.methodCode %}
                 {
                     "url": "http://hl7.org/fhir/StructureDefinition/procedure-method",
-                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.methodCode %} }
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept', CodeableConcept: procedureEntry.methodCode %} }
                 },
             {% endif %}
 
             {% if procedureEntry.priorityCode %}
                 {
                     "url": "priorityCode",
-                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: procedureEntry.priorityCode %} }
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept', CodeableConcept: procedureEntry.priorityCode %} }
                 },
             {% endif %}
 
@@ -66,7 +64,7 @@
             {% for spec in specs %}
                 {
                     "url": "specimen",
-                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept' CodeableConcept: spec.specimenRole.specimenPlayingEntity.code -%} }
+                    "valueCodeableConcept": { {% include 'DataType/CodeableConcept', CodeableConcept: spec.specimenRole.specimenPlayingEntity.code -%} }
                 },
             {% endfor %}
         ]

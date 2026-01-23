@@ -25,8 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests\Microsoft.Health.Fhir.Liquid.Converter.FunctionalTests.csproj" />
     <ProjectReference Include="..\Dibbs.FhirConverterApi\Dibbs.FhirConverterApi.csproj" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <RunSettingsFilePath>$(MSBuildProjectDirectory)\test.runsettings</RunSettingsFilePath>
+  </PropertyGroup>
 
 </Project>

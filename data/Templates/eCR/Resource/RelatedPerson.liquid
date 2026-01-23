@@ -11,7 +11,7 @@
         ],
         "relationship":
         [
-            { {% include 'DataType/CodeableConcept' CodeableConcept: relatedPerson.code -%} },
+            { {% include 'DataType/CodeableConcept', CodeableConcept: relatedPerson.code -%} },
             {% if relatedPerson.guardianPerson %}
                 {
                     "coding": [
@@ -29,14 +29,14 @@
             {% assign guardianNames = relatedPerson.guardianPerson.name | to_array -%}
             {% assign names = relatedPerson.name | to_array | concat: guardianNames -%}
             {% for name in names -%}
-            { {% include 'DataType/HumanName' HumanName: name -%} },
+            { {% include 'DataType/HumanName', HumanName: name -%} },
             {% endfor -%}
         ],
         "telecom":
         [
             {% assign telecoms = relatedPerson.telecom | to_array -%}
             {% for telecom in telecoms -%}
-            { {% include 'DataType/ContactPoint' ContactPoint: telecom -%} },
+            { {% include 'DataType/ContactPoint', ContactPoint: telecom -%} },
             {% endfor -%}
         ],
         "birthDate":"{{ relatedPerson.guardianPerson.birthTime.value | add_hyphens_date }}",
@@ -45,7 +45,7 @@
         [
             {% assign addrs = relatedPerson.addr | to_array -%}
             {% for addr in addrs -%}
-            { {% include 'DataType/Address' Address: addr -%} },
+            { {% include 'DataType/Address', Address: addr -%} },
             {% endfor -%}
         ],
         "communication":

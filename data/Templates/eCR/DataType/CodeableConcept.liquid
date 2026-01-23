@@ -16,7 +16,7 @@
 		{%- if concept.code != nil or concept.codeSystem != nil -%}
 			{%- assign num_concepts = num_concepts | plus: 1 -%}
 			{% comment %} If there is at least a code or a system, add it as a coding {% endcomment %}
-			{ {% include 'DataType/Coding' Coding: concept -%} },
+			{ {% include 'DataType/Coding', Coding: concept -%} },
 		{%- endif -%}
 	{% endfor -%}
 	{%- if minCardinality > 0 and bindingStrength != "required" and num_concepts == 0 -%}
@@ -30,14 +30,14 @@
 	{%- endif -%}
 	{%- endif -%}
 ],
-{%- if org_text and org_text != "" -%}
+{%- if org_text and org_text != blank -%}
 	"text": "{{ org_text }}",
 {%- endif -%}
 {%- if num_concepts == 0 and minCardinality > 0 -%}
 {%- if bindingStrength == "required" -%}
 	{% comment %} If we have no codings but it is supposed to exist (a minimum cardinality > 0) and it has a binding strength that does not allow us to use the data absent coding, add a data absent reason extension to the codeable concept. {% endcomment %}
 	"extension": [
-		{%- include "Extension/DataAbsentReason" nullFlavor: CodeableConcept.nullFlavor -%}
+		{%- include "Extension/DataAbsentReason", nullFlavor: CodeableConcept.nullFlavor -%}
 	],
 {%- endif -%}
 {%- endif -%}

@@ -4,9 +4,9 @@
 // -------------------------------------------------------------------------------------------------
 
 using System;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Models;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.Exceptions
+namespace Dibbs.Fhir.Liquid.Converter.Exceptions
 {
     public class RenderException : FhirConverterException
     {

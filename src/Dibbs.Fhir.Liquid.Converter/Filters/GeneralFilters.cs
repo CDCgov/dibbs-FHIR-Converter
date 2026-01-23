@@ -8,133 +8,88 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using DotLiquid;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Fluid;
+using Fluid.Values;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter
 {
     /// <summary>
     /// Filters for conversion
     /// </summary>
     public partial class Filters
     {
-        public static string GetProperty(
-            Context context,
-            string originalCode,
-            string mapping,
-            string property = "code",
-            bool applyDefaultIfNull = false)
+        public static ValueTask<FluidValue> GetProperty(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            if (applyDefaultIfNull && string.IsNullOrEmpty(originalCode))
+            var mapping = arguments.At(0).ToStringValue();
+            var property = arguments.At(1).IsNil() ? "code" : arguments.At(1).ToStringValue();
+
+            // If this argument was not passed, NilValue.ToBooleanValue() will return false
+            var applyDefaultIfNull = arguments.At(2).ToBooleanValue();
+            if ((input.IsNil() && applyDefaultIfNull == false)
+                || string.IsNullOrEmpty(mapping)
+                || string.IsNullOrEmpty(property))
             {
-                originalCode = string.Empty;
+                return NilValue.Instance;
             }
 
-            if (originalCode == null || string.IsNullOrEmpty(mapping) || string.IsNullOrEmpty(property))
-            {
-                return null;
-            }
+            var inputString = input.ToStringValue();
+            var originalCode = string.IsNullOrEmpty(inputString) ? string.Empty : inputString;
 
-            var map = (context["CodeMapping"] as CodeMapping)?.Mapping?.GetValueOrDefault(
+            var map = (context.GetValue("CodeMapping").ToObjectValue() as CodeMapping)?.Mapping?.GetValueOrDefault(
                 mapping,
                 null);
             var codeMapping =
                 map?.GetValueOrDefault(originalCode, null)
                 ?? map?.GetValueOrDefault("__default__", null);
-            return codeMapping?.GetValueOrDefault(property, null)
+            var result = codeMapping?.GetValueOrDefault(property, null)
                 ?? ((property.Equals("code") || property.Equals("display")) ? originalCode : null);
+
+            return result == null ? NilValue.Instance : new StringValue(result);
         }
 
-        public static string Evaluate(string input, string property)
+        public static ValueTask<FluidValue> GenerateUUID(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(property))
+            var inputString = input.ToStringValue();
+            if (string.IsNullOrWhiteSpace(inputString))
             {
-                return null;
+                return StringValue.Empty;
             }
 
-            var obj = JObject.Parse(input);
-            var memberToken = obj.SelectToken(property);
-            return memberToken?.Value<string>();
-        }
-
-        public static string GetObject(string input, string path)
-        {
-            if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(path))
-            {
-                return null;
-            }
-
-            var obj = JObject.Parse(input);
-            var memberToken = obj.SelectToken(path);
-
-            return memberToken.ToString();
-        }
-
-        public static string GenerateIdInput(
-            string segment,
-            string resourceType,
-            bool isBaseIdRequired,
-            string baseId = null)
-        {
-            if (string.IsNullOrWhiteSpace(segment))
-            {
-                return null;
-            }
-
-            if (
-                string.IsNullOrEmpty(resourceType)
-                || (isBaseIdRequired && string.IsNullOrEmpty(baseId)))
-            {
-                throw new RenderException(
-                    FhirConverterErrorCode.InvalidIdGenerationInput,
-                    Resources.InvalidIdGenerationInput);
-            }
-
-            segment = segment.Trim();
-            return baseId != null
-                ? $"{resourceType}_{segment}_{baseId}"
-                : $"{resourceType}_{segment}";
-        }
-
-        public static string GenerateUUID(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return null;
-            }
-
-            var bytes = Encoding.UTF8.GetBytes(input);
+            var bytes = Encoding.UTF8.GetBytes(inputString);
             var algorithm = SHA256.Create();
             var hash = algorithm.ComputeHash(bytes);
             var guid = new byte[16];
             Array.Copy(hash, 0, guid, 0, 16);
-            return new Guid(guid).ToString();
+            return new StringValue(new Guid(guid).ToString());
         }
 
         /// <summary>
         /// Prepend UUIDs or OIDs to make them valid URNs.
         /// </summary>
         /// <param name="input">String of the ID</param>
+        /// /// <param name="arguments">Arguments passed into the filter</param>
+        /// /// <param name="context">The template context</param>
         /// <returns>If input string matches the UUID pattern return string prepended with `urn:uuid:`, else if it matches the OIN pattern return the input string prepended with `urn:oid:`. It matches neither return the input string unchanged. </returns>
-        public static string PrependID(string input)
+        public static ValueTask<FluidValue> PrependID(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            if (input == null)
+            var inputString = input.ToStringValue();
+            if (string.IsNullOrEmpty(inputString))
             {
-                return input;
+                return StringValue.Empty;
             }
 
             string uuid_pattern = @"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
             string oid_pattern = @"^([0-2])((\.0)|(\.[1-9][0-9]*))*$";
 
-            if (Regex.IsMatch(input, uuid_pattern, RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(inputString, uuid_pattern, RegexOptions.IgnoreCase))
             {
-                return "urn:uuid:" + input.ToLower();
+                return new StringValue("urn:uuid:" + inputString.ToLower());
             }
-            else if (Regex.IsMatch(input, oid_pattern, RegexOptions.IgnoreCase))
+            else if (Regex.IsMatch(inputString, oid_pattern, RegexOptions.IgnoreCase))
             {
-                return "urn:oid:" + input;
+                return new StringValue("urn:oid:" + inputString);
             }
 
             return input;
@@ -146,11 +101,18 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
         /// <param name="extension">The extension of the ID. This will become the value of the Identifier</param>
         /// <param name="root">The root of the ID. This will become the system of the Identifier</param>
         /// <returns>The extension with the root removed, if the root was a URL prefix. Else return the extension unchanged.</returns>
-        public static string RemovePrefix(string extension, string root)
+        public static ValueTask<FluidValue> RemovePrefix(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
+            if (input.IsNil())
+            {
+                return StringValue.Empty;
+            }
+
+            var extension = input.ToStringValue();
+            var root = arguments.At(0).ToStringValue();
+
             if (
-                root != null
-                && extension != null
+                string.IsNullOrEmpty(root)
                 && extension.StartsWith("http://")
                 && extension.StartsWith(root))
             {
@@ -158,11 +120,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
 
                 if (newValue.StartsWith('/'))
                 {
-                    return newValue[1..];
+                    return new StringValue(newValue[1..]);
                 }
             }
 
-            return extension;
+            return new StringValue(extension);
         }
     }
 }

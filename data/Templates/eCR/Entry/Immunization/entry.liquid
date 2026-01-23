@@ -7,6 +7,6 @@
 {%- for entryOb in entryObs -%}
     {%- if entryOb.templateId.root == '2.16.840.1.113883.10.20.15.2.3.55' -%}
         {% assign obsId = entryOb | to_json_string | generate_uuid -%}
-        {%- include 'Resource/ObservationVaccineCredentialPatientAssertion' observationEntry: entryOb, ID: obsId -%}
+        {%- include 'Resource/ObservationVaccineCredentialPatientAssertion', observationEntry: entryOb, ID: obsId -%}
     {%- endif -%}
 {%- endfor -%}

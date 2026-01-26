@@ -33,9 +33,8 @@ namespace Dibbs.Fhir.Liquid.Converter
 
         public static ValueTask<FluidValue> PrintObject(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            var devMode = Environment.GetEnvironmentVariable("DEV_MODE") ?? "false";
             var debugLog = Environment.GetEnvironmentVariable("DEBUG_LOG") ?? "false";
-            if (devMode.Trim() != "true" || debugLog.Trim() != "true")
+            if (debugLog.Trim() != "true")
             {
                 return NilValue.Instance;
             }

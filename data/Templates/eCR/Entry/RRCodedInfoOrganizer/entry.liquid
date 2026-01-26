@@ -65,7 +65,7 @@
                             {% include "Resource/DocumentReferenceRR", ID: externalResourceId, documentReference: component.act %}
                                 {% include 'Reference/DocumentReference/Subject', ID: externalResourceId, REF: fullPatientId -%}
                                 {% assign fullexternalResourceId = externalResourceId | prepend: 'DocumentReference/' -%}
-                                {% include 'Reference/Observation/DocumentReferenceRR', ID: organizerId REF: fullexternalResourceId %}
+                                {% include 'Reference/Observation/DocumentReferenceRR', ID: organizerId, REF: fullexternalResourceId %}
                             {% endif %}
                         {% endfor %}
                     {% endif %}

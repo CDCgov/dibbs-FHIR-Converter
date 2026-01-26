@@ -1,5 +1,0 @@
-{% mergeDiff msg -%}
-{
-  "element" : [ {{ msg.element | to_array | batch_render: 'ConceptMap/Element', 'msg' }} ]
-}
-{% endmergeDiff -%}

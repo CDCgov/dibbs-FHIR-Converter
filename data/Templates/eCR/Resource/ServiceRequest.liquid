@@ -1,0 +1,50 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "ServiceRequest",
+        "id":"{{ ID }}",
+        "identifier":
+        [
+            {% assign ids = serviceEntry.id | to_array -%}
+            {% for id in ids -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
+            {% endfor -%}
+        ],
+        "status":"{{ serviceEntry.statusCode.code | get_property: 'ValueSet/RequestStatus' }}",
+        "intent": "plan",
+        "code":
+        {
+            {% include 'DataType/CodeableConcept', CodeableConcept: serviceEntry.code -%}
+        },
+
+        {% assign rels = serviceEntry.entryRelationship | to_array %}
+
+        {% comment %} prioritize provider's priority preference {% endcomment %}
+        {% assign priorities = rels | where: 'typeCode', 'REFR' %}
+        {% assign priorityCode = serviceEntry.priorityCode.code %}
+        {% for priority in priorities %}
+            {% if priority.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.143' %}
+                {% assign priorityCode = priority.observation.value.code %}
+            {% endif %}
+        {% endfor %}
+        "priority":"{{ priorityCode | get_property: 'ValueSet/ServiceRequestPriority' }}",
+
+        {% include 'Utils/EffectiveTime', effectiveTime: serviceEntry.effectiveTime, timeType: "occurrence" %}
+
+        "authoredOn": "{{ serviceEntry.author.time.value | format_as_date_time }}",
+
+        {% assign reasons = rels | where: 'typeCode', 'RSON' %}
+        "reasonCode": [
+            {% for reason in reasons %}
+                { {% include 'DataType/CodeableConcept', CodeableConcept: reason.observation.value %} },
+            {% endfor %}
+        ],
+
+        "bodySite": [
+            {% assign sites = serviceEntry.targetSiteCode | to_array %}
+            {% for site in sites %}
+                { {% include 'DataType/CodeableConcept', CodeableConcept: site %} },
+            {% endfor %}
+        ],
+    },
+},

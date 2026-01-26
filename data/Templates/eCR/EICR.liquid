@@ -19,8 +19,8 @@
         ]
     },
     "id": "{{eicrDocumentId}}",
-    "identifier": {% include 'DataType/Identifier' Identifier: msg.ClinicalDocument.id -%}
-    "timestamp": {%- include 'DataType/Instant' dateTime: msg.ClinicalDocument.effectiveTime -%}
+    "identifier": {% include 'DataType/Identifier', Identifier: msg.ClinicalDocument.id -%}
+    "timestamp": {%- include 'DataType/Instant', dateTime: msg.ClinicalDocument.effectiveTime -%}
     "entry": [{% evaluate patientId using 'Utils/GenerateId' obj: msg.ClinicalDocument.recordTarget.patientRole -%}
 {% assign fullPatientId = patientId | prepend: 'Patient/' -%}
 

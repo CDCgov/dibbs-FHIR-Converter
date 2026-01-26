@@ -1,0 +1,25 @@
+{% if encompassingEncounter == nil %}
+    {% assign encompassingEncounter = msg.ClinicalDocument.componentOf.encompassingEncounter %}
+    {% assign encompassingEncounterId = encompassingEncounter.id %}
+{%  endif %}
+
+{% comment %} If encounter has same ID as encompassing encounter, don't create Encounter resource (duplicate) {% endcomment %}
+{% if entry.encounter.id.extension != encompassingEncounterId.extension or entry.encounter.id.root != encompassingEncounterId.root %}
+    {% assign encounterId = entry | to_json_string | generate_uuid -%}
+    {% include 'Resource/Encounter', encounter: entry.encounter, ID: encounterId -%}
+    {% include 'Reference/Encounter/Subject', ID: encounterId, REF: fullPatientId -%}
+{% endif %}
+
+{% if entry.encounter.performer.assignedEntity -%}
+    {% assign entity = entry.encounter.performer.assignedEntity %}
+    {% assign practitionerEncPerfId = entity | to_json_string | generate_uuid -%}
+    {% include 'Resource/Practitioner', practitioner: entity, ID: practitionerEncPerfId -%}
+    {% assign fullPractitionerEncPerfId = practitionerEncPerfId | prepend: 'Practitioner/' -%}
+    {% if encounterId == nil %}
+        {% assign encounterId = encompassingEncounter | to_json_string | generate_uuid %}
+    {%  endif %}
+    {% include 'Reference/Encounter/Participant_Individual', ID: encounterId, REF: fullPractitionerEncPerfId, type: entity.typeCode, time: entity.time -%}
+{% endif -%}
+
+{{ entry.encounter.participant | to_array | batch_render: 'Entry/Encounter/entry_encounter_participant', 'participant' }}
+{{ entry.encounter.entryRelationship | to_array | batch_render: 'Entry/Encounter/entry_encounter_entryRelationship', 'relationship' }}

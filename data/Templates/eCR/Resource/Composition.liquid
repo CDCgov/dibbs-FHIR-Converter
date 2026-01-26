@@ -1,0 +1,338 @@
+{
+    "fullUrl": "{{ ID | prepend_id }}",
+    "resource":{
+        "resourceType": "Composition",
+        "id":"{{ ID }}",
+         "meta" : {
+            "profile" :
+            [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+            ]
+        },
+        "identifier": {
+            "use":"official",
+            "type":
+            {
+                {% assign codes = composition.code | to_array -%}
+                {% include 'DataType/CodeableConcept', CodeableConcept: codes.first -%}
+            },
+            "value":"{{ composition.setId.extension }}",
+            "assigner":
+            {
+                "display": "{{ composition.setId.assigningAuthorityName }}"
+            },
+        },
+        "extension":[
+            {
+                "url" : "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+                "valueString" : "{{ composition.versionNumber.value }}"
+            },
+            {% for template in msg.ClinicalDocument.templateId %}
+                {% if template.root == "2.16.840.1.113883.10.20.15.2" %}
+                    {
+                        "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+                        "valueString": "{{ template.extension }}"
+                    },
+                {% endif %}
+            {% endfor %}
+        ],
+        "status":"final",
+        "type":
+        {
+            {% assign codes = composition.code | to_array -%}
+            {% include 'DataType/CodeableConcept', CodeableConcept: codes.first -%}
+        },
+        "date":"{{ composition.effectiveTime.value | format_as_date_time }}",
+        "title":"{{ composition.title._ }}",
+        "confidentiality":"{{ composition.confidentialityCode.code }}",
+        "event":
+        [
+            {
+                "period":
+                {
+                    "start":"{{ composition.documentationOf.serviceEvent.effectiveTime.low.value | format_as_date_time }}",
+                    "end":"{{ composition.documentationOf.serviceEvent.effectiveTime.high.value | format_as_date_time }}",
+                },
+            },
+        ],
+        "section":
+        [
+            {% assign templatesInComp = "" %}
+            {% assign components = composition.component.structuredBody.component | to_array -%}
+            {% for component in components -%}
+            {
+                {% comment %} Section will be created if 1) section exists, AND 2) either null Flavor DNE OR section has entries {% endcomment %}
+                {% if component.section -%}
+                    {% if component.section.nullFlavor == nil or component.section.entry -%}
+                        {% assign templateIds = component.section.templateId | to_array %}
+                        {% for templateId in templateIds -%}
+                            {% assign templatesInComp = templatesInComp | append: templateId.root | append: "|" %}
+                        {% endfor %}
+                        {% if component.section.id.root -%}
+                            "id": "{{ component.section.id.root }}",
+                        {% else -%}
+                            {% assign sectionId = component | to_json_string | generate_uuid -%}
+                            "id": "{{ sectionId }}",
+                        {% endif -%}
+                        {% if component.section.title._ -%}
+                            "title":"{{ component.section.title._ }}",
+                        {% else -%}
+                            "title":"{{ component.section.code.displayName }}",
+                        {% endif -%}
+                        "text":
+                        {
+                            "status":"generated",
+                            {% if component.section.text -%}
+                                "div": "{{ component.section.text._innerText | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+                            {% elsif component.section.title._ -%}
+                                "div":"{{ component.section.title._ | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+                            {% else -%}
+                                "div":"{{ component.section.code.displayName | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+                            {% endif -%}
+                        },
+                        "code":
+                        {
+                            {% include 'DataType/CodeableConcept', CodeableConcept: component.section.code -%}
+                        },
+                        "mode":"snapshot",
+                        "entry":
+                        [
+                            {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.38" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.38" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.44" %}
+                                {% assign entries = component.section.entry | to_array -%}
+                                {% for entry in entries -%}
+                                    {% assign medicationAdministrationId = entry.substanceAdministration | to_json_string | generate_uuid -%}
+                                    {% assign fullMedicationAdministrationId = medicationAdministrationId | prepend: 'MedicationAdministration/' -%}
+                                    {
+                                        "reference": "{{ fullMedicationAdministrationId }}",
+                                    },
+                                {% endfor %}
+                            {% endif %}
+                            {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.44" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.44" %}
+                                {% assign entries = component.section.entry | to_array -%}
+                                {% for entry in entries -%}
+                                    {% assign medicationAdministrationId = entry.act.entryRelationship.substanceAdministration | to_json_string | generate_uuid -%}
+                                    {% assign fullMedicationAdministrationId = medicationAdministrationId | prepend: 'MedicationAdministration/' -%}
+                                    {
+                                        "reference": "{{ fullMedicationAdministrationId }}",
+                                    },
+                                {% endfor %}
+                            {% endif %}
+                            {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2" %}
+                                {% assign entries = component.section.entry | to_array -%}
+                                {% for entry in entries -%}
+                                    {%- if entry.substanceAdministration -%}
+                                        {% evaluate immunizationId using 'Utils/GenerateId' obj: entry.substanceAdministration -%}
+                                    {
+                                        "reference": "Immunization/{{immunizationId}}"
+                                    },
+                                    {%-  elsif entry.observation -%}
+                                    {
+                                        "reference": "Observation/{{entry.observation | to_json_string | generate_uuid }}"
+                                    },
+                                    {%- endif -%}
+                                {% endfor -%}
+                            {% endif %}
+                            {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.10" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.10" %}
+                                {% assign carePlanId = component.section | to_json_string | generate_uuid -%}
+                                {% assign fullCarePlanId = carePlanId | prepend: 'CarePlan/' -%}
+                                {
+                                    "reference": "{{ fullCarePlanId }}",
+                                },
+                            {% endif %}
+                            {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.500" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.500" %}
+                                {% assign careTeamId = component.section | to_json_string | generate_uuid -%}
+                                {% assign fullCareTeam = careTeamId | prepend: 'CareTeam/' -%}
+                                {
+                                    "reference": "{{ fullCareTeam }}",
+                                },
+                            {% endif %}
+                            {% assign entries = component.section.entry | to_array -%}
+                            {% for sectionEntry in entries -%}
+                                {% if sectionEntry.act.entryRelationship -%}
+                                    {% assign ers = sectionEntry.act.entryRelationship | to_array -%}
+                                    {% for er in ers -%}
+                                    {% assign obsTemplates = er.observation.templateId | to_array -%}
+                                    {% if er.observation and obsTemplates.first.root and obsTemplates.first.root == "2.16.840.1.113883.10.20.22.4.4" -%}
+                                            {% assign conditionId = er.observation | to_json_string | generate_uuid -%}
+                                            {% assign fullConditionId = conditionId | prepend: 'Condition/' -%}
+                                            {
+                                                {% if er.observation.value.displayName -%}
+                                                    "display": "Problem - {{ er.observation.value.displayName | escape_special_chars }}",
+                                                {% elsif er.observation.value.translation -%}
+                                                    {% assign translations = er.observation.value.translation | to_array -%}
+                                                    "display": "Problem - {{ translations.first.displayName | escape_special_chars }}",
+                                                {% endif -%}
+                                                "reference": "{{ fullConditionId }}",
+                                            },
+                                    {% endif -%}
+                                    {% endfor -%}
+                                {% elsif component.section.code.code and component.section.code.code == "30954-2" -%}
+                                    {% assign orgComps = sectionEntry.organizer.component | to_array -%}
+                                    {% for orgComp in orgComps -%}
+                                        {% if orgComp.observation -%}
+                                            {% if orgComp.observation.code.nullFlavor and orgComp.observation.code.nullFlavor != "UNK" -%}
+                                            {% else -%}
+                                            {% assign observationId = orgComp.observation | to_json_string | generate_uuid -%}
+                                            {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                            {
+                                                "reference": "{{ fullObservationId }}",
+                                                {% if orgComp.observation.code.originalText._ -%}
+                                                    "display": "{{ orgComp.observation.code.originalText._ | clean_string_from_tabs | strip | escape_special_chars }}",
+                                                {% elsif orgComp.observation.code.translation -%}
+                                                    {% assign translations = orgComp.observation.code.translation | to_array -%}
+                                                    "display": "{{ translations.first.displayName | strip | escape_special_chars }}",
+                                                {% endif -%}
+                                            },
+                                            {% endif -%}
+                                        {% endif -%}
+                                    {% endfor -%}
+                                {% elsif sectionEntry.act.templateId.root and sectionEntry.act.templateId.root == "2.16.840.1.113883.10.20.15.2.3.1" %}
+                                    {% assign observationId = sectionEntry.act | to_json_string | generate_uuid -%}
+                                    {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                    {
+                                        "reference": "{{ fullObservationId }}",
+                                    },
+                                {% elsif component.section.code.code == "29762-2" -%}
+                                    {% capture shouldRender -%}
+                                        {%- include 'Utils/IsSocialHistoryObservation', observation: sectionEntry.observation -%}
+                                    {%- endcapture -%}
+                                    {%- if shouldRender contains "true" -%}
+                                        {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                        {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                        {
+                                            "reference": "{{ fullObservationId }}",
+                                        },
+                                    {% endif -%}
+                                {% elsif sectionEntry.observation.templateId.root and sectionEntry.observation.templateId.root == "2.16.840.1.113883.10.20.15.2.3.40" %}
+                                        {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                        {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                        {
+                                            "reference": "{{ fullObservationId }}",
+                                        },
+                                {% elsif component.section.code.code == "47519-4" %}
+                                    {% assign procedure = sectionEntry.procedure %}
+                                    {% if sectionEntry.act %}
+                                        {% assign procedure = sectionEntry.act %}
+                                    {% endif %}
+                                    {% if procedure -%}
+                                        {% assign procedureId = procedure | to_json_string | generate_uuid -%}
+                                        {% assign fullProcedureId = procedureId | prepend: 'Procedure/' -%}
+                                        {
+                                            "reference": "{{ fullProcedureId }}",
+                                        },
+                                    {% elsif sectionEntry.observation %}
+                                        {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                        {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                        {
+                                            "reference": "{{ fullObservationId }}",
+                                        },
+                                    {% endif %}
+                                {% elsif sectionEntry.observation != nil and component.section.templateId.root == '2.16.840.1.113883.10.20.22.2.80' %}
+                                    {% comment %} Pregnancy observations {% endcomment %}
+                                    {% assign observationId = sectionEntry.observation | to_json_string | generate_uuid -%}
+                                    {% assign fullObservationId = observationId | prepend: 'Observation/' %}
+                                    {
+                                        "reference": "{{ fullObservationId }}",
+                                    },
+                                    {% comment %} Add birth outcome obs with focus on this pregnancy obs {% endcomment %}
+                                    {% assign rels = sectionEntry.observation.entryRelationship | to_array %}
+                                    {% for rel in rels -%}
+                                        {% if rel.typeCode == "COMP" and rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.284' %}
+                                            {% assign outcomeId = rel | to_json_string | generate_uuid %}
+                                            {% assign fullOutcomeId = observationId | prepend: 'Observation/' %}
+                                            {
+                                                "reference": "{{ fullOutcomeId }}",
+                                            },
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif -%}
+                            {% endfor -%}
+                        ],
+                    {% endif -%}
+                {% endif -%}
+            },
+            {% endfor -%}
+            {% assign templatesInComp = templatesInComp | split: "|" | uniq %}
+            {% include 'Utils/AddMissingRequiredSections', templatesInComp: templatesInComp %}
+
+            {% comment %} Reportability Response Information Section (from RR) {% endcomment %}
+            {
+                {% if composition.section.code.code and composition.section.code.code == "88085-6" -%}
+                {% assign sectionId = composition.section | to_json_string | generate_uuid -%}
+                "id": "{{ sectionId }}",
+                "title": "Reportability Response Information Section",
+                "text": {
+                    "status": "generated",
+                    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Reportability Response Information Section</div>",
+                },
+                "extension":
+                [
+                    {
+                        "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
+                        "valueCodeableConcept":
+                        {
+                            "text":"official",
+                            {% assign codes = composition.section.code | to_array -%}
+                            {% include 'DataType/CodeableConcept', CodeableConcept: codes.first -%}
+                        },
+                    },
+                    {
+                        "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
+                        "extension": [
+                            {% assign rrentries = composition.section.entry | to_array -%}
+                            {% for rrentry in rrentries -%}
+                                {% comment %} Extension: eICR Processing Status {% endcomment %}
+                                {% if rrentry.act.templateId.root and rrentry.act.templateId.root == "2.16.840.1.113883.10.20.15.2.3.29" -%}
+                                    {
+                                        "url":"eICRProcessingStatus",
+                                        "valueReference": {
+                                            {% assign processingStatusId = rrentry.act | to_json_string | generate_uuid -%}
+                                            {% assign fullProcessingStatusId = processingStatusId | prepend: 'Observation/' -%}
+                                            "reference":"{{ fullProcessingStatusId }}",
+                                            "display": "{{ rrentry.act.code.displayName }}"
+                                        }
+                                    }
+                                {% endif -%}
+                            {% endfor -%}
+                        ]
+                    },
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            {% include 'DataType/Coding', Coding: composition.section.code -%}
+                        }
+                    ],
+                },
+                "entry":
+                [
+
+                    {% assign entries = composition.section.entry | to_array -%}
+                    {% for entry in entries -%}
+                        {% if entry.organizer.templateId.root and entry.organizer.templateId.root == "2.16.840.1.113883.10.20.15.2.3.34" -%}
+                            {% assign comps = entry.organizer.component | to_array -%}
+                            {% for comp in comps -%}
+                                {% assign obs = comp.observation | to_array -%}
+                                {% for ob in obs -%}
+                                    {% if ob.code.codeSystem == "2.16.840.1.113883.6.96" and ob.code.code == "64572001" and ob.value.code and ob.value.code != "NA" -%}
+                                        {% if ob.id and ob.id.root -%}
+                                            {% assign observationId = ob.id.root -%}
+                                        {% else -%}
+                                            {% assign observationId = ob.value | to_json_string | generate_uuid -%}
+                                        {% endif -%}
+                                        {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                        {
+                                            "display": "Relevant Reportable Condition Observation - {{ ob.value.displayName | escape_special_chars }}",
+                                            "reference": "{{ fullObservationId }}",
+                                        },
+                                    {% endif -%}
+                                {% endfor -%}
+                            {% endfor -%}
+                        {% endif -%}
+                    {% endfor -%}
+                ],
+                {% endif -%}
+            },
+        ],
+    },
+},

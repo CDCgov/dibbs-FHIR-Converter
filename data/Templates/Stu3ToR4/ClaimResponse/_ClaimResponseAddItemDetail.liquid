@@ -1,9 +1,0 @@
-{% mergeDiff msg -%}
-{
-  "adjudication" : [ {{ msg.adjudication | to_array | batch_render: '_ClaimResponseItemAdjudication', 'msg' }} ],
-  "fee" : "",
-  "service" : "",
-  "category" : "",
-  "revenue" : ""
-}
-{% endmergeDiff -%}

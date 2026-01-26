@@ -1,9 +1,0 @@
-{% mergeDiff msg -%}
-{
-  {% if msg.strand == 1 -%}
-  "strand" : "watson",
-  {% else -%}
-  "strand" : "crick",
-  {% endif -%}
-}
-{% endmergeDiff -%}

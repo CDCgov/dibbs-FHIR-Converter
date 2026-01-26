@@ -1,0 +1,72 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Location",
+        "id":"{{ ID }}",
+        "meta": {
+            "profile": [
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+            ]
+        },
+        "identifier":
+        [
+            {% assign ids = location.id | to_array -%}
+            {% if ids != empty -%}
+                {% for id in ids -%}
+                    {% include 'DataType/Identifier', Identifier: id -%}
+                {% endfor -%}
+            {% else %}
+                {
+                    "system": "urn:ietf:rfc:3986",
+                    "value": "urn:uuid:{{ ID }}"
+                }
+            {% endif %}
+        ],
+
+        {% if location.playingEntity.name._ %}
+            "name":"{{ location.playingEntity.name._ }}",
+        {% else %}
+            "_name": {
+                "extension": [
+                    {% assign playingEntityNullFlavor = location.playingEntity.name.nullFlavor | default: "unknown" %}
+                    {%- include 'Extension/DataAbsentReason', nullFlavor: playingEntityNullFlavor -%}
+                ],
+            },
+        {% endif %}
+
+        "address": {
+            {% include 'DataType/Address', Address: location.addr -%}
+            {% if location.addr.city._ == nil %}
+                "_city": {
+                    "extension": [
+                        {% assign nfCity = location.addr.city.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
+                        {%- include 'Extension/DataAbsentReason', nullFlavor: nfCity -%}
+                    ]
+                },
+            {% endif %}
+            {% if location.addr.state._ == nil %}
+                "_state": {
+                    "extension": [
+                        {% assign nfState = location.addr.state.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
+                        {%- include 'Extension/DataAbsentReason', nullFlavor: nfState -%}
+                    ]
+                },
+            {% endif %}
+        },
+
+        "telecom":
+        [
+            {% assign telecoms = location.telecom | to_array -%}
+            {% for telecom in telecoms -%}
+            { {% include 'DataType/ContactPoint', ContactPoint: telecom -%} },
+            {% endfor -%}
+        ],
+        "type":
+        [
+            {% assign codes = location.code | to_array -%}
+            {% for code in codes -%}
+            { {% include 'DataType/CodeableConcept', CodeableConcept: code, minCardinality: 1, nullFlavor: code.nullFlavor -%} },
+            {% endfor -%}
+        ],
+    },
+},

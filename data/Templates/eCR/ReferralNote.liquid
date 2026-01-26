@@ -23,6 +23,6 @@
         {% include 'Section/Nutrition' -%}
 
         {% assign documentId = msg | to_json_string | generate_uuid -%}
-        {% include 'Resource/DocumentReference' documentReference: msg ID: documentId -%}
+        {% include 'Resource/DocumentReference', documentReference: msg, ID: documentId -%}
     ]
 }

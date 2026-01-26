@@ -32,18 +32,21 @@
             "occurrenceString": "Unknown",
         {% endif -%}
 
-        {% assign consumables = immunization.consumable | to_array -%}
-        {% for consumable in consumables -%}
-            {% comment %} per spec, only one vaccine {% endcomment %}
-            {% assign manufacturedProduct = consumable.manufacturedProduct | to_array | nested_where: 'templateId.root', '2.16.840.1.113883.10.20.22.4.54' | first %}
-            "vaccineCode":{ {% include 'DataType/CodeableConcept', CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%} },
-            "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
-            {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}
-            {% assign fullManufacturerId = manufacturerId | prepend: 'Organization/' -%}
-            "manufacturer": {
-                "reference": "{{ fullManufacturerId }}",
-            },
-        {% endfor -%}
+        {% assign manufacturedProduct = immunization.consumable.manufacturedProduct %}
+        {% assign vaccineDisplay = manufacturedProduct.manufacturedMaterial.code.originalText.reference._ %}
+
+        "vaccineCode": {
+        {% include 'DataType/CodeableConcept', CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%}
+        {% if vaccineDisplay %}
+            "text": {{ vaccineDisplay | to_json_string }}
+        {% endif %}
+        },
+        "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",
+        {% assign manufacturerId = manufacturedProduct.manufacturerOrganization | to_json_string | generate_uuid -%}
+        {% assign fullManufacturerId = manufacturerId | prepend: 'Organization/' -%}
+        "manufacturer": {
+            "reference": "{{ fullManufacturerId }}",
+        },
 
         {% if immunization.statusCode.code -%}
             "status":"{{immunization.statusCode.code | get_property: 'ValueSet/ImmunizationStatus' }}",

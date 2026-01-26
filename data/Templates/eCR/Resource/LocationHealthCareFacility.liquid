@@ -30,7 +30,7 @@
         {% else %}
             "_name": {
                 "extension": [
-                    {% assign nfName = location.location.name.nullFlavor | default: location.serviceProviderOrganization.name.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' %}
+                    {% assign nfName = location.location.name.nullFlavor | default: location.serviceProviderOrganization.name.nullFlavor | default: "unknown" %}
                     {%- include 'Extension/DataAbsentReason', nullFlavor: nfName -%}
                 ],
             },
@@ -50,7 +50,7 @@
             {% if addressLocation.addr.city._ == nil %}
                 "_city": {
                     "extension": [
-                        {%- assign nfCity = addressLocation.addr.city.nullFlavor | default: addressLocation.addr.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' -%}
+                        {%- assign nfCity = addressLocation.addr.city.nullFlavor | default: addressLocation.addr.nullFlavor | default: "unknown" -%}
                         {%- include 'Extension/DataAbsentReason', nullFlavor: nfCity -%}
                     ]
                 },
@@ -58,7 +58,7 @@
             {% if addressLocation.addr.state._ == nil %}
                 "_state": {
                     "extension": [
-                        {%- assign nfState = addressLocation.addr.state.nullFlavor | default: addressLocation.addr.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' -%}
+                        {%- assign nfState = addressLocation.addr.state.nullFlavor | default: addressLocation.addr.nullFlavor | default: "unknown" -%}
                         {%- include 'Extension/DataAbsentReason', nullFlavor: nfState -%}
                     ]
                 },

@@ -28,7 +28,7 @@
         {% else %}
             "_name": {
                 "extension": [
-                    {% assign playingEntityNullFlavor = location.playingEntity.name.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' %}
+                    {% assign playingEntityNullFlavor = location.playingEntity.name.nullFlavor | default: "unknown" %}
                     {%- include 'Extension/DataAbsentReason', nullFlavor: playingEntityNullFlavor -%}
                 ],
             },
@@ -39,7 +39,7 @@
             {% if location.addr.city._ == nil %}
                 "_city": {
                     "extension": [
-                        {% assign nfCity = location.addr.city.nullFlavor | default: location.addr.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' %}
+                        {% assign nfCity = location.addr.city.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
                         {%- include 'Extension/DataAbsentReason', nullFlavor: nfCity -%}
                     ]
                 },
@@ -47,7 +47,7 @@
             {% if location.addr.state._ == nil %}
                 "_state": {
                     "extension": [
-                        {% assign nfState = location.addr.state.nullFlavor | default: location.addr.nullFlavor | default: "unknown" | get_property: 'ValueSet/NullFlavor' %}
+                        {% assign nfState = location.addr.state.nullFlavor | default: location.addr.nullFlavor | default: "unknown" %}
                         {%- include 'Extension/DataAbsentReason', nullFlavor: nfState -%}
                     ]
                 },

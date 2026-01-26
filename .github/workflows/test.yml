@@ -1,0 +1,92 @@
+name: Test fhir-converter
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  merge_group:
+    types:
+      - checks_requested
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-test-dotnet-fhir-converter-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+      - name: Run tests
+        run: dotnet test src/Dibbs.FhirConverterApi.UnitTests
+
+  functional-test-dotnet-fhir-converter-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+      - name: Run tests
+        run: dotnet test src/Dibbs.FhirConverterApi.FunctionalTests
+
+  unit-test-dotnet-fhir-converter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+      - name: Run tests
+        run: dotnet test --filter FullyQualifiedName~Converter.UnitTests
+
+  functional-test-dotnet-fhir-converter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+      - name: Run tests
+        run: dotnet test --filter FullyQualifiedName~Converter.FunctionalTests --logger "console;verbosity=detailed"
+        env:
+          VALIDATE_FHIR: false
+
+  unit-test-dotnet-fhir-converter-tool:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+      - name: Run tests
+        run: dotnet test --filter FullyQualifiedName~Tool.UnitTests
+
+  validate-fhir-test-dotnet-fhir-converter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+      - name: Run tests
+        run: dotnet test --filter FullyQualifiedName~Converter.FunctionalTests.ConvertDataTemplateDirectoryProviderFunctionalTests.GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid --logger "console;verbosity=detailed"
+        env:
+          VALIDATE_FHIR: true
+          LOINC_AUTH: ${{ secrets.LOINC_AUTH }}

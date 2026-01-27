@@ -3,7 +3,7 @@ using System.IO;
 using DotLiquid;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class AddressTests : BaseECRLiquidTests
     {

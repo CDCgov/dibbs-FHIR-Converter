@@ -6,13 +6,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
-using DotLiquid;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Models.Hl7v2;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class GeneralFiltersTests
     {

@@ -8,10 +8,10 @@ using System.Threading;
 using DotLiquid;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
-using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class BaseECRLiquidTests
     {

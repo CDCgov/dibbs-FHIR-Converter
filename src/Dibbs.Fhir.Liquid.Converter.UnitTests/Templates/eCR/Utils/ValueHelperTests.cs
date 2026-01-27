@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class ValueHelperTests : BaseECRLiquidTests
     {
         private static readonly string ECRPath = Path.Join(
-            TestConstants.ECRTemplateDirectory, "Utils", "_ValueHelper.liquid"
+            TestConstants.ECRTemplateDirectory, "Utils", "ValueHelper.liquid"
         );
 
         [Fact]

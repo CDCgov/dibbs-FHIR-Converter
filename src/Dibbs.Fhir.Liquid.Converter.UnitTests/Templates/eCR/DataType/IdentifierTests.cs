@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DotLiquid;
 using Hl7.Fhir.Model;
-using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     /// <summary>
     /// Test for the Identifier template. These are based on the cases listed here: https://build.fhir.org/ig/HL7/ccda-on-fhir/mappingGuidance.html#cda-id--fhir-identifier
@@ -16,7 +15,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         private static readonly string ECRPath = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "DataType",
-            "_Identifier.liquid"
+            "Identifier.liquid"
         );
 
         [Fact]
@@ -104,7 +103,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
         /// If the root is neither an OID nor an UUID, just set it as the value of the Identifier.
         /// </summary>
         [Fact]
-        public void InvalidUidOnly()
+        public void InvalidUuidOnly()
         {
             var xmlStr = @"<id root=""7c0704bb-9c40-41b5-9c7d-26b2d59e234g"" />";
             var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;

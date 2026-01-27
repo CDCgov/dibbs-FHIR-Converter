@@ -6,14 +6,12 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
-using DotLiquid;
-using DotLiquid.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.DotLiquids
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
 {
     public class EvaluateTests
     {

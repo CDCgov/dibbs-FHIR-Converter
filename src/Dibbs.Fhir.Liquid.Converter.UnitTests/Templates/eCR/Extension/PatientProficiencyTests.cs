@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class PatientProficiencyTests : BaseECRLiquidTests
     {

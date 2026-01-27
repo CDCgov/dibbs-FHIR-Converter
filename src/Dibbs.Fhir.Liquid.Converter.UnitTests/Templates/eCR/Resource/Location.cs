@@ -1,21 +1,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DotLiquid;
 using Xunit;
 using Hl7.Fhir.Model;
-using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class LocationTests : BaseECRLiquidTests
     {
         private static readonly string ECRPathLocation = Path.Join(
-            TestConstants.ECRTemplateDirectory, "Resource", "_Location.liquid"
+            TestConstants.ECRTemplateDirectory, "Resource", "Location.liquid"
         );
 
         private static readonly string ECRPathLocationHealthCareFacility = Path.Join(
-            TestConstants.ECRTemplateDirectory, "Resource", "_LocationHealthCareFacility.liquid"
+            TestConstants.ECRTemplateDirectory, "Resource", "LocationHealthCareFacility.liquid"
         );
 
         [Fact]

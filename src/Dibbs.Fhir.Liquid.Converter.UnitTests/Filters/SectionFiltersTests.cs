@@ -6,11 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
-using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class SectionFiltersTests
     {

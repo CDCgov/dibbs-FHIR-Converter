@@ -5,7 +5,7 @@
 
 using System.IO;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public static class TestConstants
     {

@@ -5,15 +5,14 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DotLiquid.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.Utilities
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Utilities
 {
     public class TemplateUtilityTests
     {

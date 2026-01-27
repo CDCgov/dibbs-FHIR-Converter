@@ -6,11 +6,11 @@
 using System.Collections.Generic;
 using System.IO;
 using DotLiquid;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class TemplateProviderTests
     {

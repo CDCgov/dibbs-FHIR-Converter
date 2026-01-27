@@ -7,15 +7,15 @@ using System;
 using System.Globalization;
 using System.IO;
 using DotLiquid;
-using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Models.Json;
+using Dibbs.Fhir.Liquid.Converter.DotLiquids;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Models.Json;
 using Newtonsoft.Json.Linq;
 using NJsonSchema;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.DotLiquids
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
 {
     public class TemplateLocalFileSystemTests
     {

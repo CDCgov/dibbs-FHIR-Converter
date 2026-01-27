@@ -1,32 +1,31 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using DotLiquid;
 using Hl7.Fhir.Model;
 using Xunit;
-using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using System;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class OrganizationRRTests : BaseECRLiquidTests
     {
         private static readonly string ECRPathRoutingEntity = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "Resource",
-            "_OrganizationRRRoutingEntity.liquid"
+            "OrganizationRRRoutingEntity.liquid"
         );
 
         private static readonly string ECRPathResponsibleAgency = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "Resource",
-            "_OrganizationRRResponsibleAgency.liquid"
+            "OrganizationRRResponsibleAgency.liquid"
         );
 
         private static readonly string ECRPathRulesAuthoringAgency = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "Resource",
-            "_OrganizationRRRulesAuthoringAgency.liquid"
+            "OrganizationRRRulesAuthoringAgency.liquid"
         );
 
         [Fact]

@@ -5,12 +5,12 @@
 
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.Parsers
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DataParsers
 {
     public class CcdaDataParserTests
     {

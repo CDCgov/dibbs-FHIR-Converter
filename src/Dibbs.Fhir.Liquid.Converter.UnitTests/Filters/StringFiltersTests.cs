@@ -16,7 +16,7 @@ using Hl7.Fhir.Utility;
 using Hl7.Fhir.Validation;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class StringFiltersTests
     {

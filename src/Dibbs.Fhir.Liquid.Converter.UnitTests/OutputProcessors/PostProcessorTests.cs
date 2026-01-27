@@ -5,14 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
-using Microsoft.Health.Fhir.Liquid.Converter.Models;
-using Microsoft.Health.Fhir.Liquid.Converter.OutputProcessors;
+using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.OutputProcessors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.OutputProcessors
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.OutputProcessors
 {
     public class PostProcessorTests
     {

@@ -4,10 +4,10 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using Microsoft.Health.Fhir.Liquid.Converter.InputProcessors;
+using Dibbs.Fhir.Liquid.Converter.InputProcessors;
 using Xunit;
 
-namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.InputProcessors
+namespace Dibbs.Fhir.Liquid.Converter.UnitTests.InputProcessors
 {
     public class SpecialCharProcessorTests
     {

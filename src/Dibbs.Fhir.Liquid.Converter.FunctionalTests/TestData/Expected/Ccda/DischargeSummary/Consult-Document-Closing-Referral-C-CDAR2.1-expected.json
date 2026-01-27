@@ -1,0 +1,388 @@
+{
+  "resourceType": "Bundle",
+  "type": "batch",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:ea18726e-b3ea-f72e-5ead-3c74184436e4",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "ea18726e-b3ea-f72e-5ead-3c74184436e4",
+        "identifier": {
+          "use": "official",
+          "value": "2.16.840.1.113883.19.5.99999.1"
+        },
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "11488-4",
+              "display": "Consultation Note",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "date": "2018-06-23T09:00:00-08:00",
+        "title": "Community Health Consult Note",
+        "confidentiality": "N",
+        "subject": {
+          "reference": "Patient/75d72dd1-7f86-8a14-d4db-94b59ddc3627"
+        },
+        "encounter": {
+          "reference": "Encounter/10f50b3e-c967-023f-fa99-b7b1deceefae"
+        },
+        "custodian": {
+          "reference": "Organization/d9b17f7a-c973-98ba-d798-05a68eafe519"
+        },
+        "author": [
+          {
+            "reference": "Practitioner/08161958-acd8-1ccb-1416-a6a3b9a2c973"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Composition/ea18726e-b3ea-f72e-5ead-3c74184436e4"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:10f50b3e-c967-023f-fa99-b7b1deceefae",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "10f50b3e-c967-023f-fa99-b7b1deceefae",
+        "status": "unknown",
+        "class": {
+          "code": "99213",
+          "display": "Evaluation and Management",
+          "system": "http://www.ama-assn.org/go/cpt"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19",
+            "value": "9937012"
+          }
+        ],
+        "location": [
+          {
+            "location": {
+              "reference": "Location/6dfdc7c6-e225-71eb-cec1-75870e529061"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Encounter/10f50b3e-c967-023f-fa99-b7b1deceefae"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6dfdc7c6-e225-71eb-cec1-75870e529061",
+      "resource": {
+        "resourceType": "Location",
+        "id": "6dfdc7c6-e225-71eb-cec1-75870e529061"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/6dfdc7c6-e225-71eb-cec1-75870e529061"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d9b17f7a-c973-98ba-d798-05a68eafe519",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "d9b17f7a-c973-98ba-d798-05a68eafe519",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "321CX"
+          }
+        ],
+        "name": "Good Health HIE",
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "1009 Healthcare Drive "
+            ],
+            "city": "Portland",
+            "state": "OR",
+            "country": "US",
+            "postalCode": "99123"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)-1009",
+            "use": "work"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/d9b17f7a-c973-98ba-d798-05a68eafe519"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:08161958-acd8-1ccb-1416-a6a3b9a2c973",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "08161958-acd8-1ccb-1416-a6a3b9a2c973",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "555555555"
+          }
+        ],
+        "name": [
+          {
+            "family": "Primary",
+            "given": [
+              "Patricia",
+              "Patty"
+            ],
+            "suffix": [
+              "M.D."
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "1004 Healthcare Drive "
+            ],
+            "city": "Portland",
+            "state": "OR",
+            "country": "US",
+            "postalCode": "99123"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)-1004",
+            "use": "work"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "207QA0505X",
+                  "display": "Adult Medicine",
+                  "system": "http://nucc.org/provider-taxonomy"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/08161958-acd8-1ccb-1416-a6a3b9a2c973"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:75d72dd1-7f86-8a14-d4db-94b59ddc3627",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "75d72dd1-7f86-8a14-d4db-94b59ddc3627",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "000-00-0000"
+          }
+        ],
+        "name": [
+          {
+            "use": "usual",
+            "family": "Betterhalf",
+            "given": [
+              "Eve"
+            ]
+          },
+          {
+            "family": "Everywoman",
+            "given": [
+              "Eve"
+            ]
+          }
+        ],
+        "birthDate": "1975-05-01",
+        "gender": "female",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2106-3",
+                  "display": "White"
+                }
+              },
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2076-8",
+                  "display": "Hawaiian or Other Pacific Islander"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Mixed"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2186-5",
+                  "display": "Not Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "2222 Home Street"
+            ],
+            "city": "Beaverton",
+            "state": "OR",
+            "country": "US",
+            "postalCode": "97867"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-2003",
+            "use": "home"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/75d72dd1-7f86-8a14-d4db-94b59ddc3627"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1e516bfc-532c-65a4-45e2-e8536f0eb630",
+      "resource": {
+        "resourceType": "RelatedPerson",
+        "id": "1e516bfc-532c-65a4-45e2-e8536f0eb630",
+        "relationship": [
+          {
+            "coding": [
+              {
+                "code": "POWATT",
+                "display": "Power of Attorney",
+                "system": "urn:oid:2.16.840.1.113883.1.11.19830"
+              }
+            ]
+          }
+        ],
+        "name": [
+          {
+            "family": "Betterhalf",
+            "given": [
+              "Boris",
+              "Bo"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(555)555-2008",
+            "use": "mobile"
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "2222 Home Street"
+            ],
+            "city": "Beaverton",
+            "state": "OR",
+            "country": "US",
+            "postalCode": "97867"
+          }
+        ],
+        "patient": {
+          "reference": "Patient/75d72dd1-7f86-8a14-d4db-94b59ddc3627"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "RelatedPerson/1e516bfc-532c-65a4-45e2-e8536f0eb630"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e0c97642-0168-79bd-a88f-928e48361894",
+      "resource": {
+        "resourceType": "DocumentReference",
+        "id": "e0c97642-0168-79bd-a88f-928e48361894",
+        "type": {
+          "coding": [
+            {
+              "code": "11488-4",
+              "display": "Consultation Note",
+              "system": "http://loinc.org"
+            }
+          ]
+        },
+        "date": "2025-11-03T19:21:42.873Z",
+        "status": "current",
+        "content": [
+          {
+            "attachment": {
+              "contentType": "text/plain",
+              "data": "H4sIAAAAAAAAA+1bW3PqOBJ+3n+h5WE3mT2AzZ0MYYqQnEOqksAEMjNvW8IWoDrGYmQ5hPn12y1f8I1LMmd3a2uPK6kCqyW1+qavpab309vaIa9Mely41yWzYpQIcy1hc3d5XXqZfS53SsRT1LWpI1x2Xdoxr/RTv4fdyp7aOcxbMaaI2m2gUbE3VX3znBJZSba4Lg1vBxX8Ch3+Wi6T2Yp7xKPrjcOItxJbj3DH8T0lqeKvjHB3IeQaPguXXLA3y/GRC5hd+pbyJbNvhL27JEBEKBkK1/MdFVA/CcVIudwnepp7RbYUJtowiy+4RR1nR2z2yhyxYTZRQs9N8J8SKzmMi8NY1IW3yCN8oQTWwaSkDnGE2OznmK2Q38++s4AlrJmrxgvCHIafiMPdrx6ZU+srTqaAUki+5C4MItnvPvMUsBGPGw85johCCVGbbpByIcWaPFAXlEDDNo9spHjlNrRuuVqRYRkkTWoVg3zx4S2O2RsCG7j4W2H5mi3QmOtdl3zpXq2cdlnI5dVrvRS8vnrz+HVppdTmqlrdbreVbb0CBNWaYZjV3x4fptaKrWmZu2gKFisReIKOr8LKjlmFd9G4nq0y7fim1Cfhon/4gSDrI0ZtJvEbigOenmTUWQ8FLAaMEUzrZVqqBi1oavcgQCHUdalWMVuVTsOomBXTrHc6dfgAiwI7ZG5g0pPx8Pafo1sDnoYRjaHNxAapgIGANO1IRmA2YBHaDOEbaO9lSp6Rk4jDi19ql2TGQAk0NDnNUvjiGFtGpQZ/NXyT4q9mmM2y0SkbZpK5vHn/UiMfnK9xYj5uJ9tns24HfP7guN1Ks9LFpxIPYEVqmu7AttdF3Vq46j3JE12DTh/G90/DUqhg02x0OuWGNi18bO7BGncBZU4cpX5Ep8U1sG2ObeA906fx492tHpRsV9xaEQg64Hb8lTosUCq6pJ67yP2FHes1Hh69/XefOlztyJpRD4IRGT5OmwZ5bWuf5hKsSEcTi21U4LJ5IdQrjVYDNGOAGGvwtoafW0WzwfgcB9wAS2CksCyMekm+bZgQljLHOGEHYQ2bN5IDISzVhxDL1CdCHbUS/hKkoHBIWCOxfClhVIiK9JVyh86d9IohHrueE8gk0E29bTbr6EClk2rutvJ6DlRSHs5i5eYVHEartEYk2wipyIVklpA2oRL8lVrqMjK8Ks4UugRXDusPxXrtu6gm8FcHI2MwnLaZXjUg0vRssWAWbjszvmaBwLRvdIxWrW50DQN8xDD2Fu4uuB2oAkZPxKWnUyJpVmrNaBiHukufLlmiP3PL+9AGGrtPOaP3Dm/sRqOEu/mTv54zGS0tdtZAljMql0ztdb4BgcPynkUon5RB3r0FO9JUWGiKUwYWhDIOZ/A93KbR+kA3PhJMn8j4/raStKqCSGOgkPEP5HxwhY04zKRYGk3Qmktg7msqd7CZr2FT0m6310aBBzbhg9nN8QUuhMsAMY0mpVRToBYlAeNAjAEv9x64y/o1eMgIJiVT3dar5mlyw1ggs/4No6AfJVwwXvxeMBkE9v74GYfETzmCjYAGB02o3213Wu1eNfEmR43Cgk0MhfUCjgGRYorDeqG07qdjUjdbrbIJruK7CmSJ43hXBKBgBVsqZlZcwWIC6v7LFL0w+JwiqKJQ36O40UObhPJ78dj5ylOAuwCwRYYOX6/+YV40m81L+C8DggE8EOk2Y0mh1RdLDYP+gktPERdCVIzuICYBi/DJg+2FqiDqBuPgyr66YusijigSmh5I8/KQNzNNsYSI5PbvXiFYBR8LqRZ0zSF86y0JAIyEEAt2e8OUYnJFnUWvGlDkOagiC4fX64EkXfvggilsH7A5Be3U8zAeqAiEJgVxfPHT5+HoG6//5rmEveRuKwC6vXv91F7D/hNlIl+YC1gvEaQ/l9K71WcAww4rZYfB59RmUACDBgWTZyw1VtItwk6xIHMuQeQuA+ELF0Qxx60f8h1wnBAJ2HRXqAbdM7npmd1202ga2TCricFHOYQWDBm+lxDIY0Ygj1RKzuwz9sITQouHS09bxJtkDiRMwvcGC0jCuEYMCRZNw6wXTpbGHSsJkueQ8124wi0PKaAlh1ufCH6LMsjLj2naaBdgIYxyzxHnJMH6IY0Pb4fkmVrgb+CYd2oFMAn3Xo1TAS8gYFIUEjOt9AXm0WhNa39NZNSLxb3+go8FNrSElBQTH7aArcom8x0ZP97g1gCJvrSLoxeOlxBwzTRa5XrGEH5dwR5zGiXW6p2zDEEv/G+APn5MLF3L5JC4MIrFjMZgAyOz9hOIPzbhiz0JNGg/sAuXjMnqVXbdoFc8FUmte0S3lKMZAfoe6xg5odp2yD1Aae3R77ehUE5/TiiB8r9I4W9Syuu0ys3MIgAkkxG8oNABF/IAhumK/xbjgJSlDSIt3gKs/Vom418Hs1lmLROxBSVApBwoJaTLdoXLOL0U/ADYulM3CtbDvA3kFxwSqAnkJruCVWhej8PLmOzbwMy9hM6Bm4nJj8POmPBd8HPPzAm4GBPmYWPcdBLodUKg91hkT3qIyKYmkCKJYsvSdIUoIT2SRic3EEa9Y1AlTZ9ELEOAgDfirL4hmDkD38VdinFO0HRCCHuCA+ABnMw6MPbhJt18ULcxRd6+G/B81Af0kO/yg5CJ83whWPJH/CFg7Eyf0MRH/KJaLPVe9Yi2EkcR+sTE0hikeHzcVkvMXZZws8SEsVXvlmuEOpsVLdcDJILHU6U7d+lwb1Uq2kozkybOP5aHnHUNBAnKO8hx0jH+7g0zE9zRIQ5/Ze4HQ3yz0ioI7g8hr4M5xyOfx2IUqhndSAE7PSQ+1u4B7xkSTH/JsPxFCPvjbJpndC3kfrLn8NAiUMuTIH37O94v6PsJEG2ks4NKDUhhaHYPWDMKztIvBO3V03YH9lyQlvfCGw85lkvAJ38U22t4kbKn8Mh0NH55uCUr8H8Aw+Rpcv8jQGWwZH3AitcM+uzpR7KgX5OIsQgOps+vamb35rdjJ1etIgnowIwo9VZYgEy8mViyADCudh7oCHjUYO1Qqhrtgnqn+xVcIrEdksR+2DTi48tU/8NxJB9XTcNoRyept5JjVn5e8A2C7kRIheD3SMw9K9amYmzXrNVPxtizYmvREVX1qJnFphmfk/aqufPUHvUhidyP21PpE+a60a4nk+0e9Ty+hCxskO6n29IW14ye91hdEipD7vLzAJL95m+ZuDSw8ZT8kdlggW7+ZOPk5Y6RD025zFfbkUUlI5NQyGRG34Qr1jtyMbqfDAaXWdYLjbXYUBskMYE2VnL+qewJS33foexJC/3Q4ekxvw/dvoxiyIkwtK5DaO8wUAyQKewJEsPS0QO5QnQLPdXujHO8/iQ4DD6Kanuev1jwt+Qcg2Gp/1i5rYBSdNs5p30g2WJ57BsSbggvE19squidCxCcybzzQkPWcjLOW6/X2/p5l/O+wwPaOQ/4P3SAZnbT+9MOcOc4zD3HjLVtvOfo+QxjTJhVr5o1wB6PShU+Yo+d6Dl+vfjdIEONfDQi17+1QY6oFI59jkWO+GYjLIn3fR8JrreV8bcOril7Tptvz/I9JVLnDrGohrkm3RxfTSUojucHmZBcM4cfRPCYyEXQeHR/9xG0nrCR7iGkHnd8B2TvfgwJBTr4X8XtZ5vC3hbTRgXzpb8nyhGfmcU3qZQUWhVe1Nn5ptOdY6pTnj6l8jjuCn16ihdV4Lp/sP8Mhjq5OqwyYcC2fdwbs7nwYEOlOiMR1lnX4fGRwSLtHGFcJ21Y32NRdTR36ximadRT1UGBaMGkKFapJg5/pkVZ3umN+XuWF0j0e5b3Pcv7t2V5KSCSd/6g2IJ5luRzXW6NZZVCgjXjRTtVBO1vEZR/M5tccJdsV8LBUm+CQewSr9SVrqiRr9xihL3qCho7HNIm0APbi+vYid5C0uXlWPc8DMpRHj5PEwWwmi1iObC0oH2AlZZrACjB1+efx2n4oBen51JRBdNCOI7YYh0fxCJLSKmvNm1dYxqXqofV67kKrH31EII5bnmwOBuFmZggHgRL8y1HeMyuRmX2ubt3DIhB6OvSlm3OqVU223a93DC7zXKnSxtl06yZc6tjdOeN7DlzMhJCqG512/pmMH07HNYpxVzhrwLCTdRTJ4NcWGOMYj6jHjaxCVS1ruLNKKXgEASDTIS7f6Ff4i8y1hs0XXd55+pYwo4eFHa79bZh1o5ldgeldnQHqOUvSoaTWbkRVXF3u7WCspv0rQ2GtMDesTjlkbp0qSvNshwdLdHNEjviwBVWb6U3jCE47Gdq6duQ4tDDU8X0zUweXCu8zTgxdq+aY6tXPazMXjWr/Yyn7n8KQ+bC3umqljVXKgonWOke1Op+Ip4IXoS/JtmCnenqb5Ajt9E1sWhP+IqAAwD0isNO7Mypn92Q6Wjw8BAVG2GVCETKHdZXTALYTe4dx4XtF6uDccGfCBlAaJRLLDNCPd+7CuKjxJ+PJIgAI8wdtk68SfIx8DwYMvhlBgwxgc17TwiRdi4g+4J3CbqwWdPToAcwOZOMqlR7cppnRmGT0HeYz1FA0J/j179wj+f7xtpKwMCU1LIeFpMnNJ2wjILOScJeNfubnv6/AIwMxdm/NQAA",
+              "hash": "MzM4NTcwZmYyMmM3MDc3ZjlmMTlmNTQzYzJjODU3MjUxOGE5Mzg1NQ=="
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "DocumentReference/e0c97642-0168-79bd-a88f-928e48361894"
+      }
+    }
+  ]
+}

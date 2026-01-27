@@ -1,0 +1,1166 @@
+{
+  "resourceType": "Bundle",
+  "type": "document",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"
+    ]
+  },
+  "id": "38e6a983-38ad-484f-a7d2-b294cdbe5435",
+  "identifier": {
+    "system": "urn:ietf:rfc:3986",
+    "value": "urn:uuid:38e6a983-38ad-484f-a7d2-b294cdbe5435"
+  },
+  "timestamp": "2020-05-05T11:05:15-04:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:90be8ddc-f46c-6d22-3d92-4453e39d6efe",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "90be8ddc-f46c-6d22-3d92-4453e39d6efe",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+          ]
+        },
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public health Case report"
+              }
+            ]
+          },
+          "value": "8d86218e-0fea-11eb-8216-a80388425cfb"
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+            "valueString": "1"
+          },
+          {
+            "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+            "valueString": "2016-12-01"
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "55751-2",
+              "system": "http://loinc.org",
+              "display": "Public health Case report"
+            }
+          ]
+        },
+        "date": "2020-05-05T11:05:15-04:00",
+        "title": "Initial Public Health Case Report",
+        "confidentiality": "N",
+        "section": [
+          {
+            "id": "a88ad4cc-fde5-039d-3fc7-1b0a128a267c",
+            "title": "Encounters",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Encounter</th><th>Date(s)</th><th>Location</th></tr></thead><tbody><tr id=\"id_97793b4b-560e-468a-9235-19e720c1a438_ref\"><td>inpatient encounter</td><td>05/13/2020</td><td>Sacramento Hospital</td></tr><tr><td><ul><li><p>*** In the table below, row entries with values under RCTC columns triggered this Electronic Initial Case Report (eICR)</p><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Problem Type</th><th>Problem</th><th>Date(s)</th><th>Code</th><th>CodeSystem</th><th>RCTC OID ***</th><th>RCTC Version ***</th></tr></thead><tbody><tr><td>Diagnosis</td><td>Coronavirus as the cause of diseases classified elsewhere</td><td>05/14/2020</td><td>B97.2</td><td>ICD-10</td><td>2.16.840.1.114222.4.11.7508</td><td>20200429</td></tr></tbody></table></li></ul></td></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "46240-8",
+                  "system": "http://loinc.org",
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "33151a68-4219-ab00-9193-06811d36d8cc",
+            "title": "History of Present Illness",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>recent travel for vacation to Wuhan China from April 22, 2020 to May 5, 2020; </p></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10164-2",
+                  "system": "http://loinc.org",
+                  "display": "History of Present illness Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "65b688f7-0a54-05ef-cf05-e15a4bf98846",
+            "title": "Medications Administered",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Medication</th><th>Directions</th><th>Dose</th><th>Duration</th><th>Route</th></tr></thead><tbody><tr id=\"id_6c844c75-aa34-411c-b7bd-5e4a9f206e29_ref\"><td>Remdesivir 100 mg Injection</td><td>100 mg every day for 4 days</td><td>100 mg</td><td>May 13 11:60</td><td>IM</td></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29549-3",
+                  "system": "http://loinc.org",
+                  "display": "Medication administered Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationAdministration/580cd575-265a-3e62-3b81-f270db5bda69"
+              }
+            ]
+          },
+          {
+            "id": "397414c7-3d75-0bd6-88cd-335da98fd39a",
+            "title": "Problem List",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Concern</th><th>Concern Status</th><th>Date(s)</th></tr></thead><tbody><tr id=\"id_9eb41d4f-32fb-4331-962b-ebcb26ad9f9e_ref\"><td>Problem</td><td>active</td><td>05/13/2020</td></tr><tr><td><ul><li><p>*** In the table below, row entries with values under RCTC columns triggered this Electronic Initial Case Report (eICR)</p><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Problem Type</th><th>Problem</th><th>Date(s)</th><th>Code</th><th>Code System</th><th>RCTC OID ***</th><th>RCTC Version ***</th></tr></thead><tbody><tr><td>symptom</td><td>Difficulty Breathing )finding)</td><td>05/13/2020</td><td>230145002</td><td>SNOMED-CT</td><td /><td /></tr><tr><td>symptom</td><td /><td /><td /><td /><td /><td /></tr></tbody></table></li></ul></td></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11450-4",
+                  "system": "http://loinc.org",
+                  "display": "Problem list - Reported"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "display": "Problem - Difficulty Breathing )finding)",
+                "reference": "Condition/ad6b0781-4ca7-674e-4c7b-0a90a56c88d1"
+              }
+            ]
+          },
+          {
+            "id": "c6c002ae-f03c-1600-82e7-0fea3f3aa085",
+            "title": "Reason for visit",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>recent travel for vacation to Wuhan China from April 22, 2020 to May 5, 2020 </p></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29299-5",
+                  "system": "http://loinc.org",
+                  "display": "Reason for visit Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "59bb13bd-ad44-eedb-b5a7-8c0e56eff9df",
+            "title": "Results",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Results Panel</th><th>Date(s)</th></tr></thead><tbody><tr id=\"id_8804d278-ab10-4e00-a5cd-88dfa96ba83b_ref\"><td>SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2</td><td /></tr><tr><td><ul><li><p>*** In the table below, row entries with values under RCTC columns triggered this Electronic Initial Case Report (eICR)</p><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Test</th><th>Lab Test RCTC OID ***</th><th>Lab Test RCTC Version ***</th><th>Outcome</th><th>Date(s)</th><th>Lab Result RCTC OID ***</th><th>Lab Result RCTC Version ***</th></tr></thead><tbody><tr id=\"id_077fe949-6bbb-44b2-9430-f4f00cc4877d_ref\"><td>SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2</td><td /><td /><td>Detected (qualifier value)</td><td>05/13/2020</td><td /><td /></tr></tbody></table></li></ul></td></tr><tr id=\"id_1234abcd-ef56-7890-gh12-34567890ijkl_ref\"><td>Neisseria gonorrhoeae [Presence] in Urine by NAA</td><td /></tr><tr><td><ul><li><p>*** In the table below, row entries with values under RCTC columns triggered this Electronic Initial Case Report (eICR)</p><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Test</th><th>Lab Test RCTC OID ***</th><th>Lab Test RCTC Version ***</th><th>Outcome</th><th>Date(s)</th><th>Lab Result RCTC OID ***</th><th>Lab Result RCTC Version ***</th></tr></thead><tbody><tr id=\"id_5a3c1d72-9f88-41e7-b2d5-ec9a7f6b8c4f_ref\"><td>Neisseria gonorrhoeae [Presence] in Urine by NAA</td><td /><td /><td>Detected (qualifier value)</td><td>05/15/2020</td><td /><td /></tr></tbody></table></li></ul></td></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "30954-2",
+                  "system": "http://loinc.org",
+                  "display": "Relevant diagnostic tests/laboratory data note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/0e0093f9-e989-974c-eb83-21bfca5e42db"
+              },
+              {
+                "reference": "Observation/cbf0c974-b864-e15a-b825-bfbf4708cc17"
+              }
+            ]
+          },
+          {
+            "id": "eb1e0e1d-5263-d530-45fd-d42871b50fbf",
+            "title": "Plan of Treatment",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>*** In the table below, row entries with values under RCTC columns triggered this Electronic Initial Case Report (eICR)</p><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Lab Test Order</th><th>Code</th><th>CodeSystem</th><th>RCTC OID ***</th><th>RCTC Version ***</th><th>Ordered Date</th></tr></thead><tbody><tr id=\"id_f724d510-c8d7-4c30-851d-69e90a50ea7d_ref\"><td>SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2</td><td>94308-4 </td><td>LOINC</td><td /><td /><td>05/13/2020</td></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "18776-5",
+                  "system": "http://loinc.org",
+                  "display": "Plan of care note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "CarePlan/96c06f28-1cd0-30ef-2f7c-d1cc7f943a33"
+              }
+            ]
+          },
+          {
+            "id": "580fccb2-a450-a6be-1568-380fb083cc79",
+            "title": "Social History",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Birth Sex</th><th>Value</th><th>Date</th></tr></thead><tbody><tr><td>Sex Assigned At Birth</td><td>Male</td><td>07/30/1989</td></tr></tbody></table><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Social History Observation Type</th><th>Value</th><th>Dates(s)</th></tr></thead><tbody><tr id=\"id_9db6c612-f85d-4637-aaab-0db6a880dd4d_ref\"><td>Occupation / Employment details</td><td>Sales</td><td /></tr></tbody></table><table><col /><col /><col /><col /><col /><col /><col /><col /><col /><col /><thead><tr><th>Travel History: Date(s)</th><th>Notes</th><th>Location</th></tr></thead><tbody><tr id=\"id_91bd7807-66ea-4712-9dce-80207c3b3c45_ref\"><td>04/22/2020 - 05/05/2020</td><td>recent travel for vacation to Wuhan China from April 22, 2020 to May 5, 2020</td><td /></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29762-2",
+                  "system": "http://loinc.org",
+                  "display": "Social history note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/7d4bbe54-856b-d831-d592-864f9da32c1d"
+              }
+            ]
+          },
+          {
+            "id": "b7609b19-9b48-8659-76b0-f2a1d4d076a5",
+            "title": "Immunizations",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><thead><tr><th>Name</th><th>Administration Dates</th><th>Status</th></tr></thead><tbody><tr><td><p id=\"immunization1Name\" />influenza, intradermal, quadrivalent, preservative free, injectable </td><td>Nov 2019</td><td>Completed</td></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11369-6",
+                  "system": "http://loinc.org",
+                  "display": "History of Immunization note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Immunization/ad2218d0-6210-488e-c141-f5191e47d591"
+              }
+            ]
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "system": "http://loinc.org",
+                  "code": "10154-3",
+                  "display": "Chief complaint Narrative - Reported"
+                }
+              ]
+            },
+            "text": {
+              "status": "empty",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">No Information Available</div>"
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "encounter": {
+          "reference": "Encounter/6a378637-4997-3349-af9d-c2044181541e"
+        },
+        "custodian": {
+          "reference": "Organization/daf02ea4-2048-a2c3-e24f-7313a37bd19b"
+        },
+        "author": [
+          {
+            "reference": "Device/a5f0a672-a5e7-af78-b2e5-2f5bbc9ea5a7"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6a378637-4997-3349-af9d-c2044181541e",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "6a378637-4997-3349-af9d-c2044181541e",
+        "status": "finished",
+        "class": {
+          "code": "IMP",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "display": "inpatient encounter"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19",
+            "value": "9937016"
+          }
+        ],
+        "period": {
+          "start": "2020-05-13",
+          "end": "2020-05-13"
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "location": [
+          {
+            "id": "2.16.840.1.113883.4.6",
+            "location": {
+              "reference": "Location/e8f66012-7749-d740-13cd-06327a5693dc",
+              "display": "Sacramento Hospital"
+            }
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/be3c98a9-63a3-61ed-221d-a5d6aaa565b5"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/3c7071a2-a74f-2f17-aa12-7689452e4bf9"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e8f66012-7749-d740-13cd-06327a5693dc",
+      "resource": {
+        "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "id": "e8f66012-7749-d740-13cd-06327a5693dc",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "8235"
+          }
+        ],
+        "name": "Sacramento Hospital",
+        "address": {
+          "use": "work",
+          "line": [
+            "1234 Facility Drive"
+          ],
+          "city": "Sacramento",
+          "state": "CA",
+          "postalCode": "94203"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-777-0123",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "555-777-0987",
+            "use": "work"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "HOSP",
+                "system": "urn:oid:2.16.840.1.113883.5.111",
+                "display": "Hospital"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:be3c98a9-63a3-61ed-221d-a5d6aaa565b5",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "be3c98a9-63a3-61ed-221d-a5d6aaa565b5",
+        "name": "Sacramento Hospital",
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "1234 Facility Drive"
+            ],
+            "city": "Sacramento",
+            "state": "CA",
+            "postalCode": "94203"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-777-0123",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "555-777-0987",
+            "use": "work"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4581f291-448a-04ad-0508-e348f799a4b0",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "4581f291-448a-04ad-0508-e348f799a4b0",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+            "valueString": "Responsible Party"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "66666666666"
+          }
+        ],
+        "name": [
+          {
+            "family": "SanDiego",
+            "given": [
+              "Carmen "
+            ],
+            "suffix": [
+              "MD"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "1234 Provider Street"
+            ],
+            "city": "Sacramento",
+            "state": "CA",
+            "country": "US",
+            "postalCode": "94203",
+            "district": "Sacramento County"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-777-0123",
+            "use": "work"
+          },
+          {
+            "system": "fax",
+            "value": "555-777-0987",
+            "use": "work"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "3c7071a2-a74f-2f17-aa12-7689452e4bf9",
+        "practitioner": {
+          "reference": "Practitioner/4581f291-448a-04ad-0508-e348f799a4b0"
+        },
+        "organization": {
+          "reference": "Organization/daf02ea4-2048-a2c3-e24f-7313a37bd19b"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:daf02ea4-2048-a2c3-e24f-7313a37bd19b",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "daf02ea4-2048-a2c3-e24f-7313a37bd19b",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "TBDFacility#"
+          }
+        ],
+        "name": "Sacramento Hospital",
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "1234 Facility Drive"
+            ],
+            "city": "Sacramento",
+            "state": "CA",
+            "postalCode": "94203"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-777-0123",
+            "use": "work"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a5f0a672-a5e7-af78-b2e5-2f5bbc9ea5a7",
+      "resource": {
+        "resourceType": "Device",
+        "id": "a5f0a672-a5e7-af78-b2e5-2f5bbc9ea5a7",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:2.16.840.1.113883.3.72.5.20"
+          }
+        ],
+        "property": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/device-category",
+                  "code": "software",
+                  "display": "software"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:44e595bb-fb0b-fe20-870e-7e03122722ef",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "44e595bb-fb0b-fe20-870e-7e03122722ef",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:2.16.840.1.113883.19.5",
+            "value": "PT-470127"
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "222-22-2222"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Patient",
+            "given": [
+              "Joseph"
+            ]
+          }
+        ],
+        "birthDate": "1989-07-30",
+        "deceasedBoolean": false,
+        "gender": "male",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "1002-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "American Indian or Alaska Native"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "American Indian or Alaska Native"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2135-2",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/patient-religion",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "1013",
+                  "system": "urn:oid:2.16.840.1.113883.5.1076",
+                  "display": "Christian (non-Catholic, non-specific)"
+                }
+              ]
+            }
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "2222 Home Street"
+            ],
+            "city": "Sacramento",
+            "state": "CA",
+            "country": "US",
+            "postalCode": "94203",
+            "district": "Sacramento County"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "555-555-2003",
+            "use": "home"
+          },
+          {
+            "system": "email",
+            "value": "jose@email.com",
+            "use": "home"
+          }
+        ],
+        "contact": [
+          {
+            "name": {
+              "use": "official",
+              "family": "Contact",
+              "given": [
+                "Emer"
+              ],
+              "prefix": [
+                "Mr"
+              ]
+            },
+            "telecom": [
+              {
+                "system": "phone",
+                "value": "+1-555-555-0123",
+                "use": "mobile"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "es",
+                  "display": "Spanish"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:580cd575-265a-3e62-3b81-f270db5bda69",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "580cd575-265a-3e62-3b81-f270db5bda69",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:6c844c75-aa34-411c-b7bd-5e4a9f206e29"
+          }
+        ],
+        "status": "completed",
+        "effectivePeriod": {
+          "start": "2020-05-13"
+        },
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C38288",
+                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "display": "IM"
+              }
+            ]
+          },
+          "dose": {
+            "value": 100,
+            "unit": "mg"
+          },
+          "rateQuantity": {
+            "value": 1,
+            "unit": "d"
+          }
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "medicationReference": {
+          "reference": "Medication/c9ff720d-205f-3b34-88cd-b3974777fc31"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c9ff720d-205f-3b34-88cd-b3974777fc31",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "c9ff720d-205f-3b34-88cd-b3974777fc31",
+        "code": {
+          "coding": [
+            {
+              "code": "2284960",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "remdesivir 100 MG Injection"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8a3d8100-34d9-4914-1ef3-f3a2d97831c5",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "8a3d8100-34d9-4914-1ef3-f3a2d97831c5",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:8804d278-ab10-4e00-a5cd-88dfa96ba83b"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "94308-4",
+              "system": "http://loinc.org",
+              "display": "SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2020-05-13",
+          "end": "2020-05-13"
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "result": [
+          {
+            "reference": "Observation/0e0093f9-e989-974c-eb83-21bfca5e42db"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0e0093f9-e989-974c-eb83-21bfca5e42db",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "0e0093f9-e989-974c-eb83-21bfca5e42db",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:077fe949-6bbb-44b2-9430-f4f00cc4877d"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "94310-0",
+              "system": "http://loinc.org",
+              "display": "SARS-related CoV N gene NAA+probe CDC primer-probe set N3 Ql (Specimen)"
+            }
+          ]
+        },
+        "effectiveDateTime": "2020-05-13",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "260373001",
+              "system": "http://snomed.info/sct",
+              "display": "Detected"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "observation entry reference value",
+            "valueString": "id_077fe949-6bbb-44b2-9430-f4f00cc4877d_ref"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8349f135-880d-bab1-e18b-5d060a7115d5",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "8349f135-880d-bab1-e18b-5d060a7115d5",
+        "identifier": [
+          {
+            "value": "1234abcd-ef56-7890-gh12-34567890ijkl"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "31600-9",
+              "system": "http://loinc.org",
+              "display": "Neisseria gonorrhoeae [Presence] in Urine by NAA"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2020-05-15",
+          "end": "2020-05-15"
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "result": [
+          {
+            "reference": "Observation/cbf0c974-b864-e15a-b825-bfbf4708cc17"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cbf0c974-b864-e15a-b825-bfbf4708cc17",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "cbf0c974-b864-e15a-b825-bfbf4708cc17",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:5a3c1d72-9f88-41e7-b2d5-ec9a7f6b8c4f"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "31600-9",
+              "system": "http://loinc.org",
+              "display": "Neisseria gonorrhoeae [Presence] in Urine by NAA"
+            }
+          ]
+        },
+        "effectiveDateTime": "2020-05-15",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "260373001",
+              "system": "http://snomed.info/sct",
+              "display": "Detected"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "observation entry reference value",
+            "valueString": "id_5a3c1d72-9f88-41e7-b2d5-ec9a7f6b8c4f_ref"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7d4bbe54-856b-d831-d592-864f9da32c1d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7d4bbe54-856b-d831-d592-864f9da32c1d",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:9db6c612-f85d-4637-aaab-0db6a880dd4d"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "364703007",
+              "system": "http://snomed.info/sct",
+              "display": "Employment detail"
+            },
+            {
+              "code": "11295-3",
+              "system": "http://loinc.org",
+              "display": "Current employment - Reported"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "159606005",
+              "system": "http://snomed.info/sct",
+              "display": "Selling occupation"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9d4c195a-1b20-2ca8-3241-33f028acfa97",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "9d4c195a-1b20-2ca8-3241-33f028acfa97",
+        "status": "finished",
+        "class": {
+          "code": "99252",
+          "system": "http://www.ama-assn.org/go/cpt",
+          "display": "Inpatient consultation for a new or established patient, which requires these 3 key components: An expanded problem focused history; An expanded problem focused examination; and Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are of low severity. Typically, 40 minutes are spent at the bedside and on the patient's hospital floor or unit."
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:97793b4b-560e-468a-9235-19e720c1a438"
+          }
+        ],
+        "period": {
+          "start": "2020-05-13"
+        },
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/d7854fc2-3c60-dbed-feb5-ee95d0a87959"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "d7854fc2-3c60-dbed-feb5-ee95d0a87959",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e945f578-d795-4ec3-a403-ea8f3319f37c"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "B97.2",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Coronavirus as the cause of diseases classified elsewhere"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-05-14",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:96c06f28-1cd0-30ef-2f7c-d1cc7f943a33",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "96c06f28-1cd0-30ef-2f7c-d1cc7f943a33",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        },
+        "activity": [
+          {
+            "reference": {
+              "reference": "ServiceRequest/385725b4-a41c-d88b-81dc-90cd5b34049c"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:385725b4-a41c-d88b-81dc-90cd5b34049c",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "385725b4-a41c-d88b-81dc-90cd5b34049c",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:f724d510-c8d7-4c30-851d-69e90a50ea7d"
+          }
+        ],
+        "status": "active",
+        "intent": "plan",
+        "code": {
+          "coding": [
+            {
+              "code": "94308-4",
+              "system": "http://loinc.org",
+              "display": "SARS-CoV-2 (COVID-19) N gene NAA+probe CDC primer-probe set N2 Ql (Specimen)"
+            }
+          ]
+        },
+        "occurrenceDateTime": "2020-05-13",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ad2218d0-6210-488e-c141-f5191e47d591",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "ad2218d0-6210-488e-c141-f5191e47d591",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e6f1ba43-c0ed-4b9b-9f12-f435d8ad8f92"
+          }
+        ],
+        "occurrenceDateTime": "1998-12-15",
+        "vaccineCode": {
+          "coding": [
+            {
+              "code": "166",
+              "system": "http://hl7.org/fhir/sid/cvx",
+              "display": "influenza, intradermal, quadrivalent, preservative free, injectable"
+            }
+          ]
+        },
+        "lotNumber": "LOT12345",
+        "manufacturer": {
+          "reference": "Organization/b5c77b86-2764-79f9-10bf-5da5e63eb7c1"
+        },
+        "status": "completed",
+        "primarySource": true,
+        "route": {
+          "coding": [
+            {
+              "code": "C28161",
+              "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+              "display": "Intramuscular injection"
+            }
+          ]
+        },
+        "patient": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+        "name": "Sanofi Pasteur"
+      }
+    }
+  ]
+}

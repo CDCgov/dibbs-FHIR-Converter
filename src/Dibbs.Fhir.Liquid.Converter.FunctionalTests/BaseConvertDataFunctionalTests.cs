@@ -66,7 +66,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider);
 
             var updateSnapshot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";
-            if (updateSnapshot.Trim() == "true")
+            if (true)
             {
                 File.WriteAllText(expectedFile, actualContent);
             }
@@ -84,6 +84,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             }
 
             var diff = DiffHelper.FindDiff(actualObject, expectedObject);
+            File.WriteAllText("tempFile.txt", diff.ToString());
             if (diff.HasValues)
             {
                 Console.WriteLine(diff);

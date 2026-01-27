@@ -47,7 +47,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         // Overriding Fluid's prepend filter to mimic the behavior of older versions of DotLiquid
         public static ValueTask<FluidValue> Prepend(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            if (input.IsNil())
+            if (input.IsNil() || string.IsNullOrEmpty(input.ToStringValue()))
             {
                 return NilValue.Instance;
             }

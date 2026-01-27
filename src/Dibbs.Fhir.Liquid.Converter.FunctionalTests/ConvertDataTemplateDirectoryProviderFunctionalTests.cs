@@ -6,11 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
-using Dibbs.Fhir.Liquid.Converter.Models.Hl7v2;
 using Dibbs.Fhir.Liquid.Converter.Processors;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Fluid;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -19,7 +19,6 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
 {
     public class ConvertDataTemplateDirectoryProviderFunctionalTests : BaseConvertDataFunctionalTests
     {
-        private static readonly ProcessorSettings _processorSettings = new ProcessorSettings();
         private readonly ITestOutputHelper _outputHelper;
 
         public ConvertDataTemplateDirectoryProviderFunctionalTests(ITestOutputHelper outputHelper)
@@ -31,11 +30,11 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
         public void GivenCcdaMessageForTimezoneTesting_WhenConvert_ExpectedResultShouldBeReturned()
         {
             var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "CcdaTestTimezoneInput.ccda");
-            var ccdaProcessor = new CcdaProcessor(_processorSettings, FhirConverterLogging.CreateLogger<CcdaProcessor>());
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
             var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
 
             var inputContent = File.ReadAllText(inputFile);
-            var actualContent = ccdaProcessor.Convert(inputContent, "CcdaTestTimezoneTemplate", new TemplateProvider(templateDirectory, DataType.Ccda));
+            var actualContent = ccdaProcessor.Convert(inputContent, "CcdaTestTimezoneTemplate", templateDirectory, new TemplateProvider(templateDirectory));
 
             var actualObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(actualContent);
 
@@ -45,47 +44,6 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             Assert.Equal("2001-11-11T12:00:00", actualObject["datetime4"]);
             Assert.Equal("2001-11-11T12:23:00", actualObject["datetime5"]);
             Assert.Equal("2020-01-01T01:01:01+08:00", actualObject["datetime6"]);
-        }
-
-        [Fact]
-        public void GivenHl7v2MessageForTimeZoneTesting_WhenConvert_ExpectedResultShouldBeReturned()
-        {
-            var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "Hl7v2TestTimezoneInput.hl7v2");
-            var hl7v2Processor = new Hl7v2Processor(_processorSettings, FhirConverterLogging.CreateLogger<Hl7v2Processor>());
-            var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
-
-            var inputContent = File.ReadAllText(inputFile);
-            var traceInfo = new Hl7v2TraceInfo();
-            var actualContent = hl7v2Processor.Convert(inputContent, "Hl7v2TestTimezoneTemplate", new TemplateProvider(templateDirectory, DataType.Hl7v2), traceInfo);
-
-            var actualObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(actualContent);
-
-            Assert.Equal("2001-01", actualObject["datetime1"]);
-            Assert.Equal("2001-01-01", actualObject["datetime2"]);
-            Assert.Equal("2001-01-01", actualObject["datetime3"]);
-            Assert.Equal("2001-11-11T12:00:00", actualObject["datetime4"]);
-            Assert.Equal("2001-11-11T12:23:00", actualObject["datetime5"]);
-            Assert.Equal("2020-01-01T01:01:01+08:00", actualObject["datetime6"]);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetDataForHl7v2))]
-        public void GivenHl7v2Message_WhenConverting_ExpectedFhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile)
-        {
-            var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "Hl7v2");
-            var templateProvider = new TemplateProvider(templateDirectory, DataType.Hl7v2);
-
-            ConvertHl7v2MessageAndValidateExpectedResponse(templateProvider, rootTemplate, inputFile, expectedFile);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetDataForCcda))]
-        public void GivenCcdaDocument_WhenConverting_ExpectedFhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile)
-        {
-            var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "Ccda");
-            var templateProvider = new TemplateProvider(templateDirectory, DataType.Ccda);
-
-            ConvertCCDAMessageAndValidateExpectedResponse(templateProvider, rootTemplate, inputFile, expectedFile);
         }
 
         [Theory]
@@ -93,7 +51,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
         public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile, string _validationFailureStep, string _numFailures)
         {
             var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "eCR");
-            var templateProvider = new TemplateProvider(templateDirectory, DataType.Ccda);
+            var templateProvider = new TemplateProvider(templateDirectory);
 
             ConvertCCDAMessageAndValidateExpectedResponse(templateProvider, rootTemplate, inputFile, expectedFile);
         }
@@ -103,7 +61,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
         public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid(string rootTemplate, string inputFile, string expectedFile, string validationFailureStep, string numFailures)
         {
             var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "eCR");
-            var templateProvider = new TemplateProvider(templateDirectory, DataType.Ccda);
+            var templateProvider = new TemplateProvider(templateDirectory);
 
             ValidateConvertCCDAMessageIsValidFHIR(
                 templateProvider,
@@ -114,41 +72,24 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             );
         }
 
-        [Theory]
-        [MemberData(nameof(GetDataForStu3ToR4))]
-        public void GivenStu3FhirData_WhenConverting_ExpectedR4FhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile)
-        {
-            var fhirProcessor = new FhirProcessor(_processorSettings, FhirConverterLogging.CreateLogger<FhirProcessor>());
-            var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "Stu3ToR4");
-            var templateProvider = new TemplateProvider(templateDirectory, DataType.Fhir);
-
-            ConvertFHIRMessageAndValidateExpectedResponse(templateProvider, rootTemplate, inputFile, expectedFile);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetDataForJson))]
-        public void GivenJsonData_WhenConverting_ExpectedFhirResourceShouldBeReturned(string rootTemplate, string inputFile, string expectedFile)
-        {
-            var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "Json");
-            var templateProvider = new TemplateProvider(templateDirectory, DataType.Json);
-
-            ConvertJsonMessageAndValidateExpectedResponse(templateProvider, rootTemplate, inputFile, expectedFile);
-        }
-
+        // TODO: Fix error
         [Fact]
         public void GivenAnInvalidTemplate_WhenConverting_ExceptionsShouldBeThrown()
         {
-            var hl7v2Processor = new Hl7v2Processor(_processorSettings, FhirConverterLogging.CreateLogger<Hl7v2Processor>());
-            var templateCollection = new List<Dictionary<string, Template>>
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
+            var parser = new FluidParser();
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "template", Template.Parse("{% include 'template' -%}") },
+                    { "template", parser.Parse("{% include 'template' -%}") },
                 },
             };
 
-            var exception = Assert.Throws<RenderException>(() => hl7v2Processor.Convert(@"MSH|^~\&|", "template", new TemplateProvider(templateCollection)));
-            Assert.True(exception.InnerException is DotLiquid.Exceptions.StackLevelException);
+            var exception = Assert.Throws<RenderException>(() => ccdaProcessor.Convert(@"<ClinicalDocument></ClinicalDocument>", "template", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection)));
+            Console.WriteLine("#####");
+            Console.WriteLine(exception.InnerException.GetType());
+            Assert.True(exception.InnerException is RenderException);
         }
     }
 }

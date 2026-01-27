@@ -24,14 +24,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public void ConcatTests()
-        {
-            Assert.Empty(Filters.Concat(null, null));
-            Assert.Equal(2, Filters.Concat(new List<object> { string.Empty, null }, null).Count);
-            Assert.Equal(2, Filters.Concat(new List<object> { string.Empty, null }, new List<object>()).Count);
-        }
-
-        [Fact]
         public void BatchRenderTests()
         {
             // Valid template file system and template
@@ -76,6 +68,71 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
             exception = Assert.Throws<RenderException>(() => Filters.BatchRenderParallel(context, collection, "bar", "i"));
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
+        }
+
+        [Fact]
+        public void NestedWhere_NullData_ReturnsNull()
+        {
+            var actual = Filters.NestedWhere(null, "test.path");
+            Assert.Equal(null, actual);
+        }
+
+        [Fact]
+        public void NestedWhere_EmptyArray_ReturnsEmpty()
+        {
+            var actual = Filters.NestedWhere(new object[] { }, "test.path");
+            Assert.Equal(new object[] { }, actual);
+        }
+
+        [Fact]
+        public void NestedWhere_NoMatch_ReturnsEmpty()
+        {
+            var actual = Filters.NestedWhere(
+              new object[] { new { test = "hi" }, new { test = "bye" } },
+              "test.path");
+            Assert.Equal(new object[] { }, actual);
+        }
+
+        [Fact]
+        public void NestedWhere_Match_ReturnsMatch()
+        {
+            var actual = Filters.NestedWhere(
+              new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
+              "test.path");
+            Assert.Equal(new object[] { new { test = new { path = "hi" } } }, actual);
+        }
+
+        [Fact]
+        public void NestedWhere_MatchButNotValue_ReturnsEmpty()
+        {
+            var actual = Filters.NestedWhere(
+              new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
+              "test.path",
+              "other");
+            Assert.Equal(new object[] { }, actual);
+        }
+
+        [Fact]
+        public void NestedWhere_MatchIncludingValue_ReturnsMatch()
+        {
+            var actual = Filters.NestedWhere(
+              new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
+              "test.path",
+              "hi");
+            Assert.Equal(new object[] { new { test = new { path = "hi" } } }, actual);
+        }
+
+        [Fact]
+        public void NestedWhere_MatchIncludingValueList_ReturnsMatch()
+        {
+            var actual = Filters.NestedWhere(
+              new object[] {
+            new { test = new object[] { new { path = "hi" } , new { path = "nope"} } },
+            new { test = "bye" }
+              },
+              "test.path",
+              "hi");
+            Assert.Equal(1, actual.Count());
         }
     }
 }

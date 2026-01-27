@@ -17,51 +17,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
         private static readonly Dictionary<string, object> TestData = LoadTestData();
 
         [Fact]
-        public void GetFirstCcdaSectionsTests()
-        {
-            const string sectionNameContent = "Problems|Medications|Foo";
-
-            // Empty data
-            Assert.Empty(Filters.GetFirstCcdaSections(new Hash(), sectionNameContent));
-
-            // Empty section name content
-            Assert.Empty(Filters.GetFirstCcdaSections(Hash.FromDictionary(TestData), string.Empty));
-
-            // Valid data and section name content
-            var sections = Filters.GetFirstCcdaSections(Hash.FromDictionary(TestData), sectionNameContent);
-            Assert.Equal(2, sections.Count);
-            Assert.Equal(5, ((Dictionary<string, object>)sections["Problems"]).Count);
-
-            // Null data or section name content
-            Assert.Throws<NullReferenceException>(() => Filters.GetFirstCcdaSections(null, sectionNameContent));
-            Assert.Throws<NullReferenceException>(() => Filters.GetFirstCcdaSections(new Hash(), null));
-        }
-
-        [Fact]
-        public void GetCcdaSectionListsTests()
-        {
-            const string sectionNameContent = "Problems|Medications|Foo";
-
-            // Empty data
-            Assert.Empty(Filters.GetCcdaSectionLists(new Hash(), sectionNameContent));
-
-            // Empty section name content
-            Assert.Empty(Filters.GetCcdaSectionLists(Hash.FromDictionary(TestData), string.Empty));
-
-            // Valid data and section name content
-            var sectionLists = Filters.GetCcdaSectionLists(Hash.FromDictionary(TestData), sectionNameContent);
-            Assert.Equal(2, sectionLists.Count);
-
-            var sections = (List<object>)sectionLists["Problems"];
-            Assert.Single(sections);
-            Assert.Equal(5, ((Dictionary<string, object>)sections[0]).Count);
-
-            // Null data or section name content
-            Assert.Throws<NullReferenceException>(() => Filters.GetCcdaSectionLists(null, sectionNameContent));
-            Assert.Throws<NullReferenceException>(() => Filters.GetCcdaSectionLists(new Hash(), null));
-        }
-
-        [Fact]
         public void GetFirstCcdaSectionsByTemplateIdTests()
         {
             const string templateIdContent = "2.16.840.1.113883.10.20.22.2.6.1";

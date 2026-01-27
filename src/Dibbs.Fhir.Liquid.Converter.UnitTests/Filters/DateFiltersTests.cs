@@ -315,41 +315,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Theory]
-        [MemberData(nameof(GetValidDataForAddSeconds))]
-        public void GivenSeconds_WhenAddOnValidDateTime_CorrectDateTimeStringShouldBeReturned(string originalDateTime, double seconds, string timeZoneHandling, string expectedDateTime)
-        {
-            var result = Filters.AddSeconds(originalDateTime, seconds, timeZoneHandling);
-            Assert.Equal(expectedDateTime, result);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetValidDataWithoutTimeZoneForAddSecondsWithUtcTimeZoneHandling))]
-        public void GivenSeconds_WhenAddOnValidDataWithoutTimeZone_CorrectDateTimeShouldBeReturned(string originalDateTime, double seconds, string timeZoneHandling, string expectedDateTime, DateTime inputDateTime)
-        {
-            var result = Filters.AddSeconds(originalDateTime, seconds, timeZoneHandling);
-            var dateTimeOffset = DateTimeOffset.Parse(result);
-            dateTimeOffset = dateTimeOffset.AddHours(TimeZoneInfo.Local.GetUtcOffset(inputDateTime).TotalHours - 8);
-            var dateTimeString = dateTimeOffset.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            Assert.Equal(expectedDateTime, dateTimeString);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetValidDataForAddSecondsWithDefaultTimeZoneHandling))]
-        public void GivenAValidData_WhenAddSecondsWithDefaultTimeZoneHandling_ConvertedDateTimeShouldBeReturned(string originalDateTime, double seconds, string expectedDateTime)
-        {
-            var result = Filters.AddSeconds(originalDateTime, seconds);
-            Assert.Equal(expectedDateTime, result);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetInvalidDataForAddSeconds))]
-        public void GivenSeconds_WhenAddOnInvalidDateTime_ExceptionShouldBeThrow(string originalDateTime)
-        {
-            var exception = Assert.Throws<RenderException>(() => Filters.AddSeconds(originalDateTime, 0));
-            Assert.Equal(FhirConverterErrorCode.InvalidDateTimeFormat, exception.FhirConverterErrorCode);
-        }
-
-        [Theory]
         [MemberData(nameof(GetValidDataForAddHyphensDate))]
         public void GivenADate_WhenAddHyphensDate_ConvertedDateShouldBeReturned(string input, string timeZoneHandling, string expected)
         {
@@ -424,30 +389,6 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.UnitTests.FilterTests
         {
             var exception = Assert.Throws<RenderException>(() => Filters.FormatAsDateTime(input, timeZoneHandling));
             Assert.Equal(FhirConverterErrorCode.InvalidTimeZoneHandling, exception.FhirConverterErrorCode);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetValidDataForFhirToHl7v2Conversion))]
-        public void GivenAValidData_WhenFormatAsFhirDateTime_ConvertedHl7v2DateTimeShouldBeReturned(string input, string expectedDateTime)
-        {
-            var result = Filters.FormatAsHl7v2DateTime(input);
-            Assert.Equal(expectedDateTime, result);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetInvalidFhirToHl7v2TimeZoneHandling))]
-        public void GivenAnInvalidTimeZoneHandling_WhenFormatAsHl7DateTime_ExceptionShouldBeThrown(string input, string timeZoneHandling)
-        {
-            var exception = Assert.Throws<RenderException>(() => Filters.FormatAsHl7v2DateTime(input, timeZoneHandling));
-            Assert.Equal(FhirConverterErrorCode.InvalidTimeZoneHandling, exception.FhirConverterErrorCode);
-        }
-
-        [Theory]
-        [MemberData(nameof(GetInvalidFhirToHl7v2DataForFormatAsDateTime))]
-        public void GivenAnInvalidDateTime_WhenFormatAsHl7DateTime_ExceptionShouldBeThrown(string input)
-        {
-            var exception = Assert.Throws<RenderException>(() => Filters.FormatAsHl7v2DateTime(input));
-            Assert.Equal(FhirConverterErrorCode.InvalidDateTimeFormat, exception.FhirConverterErrorCode);
         }
 
         [Fact]

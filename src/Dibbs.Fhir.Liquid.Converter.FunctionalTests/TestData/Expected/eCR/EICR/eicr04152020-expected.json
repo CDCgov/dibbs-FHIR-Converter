@@ -14,10 +14,10 @@
   "timestamp": "2020-04-15T14:52:59-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:12e53284-c739-8c6d-ef72-09b2bc0b1aa1",
+      "fullUrl": "urn:uuid:a30ec764-5438-2277-a369-66ad19fc04b7",
       "resource": {
         "resourceType": "Composition",
-        "id": "12e53284-c739-8c6d-ef72-09b2bc0b1aa1",
+        "id": "a30ec764-5438-2277-a369-66ad19fc04b7",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -66,7 +66,7 @@
         ],
         "section": [
           {
-            "id": "79eccd17-6758-313d-b1f2-a825ac811c25",
+            "id": "6d76afc5-b970-eaa1-b6e5-436973364bde",
             "title": "ENCOUNTERS",
             "text": {
               "status": "generated",
@@ -84,7 +84,7 @@
             "mode": "snapshot"
           },
           {
-            "id": "0f230cca-f89a-12a7-6b7c-5b20e988a56e",
+            "id": "5fcb601b-ee0d-39fd-9d60-3dc11d09bdaa",
             "title": "TREATMENT PLAN",
             "text": {
               "status": "generated",
@@ -102,7 +102,7 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "CarePlan/9e9adf1a-222b-7a7a-8b50-d47644138a2c"
+                "reference": "CarePlan/0afce781-18f6-78c9-4761-cf41681f9efc"
               }
             ]
           },
@@ -130,7 +130,7 @@
             ]
           },
           {
-            "id": "b9fd6991-1af2-13d3-57e1-321e9b8ee716",
+            "id": "fdc7c1e0-3749-34ef-3672-20dac1d5f65c",
             "title": "HISTORY OF MEDICATION USE",
             "text": {
               "status": "generated",
@@ -148,7 +148,7 @@
             "mode": "snapshot"
           },
           {
-            "id": "226255f5-9c3a-7792-51f3-ad1064674738",
+            "id": "59af1cca-0287-95d0-eb2a-8adbd38d6285",
             "title": "PROBLEMS",
             "text": {
               "status": "generated",
@@ -172,7 +172,7 @@
             ]
           },
           {
-            "id": "5f5d4b19-7360-10c3-da39-abebed64d650",
+            "id": "329b9e12-341f-e060-fbb0-c11f981b4a8a",
             "title": "RESULTS",
             "text": {
               "status": "generated",
@@ -831,10 +831,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d4e3bf84-beb1-6b15-f64e-328ab96b5c23",
+      "fullUrl": "urn:uuid:6a8a06a3-f5f0-e171-8f32-1fcd87759ce5",
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "d4e3bf84-beb1-6b15-f64e-328ab96b5c23",
+        "id": "6a8a06a3-f5f0-e171-8f32-1fcd87759ce5",
         "identifier": [
           {
             "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
@@ -1004,10 +1004,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:4e8d9868-1eb8-4409-6933-2e9ba8025068",
+      "fullUrl": "urn:uuid:beda45fe-1993-8fd8-cdb5-b93de1b6721f",
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "4e8d9868-1eb8-4409-6933-2e9ba8025068",
+        "id": "beda45fe-1993-8fd8-cdb5-b93de1b6721f",
         "identifier": [
           {
             "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
@@ -1681,10 +1681,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:40b7b5c8-db3e-b6a2-ef7c-69a27639ea7f",
+      "fullUrl": "urn:uuid:372ba5f2-c870-0b7b-e544-9cd044fac7fe",
       "resource": {
         "resourceType": "Encounter",
-        "id": "40b7b5c8-db3e-b6a2-ef7c-69a27639ea7f",
+        "id": "372ba5f2-c870-0b7b-e544-9cd044fac7fe",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -1846,10 +1846,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:ae64e9d0-1bb4-10c8-8b15-c0ef945e0006",
+      "fullUrl": "urn:uuid:9e8d060a-8eef-0d7a-1c2b-91ecbd85c937",
       "resource": {
         "resourceType": "Encounter",
-        "id": "ae64e9d0-1bb4-10c8-8b15-c0ef945e0006",
+        "id": "9e8d060a-8eef-0d7a-1c2b-91ecbd85c937",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -1868,24 +1868,6 @@
         "period": {
           "start": "2020-01-28",
           "end": "2020-01-28"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -2036,10 +2018,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:0cd60340-f685-5e6d-08bd-b29d9a462dd7",
+      "fullUrl": "urn:uuid:0722efb3-a614-0739-2128-edc8fdfffac0",
       "resource": {
         "resourceType": "Encounter",
-        "id": "0cd60340-f685-5e6d-08bd-b29d9a462dd7",
+        "id": "0722efb3-a614-0739-2128-edc8fdfffac0",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2058,24 +2040,6 @@
         "period": {
           "start": "2019-10-23",
           "end": "2019-10-23"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -2170,10 +2134,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:e8150770-912c-00c4-f368-f6a5beb127e3",
+      "fullUrl": "urn:uuid:d9b8d851-24a0-5b50-f6dd-e1de473f298c",
       "resource": {
         "resourceType": "Encounter",
-        "id": "e8150770-912c-00c4-f368-f6a5beb127e3",
+        "id": "d9b8d851-24a0-5b50-f6dd-e1de473f298c",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2192,24 +2156,6 @@
         "period": {
           "start": "2019-10-23",
           "end": "2019-10-23"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -2231,10 +2177,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:6cc3e9db-ae38-9771-0c8b-d06df7fff803",
+      "fullUrl": "urn:uuid:cc037f7a-2ee8-19cb-d63e-ce965db2285d",
       "resource": {
         "resourceType": "Encounter",
-        "id": "6cc3e9db-ae38-9771-0c8b-d06df7fff803",
+        "id": "cc037f7a-2ee8-19cb-d63e-ce965db2285d",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2253,24 +2199,6 @@
         "period": {
           "start": "2019-10-01",
           "end": "2019-10-01"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -2348,10 +2276,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:4817ca16-b315-0ab5-fa82-d035df6b14c9",
+      "fullUrl": "urn:uuid:ff4f59bd-78dd-fb81-fe33-d1089de3988e",
       "resource": {
         "resourceType": "Encounter",
-        "id": "4817ca16-b315-0ab5-fa82-d035df6b14c9",
+        "id": "ff4f59bd-78dd-fb81-fe33-d1089de3988e",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2371,24 +2299,6 @@
           "start": "2019-10-04",
           "end": "2019-10-04"
         },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
-        },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
@@ -2402,10 +2312,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:4ec437dd-bf28-93df-d3d5-314d1b68ee30",
+      "fullUrl": "urn:uuid:00733344-22c3-e9d5-2a40-463fd2856327",
       "resource": {
         "resourceType": "Encounter",
-        "id": "4ec437dd-bf28-93df-d3d5-314d1b68ee30",
+        "id": "00733344-22c3-e9d5-2a40-463fd2856327",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2425,24 +2335,6 @@
           "start": "2019-09-18",
           "end": "2019-09-18"
         },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
-        },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
@@ -2456,10 +2348,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:575ed18b-9b24-17a8-8470-5e32bea75b0e",
+      "fullUrl": "urn:uuid:c4fad9c5-2b9b-dd0a-f224-dbb2d61bf96a",
       "resource": {
         "resourceType": "Encounter",
-        "id": "575ed18b-9b24-17a8-8470-5e32bea75b0e",
+        "id": "c4fad9c5-2b9b-dd0a-f224-dbb2d61bf96a",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2478,24 +2370,6 @@
         "period": {
           "start": "2019-09-17",
           "end": "2019-09-17"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -2577,10 +2451,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:98d386cc-5e8c-8b20-573b-c49ff11e59ea",
+      "fullUrl": "urn:uuid:f5bbe2b6-42c5-c734-3301-3fdc91afd7e7",
       "resource": {
         "resourceType": "Encounter",
-        "id": "98d386cc-5e8c-8b20-573b-c49ff11e59ea",
+        "id": "f5bbe2b6-42c5-c734-3301-3fdc91afd7e7",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2600,24 +2474,6 @@
           "start": "2019-09-17",
           "end": "2019-09-17"
         },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
-        },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
@@ -2638,10 +2494,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:513c1993-fad0-2167-47cb-3327cfadd9fc",
+      "fullUrl": "urn:uuid:d8b2c522-9728-18fa-ffd8-dcc45bf41dda",
       "resource": {
         "resourceType": "Encounter",
-        "id": "513c1993-fad0-2167-47cb-3327cfadd9fc",
+        "id": "d8b2c522-9728-18fa-ffd8-dcc45bf41dda",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2661,24 +2517,6 @@
           "start": "2019-09-17",
           "end": "2019-09-17"
         },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
-        },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
@@ -2699,10 +2537,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:76c76e89-32e8-c92f-738e-441210380855",
+      "fullUrl": "urn:uuid:90a74343-3f2e-a030-3411-0a97e0257603",
       "resource": {
         "resourceType": "Encounter",
-        "id": "76c76e89-32e8-c92f-738e-441210380855",
+        "id": "90a74343-3f2e-a030-3411-0a97e0257603",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2721,24 +2559,6 @@
         "period": {
           "start": "2019-09-13",
           "end": "2019-09-13"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -2889,10 +2709,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:835223f5-be80-b129-792a-279dd51efa33",
+      "fullUrl": "urn:uuid:8e4d6846-d56e-790d-d8cb-6a1ea486c3fc",
       "resource": {
         "resourceType": "Encounter",
-        "id": "835223f5-be80-b129-792a-279dd51efa33",
+        "id": "8e4d6846-d56e-790d-d8cb-6a1ea486c3fc",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2911,24 +2731,6 @@
         "period": {
           "start": "2019-08-30",
           "end": "2019-08-30"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -2991,10 +2793,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:eb2c3b5a-9251-19ea-57d5-64f9f402be32",
+      "fullUrl": "urn:uuid:b534b893-1bad-af48-b85a-a78eea8011ed",
       "resource": {
         "resourceType": "Encounter",
-        "id": "eb2c3b5a-9251-19ea-57d5-64f9f402be32",
+        "id": "b534b893-1bad-af48-b85a-a78eea8011ed",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3013,24 +2815,6 @@
         "period": {
           "start": "2019-09-09",
           "end": "2019-09-09"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -3101,10 +2885,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:4c6ba8be-e240-aff1-41c5-9819d2934055",
+      "fullUrl": "urn:uuid:d7c7088c-7ac7-7911-4100-60f2b12c300f",
       "resource": {
         "resourceType": "Encounter",
-        "id": "4c6ba8be-e240-aff1-41c5-9819d2934055",
+        "id": "d7c7088c-7ac7-7911-4100-60f2b12c300f",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3123,24 +2907,6 @@
         "period": {
           "start": "2019-06-18",
           "end": "2019-06-18"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -3162,10 +2928,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d41fb6aa-732f-a2ea-acc0-a3e7d93eaecb",
+      "fullUrl": "urn:uuid:52d57f07-ec00-8f36-3080-583387a95908",
       "resource": {
         "resourceType": "Encounter",
-        "id": "d41fb6aa-732f-a2ea-acc0-a3e7d93eaecb",
+        "id": "52d57f07-ec00-8f36-3080-583387a95908",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3185,24 +2951,6 @@
           "start": "2019-05-01",
           "end": "2019-05-01"
         },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
-        },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
@@ -3216,10 +2964,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:5314492b-87d6-ec44-f994-bf52f5c955f0",
+      "fullUrl": "urn:uuid:8af8dd51-a81d-28d1-0ea5-5c0f698b14ee",
       "resource": {
         "resourceType": "Encounter",
-        "id": "5314492b-87d6-ec44-f994-bf52f5c955f0",
+        "id": "8af8dd51-a81d-28d1-0ea5-5c0f698b14ee",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3238,24 +2986,6 @@
         "period": {
           "start": "2019-04-02",
           "end": "2019-04-02"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -3351,10 +3081,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:8241220d-203d-d193-9be5-4e734af71fce",
+      "fullUrl": "urn:uuid:271c4613-6d98-800e-3386-1fc1494ec3bb",
       "resource": {
         "resourceType": "Encounter",
-        "id": "8241220d-203d-d193-9be5-4e734af71fce",
+        "id": "271c4613-6d98-800e-3386-1fc1494ec3bb",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3373,24 +3103,6 @@
         "period": {
           "start": "2018-11-15",
           "end": "2018-11-15"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -3485,10 +3197,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c89adda3-daab-f87e-db3c-c946cfb2ed14",
+      "fullUrl": "urn:uuid:1edc7180-66f7-afed-d598-abaa58bb12e8",
       "resource": {
         "resourceType": "Encounter",
-        "id": "c89adda3-daab-f87e-db3c-c946cfb2ed14",
+        "id": "1edc7180-66f7-afed-d598-abaa58bb12e8",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3508,24 +3220,6 @@
           "start": "2018-09-18",
           "end": "2018-09-18"
         },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
-        },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
@@ -3546,10 +3240,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:3a371143-5926-a5f5-5f6f-f634fd1eaae5",
+      "fullUrl": "urn:uuid:cd3ff250-b384-7568-c36a-aaa634c6b8e4",
       "resource": {
         "resourceType": "Encounter",
-        "id": "3a371143-5926-a5f5-5f6f-f634fd1eaae5",
+        "id": "cd3ff250-b384-7568-c36a-aaa634c6b8e4",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3569,24 +3263,6 @@
           "start": "2018-09-18",
           "end": "2018-09-18"
         },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
-        },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
@@ -3607,10 +3283,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:cb3f684d-6fbb-c1b5-3852-a21c997a35f9",
+      "fullUrl": "urn:uuid:35f7d146-a036-1d4b-0aec-f64118dffacf",
       "resource": {
         "resourceType": "Encounter",
-        "id": "cb3f684d-6fbb-c1b5-3852-a21c997a35f9",
+        "id": "35f7d146-a036-1d4b-0aec-f64118dffacf",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3629,24 +3305,6 @@
         "period": {
           "start": "2018-07-25",
           "end": "2018-07-25"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -3797,10 +3455,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:a1f8fef2-8e7d-31a0-405b-0f471e48de49",
+      "fullUrl": "urn:uuid:b514e080-aff4-0ba7-bf20-4c8f8b516da6",
       "resource": {
         "resourceType": "Encounter",
-        "id": "a1f8fef2-8e7d-31a0-405b-0f471e48de49",
+        "id": "b514e080-aff4-0ba7-bf20-4c8f8b516da6",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3819,24 +3477,6 @@
         "period": {
           "start": "2018-06-06",
           "end": "2018-06-06"
-        },
-        "priority": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "hospitalization": {
-          "dischargeDisposition": {
-            "coding": [
-              {
-                "code": "unknown",
-                "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-              }
-            ]
-          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -3931,10 +3571,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:9e9adf1a-222b-7a7a-8b50-d47644138a2c",
+      "fullUrl": "urn:uuid:0afce781-18f6-78c9-4761-cf41681f9efc",
       "resource": {
         "resourceType": "CarePlan",
-        "id": "9e9adf1a-222b-7a7a-8b50-d47644138a2c",
+        "id": "0afce781-18f6-78c9-4761-cf41681f9efc",
         "status": "unknown",
         "intent": "proposal",
         "subject": {

@@ -5,20 +5,24 @@
 
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
+using Fluid;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
     public class TemplateProviderTests
     {
+        private readonly FluidParser parser;
+        public TemplateProviderTests()
+        {
+            parser = new FluidParser();
+        }
+
         public static IEnumerable<object[]> GetValidTemplateProvider()
         {
-            yield return new object[] { new TemplateProvider(TestConstants.Hl7v2TemplateDirectory, DataType.Hl7v2), "ADT_A01" };
-            yield return new object[] { new TemplateProvider(TestConstants.CcdaTemplateDirectory, DataType.Ccda),  "CCD" };
-            yield return new object[] { new TemplateProvider(TestConstants.JsonTemplateDirectory, DataType.Json), "ExamplePatient" };
+            yield return new object[] { new TemplateProvider(TestConstants.ECRTemplateDirectory),  "EICR" };
         }
 
         public static IEnumerable<object[]> GetInvalidTemplateDirectory()
@@ -37,11 +41,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public void GivenAValidTemplateProviderFromMemoryFileSystem_WhenGetTemplate_CorrectResultsShouldBeReturned()
         {
-            var collection = new List<Dictionary<string, Template>>
+            var collection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "foo", Template.Parse("bar") },
+                    { "foo", parser.Parse("bar") },
                 },
             };
 
@@ -53,11 +57,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public void GivenDefaultTemplateProviderFromMemoryFileSystem_WhenGetTemplate_CorrectResultsShouldBeReturned()
         {
-            var collection = new List<Dictionary<string, Template>>
+            var collection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "Hl7v2/foo", Template.Parse("bar") },
+                    { "Hl7v2/foo", parser.Parse("bar") },
                 },
             };
 
@@ -70,9 +74,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [MemberData(nameof(GetInvalidTemplateDirectory))]
         public void GivenInvalidTemplateDirectory_WhenCreateTemplateProvider_ExceptionShouldBeReturned(string templateDirectory)
         {
-            Assert.Throws<TemplateLoadException>(() => new TemplateProvider(templateDirectory, DataType.Hl7v2));
-            Assert.Throws<TemplateLoadException>(() => new TemplateProvider(templateDirectory, DataType.Ccda));
-            Assert.Throws<TemplateLoadException>(() => new TemplateProvider(templateDirectory, DataType.Json));
+            Assert.Throws<TemplateLoadException>(() => new TemplateProvider(templateDirectory));
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
@@ -8,7 +7,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
     public class ContactPointTests : BaseECRLiquidTests
     {
         private static readonly string ECRPath = Path.Join(
-            TestConstants.ECRTemplateDirectory, "DataType", "_ContactPoint.liquid"
+            TestConstants.ECRTemplateDirectory, "DataType", "ContactPoint.liquid"
         );
 
         [Fact]
@@ -21,7 +20,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenTelValueReturnsPhone()
         {
             var attributes = new Dictionary<string, object>{
-                {"ContactPoint", Hash.FromAnonymousObject(new { value = "tel:123" })}
+                {"ContactPoint", new { value = "tel:123" }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -33,7 +32,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenTelValuAndUseReturnsPhone()
         {
             var attributes = new Dictionary<string, object>{
-                {"ContactPoint", Hash.FromAnonymousObject(new { value = "tel:123", use="H" })}
+                {"ContactPoint", new { value = "tel:123", use="H" }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -45,7 +44,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenTelValuAndPagerUseReturnsPager()
         {
             var attributes = new Dictionary<string, object>{
-                {"ContactPoint", Hash.FromAnonymousObject(new { value = "tel:123", use="PG" })}
+                {"ContactPoint", new { value = "tel:123", use="PG" }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -57,7 +56,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenMailtoReturnsEmail()
         {
             var attributes = new Dictionary<string, object>{
-                {"ContactPoint", Hash.FromAnonymousObject(new { value = "mailto:abc@me.com", use="WP" })}
+                {"ContactPoint", new { value = "mailto:abc@me.com", use="WP" }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -69,7 +68,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenFaxoReturnsFax()
         {
             var attributes = new Dictionary<string, object>{
-                {"ContactPoint", Hash.FromAnonymousObject(new { value = "fax:123", use="WP" })}
+                {"ContactPoint", new { value = "fax:123", use="WP" }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -81,7 +80,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenTelecomWithNoPrefixReturnsValueString()
         {
             var attributes = new Dictionary<string, object>{
-                {"ContactPoint", Hash.FromAnonymousObject(new { value = "123", use="WP" })}
+                {"ContactPoint", new { value = "123", use="WP" }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath,

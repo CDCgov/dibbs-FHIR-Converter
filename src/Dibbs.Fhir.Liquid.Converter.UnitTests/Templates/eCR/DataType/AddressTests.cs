@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
@@ -8,7 +7,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
     public class AddressTests : BaseECRLiquidTests
     {
         private static readonly string ECRPath = Path.Join(
-            TestConstants.ECRTemplateDirectory, "DataType", "_Address.liquid"
+            TestConstants.ECRTemplateDirectory, "DataType", "Address.liquid"
         );
 
         [Fact]
@@ -21,7 +20,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenSingleStreetAddresReturnsLines()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { streetAddressLine = new { _ = "132 Main St" }})}
+                {"Address", new { streetAddressLine = new { _ = "132 Main St" }}}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -33,7 +32,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenArrayStreetAddresReturnsLines()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { streetAddressLine = new List<object> {new {_ = "132 Main St"}, new { _ ="Unit 2"} }})}
+                {"Address", new { streetAddressLine = new List<object> {new {_ = "132 Main St"}, new { _ ="Unit 2"} }}}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -45,7 +44,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenCityReturnsCity()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { city = new { _ = "Town" }})}
+                {"Address", new { city = new { _ = "Town" }}}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -57,7 +56,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenStateReturnsState()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { state = new { _ = "State" }})}
+                {"Address", new { state = new { _ = "State" }}}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -69,7 +68,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenPostalCodeReturnsPostalCode()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { postalCode = new { _ = "PostalCode" }})}
+                {"Address", new { postalCode = new { _ = "PostalCode" }}}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -81,7 +80,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenCountyReturnsDistrict()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { county = new { _ = "County" }})}
+                {"Address", new { county = new { _ = "County" }}}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -93,7 +92,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenCountrReturnsCountry()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { country = new { _ = "Country" }})}
+                {"Address", new { country = new { _ = "Country" }}}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -105,7 +104,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenPeriodReturnsNothing()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { useablePeriod = new { low = new { value = "20240313"}} })}
+                {"Address", new { useablePeriod = new { low = new { value = "20240313"}} }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 
@@ -117,7 +116,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenPeriodAndCountryReturnsBoth()
         {
             var attributes = new Dictionary<string, object>{
-                {"Address", Hash.FromAnonymousObject(new { country = new {_ = "Country" }, useablePeriod = new { low = new { value = "20240313"}} })}
+                {"Address", new { country = new {_ = "Country" }, useablePeriod = new { low = new { value = "20240313"}} }}
             };
             ConvertCheckLiquidTemplate(
                 ECRPath, 

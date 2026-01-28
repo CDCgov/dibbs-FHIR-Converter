@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
 using Hl7.Fhir.Model;
 using Xunit;
 
@@ -11,7 +10,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         private static readonly string ECRPath = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "DataType",
-            "_Coding.liquid"
+            "Coding.liquid"
         );
 
         [Fact]
@@ -28,15 +27,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "Coding",
-                    Hash.FromAnonymousObject(
-                        new
-                        {
-                            code = "55751-2",
-                            codeSystem = "2.16.840.1.113883.6.1",
-                            displayName = "Public Health Case Report",
-                            codeSystemName = "LOINC"
-                        }
-                    )
+                    new
+                    {
+                        code = "55751-2",
+                        codeSystem = "2.16.840.1.113883.6.1",
+                        displayName = "Public Health Case Report",
+                        codeSystemName = "LOINC"
+                    }
                 }
             };
             var expectedContent =
@@ -51,9 +48,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "Coding",
-                    Hash.FromAnonymousObject(
-                        new { code = "2106-3", codeSystem = "2.16.840.1.113883.6.238" }
-                    )
+                    new { code = "2106-3", codeSystem = "2.16.840.1.113883.6.238" }
                 }
             };
             var expectedContent =
@@ -68,14 +63,12 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "Coding",
-                    Hash.FromAnonymousObject(
-                        new
-                        {
-                            code = "TEST",
-                            codeSystem = "http://loinc.org",
-                            displayName = "Test Display Name"
-                        }
-                    )
+                    new
+                    {
+                        code = "TEST",
+                        codeSystem = "http://loinc.org",
+                        displayName = "Test Display Name"
+                    }
                 }
             };
             var expectedContent =
@@ -90,15 +83,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "Coding",
-                    Hash.FromAnonymousObject(
-                        new
-                        {
-                            code = "1000004",
-                            displayName = "Test",
-                            codeSystem = "2.16.840.1.113883.6.96",
-                            codeSystemName = "SNOMED CT",
-                        }
-                    )
+                    new
+                    {
+                        code = "1000004",
+                        displayName = "Test",
+                        codeSystem = "2.16.840.1.113883.6.96",
+                        codeSystemName = "SNOMED CT",
+                    }
                 }
             };
             var expectedContent =
@@ -113,9 +104,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "Coding",
-                    Hash.FromAnonymousObject(
-                        new { displayName =  @"Sprai\n" }
-                    )
+                    new { displayName =  @"Sprai\n" }
                 }
             };
             

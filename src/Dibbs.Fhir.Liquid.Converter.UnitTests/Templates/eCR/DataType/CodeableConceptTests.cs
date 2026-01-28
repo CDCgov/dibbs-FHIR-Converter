@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using DotLiquid;
 using Hl7.Fhir.Model;
 using Xunit;
 
@@ -11,7 +10,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         private static readonly string ECRPath = Path.Join(
             TestConstants.ECRTemplateDirectory,
             "DataType",
-            "_CodeableConcept.liquid"
+            "CodeableConcept.liquid"
         );
 
         [Fact]
@@ -28,9 +27,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "CodeableConcept",
-                    Hash.FromAnonymousObject(
-                        new { nullFlavor = "OTH", originalText = new { _ = "Ship Name" } }
-                    )
+                    new { nullFlavor = "OTH", originalText = new { _ = "Ship Name" } }
                 }
             };
             var expectedContent = @"""coding"": [ ], ""text"": ""Ship Name"",";
@@ -42,7 +39,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         {
             var attributes = new Dictionary<string, object>
             {
-                { "CodeableConcept", Hash.FromAnonymousObject(new { nullFlavor = "UNK" }) }
+                { "CodeableConcept", new { nullFlavor = "UNK" }}
             };
             attributes.Add("minCardinality", 1);
             attributes.Add("bindingStrength", "required");
@@ -57,7 +54,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         {
             var attributes = new Dictionary<string, object>
             {
-                { "CodeableConcept", Hash.FromAnonymousObject(new { nullFlavor = "UNK" }) }
+                { "CodeableConcept", new { nullFlavor = "UNK" }}
             };
             attributes.Add("minCardinality", 1);
             attributes.Add("bindingStrength", "extensible");
@@ -74,23 +71,21 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "CodeableConcept",
-                    Hash.FromAnonymousObject(
-                        new
+                    new
+                    {
+                        nullFlavor = "OTH",
+                        originalText = new { reference = "immunization6Name" },
+                        translation = new List<object>
                         {
-                            nullFlavor = "OTH",
-                            originalText = new { reference = "immunization6Name" },
-                            translation = new List<object>
+                            new
                             {
-                                new
-                                {
-                                    code = "49281-400-10",
-                                    codeSystem = "2.16.840.1.113883.6.69",
+                                code = "49281-400-10",
+                                codeSystem = "2.16.840.1.113883.6.69",
 
-                                    codeSystemName = "NDC"
-                                }
+                                codeSystemName = "NDC"
                             }
                         }
-                    )
+                    }
                 }
             };
             var expectedContent =
@@ -105,23 +100,21 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "CodeableConcept",
-                    Hash.FromAnonymousObject(
-                        new
+                    new
+                    {
+                        codeSystem = "2.16.840.1.113883.6.88",
+                        nullFlavor = "OTH",
+                        translation = new List<object>
                         {
-                            codeSystem = "2.16.840.1.113883.6.88",
-                            nullFlavor = "OTH",
-                            translation = new List<object>
+                            new
                             {
-                                new
-                                {
-                                    code = "410942007",
-                                    codeSystem = "2.16.840.1.113883.6.96",
-                                    codeSystemName = "SNOMED CT",
-                                    displayName = "drug or medication"
-                                }
+                                code = "410942007",
+                                codeSystem = "2.16.840.1.113883.6.96",
+                                codeSystemName = "SNOMED CT",
+                                displayName = "drug or medication"
                             }
                         }
-                    )
+                    }
                 }
             };
             var expectedContent =
@@ -136,9 +129,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "CodeableConcept",
-                    Hash.FromAnonymousObject(
-                        new { originalText = new { _ = @"Ship \ Name" } }
-                    )
+                    new { originalText = new { _ = @"Ship \ Name" } }
                 }
             };
             

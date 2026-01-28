@@ -6,25 +6,31 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using DotLiquid;
-using Dibbs.Fhir.Liquid.Converter.DotLiquids;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
+using Dibbs.Fhir.Liquid.Converter.FileSystems;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Fluid;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
 {
     public class MemoryFileSystemTests
     {
+        private readonly FluidParser parser;
+        public MemoryFileSystemTests()
+        {
+            parser = new FluidParser();
+        }
+
         [Fact]
         public void GivenAValidTemplateCollection_WhenGetTemplate_CorrectResultShouldBeReturned()
         {
-            var templateCollection = new List<Dictionary<string, Template>>
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "template1", Template.Parse("hello world") },
+                    { "template1", parser.Parse("hello world") },
                 },
             };
 
@@ -38,24 +44,24 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
         [Fact]
         public void GivenTwoValidTemplateCollection_WhenGetTemplate_CorrectResultShouldBeReturned()
         {
-            var templateCollection = new List<Dictionary<string, Template>>
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
                     // customer delete folder/template1
                     { "folder/template1", null },
 
                     // customer update template2
-                    { "template2", Template.Parse("template2 updated in customized layer") },
+                    { "template2", parser.Parse("template2 updated in customized layer") },
 
                     // customer add template4
-                    { "template4", Template.Parse("template4 added in customized layer") },
+                    { "template4", parser.Parse("template4 added in customized layer") },
                 },
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "folder/template1", Template.Parse("folder/template1 added in base layer") },
-                    { "template2", Template.Parse("template2 added in base layer") },
-                    { "template3", Template.Parse("template3 added in base layer") },
+                    { "folder/template1", parser.Parse("folder/template1 added in base layer") },
+                    { "template2", parser.Parse("template2 added in base layer") },
+                    { "template3", parser.Parse("template3 added in base layer") },
                 },
             };
 
@@ -69,18 +75,18 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
         [Fact]
         public void GivenAValidTemplateCollection_WhenGetTemplateWithContext_CorrectResultShouldBeReturned()
         {
-            var templateCollection = new List<Dictionary<string, Template>>
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "template1", Template.Parse("hello world") },
+                    { "template1", parser.Parse("hello world") },
                 },
             };
 
             var memoryFileSystem = new MemoryFileSystem(templateCollection);
-            var context = new Context(CultureInfo.InvariantCulture);
-            context["template1"] = "template1";
-            context["template2"] = "template2";
+            var context = new TemplateContext(CultureInfo.InvariantCulture);
+            context.SetValue("template1", "template1");
+            context.SetValue("template2", "template2");
             Assert.Equal("hello world", memoryFileSystem.GetTemplate(context, "template1").Render());
             Assert.Throws<RenderException>(() => memoryFileSystem.GetTemplate(context, "template2"));
             Assert.Throws<RenderException>(() => memoryFileSystem.GetTemplate(context, "template3"));
@@ -91,33 +97,33 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
         [Fact]
         public void GivenTwoValidtTemplateCollection_WhenGetTemplateWithContext_CorrectResultShouldBeReturned()
         {
-            var templateCollection = new List<Dictionary<string, Template>>
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
                     // customer delete folder/template1
                     { "folder/template1", null },
 
                     // customer update template2
-                    { "template2", Template.Parse("template2 updated in customized layer") },
+                    { "template2", parser.Parse("template2 updated in customized layer") },
 
                     // customer add template4
-                    { "template4", Template.Parse("template4 added in customized layer") },
+                    { "template4", parser.Parse("template4 added in customized layer") },
                 },
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "folder/template1", Template.Parse("folder/template1 added in base layer") },
-                    { "template2", Template.Parse("template2 added in base layer") },
-                    { "template3", Template.Parse("template3 added in base layer") },
+                    { "folder/template1", parser.Parse("folder/template1 added in base layer") },
+                    { "template2", parser.Parse("template2 added in base layer") },
+                    { "template3", parser.Parse("template3 added in base layer") },
                 },
             };
 
             var memoryFileSystem = new MemoryFileSystem(templateCollection);
-            var context = new Context(CultureInfo.InvariantCulture);
-            context["'folder/template1'"] = "folder/template1";
-            context["template2"] = "template2";
-            context["template3"] = "template3";
-            context["template4"] = "template4";
+            var context = new TemplateContext(CultureInfo.InvariantCulture);
+            context.SetValue("'folder/template1'", "folder/template1");
+            context.SetValue("template2", "template2");
+            context.SetValue("template3", "template3");
+            context.SetValue("template4", "template4");
 
             Assert.Throws<RenderException>(() => memoryFileSystem.GetTemplate(context, "'folder/template1'"));
             Assert.Equal("template2 updated in customized layer", memoryFileSystem.GetTemplate(context, "template2").Render());
@@ -128,17 +134,17 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
         [Fact]
         public void GivenAValidTemplateCollection_WhenReadTemplateWithContext_ExceptionShouldBeThrown()
         {
-            var templateCollection = new List<Dictionary<string, Template>>
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "hello", Template.Parse("world") },
+                    { "hello", parser.Parse("world") },
                 },
             };
 
             var memoryFileSystem = new MemoryFileSystem(templateCollection);
-            var context = new Context(CultureInfo.InvariantCulture);
-            context["hello"] = "hello";
+            var context = new TemplateContext(CultureInfo.InvariantCulture);
+            context.SetValue("hello", "hello");
             Assert.Throws<NotImplementedException>(() => memoryFileSystem.ReadTemplateFile(context, "hello"));
         }
 
@@ -186,12 +192,12 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
             var templateCollection = GetMockTemplateCollection();
             var memoryFileSystem = new MemoryFileSystem(templateCollection);
 
-            var context = new Context(CultureInfo.InvariantCulture);
-            context[TemplateUtility.RootTemplateParentPathScope] = rootTemplateParentPath;
+            var context = new TemplateContext(CultureInfo.InvariantCulture);
+            context.SetValue(TemplateUtility.RootTemplateParentPathScope, rootTemplateParentPath);
 
             if (!string.IsNullOrWhiteSpace(templateName))
             {
-                context[templateName] = templateName;
+                context.SetValue(templateName, templateName);
             }
 
             if (string.IsNullOrEmpty(expectedTemplate))
@@ -206,21 +212,21 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
             }
         }
 
-        private List<Dictionary<string, Template>> GetMockTemplateCollection()
+        private List<Dictionary<string, IFluidTemplate>> GetMockTemplateCollection()
         {
-            return new List<Dictionary<string, Template>>
+            return new List<Dictionary<string, IFluidTemplate>>
             {
                 new ()
                 {
-                    { "template0", Template.Parse("template0") },
-                    { "TC1/template1", Template.Parse("TC1/template1") },
-                    { "TC1/template1/subtemplate1", Template.Parse("TC1/template1/subtemplate1") },
-                    { "TC1/template1/subtemplate2", Template.Parse("TC1/template1/subtemplate2") },
-                    { "TC1/template2/subtemplate1", Template.Parse("TC1/template2/subtemplate1") },
-                    { "TC2/template1", Template.Parse("TC2/template1") },
-                    { "TC2/template1/subtemplate1", Template.Parse("TC2/template1/subtemplate1") },
-                    { "TC2/template1/subtemplate2", Template.Parse("TC2/template1/subtemplate2") },
-                    { "TC2/template2/subtemplate1", Template.Parse("TC2/template2/subtemplate1") },
+                    { "template0", parser.Parse("template0") },
+                    { "TC1/template1", parser.Parse("TC1/template1") },
+                    { "TC1/template1/subtemplate1", parser.Parse("TC1/template1/subtemplate1") },
+                    { "TC1/template1/subtemplate2", parser.Parse("TC1/template1/subtemplate2") },
+                    { "TC1/template2/subtemplate1", parser.Parse("TC1/template2/subtemplate1") },
+                    { "TC2/template1", parser.Parse("TC2/template1") },
+                    { "TC2/template1/subtemplate1", parser.Parse("TC2/template1/subtemplate1") },
+                    { "TC2/template1/subtemplate2", parser.Parse("TC2/template1/subtemplate2") },
+                    { "TC2/template2/subtemplate1", parser.Parse("TC2/template2/subtemplate1") },
                 },
             };
         }

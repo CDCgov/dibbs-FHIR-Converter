@@ -5,11 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
-using DotLiquid;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Xunit;
+using Fluid;
+using Dibbs.Fhir.Liquid.Converter.Models;
+using Fluid.Values;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
@@ -30,62 +32,48 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         {
             var templateContent = File.ReadAllText(templatePath);
             var template = TemplateUtility.ParseLiquidTemplate(templatePath, templateContent);
-            Assert.True(template.Root.NodeList.Count > 0);
+            Assert.True(template != null);
 
             // Set up the context
             var templateProvider = new TemplateProvider(
-                TestConstants.ECRTemplateDirectory,
-                Liquid.Converter.Models.DataType.Ccda
+                TestConstants.ECRTemplateDirectory
             );
-            var context = new Context(
-                environments: new List<Hash>(),
-                outerScope: new Hash(),
-                registers: Hash.FromDictionary(
-                    new Dictionary<string, object>()
-                    {
-                        { "file_system", templateProvider.GetTemplateFileSystem() },
-                    }
-                ),
-                errorsOutputMode: ErrorsOutputMode.Display,
-                maxIterations: 0,
-                formatProvider: CultureInfo.InvariantCulture,
-                cancellationToken: CancellationToken.None
+            var context = new TemplateContext(
+                attributes,
+                TemplateUtility.TemplateOptions
             );
-            context.AddFilters(typeof(Filters));
+            context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 
             // Add the value sets to the context
             var codeContent = File.ReadAllText(
                 Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json")
             );
-            var codeMapping = TemplateUtility.ParseCodeMapping(codeContent);
+            var codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeContent);
             Console.WriteLine(codeMapping);
-            if (codeMapping?.Root?.NodeList?.First() != null)
+            if (codeMapping != null)
             {
-                context["CodeMapping"] = codeMapping.Root.NodeList.First();
+                context.SetValue("CodeMapping", codeMapping);
             }
 
             // Hydrate the context with the attributes passed to the function
             foreach (var keyValue in attributes)
             {
-                context[keyValue.Key] = keyValue.Value;
+                context.SetValue(keyValue.Key, keyValue.Value);
             }
 
             // Render and strip out unhelpful whitespace (actual post-processing gets rid of this
             // at the end of the day anyway)
-            var actualContent = template
-                .Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture))
-                .Trim()
-                .Replace("\n", " ")
-                .Replace("\t", string.Empty);
-
-            // Many are harmless, but can be helpful for debugging
-            foreach (var err in template.Errors)
+            var actualContent = "";
+            try
             {
-                Console.WriteLine(err.Message);
+                actualContent = template.Render(context);
             }
-
-            return Filters.CleanStringFromTabs(actualContent);
-        }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return Filters.CleanStringFromTabs(StringValue.Create(actualContent), FilterArguments.Empty, context).Result.ToStringValue();
+            }
 
         /// <summary>
         /// Checks that the rendered template matches the expected contents.

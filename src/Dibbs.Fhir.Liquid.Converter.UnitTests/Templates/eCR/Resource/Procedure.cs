@@ -23,8 +23,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "fullPatientId", "urn:uuid:9876" },
                 {
                     "procedureEntry",
-                    Hash.FromAnonymousObject(
-                        new
+                    new
                         {
                             id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
                             statusCode = new { code = "cancelled", },
@@ -93,7 +92,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                                 },
                             },
                         }
-                    )
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<Procedure>(ECRPath, attributes);

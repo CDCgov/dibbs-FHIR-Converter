@@ -20,7 +20,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenDecimalProperlyReturnsWithDecimal()
         {
             var attributes = new Dictionary<string, object>{
-                {"value", Hash.FromAnonymousObject(new { value = ".29"})}
+                {"value", new { value = ".29"}}
             };
             ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, },");
         }
@@ -29,7 +29,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenIntProperlyReturnsInt()
         {
             var attributes = new Dictionary<string, object>{
-                {"value", Hash.FromAnonymousObject(new { value = "300"})}
+                {"value", new { value = "300"}}
             };
             ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 300, },");
         }
@@ -38,7 +38,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenDecimalProperlyReturnsDecimal()
         {
             var attributes = new Dictionary<string, object>{
-                {"value", Hash.FromAnonymousObject(new { value = "300.00"})}
+                {"value", new { value = "300.00"}}
             };
             ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 300.00, },");
         }
@@ -47,7 +47,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenNegativeValueProperlyReturnsNegativeValue()
         {
             var attributes = new Dictionary<string, object>{
-                {"value", Hash.FromAnonymousObject(new { value = "-300.00"})}
+                {"value", new { value = "-300.00"}}
             };
             ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": -300.00, },");
         }
@@ -56,7 +56,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenValueUnitProperlyReturnsWithValueUnit()
         {
             var attributes = new Dictionary<string, object>{
-                {"value", Hash.FromAnonymousObject(new { value = ".29" , unit = "/d"})}
+                {"value", new { value = ".29" , unit = "/d"}}
             };
             ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\":\"/d\", },");
         }
@@ -65,7 +65,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         public void GivenNoValueOnlyUnitProperlyReturnsUnit()
         {
             var attributes = new Dictionary<string, object>{
-                {"value", Hash.FromAnonymousObject(new { value = "" , unit = "Immediate"})}
+                {"value", new { value = "" , unit = "Immediate"}}
             };
             ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\":\"Immediate\", },");
         }

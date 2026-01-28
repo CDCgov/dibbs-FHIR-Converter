@@ -6,13 +6,22 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Dibbs.Fhir.Liquid.Converter.DataParsers;
+using Fluid;
+using Fluid.Values;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class SectionFiltersTests
     {
+        private readonly TemplateContext context;
+        public SectionFiltersTests()
+        {
+            context = new TemplateContext();
+        }
+
         private static readonly Dictionary<string, object> TestData = LoadTestData();
 
         [Fact]
@@ -21,19 +30,19 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             const string templateIdContent = "2.16.840.1.113883.10.20.22.2.6.1";
 
             // Empty data
-            Assert.Empty(Filters.GetFirstCcdaSectionsByTemplateId(new Hash(), templateIdContent));
+            Assert.Equal(0, (Filters.GetFirstCcdaSectionsByTemplateId(ObjectValue.Create(new object(), new TemplateOptions()), new FilterArguments(StringValue.Create(templateIdContent)), context).Result as DictionaryValue).Enumerate(context).Count());
 
             // Empty template id content
-            Assert.Empty(Filters.GetFirstCcdaSectionsByTemplateId(Hash.FromDictionary(TestData), string.Empty));
+            Assert.Equal(0, (Filters.GetFirstCcdaSectionsByTemplateId(DictionaryValue.Create(TestData, new TemplateOptions()), new FilterArguments(StringValue.Create(string.Empty)), context).Result as DictionaryValue).Enumerate(context).Count());
 
             // Valid data and template id content
-            var sections = Filters.GetFirstCcdaSectionsByTemplateId(Hash.FromDictionary(TestData), templateIdContent);
-            Assert.Single(sections);
-            Assert.Equal(5, ((Dictionary<string, object>)sections["2_16_840_1_113883_10_20_22_2_6_1"]).Count);
+            var sections = Filters.GetFirstCcdaSectionsByTemplateId(DictionaryValue.Create(TestData, new TemplateOptions()), new FilterArguments(StringValue.Create(templateIdContent)), context).Result as DictionaryValue;
+            Assert.Equal(1, sections.Enumerate(context).Count());
+            Assert.Equal(5, (sections.GetValueAsync("2_16_840_1_113883_10_20_22_2_6_1", context).Result as DictionaryValue).Enumerate(context).Count());
 
             // Null data or template id content
-            Assert.Throws<NullReferenceException>(() => Filters.GetFirstCcdaSectionsByTemplateId(null, templateIdContent));
-            Assert.Throws<NullReferenceException>(() => Filters.GetFirstCcdaSectionsByTemplateId(new Hash(), null));
+            Assert.Throws<NullReferenceException>(() => Filters.GetFirstCcdaSectionsByTemplateId(NilValue.Instance, new FilterArguments(StringValue.Create(templateIdContent)), context));
+            Assert.Throws<NullReferenceException>(() => Filters.GetFirstCcdaSectionsByTemplateId(ObjectValue.Create(new object(), new TemplateOptions()), FilterArguments.Empty, context));
         }
 
         private static Dictionary<string, object> LoadTestData()

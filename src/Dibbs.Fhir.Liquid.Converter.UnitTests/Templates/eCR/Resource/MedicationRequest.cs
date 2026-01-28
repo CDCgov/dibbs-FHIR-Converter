@@ -25,8 +25,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "intent", "plan"},
                 {
                     "medicationRequest",
-                    Hash.FromAnonymousObject(
-                        new {
+                    new {
                             id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
                             moodCode = "RQO",
                             statusCode = new { code = "active" },
@@ -62,7 +61,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                             doseQuantity = new { value = "3", unit = "mg" },
                             repeatNumber = new { value = "1" },
                         }
-                    )
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<MedicationRequest>(ECRPath, attributes);

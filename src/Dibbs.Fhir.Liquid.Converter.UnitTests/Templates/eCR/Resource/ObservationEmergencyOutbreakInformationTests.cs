@@ -22,27 +22,25 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "ID", "1234" },
                 {
                     "observationEntry",
-                    Hash.FromAnonymousObject(
-                        new
+                    new
+                    {
+                        id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
+                        statusCode = new { code = "completed", },
+                        code = new
                         {
-                            id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
-                            statusCode = new { code = "completed", },
-                            code = new
+                            originalText = new
                             {
-                                originalText = new
-                                {
-                                    _ = "Distance of mail workers from mail sorter machines",
-                                },
+                                _ = "Distance of mail workers from mail sorter machines",
                             },
-                            value = new
-                            {
-                                type = "PQ",
-                                value = "2",
-                                unit = "m",
-                            },
-                            effectiveTime = new { low = new { value = "20201101", }, },
-                        }
-                    )
+                        },
+                        value = new
+                        {
+                            type = "PQ",
+                            value = "2",
+                            unit = "m",
+                        },
+                        effectiveTime = new { low = new { value = "20201101", }, },
+                    }
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
@@ -67,25 +65,23 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 {
                     "observationEntry",
-                    Hash.FromAnonymousObject(
-                        new
+                    new
+                    {
+                        statusCode = new { code = "completed", },
+                        code = new
                         {
-                            statusCode = new { code = "completed", },
-                            code = new
+                            originalText = new
                             {
-                                originalText = new
-                                {
-                                    _ = "Distance of mail workers from mail sorter machines",
-                                },
+                                _ = "Distance of mail workers from mail sorter machines",
                             },
-                            value = new
-                            {
-                                type = "PQ",
-                                value = "2",
-                                unit = "m",
-                            },
-                        }
-                    )
+                        },
+                        value = new
+                        {
+                            type = "PQ",
+                            value = "2",
+                            unit = "m",
+                        },
+                    }
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);

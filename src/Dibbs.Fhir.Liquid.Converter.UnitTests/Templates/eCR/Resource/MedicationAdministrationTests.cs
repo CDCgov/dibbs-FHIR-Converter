@@ -24,69 +24,67 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "ID", "1234" },
                 {
                     "medicationAdministration",
-                    Hash.FromAnonymousObject(
-                        new
-                        {
-                            templateId = new { root = "2.16.840.1.113883.10.20.22.4.16", extension = "2014-06-09" },
-                            id = new { root = "6c844c75-aa34-411c-b7bd-5e4a9f206e29", },
-                            statusCode = new { code = "completed" },
-                            effectiveTime = new object[] {
-                                new {
-                                    value = "202011071159-0700"
-                                },
-                                new Dictionary<string, object>
-                                {
-                                    { "operator", "A" },
-                                    { "period", new { value = "12", unit = "h" } }
+                    new
+                    {
+                        templateId = new { root = "2.16.840.1.113883.10.20.22.4.16", extension = "2014-06-09" },
+                        id = new { root = "6c844c75-aa34-411c-b7bd-5e4a9f206e29", },
+                        statusCode = new { code = "completed" },
+                        effectiveTime = new object[] {
+                            new {
+                                value = "202011071159-0700"
+                            },
+                            new Dictionary<string, object>
+                            {
+                                { "operator", "A" },
+                                { "period", new { value = "12", unit = "h" } }
+                            }
+                        },
+                        routeCode = new {
+                            code = "C38288",
+                            codeSystem = "2.16.840.1.113883.3.26.1.1",
+                            codeSystemName = "NCI Thesaurus",
+                            displayName = "ORAL"
+                        },
+                        doseQuantity = new {
+                            value = "1",
+                            unit = "g"
+                        },
+                        entryRelationship = new object[] {
+                            new {
+                                typeCode = "CAUS",
+                                observation = new {
+                                    classCode = "OBS",
+                                    moodCode = "EVN",
+                                    templateId = new {
+                                        root = "2.16.840.1.113883.10.20.15.2.3.37",
+                                        extension = "2019-04-01"
+                                    },
+                                    id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a55" },
+                                    code = new {
+                                        code = "67540-5",
+                                        codeSystem = "2.16.840.1.113883.6.1",
+                                        codeSystemName = "LOINC",
+                                        displayName = "Response to medication"
+                                    },
+                                    statusCode = new { code = "completed" },
+                                    effectiveTime = new { low = new { value = "20201101" } },
+                                    value = new {
+                                        code = "268910001",
+                                        codeSystem = "2.16.840.1.113883.6.96",
+                                        codeSystemName = "SNOMED CT",
+                                        displayName = "Patient's condition improved (finding)",
+                                    }
                                 }
                             },
-                            routeCode = new {
-                                code = "C38288",
-                                codeSystem = "2.16.840.1.113883.3.26.1.1",
-                                codeSystemName = "NCI Thesaurus",
-                                displayName = "ORAL"
-                            },
-                            doseQuantity = new {
-                                value = "1",
-                                unit = "g"
-                            },
-                            entryRelationship = new object[] {
-                                new {
-                                    typeCode = "CAUS",
-                                    observation = new {
-                                        classCode = "OBS",
-                                        moodCode = "EVN",
-                                        templateId = new {
-                                            root = "2.16.840.1.113883.10.20.15.2.3.37",
-                                            extension = "2019-04-01"
-                                        },
-                                        id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a55" },
-                                        code = new {
-                                            code = "67540-5",
-                                            codeSystem = "2.16.840.1.113883.6.1",
-                                            codeSystemName = "LOINC",
-                                            displayName = "Response to medication"
-                                        },
-                                        statusCode = new { code = "completed" },
-                                        effectiveTime = new { low = new { value = "20201101" } },
-                                        value = new {
-                                            code = "268910001",
-                                            codeSystem = "2.16.840.1.113883.6.96",
-                                            codeSystemName = "SNOMED CT",
-                                            displayName = "Patient's condition improved (finding)",
-                                        }
-                                    }
-                                },
-                                new {
-                                    typeCode = "COMP",
-                                    observation = new {
-                                        templateId = new { root = "2.16.840.1.113883.10.20.22.4.999" },
-                                        value = new { code = "Red herring"}
-                                    },
+                            new {
+                                typeCode = "COMP",
+                                observation = new {
+                                    templateId = new { root = "2.16.840.1.113883.10.20.22.4.999" },
+                                    value = new { code = "Red herring"}
                                 },
                             },
-                        }
-                    )
+                        },
+                    }
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);

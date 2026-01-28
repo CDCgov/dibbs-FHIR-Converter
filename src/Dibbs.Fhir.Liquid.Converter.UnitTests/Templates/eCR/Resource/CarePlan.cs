@@ -25,37 +25,35 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "patientReference", "Patient/4566" },
                 {
                     "carePlan",
-                    Hash.FromAnonymousObject(
-                        new {
-                            id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
-                            entry = new {
-                                act = new {
-                                    id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a55", },
-                                    moodCode = "RQO",
-                                    code = new
+                    new {
+                        id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
+                        entry = new {
+                            act = new {
+                                id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a55", },
+                                moodCode = "RQO",
+                                code = new
+                                {
+                                    originalText = new
                                     {
-                                        originalText = new
-                                        {
-                                            _ = "Colonoscopy",
-                                        },
-                                    },
-                                    effectiveTime = new {
-                                        value = "20201101"
-                                    },
-                                    entryRelationship = new object[] {
-                                        new {
-                                            typeCode = "RSON",
-                                            observation = new { value = new { code = "Why not" } },
-                                        },
-                                        new {
-                                            typeCode = "RSON",
-                                            observation = new { value =  new { code = "Couldn't hurt" } },
-                                        },
+                                        _ = "Colonoscopy",
                                     },
                                 },
-                            }
+                                effectiveTime = new {
+                                    value = "20201101"
+                                },
+                                entryRelationship = new object[] {
+                                    new {
+                                        typeCode = "RSON",
+                                        observation = new { value = new { code = "Why not" } },
+                                    },
+                                    new {
+                                        typeCode = "RSON",
+                                        observation = new { value =  new { code = "Couldn't hurt" } },
+                                    },
+                                },
+                            },
                         }
-                    )
+                    }
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<CarePlan>(ECRPath, attributes);
@@ -82,8 +80,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "patientReference", "Patient/4566" },
                 {
                     "carePlan",
-                    Hash.FromAnonymousObject(
-                        new {
+                    new {
                             id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
                             entry = new {
                                 encounter = new {
@@ -107,7 +104,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                                 },
                             }
                         }
-                    )
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<CarePlan>(ECRPath, attributes);
@@ -127,8 +123,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "patientReference", "Patient/4566" },
                 {
                     "carePlan",
-                    Hash.FromAnonymousObject(
-                        new {
+                    new {
                             id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
                             entry = new object[] {
                                 new {
@@ -181,7 +176,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                                 },
                             }
                         }
-                    )
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<CarePlan>(ECRPath, attributes);

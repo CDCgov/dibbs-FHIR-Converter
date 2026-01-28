@@ -8,12 +8,21 @@ using System.Globalization;
 using System.Threading;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
+using Fluid;
+using Fluid.Values;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class GeneralFiltersTests
     {
+        private readonly TemplateContext context;
+
+        public GeneralFiltersTests()
+        {
+            context = new TemplateContext();
+        }
+
         public static IEnumerable<object[]> GetValidDataForGenerateUuid()
         {
             yield return new object[] { null, null };
@@ -26,41 +35,34 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void GetPropertyTest()
         {
             // empty context
-            var context = new Context(CultureInfo.InvariantCulture);
-            Assert.Null(Filters.GetProperty(context, null, null, null));
+            var context = new TemplateContext(CultureInfo.InvariantCulture);
+            Assert.Equal(Filters.GetProperty(NilValue.Instance, FilterArguments.Empty, context).Result, NilValue.Instance);
 
             // context with null CodeMapping
-            context = new Context(
-                environments: new List<Hash>(),
-                outerScope: new Hash(),
-                registers: new Hash(),
-                errorsOutputMode: ErrorsOutputMode.Rethrow,
-                maxIterations: 0,
-                formatProvider: CultureInfo.InvariantCulture,
-                cancellationToken: CancellationToken.None
-            );
-            context["CodeMapping"] = null;
-            Assert.Equal("M", Filters.GetProperty(context, "M", "Gender", "code"));
+            context.SetValue("CodeMapping", NilValue.Instance);
+            Assert.Equal("M", Filters.GetProperty(StringValue.Create("M"), new FilterArguments(StringValue.Create("Gender")), context).Result.ToStringValue());
 
             // context with valid CodeMapping
-            context["CodeMapping"] = new CodeMapping(
-                new Dictionary<string, Dictionary<string, Dictionary<string, string>>>
-                {
+            context.SetValue("CodeMapping",
+                new CodeMapping(
+                    new Dictionary<string, Dictionary<string, Dictionary<string, string>>>
                     {
-                        "CodeSystem/Gender",
-                        new Dictionary<string, Dictionary<string, string>>
                         {
+                            "CodeSystem/Gender",
+                            new Dictionary<string, Dictionary<string, string>>
                             {
-                                "M",
-                                new Dictionary<string, string> { { "code", "male" } }
-                            },
-                        }
-                    },
-                }
+                                {
+                                    "M",
+                                    new Dictionary<string, string> { { "code", "male" } }
+                                },
+                            }
+                        },
+                    }
+                )
             );
-            Assert.Equal("male", Filters.GetProperty(context, "M", "CodeSystem/Gender", "code"));
-            Assert.Null(Filters.GetProperty(context, "M", null, "code"));
-            Assert.Null(Filters.GetProperty(context, "M", string.Empty, "code"));
+            Assert.Equal("male", Filters.GetProperty(StringValue.Create("M"), new FilterArguments(StringValue.Create("CodeSystem/Gender")), context).Result.ToStringValue());
+            Assert.Equal(NilValue.Instance, Filters.GetProperty(StringValue.Create("M"), FilterArguments.Empty, context).Result);
+            Assert.Equal(NilValue.Instance, Filters.GetProperty(StringValue.Create("M"), new FilterArguments(StringValue.Create(string.Empty)), context).Result);
         }
 
         [Theory]
@@ -70,34 +72,34 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             string expected
         )
         {
-            Assert.Equal(expected, Filters.GenerateUUID(input));
+            Assert.Equal(expected, Filters.GenerateUUID(StringValue.Create(input), FilterArguments.Empty, context).Result.ToStringValue());
         }
 
         [Fact]
         public void PrependIdTest_uuid()
         {
             string id = "fc97958d-4b72-47a4-887f-b14ff8bcc859";
-            Assert.Equal("urn:uuid:" + id, Filters.PrependID(id));
+            Assert.Equal("urn:uuid:" + id, Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
         [Fact]
         public void PrependIdTest_uuid_uppercase()
         {
             string id = "FC97958D-4B72-47A4-887F-B14FF8BCC859";
-            Assert.Equal("urn:uuid:" + id.ToLower(), Filters.PrependID(id));
+            Assert.Equal("urn:uuid:" + id.ToLower(), Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
 
         [Fact]
         public void PrependIdTest_oid()
         {
             string id = "1.3.6.1.4.1.343";
-            Assert.Equal("urn:oid:" + id, Filters.PrependID(id));
+            Assert.Equal("urn:oid:" + id, Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
 
         [Fact]
         public void PrependIdTest_unknown()
         {
             string id = "a random ID";
-            Assert.Equal(id, Filters.PrependID(id));
+            Assert.Equal(id, Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
 
         [Fact]
@@ -106,7 +108,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             string extension = "http://example.com/user/1";
             string root = "http://example.com/user";
 
-            Assert.Equal("1", Filters.RemovePrefix(extension, root));
+            Assert.Equal("1", Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
 
         [Fact]
@@ -115,7 +117,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             string extension = "not url";
             string root = "\"http://example.com/user\"";
 
-            Assert.Equal(extension, Filters.RemovePrefix(extension, root));
+            Assert.Equal(extension, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
 
         [Fact]
@@ -124,7 +126,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             string extension = "http://example.com/user/1";
             string root = "\"not url\"";
 
-            Assert.Equal(extension, Filters.RemovePrefix(extension, root));
+            Assert.Equal(extension, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
 
         [Fact]
@@ -133,7 +135,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             string extension = "http://example.com/user";
             string root = "\"http://example.com/use\"";
 
-            Assert.Equal(extension, Filters.RemovePrefix(extension, root));
+            Assert.Equal(extension, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
 
         [Fact]
@@ -144,7 +146,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
             string expected = "category/user/1";
 
-            Assert.Equal(expected, Filters.RemovePrefix(extension, root));
+            Assert.Equal(expected, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
 
         [Fact]
@@ -155,7 +157,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
             string expected = "user/1";
 
-            Assert.Equal(expected, Filters.RemovePrefix(extension, root));
+            Assert.Equal(expected, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
     }
 }

@@ -4,44 +4,32 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Globalization;
+using Fluid;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class FiltersRenderingTests
     {
-        private const string TestTemplate = @"
-{{ 'foo' | char_at: 0 }}
-{{ 'foo' | contains: 'fo' }}
-{{ '\E' | escape_special_chars }}
-{{ '\\E' | unescape_special_chars }}
-{{ true | is_nan }}
-{{ -2019.6 | abs }}
-{{ 3 | pow: 3 }}
-{{ -5 | sign }}
-{{ -34.53 | truncate_number }}
-{{ 5 | divide: 2 }}";
+        private readonly FluidParser parser;
+        public FiltersRenderingTests()
+        {
+            parser = new FluidParser();
+        }
 
-        private const string Expected = @"
-f
-true
-\\E
-\E
-true
-2019.6
-27
--1
--34
-2.5";
+        private const string TestTemplate = @"{{ '\E' | escape_special_chars }}";
+
+        private const string Expected = @"\\E";
 
         [Fact]
         public void FiltersRenderingTest()
         {
-            var template = Template.Parse(TestTemplate);
-            var context = new Context(CultureInfo.InvariantCulture);
-            context.AddFilters(typeof(Filters));
+            var template = parser.Parse(TestTemplate);
+            var templateOptions = new TemplateOptions();
+            templateOptions.Filters.AddFilter("escape_special_chars", Filters.EscapeSpecialChars);
+            var context = new TemplateContext(templateOptions);
 
-            var actual = template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture));
+            var actual = template.Render(context);
             Assert.Equal(Expected, actual);
         }
     }

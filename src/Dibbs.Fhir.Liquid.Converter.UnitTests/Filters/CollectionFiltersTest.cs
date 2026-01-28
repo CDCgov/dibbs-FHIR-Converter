@@ -3,135 +3,131 @@
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
+using Antlr4.Runtime;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
+using Fluid;
+using Fluid.Values;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class CollectionFiltersTest
     {
+        private readonly TemplateContext context;
+        private readonly FluidParser parser;
+        public CollectionFiltersTest()
+        {
+            context = new TemplateContext();
+            parser = new FluidParser();
+        }
+
         [Fact]
         public void ToArrayTests()
         {
-            Assert.Empty(Filters.ToArray(null));
-            Assert.Single(Filters.ToArray(1));
-            Assert.Equal(2, Filters.ToArray(new List<string> { null, string.Empty }).Count);
+            Assert.Equal(0, (Filters.ToArray(NilValue.Instance, FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
+            Assert.Equal(1, (Filters.ToArray(NumberValue.Create(1), FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
+            Assert.Equal(2, (Filters.ToArray(ArrayValue.Create(new List<string> { null, string.Empty }, new TemplateOptions()), FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
         }
 
         [Fact]
         public void BatchRenderTests()
         {
             // Valid template file system and template
-            var templateCollection = new List<Dictionary<string, Template>>
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
-                new Dictionary<string, Template>
+                new Dictionary<string, IFluidTemplate>
                 {
-                    { "foo", Template.Parse("{{ i }} ") },
+                    { "foo", parser.Parse("{{ i }} ") },
                 },
             };
 
             var templateProvider = new TemplateProvider(templateCollection);
-            var context = new Context(
-                environments: new List<Hash>(),
-                outerScope: new Hash(),
-                registers: Hash.FromDictionary(new Dictionary<string, object>() { { "file_system", templateProvider.GetTemplateFileSystem() } }),
-                errorsOutputMode: ErrorsOutputMode.Rethrow,
-                maxIterations: 0,
-                formatProvider: CultureInfo.InvariantCulture,
-                cancellationToken: CancellationToken.None);
+            var context = new TemplateContext();
+            context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 
             var collection = new List<object> { 1, 2, 3 };
-            Assert.Equal("1 ,2 ,3 ,", Filters.BatchRender(context, collection, "foo", "i"));
-            var result = Filters.BatchRenderParallel(context, collection, "foo", "i");
-            Assert.Contains("1 ", result);
-            Assert.Contains("2 ", result);
-            Assert.Contains("3 ", result);
+            Assert.Equal("1 ,2 ,3 ,", Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context).Result.ToStringValue());
 
             // Valid template file system but null collection
-            Assert.Equal(string.Empty, Filters.BatchRender(context, null, "foo", "i"));
-            Assert.Equal(string.Empty, Filters.BatchRenderParallel(context, null, "foo", "i"));
+            Assert.Equal(string.Empty, Filters.BatchRender(NilValue.Instance,  new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context).Result.ToStringValue());
 
             // No template file system
-            context = new Context(CultureInfo.InvariantCulture);
-            var exception = Assert.Throws<RenderException>(() => Filters.BatchRender(context, null, "foo", "bar"));
-            Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
-            exception = Assert.Throws<RenderException>(() => Filters.BatchRenderParallel(context, null, "foo", "bar"));
+            context = new TemplateContext(CultureInfo.InvariantCulture);
+            var exception = Assert.Throws<RenderException>(() => Filters.BatchRender(NilValue.Instance, new FilterArguments([StringValue.Create("foo"), StringValue.Create("bar")]), context));
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
 
             // Valid template file system but non-existing template
-            exception = Assert.Throws<RenderException>(() => Filters.BatchRender(context, collection, "bar", "i"));
-            Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
-            exception = Assert.Throws<RenderException>(() => Filters.BatchRenderParallel(context, collection, "bar", "i"));
+            exception = Assert.Throws<RenderException>(() => Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("bar"), StringValue.Create("i")]), context));
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
         }
 
         [Fact]
         public void NestedWhere_NullData_ReturnsNull()
         {
-            var actual = Filters.NestedWhere(null, "test.path");
-            Assert.Equal(null, actual);
+            var actual = Filters.NestedWhere(NilValue.Instance, new FilterArguments(StringValue.Create("test.path")), context).Result;
+            Assert.Equal(NilValue.Instance, actual);
         }
 
         [Fact]
         public void NestedWhere_EmptyArray_ReturnsEmpty()
         {
-            var actual = Filters.NestedWhere(new object[] { }, "test.path");
-            Assert.Equal(new object[] { }, actual);
+            var actual = Filters.NestedWhere(ArrayValue.Empty, new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
+            Assert.Equal(0, actual.Values.Count);
         }
 
         [Fact]
         public void NestedWhere_NoMatch_ReturnsEmpty()
         {
             var actual = Filters.NestedWhere(
-              new object[] { new { test = "hi" }, new { test = "bye" } },
-              "test.path");
-            Assert.Equal(new object[] { }, actual);
+              ArrayValue.Create(new object[] { new { test = "hi" }, new { test = "bye" } }, new TemplateOptions()),
+              new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
+            Assert.Equal(0, actual.Values.Count);
         }
 
         [Fact]
         public void NestedWhere_Match_ReturnsMatch()
         {
             var actual = Filters.NestedWhere(
-              new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
-              "test.path");
-            Assert.Equal(new object[] { new { test = new { path = "hi" } } }, actual);
+              ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
+              new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
+            Assert.Equal(ArrayValue.Create(new object[] { new { test = new { path = "hi" } } }, new TemplateOptions()), actual);
         }
 
         [Fact]
         public void NestedWhere_MatchButNotValue_ReturnsEmpty()
         {
             var actual = Filters.NestedWhere(
-              new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
-              "test.path",
-              "other");
-            Assert.Equal(new object[] { }, actual);
+              ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
+              new FilterArguments(StringValue.Create("test.path"), StringValue.Create("other")), context).Result as ArrayValue;
+            Assert.Equal(ArrayValue.Empty, actual);
         }
 
         [Fact]
         public void NestedWhere_MatchIncludingValue_ReturnsMatch()
         {
             var actual = Filters.NestedWhere(
-              new object[] { new { test = new { path = "hi" } }, new { test = "bye" } },
-              "test.path",
-              "hi");
-            Assert.Equal(new object[] { new { test = new { path = "hi" } } }, actual);
+              ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
+              new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
+            Assert.Equal(ArrayValue.Create(new object[] { new { test = new { path = "hi" } } }, new TemplateOptions()), actual);
         }
 
         [Fact]
         public void NestedWhere_MatchIncludingValueList_ReturnsMatch()
         {
             var actual = Filters.NestedWhere(
-              new object[] {
-            new { test = new object[] { new { path = "hi" } , new { path = "nope"} } },
-            new { test = "bye" }
-              },
-              "test.path",
-              "hi");
-            Assert.Equal(1, actual.Count());
+            ArrayValue.Create(
+                new object[] {
+                    new { test = new object[] { new { path = "hi" } , new { path = "nope"} } },
+                    new { test = "bye" }
+                },
+                new TemplateOptions()),
+            new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
+            Assert.Equal(1, actual.Values.Count);
         }
     }
 }

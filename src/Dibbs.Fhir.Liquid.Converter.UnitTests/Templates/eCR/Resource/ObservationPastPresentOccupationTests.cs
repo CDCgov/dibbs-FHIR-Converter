@@ -23,35 +23,33 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "employerRef", "Organization/4567" },
                 {
                     "observationEntry",
-                    Hash.FromAnonymousObject(
-                        new
+                    new
+                    {
+                        id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
+                        statusCode = new { code = "final", },
+                        code = new
                         {
-                            id = new { root = "ab1791b0-5c71-11db-b0de-0800200c9a54", },
-                            statusCode = new { code = "final", },
-                            code = new
-                            {
-                                displayName = "History of Occupation",
-                                codeSystem = "2.16.840.1.113883.6.1",
-                                codeSystemName="LOINC"
-                            },
-                            effectiveTime = new {
-                                value = "20201101"
-                            },
-                            text = "Nurse",
-                            value = new {
-                                code="3600",
-                                codeSystem="2.16.840.1.113883.6.240",
-                                codeSystemName="U.S. Census Occupation Code (2010)",
-                                displayName="Nursing, psychiatric, and home health aides",
-                                translation = new {
-                                    code="31-1014.00.007136",
-                                    codeSystem="2.16.840.1.114222.4.5.327",
-                                    codeSystemName="Occupational Data for Health (ODH)",
-                                    displayName="Certified Nursing Assistant (CNA) [Nursing Assistants]"
-                                }
+                            displayName = "History of Occupation",
+                            codeSystem = "2.16.840.1.113883.6.1",
+                            codeSystemName="LOINC"
+                        },
+                        effectiveTime = new {
+                            value = "20201101"
+                        },
+                        text = "Nurse",
+                        value = new {
+                            code="3600",
+                            codeSystem="2.16.840.1.113883.6.240",
+                            codeSystemName="U.S. Census Occupation Code (2010)",
+                            displayName="Nursing, psychiatric, and home health aides",
+                            translation = new {
+                                code="31-1014.00.007136",
+                                codeSystem="2.16.840.1.114222.4.5.327",
+                                codeSystemName="Occupational Data for Health (ODH)",
+                                displayName="Certified Nursing Assistant (CNA) [Nursing Assistants]"
                             }
                         }
-                    )
+                    }
                 },
             };
 

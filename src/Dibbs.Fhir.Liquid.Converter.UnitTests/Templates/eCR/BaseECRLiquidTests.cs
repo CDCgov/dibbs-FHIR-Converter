@@ -8,6 +8,7 @@ using System.Threading;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Microsoft.Extensions.FileProviders;
 using Xunit;
 using Fluid;
 using Dibbs.Fhir.Liquid.Converter.Models;
@@ -38,9 +39,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var templateProvider = new TemplateProvider(
                 TestConstants.ECRTemplateDirectory
             );
+
+            var options = new TemplateOptions();
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TestConstants.ECRTemplateDirectory));
+            options.FileProvider = fileProvider;
+
             var context = new TemplateContext(
                 attributes,
-                TemplateUtility.TemplateOptions
+                options
             );
             context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 
@@ -49,7 +55,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json")
             );
             var codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeContent);
-            Console.WriteLine(codeMapping);
             if (codeMapping != null)
             {
                 context.SetValue("CodeMapping", codeMapping);

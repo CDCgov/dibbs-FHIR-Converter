@@ -50,7 +50,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DataParsers
         public void GivenValidCcdaDocument_WhenParse_CorrectResultShouldBeReturned()
         {
             // Sample CCD document
-            var document = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "Ccda", "CCD.ccda"));
+            var document = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "eCR", "eCR_EveEverywoman.xml"));
             var data = _parser.Parse(document);
             Assert.NotNull(data);
 

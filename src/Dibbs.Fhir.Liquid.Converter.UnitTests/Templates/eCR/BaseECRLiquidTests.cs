@@ -40,20 +40,23 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 TestConstants.ECRTemplateDirectory
             );
 
-            var options = new TemplateOptions();
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TestConstants.ECRTemplateDirectory));
-            options.FileProvider = fileProvider;
+            TemplateUtility.TemplateOptions.FileProvider = fileProvider;
+
+            // This is necessary so that we can access child objects from context
+            TemplateUtility.TemplateOptions.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
 
             var context = new TemplateContext(
-                attributes,
-                options
+                TemplateUtility.TemplateOptions
             );
+
             context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 
             // Add the value sets to the context
             var codeContent = File.ReadAllText(
                 Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json")
             );
+
             var codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeContent);
             if (codeMapping != null)
             {
@@ -78,7 +81,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 Console.WriteLine(ex);
             }
             return Filters.CleanStringFromTabs(StringValue.Create(actualContent), FilterArguments.Empty, context).Result.ToStringValue();
-            }
+        }
 
         /// <summary>
         /// Checks that the rendered template matches the expected contents.

@@ -25,10 +25,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         public static IEnumerable<object[]> GetValidDataForGenerateUuid()
         {
-            yield return new object[] { null, null };
-            yield return new object[] { string.Empty, null };
-            yield return new object[] { "  \n", null };
-            yield return new object[] { "MRN12345", "e7ce584a-acf4-7cf0-5b4e-d4961c8123e2" };
+            yield return new FluidValue[] { NilValue.Instance, NilValue.Instance };
+            yield return new FluidValue[] { StringValue.Create(string.Empty), NilValue.Instance };
+            yield return new FluidValue[] { StringValue.Create("  \n"), NilValue.Instance };
+            yield return new FluidValue[] { StringValue.Create("MRN12345"), StringValue.Create("e7ce584a-acf4-7cf0-5b4e-d4961c8123e2") };
         }
 
         [Fact]
@@ -68,11 +68,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Theory]
         [MemberData(nameof(GetValidDataForGenerateUuid))]
         public void GivenValidData_WhenGenerateUuid_CorrectResultShouldBeReturned(
-            string input,
-            string expected
+            FluidValue input,
+            FluidValue expected
         )
         {
-            Assert.Equal(expected, Filters.GenerateUUID(StringValue.Create(input), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.Equal(expected, Filters.GenerateUUID(input, FilterArguments.Empty, context).Result);
         }
 
         [Fact]

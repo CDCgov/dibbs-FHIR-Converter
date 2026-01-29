@@ -54,7 +54,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             var inputString = input.ToStringValue();
             if (string.IsNullOrWhiteSpace(inputString))
             {
-                return StringValue.Empty;
+                return NilValue.Instance;
             }
 
             var bytes = Encoding.UTF8.GetBytes(inputString);
@@ -103,16 +103,12 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <returns>The extension with the root removed, if the root was a URL prefix. Else return the extension unchanged.</returns>
         public static ValueTask<FluidValue> RemovePrefix(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            if (input.IsNil())
-            {
-                return StringValue.Empty;
-            }
-
             var extension = input.ToStringValue();
             var root = arguments.At(0).ToStringValue();
 
             if (
-                string.IsNullOrEmpty(root)
+                !string.IsNullOrEmpty(root)
+                && !string.IsNullOrEmpty(extension)
                 && extension.StartsWith("http://")
                 && extension.StartsWith(root))
             {

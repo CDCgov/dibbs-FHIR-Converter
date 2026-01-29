@@ -21,20 +21,20 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
 {
     public class ProcessorTests
     {
-        private static readonly string _ccdaTestData;
+        private static readonly string _ecrTestData;
         private static readonly CcdaProcessor _ccdaProcessor;
         private static readonly FluidParser _parser;
 
         static ProcessorTests()
         {
-            _ccdaTestData = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "Ccda", "CCD.ccda"));
+            _ecrTestData = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "eCR", "eCR_EveEverywoman.xml"));
             _ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
             _parser = new FluidParser();
         }
 
         public static IEnumerable<object[]> GetValidInputsWithTemplateDirectory()
         {
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(TestConstants.CcdaTemplateDirectory), _ccdaTestData, "CCD" };
+            yield return new object[] { _ccdaProcessor, new TemplateProvider(TestConstants.ECRTemplateDirectory), _ecrTestData, "EICR" };
         }
 
         public static IEnumerable<object[]> GetValidInputsWithTemplateCollection()
@@ -47,24 +47,24 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
                 },
             };
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ccdaTestData };
+            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData };
         }
 
         public static IEnumerable<object[]> GetMockDefaultTemplateCollection()
         {
             var rootTemplate = @"{% include 'Sub/Template1' -%}";
-            var ccdaSubTemplate = @"{""Ccda"":""subtemplate1""}";
+            var ecrSubTemplate = @"{""eCR"":""subtemplate1""}";
 
             var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
                 new Dictionary<string, IFluidTemplate>
                 {
-                    { "Ccda/Template1", _parser.Parse(rootTemplate) },
-                    { "Ccda/Sub/Template1", _parser.Parse(ccdaSubTemplate) },
+                    { "eCR/Template1", _parser.Parse(rootTemplate) },
+                    { "eCR/Sub/Template1", _parser.Parse(ecrSubTemplate) },
                 },
             };
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection, isDefaultTemplateProvider: true), _ccdaTestData, ccdaSubTemplate };
+            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection, isDefaultTemplateProvider: true), _ecrTestData, ecrSubTemplate };
         }
 
         public static IEnumerable<object[]> GetNestedTemplateCollection()
@@ -87,7 +87,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
                 },
             };
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ccdaTestData, subTemplate, folder1SubTemplate, folder2SubTemplate };
+            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData, subTemplate, folder1SubTemplate, folder2SubTemplate };
         }
 
 
@@ -97,7 +97,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             {
                 _ccdaProcessor,
                 new TemplateProvider(TestConstants.TestTemplateDirectory),
-                _ccdaTestData,
+                _ecrTestData,
             };
         }
 
@@ -107,7 +107,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             {
                 _ccdaProcessor,
                 new TemplateProvider(TestConstants.TestTemplateDirectory),
-                _ccdaTestData,
+                _ecrTestData,
             };
         }
 

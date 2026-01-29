@@ -25,7 +25,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ""132 Main St"", ], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
+                @"""use"": """", ""line"": [""132 Main St"",], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ""132 Main St"", ""Unit 2"", ], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
+                @"""use"": """", ""line"": [""132 Main St"",""Unit 2"",], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ], ""city"": ""Town"", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
+                @"""use"": """", ""line"": [], ""city"": ""Town"", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ], ""city"": """", ""state"": ""State"", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
+                @"""use"": """", ""line"": [], ""city"": """", ""state"": ""State"", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": ""PostalCode"", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
+                @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": ""PostalCode"", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": ""County"", ""period"": { ""start"":"""", ""end"":"""", },");
+                @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": ""County"", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ], ""city"": """", ""state"": """", ""country"": ""Country"", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
+                @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": ""Country"", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
@@ -121,7 +121,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
-                @"""use"": """", ""line"": [ ], ""city"": """", ""state"": """", ""country"": ""Country"", ""postalCode"": """", ""district"": """", ""period"": { ""start"":""2024-03-13"", ""end"":"""", },");
+                @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": ""Country"", ""postalCode"": """", ""district"": """", ""period"": { ""start"":""2024-03-13"", ""end"":"""", },");
         }
 
     }

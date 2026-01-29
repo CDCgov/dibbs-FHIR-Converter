@@ -74,7 +74,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var actualContent = "";
             try
             {
-                actualContent = template.Render(context);
+                actualContent = template.Render(context)
+                .Trim()
+                .Replace("\n", " ")
+                .Replace("\t", string.Empty);
             }
             catch (Exception ex)
             {

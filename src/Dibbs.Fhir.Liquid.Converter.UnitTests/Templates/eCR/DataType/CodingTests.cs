@@ -16,7 +16,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public void GivenNoAttributeReturnsEmpty()
         {
-            var expectedContent = @"""code"": """", ""system"": """", ""display"": """",";
+            var expectedContent = @"""code"": """",""system"": """",""display"": """",";
             ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), expectedContent);
         }
 
@@ -37,7 +37,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""code"": ""55751-2"", ""system"": ""http://loinc.org"", ""display"": ""Public health Case report"",";
+                @"""code"": ""55751-2"",""system"": ""http://loinc.org"",""display"": ""Public health Case report"",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -52,7 +52,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""code"": ""2106-3"", ""system"": ""urn:oid:2.16.840.1.113883.6.238"", ""display"": """",";
+                @"""code"": ""2106-3"",""system"": ""urn:oid:2.16.840.1.113883.6.238"",""display"": """",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -72,7 +72,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""code"": ""TEST"", ""system"": ""http://loinc.org"", ""display"": ""Test Display Name"",";
+                @"""code"": ""TEST"",""system"": ""http://loinc.org"",""display"": ""Test Display Name"",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -93,7 +93,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""code"": ""1000004"", ""system"": ""http://snomed.info/sct"", ""display"": ""Sprain"",";
+                @"""code"": ""1000004"",""system"": ""http://snomed.info/sct"",""display"": ""Sprain"",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 

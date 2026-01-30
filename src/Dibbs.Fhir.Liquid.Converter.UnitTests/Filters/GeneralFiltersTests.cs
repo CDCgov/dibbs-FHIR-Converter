@@ -16,13 +16,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class GeneralFiltersTests
     {
-        private readonly TemplateContext context;
-
-        public GeneralFiltersTests()
-        {
-            context = new TemplateContext();
-        }
-
         public static IEnumerable<object[]> GetValidDataForGenerateUuid()
         {
             yield return new FluidValue[] { NilValue.Instance, NilValue.Instance };
@@ -72,6 +65,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             FluidValue expected
         )
         {
+            var context = new TemplateContext();
             Assert.Equal(expected, Filters.GenerateUUID(input, FilterArguments.Empty, context).Result);
         }
 
@@ -79,12 +73,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void PrependIdTest_uuid()
         {
             string id = "fc97958d-4b72-47a4-887f-b14ff8bcc859";
+            var context = new TemplateContext();
             Assert.Equal("urn:uuid:" + id, Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
         [Fact]
         public void PrependIdTest_uuid_uppercase()
         {
             string id = "FC97958D-4B72-47A4-887F-B14FF8BCC859";
+            var context = new TemplateContext();
             Assert.Equal("urn:uuid:" + id.ToLower(), Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
 
@@ -92,6 +88,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void PrependIdTest_oid()
         {
             string id = "1.3.6.1.4.1.343";
+            var context = new TemplateContext();
             Assert.Equal("urn:oid:" + id, Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
 
@@ -99,6 +96,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void PrependIdTest_unknown()
         {
             string id = "a random ID";
+            var context = new TemplateContext();
             Assert.Equal(id, Filters.PrependID(StringValue.Create(id), FilterArguments.Empty, context).Result.ToStringValue());
         }
 
@@ -107,6 +105,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         {
             string extension = "http://example.com/user/1";
             string root = "http://example.com/user";
+            var context = new TemplateContext();
 
             Assert.Equal("1", Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
@@ -116,6 +115,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         {
             string extension = "not url";
             string root = "\"http://example.com/user\"";
+            var context = new TemplateContext();
 
             Assert.Equal(extension, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
@@ -125,6 +125,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         {
             string extension = "http://example.com/user/1";
             string root = "\"not url\"";
+            var context = new TemplateContext();
 
             Assert.Equal(extension, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
@@ -134,6 +135,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         {
             string extension = "http://example.com/user";
             string root = "\"http://example.com/use\"";
+            var context = new TemplateContext();
 
             Assert.Equal(extension, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
@@ -145,6 +147,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             string root = "http://example.com";
 
             string expected = "category/user/1";
+            var context = new TemplateContext();
 
             Assert.Equal(expected, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
@@ -156,6 +159,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             string root = "http://example.com/category";
 
             string expected = "user/1";
+            var context = new TemplateContext();
 
             Assert.Equal(expected, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }

@@ -22,24 +22,19 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class StringFiltersTests
     {
-        private readonly TemplateContext context;
-
-        public StringFiltersTests()
-        {
-            context = new TemplateContext();
-        }
-
         [Fact]
         public void EscapeSpecialCharsTest()
         {
+            var context = new TemplateContext();
             Assert.Equal("\\\"", Filters.EscapeSpecialChars(StringValue.Create("\""), FilterArguments.Empty, context).Result.ToStringValue());
             Assert.Equal(string.Empty, Filters.EscapeSpecialChars(StringValue.Create(string.Empty), FilterArguments.Empty, context).Result.ToStringValue());
-            Assert.Null(Filters.EscapeSpecialChars(NilValue.Instance, FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.True(Filters.EscapeSpecialChars(NilValue.Instance, FilterArguments.Empty, context).Result.IsNil());
         }
 
         [Fact]
         public void MatchTest()
         {
+            var context = new TemplateContext();
             Assert.Empty(Filters.Match(StringValue.Create(string.Empty), new FilterArguments(StringValue.Create("[0-9]")), context).Result.ToStringValue());
             Assert.Empty(Filters.Match(NilValue.Instance, new FilterArguments(StringValue.Create("[0-9]")), context).Result.ToStringValue());
             Assert.Single(Filters.Match(StringValue.Create("foo1"), new FilterArguments(StringValue.Create("[0-9]")), context).Result.ToStringValue());
@@ -51,6 +46,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void ToJsonStringTests()
         {
+            var context = new TemplateContext();
             Assert.Equal(Filters.ToJsonString(NilValue.Instance, FilterArguments.Empty, context).Result, NilValue.Instance);
             Assert.Equal(
                 @"[""a"",""b""]",
@@ -60,6 +56,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void GzipTest()
         {
+            var context = new TemplateContext();
+
             // Gzip function is operation system related.
             var actual = Filters.Gzip(StringValue.Create("uncompressed"), FilterArguments.Empty, context);
             var expected = new List<string>
@@ -76,16 +74,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         public class ToXHtml
         {
-            private readonly TemplateContext context;
-            public ToXHtml()
-            {
-                context = new TemplateContext();
-            }
-
             [Fact]
             public void Basic()
             {
                 var testString = "<div xmlns=\"http://www.w3.org/1999/xhtml\">Content</div>";
+                var context = new TemplateContext();
                 var result = Filters.ToXhtml(StringValue.Create(testString), FilterArguments.Empty, context).Result.ToStringValue();
 
                 Assert.Equal(testString, result);
@@ -96,6 +89,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             {
                 var testString = "<table>Content</table><div>More stuff</div>";
                 var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\">{testString}</div>";
+                var context = new TemplateContext();
                 var result = Filters.ToXhtml(StringValue.Create(testString), FilterArguments.Empty, context).Result.ToStringValue();
 
                 Assert.Equal(expected, result);
@@ -106,6 +100,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             {
                 var testString = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><paragraph>Content</paragraph></div>";
                 var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var context = new TemplateContext();
                 var result = Filters.ToXhtml(StringValue.Create(testString), FilterArguments.Empty, context).Result.ToStringValue();
 
                 Assert.Equal(expected, result);
@@ -116,6 +111,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             {
                 var testString = "<paragraph>Content</paragraph>";
                 var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var context = new TemplateContext();
                 var result = Filters.ToXhtml(StringValue.Create(testString), FilterArguments.Empty, context).Result.ToStringValue();
 
                 Assert.Equal(expected, result);
@@ -126,6 +122,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             {
                 var testString = "<p xmlns=\"urn:hl7-org:v3\">Content</p>";
                 var expected = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var context = new TemplateContext();
                 var result = Filters.ToXhtml(StringValue.Create(testString), FilterArguments.Empty, context).Result.ToStringValue();
 
                 Assert.Equal(expected, result);
@@ -136,6 +133,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             {
                 var testString = "<p ID=\"1234\">Content</p>";
                 var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\"><p id=\"1234\">Content</p></div>";
+                var context = new TemplateContext();
                 var result = Filters.ToXhtml(StringValue.Create(testString), FilterArguments.Empty, context).Result.ToStringValue();
 
                 Assert.Equal(expected, result);
@@ -146,6 +144,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             {
                 var testString = "<p TEST=\"test\">Content</p>";
                 var expected = $"<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Content</p></div>";
+                var context = new TemplateContext();
                 var result = Filters.ToXhtml(StringValue.Create(testString), FilterArguments.Empty, context).Result.ToStringValue();
 
                 Assert.Equal(expected, result);

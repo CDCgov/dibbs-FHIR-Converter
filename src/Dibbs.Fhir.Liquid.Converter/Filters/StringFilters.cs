@@ -27,8 +27,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         public static ValueTask<FluidValue> EscapeSpecialChars(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var data = input.ToStringValue();
-            var result = string.IsNullOrEmpty(data) ? data : SpecialCharProcessor.Escape(data);
-            return new StringValue(result);
+            return string.IsNullOrEmpty(data) ? input : StringValue.Create(SpecialCharProcessor.Escape(data));
         }
 
         public static ValueTask<FluidValue> Match(FluidValue input, FilterArguments arguments, TemplateContext context)
@@ -81,7 +80,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             var data = input.ToStringValue();
             if (string.IsNullOrEmpty(data))
             {
-                return StringValue.Empty;
+                return input;
             }
 
             using var inputStream = new MemoryStream(Encoding.UTF8.GetBytes(data));

@@ -21,12 +21,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class DateFiltersTests
     {
-        private readonly TemplateContext context;
-        public DateFiltersTests()
-        {
-            context = new TemplateContext();
-        }
-
         public static IEnumerable<object[]> GetValidDataForAddHyphensDate()
         {
             yield return new object[] { NilValue.Instance, "local", NilValue.Instance };

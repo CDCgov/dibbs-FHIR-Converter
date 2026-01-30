@@ -18,17 +18,17 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class CollectionFiltersTest
     {
-        private readonly TemplateContext context;
         private readonly FluidParser parser;
         public CollectionFiltersTest()
         {
-            context = new TemplateContext();
             parser = new FluidParser();
         }
 
         [Fact]
         public void ToArrayTests()
         {
+            var context = new TemplateContext();
+
             Assert.Equal(0, (Filters.ToArray(NilValue.Instance, FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
             Assert.Equal(1, (Filters.ToArray(NumberValue.Create(1), FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
             Assert.Equal(2, (Filters.ToArray(ArrayValue.Create(new List<string> { null, string.Empty }, new TemplateOptions()), FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
@@ -69,6 +69,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void NestedWhere_NullData_ReturnsNull()
         {
+            var context = new TemplateContext();
             var actual = Filters.NestedWhere(NilValue.Instance, new FilterArguments(StringValue.Create("test.path")), context).Result;
             Assert.Equal(NilValue.Instance, actual);
         }
@@ -76,6 +77,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void NestedWhere_EmptyArray_ReturnsEmpty()
         {
+            var context = new TemplateContext();
             var actual = Filters.NestedWhere(ArrayValue.Empty, new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
             Assert.Equal(0, actual.Values.Count);
         }
@@ -83,6 +85,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void NestedWhere_NoMatch_ReturnsEmpty()
         {
+            var context = new TemplateContext();
             var actual = Filters.NestedWhere(
               ArrayValue.Create(new object[] { new { test = "hi" }, new { test = "bye" } }, new TemplateOptions()),
               new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
@@ -92,6 +95,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void NestedWhere_Match_ReturnsMatch()
         {
+            var context = new TemplateContext();
             var actual = Filters.NestedWhere(
               ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
               new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
@@ -101,6 +105,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void NestedWhere_MatchButNotValue_ReturnsEmpty()
         {
+            var context = new TemplateContext();
             var actual = Filters.NestedWhere(
               ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
               new FilterArguments(StringValue.Create("test.path"), StringValue.Create("other")), context).Result as ArrayValue;
@@ -110,6 +115,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void NestedWhere_MatchIncludingValue_ReturnsMatch()
         {
+            var context = new TemplateContext();
             var actual = Filters.NestedWhere(
               ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
               new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
@@ -119,6 +125,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void NestedWhere_MatchIncludingValueList_ReturnsMatch()
         {
+            var context = new TemplateContext();
             var actual = Filters.NestedWhere(
             ArrayValue.Create(
                 new object[] {

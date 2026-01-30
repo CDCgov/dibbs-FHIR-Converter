@@ -16,18 +16,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
     public class SectionFiltersTests
     {
-        private readonly TemplateContext context;
-        public SectionFiltersTests()
-        {
-            context = new TemplateContext();
-        }
-
         private static readonly Dictionary<string, object> TestData = LoadTestData();
 
         [Fact]
         public void GetFirstCcdaSectionsByTemplateIdTests()
         {
             const string templateIdContent = "2.16.840.1.113883.10.20.22.2.6.1";
+            var context = new TemplateContext();
 
             // Empty data
             Assert.Equal(0, (Filters.GetFirstCcdaSectionsByTemplateId(ObjectValue.Create(new object(), new TemplateOptions()), new FilterArguments(StringValue.Create(templateIdContent)), context).Result as DictionaryValue).Enumerate(context).Count());

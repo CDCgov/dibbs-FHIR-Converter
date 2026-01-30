@@ -41,11 +41,12 @@ namespace Dibbs.Fhir.Liquid.Converter
             }
         }
 
-        private static StringValue ConvertStringToDateTime(string inputString, string inputTzHandling, bool convertToDate = false)
+        private static FluidValue ConvertStringToDateTime(FluidValue input, string inputTzHandling, bool convertToDate = false)
         {
+            var inputString = input.ToStringValue();
             if (string.IsNullOrEmpty(inputString))
             {
-                return StringValue.Empty;
+                return input;
             }
 
             var timeZoneHandling = string.IsNullOrEmpty(inputTzHandling) ? "preserve" : inputTzHandling;
@@ -62,16 +63,14 @@ namespace Dibbs.Fhir.Liquid.Converter
 
         public static ValueTask<FluidValue> AddHyphensDate(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            var inputString = input.ToStringValue();
             var timeZonehandling = arguments.At(0).ToStringValue();
-            return ConvertStringToDateTime(inputString, timeZonehandling, true);
+            return ConvertStringToDateTime(input, timeZonehandling, true);
         }
 
         public static ValueTask<FluidValue> FormatAsDateTime(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            var inputString = input.ToStringValue();
             var timeZonehandling = arguments.At(0).ToStringValue();
-            return ConvertStringToDateTime(inputString, timeZonehandling);
+            return ConvertStringToDateTime(input, timeZonehandling);
         }
 
         public static ValueTask<FluidValue> Now(FluidValue input, FilterArguments arguments, TemplateContext context)

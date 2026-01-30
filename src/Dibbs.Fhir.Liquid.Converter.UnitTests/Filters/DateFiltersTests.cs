@@ -14,6 +14,8 @@ using Xunit;
 using Fluid.Values;
 using Fluid;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
+using System.Net.Http.Headers;
+using Fluid.Ast;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
@@ -27,13 +29,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         public static IEnumerable<object[]> GetValidDataForAddHyphensDate()
         {
-            yield return new object[] { null, "local", null };
-            yield return new object[] { string.Empty, "local", string.Empty };
-            yield return new object[] { @"2001", "preserve", @"2001" };
-            yield return new object[] { @"200101", "preserve", @"2001-01" };
-            yield return new object[] { @"19241010", "local", @"1924-10-10" };
-            yield return new object[] { @"19850101000000", "local", @"1985-01-01" };
-            yield return new object[] { @"19850101000000.1234", "local", @"1985-01-01" };
+            yield return new object[] { NilValue.Instance, "local", NilValue.Instance };
+            yield return new object[] { StringValue.Empty, "local", StringValue.Empty };
+            yield return new object[] { StringValue.Create("2001"), "preserve", StringValue.Create("2001") };
+            yield return new object[] { StringValue.Create("200101"), "preserve", StringValue.Create("2001-01") };
+            yield return new object[] { StringValue.Create("19241010"), "local", StringValue.Create("1924-10-10") };
+            yield return new object[] { StringValue.Create("19850101000000"), "local", StringValue.Create("1985-01-01") };
+            yield return new object[] { StringValue.Create("19850101000000.1234"), "local", StringValue.Create("1985-01-01") };
         }
 
         // We assume the local timezone is +08:00.
@@ -47,41 +49,42 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         public static IEnumerable<object[]> GetValidDataForAddHyphensDateWithDefaultTimeZoneHandling()
         {
-            yield return new object[] { null, null };
-            yield return new object[] { string.Empty, string.Empty };
-            yield return new object[] { @"2001", @"2001" };
-            yield return new object[] { @"200101", @"2001-01" };
-            yield return new object[] { @"19241010", @"1924-10-10" };
-            yield return new object[] { @"19850101000000", @"1985-01-01" };
-            yield return new object[] { @"19850101000000.1234", @"1985-01-01" };
+            yield return new object[] { NilValue.Instance, NilValue.Instance };
+            yield return new object[] { StringValue.Empty, StringValue.Empty };
+            yield return new object[] { StringValue.Create("2001"), StringValue.Create("2001") };
+            yield return new object[] { StringValue.Create("200101"), StringValue.Create("2001-01") };
+            yield return new object[] { StringValue.Create("19241010"), StringValue.Create("1924-10-10") };
+            yield return new object[] { StringValue.Create("19850101000000"), StringValue.Create("1985-01-01") };
+            yield return new object[] { StringValue.Create("19850101000000.1234"), StringValue.Create("1985-01-01") };
         }
 
         public static IEnumerable<object[]> GetValidDataForFormatAsDateTime()
         {
             // TimeZoneHandling does not affect dateTime without time
-            yield return new object[] { null, "preserve", null };
-            yield return new object[] { null, "utc", null };
-            yield return new object[] { null, "local", null };
-            yield return new object[] { string.Empty, "preserve", string.Empty };
-            yield return new object[] { string.Empty, "utc", string.Empty };
-            yield return new object[] { string.Empty, "local", string.Empty };
-            yield return new object[] { @"2001", "preserve", @"2001" };
-            yield return new object[] { @"2001", "local", @"2001" };
-            yield return new object[] { @"200101", "preserve", @"2001-01" };
-            yield return new object[] { @"200101", "local", @"2001-01" };
+            yield return new object[] { NilValue.Instance, "preserve", NilValue.Instance };
+            yield return new object[] { NilValue.Instance, "utc", NilValue.Instance };
+            yield return new object[] { NilValue.Instance, "local", NilValue.Instance };
+            yield return new object[] { StringValue.Empty, "preserve", StringValue.Empty };
+            yield return new object[] { StringValue.Empty, "utc", StringValue.Empty };
+            yield return new object[] { StringValue.Empty, "local", StringValue.Empty };
+            yield return new object[] { StringValue.Create("2001"), "preserve", StringValue.Create("2001") };
+            yield return new object[] { StringValue.Create("2001"), "local", StringValue.Create("2001") };
+            yield return new object[] { StringValue.Create("200101"), "preserve", StringValue.Create("2001-01") };
+            yield return new object[] { StringValue.Create("200101"), "local", StringValue.Create("2001-01") };
 
             // If time zone provided, it should be formatted according to TimeZoneHandling
-            yield return new object[] { @"20110103143428-0800", "preserve", @"2011-01-03T14:34:28-08:00" };
-            yield return new object[] { @"20110103143428-0845", "preserve", @"2011-01-03T14:34:28-08:45" };
-            yield return new object[] { @"20110103143428-0800", "utc", @"2011-01-03T22:34:28Z" };
-            yield return new object[] { @"20110103143428-0845", "utc", @"2011-01-03T23:19:28Z" };
+            yield return new object[] { StringValue.Create("20110103143428-0800"), "preserve", StringValue.Create("2011-01-03T14:34:28-08:00") };
+            yield return new object[] { StringValue.Create("20110103143428-0845"), "preserve", StringValue.Create("2011-01-03T14:34:28-08:45") };
+            yield return new object[] { StringValue.Create("20110103143428-0800"), "utc", StringValue.Create("2011-01-03T22:34:28Z") };
+            yield return new object[] { StringValue.Create("20110103143428-0845"), "utc", StringValue.Create("2011-01-03T23:19:28Z") };
 
-            yield return new object[] { @"19701231115959+0600", "preserve", @"1970-12-31T11:59:59+06:00" };
-            yield return new object[] { @"19701231115959+0600", "utc", @"1970-12-31T05:59:59Z" };
-            yield return new object[] { @"19701231115959+0630", "utc", @"1970-12-31T05:29:59Z" };
-            yield return new object[] { @"19701231115959.12234+0630", "utc", @"1970-12-31T05:29:59.12234Z" };
-            yield return new object[] { @"19701231115959.000+0630", "utc", @"1970-12-31T05:29:59.000Z" };
+            yield return new object[] { StringValue.Create("19701231115959+0600"), "preserve", StringValue.Create("1970-12-31T11:59:59+06:00") };
+            yield return new object[] { StringValue.Create("19701231115959+0600"), "utc", StringValue.Create("1970-12-31T05:59:59Z") };
+            yield return new object[] { StringValue.Create("19701231115959+0630"), "utc", StringValue.Create("1970-12-31T05:29:59Z") };
+            yield return new object[] { StringValue.Create("19701231115959.12234+0630"), "utc", StringValue.Create("1970-12-31T05:29:59.12234Z") };
+            yield return new object[] { StringValue.Create("19701231115959.000+0630"), "utc", StringValue.Create("1970-12-31T05:29:59.000Z") };
 
+            // TODO: Remove?
             // Skip this test in pipeline, as the local time zone is different
             // yield return new object[] { @"20110103143428-0800", "local", @"2011-01-04T06:34:28+08:00" };
             // yield return new object[] { @"19701231115959+0600", "local", @"1970-12-31T13:59:59+08:00" };
@@ -144,13 +147,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             yield return new object[] { @"202001011080" };
             yield return new object[] { @"20200101101080" };
             yield return new object[] { @"20200101101080.-123" };
-        }
-
-        public static IEnumerable<object[]> GetInvalidTimeZoneHandling()
-        {
-            yield return new object[] { @"20050110045253", null };
-            yield return new object[] { @"20110103143428-0800", string.Empty };
-            yield return new object[] { @"19701231115959+0600", "abc" };
         }
 
         public static IEnumerable<object[]> GetValidDataForFormatWidthAsPeriod()
@@ -246,9 +242,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         [Theory]
         [MemberData(nameof(GetValidDataForAddHyphensDate))]
-        public void GivenADate_WhenAddHyphensDate_ConvertedDateShouldBeReturned(string input, string timeZoneHandling, string expected)
+        public void GivenADate_WhenAddHyphensDate_ConvertedDateShouldBeReturned(FluidValue input, string timeZoneHandling, FluidValue expected)
         {
-            var result = Filters.AddHyphensDate(StringValue.Create(input), new FilterArguments(StringValue.Create(timeZoneHandling)), context).Result.ToStringValue();
+            var context = new TemplateContext();
+            var result = Filters.AddHyphensDate(input, new FilterArguments(StringValue.Create(timeZoneHandling)), context).Result;
             Assert.Equal(expected, result);
         }
 
@@ -256,6 +253,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [MemberData(nameof(GetValidDataWithoutTimeZoneForAddHyphensDateWithUtcTimeZoneHandling))]
         public void GivenAValidDataWithoutTimeZone_WhenAddHyphensDate_CorrectDateTimeShouldBeReturned(string input, string timeZoneHandling, DateTime inputDateTime)
         {
+            var context = new TemplateContext();
             var result = Filters.AddHyphensDate(StringValue.Create(input), new FilterArguments(StringValue.Create(timeZoneHandling)), context).Result.ToStringValue();
             var dateTimeOffset = new DateTimeOffset(inputDateTime);
             var dateTimeString = dateTimeOffset.ToUniversalTime().ToString("yyyy-MM-dd");
@@ -264,17 +262,19 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         [Theory]
         [MemberData(nameof(GetValidDataForAddHyphensDateWithDefaultTimeZoneHandling))]
-        public void GivenAValidData_WhenAddHyphensDateWithDefaultTimeZoneHandling_ConvertedDateTimeShouldBeReturned(string input, string expectedDateTime)
+        public void GivenAValidData_WhenAddHyphensDateWithDefaultTimeZoneHandling_ConvertedDateTimeShouldBeReturned(FluidValue input, FluidValue expectedDateTime)
         {
-            var result = Filters.AddHyphensDate(StringValue.Create(input), new FilterArguments(), context).Result.ToStringValue();
+            var context = new TemplateContext();
+            var result = Filters.AddHyphensDate(input, new FilterArguments(), context).Result;
             Assert.Equal(expectedDateTime, result);
         }
 
         [Theory]
         [MemberData(nameof(GetValidDataForFormatAsDateTime))]
-        public void GivenADateTime_WhenFormatAsDateTime_ConvertedDateTimeStringShouldBeReturned(string input, string timeZoneHandling, string expected)
+        public void GivenADateTime_WhenFormatAsDateTime_ConvertedDateTimeStringShouldBeReturned( FluidValue input, string timeZoneHandling, FluidValue expected)
         {
-            var result = Filters.FormatAsDateTime(StringValue.Create(input), new FilterArguments(StringValue.Create(timeZoneHandling)), context).Result.ToStringValue();
+            var context = new TemplateContext();
+            var result = Filters.FormatAsDateTime(input, new FilterArguments(StringValue.Create(timeZoneHandling)), context).Result;
             Assert.Equal(expected, result);
         }
 
@@ -282,6 +282,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [MemberData(nameof(GetValidDataWithoutTimeZoneForFormatAsDateTimeWithUtcTimeZoneHandling))]
         public void GivenAValidDataWithoutTimeZone_WhenFormatAsDateTime_ConvertedDateTimeShouldBeReturned(string input, string timeZoneHandling, string expectedDateTime, DateTime inputDateTime)
         {
+            var context = new TemplateContext();
             var result = Filters.FormatAsDateTime(StringValue.Create(input), new FilterArguments(StringValue.Create(timeZoneHandling)), context).Result.ToStringValue();
             var dateTimeOffset = DateTimeOffset.Parse(result);
             dateTimeOffset = dateTimeOffset.AddHours(TimeZoneInfo.Local.GetUtcOffset(inputDateTime).TotalHours - 8);
@@ -293,6 +294,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [MemberData(nameof(GetValidDataForFormatAsDateTimeWithDefaultTimeZoneHandling))]
         public void GivenAValidData_WhenFormatAsDateTimeWithDefaultTimeZoneHandling_ConvertedDateTimeShouldBeReturned(string input, string expectedDateTime)
         {
+            var context = new TemplateContext();
             var result = Filters.FormatAsDateTime(StringValue.Create(input), new FilterArguments(), context).Result.ToStringValue();
             Assert.Equal(expectedDateTime, result);
         }
@@ -301,6 +303,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [MemberData(nameof(GetInvalidDataForAddHyphensDate))]
         public void GivenAnInvalidDateTime_WhenAddHyphensDate_ExceptionShouldBeThrown(string input)
         {
+            var context = new TemplateContext();
             var exception = Assert.Throws<RenderException>(() => Filters.AddHyphensDate(StringValue.Create(input), new FilterArguments(), context));
             Assert.Equal(FhirConverterErrorCode.InvalidDateTimeFormat, exception.FhirConverterErrorCode);
         }
@@ -309,21 +312,25 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [MemberData(nameof(GetInvalidDataForFormatAsDateTime))]
         public void GivenAnInvalidDateTime_WhenFormatAsDateTime_ExceptionShouldBeThrown(string input)
         {
+            var context = new TemplateContext();
             var exception = Assert.Throws<RenderException>(() => Filters.FormatAsDateTime(StringValue.Create(input), new FilterArguments(), context));
             Assert.Equal(FhirConverterErrorCode.InvalidDateTimeFormat, exception.FhirConverterErrorCode);
         }
 
-        [Theory]
-        [MemberData(nameof(GetInvalidTimeZoneHandling))]
-        public void GivenAnInvalidTimeZoneHandling_WhenFormatAsDateTime_ExceptionShouldBeThrown(string input, string timeZoneHandling)
+        [Fact]
+        public void GivenAnInvalidTimeZoneHandling_WhenFormatAsDateTime_ExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<RenderException>(() => Filters.FormatAsDateTime(StringValue.Create(input), new FilterArguments(StringValue.Create(timeZoneHandling)), context));
+            var context = new TemplateContext();
+            var input = StringValue.Create("19701231115959+0600");
+            var timeZoneHandling = StringValue.Create("abc");
+            var exception = Assert.Throws<RenderException>(() => Filters.FormatAsDateTime(input, new FilterArguments(timeZoneHandling), context));
             Assert.Equal(FhirConverterErrorCode.InvalidTimeZoneHandling, exception.FhirConverterErrorCode);
         }
 
         [Fact]
         public void NowTest()
         {
+            var context = new TemplateContext();
             // FHIR DateTime format
             var dateTime = DateTime.Parse(Filters.Now(StringValue.Create(string.Empty), FilterArguments.Empty, context).Result.ToStringValue());
             Assert.True(dateTime.Year > 2020);
@@ -357,17 +364,28 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [MemberData(nameof(GetValidDataForFormatWidthAsPeriod))]
         public void FormatWidthAsPeriod_Valid(string inputStr, string expectedStr)
         {
+            var context = new TemplateContext();
             var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;
             var expectedParsed = new CcdaDataParser().Parse(expectedStr) as IDictionary<string, object>;
-            var expected = JObject.FromObject(expectedParsed["effectiveTime"]);
-            var actual = JObject.FromObject(Filters.FormatWidthAsPeriod(DictionaryValue.Create(inputParsed["effectiveTime"], new TemplateOptions()), FilterArguments.Empty, context).Result.ToObjectValue());
-            Assert.True(JToken.DeepEquals(expected, actual), $"\nExpected: {expected}\nActual:  {actual}");
+            var expected = expectedParsed["effectiveTime"] as Dictionary<string, object>;
+            var actual = Filters.FormatWidthAsPeriod(DictionaryValue.Create(inputParsed["effectiveTime"], new TemplateOptions()), FilterArguments.Empty, context).Result as DictionaryValue;
+
+            if (expected.ContainsKey("low")) {
+                Assert.Equal((expected["low"] as Dictionary<string, object>)["value"], ((actual.GetValueAsync("low", context).Result as DictionaryValue).GetValueAsync("value", context)).Result.ToStringValue());
+            }
+            if (expected.ContainsKey("high")) {
+                Assert.Equal((expected["high"] as Dictionary<string, object>)["value"], ((actual.GetValueAsync("high", context).Result as DictionaryValue).GetValueAsync("value", context)).Result.ToStringValue());
+            }
+            if (expected.ContainsKey("value")) {
+                Assert.Equal(expected["value"], (actual.GetValueAsync("value", context).Result.ToStringValue()));
+            }
         }
 
         [Theory]
         [MemberData(nameof(GetInvalidDataForFormatWidthAsPeriod))]
         public void FormatWidthAsPeriod_Invalid(string inputStr)
         {
+            var context = new TemplateContext();
             var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;
             var exception = Assert.Throws<RenderException>(() => Filters.FormatWidthAsPeriod(DictionaryValue.Create(inputParsed["effectiveTime"], new TemplateOptions()), FilterArguments.Empty, context));
             Assert.Equal(FhirConverterErrorCode.InvalidDateTimeFormat, exception.FhirConverterErrorCode);

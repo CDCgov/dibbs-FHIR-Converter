@@ -114,7 +114,17 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Dictionary<string, object> attributes
         )
         {
-            var actual = RenderLiquidTemplate(templatePath, attributes);
+            const int timeoutMs = 10000;
+
+            var renderTask = System.Threading.Tasks.Task.Run(() => RenderLiquidTemplate(templatePath, attributes));
+
+            if (System.Threading.Tasks.Task.WhenAny(renderTask, System.Threading.Tasks.Task.Delay(timeoutMs)).Result != renderTask)
+            {
+                Console.WriteLine($"Liquid template rendering timed out after {timeoutMs}ms. Template: {templatePath}");
+            }
+
+            var actual = renderTask.Result;
+            Console.WriteLine(actual);
             var actualJson = DeserializeJson(actual);
 
             // If the JSON is a FHIR resource, then it will have a `resource` property, and we just
@@ -128,6 +138,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)
                 .UsingMode(DeserializerModes.Ostrich);
+
             var actualFhir = JsonSerializer.Deserialize<T>(actualJson, fhirOptions);
 
             return actualFhir;

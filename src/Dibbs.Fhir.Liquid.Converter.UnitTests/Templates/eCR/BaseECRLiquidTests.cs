@@ -124,7 +124,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             }
 
             var actual = renderTask.Result;
-            Console.WriteLine(actual);
             var actualJson = DeserializeJson(actual);
 
             // If the JSON is a FHIR resource, then it will have a `resource` property, and we just

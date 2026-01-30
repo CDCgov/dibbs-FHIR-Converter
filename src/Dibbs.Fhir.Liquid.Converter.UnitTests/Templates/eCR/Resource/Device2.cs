@@ -4,6 +4,7 @@ using System.Linq;
 using Hl7.Fhir.Model;
 using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Xunit;
+using Newtonsoft.Json;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
@@ -108,7 +109,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal(ResourceType.Device.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
-            Assert.Empty(actualFhir.Identifier);
+            Assert.Equal("[{}]", JsonConvert.SerializeObject(actualFhir.Identifier));
             Assert.Empty(actualFhir.Type.Coding);
             Assert.Equal("", actualFhir.Manufacturer);
             Assert.Equal("cane", actualFhir.DeviceName.First().Name);

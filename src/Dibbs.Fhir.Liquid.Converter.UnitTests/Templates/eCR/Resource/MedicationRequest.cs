@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using Hl7.Fhir.Model;
 using Xunit;
+using System.Text.Json;
+using System.Reflection;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
@@ -74,6 +76,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(1, actualFhir.DispenseRequest.NumberOfRepeatsAllowed);
             var dosage = actualFhir.DosageInstruction.First();
             Assert.NotEmpty(dosage.Site);
+            Assert.Equal("Abdomen", dosage.Site.Coding.First().Code);
             Assert.NotEmpty(dosage.DoseAndRate);
             Assert.NotEmpty(dosage.Route);
         }

@@ -36,7 +36,7 @@
             {
                 "site": {
                     {% comment %} trust but verify {% endcomment %}
-                    {% include 'DataType/CodeableConcept', CodeableConcept: medicationRequest.approachSiteCode.first %}
+                    {% include 'DataType/CodeableConcept', CodeableConcept: medicationRequest.approachSiteCode %}
                 },
                 "route": { {% include 'DataType/CodeableConcept', CodeableConcept: medicationRequest.routeCode -%} },
                 {% if medicationRequest.doseQuantity.value %}

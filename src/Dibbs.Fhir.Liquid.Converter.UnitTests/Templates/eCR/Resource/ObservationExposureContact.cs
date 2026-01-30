@@ -193,7 +193,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
 
             var personFhir = GetFhirObjectFromTemplate<RelatedPerson>(
-                Path.Join(TestConstants.ECRTemplateDirectory, "Resource", "_RelatedPerson.liquid"),
+                Path.Join(TestConstants.ECRTemplateDirectory, "Resource", "RelatedPerson.liquid"),
                 personAttributes);
 
             Assert.Equal(ResourceType.RelatedPerson.ToString(), personFhir.TypeName);
@@ -284,7 +284,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
 
             var animalFhir = GetFhirObjectFromTemplate<RelatedPerson>(
-                Path.Join(TestConstants.ECRTemplateDirectory, "Resource", "_RelatedPersonAnimal.liquid"),
+                Path.Join(TestConstants.ECRTemplateDirectory, "Resource", "RelatedPersonAnimal.liquid"),
                 animalAttributes);
 
             Assert.Equal(ResourceType.RelatedPerson.ToString(), animalFhir.TypeName);

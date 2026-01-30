@@ -30,7 +30,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                     new { nullFlavor = "OTH", originalText = new { _ = "Ship Name" } }
                 }
             };
-            var expectedContent = @"""coding"": [ ], ""text"": ""Ship Name"",";
+            var expectedContent = @"""coding"": [ ],""text"": ""Ship Name"",";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -45,7 +45,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             attributes.Add("bindingStrength", "required");
 
             var expectedContent =
-                @"""coding"": [ ], ""extension"": [ { ""url"": ""http://hl7.org/fhir/StructureDefinition/data-absent-reason"", ""valueCode"": ""unknown"", },],";
+                @"""coding"": [ ], ""extension"": [{ ""url"": ""http://hl7.org/fhir/StructureDefinition/data-absent-reason"", ""valueCode"": ""unknown"", },],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -60,7 +60,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             attributes.Add("bindingStrength", "extensible");
 
             var expectedContent =
-                @"""coding"": [ { ""code"": ""unknown"", ""system"": ""http://terminology.hl7.org/CodeSystem/data-absent-reason"", }, ],";
+                @"""coding"": [ { ""code"": ""unknown"", ""system"": ""http://terminology.hl7.org/CodeSystem/data-absent-reason"", },],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -89,7 +89,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""coding"": [ { ""code"": ""49281-400-10"", ""system"": ""urn:oid:2.16.840.1.113883.6.69"", ""display"": """",}, ],";
+                @"""coding"": [ { ""code"": ""49281-400-10"",""system"": ""urn:oid:2.16.840.1.113883.6.69"",""display"": """",},],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
@@ -118,7 +118,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""coding"": [ { ""code"": """", ""system"": ""http://www.nlm.nih.gov/research/umls/rxnorm"", ""display"": """",}, { ""code"": ""410942007"", ""system"": ""http://snomed.info/sct"", ""display"": ""Drug or medicament"",}, ],";
+                @"""coding"": [ { ""code"": """",""system"": ""http://www.nlm.nih.gov/research/umls/rxnorm"",""display"": """",}, { ""code"": ""410942007"",""system"": ""http://snomed.info/sct"",""display"": ""Drug or medicament"",},],";
             ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 

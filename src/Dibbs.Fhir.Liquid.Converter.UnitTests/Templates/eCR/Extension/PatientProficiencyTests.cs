@@ -7,7 +7,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
     public class PatientProficiencyTests : BaseECRLiquidTests
     {
         private static readonly string ECRPath = Path.Join(
-            TestConstants.ECRTemplateDirectory, "Extension", "_PatientProficiency.liquid");
+            TestConstants.ECRTemplateDirectory, "Extension", "PatientProficiency.liquid");
 
         [Fact]
         public void GivenNoAttributeReturnsEmpty()

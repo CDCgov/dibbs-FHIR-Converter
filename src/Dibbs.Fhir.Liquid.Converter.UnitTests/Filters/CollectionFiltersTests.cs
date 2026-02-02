@@ -16,10 +16,10 @@ using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
-    public class CollectionFiltersTest
+    public class CollectionFiltersTests
     {
         private readonly FluidParser parser;
-        public CollectionFiltersTest()
+        public CollectionFiltersTests()
         {
             parser = new FluidParser();
         }
@@ -116,10 +116,28 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void NestedWhere_MatchIncludingValue_ReturnsMatch()
         {
             var context = new TemplateContext();
+            Dictionary<string, object>[] inputCollection = [ 
+                                new Dictionary<string, object> { 
+                                    { "test", new Dictionary<string, object> { 
+                                        { "path", "hi" } } 
+                                    } }, 
+                                    new Dictionary<string, object> { 
+                                        { "test", "bye" } 
+                                    }
+                                ];
+                                
+            Dictionary<string, object>[] expectedCollection = [
+                                new Dictionary<string, object> { 
+                                    { "test", new Dictionary<string, object> { 
+                                        { "path", "hi" } 
+                                    } 
+                                } }];
+
+            var expected = ArrayValue.Create(expectedCollection, new TemplateOptions());
             var actual = Filters.NestedWhere(
-              ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
+              ArrayValue.Create(inputCollection, new TemplateOptions()),
               new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
-            Assert.Equal(ArrayValue.Create(new object[] { new { test = new { path = "hi" } } }, new TemplateOptions()), actual);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]

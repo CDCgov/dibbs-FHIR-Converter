@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Globalization;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Xunit;
 
@@ -17,17 +18,17 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             parser = new FluidParser();
         }
 
-        private const string TestTemplate = @"{{ '\E' | escape_special_chars }}";
+        private const string TestTemplate = """
+        {% assign test = "\"test\"" %}{{ test | escape_special_chars }}
+        """;
 
-        private const string Expected = @"\\E";
+        private const string Expected = "\\\"test\\\"";
 
         [Fact]
         public void FiltersRenderingTest()
         {
             var template = parser.Parse(TestTemplate);
-            var templateOptions = new TemplateOptions();
-            templateOptions.Filters.AddFilter("escape_special_chars", Filters.EscapeSpecialChars);
-            var context = new TemplateContext(templateOptions);
+            var context = new TemplateContext(TemplateUtility.TemplateOptions);
 
             var actual = template.Render(context);
             Assert.Equal(Expected, actual);

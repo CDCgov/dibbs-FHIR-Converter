@@ -136,7 +136,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             // Filter entries where this key matches the target property (if provided)
             var filtered = entries
-                .Select(e => (e as DictionaryValue).GetValueAsync(thisKey, context).Result)
+                .Select(e => (e as DictionaryValue)?.GetValueAsync(thisKey, context).Result ?? NilValue.Instance)
                 .Where(v => !v.IsNil() && (thisTargetProperty == null || v.ToStringValue() == thisTargetProperty))
                 .ToList();
 

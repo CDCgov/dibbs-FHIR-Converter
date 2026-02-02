@@ -32,6 +32,11 @@ namespace Dibbs.Fhir.Liquid.Converter
 
         public static ValueTask<FluidValue> Match(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
+            if (arguments.At(0).IsNil())
+            {
+                throw new ArgumentNullException("Regex pattern argument cannot be null");
+            }
+
             var inputString = input.ToStringValue();
             if (string.IsNullOrEmpty(inputString))
             {

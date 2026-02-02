@@ -17,6 +17,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
+// TODO: The tests of templates that include other templates will not work unless we mock the IFileProvider that Fluid requires for imports
+// at that point we are just testing that Fluid knows how to use its file provider
+// We should rework these tests to test the CcdaProcessor without having to mock Fluid's file provider
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
 {
     public class ProcessorTests

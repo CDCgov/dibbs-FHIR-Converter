@@ -23,6 +23,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
             parser = new FluidParser();
         }   
 
+        [Fact]
         public void GivenValidInputs_WhenWriteToAsync_ValueShouldBeSetInContext()
         {
             var attributes = new Dictionary<string, Fluid.Ast.Expression>
@@ -32,7 +33,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
                     new LiteralExpression(StringValue.Create("foobar"))
                 }
             };
-            var evaluateStatement = new EvaluateStatement("id", "GenerateID", attributes);
+            var evaluateStatement = new EvaluateStatement("id", "GenerateId", attributes);
             var context = new TemplateContext();
             var content = "id_{{input}}";
             var template = parser.Parse(content);

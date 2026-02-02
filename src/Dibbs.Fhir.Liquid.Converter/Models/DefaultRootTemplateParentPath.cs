@@ -9,6 +9,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Models
     {
         Hl7v2,
         Ccda,
+        eCR,
         Json,
         Fhir,
         FhirToHl7v2,

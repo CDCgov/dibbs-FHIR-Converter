@@ -27,7 +27,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
             codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeMappingText);
         }
 
-        protected override DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; } = DefaultRootTemplateParentPath.Ccda;
+        protected override DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; } = DefaultRootTemplateParentPath.eCR;
 
         protected override string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider)
         {

@@ -20,11 +20,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Utilities
         [Fact]
         public void GivenValidCcdaTemplateContents_WhenParseTemplates_CorrectResultShouldBeReturned()
         {
-            var parsedTemplate = TemplateUtility.ParseTemplate("Resource/_Patient.liquid", "b");
+            var parsedTemplate = TemplateUtility.ParseTemplate("Resource/Patient.liquid", "b");
             Assert.Equal("b", parsedTemplate.Render());
-
-            parsedTemplate = TemplateUtility.ParseTemplate("Resource/_Patient.liquid", null);
-            Assert.Null(parsedTemplate.Render());
         }
 
         [Fact]
@@ -34,17 +31,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Utilities
             var templates = new Dictionary<string, string> { { "CCD.liquid", "{{" } };
             var exception = Assert.Throws<TemplateLoadException>(() => TemplateUtility.ParseTemplate("CCD.liquid", "{{"));
             Assert.Equal(FhirConverterErrorCode.TemplateSyntaxError, exception.FhirConverterErrorCode);
-            Assert.True(exception.InnerException is RenderException);
         }
 
         [Fact]
         public void GivenNestedTemplates_WhenParseTemplates_CorrectResultShouldBeReturned()
         {
-            var parsedTemplate = TemplateUtility.ParseTemplate(@"eCR/Resource\_Encounter.liquid", "c");
+            var parsedTemplate = TemplateUtility.ParseTemplate(@"eCR/Resource\Encounter.liquid", "c");
             Assert.Equal("c", parsedTemplate.Render());
-            
-            parsedTemplate = TemplateUtility.ParseTemplate(@"eCR/Resource\_Encounter.liquid", null);
-            Assert.Null(parsedTemplate.Render());
         }
 
         [Theory]

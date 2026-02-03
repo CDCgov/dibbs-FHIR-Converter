@@ -123,7 +123,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(sb.ToString());
         } */
 
-        private static bool HasMatchingPropertyRecursive(IEnumerable<FluidValue> entries, string keyPath, TemplateContext context, string targetProperty = null)
+        private static bool HasMatchingPropertyRecursive(IEnumerable<FluidValue> entries, string keyPath, TemplateContext context, FluidValue targetProperty)
         {
             if (entries == null || string.IsNullOrEmpty(keyPath))
             {
@@ -132,12 +132,12 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             var keys = keyPath.Split('.', StringSplitOptions.RemoveEmptyEntries);
             var thisKey = keys[0];
-            var thisTargetProperty = keys.Length == 1 ? targetProperty : null;
+            var thisTargetProperty = keys.Length == 1 ? targetProperty : NilValue.Instance;
 
             // Filter entries where this key matches the target property (if provided)
             var filtered = entries
                 .Select(e => (e as DictionaryValue)?.GetValueAsync(thisKey, context).Result ?? NilValue.Instance)
-                .Where(v => !v.IsNil() && (thisTargetProperty == null || v.ToStringValue() == thisTargetProperty))
+                .Where(v => !v.IsNil() && (thisTargetProperty.IsNil() || v.ToStringValue() == thisTargetProperty.ToStringValue()))
                 .ToList();
 
             if (!filtered.Any())
@@ -186,7 +186,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             var castedInput = input as ArrayValue;
             var inputEnumerable = castedInput.Enumerate(context);
-            var filteredInput = inputEnumerable.Where(entry => HasMatchingPropertyRecursive(new List<FluidValue>() { entry }, arguments.At(0).ToStringValue(), context, arguments.At(1).ToStringValue()));
+            var filteredInput = inputEnumerable.Where(entry => HasMatchingPropertyRecursive(new List<FluidValue>() { entry }, arguments.At(0).ToStringValue(), context, arguments.At(1)));
 
             return new ArrayValue(filteredInput.ToList());
         }

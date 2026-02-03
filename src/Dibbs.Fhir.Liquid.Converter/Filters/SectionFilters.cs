@@ -23,6 +23,16 @@ namespace Dibbs.Fhir.Liquid.Converter
         // Note: I removed the ability to include multiple templateIds to simplify the code because we weren't using it
         public static ValueTask<FluidValue> GetFirstCcdaSectionsByTemplateId(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
+            if (input.IsNil())
+            {
+                throw new NullReferenceException("Input data cannot be null.");
+            }
+
+            if (arguments.At(0).IsNil())
+            {
+                throw new NullReferenceException("Template id content cannot be null.");
+            }
+
             var result = new Dictionary<string, object>();
 
             if (input is DictionaryValue inputDict)
@@ -31,32 +41,31 @@ namespace Dibbs.Fhir.Liquid.Converter
 
                 if (components.IsNil())
                 {
-                    return NilValue.Instance;
+                    return FluidValue.Create(result, TemplateUtility.TemplateOptions);
                 }
 
-                var templateId = arguments.At(0).ToStringValue();
-
-                foreach (var component in components.Enumerate(context))
+                var templateIdContent = arguments.At(0).ToStringValue();
+                var templateIds = templateIdContent.Split("|", StringSplitOptions.RemoveEmptyEntries);
+                foreach (var templateId in templateIds)
                 {
-                    if (component is DictionaryValue componentDict
-                        && componentDict.GetValueAsync("section", context).Result is DictionaryValue sectionDict)
+                    foreach (var component in components.Enumerate(context))
                     {
-                        var templateIdSection = sectionDict.GetValueAsync("templateId", context).Result;
-                        if (!templateIdSection.IsNil())
+                        if (component is DictionaryValue componentDict
+                            && componentDict.GetValueAsync("section", context).Result is DictionaryValue sectionDict)
                         {
-                            var sectionJson = Fluid.Filters.MiscFilters.Json(templateIdSection, FilterArguments.Empty, context).Result.ToStringValue();
-                            if (sectionJson.Contains(templateId, StringComparison.InvariantCultureIgnoreCase))
+                            var templateIdSection = sectionDict.GetValueAsync("templateId", context).Result;
+                            if (!templateIdSection.IsNil())
                             {
-                                result[NormalizeSectionName(templateId)] = sectionDict;
-                                break;
+                                var sectionJson = Fluid.Filters.MiscFilters.Json(templateIdSection, FilterArguments.Empty, context).Result.ToStringValue();
+                                if (sectionJson.Contains(templateId, StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    result[NormalizeSectionName(templateId)] = sectionDict;
+                                    break;
+                                }
                             }
                         }
                     }
                 }
-            }
-            else
-            {
-                return NilValue.Instance;
             }
 
             return FluidValue.Create(result, TemplateUtility.TemplateOptions);

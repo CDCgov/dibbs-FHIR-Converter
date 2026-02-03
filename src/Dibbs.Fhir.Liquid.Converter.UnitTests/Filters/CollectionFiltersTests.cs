@@ -12,6 +12,7 @@ using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Fluid;
 using Fluid.Values;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client.Interfaces;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
@@ -96,10 +97,31 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void NestedWhere_Match_ReturnsMatch()
         {
             var context = new TemplateContext();
+            Dictionary<string, object>[] inputCollection = [ 
+                new Dictionary<string, object> { 
+                    { 
+                        "test", 
+                        new Dictionary<string, object> { 
+                            { "path", "hi" },
+                        }
+                    }
+                },     
+                new Dictionary<string, object> { 
+                    { "test", "bye" } 
+                }
+            ];
+            Dictionary<string, object>[] expectedCollection = [
+                new Dictionary<string, object> { 
+                    { "test", new Dictionary<string, object> { 
+                        { "path", "hi" } 
+                    } 
+                } }];
+            var expected = ArrayValue.Create(expectedCollection, new TemplateOptions());
+
             var actual = Filters.NestedWhere(
-              ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
+              ArrayValue.Create(inputCollection, new TemplateOptions()),
               new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
-            Assert.Equal(ArrayValue.Create(new object[] { new { test = new { path = "hi" } } }, new TemplateOptions()), actual);
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -144,14 +166,26 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         public void NestedWhere_MatchIncludingValueList_ReturnsMatch()
         {
             var context = new TemplateContext();
-            var actual = Filters.NestedWhere(
-            ArrayValue.Create(
-                new object[] {
-                    new { test = new object[] { new { path = "hi" } , new { path = "nope"} } },
-                    new { test = "bye" }
+
+            object[] path = [
+                new Dictionary<string, object> { 
+                    { "path", "hi" },
                 },
-                new TemplateOptions()),
-            new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
+                new Dictionary<string, object> { 
+                    { "path", "nope" },
+                }      
+            ];
+            Dictionary<string, object>[] inputCollection = [ 
+                new Dictionary<string, object> { 
+                    { "test", path }
+                },     
+                new Dictionary<string, object> { 
+                    { "test", "bye" } 
+                }
+            ];
+            var actual = Filters.NestedWhere(
+                ArrayValue.Create(inputCollection, new TemplateOptions()),
+                new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
             Assert.Equal(1, actual.Values.Count);
         }
     }

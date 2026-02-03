@@ -21,7 +21,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         [Fact]
         public void GetFirstCcdaSectionsByTemplateIdTests()
         {
-            const string templateIdContent = "2.16.840.1.113883.10.20.22.2.6.1";
+            const string templateIdContent = "2.16.840.1.113883.10.20.22.2.10";
             var context = new TemplateContext();
 
             // Empty data
@@ -33,7 +33,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             // Valid data and template id content
             var sections = Filters.GetFirstCcdaSectionsByTemplateId(DictionaryValue.Create(TestData, new TemplateOptions()), new FilterArguments(StringValue.Create(templateIdContent)), context).Result as DictionaryValue;
             Assert.Equal(1, sections.Enumerate(context).Count());
-            Assert.Equal(5, (sections.GetValueAsync("2_16_840_1_113883_10_20_22_2_6_1", context).Result as DictionaryValue).Enumerate(context).Count());
+            Assert.Equal(6, (sections.GetValueAsync("2_16_840_1_113883_10_20_22_2_10", context).Result as DictionaryValue).Enumerate(context).Count());
 
             // Null data or template id content
             Assert.Throws<NullReferenceException>(() => Filters.GetFirstCcdaSectionsByTemplateId(NilValue.Instance, new FilterArguments(StringValue.Create(templateIdContent)), context));
@@ -42,7 +42,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         private static Dictionary<string, object> LoadTestData()
         {
-            var dataContent = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "Ccda", "170.314B2_Amb_CCD.ccda"));
+            var dataContent = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "eCR", "yoda_eICR.xml"));
             var parser = new CcdaDataParser();
             return parser.Parse(dataContent) as Dictionary<string, object>;
         }

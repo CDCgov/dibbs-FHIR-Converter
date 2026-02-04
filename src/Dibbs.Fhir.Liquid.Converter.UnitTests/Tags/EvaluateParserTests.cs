@@ -25,5 +25,50 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
             var segment = (attributesDict["obj"] as MemberExpression).Segments[0];
             Assert.Equal("data", segment.GetType().GetProperty("Identifier").GetValue(segment));
         }
+
+        [Fact]
+        public void GivenInvalidTemplateName_WhenParser_ReturnsCorrectError()
+        {
+            var input = "id using abc123 obj: data";
+            var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
+            Assert.False(success);
+            Assert.Equal("A quoted string value is required for the template name in the evaluate tag", error.Message);
+        }
+
+        [Fact]
+        public void GivenNoTarget_WhenParser_ReturnsCorrectError()
+        {
+            var input = "using 'Utils/GenerateId' obj: data";
+            var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
+            Assert.False(success);
+            Assert.Equal("An identifier was expected after the 'evaluate' tag", error.Message);
+        }
+
+        [Fact]
+        public void GivenNoUsing_WhenParser_ReturnsCorrectError()
+        {
+            var input = "id 'Utils/GenerateId' obj: data";
+            var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
+            Assert.False(success);
+            Assert.Equal("Keyword 'using' was expected after the first identifier", error.Message);
+        }
+
+        [Fact]
+        public void GivenNoArgument_WhenParser_ReturnsCorrectError()
+        {
+            var input = "id using 'Utils/GenerateId'";
+            var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
+            Assert.False(success);
+            Assert.Equal("One argument is expected after template name", error.Message);
+        }
+
+        [Fact]
+        public void InvalidTag_WhenParser_ReturnsCorrectError()
+        {
+            var input = "this is a bad tag";
+            var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
+            Assert.False(success);
+            Assert.Equal("Invalid 'evaluate' tag", error.Message);
+        }
     }
 }

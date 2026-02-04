@@ -37,18 +37,18 @@ namespace Dibbs.Fhir.Liquid.Converter
             FilterArguments arguments,
             TemplateContext context)
         {
-            var inputArray = input as ArrayValue;
-            if (input.IsNil() || inputArray.Values.Count() == 0)
-            {
-                return StringValue.Empty;
-            }
-
             var templateName = arguments.At(0).ToStringValue();
             var variableName = arguments.At(1).ToStringValue();
             var collectionVarName = arguments.At(2).ToStringValue();
             var template = GetTemplate(context, templateName);
             var sb = new StringBuilder();
 
+            var inputArray = input as ArrayValue;
+            if (inputArray == null)
+            {
+                return StringValue.Empty;
+            }
+            
             foreach (var entry in inputArray.Enumerate(context))
             {
                 context.SetValue(variableName, entry);
@@ -62,15 +62,10 @@ namespace Dibbs.Fhir.Liquid.Converter
                 sb.Append(',');
             }
 
-            if (sb.Length > 0)
-            {
-                sb.Length--;
-            }
-
             return StringValue.Create(sb.ToString());
         }
 
-        // TODO: I'd like to explore this futher when we get the chance
+        // TODO: I'd like to explore this further when we get the chance
         /* public static async ValueTask<FluidValue> BatchRenderParallel(
                 FluidValue input,
                 FilterArguments arguments,
@@ -195,7 +190,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         {
             // Using this rather than context.Options.FileProvider since TemplateFileSystem handles caching for us
             var templateFileSystem = context.GetValue("file_system").ToObjectValue() as IFhirConverterTemplateFileSystem;
-            var template = templateFileSystem?.GetTemplate(templateName, TemplateUtility.TemplateDirectory);
+            var template = templateFileSystem?.GetTemplate(templateName, context.GetValue(TemplateUtility.RootTemplateParentPathScope).ToStringValue());
 
             if (template == null)
             {

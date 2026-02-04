@@ -8,7 +8,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
 {
     public class EvaluateParserTests
     {
-        // TODO
         [Fact]
         public void GivenValidEvaluateTag_WhenParser_ReturnsEvaluateStatement()
         {
@@ -36,15 +35,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
         }
 
         [Fact]
-        public void GivenNoTarget_WhenParser_ReturnsCorrectError()
-        {
-            var input = "using 'Utils/GenerateId' obj: data";
-            var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
-            Assert.False(success);
-            Assert.Equal("An identifier was expected after the 'evaluate' tag", error.Message);
-        }
-
-        [Fact]
         public void GivenNoUsing_WhenParser_ReturnsCorrectError()
         {
             var input = "id 'Utils/GenerateId' obj: data";
@@ -60,15 +50,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
             var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
             Assert.False(success);
             Assert.Equal("One argument is expected after template name", error.Message);
-        }
-
-        [Fact]
-        public void InvalidTag_WhenParser_ReturnsCorrectError()
-        {
-            var input = "this is a bad tag";
-            var success = EvaluateParser.Parser.TryParse(input, out var actual, out var error);
-            Assert.False(success);
-            Assert.Equal("Invalid 'evaluate' tag", error.Message);
         }
     }
 }

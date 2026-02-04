@@ -53,17 +53,16 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
             var collection = new List<object> { 1, 2, 3 };
             Assert.Equal("1 ,2 ,3 ,", Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context).Result.ToStringValue());
-
             // Valid template file system but null collection
             Assert.Equal(string.Empty, Filters.BatchRender(NilValue.Instance,  new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context).Result.ToStringValue());
 
             // No template file system
             context = new TemplateContext(CultureInfo.InvariantCulture);
-            var exception = Assert.Throws<RenderException>(() => Filters.BatchRender(NilValue.Instance, new FilterArguments([StringValue.Create("foo"), StringValue.Create("bar")]), context));
+            var exception = Assert.Throws<RenderException>(() => Filters.BatchRender(NilValue.Instance, new FilterArguments([StringValue.Create("foo"), StringValue.Create("bar")]), context).Result);
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
 
             // Valid template file system but non-existing template
-            exception = Assert.Throws<RenderException>(() => Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("bar"), StringValue.Create("i")]), context));
+            exception = Assert.Throws<RenderException>(() => Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("bar"), StringValue.Create("i")]), context).Result);
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
         }
 

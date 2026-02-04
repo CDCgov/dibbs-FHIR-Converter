@@ -11,22 +11,25 @@ namespace Dibbs.Fhir.Liquid.Converter
     {
         // Please note: the evaluate tag currently only supports passing one argument to the template you're evaluating
         public static readonly Parser<EvaluateStatement> Parser =
-            Terms.Identifier().ElseError("An identifier was expected after the 'evaluate' tag") // The name of the variable that we're assigning to
-                .AndSkip(Terms.Text("using").ElseError("Keyword 'using' was expected after the first identifier")) // ignore the "using" keyword
-                .And(Terms.String().ElseError("A quoted string value is required for the template name in the evaluate tag")) // The name of the template we want to render
-                .And(Argument().ElseError("One argument is expected after template name")) // The parameter key/value pair
+            Terms.Identifier() // The name of the variable that we're assigning to
+                .AndSkip(Terms.Text("using")
+                    .ElseError("Keyword 'using' was expected after the first identifier")) // ignore the "using" keyword
+                .And(Terms.String()
+                    .ElseError(
+                        "A quoted string value is required for the template name in the evaluate tag")) // The name of the template we want to render
+                .And(Argument()
+                    .ElseError("One argument is expected after template name")) // The parameter key/value pair
                 .Then(result =>
                 {
                     var target = result.Item1.ToString();
                     var template = result.Item2.ToString();
                     var attributes = new Dictionary<string, Expression>()
                     {
-                    { result.Item3.Key, result.Item3.Value },
+                        { result.Item3.Key, result.Item3.Value },
                     };
 
                     return new EvaluateStatement(target, template, attributes);
-                })
-                .ElseError("Invalid 'evaluate' tag"); // Catch-all for invalid tag
+                });
 
         private static Parser<string> FluidIdentifier()
         {

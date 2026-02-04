@@ -27,18 +27,21 @@ namespace Dibbs.Fhir.Liquid.Converter.FileSystems
 
         public IFluidTemplate GetTemplate(TemplateContext context, string templateName)
         {
-            var templatePath = GetTemplatePath(context, templateName);
-            if (templatePath == null)
+            try
+            {
+                var templatePath = GetTemplatePath(context, templateName);
+
+                return GetTemplate(templatePath)
+                ?? throw new RenderException(
+                    FhirConverterErrorCode.TemplateNotFound,
+                    string.Format(Resources.TemplateNotFound, templatePath));
+            }
+            catch (Exception e)
             {
                 throw new RenderException(
                     FhirConverterErrorCode.TemplateNotFound,
                     string.Format(Resources.TemplateNotFound, templateName));
             }
-
-            return GetTemplate(templatePath)
-                ?? throw new RenderException(
-                    FhirConverterErrorCode.TemplateNotFound,
-                    string.Format(Resources.TemplateNotFound, templatePath));
         }
 
         public IFluidTemplate GetTemplate(string templateName, string rootTemplateParentPath = "")

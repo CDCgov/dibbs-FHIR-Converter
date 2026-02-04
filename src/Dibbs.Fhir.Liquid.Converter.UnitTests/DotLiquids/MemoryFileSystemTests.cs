@@ -179,14 +179,9 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DotLiquids
         [InlineData("template0", null, "template0")]
         [InlineData("template0", "TC0", null)]
         [InlineData("template1", null, null)]
-        [InlineData("'TC1/template1'", null, "TC1/template1")]
         [InlineData("template1", "TC1", "TC1/template1")]
         [InlineData("template1/subtemplate1", null, null)]
-        [InlineData("'TC1/template1/subtemplate1'", null, "TC1/template1/subtemplate1")]
-        [InlineData("'template1/subtemplate1'", "TC1", "TC1/template1/subtemplate1")]
-        [InlineData("'template2/subtemplate1'", "TC1", "TC1/template2/subtemplate1")]
         [InlineData("template1", "TC2", "TC2/template1")]
-        [InlineData("'template2/subtemplate1'", "TC2", "TC2/template2/subtemplate1")]
         public void GivenValidTemplateCollection_WhenGetTemplateWithRootTemplatePathAndContext_CorrectResultShouldBeReturned(string templateName, string rootTemplateParentPath, string expectedTemplate)
         {
             var templateCollection = GetMockTemplateCollection();

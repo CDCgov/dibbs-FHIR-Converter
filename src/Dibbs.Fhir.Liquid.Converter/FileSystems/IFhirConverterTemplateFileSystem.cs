@@ -9,6 +9,8 @@ namespace Dibbs.Fhir.Liquid.Converter.FileSystems
 {
     public interface IFhirConverterTemplateFileSystem
     {
+        public IFluidTemplate GetTemplate(TemplateContext context, string templateName);
+
         public IFluidTemplate GetTemplate(string templateName, string rootTemplatePath = "");
     }
 }

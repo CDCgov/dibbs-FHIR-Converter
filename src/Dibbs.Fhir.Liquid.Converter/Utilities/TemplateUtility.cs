@@ -153,6 +153,12 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
             return templateKey.EndsWith("ValueSet/ValueSet", StringComparison.InvariantCultureIgnoreCase);
         }
 
+        public static string GetRootTemplateParentPath(string rootTemplate)
+        {
+            string[] rootTemplateParts = rootTemplate.Split('/');
+            return string.Join("/", rootTemplateParts, 0, rootTemplateParts.Length - 1);
+        }
+
         public static string GetFormattedTemplatePath(string templateName, string rootTemplateParentPath = "")
         {
             return string.IsNullOrEmpty(rootTemplateParentPath) ? templateName : string.Format("{0}/{1}", rootTemplateParentPath, templateName);

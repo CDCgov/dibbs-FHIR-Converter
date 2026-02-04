@@ -30,7 +30,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
 
         protected virtual string DataKey { get; set; } = "msg";
 
-        protected virtual DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; }
+        protected virtual string DefaultRootTemplateParentPath { get; set; }
 
         public string Convert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider)
         {
@@ -49,6 +49,8 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
 
             // Used later for batch rendering since TemplateFileSystem handles caching for us
             context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
+
+            AddRootTemplatePathScope(context, templateProvider, rootTemplate);
 
             return context;
         }
@@ -100,6 +102,13 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
                 Console.WriteLine("Ex: {1} StackTrace: '{0}'", Environment.StackTrace, ex);
                 throw new RenderException(FhirConverterErrorCode.TemplateRenderingError, string.Format(Resources.TemplateRenderingError, ex.Message), ex);
             }
+        }
+
+        protected void AddRootTemplatePathScope(TemplateContext context, ITemplateProvider templateProvider, string rootTemplate)
+        {
+            // Add path to root template's parent. In case of default template provider, use the data type as the parent path, else use the parent path set in the context.
+            var rootTemplatePath = templateProvider.IsDefaultTemplateProvider ? DefaultRootTemplateParentPath : TemplateUtility.GetRootTemplateParentPath(rootTemplate);
+            context.SetValue(TemplateUtility.RootTemplateParentPathScope, rootTemplatePath);
         }
     }
 }

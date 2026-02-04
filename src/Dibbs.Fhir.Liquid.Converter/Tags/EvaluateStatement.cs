@@ -34,7 +34,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             TemplateContext context)
         {
             var templateFileSystem = context.GetValue("file_system").ToObjectValue() as IFhirConverterTemplateFileSystem;
-            var template = templateFileSystem?.GetTemplate(_templateName, TemplateUtility.TemplateDirectory);
+            var template = templateFileSystem?.GetTemplate(_templateName, context.GetValue(TemplateUtility.RootTemplateParentPathScope).ToStringValue());
 
             if (template == null)
             {

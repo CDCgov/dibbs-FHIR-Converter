@@ -33,6 +33,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
                     new LiteralExpression(StringValue.Create("foobar"))
                 }
             };
+            
             var evaluateStatement = new EvaluateStatement("id", "GenerateId", attributes);
             var context = new TemplateContext();
             var content = "id_{{input}}";
@@ -44,15 +45,27 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
                     template
                 }
             };
+
             var fileSystem = new MemoryFileSystem(new List<Dictionary<string, IFluidTemplate>>
             {
                 fileSystemDict
             });
+
             context.SetValue("file_system", fileSystem);
-
-            evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context);
-
+            var result = evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context).Result;
             Assert.Equal("id_foobar", context.GetValue("id").ToStringValue());
+            Assert.Equal(Completion.Normal, result);
+        }
+
+        [Fact]
+        public void GivenTemplateDoesNotExist_WhenWriteToAsync_ShouldThrow()
+        {           
+            var evaluateStatement = new EvaluateStatement("id", "DNE", new Dictionary<string, Fluid.Ast.Expression>());
+            var context = new TemplateContext();
+            var fileSystem = new MemoryFileSystem(new List<Dictionary<string, IFluidTemplate>>());
+            context.SetValue("file_system", fileSystem);
+            
+            Assert.Throws<RenderException>(() => evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context).Result);
         }
     }
 }

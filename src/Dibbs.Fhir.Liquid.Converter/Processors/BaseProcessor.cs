@@ -32,18 +32,18 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
 
         protected virtual string DefaultRootTemplateParentPath { get; set; }
 
-        public string Convert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider)
+        public string Convert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider)
         {
-            string result = InternalConvert(data, rootTemplate, templatesPath, templateProvider);
+            string result = InternalConvert(data, rootTemplate, templatesPath, templateProvider, fileProvider);
             return result;
         }
 
-        protected abstract string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider);
+        protected abstract string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider);
 
-        protected virtual TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
+        protected virtual TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate, IFileProvider fileProvider)
         {
             // We initialize Fluid's file provider which is used for includes
-            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
+            // var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
             TemplateUtility.TemplateOptions.FileProvider = fileProvider;
             var context = new TemplateContext(data, TemplateUtility.TemplateOptions);
 
@@ -55,7 +55,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
             return context;
         }
 
-        protected string InternalConvertFromObject(object data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider)
+        protected string InternalConvertFromObject(object data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider)
         {
             if (string.IsNullOrEmpty(rootTemplate))
             {
@@ -76,7 +76,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
             }
 
             var dictionary = new Dictionary<string, object> { { DataKey, data } };
-            var context = CreateContext(templateProvider, dictionary, rootTemplate);
+            var context = CreateContext(templateProvider, dictionary, rootTemplate, fileProvider);
             string rawResult = RenderTemplates(template, context);
             JObject result = PostProcessor.Process(rawResult);
 

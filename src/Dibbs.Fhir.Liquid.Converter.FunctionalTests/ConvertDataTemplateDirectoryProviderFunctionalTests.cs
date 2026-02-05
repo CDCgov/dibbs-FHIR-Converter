@@ -11,6 +11,7 @@ using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Processors;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
+using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -32,9 +33,10 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "CcdaTestTimezoneInput.ccda");
             var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
             var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
 
             var inputContent = File.ReadAllText(inputFile);
-            var actualContent = ccdaProcessor.Convert(inputContent, "CcdaTestTimezoneTemplate", templateDirectory, new TemplateProvider(templateDirectory));
+            var actualContent = ccdaProcessor.Convert(inputContent, "CcdaTestTimezoneTemplate", templateDirectory, new TemplateProvider(templateDirectory), fileProvider);
 
             var actualObject = JsonConvert.DeserializeObject<Dictionary<string, string>>(actualContent);
 
@@ -78,6 +80,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
         {
             var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
             var parser = new FluidParser();
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
             var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
                 new Dictionary<string, IFluidTemplate>
@@ -86,7 +89,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
                 },
             };
 
-            var exception = Assert.Throws<RenderException>(() => ccdaProcessor.Convert(@"<ClinicalDocument></ClinicalDocument>", "template", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection)));
+            var exception = Assert.Throws<RenderException>(() => ccdaProcessor.Convert(@"<ClinicalDocument></ClinicalDocument>", "template", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection), fileProvider));
             Console.WriteLine("#####");
             Console.WriteLine(exception.InnerException.GetType());
             Assert.True(exception.InnerException is RenderException);

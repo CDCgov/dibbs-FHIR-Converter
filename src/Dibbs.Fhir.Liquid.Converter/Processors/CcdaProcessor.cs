@@ -11,6 +11,7 @@ using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Fluid.Values;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 
 namespace Dibbs.Fhir.Liquid.Converter.Processors
@@ -29,15 +30,15 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
 
         protected override string DefaultRootTemplateParentPath { get; set; } = "eCR";
 
-        protected override string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider)
+        protected override string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider)
         {
             object ccdaData = parser.Parse(data);
-            return InternalConvertFromObject(ccdaData, rootTemplate, templatesPath, templateProvider);
+            return InternalConvertFromObject(ccdaData, rootTemplate, templatesPath, templateProvider, fileProvider);
         }
 
-        protected override TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
+        protected override TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate, IFileProvider fileProvider)
         {
-            var context = base.CreateContext(templateProvider, data, rootTemplate);
+            var context = base.CreateContext(templateProvider, data, rootTemplate, fileProvider);
 
             if (codeMapping.Mapping.Keys.Count > 0)
             {

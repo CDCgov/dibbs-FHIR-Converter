@@ -7,9 +7,11 @@ using Dibbs.FhirConverterApi;
 using Dibbs.FhirConverterApi.Models;
 using Dibbs.FhirConverterApi.Processors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 
 var dataProcessor = new CcdaProcessor(ConsoleLoggerFactory.CreateLogger<CcdaProcessor>());
 var templateProvider = new TemplateProvider(TemplateUtility.TemplateDirectory);
+var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,7 +67,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
     try
     {
-        var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider);
+        var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
         var newResult = FhirProcessor.FhirBundlePostProcessing(result, inputType);
         return Results.Text(newResult, contentType: "application/json");
     }

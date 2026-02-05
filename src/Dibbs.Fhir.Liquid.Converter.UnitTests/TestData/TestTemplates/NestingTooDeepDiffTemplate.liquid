@@ -1,5 +1,2 @@
-﻿{% mergeDiff msg -%}
-{
-    "value": {% include 'NestingTooDeepDiffTemplate' msg:msg -%}
-}
-{% endmergeDiff -%}
+﻿{% assign test = "cheezbuger" %}
+{% evaluate someVariableName using 'NestingTooDeepDiffTemplate' input: test %}

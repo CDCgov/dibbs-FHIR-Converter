@@ -3,10 +3,12 @@
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
 
+using Microsoft.Extensions.FileProviders;
+
 namespace Dibbs.Fhir.Liquid.Converter.Processors
 {
     public interface IFhirConverter
     {
-        public string Convert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider);
+        public string Convert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider);
     }
 }

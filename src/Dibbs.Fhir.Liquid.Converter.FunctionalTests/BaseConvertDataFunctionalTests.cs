@@ -23,6 +23,7 @@ using Hl7.Fhir.Validation;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Processors;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
@@ -62,8 +63,9 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
         protected void ConvertCCDAMessageAndValidateExpectedResponse(ITemplateProvider templateProvider, string rootTemplate, string inputFile, string expectedFile)
         {
             var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
             var inputContent = File.ReadAllText(inputFile);
-            var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider);
+            var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
 
             var updateSnapshot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";
             if (true)
@@ -103,7 +105,8 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
 
             var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
             var inputContent = File.ReadAllText(inputFile);
-            var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider);
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
+            var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
 
             var fhirJsonPocoDeserializerSettings = new FhirJsonPocoDeserializerSettings()
             {

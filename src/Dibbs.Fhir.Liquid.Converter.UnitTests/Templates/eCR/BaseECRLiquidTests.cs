@@ -40,15 +40,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 TestConstants.ECRTemplateDirectory
             );
 
+            var options = new TemplateOptions();
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TestConstants.ECRTemplateDirectory));
-            TemplateUtility.TemplateOptions.FileProvider = fileProvider;
+            options.FileProvider = fileProvider;
 
             // This is necessary so that we can access child objects from context
-            TemplateUtility.TemplateOptions.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
-
-            var context = new TemplateContext(
-                TemplateUtility.TemplateOptions
-            );
+            options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
+            TemplateUtility.AddFilters(options);
+            var context = new TemplateContext(options);
 
             context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 

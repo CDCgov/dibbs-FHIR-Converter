@@ -62,7 +62,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
 
         protected void ConvertCCDAMessageAndValidateExpectedResponse(ITemplateProvider templateProvider, string rootTemplate, string inputFile, string expectedFile)
         {
-            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
             var inputContent = File.ReadAllText(inputFile);
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
@@ -103,7 +103,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var validateFhir = Environment.GetEnvironmentVariable("VALIDATE_FHIR") ?? "false";
             if (validateFhir.Trim() == "false") return;
 
-            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
             var inputContent = File.ReadAllText(inputFile);
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);

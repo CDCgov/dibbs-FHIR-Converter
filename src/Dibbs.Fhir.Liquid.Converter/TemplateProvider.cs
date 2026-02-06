@@ -19,7 +19,6 @@ namespace Dibbs.Fhir.Liquid.Converter
             _fileSystem = new TemplateLocalFileSystem(templateDirectory);
         }
 
-        // TODO: We don't use MemoryFileSystem in our implementation but I'm keeping support for it for now in case it is helpful in our testing
         public TemplateProvider(List<Dictionary<string, IFluidTemplate>> templateCollection, bool isDefaultTemplateProvider = false)
         {
             _fileSystem = new MemoryFileSystem(templateCollection);

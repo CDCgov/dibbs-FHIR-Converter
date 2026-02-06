@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection.Metadata;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Processors;
@@ -31,7 +32,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
         public void GivenCcdaMessageForTimezoneTesting_WhenConvert_ExpectedResultShouldBeReturned()
         {
             var inputFile = Path.Combine(Constants.TestDataDirectory, "TimezoneHandling", "Input", "CcdaTestTimezoneInput.ccda");
-            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
             var templateDirectory = Path.Join(Constants.TestDataDirectory, "TimezoneHandling", "Template");
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
 
@@ -74,25 +75,15 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             );
         }
 
-        // TODO: Fix error
         [Fact]
         public void GivenAnInvalidTemplate_WhenConverting_ExceptionsShouldBeThrown()
         {
-            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
-            var parser = new FluidParser();
-            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
-            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
-            {
-                new Dictionary<string, IFluidTemplate>
-                {
-                    { "template", parser.Parse("{% include 'template' -%}") },
-                },
-            };
-
-            var exception = Assert.Throws<RenderException>(() => ccdaProcessor.Convert(@"<ClinicalDocument></ClinicalDocument>", "template", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection), fileProvider));
-            Console.WriteLine("#####");
-            Console.WriteLine(exception.InnerException.GetType());
-            Assert.True(exception.InnerException is RenderException);
+            var templateOptions = new TemplateOptions();
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), templateOptions);
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(Constants.TestTemplatesDirectory));
+            
+            var exception = Assert.Throws<RenderException>(() => ccdaProcessor.Convert(@"<ClinicalDocument></ClinicalDocument>", "NestingTooDeepTemplate", TemplateUtility.TemplateDirectory, new TemplateProvider(Constants.TestTemplatesDirectory), fileProvider));
+            Assert.True(exception.InnerException is InvalidOperationException);
         }
     }
 }

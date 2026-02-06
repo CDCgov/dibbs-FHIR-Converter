@@ -19,9 +19,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-// TODO: The tests of templates that include other templates will not work unless we mock the IFileProvider that Fluid requires for imports
-// at that point we are just testing that Fluid knows how to use its file provider
-// We should rework these tests to test the CcdaProcessor without having to mock Fluid's file provider
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
 {
     public class ProcessorTests
@@ -92,8 +89,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
         {
             var rootTemplate = @"{% include 'Sub/Template1' -%}";
             var subTemplate = @"{""root"":""subtemplate1""}";
-            var folder1SubTemplate = @"{""Folder1"":""subtemplate1""}";
-            var folder2SubTemplate = @"{""Folder2"":""subtemplate1""}";
 
             var templateCollection = new List<Dictionary<string, IFluidTemplate>>
             {
@@ -102,9 +97,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
                     { "Template1", _parser.Parse(rootTemplate) },
                     { "Sub/Template1", _parser.Parse(subTemplate) },
                     { "Folder1/Template1", _parser.Parse(rootTemplate) },
-                    { "Folder1/Sub/Template1", _parser.Parse(folder1SubTemplate) },
-                    { "Folder2/Template1", _parser.Parse(rootTemplate) },
-                    { "Folder2/Sub/Template1", _parser.Parse(folder2SubTemplate) },
                 },
             };
 
@@ -112,12 +104,9 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             fileProvider.Add("Template1.liquid", rootTemplate);
             fileProvider.Add("Sub/Template1.liquid", subTemplate);
             fileProvider.Add("Folder1/Template1.liquid", rootTemplate);
-            fileProvider.Add("Folder1/Sub/Template1.liquid", folder1SubTemplate);
-            fileProvider.Add("Folder2/Template1.liquid", rootTemplate);
-            fileProvider.Add("Folder2/Sub/Template1.liquid", folder2SubTemplate);
 
             var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
-            yield return new object[] { ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData, subTemplate, folder1SubTemplate, folder2SubTemplate, fileProvider };
+            yield return new object[] { ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData, subTemplate, fileProvider };
         }
 
 
@@ -178,19 +167,15 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
         
         [Theory]
         [MemberData(nameof(GetNestedTemplateCollection))]
-        public void GivenNestedTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string expectedSubTemplate, string expectedFolder1SubTemplate, string expectedFolder2SubTemplate, IFileProvider fileProvider)
+        public void GivenNestedTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string expectedSubTemplate, IFileProvider fileProvider)
         {
             var result = processor.Convert(data, "Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
             Assert.Equal(expectedSubTemplate, Regex.Replace(result, @"\s", string.Empty));
         
+            // Fluid works differently from DotLiquid. 
+            // Make sure your template paths and include tags are always relative to the root path (i.e. data/Templates/eCR).
             result = processor.Convert(data, "Folder1/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-            Assert.Equal(expectedFolder1SubTemplate, Regex.Replace(result, @"\s", string.Empty));
-        
-            result = processor.Convert(data, "Folder2/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-            Assert.Equal(expectedFolder2SubTemplate, Regex.Replace(result, @"\s", string.Empty));
-        
-            result = processor.Convert(data, "Folder2/Sub/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-            Assert.Equal(expectedFolder2SubTemplate, Regex.Replace(result, @"\s", string.Empty));
+            Assert.Equal(expectedSubTemplate, Regex.Replace(result, @"\s", string.Empty)); 
         
             var exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NonExistentTemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);

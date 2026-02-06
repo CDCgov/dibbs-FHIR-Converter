@@ -21,6 +21,35 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         private static JsonDocumentOptions jsonDeserializeOptions =
             new() { AllowTrailingCommas = true, };
 
+        private static TemplateOptions templateOptions;
+        private static ITemplateProvider templateProvider;
+        private static CodeMapping codeMapping;
+
+        static BaseECRLiquidTests()
+        {
+            var options = new TemplateOptions();
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TestConstants.ECRTemplateDirectory));
+            options.FileProvider = fileProvider;
+
+            // This is necessary so that we can access child objects from context
+            options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
+            TemplateUtility.AddFilters(options);
+
+            templateOptions = options;
+
+            // Set up the context
+            templateProvider = new TemplateProvider(
+                TestConstants.ECRTemplateDirectory
+            );
+
+            // Add the value sets to the context
+            var codeContent = File.ReadAllText(
+                Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json")
+            );
+
+            codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeContent);
+        }
+
         /// <summary>
         /// Given a path to an eCR template, and attributes, render the template.
         /// </summary>
@@ -35,28 +64,9 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var template = TemplateUtility.ParseLiquidTemplate(templatePath, templateContent);
             Assert.True(template != null);
 
-            // Set up the context
-            var templateProvider = new TemplateProvider(
-                TestConstants.ECRTemplateDirectory
-            );
-
-            var options = new TemplateOptions();
-            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TestConstants.ECRTemplateDirectory));
-            options.FileProvider = fileProvider;
-
-            // This is necessary so that we can access child objects from context
-            options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
-            TemplateUtility.AddFilters(options);
-            var context = new TemplateContext(options);
-
+            var context = new TemplateContext(templateOptions);
             context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 
-            // Add the value sets to the context
-            var codeContent = File.ReadAllText(
-                Path.Join(TestConstants.ECRTemplateDirectory, "ValueSet", "ValueSet.json")
-            );
-
-            var codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeContent);
             if (codeMapping != null)
             {
                 context.SetValue("CodeMapping", codeMapping);

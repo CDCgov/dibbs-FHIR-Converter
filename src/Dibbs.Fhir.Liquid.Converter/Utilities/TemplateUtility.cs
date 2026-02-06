@@ -29,9 +29,11 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
             {
                 return await evaluateTag.WriteToAsync(w, e, c);
             });
-            
-            templateOptions = new TemplateOptions();
-            templateOptions.MaxSteps = 100000;
+
+            templateOptions = new TemplateOptions
+            {
+                MaxSteps = 10000000,
+            };
             AddFilters(templateOptions);
         }
 

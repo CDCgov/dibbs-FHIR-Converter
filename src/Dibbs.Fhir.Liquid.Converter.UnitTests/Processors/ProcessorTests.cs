@@ -11,6 +11,7 @@ using System.Threading;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Processors;
+using Dibbs.Fhir.Liquid.Converter.UnitTests.Mocks;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Microsoft.Extensions.FileProviders;
@@ -68,7 +69,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
                 },
             };
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection, isDefaultTemplateProvider: true), _ecrTestData, ecrSubTemplate };
+            var fileProvider = new MockFileProvider();
+            fileProvider.Add("Template1.liquid", rootTemplate);
+            fileProvider.Add("Sub/Template1.liquid", ecrSubTemplate);
+
+            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection, isDefaultTemplateProvider: true), _ecrTestData, ecrSubTemplate, fileProvider };
         }
 
         public static IEnumerable<object[]> GetNestedTemplateCollection()
@@ -91,7 +96,15 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
                 },
             };
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData, subTemplate, folder1SubTemplate, folder2SubTemplate };
+            var fileProvider = new MockFileProvider();
+            fileProvider.Add("Template1.liquid", rootTemplate);
+            fileProvider.Add("Sub/Template1.liquid", subTemplate);
+            fileProvider.Add("Folder1/Template1.liquid", rootTemplate);
+            fileProvider.Add("Folder1/Sub/Template1.liquid", folder1SubTemplate);
+            fileProvider.Add("Folder2/Template1.liquid", rootTemplate);
+            fileProvider.Add("Folder2/Sub/Template1.liquid", folder2SubTemplate);
+
+            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData, subTemplate, folder1SubTemplate, folder2SubTemplate, fileProvider };
         }
 
 
@@ -115,74 +128,78 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             };
         }
 
-        // [Theory]
-        // [MemberData(nameof(GetValidInputsWithTemplateDirectory))]
-        // public void GivenAValidTemplateDirectory_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string rootTemplate)
-        // {
-        //     var result = processor.Convert(data, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.True(result.Length > 0);
-        // }
-        //
-        // [Theory]
-        // [MemberData(nameof(GetValidInputsWithTemplateCollection))]
-        // public void GivenAValidTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data)
-        // {
-        //     var result = processor.Convert(data, "TemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.True(result.Length > 0);
-        // }
-        //
-        // [Theory]
-        // [MemberData(nameof(GetMockDefaultTemplateCollection))]
-        // public void GivenDefaultTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string expectedTemplate)
-        // {
-        //     var result = processor.Convert(data, "Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.Equal(expectedTemplate, Regex.Replace(result, @"\s", string.Empty));
-        //
-        //     result = processor.Convert(data, "Sub/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.Equal(expectedTemplate, Regex.Replace(result, @"\s", string.Empty));
-        //
-        //     var exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NonExistentTemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
-        //     Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
-        // }
-        //
-        // [Theory]
-        // [MemberData(nameof(GetNestedTemplateCollection))]
-        // public void GivenNestedTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string expectedSubTemplate, string expectedFolder1SubTemplate, string expectedFolder2SubTemplate)
-        // {
-        //     var result = processor.Convert(data, "Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.Equal(expectedSubTemplate, Regex.Replace(result, @"\s", string.Empty));
-        //
-        //     result = processor.Convert(data, "Folder1/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.Equal(expectedFolder1SubTemplate, Regex.Replace(result, @"\s", string.Empty));
-        //
-        //     result = processor.Convert(data, "Folder2/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.Equal(expectedFolder2SubTemplate, Regex.Replace(result, @"\s", string.Empty));
-        //
-        //     result = processor.Convert(data, "Folder2/Sub/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        //     Assert.Equal(expectedFolder2SubTemplate, Regex.Replace(result, @"\s", string.Empty));
-        //
-        //     var exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NonExistentTemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
-        //     Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
-        // }
-        //
-        // [Theory]
-        // [MemberData(nameof(GetValidInputsWithTemplateCollection))]
-        // public void GivenInvalidTemplateProviderOrName_WhenConvert_ExceptionsShouldBeThrown(IFhirConverter processor, ITemplateProvider templateProvider, string data)
-        // {
-        //     // Null, empty or nonexistent root template
-        //     var exception = Assert.Throws<RenderException>(() => processor.Convert(data, null, TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
-        //     Assert.Equal(FhirConverterErrorCode.NullOrEmptyRootTemplate, exception.FhirConverterErrorCode);
-        //
-        //     exception = Assert.Throws<RenderException>(() => processor.Convert(data, string.Empty, TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
-        //     Assert.Equal(FhirConverterErrorCode.NullOrEmptyRootTemplate, exception.FhirConverterErrorCode);
-        //
-        //     exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NonExistentTemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
-        //     Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
-        //
-        //     // Null TemplateProvider
-        //     exception = Assert.Throws<RenderException>(() => processor.Convert(data, "TemplateName", TemplateUtility.TemplateDirectory, null));
-        //     Assert.Equal(FhirConverterErrorCode.NullTemplateProvider, exception.FhirConverterErrorCode);
-        // }
+        [Theory]
+        [MemberData(nameof(GetValidInputsWithTemplateDirectory))]
+        public void GivenAValidTemplateDirectory_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string rootTemplate)
+        {
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TestConstants.ECRTemplateDirectory));
+            var result = processor.Convert(data, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.True(result.Length > 0);
+        }
+        
+        [Theory]
+        [MemberData(nameof(GetValidInputsWithTemplateCollection))]
+        public void GivenAValidTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data)
+        {
+            var fileProvider = new MockFileProvider();
+            var result = processor.Convert(data, "TemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.True(result.Length > 0);
+        }
+        
+        [Theory]
+        [MemberData(nameof(GetMockDefaultTemplateCollection))]
+        public void GivenDefaultTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string expectedTemplate, IFileProvider fileProvider)
+        {
+            var result = processor.Convert(data, "Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.Equal(expectedTemplate, Regex.Replace(result, @"\s", string.Empty));
+        
+            result = processor.Convert(data, "Sub/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.Equal(expectedTemplate, Regex.Replace(result, @"\s", string.Empty));
+        
+            var exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NonExistentTemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
+            Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
+        }
+        
+        [Theory]
+        [MemberData(nameof(GetNestedTemplateCollection))]
+        public void GivenNestedTemplateCollection_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data, string expectedSubTemplate, string expectedFolder1SubTemplate, string expectedFolder2SubTemplate, IFileProvider fileProvider)
+        {
+            var result = processor.Convert(data, "Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.Equal(expectedSubTemplate, Regex.Replace(result, @"\s", string.Empty));
+        
+            result = processor.Convert(data, "Folder1/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.Equal(expectedFolder1SubTemplate, Regex.Replace(result, @"\s", string.Empty));
+        
+            result = processor.Convert(data, "Folder2/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.Equal(expectedFolder2SubTemplate, Regex.Replace(result, @"\s", string.Empty));
+        
+            result = processor.Convert(data, "Folder2/Sub/Template1", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            Assert.Equal(expectedFolder2SubTemplate, Regex.Replace(result, @"\s", string.Empty));
+        
+            var exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NonExistentTemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
+            Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
+        }
+        
+        [Theory]
+        [MemberData(nameof(GetValidInputsWithTemplateCollection))]
+        public void GivenInvalidTemplateProviderOrName_WhenConvert_ExceptionsShouldBeThrown(IFhirConverter processor, ITemplateProvider templateProvider, string data)
+        {
+            var fileProvider = new MockFileProvider();
+
+            // Null, empty or nonexistent root template
+            var exception = Assert.Throws<RenderException>(() => processor.Convert(data, null, TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
+            Assert.Equal(FhirConverterErrorCode.NullOrEmptyRootTemplate, exception.FhirConverterErrorCode);
+        
+            exception = Assert.Throws<RenderException>(() => processor.Convert(data, string.Empty, TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
+            Assert.Equal(FhirConverterErrorCode.NullOrEmptyRootTemplate, exception.FhirConverterErrorCode);
+        
+            exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NonExistentTemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
+            Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
+        
+            // Null TemplateProvider
+            exception = Assert.Throws<RenderException>(() => processor.Convert(data, "TemplateName", TemplateUtility.TemplateDirectory, null, fileProvider));
+            Assert.Equal(FhirConverterErrorCode.NullTemplateProvider, exception.FhirConverterErrorCode);
+        }
 
         [Theory]
         [MemberData(nameof(GetValidInputsWithLargeForLoop))]
@@ -197,9 +214,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
         [MemberData(nameof(GetValidInputsWithLargeForLoop))]
         public void GivenTemplateWithNestedForLoop_WhenConvert_CorrectResultShouldBeReturned(IFhirConverter processor, ITemplateProvider templateProvider, string data)
         {
+            // When using DotLiquid, we could have nested for loops where the total number of iterations exceeded the MaxIterations that we defined
+            // Fluid's MaxSteps works differently
+            // DotLiquid tracks the number of iterations of each for loop separately
+            // Fluid increments the number of steps taken when any statement is executed
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TestConstants.TestTemplateDirectory));
-            var result = processor.Convert(data, "NestedForLoopTemplate", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-            Assert.True(result.Length > 0);
+            var exception = Assert.Throws<RenderException>(() => processor.Convert(data, "NestedForLoopTemplate", TemplateUtility.TemplateDirectory, templateProvider, fileProvider));
+            Assert.Equal("Error happened when rendering templates: The maximum level of recursion has been reached. Your script must have a cyclic include statement.", exception.Message);
         }
 
         [Theory]

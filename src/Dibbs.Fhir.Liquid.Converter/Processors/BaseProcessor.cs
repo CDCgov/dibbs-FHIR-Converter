@@ -32,6 +32,8 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
 
         protected virtual string DefaultRootTemplateParentPath { get; set; }
 
+        protected virtual TemplateOptions TemplateOptions { get; set; }
+
         public string Convert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider)
         {
             string result = InternalConvert(data, rootTemplate, templatesPath, templateProvider, fileProvider);
@@ -44,8 +46,8 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
         {
             // We initialize Fluid's file provider which is used for includes
             // var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
-            TemplateUtility.TemplateOptions.FileProvider = fileProvider;
-            var context = new TemplateContext(data, TemplateUtility.TemplateOptions);
+            TemplateOptions.FileProvider = fileProvider;
+            var context = new TemplateContext(data, TemplateOptions);
 
             // Used later for batch rendering since TemplateFileSystem handles caching for us
             context.SetValue("file_system", templateProvider.GetTemplateFileSystem());

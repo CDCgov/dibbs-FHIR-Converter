@@ -9,7 +9,7 @@ using Dibbs.FhirConverterApi.Processors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 
-var dataProcessor = new CcdaProcessor(ConsoleLoggerFactory.CreateLogger<CcdaProcessor>());
+var dataProcessor = new CcdaProcessor(ConsoleLoggerFactory.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
 var templateProvider = new TemplateProvider(TemplateUtility.TemplateDirectory);
 var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
 

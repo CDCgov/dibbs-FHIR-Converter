@@ -131,7 +131,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             var result = new Dictionary<string, object>();
             result.Add("low", lowDict);
             result.Add("high", highDict);
-            return FluidValue.Create(result, TemplateUtility.TemplateOptions);
+            return FluidValue.Create(result, context.Options);
         }
 
         private static PartialDateTime AddWidthToDate(PartialDateTime origDate, int intervalMultiplier, DictionaryValue width, TemplateContext context)

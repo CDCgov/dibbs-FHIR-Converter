@@ -41,7 +41,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
                 if (components.IsNil())
                 {
-                    return FluidValue.Create(result, TemplateUtility.TemplateOptions);
+                    return FluidValue.Create(result, context.Options);
                 }
 
                 var templateIdContent = arguments.At(0).ToStringValue();
@@ -68,7 +68,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 }
             }
 
-            return FluidValue.Create(result, TemplateUtility.TemplateOptions);
+            return FluidValue.Create(result, context.Options);
         }
 
         private static FluidValue GetComponents(DictionaryValue data, TemplateContext context)

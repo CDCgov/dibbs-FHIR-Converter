@@ -27,19 +27,29 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
     public class ProcessorTests
     {
         private static readonly string _ecrTestData;
-        private static readonly CcdaProcessor _ccdaProcessor;
         private static readonly FluidParser _parser;
 
         static ProcessorTests()
         {
             _ecrTestData = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "eCR", "eCR_EveEverywoman.xml"));
-            _ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>());
             _parser = new FluidParser();
+        }
+
+        private static TemplateOptions GetTemplateOptions ()
+        {
+            var options = new TemplateOptions
+            {
+                MaxSteps = 10000000,
+            };
+            TemplateUtility.AddFilters(options);
+
+            return options;
         }
 
         public static IEnumerable<object[]> GetValidInputsWithTemplateDirectory()
         {
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(TestConstants.ECRTemplateDirectory), _ecrTestData, "EICR" };
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
+            yield return new object[] { ccdaProcessor, new TemplateProvider(TestConstants.ECRTemplateDirectory), _ecrTestData, "EICR" };
         }
 
         public static IEnumerable<object[]> GetValidInputsWithTemplateCollection()
@@ -52,7 +62,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
                 },
             };
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData };
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+            yield return new object[] { ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData };
         }
 
         public static IEnumerable<object[]> GetMockDefaultTemplateCollection()
@@ -73,7 +84,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             fileProvider.Add("Template1.liquid", rootTemplate);
             fileProvider.Add("Sub/Template1.liquid", ecrSubTemplate);
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection, isDefaultTemplateProvider: true), _ecrTestData, ecrSubTemplate, fileProvider };
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+            yield return new object[] { ccdaProcessor, new TemplateProvider(templateCollection, isDefaultTemplateProvider: true), _ecrTestData, ecrSubTemplate, fileProvider };
         }
 
         public static IEnumerable<object[]> GetNestedTemplateCollection()
@@ -104,15 +116,18 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             fileProvider.Add("Folder2/Template1.liquid", rootTemplate);
             fileProvider.Add("Folder2/Sub/Template1.liquid", folder2SubTemplate);
 
-            yield return new object[] { _ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData, subTemplate, folder1SubTemplate, folder2SubTemplate, fileProvider };
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+            yield return new object[] { ccdaProcessor, new TemplateProvider(templateCollection), _ecrTestData, subTemplate, folder1SubTemplate, folder2SubTemplate, fileProvider };
         }
 
 
         public static IEnumerable<object[]> GetValidInputsWithLargeForLoop()
         {
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+
             yield return new object[]
             {
-                _ccdaProcessor,
+                ccdaProcessor,
                 new TemplateProvider(TestConstants.TestTemplateDirectory),
                 _ecrTestData,
             };
@@ -120,9 +135,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
 
         public static IEnumerable<object[]> GetValidInputsWithNestingTooDeep()
         {
+            var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
             yield return new object[]
             {
-                _ccdaProcessor,
+                ccdaProcessor,
                 new TemplateProvider(TestConstants.TestTemplateDirectory),
                 _ecrTestData,
             };

@@ -21,11 +21,12 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
         private readonly CcdaDataParser parser = new CcdaDataParser();
         private readonly CodeMapping codeMapping;
 
-        public CcdaProcessor(ILogger<CcdaProcessor> logger)
+        public CcdaProcessor(ILogger<CcdaProcessor> logger, TemplateOptions options)
             : base(logger)
         {
             var codeMappingText = File.ReadAllText(GetCodeMappingTemplatePath());
             codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeMappingText);
+            TemplateOptions = options;
         }
 
         protected override string DefaultRootTemplateParentPath { get; set; } = "eCR";

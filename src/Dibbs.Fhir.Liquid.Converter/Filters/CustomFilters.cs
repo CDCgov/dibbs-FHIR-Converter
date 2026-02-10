@@ -20,6 +20,9 @@ namespace Dibbs.Fhir.Liquid.Converter
         private static Dictionary<string, string> snomedDict = CSVMapDictionary(Path.Combine(outDir, @"Snomed.csv"));
         private static Dictionary<string, string> rxnormDict = CSVMapDictionary(Path.Combine(outDir, @"rxnorm.csv"));
 
+        [GeneratedRegex("[ ]{2,}")]
+        private static partial Regex MultispaceRegex();
+
         public static ValueTask<FluidValue> CleanStringFromTabs(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil())
@@ -27,8 +30,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 return NilValue.Instance;
             }
 
-            const string reduceMultiSpace = @"[ ]{2,}";
-            return StringValue.Create(Regex.Replace(input.ToStringValue().Replace("\t", " "), reduceMultiSpace, " "));
+            return StringValue.Create(MultispaceRegex().Replace(input.ToStringValue().Replace("\t", " "), " "));
         }
 
         public static ValueTask<FluidValue> PrintObject(FluidValue input, FilterArguments arguments, TemplateContext context)

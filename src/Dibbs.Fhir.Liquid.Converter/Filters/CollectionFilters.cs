@@ -43,12 +43,11 @@ namespace Dibbs.Fhir.Liquid.Converter
             var template = GetTemplate(context, templateName);
             var sb = new StringBuilder();
 
-            var inputArray = input as ArrayValue;
-            if (inputArray == null)
+            if (input is not ArrayValue inputArray)
             {
                 return StringValue.Empty;
             }
-            
+
             foreach (var entry in inputArray.Enumerate(context))
             {
                 context.SetValue(variableName, entry);
@@ -135,7 +134,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 .Where(v => !v.IsNil() && (thisTargetProperty.IsNil() || v.ToStringValue() == thisTargetProperty.ToStringValue()))
                 .ToList();
 
-            if (!filtered.Any())
+            if (filtered.Count == 0)
             {
                 return false;
             }
@@ -168,9 +167,9 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// Given a collection, return items that match the keypath and target property (like standard
         /// `where` filter except instead of taking one key, takes a period-delimited path of keys).
         /// </summary>
-        /// <param name="entries">A collection of items.</param>
-        /// <param name="keyPath">A period delimited set of keys to search.</param>
-        /// <param name="targetProperty">Optionally, the expected value of the item at the end of the keypath, if not present, truthiness is tested.</param>
+        /// <param name="input">A collection of items.</param>
+        /// <param name="arguments">A period delimited set of keys to search.</param>
+        /// <param name="context">Optionally, the expected value of the item at the end of the keypath, if not present, truthiness is tested.</param>
         /// <returns>A list of the items that match. If no matching elements are found, an empty list is returned.</returns>
         public static ValueTask<FluidValue> NestedWhere(FluidValue input, FilterArguments arguments, TemplateContext context)
         {

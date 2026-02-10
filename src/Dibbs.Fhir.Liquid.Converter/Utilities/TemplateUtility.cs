@@ -13,10 +13,10 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
 {
     public static class TemplateUtility
     {
-        private static string templateDirectory = Environment.GetEnvironmentVariable("TEMPLATES_PATH") ?? "../../data/Templates/eCR";
+        private static readonly string TemplateDirectoryValue = Environment.GetEnvironmentVariable("TEMPLATES_PATH") ?? "../../data/Templates/eCR";
 
         // We only use one instance of TemplateOptions because it caches templates that are referenced by include or render tags and we can re-use them for other eCRs
-        private static TemplateOptions templateOptions;
+        private static readonly TemplateOptions TemplateOptionsValue;
 
         // Instantiating a FluidParser instance is expensive
         // so this is the one we will use across the whole application
@@ -24,30 +24,31 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
 
         static TemplateUtility()
         {
-            Parser = new FluidParser();
+            // AllowParentheses allows grouping of expressions in templates with parentheses
+            Parser = new FluidParser(new FluidParserOptions { AllowParentheses = true });
             Parser.RegisterParserTag("evaluate", EvaluateParser.Parser, async (evaluateTag, w, e, c) =>
             {
                 return await evaluateTag.WriteToAsync(w, e, c);
             });
 
-            templateOptions = new TemplateOptions
+            TemplateOptionsValue = new TemplateOptions
             {
                 MaxSteps = 10000000,
             };
-            AddFilters(templateOptions);
+            AddFilters(TemplateOptionsValue);
         }
 
         public static string RootTemplateParentPathScope => "RootTemplateParentPath";
 
         public static string RootTemplate => "EICR";
 
-        public static string TemplateDirectory => templateDirectory;
+        public static string TemplateDirectory => TemplateDirectoryValue;
 
-        public static TemplateOptions TemplateOptions => templateOptions;
+        public static TemplateOptions TemplateOptions => TemplateOptionsValue;
 
         public static void AddFilters(TemplateOptions options)
         {
-            // Collection filters
+            // CollectionFilters
             options.Filters.AddFilter("to_array", Filters.ToArray);
             options.Filters.AddFilter("batch_render", Filters.BatchRender);
             options.Filters.AddFilter("nested_where", Filters.NestedWhere);
@@ -86,7 +87,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
             options.Filters.AddFilter("to_json_string", Filters.ToJsonString);
             options.Filters.AddFilter("gzip", Filters.Gzip);
         }
-        
+
         public static IFluidTemplate ParseTemplate(string templateKey, string content)
         {
             if (IsCodeMappingTemplate(templateKey))

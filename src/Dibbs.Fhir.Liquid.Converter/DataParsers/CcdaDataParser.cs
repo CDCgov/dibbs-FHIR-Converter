@@ -14,8 +14,11 @@ using Newtonsoft.Json;
 
 namespace Dibbs.Fhir.Liquid.Converter.DataParsers
 {
-    public class CcdaDataParser : IDataParser
+    public partial class CcdaDataParser : IDataParser
     {
+        [GeneratedRegex(@"\r\n?|\n")]
+        private static partial Regex NewlineRegex();
+
         public object Parse(string document)
         {
             if (string.IsNullOrWhiteSpace(document))
@@ -50,7 +53,7 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
                                      new Dictionary<string, object>();
 
                 // Remove line breaks in original data
-                dataDictionary["_originalData"] = Regex.Replace(document, @"\r\n?|\n", string.Empty);
+                dataDictionary["_originalData"] = NewlineRegex().Replace(document, string.Empty);
 
                 return dataDictionary;
             }
@@ -149,5 +152,5 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
                 }
             }
         }
-    }
+ }
 }

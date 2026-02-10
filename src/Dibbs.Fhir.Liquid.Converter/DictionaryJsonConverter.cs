@@ -13,8 +13,11 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// <summary>
     /// One-way JsonConverter to deserialize XML-converted JSON string to IDictionary
     /// </summary>
-    public class DictionaryJsonConverter : JsonConverter
+    public partial class DictionaryJsonConverter : JsonConverter
     {
+        [GeneratedRegex(@"\r\n?|\n")]
+        private static partial Regex NewlineRegex();
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
@@ -44,7 +47,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 case JsonToken.String:
                     // Remove line breaks to avoid invalid line breaks in json value
                     // A line break is a normal character in XML but invalid in JSON
-                    return Regex.Replace(reader.Value.ToString(), @"\r\n?|\n", string.Empty);
+                    return NewlineRegex().Replace(reader.Value.ToString(), string.Empty);
                 case JsonToken.Integer:
                 case JsonToken.Float:
                 case JsonToken.Boolean:
@@ -60,7 +63,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
         private object ReadArray(JsonReader reader)
         {
-            IList<object> list = new List<object>();
+            List<object> list = new List<object>();
 
             while (reader.Read())
             {
@@ -80,7 +83,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             throw new JsonSerializationException(Resources.UnexpectedJsonConvertEnd);
         }
 
-        private object ReadObject(JsonReader reader)
+        private Dictionary<string, object> ReadObject(JsonReader reader)
         {
             var obj = new Dictionary<string, object>();
 
@@ -97,7 +100,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                         }
 
                         // Remove "@" if it is attribute
-                        if (propertyName.StartsWith("@"))
+                        if (propertyName.StartsWith('@'))
                         {
                             propertyName = propertyName[1..];
                         }

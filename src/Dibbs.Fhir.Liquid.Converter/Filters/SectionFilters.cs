@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Fluid.Values;
 
@@ -18,7 +17,8 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
-        private static readonly Regex NormalizeSectionNameRegex = new Regex("[^A-Za-z0-9]");
+        [GeneratedRegex("[^A-Za-z0-9]", RegexOptions.IgnoreCase)]
+        private static partial Regex NormalizeSectionNameRegex();
 
         // Note: I removed the ability to include multiple templateIds to simplify the code because we weren't using it
         public static ValueTask<FluidValue> GetFirstCcdaSectionsByTemplateId(FluidValue input, FilterArguments arguments, TemplateContext context)
@@ -93,7 +93,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
         private static string NormalizeSectionName(string input)
         {
-            return NormalizeSectionNameRegex.Replace(input, "_");
+            return NormalizeSectionNameRegex().Replace(input, "_");
         }
     }
 }

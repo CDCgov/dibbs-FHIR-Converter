@@ -20,6 +20,12 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
+        [GeneratedRegex(@"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", RegexOptions.IgnoreCase)]
+        private static partial Regex UuidRegex();
+
+        [GeneratedRegex(@"^([0-2])((\.0)|(\.[1-9][0-9]*))*$", RegexOptions.IgnoreCase)]
+        private static partial Regex OidRegex();
+
         public static ValueTask<FluidValue> GetProperty(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var mapping = arguments.At(0).ToStringValue();
@@ -58,8 +64,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             }
 
             var bytes = Encoding.UTF8.GetBytes(inputString);
-            var algorithm = SHA256.Create();
-            var hash = algorithm.ComputeHash(bytes);
+            var hash = SHA256.HashData(bytes);
             var guid = new byte[16];
             Array.Copy(hash, 0, guid, 0, 16);
             return new StringValue(new Guid(guid).ToString());
@@ -80,14 +85,11 @@ namespace Dibbs.Fhir.Liquid.Converter
                 return StringValue.Empty;
             }
 
-            string uuid_pattern = @"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$";
-            string oid_pattern = @"^([0-2])((\.0)|(\.[1-9][0-9]*))*$";
-
-            if (Regex.IsMatch(inputString, uuid_pattern, RegexOptions.IgnoreCase))
+            if (UuidRegex().IsMatch(inputString))
             {
                 return new StringValue("urn:uuid:" + inputString.ToLower());
             }
-            else if (Regex.IsMatch(inputString, oid_pattern, RegexOptions.IgnoreCase))
+            else if (OidRegex().IsMatch(inputString))
             {
                 return new StringValue("urn:oid:" + inputString);
             }

@@ -29,7 +29,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
         static ProcessorTests()
         {
             _ecrTestData = File.ReadAllText(Path.Join(TestConstants.SampleDataDirectory, "eCR", "eCR_EveEverywoman.xml"));
-            _parser = new FluidParser();
+            _parser = new FluidParser(new FluidParserOptions { AllowParentheses = true });
         }
 
         private static TemplateOptions GetTemplateOptions ()

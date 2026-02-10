@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
@@ -14,11 +13,8 @@ using Newtonsoft.Json;
 
 namespace Dibbs.Fhir.Liquid.Converter.DataParsers
 {
-    public partial class CcdaDataParser : IDataParser
+    public class CcdaDataParser : IDataParser
     {
-        [GeneratedRegex(@"\r\n?|\n")]
-        private static partial Regex NewlineRegex();
-
         public object Parse(string document)
         {
             if (string.IsNullOrWhiteSpace(document))
@@ -53,7 +49,7 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
                                      new Dictionary<string, object>();
 
                 // Remove line breaks in original data
-                dataDictionary["_originalData"] = NewlineRegex().Replace(document, string.Empty);
+                dataDictionary["_originalData"] = CcdaDataParserRegex.NewlineRegex().Replace(document, string.Empty);
 
                 return dataDictionary;
             }

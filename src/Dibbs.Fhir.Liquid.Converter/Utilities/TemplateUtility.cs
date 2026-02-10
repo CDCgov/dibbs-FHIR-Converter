@@ -4,10 +4,10 @@
 // -------------------------------------------------------------------------------------------------
 
 using System;
+using System.Text.Json;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Fluid;
-using Newtonsoft.Json;
 
 namespace Dibbs.Fhir.Liquid.Converter.Utilities
 {
@@ -109,7 +109,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
 
             try
             {
-                var mapping = JsonConvert.DeserializeObject<CodeMapping>(content);
+                var mapping = JsonSerializer.Deserialize<CodeMapping>(content);
                 if (mapping?.Mapping == null)
                 {
                     throw new TemplateLoadException(FhirConverterErrorCode.InvalidCodeMapping, Resources.InvalidCodeMapping);

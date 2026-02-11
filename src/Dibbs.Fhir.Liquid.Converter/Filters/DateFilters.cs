@@ -124,13 +124,19 @@ namespace Dibbs.Fhir.Liquid.Converter
                 return input;
             }
 
-            var lowDict = new Dictionary<string, object>();
-            lowDict.Add("value", lowDate.ToHl7v2Date(TimeZoneHandlingMethod.Preserve));
-            var highDict = new Dictionary<string, object>();
-            highDict.Add("value", highDate.ToHl7v2Date(TimeZoneHandlingMethod.Preserve));
-            var result = new Dictionary<string, object>();
-            result.Add("low", lowDict);
-            result.Add("high", highDict);
+            var lowDict = new Dictionary<string, object>
+            {
+             { "value", lowDate.ToHl7v2Date(TimeZoneHandlingMethod.Preserve) },
+            };
+            var highDict = new Dictionary<string, object>
+            {
+             { "value", highDate.ToHl7v2Date(TimeZoneHandlingMethod.Preserve) },
+            };
+            var result = new Dictionary<string, object>
+            {
+             { "low", lowDict },
+             { "high", highDict },
+            };
             return FluidValue.Create(result, context.Options);
         }
 
@@ -156,7 +162,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             var widthValue = int.Parse(value.ToStringValue());
             var date = origDate.Copy();
 
-            if (widthUnit.StartsWith("s"))
+            if (widthUnit.StartsWith('s'))
                 {
                     return date.AddSeconds(intervalMultiplier * widthValue);
                 }
@@ -164,15 +170,15 @@ namespace Dibbs.Fhir.Liquid.Converter
                 {
                     return date.AddMinutes(intervalMultiplier * widthValue);
                 }
-                else if (widthUnit.StartsWith("h"))
+                else if (widthUnit.StartsWith('h'))
                 {
                     return date.AddHours(intervalMultiplier * widthValue);
                 }
-                else if (widthUnit.StartsWith("d"))
+                else if (widthUnit.StartsWith('d'))
                 {
                     return date.AddDays(intervalMultiplier * widthValue);
                 }
-                else if (widthUnit.StartsWith("w"))
+                else if (widthUnit.StartsWith('w'))
                 {
                     return date.AddDays(intervalMultiplier * widthValue * 7);
                 }
@@ -180,7 +186,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 {
                     return date.AddMonths(intervalMultiplier * widthValue);
                 }
-                else if (widthUnit.StartsWith("y"))
+                else if (widthUnit.StartsWith('y'))
                 {
                     return date.AddYears(intervalMultiplier * widthValue);
                 }

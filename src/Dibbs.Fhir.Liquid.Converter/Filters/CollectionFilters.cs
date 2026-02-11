@@ -117,7 +117,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(sb.ToString());
         } */
 
-        private static bool HasMatchingPropertyRecursive(IEnumerable<FluidValue> entries, string keyPath, TemplateContext context, FluidValue targetProperty)
+        private static async bool HasMatchingPropertyRecursive(IEnumerable<FluidValue> entries, string keyPath, TemplateContext context, FluidValue targetProperty)
         {
             if (entries == null || string.IsNullOrEmpty(keyPath))
             {
@@ -130,8 +130,12 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             // Filter entries where this key matches the target property (if provided)
             var filtered = entries
-                .Select(e => (e as DictionaryValue)?.GetValueAsync(thisKey, context).Result ?? NilValue.Instance)
-                .Where(v => !v.IsNil() && (thisTargetProperty.IsNil() || v.ToStringValue() == thisTargetProperty.ToStringValue()))
+                .Select(async e => e is DictionaryValue entryDict ? await entryDict.GetValueAsync(thisKey, context) : NilValue.Instance)
+                .Where(v =>
+                    {
+                        var value = v.Result;
+                        return !value.IsNil() && (thisTargetProperty.IsNil() || value.ToStringValue() == thisTargetProperty.ToStringValue());
+                    })
                 .ToList();
 
             if (filtered.Count == 0)
@@ -150,13 +154,13 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             foreach (var item in filtered)
             {
-                if (item is ArrayValue list)
+                if (item.Result is ArrayValue list)
                 {
                     nextEntries.AddRange(list.Enumerate(context));
                 }
                 else
                 {
-                    nextEntries.Add(item);
+                    nextEntries.Add(item.Result);
                 }
             }
 

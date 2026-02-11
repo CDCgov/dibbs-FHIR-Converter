@@ -36,7 +36,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FileSystems
                     FhirConverterErrorCode.TemplateNotFound,
                     string.Format(Resources.TemplateNotFound, templatePath));
             }
-            catch (Exception e)
+            catch
             {
                 throw new RenderException(
                     FhirConverterErrorCode.TemplateNotFound,

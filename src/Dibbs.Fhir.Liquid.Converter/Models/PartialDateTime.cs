@@ -4,7 +4,6 @@
 // -------------------------------------------------------------------------------------------------
 
 using System;
-using System.Text.RegularExpressions;
 
 namespace Dibbs.Fhir.Liquid.Converter.Models
 {

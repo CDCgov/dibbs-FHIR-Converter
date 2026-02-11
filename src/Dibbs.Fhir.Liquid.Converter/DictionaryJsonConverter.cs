@@ -61,7 +61,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             }
         }
 
-        private object ReadArray(JsonReader reader)
+        private List<object> ReadArray(JsonReader reader)
         {
             List<object> list = new List<object>();
 

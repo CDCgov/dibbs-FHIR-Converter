@@ -32,7 +32,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             options.FileProvider = fileProvider;
 
             // This is necessary so that we can access child objects from context
-            options.MemberAccessStrategy = new UnsafeMemberAccessStrategy();
+            options.MemberAccessStrategy.Register<CodeMapping>();
             TemplateUtility.AddFilters(options);
 
             templateOptions = options;

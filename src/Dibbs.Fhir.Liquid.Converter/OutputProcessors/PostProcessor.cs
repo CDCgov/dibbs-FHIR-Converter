@@ -60,9 +60,8 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
                     foreach (var entry in entries)
                     {
                         var resourceKey = GetKey(entry);
-                        if (resourceKeyToIndexMap.ContainsKey(resourceKey))
+                        if (resourceKeyToIndexMap.TryGetValue(resourceKey, out var index))
                         {
-                            var index = resourceKeyToIndexMap[resourceKey];
                             mergedEntity[index] = Merge((JObject)mergedEntity[index], (JObject)entry);
                         }
                         else

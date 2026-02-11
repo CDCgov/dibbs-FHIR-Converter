@@ -18,7 +18,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FileSystems
     {
         private readonly string _templateDirectory;
 
-        private ConcurrentDictionary<string, IFluidTemplate> _templateCache;
+        private readonly ConcurrentDictionary<string, IFluidTemplate> _templateCache;
 
         public TemplateLocalFileSystem(string templateDirectory)
         {
@@ -55,9 +55,9 @@ namespace Dibbs.Fhir.Liquid.Converter.FileSystems
             }
 
             // Get template from cache first
-            if (_templateCache.ContainsKey(templateKey))
+            if (_templateCache.TryGetValue(templateKey, out var cachedTemplate))
             {
-                return _templateCache[templateKey];
+                return cachedTemplate;
             }
 
             // If not cached, search local file system

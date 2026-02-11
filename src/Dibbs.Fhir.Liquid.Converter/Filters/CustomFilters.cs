@@ -16,9 +16,9 @@ namespace Dibbs.Fhir.Liquid.Converter
     public partial class Filters
     {
         private static string outDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        private static Dictionary<string, string> loincDict = CSVMapDictionary(Path.Combine(outDir, @"Loinc.csv"));
-        private static Dictionary<string, string> snomedDict = CSVMapDictionary(Path.Combine(outDir, @"Snomed.csv"));
-        private static Dictionary<string, string> rxnormDict = CSVMapDictionary(Path.Combine(outDir, @"rxnorm.csv"));
+        private static readonly Dictionary<string, string> LoincDict = CSVMapDictionary(Path.Combine(outDir, @"Loinc.csv"));
+        private static readonly Dictionary<string, string> SnomedDict = CSVMapDictionary(Path.Combine(outDir, @"Snomed.csv"));
+        private static readonly Dictionary<string, string> RxnormDict = CSVMapDictionary(Path.Combine(outDir, @"rxnorm.csv"));
 
         [GeneratedRegex("[ ]{2,}")]
         private static partial Regex MultispaceRegex();
@@ -33,7 +33,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(MultispaceRegex().Replace(input.ToStringValue().Replace("\t", " "), " "));
         }
 
-        public static ValueTask<FluidValue> PrintObject(FluidValue input, FilterArguments arguments, TemplateContext context)
+        public static async ValueTask<FluidValue> PrintObject(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var debugLog = Environment.GetEnvironmentVariable("DEBUG_LOG") ?? "false";
             if (debugLog.Trim() != "true")
@@ -41,7 +41,8 @@ namespace Dibbs.Fhir.Liquid.Converter
                 return NilValue.Instance;
             }
 
-            Console.WriteLine(Fluid.Filters.MiscFilters.Json(input, arguments, context).Result.ToStringValue());
+            var json = await Fluid.Filters.MiscFilters.Json(input, arguments, context);
+            Console.WriteLine(json.ToStringValue());
             return NilValue.Instance;
         }
 
@@ -83,31 +84,37 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <summary>
         /// Retrieves the name associated with the specified LOINC code from the LOINC dictionary.
         /// </summary>
-        /// <param name="code">The LOINC code for which to retrieve the name.</param>
+        /// <param name="input">Contains the LOINC code for which to retrieve the name.</param>
+        /// <param name="arguments">Arguments passed into the filter (unused).</param>
+        /// <param name="context">The template context (unused).</param>
         /// <returns>The name associated with the specified LOINC code, or null if the code is not found in the dictionary.</returns>
         public static ValueTask<FluidValue> GetLoincName(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            return GetTerminology(input.ToStringValue(), loincDict);
+            return GetTerminology(input.ToStringValue(), LoincDict);
         }
 
         /// <summary>
         /// Retrieves the name associated with the specified Snomed code from the LOINC dictionary.
         /// </summary>
-        /// <param name="code">The Snomed code for which to retrieve the name.</param>
+        /// <param name="input">Contains the Snomed code for which to retrieve the name.</param>
+        /// <param name="arguments">Arguments passed into the filter (unused).</param>
+        /// <param name="context">The template context (unused).</param>
         /// <returns>The name associated with the specified Snomed code, or null if the code is not found in the dictionary.</returns>
         public static ValueTask<FluidValue> GetSnomedName(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            return GetTerminology(input.ToStringValue(), snomedDict);
+            return GetTerminology(input.ToStringValue(), SnomedDict);
         }
 
         /// <summary>
         /// Retrieves the name associated with the specified RxNorm code from the RxNorm dictionary.
         /// </summary>
-        /// <param name="code">The RxNorm code for which to retrieve the name.</param>
+        /// <param name="input">Contains the RxNorm code for which to retrieve the name.</param>
+        /// <param name="arguments">Arguments passed into the filter (unused).</param>
+        /// <param name="context">The template context (unused).</param>
         /// <returns>The name associated with the specified RxNorm code, or null if the code is not found in the dictionary.</returns>
         public static ValueTask<FluidValue> GetRxnormName(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            return GetTerminology(input.ToStringValue(), rxnormDict);
+            return GetTerminology(input.ToStringValue(), RxnormDict);
         }
 
         /// <summary>
@@ -136,7 +143,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 {
                     foreach (XmlAttribute attr in el.Attributes)
                     {
-                        if (attr.LocalName.ToLower() == "id" && attr.Value == id)
+                        if (string.Equals(attr.LocalName.ToLower(), "id", StringComparison.OrdinalIgnoreCase) && attr.Value == id)
                         {
                             return el.InnerXml;
                         }

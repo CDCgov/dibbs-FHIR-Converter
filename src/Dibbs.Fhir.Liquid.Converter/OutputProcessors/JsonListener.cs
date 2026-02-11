@@ -11,7 +11,7 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
 {
     public class JsonListener : jsonBaseListener
     {
-        private Stack _jsonStack = new Stack();
+        private readonly Stack _jsonStack = new Stack();
 
         public override void ExitJson(JsonContext context)
         {

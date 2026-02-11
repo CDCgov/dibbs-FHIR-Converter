@@ -10,7 +10,7 @@ using Fluid;
 using Fluid.Ast;
 using Fluid.Values;
 
-namespace Dibbs.Fhir.Liquid.Converter
+namespace Dibbs.Fhir.Liquid.Converter.Tags
 {
     public class EvaluateStatement : Statement
     {

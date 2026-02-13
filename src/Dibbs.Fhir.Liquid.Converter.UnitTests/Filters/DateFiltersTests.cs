@@ -356,13 +356,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         [Theory]
         [MemberData(nameof(GetValidDataForFormatWidthAsPeriod))]
-        public void FormatWidthAsPeriod_Valid(string inputStr, string expectedStr)
+        public async void FormatWidthAsPeriod_Valid(string inputStr, string expectedStr)
         {
             var context = new TemplateContext();
             var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;
             var expectedParsed = new CcdaDataParser().Parse(expectedStr) as IDictionary<string, object>;
             var expected = expectedParsed["effectiveTime"] as Dictionary<string, object>;
-            var actual = Filters.FormatWidthAsPeriod(DictionaryValue.Create(inputParsed["effectiveTime"], new TemplateOptions()), FilterArguments.Empty, context).Result as DictionaryValue;
+            var actual = await Filters.FormatWidthAsPeriod(DictionaryValue.Create(inputParsed["effectiveTime"], new TemplateOptions()), FilterArguments.Empty, context) as DictionaryValue;
 
             if (expected.ContainsKey("low")) {
                 Assert.Equal((expected["low"] as Dictionary<string, object>)["value"], ((actual.GetValueAsync("low", context).Result as DictionaryValue).GetValueAsync("value", context)).Result.ToStringValue());
@@ -377,11 +377,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         [Theory]
         [MemberData(nameof(GetInvalidDataForFormatWidthAsPeriod))]
-        public void FormatWidthAsPeriod_Invalid(string inputStr)
+        public async void FormatWidthAsPeriod_Invalid(string inputStr)
         {
             var context = new TemplateContext();
             var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;
-            var exception = Assert.Throws<RenderException>(() => Filters.FormatWidthAsPeriod(DictionaryValue.Create(inputParsed["effectiveTime"], new TemplateOptions()), FilterArguments.Empty, context));
+            var exception = await Assert.ThrowsAsync<RenderException>(async () => await Filters.FormatWidthAsPeriod(DictionaryValue.Create(inputParsed["effectiveTime"], new TemplateOptions()), FilterArguments.Empty, context));
             Assert.Equal(FhirConverterErrorCode.InvalidDateTimeFormat, exception.FhirConverterErrorCode);
         }
     }

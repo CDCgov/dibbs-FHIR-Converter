@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Dibbs.Fhir.Liquid.Converter
@@ -13,11 +12,8 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// <summary>
     /// One-way JsonConverter to deserialize XML-converted JSON string to IDictionary
     /// </summary>
-    public partial class DictionaryJsonConverter : JsonConverter
+    public class DictionaryJsonConverter : JsonConverter
     {
-        [GeneratedRegex(@"\r\n?|\n")]
-        private static partial Regex NewlineRegex();
-
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
@@ -47,7 +43,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 case JsonToken.String:
                     // Remove line breaks to avoid invalid line breaks in json value
                     // A line break is a normal character in XML but invalid in JSON
-                    return NewlineRegex().Replace(reader.Value.ToString(), string.Empty);
+                    return DictionaryJsonConverterRegex.NewlineRegex().Replace(reader.Value.ToString(), string.Empty);
                 case JsonToken.Integer:
                 case JsonToken.Float:
                 case JsonToken.Boolean:

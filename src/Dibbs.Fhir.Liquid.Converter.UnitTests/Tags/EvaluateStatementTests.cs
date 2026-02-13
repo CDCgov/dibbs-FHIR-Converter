@@ -6,6 +6,7 @@ using System.Threading;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.FileSystems;
 using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.Tags;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Fluid.Ast;

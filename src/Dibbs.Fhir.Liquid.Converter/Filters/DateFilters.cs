@@ -84,7 +84,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(DateTime.UtcNow.ToString(format));
         }
 
-        public static ValueTask<FluidValue> FormatWidthAsPeriod(FluidValue input, FilterArguments arguments, TemplateContext context)
+        public static async ValueTask<FluidValue> FormatWidthAsPeriod(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil() || input is not DictionaryValue)
             {
@@ -92,7 +92,7 @@ namespace Dibbs.Fhir.Liquid.Converter
             }
 
             var obj = input as DictionaryValue;
-            var width = obj.GetValueAsync("width", context).Result;
+            var width = await obj.GetValueAsync("width", context);
 
             // bail out if no width present
             if (width.IsNil())
@@ -102,21 +102,21 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             PartialDateTime lowDate;
             PartialDateTime highDate;
-            var high = obj.GetValueAsync("high", context).Result;
-            var low = obj.GetValueAsync("low", context).Result;
+            var high = await obj.GetValueAsync("high", context);
+            var low = await obj.GetValueAsync("low", context);
             if (!high.IsNil())
             {
                 var highDateObj = high as DictionaryValue;
-                var highDateStr = highDateObj.GetValueAsync("value", context).Result.ToStringValue();
+                var highDateStr = (await highDateObj.GetValueAsync("value", context)).ToStringValue();
                 highDate = ParsePartialDate(highDateStr, DateTimeType.Hl7v2);
-                lowDate = AddWidthToDate(highDate, -1, width as DictionaryValue, context);
+                lowDate = await AddWidthToDate(highDate, -1, width as DictionaryValue, context);
             }
             else if (!low.IsNil())
             {
                 var lowDateObj = low as DictionaryValue;
-                var lowDateStr = lowDateObj.GetValueAsync("value", context).Result.ToStringValue();
+                var lowDateStr = (await lowDateObj.GetValueAsync("value", context)).ToStringValue();
                 lowDate = ParsePartialDate(lowDateStr, DateTimeType.Hl7v2);
-                highDate = AddWidthToDate(lowDate, 1, width as DictionaryValue, context);
+                highDate = await AddWidthToDate(lowDate, 1, width as DictionaryValue, context);
             }
             else
             {
@@ -140,9 +140,9 @@ namespace Dibbs.Fhir.Liquid.Converter
             return FluidValue.Create(result, context.Options);
         }
 
-        private static PartialDateTime AddWidthToDate(PartialDateTime origDate, int intervalMultiplier, DictionaryValue width, TemplateContext context)
+        private static async Task<PartialDateTime> AddWidthToDate(PartialDateTime origDate, int intervalMultiplier, DictionaryValue width, TemplateContext context)
         {
-            var unit = width.GetValueAsync("unit", context).Result;
+            var unit = await width.GetValueAsync("unit", context);
             if (unit.IsNil())
             {
                 throw new RenderException(
@@ -150,7 +150,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                     $"Invalid datetime width: no unit");
             }
 
-            var value = width.GetValueAsync("value", context).Result;
+            var value = await width.GetValueAsync("value", context);
             if (value.IsNil())
             {
                 throw new RenderException(

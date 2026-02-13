@@ -94,7 +94,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         }
 
         /// <summary>
-        /// Retrieves the name associated with the specified Snomed code from the LOINC dictionary.
+        /// Retrieves the name associated with the specified Snomed code from the Snomed dictionary.
         /// </summary>
         /// <param name="input">Contains the Snomed code for which to retrieve the name.</param>
         /// <param name="arguments">Arguments passed into the filter (unused).</param>

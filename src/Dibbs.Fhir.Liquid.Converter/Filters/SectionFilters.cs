@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Fluid;
@@ -21,7 +22,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         private static partial Regex NormalizeSectionNameRegex();
 
         // Note: I removed the ability to include multiple templateIds to simplify the code because we weren't using it
-        public static ValueTask<FluidValue> GetFirstCcdaSectionsByTemplateId(FluidValue input, FilterArguments arguments, TemplateContext context)
+        public static async ValueTask<FluidValue> GetFirstCcdaSectionsByTemplateId(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil())
             {
@@ -37,7 +38,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             if (input is DictionaryValue inputDict)
             {
-                var components = GetComponents(inputDict, context);
+                var components = await GetComponents(inputDict, context);
 
                 if (components.IsNil())
                 {
@@ -51,12 +52,12 @@ namespace Dibbs.Fhir.Liquid.Converter
                     foreach (var component in components.Enumerate(context))
                     {
                         if (component is DictionaryValue componentDict
-                            && componentDict.GetValueAsync("section", context).Result is DictionaryValue sectionDict)
+                            && (await componentDict.GetValueAsync("section", context)) is DictionaryValue sectionDict)
                         {
-                            var templateIdSection = sectionDict.GetValueAsync("templateId", context).Result;
+                            var templateIdSection = await sectionDict.GetValueAsync("templateId", context);
                             if (!templateIdSection.IsNil())
                             {
-                                var sectionJson = Fluid.Filters.MiscFilters.Json(templateIdSection, FilterArguments.Empty, context).Result.ToStringValue();
+                                var sectionJson = (await Fluid.Filters.MiscFilters.Json(templateIdSection, FilterArguments.Empty, context)).ToStringValue();
                                 if (sectionJson.Contains(templateId, StringComparison.InvariantCultureIgnoreCase))
                                 {
                                     result[NormalizeSectionName(templateId)] = sectionDict;
@@ -71,12 +72,9 @@ namespace Dibbs.Fhir.Liquid.Converter
             return FluidValue.Create(result, context.Options);
         }
 
-        private static FluidValue GetComponents(DictionaryValue data, TemplateContext context)
+        private static async Task<FluidValue> GetComponents(DictionaryValue data, TemplateContext context)
         {
-            var dataComponents = (((data.GetValueAsync("ClinicalDocument", context).Result as DictionaryValue)?
-                .GetValueAsync("component", context).Result as DictionaryValue)?
-                .GetValueAsync("structuredBody", context).Result as DictionaryValue)?
-                .GetValueAsync("component", context).Result;
+            var dataComponents = await GetChildSection(["ClinicalDocument", "component", "structuredBody", "component"], data, context);
 
             if (dataComponents.IsNil())
             {
@@ -89,6 +87,27 @@ namespace Dibbs.Fhir.Liquid.Converter
             }
 
             return (ArrayValue)dataComponents;
+        }
+
+        private static async Task<FluidValue> GetChildSection(string[] sectionNames, DictionaryValue data, TemplateContext context)
+        {
+            var childSection = await data.GetValueAsync(sectionNames.First(), context);
+
+            if (sectionNames.Length == 1)
+            {
+                return childSection;
+            }
+            else
+            {
+                if (childSection is DictionaryValue sectionDict)
+                {
+                    return await GetChildSection(sectionNames[1..], sectionDict, context);
+                }
+                else
+                {
+                    return NilValue.Instance;
+                }
+            }
         }
 
         private static string NormalizeSectionName(string input)

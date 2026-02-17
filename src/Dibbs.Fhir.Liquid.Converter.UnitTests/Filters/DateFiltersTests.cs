@@ -77,17 +77,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             yield return new object[] { StringValue.Create("19701231115959+0630"), "utc", StringValue.Create("1970-12-31T05:29:59Z") };
             yield return new object[] { StringValue.Create("19701231115959.12234+0630"), "utc", StringValue.Create("1970-12-31T05:29:59.12234Z") };
             yield return new object[] { StringValue.Create("19701231115959.000+0630"), "utc", StringValue.Create("1970-12-31T05:29:59.000Z") };
-
-            // TODO: Remove?
-            // Skip this test in pipeline, as the local time zone is different
-            // yield return new object[] { @"20110103143428-0800", "local", @"2011-01-04T06:34:28+08:00" };
-            // yield return new object[] { @"19701231115959+0600", "local", @"1970-12-31T13:59:59+08:00" };
-
-            // If no time zone provided, it is treated as local
-            // yield return new object[] { @"2001", "utc", @"2000" };
-            // yield return new object[] { @"20050110045253", "utc", @"2005-01-09T20:52:53Z" };
-            // yield return new object[] { @"20050110045253", "preserve", @"2005-01-10T04:52:53+08:00" };
-            // yield return new object[] { @"20050110045253", "local", @"2005-01-10T04:52:53+08:00" };
         }
 
         // We assume the local timezone is +08:00.

@@ -24,12 +24,26 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
+        /// <summary>
+        /// Escapes backslashes ("\") and quotes (""") from input string
+        /// </summary>
+        /// <param name="input">A string</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>The input string with special characters escaped</returns>
         public static ValueTask<FluidValue> EscapeSpecialChars(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var data = input.ToStringValue();
             return string.IsNullOrEmpty(data) ? input : StringValue.Create(SpecialCharProcessor.Escape(data));
         }
 
+        /// <summary>
+        /// Returns an array containing matches with a regular expression
+        /// </summary>
+        /// <param name="input">A string</param>
+        /// <param name="arguments">The regex to match</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>A list of the matching substrings. If input string is nil or empty, an empty list is returned.</returns>
         public static ValueTask<FluidValue> Match(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (arguments.At(0).IsNil())
@@ -48,7 +62,15 @@ namespace Dibbs.Fhir.Liquid.Converter
             return new ArrayValue(matches);
         }
 
-        // Overriding Fluid's prepend filter to mimic the behavior of older versions of DotLiquid
+        /// <summary>
+        /// Overriding Fluid's prepend filter to mimic the behavior of older versions of DotLiquid.
+        /// Adds the input string to the end of the first argument.
+        /// </summary>
+        /// <param name="input">The string to prepend to</param>
+        /// <param name="arguments">The string to add to the beginning of the input string</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>A string containing the input string added to the end of the first argument. 
+        ///     Returns nil if the first argument is nil.</returns>
         public static ValueTask<FluidValue> Prepend(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil() || string.IsNullOrEmpty(input.ToStringValue()))
@@ -59,7 +81,15 @@ namespace Dibbs.Fhir.Liquid.Converter
             return Fluid.Filters.StringFilters.Prepend(input, arguments, context);
         }
 
-        // Overriding Fluid's append filter to mimic the behavior of older versions of DotLiquid
+        /// <summary>
+        /// Overriding Fluid's append filter to mimic the behavior of older versions of DotLiquid.
+        /// Adds the first argument to the end of the input string. Returns nil if the first argument is nil.
+        /// </summary>
+        /// <param name="input">A string</param>
+        /// <param name="arguments">The string to add to the end of the input string</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>A string containing the first argument added to the end of the input string.
+        ///     Returns nil if the first argument is nil.</returns>
         public static ValueTask<FluidValue> Append(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil())
@@ -70,6 +100,13 @@ namespace Dibbs.Fhir.Liquid.Converter
             return Fluid.Filters.StringFilters.Append(input, arguments, context);
         }
 
+        /// <summary>
+        /// Converts to JSON string.
+        /// </summary>
+        /// <param name="input">Any FluidValue</param>
+        /// <param name="arguments">Filter arguments (unused when they are passed into Fluid's JSON filter)</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>The input value represented as a JSON string. Returns nil if input is nil.</returns>
         public static ValueTask<FluidValue> ToJsonString(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil())
@@ -80,6 +117,13 @@ namespace Dibbs.Fhir.Liquid.Converter
             return Fluid.Filters.MiscFilters.Json(input, arguments, context);
         }
 
+        /// <summary>
+        /// Returns compressed string
+        /// </summary>
+        /// <param name="input">A string</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>A gzip compressed version of the input string. Returns nil if input is nil or empty.</returns>
         public static ValueTask<FluidValue> Gzip(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var data = input.ToStringValue();
@@ -98,6 +142,13 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(Convert.ToBase64String(outputStream.ToArray()));
         }
 
+        /// <summary>
+        /// Formats input XHTML string as an XHTML document with one root "div" element
+        /// </summary>
+        /// <param name="input">An XHTML string</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>An XHTML string containing the input with only one root element ("div" if the input has more than one root element).</returns>
         public static ValueTask<FluidValue> ToXhtml(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             XNamespace xhtmlNamespace = "http://www.w3.org/1999/xhtml";
@@ -122,6 +173,13 @@ namespace Dibbs.Fhir.Liquid.Converter
             return new StringValue(doc.ToString(SaveOptions.DisableFormatting));
         }
 
+        /// <summary>
+        /// Removes string matching regex argument from input string
+        /// </summary>
+        /// <param name="input">A string</param>
+        /// <param name="arguments">The regex pattern to remove from the input string</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>The input string with the substring matching the regex pattern removed</returns>
         public static ValueTask<FluidValue> RemoveRegex(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (arguments.Count != 1)

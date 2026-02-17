@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
-using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Fluid.Values;
 
@@ -61,18 +60,45 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(dateTimeObject.ToFhirString(outputTimeZoneHandling));
         }
 
+        /// <summary>
+        /// Adds hyphens to a date or a partial date that does not have hyphens to make it into a valid FHIR format.
+        /// The input date format is YYYY, YYYYMM, or YYYYMMDD.
+        /// The output format is a valid FHIR date or a partial date format: YYYY, YYYY-MM, or YYYY-MM-DD.
+        /// </summary>
+        /// <param name="input">A date string</param>
+        /// <param name="arguments">The timezone handling method</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>The input date with hyphens added</returns>
         public static ValueTask<FluidValue> AddHyphensDate(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var timeZonehandling = arguments.At(0).ToStringValue();
             return ConvertStringToDateTime(input, timeZonehandling, true);
         }
 
+        /// <summary>
+        /// Converts valid C-CDA datetime to a valid FHIR datetime format.
+        /// The input datetime format is datetime or partial datetime without hyphens: YYYY[MM[DD[HH[MM[SS[.S[S[S[S]]]]]]]]][+/-ZZZZ].
+        /// For example, the input 20040629175400000 will have the output 2004-06-29T17:54:00.000Z.
+        /// Provides parameters to handle different time zones: preserve, utc, local. The default method is preserve.
+        /// </summary>
+        /// <param name="input">A date string</param>
+        /// <param name="arguments">The timezone handling method</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>The input date in a valid FHIR datetime format</returns>
         public static ValueTask<FluidValue> FormatAsDateTime(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var timeZonehandling = arguments.At(0).ToStringValue();
             return ConvertStringToDateTime(input, timeZonehandling);
         }
 
+        /// <summary>
+        /// Provides the current time in a specific format.
+        /// The default format is yyyy-MM-ddTHH:mm:ss.FFFZ.
+        /// </summary>
+        /// <param name="input">Unused</param>
+        /// <param name="arguments">(Optional) The desired datetime format</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>The current datetime</returns>
         public static ValueTask<FluidValue> Now(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var format = arguments.At(0).ToStringValue();
@@ -84,6 +110,13 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(DateTime.UtcNow.ToString(format));
         }
 
+        /// <summary>
+        /// Creates a low and high value from either a low or high value plus a width.
+        /// </summary>
+        /// <param name="input">An element containing a width element and a high or low element</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>A dictionary with a low and high value. Returns nil if input is nil or not a dictionary.</returns>
         public static async ValueTask<FluidValue> FormatWidthAsPeriod(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil() || input is not DictionaryValue)

@@ -23,6 +23,13 @@ namespace Dibbs.Fhir.Liquid.Converter
         [GeneratedRegex("[ ]{2,}")]
         private static partial Regex MultispaceRegex();
 
+        /// <summary>
+        /// Replaces tabs in input string with spaces
+        /// </summary>
+        /// <param name="input">A string</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>Nil if input is nil. Otherwise returns the input string with tabs replaced with spaces.</returns>
         public static ValueTask<FluidValue> CleanStringFromTabs(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil())
@@ -33,6 +40,13 @@ namespace Dibbs.Fhir.Liquid.Converter
             return StringValue.Create(MultispaceRegex().Replace(input.ToStringValue().Replace("\t", " "), " "));
         }
 
+        /// <summary>
+        /// Prints JSON representation of input to console. (Note: "DEBUG_LOG" environment variable must be set to "true")
+        /// </summary>
+        /// <param name="input">A FluidValue</param>
+        /// <param name="arguments">Filter arguments (unused when they are passed into the JSON filter)</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>Nil</returns>
         public static async ValueTask<FluidValue> PrintObject(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var debugLog = Environment.GetEnvironmentVariable("DEBUG_LOG") ?? "false";
@@ -86,7 +100,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// </summary>
         /// <param name="input">Contains the LOINC code for which to retrieve the name.</param>
         /// <param name="arguments">Arguments passed into the filter (unused).</param>
-        /// <param name="context">The template context (unused).</param>
+        /// <param name="context">The current template context (unused).</param>
         /// <returns>The name associated with the specified LOINC code, or null if the code is not found in the dictionary.</returns>
         public static ValueTask<FluidValue> GetLoincName(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
@@ -98,7 +112,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// </summary>
         /// <param name="input">Contains the Snomed code for which to retrieve the name.</param>
         /// <param name="arguments">Arguments passed into the filter (unused).</param>
-        /// <param name="context">The template context (unused).</param>
+        /// <param name="context">The current template context (unused).</param>
         /// <returns>The name associated with the specified Snomed code, or null if the code is not found in the dictionary.</returns>
         public static ValueTask<FluidValue> GetSnomedName(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
@@ -110,7 +124,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// </summary>
         /// <param name="input">Contains the RxNorm code for which to retrieve the name.</param>
         /// <param name="arguments">Arguments passed into the filter (unused).</param>
-        /// <param name="context">The template context (unused).</param>
+        /// <param name="context">The current template context (unused).</param>
         /// <returns>The name associated with the specified RxNorm code, or null if the code is not found in the dictionary.</returns>
         public static ValueTask<FluidValue> GetRxnormName(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
@@ -121,9 +135,10 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// Searches for the original text content of a node with a specified ID within a
         /// given xml string (`text._innerText` in most cases).
         /// </summary>
-        /// <param name="fullText">The string of XML to search within.</param>
-        /// <param name="id">The ID (reference value) to search for within the data structure.</param>
-        /// <returns>A string with the content of the node with the specified ID, or null if not found.</returns>
+        /// <param name="input">The string of XML to search within.</param>
+        /// <param name="arguments">The ID (reference value) to search for within the data structure.</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>A string with the content of the node with the specified ID, or nil if not found.</returns>
         public static ValueTask<FluidValue> FindInnerTextById(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             XmlDocument doc = new ();
@@ -164,6 +179,8 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// Formats quantity into valid json number.
         /// </summary>
         /// <param name="input">The input data to process, which is a number formatted as a string.</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
         /// <returns>A number formatted as a string, with a leading 0 if it's a decimal, and up to 3 decimal places.</returns>
         public static ValueTask<FluidValue> FormatQuantity(FluidValue input, FilterArguments arguments, TemplateContext context)
         {

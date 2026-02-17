@@ -6,14 +6,13 @@ The CDCgov fork supports only **eCR to FHIR** as of version 8. Changes to the co
 
 The converter uses templates that define mappings between these different data formats. The templates are written in [Liquid](https://shopify.github.io/liquid/) templating language and make use of custom [filters](docs/Filters-and-Tags.md).  
 
-TODO
-The converter comes with a few ready-to-use templates. If needed, you can create a new template, or modify existing templates to meet your specific conversion requirements. The provided templates are based off of HL7 v2.8. Other versions may require you to make modifications to these templates on your own. See [Templates & Authoring](#templates--authoring) for specifics.
+The converter comes with a few ready-to-use templates. If needed, you can create a new template, or modify existing templates to meet your specific conversion requirements. See [Templates & Authoring](#templates--authoring) for specifics.
 
 ## What's New?
 The latest iteration of the *Preview* FHIR converter makes some significant changes over [previous versions](#previous-versions).
 
 Some of the changes include:
- * Containerized API
+ * Removal of input types other than eCR.
  * Removal of Azure Container repository dependency for custom templates.
 
  All the documentation for the new *preview* FHIR converter API can be found in the [How to Guides](docs/how-to-guides/) folder.
@@ -22,10 +21,7 @@ Some of the changes include:
 
 The FHIR converter API *preview* provides [REST based APIs](#api) to perform conversion requests.
 
-The FHIR converter APIs are offered as a container artifact in [Microsoft Container Registry](https://github.com/microsoft/containerregistry).
-This image can be downloaded and run as a web service on a container hosting platform in your Azure tenant; that clients can target for conversion requests.
-
-![Convert setup](/docs/images/convert-setup.png)
+The FHIR converter APIs are offered as a container artifact in [Github Container Registry](https://github.com/CDCgov/dibbs-ecr-viewer/pkgs/container/dibbs-ecr-viewer%2Ffhir-converter).
 
 ## Templates & Authoring
 
@@ -43,17 +39,13 @@ In addition to the example [templates](data/Templates) provided there are severa
 - [Resource Id generation](docs/concepts/resource-id-generation.md)
 - [Validation & post processing](docs/concepts/validation-and-postprocessing.md)
 
-## Deployment
-
-You can deploy the FHIR converter API using the instructions found [here](/docs/how-to-guides/deployment-options.md).  The default deployment will deploy the FHIR Conventer API container hosted on Azure Container Apps.
-
 ## API
 
 The conversion APIs process the provided input data of the specified format and use the specified Liquid template (default or custom) and return the converted result as per the transformations in the template.
 
 ![Convert API summary](docs/images/convert-api-summary.png)
 
-Complete details on the FHIR converter APIs and examples can be found [here](/docs/how-to-guides/use-convert-web-apis.md).
+Complete details on the FHIR converter APIs and examples can be found [here](/src/Dibbs.FhirConverterApi/README.md).
 
 ## Troubleshooting
 
@@ -62,8 +54,6 @@ Some key concepts to consider:
 * The output of the template is expected to be JSON when the target is FHIR.
 * When converting data to FHIR, [post processing](https://github.com/CDCgov/dibbs-FHIR-Converter/blob/main/src/Dibbs.Fhir.Liquid.Converter/OutputProcessors/PostProcessor.cs) is performed.  If you are seeing unexpected results, double check the post processing logic. 
 * If you want a deeper understanding on how data is converted, look at the functional tests found [here](https://github.com/CDCgov/dibbs-FHIR-Converter/blob/main/src/Dibbs.Fhir.Liquid.Converter.FunctionalTests/ConvertDataTemplateDirectoryProviderFunctionalTests.cs)
-
-Detailed troubleshooting options for your deployed FHIR converter API can be found [here](docs/how-to-guides/troubleshoot.md).
 
 ## Previous Versions
 Detailed documentation of prior Converter release is covered in the table below.

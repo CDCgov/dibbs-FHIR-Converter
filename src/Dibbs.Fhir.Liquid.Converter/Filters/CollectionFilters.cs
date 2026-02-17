@@ -22,6 +22,13 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
+        /// <summary>
+        /// Returns an array created (if needed) from given object
+        /// </summary>
+        /// <param name="input">Object to convert to array</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>An array containing the input object</returns>
         public static ValueTask<FluidValue> ToArray(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             return input switch
@@ -32,6 +39,15 @@ namespace Dibbs.Fhir.Liquid.Converter
             };
         }
 
+        /// <summary>
+        /// Render every entry in a collection with a snippet and a variable name set in snippet
+        /// </summary>
+        /// <param name="input">A collection of items.</param>
+        /// <param name="arguments">At 0: The name of the template to render
+        ///     At 1: variable name that will be used for the individual input elements during each iteration
+        ///     At 2: (Optional) if included, sets the whole input collection as variable in context using this name</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>The rendered templates as a string</returns>
         public static async ValueTask<FluidValue> BatchRender(
             FluidValue input,
             FilterArguments arguments,
@@ -172,8 +188,9 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// `where` filter except instead of taking one key, takes a period-delimited path of keys).
         /// </summary>
         /// <param name="input">A collection of items.</param>
-        /// <param name="arguments">A period delimited set of keys to search.</param>
-        /// <param name="context">Optionally, the expected value of the item at the end of the keypath, if not present, truthiness is tested.</param>
+        /// <param name="arguments">At 0: A period delimited set of keys to search.
+        ///     (Optional) the expected value of the item at the end of the keypath, if not present, truthiness is tested.</param>
+        /// <param name="context">The current template context</param>
         /// <returns>A list of the items that match. If no matching elements are found, an empty list is returned.</returns>
         public static ValueTask<FluidValue> NestedWhere(FluidValue input, FilterArguments arguments, TemplateContext context)
         {

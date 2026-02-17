@@ -21,7 +21,14 @@ namespace Dibbs.Fhir.Liquid.Converter
         [GeneratedRegex("[^A-Za-z0-9]", RegexOptions.IgnoreCase)]
         private static partial Regex NormalizeSectionNameRegex();
 
-        // Note: I removed the ability to include multiple templateIds to simplify the code because we weren't using it
+        /// <summary>
+        /// Returns first instance (non-alphanumeric chars replace by '_' in name) of the sections by template id
+        /// Note: the ability to include multiple templateIds was removed to simplify the code because we weren't using it
+        /// </summary>
+        /// <param name="input">Sections from input message</param>
+        /// <param name="arguments">The template ID to search for</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>The first section with the matching template ID</returns>
         public static async ValueTask<FluidValue> GetFirstCcdaSectionsByTemplateId(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil())

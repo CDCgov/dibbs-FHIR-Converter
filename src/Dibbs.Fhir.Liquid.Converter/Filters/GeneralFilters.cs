@@ -26,6 +26,16 @@ namespace Dibbs.Fhir.Liquid.Converter
         [GeneratedRegex(@"^([0-2])((\.0)|(\.[1-9][0-9]*))*$", RegexOptions.IgnoreCase)]
         private static partial Regex OidRegex();
 
+        /// <summary>
+        /// Returns a specific property of a coding with mapping file Valueset.json
+        /// </summary>
+        /// <param name="input">The value to look up in the code mappings</param>
+        /// <param name="arguments">At 0: The valueset to search in
+        ///     At 1: The property to retrieve the value from in the matching valueset (defaults to "code")
+        ///     At 2: Whether to apply the default value if input is nil (defaults to "false")</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>The matching value from Valueset.json.
+        ///     Returns null if input is nil and the third argument is false or nil, or if either of the first two arguments is null or empty.</returns>
         public static ValueTask<FluidValue> GetProperty(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var mapping = arguments.At(0).ToStringValue();
@@ -52,9 +62,16 @@ namespace Dibbs.Fhir.Liquid.Converter
             var result = codeMapping?.GetValueOrDefault(property, null)
                 ?? ((property.Equals("code") || property.Equals("display")) ? originalCode : null);
 
-            return result == null ? NilValue.Instance : new StringValue(result);
+            return result == null ? NilValue.Instance : StringValue.Create(result);
         }
 
+        /// <summary>
+        /// Generates an ID based on an input string
+        /// </summary>
+        /// <param name="input">A string used as a seed to generate the UUID</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>A UUID. Returns nil if input is nil or empty.</returns>
         public static ValueTask<FluidValue> GenerateUUID(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var inputString = input.ToStringValue();
@@ -74,8 +91,8 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// Prepend UUIDs or OIDs to make them valid URNs.
         /// </summary>
         /// <param name="input">String of the ID</param>
-        /// /// <param name="arguments">Arguments passed into the filter</param>
-        /// /// <param name="context">The template context</param>
+        /// <param name="arguments">Arguments passed into the filter (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
         /// <returns>If input string matches the UUID pattern return string prepended with `urn:uuid:`, else if it matches the OIN pattern return the input string prepended with `urn:oid:`. It matches neither return the input string unchanged. </returns>
         public static ValueTask<FluidValue> PrependID(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
@@ -100,8 +117,9 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <summary>
         /// This is used to split an ID root from the ID extension when the root and extensions are both URLs.
         /// </summary>
-        /// <param name="extension">The extension of the ID. This will become the value of the Identifier</param>
-        /// <param name="root">The root of the ID. This will become the system of the Identifier</param>
+        /// <param name="input">The extension of the ID. This will become the value of the Identifier</param>
+        /// <param name="arguments">The root of the ID. This will become the system of the Identifier</param>
+        /// <param name="context">The current template context (unused)</param>
         /// <returns>The extension with the root removed, if the root was a URL prefix. Else return the extension unchanged.</returns>
         public static ValueTask<FluidValue> RemovePrefix(FluidValue input, FilterArguments arguments, TemplateContext context)
         {

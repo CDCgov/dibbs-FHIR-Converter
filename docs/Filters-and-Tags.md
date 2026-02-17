@@ -6,7 +6,7 @@ By default, Liquid provides a set of [standard filters](https://github.com/Shopi
 Besides these filters, FHIR Converter also provides some other filters that are useful in conversion, which are listed below.
 If these filters do not meet your needs, you can also write your own filters.
 
-### eCR specific filters
+### Section filters
 | Filter | Description | Syntax |
 |-|-|-|
 | get_first_ccda_sections_by_template_id | Returns first instance (non-alphanumeric chars replace by '_' in name) of the sections by template id | `{% assign firstSections = msg \| get_first_ccda_sections_by_template_id: '2.16.840.1.113883.10.20.22.2.5.1' -%}` |

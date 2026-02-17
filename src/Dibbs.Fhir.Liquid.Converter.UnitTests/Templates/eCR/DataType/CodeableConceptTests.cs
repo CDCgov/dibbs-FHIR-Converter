@@ -123,7 +123,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public void OriginalTextContainsSpecialCharacter()
+        public async void OriginalTextContainsSpecialCharacter()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -135,7 +135,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             
             // We need to make the output of the template into a complete JSON object and attempt to deserialize 
             // in order for this to fail if the implementation is not correct
-            var actualFhir = GetFhirObjectFromPartialTemplate<CodeableConcept>(ECRPath, attributes);
+            var actualFhir = await GetFhirObjectFromPartialTemplate<CodeableConcept>(ECRPath, attributes);
             Assert.Equal(actualFhir.Text, "Ship \\ Name");
         }
     }

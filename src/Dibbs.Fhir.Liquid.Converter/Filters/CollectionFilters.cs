@@ -130,7 +130,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             // Filter entries where this key matches the target property (if provided)
             var filtered = entries
-                .Select(async e => e is DictionaryValue entryDict ? entryDict.GetValueAsync(thisKey, context).Result : NilValue.Instance)
+                .Select(async e => e is DictionaryValue entryDict ? await entryDict.GetValueAsync(thisKey, context) : NilValue.Instance)
                 .Where(v =>
                     {
                         var value = v.Result;

@@ -25,7 +25,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
         }   
 
         [Fact]
-        public void GivenValidInputs_WhenWriteToAsync_ValueShouldBeSetInContext()
+        public async void GivenValidInputs_WhenWriteToAsync_ValueShouldBeSetInContext()
         {
             var attributes = new Dictionary<string, Fluid.Ast.Expression>
             {
@@ -53,20 +53,20 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
             });
 
             context.SetValue("file_system", fileSystem);
-            var result = evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context).Result;
+            var result = await evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context);
             Assert.Equal("id_foobar", context.GetValue("id").ToStringValue());
             Assert.Equal(Completion.Normal, result);
         }
 
         [Fact]
-        public void GivenTemplateDoesNotExist_WhenWriteToAsync_ShouldThrow()
+        public async void GivenTemplateDoesNotExist_WhenWriteToAsync_ShouldThrow()
         {           
             var evaluateStatement = new EvaluateStatement("id", "DNE", new Dictionary<string, Fluid.Ast.Expression>());
             var context = new TemplateContext();
             var fileSystem = new MemoryFileSystem(new List<Dictionary<string, IFluidTemplate>>());
             context.SetValue("file_system", fileSystem);
             
-            Assert.Throws<RenderException>(() => evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context).Result);
+            Assert.ThrowsAsync<RenderException>(async () => await evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context));
         }
     }
 }

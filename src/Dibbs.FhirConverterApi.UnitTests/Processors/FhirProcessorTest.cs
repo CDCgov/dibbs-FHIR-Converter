@@ -9,7 +9,7 @@ public class FhirProcessorTest
   public void FhirBundlePostProcessing_ShouldAddSourceToMeta_WhenInputTypeIsProvided()
   {
     var fhirInput = File.ReadAllText("../../../../../data/SampleData/FHIR/eCR_EveEverywoman-expected.json");
-    var actual = FhirProcessor.FhirBundlePostProcessing(fhirInput, "ecr");
+    var actual = FhirProcessor.FhirBundlePostProcessing(fhirInput);
     var actualJson = JsonNode.Parse(actual);
     var entries = actualJson!["response"]?["FhirResource"]?["entry"] as JsonArray;
     Assert.True(entries?.Count > 0);

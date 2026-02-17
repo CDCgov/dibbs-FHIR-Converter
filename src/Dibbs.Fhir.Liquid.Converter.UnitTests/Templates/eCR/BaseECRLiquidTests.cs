@@ -13,6 +13,7 @@ using Xunit;
 using Fluid;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Fluid.Values;
+using System.Threading.Tasks;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
@@ -55,7 +56,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         /// </summary>
         /// <param name="templatePath">Path to the template being tested</param>
         /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
-        protected static string RenderLiquidTemplate(
+        protected static async Task<string> RenderLiquidTemplate(
             string templatePath,
             Dictionary<string, object> attributes
         )
@@ -92,7 +93,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 Console.WriteLine(ex);
             }
-            return Filters.CleanStringFromTabs(StringValue.Create(actualContent), FilterArguments.Empty, context).Result.ToStringValue();
+            return (await Filters.CleanStringFromTabs(StringValue.Create(actualContent), FilterArguments.Empty, context)).ToStringValue();
         }
 
         /// <summary>
@@ -101,13 +102,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         /// <param name="templatePath">Path to the template being tested</param>
         /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
         /// <param name="expectedContent">Serialized string that should be returned</param>
-        protected static void ConvertCheckLiquidTemplate(
+        protected static async void ConvertCheckLiquidTemplate(
             string templatePath,
             Dictionary<string, object> attributes,
             string expectedContent
         )
         {
-            var actualContent = RenderLiquidTemplate(templatePath, attributes);
+            var actualContent = await RenderLiquidTemplate(templatePath, attributes);
             Assert.Equal(expectedContent, actualContent);
         }
 
@@ -125,7 +126,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         {
             const int timeoutMs = 10000;
 
-            var renderTask = System.Threading.Tasks.Task.Run(() => RenderLiquidTemplate(templatePath, attributes));
+            var renderTask = System.Threading.Tasks.Task.Run(async () => await RenderLiquidTemplate(templatePath, attributes));
 
             if (System.Threading.Tasks.Task.WhenAny(renderTask, System.Threading.Tasks.Task.Delay(timeoutMs)).Result != renderTask)
             {
@@ -159,13 +160,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         /// <param name="templatePath">Path to the template being tested</param>
         /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
         /// <returns>FHIR object of type T</returns>
-        protected static T GetFhirObjectFromPartialTemplate<T>(
+        protected async static Task<T> GetFhirObjectFromPartialTemplate<T>(
             string templatePath,
             Dictionary<string, object> attributes
         )
         {
             // Wraps the rendered template in curly braces to make it a valid JSON object.
-            var actual = $"{{ { RenderLiquidTemplate(templatePath, attributes) } }}";
+            var actual = $"{{ { await RenderLiquidTemplate(templatePath, attributes) } }}";
             var actualJson = DeserializeJson(actual);
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)
@@ -175,13 +176,13 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             return actualFhir;
         }
 
-        protected static void CompareJSONOutput(
+        protected static async void CompareJSONOutput(
             string templatePath,
             Dictionary<string, object> attributes,
             string expectedPath
         )
         {
-            var content = RenderLiquidTemplate(templatePath, attributes);
+            var content = await RenderLiquidTemplate(templatePath, attributes);
             var actualMinimized = MinimizeJson(content);
 
             var expected = File.ReadAllText(

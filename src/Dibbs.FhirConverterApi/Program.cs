@@ -36,7 +36,6 @@ app.MapGet("/", () => new { status = "OK" })
 app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRequest requestBody) =>
 {
     var inputData = requestBody.InputData;
-    var inputType = requestBody.InputType.ToLower();
     XDocument ecrDoc;
 
     try
@@ -68,7 +67,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
     try
     {
         var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        var newResult = FhirProcessor.FhirBundlePostProcessing(result, inputType);
+        var newResult = FhirProcessor.FhirBundlePostProcessing(result);
         return Results.Text(newResult, contentType: "application/json");
     }
     catch (UserFacingException ex)

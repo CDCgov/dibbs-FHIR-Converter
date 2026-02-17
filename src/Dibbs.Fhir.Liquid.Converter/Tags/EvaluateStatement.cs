@@ -43,7 +43,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Tags
 
             foreach (var attr in _attributes)
             {
-                var value = attr.Value.EvaluateAsync(context).Result;
+                var value = await attr.Value.EvaluateAsync(context);
                 context.SetValue(attr.Key, value);
             }
 

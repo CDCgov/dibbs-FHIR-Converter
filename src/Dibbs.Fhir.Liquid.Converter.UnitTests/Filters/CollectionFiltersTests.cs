@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using Antlr4.Runtime;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
@@ -26,17 +27,17 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public void ToArrayTests()
+        public async Task ToArrayTests()
         {
             var context = new TemplateContext();
 
-            Assert.Equal(0, (Filters.ToArray(NilValue.Instance, FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
-            Assert.Equal(1, (Filters.ToArray(NumberValue.Create(1), FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
-            Assert.Equal(2, (Filters.ToArray(ArrayValue.Create(new List<string> { null, string.Empty }, new TemplateOptions()), FilterArguments.Empty, context).Result as ArrayValue).Values.Count);
+            Assert.Equal(0, (await Filters.ToArray(NilValue.Instance, FilterArguments.Empty, context) as ArrayValue).Values.Count);
+            Assert.Equal(1, (await Filters.ToArray(NumberValue.Create(1), FilterArguments.Empty, context) as ArrayValue).Values.Count);
+            Assert.Equal(2, (await Filters.ToArray(ArrayValue.Create(new List<string> { null, string.Empty }, new TemplateOptions()), FilterArguments.Empty, context) as ArrayValue).Values.Count);
         }
 
         [Fact]
-        public void BatchRenderTests()
+        public async void BatchRenderTests()
         {
             // Valid template file system and template
             var templateCollection = new List<Dictionary<string, IFluidTemplate>>
@@ -52,48 +53,48 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 
             var collection = new List<object> { 1, 2, 3 };
-            Assert.Equal("1 ,2 ,3 ,", Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context).Result.ToStringValue());
+            Assert.Equal("1 ,2 ,3 ,", (await Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context)).ToStringValue());
             // Valid template file system but null collection
-            Assert.Equal(string.Empty, Filters.BatchRender(NilValue.Instance,  new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context).Result.ToStringValue());
+            Assert.Equal(string.Empty, (await Filters.BatchRender(NilValue.Instance,  new FilterArguments([StringValue.Create("foo"), StringValue.Create("i")]), context)).ToStringValue());
 
             // No template file system
             context = new TemplateContext(CultureInfo.InvariantCulture);
-            var exception = Assert.Throws<RenderException>(() => Filters.BatchRender(NilValue.Instance, new FilterArguments([StringValue.Create("foo"), StringValue.Create("bar")]), context).Result);
+            var exception = await Assert.ThrowsAsync<RenderException>(async () => await Filters.BatchRender(NilValue.Instance, new FilterArguments([StringValue.Create("foo"), StringValue.Create("bar")]), context));
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
 
             // Valid template file system but non-existing template
-            exception = Assert.Throws<RenderException>(() => Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("bar"), StringValue.Create("i")]), context).Result);
+            exception = await Assert.ThrowsAsync<RenderException>(async () => await Filters.BatchRender(ArrayValue.Create(collection, new TemplateOptions()), new FilterArguments([StringValue.Create("bar"), StringValue.Create("i")]), context));
             Assert.Equal(FhirConverterErrorCode.TemplateNotFound, exception.FhirConverterErrorCode);
         }
 
         [Fact]
-        public void NestedWhere_NullData_ReturnsNull()
+        public async void NestedWhere_NullData_ReturnsNull()
         {
             var context = new TemplateContext();
-            var actual = Filters.NestedWhere(NilValue.Instance, new FilterArguments(StringValue.Create("test.path")), context).Result;
+            var actual = await Filters.NestedWhere(NilValue.Instance, new FilterArguments(StringValue.Create("test.path")), context);
             Assert.Equal(NilValue.Instance, actual);
         }
 
         [Fact]
-        public void NestedWhere_EmptyArray_ReturnsEmpty()
+        public async void NestedWhere_EmptyArray_ReturnsEmpty()
         {
             var context = new TemplateContext();
-            var actual = Filters.NestedWhere(ArrayValue.Empty, new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
+            var actual = await Filters.NestedWhere(ArrayValue.Empty, new FilterArguments(StringValue.Create("test.path")), context) as ArrayValue;
             Assert.Equal(0, actual.Values.Count);
         }
 
         [Fact]
-        public void NestedWhere_NoMatch_ReturnsEmpty()
+        public async void NestedWhere_NoMatch_ReturnsEmpty()
         {
             var context = new TemplateContext();
-            var actual = Filters.NestedWhere(
+            var actual = await Filters.NestedWhere(
               ArrayValue.Create(new object[] { new { test = "hi" }, new { test = "bye" } }, new TemplateOptions()),
-              new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
+              new FilterArguments(StringValue.Create("test.path")), context) as ArrayValue;
             Assert.Equal(0, actual.Values.Count);
         }
 
         [Fact]
-        public void NestedWhere_Match_ReturnsMatch()
+        public async void NestedWhere_Match_ReturnsMatch()
         {
             var context = new TemplateContext();
             Dictionary<string, object>[] inputCollection = [ 
@@ -117,24 +118,24 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
                 } }];
             var expected = ArrayValue.Create(expectedCollection, new TemplateOptions());
 
-            var actual = Filters.NestedWhere(
+            var actual = await Filters.NestedWhere(
               ArrayValue.Create(inputCollection, new TemplateOptions()),
-              new FilterArguments(StringValue.Create("test.path")), context).Result as ArrayValue;
+              new FilterArguments(StringValue.Create("test.path")), context) as ArrayValue;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void NestedWhere_MatchButNotValue_ReturnsEmpty()
+        public async void NestedWhere_MatchButNotValue_ReturnsEmpty()
         {
             var context = new TemplateContext();
-            var actual = Filters.NestedWhere(
+            var actual = await Filters.NestedWhere(
               ArrayValue.Create(new object[] { new { test = new { path = "hi" } }, new { test = "bye" } }, new TemplateOptions()),
-              new FilterArguments(StringValue.Create("test.path"), StringValue.Create("other")), context).Result as ArrayValue;
+              new FilterArguments(StringValue.Create("test.path"), StringValue.Create("other")), context) as ArrayValue;
             Assert.Equal(ArrayValue.Empty, actual);
         }
 
         [Fact]
-        public void NestedWhere_MatchIncludingValue_ReturnsMatch()
+        public async void NestedWhere_MatchIncludingValue_ReturnsMatch()
         {
             var context = new TemplateContext();
             Dictionary<string, object>[] inputCollection = [ 
@@ -155,14 +156,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
                                 } }];
 
             var expected = ArrayValue.Create(expectedCollection, new TemplateOptions());
-            var actual = Filters.NestedWhere(
+            var actual = await Filters.NestedWhere(
               ArrayValue.Create(inputCollection, new TemplateOptions()),
-              new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
+              new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context) as ArrayValue;
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void NestedWhere_MatchIncludingValueList_ReturnsMatch()
+        public async void NestedWhere_MatchIncludingValueList_ReturnsMatch()
         {
             var context = new TemplateContext();
 
@@ -182,9 +183,9 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
                     { "test", "bye" } 
                 }
             ];
-            var actual = Filters.NestedWhere(
+            var actual = await Filters.NestedWhere(
                 ArrayValue.Create(inputCollection, new TemplateOptions()),
-                new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context).Result as ArrayValue;
+                new FilterArguments(StringValue.Create("test.path"), StringValue.Create("hi")), context) as ArrayValue;
             Assert.Equal(1, actual.Values.Count);
         }
     }

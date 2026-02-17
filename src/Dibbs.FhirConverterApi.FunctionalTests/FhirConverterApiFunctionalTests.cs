@@ -39,7 +39,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
         var content = new FhirConverterRequest
         {
-            InputType = "eCR",
             InputData = eICR,
             RRData = rr,
         };
@@ -57,7 +56,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
         var content = new FhirConverterRequest
         {
-            InputType = "eCR",
             InputData = eICR,
         };
 
@@ -74,7 +72,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
         var content = new FhirConverterRequest
         {
-            InputType = "eCR",
             InputData = "<this is not valid xml>",
             RRData = rr,
         };
@@ -91,7 +88,6 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
         var content = new FhirConverterRequest
         {
-            InputType = "eCR",
             InputData = eICR,
             RRData = "<this is not valid xml>",
         };

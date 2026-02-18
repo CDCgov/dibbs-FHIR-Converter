@@ -64,9 +64,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
         private string GetTemplatePath(TemplateContext context, string templateName)
         {
             // Get root template's parent path. This to account for cases where the root template is in a subfolder.
-            var rootTemplateParentPath = context[TemplateUtility.RootTemplateParentPathScope]?.ToString();
+            var rootTemplateParentPathFluid = context.GetValue(TemplateUtility.RootTemplateParentPathScope);
+            var rootTemplateParentPath = rootTemplateParentPathFluid.IsNil() ? null : rootTemplateParentPathFluid.ToStringValue();
 
-            var templatePath = context[templateName]?.ToString();
+            var templatePathFluid = context.GetValue(templateName);
+            var templatePath = templatePathFluid.IsNil() ? null : templatePathFluid.ToStringValue();
 
             return TemplateUtility.GetFormattedTemplatePath(templatePath, rootTemplateParentPath);
         }

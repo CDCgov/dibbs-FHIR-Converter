@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using Fluid;
+using Fluid.Values;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter
 {
@@ -15,106 +18,159 @@ namespace Microsoft.Health.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
-        private static readonly Regex NormalizeSectionNameRegex = new Regex("[^A-Za-z0-9]");
+        [GeneratedRegex("[^A-Za-z0-9]", RegexOptions.IgnoreCase)]
+        private static partial Regex NormalizeSectionNameRegex();
 
-        public static IDictionary<string, object> GetFirstCcdaSections(IDictionary<string, object> data, string sectionNameContent)
+        // TODO
+        // public static IDictionary<string, object> GetFirstCcdaSections(IDictionary<string, object> data, string sectionNameContent)
+        // {
+        //     var sectionLists = Filters.GetCcdaSectionLists(data, sectionNameContent);
+        //     var result = new Dictionary<string, object>();
+        //     foreach (var (key, value) in sectionLists)
+        //     {
+        //         result[key] = (value as List<object>)?.First();
+        //     }
+
+        //     return result;
+        // }
+
+        // TODO
+        // public static IDictionary<string, object> GetCcdaSectionLists(IDictionary<string, object> data, string sectionNameContent)
+        // {
+        //     var result = new Dictionary<string, object>();
+        //     var sectionNames = sectionNameContent.Split("|", StringSplitOptions.RemoveEmptyEntries);
+        //     var components = GetComponents(data);
+
+        //     if (components == null)
+        //     {
+        //         return result;
+        //     }
+
+        //     foreach (var sectionName in sectionNames)
+        //     {
+        //         foreach (var component in components)
+        //         {
+        //             if (component is Dictionary<string, object> componentDict &&
+        //                 componentDict.GetValueOrDefault("section") is Dictionary<string, object> sectionDict &&
+        //                 sectionDict.GetValueOrDefault("title") is Dictionary<string, object> titleDict &&
+        //                 titleDict.GetValueOrDefault("_") is string titleString &&
+        //                 titleString.Contains(sectionName, StringComparison.InvariantCultureIgnoreCase))
+        //             {
+        //                 var normalizedSectionName = NormalizeSectionName(sectionName);
+        //                 if (result.GetValueOrDefault(normalizedSectionName) is List<object> list)
+        //                 {
+        //                     list.Add(sectionDict);
+        //                 }
+        //                 else
+        //                 {
+        //                     result[NormalizeSectionName(sectionName)] = new List<object> { sectionDict };
+        //                 }
+        //             }
+        //         }
+        //     }
+
+        //     return result;
+        // }
+
+        /// <summary>
+        /// Returns first instance (non-alphanumeric chars replace by '_' in name) of the sections by template id
+        /// Note: the ability to include multiple templateIds was removed to simplify the code because we weren't using it
+        /// </summary>
+        /// <param name="input">Sections from input message</param>
+        /// <param name="arguments">The template ID to search for</param>
+        /// <param name="context">The current template context</param>
+        /// <returns>The first section with the matching template ID</returns>
+        public static async ValueTask<FluidValue> GetFirstCcdaSectionsByTemplateId(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            var sectionLists = Filters.GetCcdaSectionLists(data, sectionNameContent);
-            var result = new Dictionary<string, object>();
-            foreach (var (key, value) in sectionLists)
+            if (input.IsNil())
             {
-                result[key] = (value as List<object>)?.First();
+                throw new NullReferenceException("Input data cannot be null.");
             }
 
-            return result;
-        }
-
-        public static IDictionary<string, object> GetCcdaSectionLists(IDictionary<string, object> data, string sectionNameContent)
-        {
-            var result = new Dictionary<string, object>();
-            var sectionNames = sectionNameContent.Split("|", StringSplitOptions.RemoveEmptyEntries);
-            var components = GetComponents(data);
-
-            if (components == null)
+            if (arguments.At(0).IsNil())
             {
-                return result;
+                throw new NullReferenceException("Template id content cannot be null.");
             }
 
-            foreach (var sectionName in sectionNames)
+            var result = new Dictionary<string, object>();
+
+            if (input is DictionaryValue inputDict)
             {
-                foreach (var component in components)
+                var components = await GetComponents(inputDict, context);
+
+                if (components.IsNil())
                 {
-                    if (component is Dictionary<string, object> componentDict &&
-                        componentDict.GetValueOrDefault("section") is Dictionary<string, object> sectionDict &&
-                        sectionDict.GetValueOrDefault("title") is Dictionary<string, object> titleDict &&
-                        titleDict.GetValueOrDefault("_") is string titleString &&
-                        titleString.Contains(sectionName, StringComparison.InvariantCultureIgnoreCase))
+                    return FluidValue.Create(result, context.Options);
+                }
+
+                var templateIdContent = arguments.At(0).ToStringValue();
+                var templateIds = templateIdContent.Split("|", StringSplitOptions.RemoveEmptyEntries);
+                foreach (var templateId in templateIds)
+                {
+                    foreach (var component in components.Enumerate(context))
                     {
-                        var normalizedSectionName = NormalizeSectionName(sectionName);
-                        if (result.GetValueOrDefault(normalizedSectionName) is List<object> list)
+                        if (component is DictionaryValue componentDict
+                            && (await componentDict.GetValueAsync("section", context)) is DictionaryValue sectionDict)
                         {
-                            list.Add(sectionDict);
-                        }
-                        else
-                        {
-                            result[NormalizeSectionName(sectionName)] = new List<object> { sectionDict };
+                            var templateIdSection = await sectionDict.GetValueAsync("templateId", context);
+                            if (!templateIdSection.IsNil())
+                            {
+                                var sectionJson = (await Fluid.Filters.MiscFilters.Json(templateIdSection, FilterArguments.Empty, context)).ToStringValue();
+                                if (sectionJson.Contains(templateId, StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    result[NormalizeSectionName(templateId)] = sectionDict;
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            return result;
+            return FluidValue.Create(result, context.Options);
         }
 
-        public static IDictionary<string, object> GetFirstCcdaSectionsByTemplateId(IDictionary<string, object> data, string templateIdContent)
+        private static async Task<FluidValue> GetComponents(DictionaryValue data, TemplateContext context)
         {
-            var result = new Dictionary<string, object>();
-            var templateIds = templateIdContent.Split("|", StringSplitOptions.RemoveEmptyEntries);
-            var components = GetComponents(data);
+            var dataComponents = await GetChildSection(["ClinicalDocument", "component", "structuredBody", "component"], data, context);
 
-            if (components == null)
+            if (dataComponents.IsNil())
             {
-                return result;
+                return NilValue.Instance;
             }
 
-            foreach (var templateId in templateIds)
+            if (dataComponents is ArrayValue dataArray)
             {
-                foreach (var component in components)
+                return dataArray;
+            }
+
+            return (ArrayValue)dataComponents;
+        }
+
+        private static async Task<FluidValue> GetChildSection(string[] sectionNames, DictionaryValue data, TemplateContext context)
+        {
+            var childSection = await data.GetValueAsync(sectionNames.First(), context);
+
+            if (sectionNames.Length == 1)
+            {
+                return childSection;
+            }
+            else
+            {
+                if (childSection is DictionaryValue sectionDict)
                 {
-                    if (component is Dictionary<string, object> componentDict &&
-                        componentDict.GetValueOrDefault("section") is Dictionary<string, object> sectionDict &&
-                        sectionDict.GetValueOrDefault("templateId") != null &&
-                        ToJsonString(sectionDict["templateId"]).Contains(templateId, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        result[NormalizeSectionName(templateId)] = sectionDict;
-                        break;
-                    }
+                    return await GetChildSection(sectionNames[1..], sectionDict, context);
+                }
+                else
+                {
+                    return NilValue.Instance;
                 }
             }
-
-            return result;
-        }
-
-        private static List<object> GetComponents(IDictionary<string, object> data)
-        {
-            var dataComponents = (((data["ClinicalDocument"] as Dictionary<string, object>)?
-                .GetValueOrDefault("component") as Dictionary<string, object>)?
-                .GetValueOrDefault("structuredBody") as Dictionary<string, object>)?
-                .GetValueOrDefault("component");
-
-            if (dataComponents == null)
-            {
-                return null;
-            }
-
-            return dataComponents is List<object> listComponents
-                ? listComponents
-                : new List<object> { dataComponents };
         }
 
         private static string NormalizeSectionName(string input)
         {
-            return NormalizeSectionNameRegex.Replace(input, "_");
+            return NormalizeSectionNameRegex().Replace(input, "_");
         }
     }
 }

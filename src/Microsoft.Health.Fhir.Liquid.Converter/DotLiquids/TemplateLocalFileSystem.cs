@@ -38,7 +38,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
 
         public IFluidTemplate GetTemplate(TemplateContext context, string templateName)
         {
-            var templateKey = (string)context[templateName];
+            var templateKey = context.GetValue(templateName).ToStringValue();
             if (templateKey == null)
             {
                 throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, templateName));

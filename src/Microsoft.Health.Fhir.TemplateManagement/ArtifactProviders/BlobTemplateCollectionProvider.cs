@@ -13,8 +13,8 @@ using System.Threading.Tasks;
 using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using DotLiquid;
 using EnsureThat;
+using Fluid;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
 using Microsoft.Health.Fhir.TemplateManagement.Configurations;
@@ -55,10 +55,10 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
             _maxTemplateCollectionSizeInBytes = _templateCollectionConfiguration.TemplateCollectionSizeLimitMegabytes * 1024 * 1024;
         }
 
-        public async Task<List<Dictionary<string, Template>>> GetTemplateCollectionAsync(CancellationToken cancellationToken = default)
+        public async Task<List<Dictionary<string, IFluidTemplate>>> GetTemplateCollectionAsync(CancellationToken cancellationToken = default)
         {
             // read templates from cache if available
-            if (_templateCache.TryGetValue(_blobTemplateCacheKey, out List<Dictionary<string, Template>> templateCache))
+            if (_templateCache.TryGetValue(_blobTemplateCacheKey, out List<Dictionary<string, IFluidTemplate>> templateCache))
             {
                 return templateCache;
             }
@@ -93,7 +93,7 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
 
             var parsedtemplates = TemplateUtility.ParseTemplates(templates);
 
-            var templateCollection = new List<Dictionary<string, Template>>();
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>();
 
             if (parsedtemplates.Any())
             {

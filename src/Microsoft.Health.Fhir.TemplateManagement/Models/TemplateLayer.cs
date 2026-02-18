@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using DotLiquid;
+using Fluid;
 using Microsoft.Health.Fhir.TemplateManagement.Exceptions;
 using Microsoft.Health.Fhir.TemplateManagement.Utilities;
 
@@ -16,7 +16,7 @@ namespace Microsoft.Health.Fhir.TemplateManagement.Models
 {
     public class TemplateLayer : ArtifactBlob
     {
-        public Dictionary<string, Template> TemplateContent { get; set; }
+        public Dictionary<string, IFluidTemplate> TemplateContent { get; set; }
 
         public static TemplateLayer ReadFromEmbeddedResource(string templatePath)
         {

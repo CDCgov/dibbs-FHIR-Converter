@@ -6,12 +6,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
+using Fluid;
 
 namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
 {
     public interface IConvertDataTemplateCollectionProvider
     {
-        public Task<List<Dictionary<string, Template>>> GetTemplateCollectionAsync(CancellationToken cancellationToken);
+        public Task<List<Dictionary<string, IFluidTemplate>>> GetTemplateCollectionAsync(CancellationToken cancellationToken);
     }
 }

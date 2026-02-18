@@ -11,7 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
+using Fluid;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using Microsoft.Health.Fhir.Liquid.Converter;
@@ -582,7 +582,7 @@ namespace Microsoft.Health.Fhir.TemplateManagement.FunctionalTests
             await Assert.ThrowsAsync<RenderException>(async () => TestByTemplate("ADT01-23.hl7", "NonExistentTemplate", await templateCollectionProvider.GetTemplateCollectionAsync(CancellationToken.None)));
         }
 
-        private void TestByTemplate(string inputFile, string entryTemplate, List<Dictionary<string, Template>> templateProvider)
+        private void TestByTemplate(string inputFile, string entryTemplate, List<Dictionary<string, IFluidTemplate>> templateProvider)
         {
             var hl7v2Processor = new Hl7v2Processor(_processorSettings, FhirConverterLogging.CreateLogger<Hl7v2Processor>());
             var inputContent = File.ReadAllText(inputFile);

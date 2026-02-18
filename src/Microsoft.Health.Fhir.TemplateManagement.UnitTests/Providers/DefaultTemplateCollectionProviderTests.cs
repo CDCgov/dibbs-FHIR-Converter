@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
+using Fluid;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders;
@@ -75,7 +75,7 @@ namespace Microsoft.Health.Fhir.TemplateManagement.UnitTests.Providers
             Assert.Single(templateCollection);
 
             // Verify templates are cached
-            Assert.True(_cache.TryGetValue("cached-default-templates", out List<Dictionary<string, Template>> cachedTemplateCollection));
+            Assert.True(_cache.TryGetValue("cached-default-templates", out List<Dictionary<string, IFluidTemplate>> cachedTemplateCollection));
             Assert.Equal(templateCollection, cachedTemplateCollection);
 
             // Call again to test cache

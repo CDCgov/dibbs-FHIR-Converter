@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using DotLiquid;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
 using Microsoft.Health.Fhir.TemplateManagement.Exceptions;
 using Microsoft.Health.Fhir.TemplateManagement.Models;
@@ -30,7 +30,7 @@ namespace Microsoft.Health.Fhir.TemplateManagement
             return oneTemplateLayer;
         }
 
-        public static Dictionary<string, Template> ParseToTemplates(Dictionary<string, byte[]> content)
+        public static Dictionary<string, IFluidTemplate> ParseToTemplates(Dictionary<string, byte[]> content)
         {
             try
             {

@@ -6,8 +6,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
 using EnsureThat;
+using Fluid;
 using Microsoft.Azure.ContainerRegistry.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Health.Fhir.TemplateManagement.Client;
@@ -39,14 +39,14 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
             _layerSemaphore = new SemaphoreSlim(1, 1);
         }
 
-        public async Task<List<Dictionary<string, Template>>> GetTemplateCollectionAsync(CancellationToken cancellationToken = default)
+        public async Task<List<Dictionary<string, IFluidTemplate>>> GetTemplateCollectionAsync(CancellationToken cancellationToken = default)
         {
             if (ImageInfo.IsDefaultTemplate())
             {
                 return GetTemplateCollectionFromDefaultTemplates();
             }
 
-            List<Dictionary<string, Template>> result = new List<Dictionary<string, Template>>();
+            List<Dictionary<string, IFluidTemplate>> result = new List<Dictionary<string, IFluidTemplate>>();
             var templateImage = await GetOciArtifactAsync(cancellationToken);
             var templateLayers = templateImage.Blobs;
 
@@ -137,12 +137,12 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
             return oneTemplateLayer;
         }
 
-        private List<Dictionary<string, Template>> GetTemplateCollectionFromDefaultTemplates()
+        private List<Dictionary<string, IFluidTemplate>> GetTemplateCollectionFromDefaultTemplates()
         {
             string defaultImageReference = DefaultTemplateInfo.DefaultTemplateMap.GetValueOrDefault(ImageInfo.ImageReference)?.ImageReference;
             if (_templateCache.Get(defaultImageReference) is TemplateLayer oneTemplateLayer)
             {
-                return new List<Dictionary<string, Template>> { oneTemplateLayer.TemplateContent };
+                return new List<Dictionary<string, IFluidTemplate>> { oneTemplateLayer.TemplateContent };
             }
 
             throw new DefaultTemplatesInitializeException(TemplateManagementErrorCode.InitializeDefaultTemplateFailed, "Default templates not found.");

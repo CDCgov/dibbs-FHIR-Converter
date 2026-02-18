@@ -10,8 +10,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
 using EnsureThat;
+using Fluid;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.TemplateManagement.Configurations;
@@ -22,7 +22,7 @@ using Microsoft.Health.Fhir.TemplateManagement.Utilities;
 namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
 {
     /// <summary>
-    /// Template collection provider that provides all the default templates (under data/Templates) packaged as embedded resources,
+    /// IFluidTemplate collection provider that provides all the default templates (under data/Templates) packaged as embedded resources,
     /// as a template collection to be used by the converter.
     /// Templates are added to the collection under the respective 'DataType' path, i.e., each template under data/Templates/Hl7v2/ will be added as Hl7v2/*templateName*.liquid
     /// </summary>
@@ -40,15 +40,15 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
             _templateCollectionConfiguration = EnsureArg.IsNotNull(templateConfiguration, nameof(templateConfiguration));
         }
 
-        public async Task<List<Dictionary<string, Template>>> GetTemplateCollectionAsync(CancellationToken cancellationToken)
+        public async Task<List<Dictionary<string, IFluidTemplate>>> GetTemplateCollectionAsync(CancellationToken cancellationToken)
         {
             // Read templates from cache if available
-            if (_templateCollectionCache.TryGetValue(_defaultTemplateCacheKey, out List<Dictionary<string, Template>> templateCollectionCache))
+            if (_templateCollectionCache.TryGetValue(_defaultTemplateCacheKey, out List<Dictionary<string, IFluidTemplate>> templateCollectionCache))
             {
                 return templateCollectionCache;
             }
 
-            var templates = new List<Dictionary<string, Template>>();
+            var templates = new List<Dictionary<string, IFluidTemplate>>();
 
             // Extract default templates from embeeded resources
             var hl7v2DefaultTemplatesTask = Task.Run(() => templates.Add(ExtractTemplatesFromResource(DefaultTemplateInfo.Hl7v2DefaultTemplatesResource, DefaultRootTemplateParentPath.Hl7v2.ToString())), cancellationToken);
@@ -63,7 +63,7 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
                 .SelectMany(dict => dict)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-            var templateCollection = new List<Dictionary<string, Template>>();
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>();
             if (templatesDict.Any())
             {
                 templateCollection.Add(templatesDict);
@@ -74,11 +74,11 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
             return templateCollection;
         }
 
-        private Dictionary<string, Template> ExtractTemplatesFromResource(string resourceName, string folderName)
+        private Dictionary<string, IFluidTemplate> ExtractTemplatesFromResource(string resourceName, string folderName)
         {
             try
             {
-                var templates = new Dictionary<string, Template>();
+                var templates = new Dictionary<string, IFluidTemplate>();
 
                 // Get the assembly where the resources are embedded
                 Assembly assembly = Assembly.GetExecutingAssembly();

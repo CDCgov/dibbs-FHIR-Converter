@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using DotLiquid;
+using Fluid;
 
 namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
 {
@@ -17,6 +17,6 @@ namespace Microsoft.Health.Fhir.TemplateManagement.ArtifactProviders
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>List of templates.</returns>
-        Task<List<Dictionary<string, Template>>> GetTemplateCollectionAsync(CancellationToken cancellationToken = default);
+        Task<List<Dictionary<string, IFluidTemplate>>> GetTemplateCollectionAsync(CancellationToken cancellationToken = default);
     }
 }

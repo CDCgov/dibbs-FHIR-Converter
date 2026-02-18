@@ -3,13 +3,12 @@
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
 
-using DotLiquid;
-using DotLiquid.FileSystems;
+using Fluid;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
 {
-    public interface IFhirConverterTemplateFileSystem : ITemplateFileSystem
+    public interface IFhirConverterTemplateFileSystem
     {
-        public Template GetTemplate(string templateName, string rootTemplatePath = "");
+        public IFluidTemplate GetTemplate(string templateName, string rootTemplatePath = "");
     }
 }

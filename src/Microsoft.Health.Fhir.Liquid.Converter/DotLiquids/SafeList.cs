@@ -6,11 +6,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DotLiquid;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
 {
-    public class SafeList<T> : IEnumerable, IIndexable, ILiquidizable
+    public class SafeList<T> : IEnumerable
         where T : class
     {
         private IList<T> _internalList;

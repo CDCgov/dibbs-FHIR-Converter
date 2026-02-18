@@ -7,10 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DotLiquid;
-using DotLiquid.Exceptions;
-using DotLiquid.FileSystems;
-using DotLiquid.Util;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
 {

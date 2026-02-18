@@ -4,11 +4,10 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using DotLiquid;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.Models.Hl7v2
 {
-    public class Hl7v2Data : Drop
+    public class Hl7v2Data
     {
         public Hl7v2Data(string value = null)
         {

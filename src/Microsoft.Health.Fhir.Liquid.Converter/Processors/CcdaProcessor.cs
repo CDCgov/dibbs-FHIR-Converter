@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DotLiquid;
+using Fluid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
@@ -30,7 +30,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return InternalConvertFromObject(ccdaData, rootTemplate, templateProvider, traceInfo);
         }
 
-        protected override Context CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
+        protected override TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
         {
             // Load value set mapping
             var context = base.CreateContext(templateProvider, data, rootTemplate);
@@ -43,7 +43,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return context;
         }
 
-        private string GetCodeMappingTemplatePath(Context context)
+        private string GetCodeMappingTemplatePath(TemplateContext context)
         {
             var rootTemplateParentPath = context[TemplateUtility.RootTemplateParentPathScope]?.ToString();
             var codeSystemTemplateName = "ValueSet/ValueSet";

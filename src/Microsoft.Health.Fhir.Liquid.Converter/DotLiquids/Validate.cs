@@ -8,8 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DotLiquid;
-using DotLiquid.Exceptions;
-using DotLiquid.Util;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Models.Json;
 using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
@@ -50,7 +49,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
             base.Initialize(tagName, markup, tokens);
         }
 
-        public override void Render(Context context, TextWriter result)
+        public override void Render(TemplateContext context, TextWriter result)
         {
             JsonSchema validateSchema = LoadValidateSchema(context);
 
@@ -88,7 +87,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
             result.Write(validateContent);
         }
 
-        private JsonSchema LoadValidateSchema(Context context)
+        private JsonSchema LoadValidateSchema(TemplateContext context)
         {
             if (!(context.Registers["file_system"] is IFhirConverterTemplateFileSystem fileSystem))
             {

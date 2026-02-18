@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using DotLiquid;
 using DotLiquid.Exceptions;
 using DotLiquid.Util;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Newtonsoft.Json;
 using RenderException = Microsoft.Health.Fhir.Liquid.Converter.Exceptions.RenderException;
@@ -49,7 +50,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.DotLiquids
             base.Initialize(tagName, markup, tokens);
         }
 
-        public override void Render(Context context, TextWriter result)
+        public override void Render(TemplateContext context, TextWriter result)
         {
             using StringWriter writer = new StringWriter();
 

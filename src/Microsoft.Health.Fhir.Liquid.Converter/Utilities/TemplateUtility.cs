@@ -9,8 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using DotLiquid;
-using DotLiquid.Exceptions;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -46,9 +45,9 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
         /// </summary>
         /// <param name="templates">A dictionary, key is the name, value is the template content in string format</param>
         /// <returns>A dictionary, key is the name, value is Template</returns>
-        public static Dictionary<string, Template> ParseTemplates(IDictionary<string, string> templates)
+        public static Dictionary<string, IFluidTemplate> ParseTemplates(IDictionary<string, string> templates)
         {
-            var parsedTemplates = new Dictionary<string, Template>();
+            var parsedTemplates = new Dictionary<string, IFluidTemplate>();
             foreach (var entry in templates)
             {
                 var formattedEntryKey = FormatRegex.Replace(entry.Key, "/");
@@ -90,7 +89,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
             }
         }
 
-        public static Template ParseTemplate(string templateKey, string content)
+        public static IFluidTemplate ParseTemplate(string templateKey, string content)
         {
             if (IsCodeMappingTemplate(templateKey))
             {
@@ -106,7 +105,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
             }
         }
 
-        public static Template ParseCodeMapping(string content)
+        public static IFluidTemplate ParseCodeMapping(string content)
         {
             if (content == null)
             {
@@ -131,7 +130,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
             }
         }
 
-        public static Template ParseLiquidTemplate(string templateName, string content)
+        public static IFluidTemplate ParseLiquidTemplate(string templateName, string content)
         {
             if (content == null)
             {
@@ -148,7 +147,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Utilities
             }
         }
 
-        public static Template ParseJsonSchemaTemplate(string content)
+        public static IFluidTemplate ParseJsonSchemaTemplate(string content)
         {
             if (string.IsNullOrWhiteSpace(content))
             {

@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
-using DotLiquid;
 using EnsureThat;
+using Fluid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
@@ -50,7 +50,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
 
         protected abstract string InternalConvert(string data, string rootTemplate, ITemplateProvider templateProvider, TraceInfo traceInfo = null);
 
-        protected virtual Context CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
+        protected virtual TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
         {
             // Load data and templates
             var cancellationToken = Settings.TimeOut > 0 ? new CancellationTokenSource(Settings.TimeOut).Token : CancellationToken.None;
@@ -72,7 +72,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return context;
         }
 
-        protected virtual void CreateTraceInfo(object data, Context context, TraceInfo traceInfo)
+        protected virtual void CreateTraceInfo(object data, TemplateContext context, TraceInfo traceInfo)
         {
         }
 
@@ -91,7 +91,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             rootTemplate = templateProvider.IsDefaultTemplateProvider ? string.Format("{0}/{1}", DefaultRootTemplateParentPath, rootTemplate) : rootTemplate;
 
             // Step: Retrieve Template
-            Template template = templateProvider.GetTemplate(rootTemplate);
+            IFluidTemplate template = templateProvider.GetTemplate(rootTemplate);
             if (template == null)
             {
                 throw new RenderException(FhirConverterErrorCode.TemplateNotFound, string.Format(Resources.TemplateNotFound, rootTemplate));
@@ -110,7 +110,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             return result.ToString(Formatting.Indented);
         }
 
-        protected string RenderTemplates(Template template, Context context)
+        protected string RenderTemplates(IFluidTemplate template, TemplateContext context)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
             }
         }
 
-        protected void AddRootTemplatePathScope(Context context, ITemplateProvider templateProvider, string rootTemplate)
+        protected void AddRootTemplatePathScope(TemplateContext context, ITemplateProvider templateProvider, string rootTemplate)
         {
             // Add path to root template's parent. In case of default template provider, use the data type as the parent path, else use the parent path set in the context.
             context[TemplateUtility.RootTemplateParentPathScope] = templateProvider.IsDefaultTemplateProvider ? DefaultRootTemplateParentPath : TemplateUtility.GetRootTemplateParentPath(rootTemplate);

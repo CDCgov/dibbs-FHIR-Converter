@@ -43,8 +43,6 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
 
         protected virtual TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate, IFileProvider fileProvider)
         {
-            // We initialize Fluid's file provider which is used for includes
-            // var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
             TemplateOptions.FileProvider = fileProvider;
             var context = new TemplateContext(data, TemplateOptions);
 

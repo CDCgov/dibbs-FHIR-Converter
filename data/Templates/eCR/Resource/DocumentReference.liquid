@@ -17,7 +17,7 @@
                 {
                     "contentType":"text/plain",
                     "data":"{{ documentReference._originalData | gzip }}",
-                    "hash":"{{ documentReference._originalData | gzip | sha1_hash | base64_encode }}",
+                    "hash":"{{ documentReference._originalData | gzip | sha1 | base64_encode }}",
                 },
             },
         ],

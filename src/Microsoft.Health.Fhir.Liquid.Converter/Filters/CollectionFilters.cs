@@ -10,13 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Fluid;
 using Fluid.Values;
-using Microsoft.Health.Fhir.Liquid.Converter;
 using Microsoft.Health.Fhir.Liquid.Converter.DotLiquids;
 using Microsoft.Health.Fhir.Liquid.Converter.Exceptions;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
 
-namespace Dibbs.Fhir.Liquid.Converter
+namespace Microsoft.Health.Fhir.Liquid.Converter
 {
     /// <summary>
     /// Filters for conversion

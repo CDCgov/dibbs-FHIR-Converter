@@ -8,7 +8,7 @@ using Fluid;
 using Fluid.Values;
 using Microsoft.VisualBasic.FileIO;
 
-namespace Dibbs.Fhir.Liquid.Converter
+namespace Microsoft.Health.Fhir.Liquid.Converter
 {
     /// <summary>
     /// Filters for conversion

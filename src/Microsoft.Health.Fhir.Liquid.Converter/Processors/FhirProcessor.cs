@@ -3,6 +3,7 @@
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
 
+using Fluid;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 
@@ -10,9 +11,10 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
 {
     public class FhirProcessor : JsonProcessor
     {
-        public FhirProcessor(ProcessorSettings processorSettings, ILogger<FhirProcessor> logger)
-            : base(processorSettings, logger)
+        public FhirProcessor(ProcessorSettings processorSettings, ILogger<FhirProcessor> logger, TemplateOptions options)
+            : base(processorSettings, logger, options)
         {
+            TemplateOptions = options;
         }
 
         protected override DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; } = DefaultRootTemplateParentPath.Fhir;

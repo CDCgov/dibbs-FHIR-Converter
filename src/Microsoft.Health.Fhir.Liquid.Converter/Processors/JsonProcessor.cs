@@ -22,15 +22,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
     {
         private readonly IDataParser _parser;
 
-        public JsonProcessor(ProcessorSettings processorSettings, ILogger<JsonProcessor> logger)
-            : this(processorSettings, new JsonDataParser(), logger)
+        public JsonProcessor(ProcessorSettings processorSettings, ILogger<JsonProcessor> logger, TemplateOptions options)
+            : this(processorSettings, new JsonDataParser(), logger, options)
         {
+            TemplateOptions = options;
         }
 
-        public JsonProcessor(ProcessorSettings processorSettings, IDataParser parser, ILogger<JsonProcessor> logger)
+        public JsonProcessor(ProcessorSettings processorSettings, IDataParser parser, ILogger<JsonProcessor> logger, TemplateOptions options)
             : base(processorSettings, logger)
         {
             _parser = EnsureArg.IsNotNull(parser, nameof(parser));
+            TemplateOptions = options;
         }
 
         protected override DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; } = DefaultRootTemplateParentPath.Json;

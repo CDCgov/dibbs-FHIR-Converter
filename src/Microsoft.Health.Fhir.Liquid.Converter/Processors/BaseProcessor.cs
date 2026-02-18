@@ -35,6 +35,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
 
         protected virtual DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; }
 
+        protected virtual TemplateOptions TemplateOptions { get; set; }
+
         public string Convert(string data, string rootTemplate, ITemplateProvider templateProvider, CancellationToken cancellationToken, TraceInfo traceInfo = null)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -52,19 +54,11 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
 
         protected virtual TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate)
         {
-            // Load data and templates
-            var cancellationToken = Settings.TimeOut > 0 ? new CancellationTokenSource(Settings.TimeOut).Token : CancellationToken.None;
-            var context = new Context(
-                environments: new List<Hash> { Hash.FromDictionary(data) },
-                outerScope: new Hash(),
-                registers: Hash.FromDictionary(new Dictionary<string, object> { { "file_system", templateProvider.GetTemplateFileSystem() } }),
-                errorsOutputMode: ErrorsOutputMode.Rethrow,
-                maxIterations: Settings.MaxIterations,
-                formatProvider: CultureInfo.InvariantCulture,
-                cancellationToken: cancellationToken);
+            TemplateOptions.FileProvider = fileProvider; // templateProvider.GetFileProvider()?
+            var context = new TemplateContext(data, TemplateOptions);
 
-            // Load filters
-            context.AddFilters(typeof(Filters));
+            // Used later for batch rendering since TemplateFileSystem handles caching for us
+            context.SetValue("file_system", templateProvider.GetTemplateFileSystem());
 
             // Add root template's parent path to context.
             AddRootTemplatePathScope(context, templateProvider, rootTemplate);
@@ -114,8 +108,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
         {
             try
             {
-                template.MakeThreadSafe();
-                return template.Render(RenderParameters.FromContext(context, CultureInfo.InvariantCulture));
+                return template.Render(context);
             }
             catch (TimeoutException ex)
             {
@@ -143,7 +136,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
         protected void AddRootTemplatePathScope(TemplateContext context, ITemplateProvider templateProvider, string rootTemplate)
         {
             // Add path to root template's parent. In case of default template provider, use the data type as the parent path, else use the parent path set in the context.
-            context[TemplateUtility.RootTemplateParentPathScope] = templateProvider.IsDefaultTemplateProvider ? DefaultRootTemplateParentPath : TemplateUtility.GetRootTemplateParentPath(rootTemplate);
+            var rootTemplatePath = templateProvider.IsDefaultTemplateProvider ? DefaultRootTemplateParentPath.ToString() : TemplateUtility.GetRootTemplateParentPath(rootTemplate);
+            context.SetValue(TemplateUtility.RootTemplateParentPathScope, rootTemplatePath);
         }
 
         protected void LogTelemetry(string telemetryName, double duration)

@@ -35,15 +35,17 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
 
         private string[] _segmentsWithFieldSeparator = new string[] { "MSH", "BHS", "FHS" };
 
-        public FhirToHl7v2Processor(ProcessorSettings processorSettings, ILogger<FhirToHl7v2Processor> logger)
-            : this(processorSettings, new JsonDataParser(), logger)
+        public FhirToHl7v2Processor(ProcessorSettings processorSettings, ILogger<FhirToHl7v2Processor> logger, TemplateOptions options)
+            : this(processorSettings, new JsonDataParser(), logger, options)
         {
+            TemplateOptions = options;
         }
 
-        public FhirToHl7v2Processor(ProcessorSettings processorSettings, IDataParser parser, ILogger<FhirToHl7v2Processor> logger)
+        public FhirToHl7v2Processor(ProcessorSettings processorSettings, IDataParser parser, ILogger<FhirToHl7v2Processor> logger, TemplateOptions options)
             : base(processorSettings, logger)
         {
             _parser = EnsureArg.IsNotNull(parser, nameof(parser));
+            TemplateOptions = options;
         }
 
         protected override DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; } = DefaultRootTemplateParentPath.FhirToHl7v2;

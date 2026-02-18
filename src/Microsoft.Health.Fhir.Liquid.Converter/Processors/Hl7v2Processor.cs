@@ -4,8 +4,10 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.Text.Json;
 using Fluid;
+using Fluid.Values;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Models.Hl7v2;
@@ -17,10 +19,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
     public class Hl7v2Processor : BaseProcessor
     {
         private readonly IDataParser _parser = new Hl7v2DataParser();
+        private CodeMapping codeMapping;
 
-        public Hl7v2Processor(ProcessorSettings processorSettings, ILogger<Hl7v2Processor> logger)
+        public Hl7v2Processor(ProcessorSettings processorSettings, ILogger<Hl7v2Processor> logger, TemplateOptions options)
             : base(processorSettings, logger)
         {
+            TemplateOptions = options;
         }
 
         protected override string DataKey { get; set; } = "hl7v2Data";
@@ -37,10 +41,15 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
         {
             // Load code system mapping
             var context = base.CreateContext(templateProvider, data, rootTemplate);
-            var codeMapping = templateProvider.GetTemplate(GetCodeMappingTemplatePath(context));
-            if (codeMapping?.Root?.NodeList?.First() != null)
+            if (codeMapping == null)
             {
-                context["CodeMapping"] = codeMapping.Root.NodeList.First();
+                var codeMappingText = File.ReadAllText(GetCodeMappingTemplatePath(context));
+                codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeMappingText);
+            }
+
+            if (codeMapping.Mapping.Keys.Count > 0)
+            {
+                context.SetValue("CodeMapping", new ObjectValue(codeMapping));
             }
 
             return context;
@@ -56,7 +65,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
 
         private string GetCodeMappingTemplatePath(TemplateContext context)
         {
-            var rootTemplateParentPath = context[TemplateUtility.RootTemplateParentPathScope]?.ToString();
+            var rootTemplateParentPathFluid = context.GetValue(TemplateUtility.RootTemplateParentPathScope);
+            var rootTemplateParentPath = rootTemplateParentPathFluid.IsNil() ? null : rootTemplateParentPathFluid.ToStringValue();
             var codeSystemTemplateName = "CodeSystem/CodeSystem";
             return TemplateUtility.GetFormattedTemplatePath(codeSystemTemplateName, rootTemplateParentPath);
         }

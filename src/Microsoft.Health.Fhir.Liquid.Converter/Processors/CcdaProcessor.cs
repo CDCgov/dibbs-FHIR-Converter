@@ -4,8 +4,10 @@
 // -------------------------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.Text.Json;
 using Fluid;
+using Fluid.Values;
 using Microsoft.Extensions.Logging;
 using Microsoft.Health.Fhir.Liquid.Converter.Models;
 using Microsoft.Health.Fhir.Liquid.Converter.Parsers;
@@ -16,10 +18,12 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
     public class CcdaProcessor : BaseProcessor
     {
         private readonly IDataParser _parser = new CcdaDataParser();
+        private CodeMapping codeMapping;
 
-        public CcdaProcessor(ProcessorSettings processorSettings, ILogger<CcdaProcessor> logger)
+        public CcdaProcessor(ProcessorSettings processorSettings, ILogger<CcdaProcessor> logger, TemplateOptions options)
             : base(processorSettings, logger)
         {
+            TemplateOptions = options;
         }
 
         protected override DefaultRootTemplateParentPath DefaultRootTemplateParentPath { get; set; } = DefaultRootTemplateParentPath.Ccda;
@@ -34,10 +38,16 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
         {
             // Load value set mapping
             var context = base.CreateContext(templateProvider, data, rootTemplate);
-            var codeMapping = templateProvider.GetTemplate(GetCodeMappingTemplatePath(context));
-            if (codeMapping?.Root?.NodeList?.First() != null)
+
+            if (codeMapping == null)
             {
-                context["CodeMapping"] = codeMapping.Root.NodeList.First();
+                var codeMappingText = File.ReadAllText(GetCodeMappingTemplatePath(context));
+                codeMapping = JsonSerializer.Deserialize<CodeMapping>(codeMappingText);
+            }
+
+            if (codeMapping.Mapping.Keys.Count > 0)
+            {
+                context.SetValue("CodeMapping", new ObjectValue(codeMapping));
             }
 
             return context;
@@ -45,7 +55,8 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Processors
 
         private string GetCodeMappingTemplatePath(TemplateContext context)
         {
-            var rootTemplateParentPath = context[TemplateUtility.RootTemplateParentPathScope]?.ToString();
+            var rootTemplateParentPathFluid = context.GetValue(TemplateUtility.RootTemplateParentPathScope);
+            var rootTemplateParentPath = rootTemplateParentPathFluid.IsNil() ? null : rootTemplateParentPathFluid.ToStringValue();
             var codeSystemTemplateName = "ValueSet/ValueSet";
             return TemplateUtility.GetFormattedTemplatePath(codeSystemTemplateName, rootTemplateParentPath);
         }

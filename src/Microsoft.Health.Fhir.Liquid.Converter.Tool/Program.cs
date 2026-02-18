@@ -7,7 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CommandLine;
+using Fluid;
 using Microsoft.Health.Fhir.Liquid.Converter.Tool.Models;
+using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
 
 namespace Microsoft.Health.Fhir.Liquid.Converter.Tool
 {
@@ -18,7 +20,7 @@ namespace Microsoft.Health.Fhir.Liquid.Converter.Tool
             var parseResult = Parser.Default.ParseArguments<ConverterOptions, PullTemplateOptions, PushTemplateOptions>(args);
             try
             {
-                parseResult.WithParsed<ConverterOptions>(ConverterLogicHandler.Convert);
+                parseResult.WithParsed<ConverterOptions>(options => ConverterLogicHandler.Convert(options, TemplateUtility.TemplateOptions));
                 await parseResult.WithParsedAsync<PullTemplateOptions>(TemplateManagementLogicHandler.PullAsync);
                 await parseResult.WithParsedAsync<PushTemplateOptions>(TemplateManagementLogicHandler.PushAsync);
                 parseResult.WithNotParsed(HandleOptionsParseError);

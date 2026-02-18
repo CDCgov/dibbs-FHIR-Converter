@@ -15,6 +15,7 @@
         "dosage":
         [
             {
+                "route":{ {% include 'DataType/CodeableConcept' CodeableConcept: medicationStatement.routeCode %} },
                 "doseAndRate":
                 [
                     {
@@ -29,5 +30,11 @@
                 ],
             },
         ],
+        "note": [
+            {
+                "text": "{{medicationStatement.text.reference._}}",
+            }
+        ]
+        
     },
 },

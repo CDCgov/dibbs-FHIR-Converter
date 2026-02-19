@@ -5,6 +5,7 @@ using Dibbs.FhirConverterApi.Processors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Health.Fhir.Liquid.Converter.Tool;
 using Microsoft.Health.Fhir.Liquid.Converter.Tool.Models;
+using Microsoft.Health.Fhir.Liquid.Converter.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,7 +86,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
             IsVerboseEnabled = false,
             IsTraceInfo = false,
         };
-        var result = ConverterLogicHandler.ConvertWithoutSaving(options);
+        var result = ConverterLogicHandler.ConvertWithoutSaving(options, TemplateUtility.TemplateOptions);
         var newResult = FhirProcessor.FhirBundlePostProcessing(result, inputType);
         return Results.Text(newResult, contentType: "application/json");
     }

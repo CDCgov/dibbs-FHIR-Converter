@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Fluid;
@@ -115,5 +116,60 @@ public class CustomFilterTests
         TemplateContext context = new TemplateContext();
         var actual = Filters.FindInnerTextById(NilValue.Instance, new FilterArguments(StringValue.Create("nope")), context).Result;
         Assert.Equal(NilValue.Instance, actual);
+    }
+
+    [Fact]
+    public async void FindObjectByIdRecursive_ValidId_ReturnsObject()
+    {
+        var options = new TemplateOptions();
+        var text1 = new List<object>()
+        {
+                "Correct return value",
+        };
+        var content1 = new Dictionary<string, object>()
+        {
+                { "ID", "test-id-1" },
+                { "_", text1 },
+        };
+        var expected = FluidValue.Create(content1, options);
+
+        var dict1 = new Dictionary<string, object>()
+        {
+                { "content", content1 },
+        };
+        var text2 = new List<object>()
+        {
+                "Incorrect return value",
+        };
+        var content2 = new Dictionary<string, object>()
+        {
+                { "ID", "test-id-2" },
+                { "_", text2 },
+        };
+        var dict2 = new Dictionary<string, object>()
+        {
+                { "content", content2 },
+        };
+        var data = new List<object>()
+        {
+                dict1, dict2,
+        };
+
+        var value = FluidValue.Create(data, options);
+
+        var arguments = new FilterArguments();
+        arguments.Add(StringValue.Create("test-id-1"));
+        var actual = await Filters.FindObjectById(value, arguments, new TemplateContext());
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public async void FindObjectById_NullData_ReturnsNull()
+    {
+        var arguments = new FilterArguments();
+        arguments.Add(StringValue.Create("fake-id"));
+        var actual = await Filters.FindObjectById(NilValue.Instance, arguments, new TemplateContext());
+        Assert.True(actual.IsNil());
     }
 }

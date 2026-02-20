@@ -187,5 +187,69 @@ namespace Dibbs.Fhir.Liquid.Converter
             IConvertible convert = input.ToStringValue();
             return StringValue.Create(convert.ToDouble(null).ToString("0.###"));
         }
+
+        /// <summary>
+        /// Searches for an object with a specified ID within a given data structure.
+        /// </summary>
+        /// <param name="input">The data structure to search within, of type DictionaryValue or ArrayValue.</param>
+        /// <param name="arguments">The ID (reference value) to search for within the data structure.</param>
+        /// <param name="context">The template context</param>
+        /// <returns>A DictionaryValue representing the found object with the specified ID, or nil if not found.</returns>
+        public static async ValueTask<FluidValue> FindObjectById(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            if (arguments.At(0).IsNil())
+            {
+                return NilValue.Instance;
+            }
+
+            return await FindObjectByIdRecursive(input, arguments.At(0).ToStringValue(), context);
+        }
+
+        /// <summary>
+        /// Recursively searches for an object with a specified ID within a given data structure.
+        /// </summary>
+        /// <param name="data">The data structure to search within, of type IDictionary<string, object>, IList, or JArray.</param>
+        /// <param name="id">The ID to search for within the data structure.</param>
+        /// <param name="context">The template context</param>
+        /// <returns>A DictionaryValue representing the found object with the specified ID, or nil if not found.</returns>
+        private static async Task<FluidValue> FindObjectByIdRecursive(FluidValue data, string id, TemplateContext context)
+        {
+            if (data.IsNil())
+            {
+                return NilValue.Instance;
+            }
+
+            if (data is DictionaryValue dict)
+            {
+                if ((await dict.GetValueAsync("ID", context)).ToStringValue() == id)
+                {
+                    return dict;
+                }
+
+                foreach (var entry in dict.Enumerate(context))
+                {
+                    // In Fluid, the enumerated DictionaryValue entries are ArrayValues with the format [StringValue Key, FluidValue Value]
+                    var value = await (entry as ArrayValue).GetIndexAsync(NumberValue.Create(1), context);
+                    var found = await FindObjectByIdRecursive(value, id, context);
+                    if (!found.IsNil())
+                    {
+                        return found;
+                    }
+                }
+            }
+            else if (data is ArrayValue array)
+            {
+                foreach (var item in array.Enumerate(context))
+                {
+                    var found = await FindObjectByIdRecursive(item, id, context);
+                    if (!found.IsNil())
+                    {
+                        return found;
+                    }
+                }
+            }
+
+            return NilValue.Instance;
+        }
     }
 }

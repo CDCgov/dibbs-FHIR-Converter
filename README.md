@@ -9,17 +9,17 @@ The converter uses templates that define mappings between these different data f
 The converter comes with a few ready-to-use templates. If needed, you can create a new template, or modify existing templates to meet your specific conversion requirements. See [Templates & Authoring](#templates--authoring) for specifics.
 
 ## What's New?
-The latest iteration of the *Preview* FHIR converter makes some significant changes over [previous versions](#previous-versions).
+The latest iteration of the FHIR converter makes some significant changes over [previous versions](#previous-versions).
 
 Some of the changes include:
  * Removal of input types other than eCR.
  * Removal of Azure Container repository dependency for custom templates.
 
- All the documentation for the new *preview* FHIR converter API can be found in the [How to Guides](docs/how-to-guides/) folder.
+ All the documentation for the new FHIR converter API can be found in the [How to Guides](docs/how-to-guides/) folder.
 
 ## Architecture
 
-The FHIR converter API *preview* provides [REST based APIs](#api) to perform conversion requests.
+The FHIR converter API provides [REST based APIs](#api) to perform conversion requests.
 
 The FHIR converter APIs are offered as a container artifact in [Github Container Registry](https://github.com/CDCgov/dibbs-ecr-viewer/pkgs/container/dibbs-ecr-viewer%2Ffhir-converter).
 

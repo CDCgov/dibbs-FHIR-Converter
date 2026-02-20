@@ -131,6 +131,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             if (System.Threading.Tasks.Task.WhenAny(renderTask, System.Threading.Tasks.Task.Delay(timeoutMs)).Result != renderTask)
             {
                 Console.WriteLine($"Liquid template rendering timed out after {timeoutMs}ms. Template: {templatePath}");
+                throw new TimeoutException();
             }
 
             var actual = renderTask.Result;

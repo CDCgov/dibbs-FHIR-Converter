@@ -27,7 +27,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async Task ToArrayTests()
+        public async void ToArrayTests()
         {
             var context = new TemplateContext();
 

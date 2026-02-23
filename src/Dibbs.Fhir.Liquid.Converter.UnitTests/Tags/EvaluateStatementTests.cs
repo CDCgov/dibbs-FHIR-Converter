@@ -66,7 +66,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
             var fileSystem = new MemoryFileSystem(new List<Dictionary<string, IFluidTemplate>>());
             context.SetValue("file_system", fileSystem);
             
-            Assert.ThrowsAsync<RenderException>(async () => await evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context));
+            await Assert.ThrowsAsync<RenderException>(async () => await evaluateStatement.WriteToAsync(new StringWriter(), HtmlEncoder.Default, context));
         }
     }
 }

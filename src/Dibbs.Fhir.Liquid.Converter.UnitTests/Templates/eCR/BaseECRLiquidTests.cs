@@ -102,7 +102,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         /// <param name="templatePath">Path to the template being tested</param>
         /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
         /// <param name="expectedContent">Serialized string that should be returned</param>
-        protected static async void ConvertCheckLiquidTemplate(
+        protected static async System.Threading.Tasks.Task ConvertCheckLiquidTemplate(
             string templatePath,
             Dictionary<string, object> attributes,
             string expectedContent
@@ -177,7 +177,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             return actualFhir;
         }
 
-        protected static async void CompareJSONOutput(
+        protected static async System.Threading.Tasks.Task CompareJSONOutput(
             string templatePath,
             Dictionary<string, object> attributes,
             string expectedPath

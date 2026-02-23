@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Fluid;
 using Fluid.Values;
@@ -19,7 +20,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         private static readonly Dictionary<string, object> TestData = LoadTestData();
 
         [Fact]
-        public async void GetFirstCcdaSectionsByTemplateIdTests()
+        public async Task GetFirstCcdaSectionsByTemplateIdTests()
         {
             const string templateIdContent = "2.16.840.1.113883.10.20.22.2.10";
             var context = new TemplateContext();

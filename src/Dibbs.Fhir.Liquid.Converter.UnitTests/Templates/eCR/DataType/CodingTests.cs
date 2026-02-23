@@ -98,7 +98,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public async void DisplayNameContainsSpecialCharacter()
+        public async System.Threading.Tasks.Task DisplayNameContainsSpecialCharacter()
         {
             var attributes = new Dictionary<string, object>
             {

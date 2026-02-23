@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Fluid;
 using Fluid.Values;
 using Hl7.FhirPath.Expressions;
@@ -119,7 +120,7 @@ public class CustomFilterTests
     }
 
     [Fact]
-    public async void FindObjectByIdRecursive_ValidId_ReturnsObject()
+    public async Task FindObjectByIdRecursive_ValidId_ReturnsObject()
     {
         var options = new TemplateOptions();
         var text1 = new List<object>()
@@ -165,7 +166,7 @@ public class CustomFilterTests
     }
 
     [Fact]
-    public async void FindObjectById_NullData_ReturnsNull()
+    public async Task FindObjectById_NullData_ReturnsNull()
     {
         var arguments = new FilterArguments();
         arguments.Add(StringValue.Create("fake-id"));

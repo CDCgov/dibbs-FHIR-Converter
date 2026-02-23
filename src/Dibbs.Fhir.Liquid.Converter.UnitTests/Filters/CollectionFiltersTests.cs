@@ -27,7 +27,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void ToArrayTests()
+        public async Task ToArrayTests()
         {
             var context = new TemplateContext();
 
@@ -37,7 +37,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void BatchRenderTests()
+        public async Task BatchRenderTests()
         {
             // Valid template file system and template
             var templateCollection = new List<Dictionary<string, IFluidTemplate>>
@@ -68,7 +68,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void NestedWhere_NullData_ReturnsNull()
+        public async Task NestedWhere_NullData_ReturnsNull()
         {
             var context = new TemplateContext();
             var actual = await Filters.NestedWhere(NilValue.Instance, new FilterArguments(StringValue.Create("test.path")), context);
@@ -76,7 +76,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void NestedWhere_EmptyArray_ReturnsEmpty()
+        public async Task NestedWhere_EmptyArray_ReturnsEmpty()
         {
             var context = new TemplateContext();
             var actual = await Filters.NestedWhere(ArrayValue.Empty, new FilterArguments(StringValue.Create("test.path")), context) as ArrayValue;
@@ -84,7 +84,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void NestedWhere_NoMatch_ReturnsEmpty()
+        public async Task NestedWhere_NoMatch_ReturnsEmpty()
         {
             var context = new TemplateContext();
             var actual = await Filters.NestedWhere(
@@ -94,7 +94,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void NestedWhere_Match_ReturnsMatch()
+        public async Task NestedWhere_Match_ReturnsMatch()
         {
             var context = new TemplateContext();
             Dictionary<string, object>[] inputCollection = [ 
@@ -125,7 +125,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void NestedWhere_MatchButNotValue_ReturnsEmpty()
+        public async Task NestedWhere_MatchButNotValue_ReturnsEmpty()
         {
             var context = new TemplateContext();
             var actual = await Filters.NestedWhere(
@@ -135,7 +135,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void NestedWhere_MatchIncludingValue_ReturnsMatch()
+        public async Task NestedWhere_MatchIncludingValue_ReturnsMatch()
         {
             var context = new TemplateContext();
             Dictionary<string, object>[] inputCollection = [ 
@@ -163,7 +163,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public async void NestedWhere_MatchIncludingValueList_ReturnsMatch()
+        public async Task NestedWhere_MatchIncludingValueList_ReturnsMatch()
         {
             var context = new TemplateContext();
 

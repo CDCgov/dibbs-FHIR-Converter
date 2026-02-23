@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Threading;
+using System.Threading.Tasks;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.FileSystems;
 using Dibbs.Fhir.Liquid.Converter.Models;
@@ -11,7 +12,6 @@ using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Fluid.Ast;
 using Fluid.Values;
-using Hl7.Fhir.Model;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
@@ -25,7 +25,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
         }   
 
         [Fact]
-        public async void GivenValidInputs_WhenWriteToAsync_ValueShouldBeSetInContext()
+        public async Task GivenValidInputs_WhenWriteToAsync_ValueShouldBeSetInContext()
         {
             var attributes = new Dictionary<string, Fluid.Ast.Expression>
             {
@@ -59,7 +59,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Tags
         }
 
         [Fact]
-        public async void GivenTemplateDoesNotExist_WhenWriteToAsync_ShouldThrow()
+        public async Task GivenTemplateDoesNotExist_WhenWriteToAsync_ShouldThrow()
         {           
             var evaluateStatement = new EvaluateStatement("id", "DNE", new Dictionary<string, Fluid.Ast.Expression>());
             var context = new TemplateContext();

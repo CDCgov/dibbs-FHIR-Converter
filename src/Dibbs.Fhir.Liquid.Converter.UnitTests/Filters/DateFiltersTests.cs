@@ -16,6 +16,7 @@ using Fluid;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using System.Net.Http.Headers;
 using Fluid.Ast;
+using System.Threading.Tasks;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 {
@@ -345,7 +346,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         [Theory]
         [MemberData(nameof(GetValidDataForFormatWidthAsPeriod))]
-        public async void FormatWidthAsPeriod_Valid(string inputStr, string expectedStr)
+        public async Task FormatWidthAsPeriod_Valid(string inputStr, string expectedStr)
         {
             var context = new TemplateContext();
             var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;
@@ -366,7 +367,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
         [Theory]
         [MemberData(nameof(GetInvalidDataForFormatWidthAsPeriod))]
-        public async void FormatWidthAsPeriod_Invalid(string inputStr)
+        public async Task FormatWidthAsPeriod_Invalid(string inputStr)
         {
             var context = new TemplateContext();
             var inputParsed = new CcdaDataParser().Parse(inputStr) as IDictionary<string, object>;

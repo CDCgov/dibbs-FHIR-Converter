@@ -123,7 +123,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public async void OriginalTextContainsSpecialCharacter()
+        public async System.Threading.Tasks.Task OriginalTextContainsSpecialCharacter()
         {
             var attributes = new Dictionary<string, object>
             {

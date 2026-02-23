@@ -184,7 +184,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
 
         [Fact]
-        public async void Obs_Status_GivenLabObsResultStatus_ReturnsStatusFromObs()
+        public async System.Threading.Tasks.Task Obs_Status_GivenLabObsResultStatus_ReturnsStatusFromObs()
         {
             var attributes = new Dictionary<string, object>
             { { "ID", "123" }, { "observationEntry", new { entryRelationship = new { observation = new { templateId = new { root = "2.16.840.1.113883.10.20.22.4.419" }, value = new { code = "P", displayName = "Preliminary results", codeSystem = "2.16.840.1.113883.18.34", codeSystemName = "HL7ObservationResultStatusCodesInterpretation" } } } }} };
@@ -195,7 +195,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public async void Obs_Status_GivenNoLabObsResultStatus_ReturnsStatusFromStatusCode()
+        public async System.Threading.Tasks.Task Obs_Status_GivenNoLabObsResultStatus_ReturnsStatusFromStatusCode()
         {
             var attributes = new Dictionary<string, object>
             { { "ID", "123" }, { "observationEntry", new { statusCode = new { code = "active" } }} };

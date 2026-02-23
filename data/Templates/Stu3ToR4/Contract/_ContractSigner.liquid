@@ -1,5 +1,0 @@
-{% mergeDiff msg -%}
-{
-  "signature" : [ {{ msg.signature | to_array | batch_render: 'DataType/Signature', 'msg' }} ]
-}
-{% endmergeDiff -%}

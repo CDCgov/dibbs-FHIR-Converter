@@ -11,15 +11,14 @@ public class FhirProcessor
     ///  Adds source info to all resources.
     /// </summary>
     /// <param name="input">The FHIR bundle as a JSON string.</param>
-    /// <param name="inputType">The original type of the source data that was converted.</param>
     /// <returns>
     ///  The updated FHIR bundle as a JSON string.
     /// </returns>
-    public static string FhirBundlePostProcessing(string input, string inputType)
+    public static string FhirBundlePostProcessing(string input)
     {
         var bundleJson = JsonNode.Parse(input) !;
 
-        bundleJson = AddDataSourceToBundle(bundleJson, inputType);
+        bundleJson = AddDataSourceToBundle(bundleJson);
         var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}");
         resultsJson!["response"] !["FhirResource"] = bundleJson;
         var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
@@ -39,11 +38,10 @@ public class FhirProcessor
     ///  every resource in the bundle.
     /// </summary>
     /// <param name="bundle">The FHIR bundle to add minimum provenance to.</param>
-    /// <param name="dataSource">The data source of the FHIR bundle.</param>
     /// <returns>
     ///  The FHIR bundle with the a Meta.source entry for each FHIR resource in the bundle
     /// </returns>
-    private static JsonNode AddDataSourceToBundle(JsonNode bundle, string dataSource)
+    private static JsonNode AddDataSourceToBundle(JsonNode bundle)
     {
         foreach (var entry in (bundle["entry"] as JsonArray) ?? new JsonArray())
         {
@@ -61,7 +59,7 @@ public class FhirProcessor
                 resource["meta"] = meta;
             }
 
-            meta["source"] = dataSource;
+            meta["source"] = "ecr";
         }
 
         return bundle;

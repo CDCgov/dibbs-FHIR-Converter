@@ -1,10 +1,10 @@
 """
-Creates `src/Microsoft.Health.Fhir.Liquid.Converter/Snomed.csv`
+Creates `src/Dibbs.Fhir.Liquid.Converter/Snomed.csv`
 
 Parameters:
 snomed_directory (str): Path to the unzipped directory downloaded from https://www.nlm.nih.gov/healthit/snomedct/us_edition.html
 Returns:
-None: Writes `src/Microsoft.Health.Fhir.Liquid.Converter/Snomed.csv` from the given Snomed CSV.
+None: Writes `src/Dibbs.Fhir.Liquid.Converter/Snomed.csv` from the given Snomed CSV.
 """
 
 from argparse import ArgumentParser
@@ -66,5 +66,5 @@ current_concept_ids = set(deduped["conceptId"])
 
 
 deduped[["conceptId", "term"]].to_csv(
-    "../src/Microsoft.Health.Fhir.Liquid.Converter/Snomed.csv", index=False
+    "../src/Dibbs.Fhir.Liquid.Converter/Snomed.csv", index=False
 )

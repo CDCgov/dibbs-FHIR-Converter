@@ -1,0 +1,33 @@
+{% if value.code %}
+    "valueCodeableConcept" : {
+        {% include 'DataType/CodeableConcept', CodeableConcept: value -%}
+    },
+{% elsif value["xsi:type"] == "BL" -%}
+    "valueBoolean" : {{ value.value }}
+{% elsif value["xsi:type"] == "TS" -%}
+    "valueDateTime": "{{ value.value | format_as_date_time }}",
+{% elsif value.value -%}
+    "valueQuantity": {
+        {% if value.value != blank %}
+        "value":
+            {% if value.value startswith "." %}
+                {{ "0" | append: value.value | escape_special_chars }},
+            {% else %}
+                {{ value.value | escape_special_chars }},
+            {% endif %}
+        {% endif %}
+        {% if value.unit and value.unit != "null" -%}
+            "unit":"{{ value.unit }}",
+        {% endif -%}
+    },
+{% elsif value._ %}
+    "valueString":"{{ value._ | clean_string_from_tabs | escape_special_chars }}",
+{% elsif value.originalText._ %}
+    "valueString":"{{ value.originalText._ | clean_string_from_tabs | escape_special_chars }}",
+{% else %}
+    {% assign ref = value.originalText.reference %}
+    {% if value.reference %}
+        {% assign ref = value.reference %}
+    {% endif %}
+    "valueString":"{%- include 'Utils/TextRefHelper', ref: ref, origText: origText -%}",
+{% endif -%}

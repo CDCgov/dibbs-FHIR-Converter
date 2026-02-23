@@ -37,8 +37,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
             Assert.Equal(6, (await sections.GetValueAsync("2_16_840_1_113883_10_20_22_2_10", context) as DictionaryValue).Enumerate(context).Count());
 
             // Null data or template id content
-            Assert.ThrowsAsync<NullReferenceException>(async () => await Filters.GetFirstCcdaSectionsByTemplateId(NilValue.Instance, new FilterArguments(StringValue.Create(templateIdContent)), context));
-            Assert.ThrowsAsync<NullReferenceException>(async () => await Filters.GetFirstCcdaSectionsByTemplateId(ObjectValue.Create(new object(), new TemplateOptions()), FilterArguments.Empty, context));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await Filters.GetFirstCcdaSectionsByTemplateId(NilValue.Instance, new FilterArguments(StringValue.Create(templateIdContent)), context));
+            await Assert.ThrowsAsync<NullReferenceException>(async () => await Filters.GetFirstCcdaSectionsByTemplateId(ObjectValue.Create(new object(), new TemplateOptions()), FilterArguments.Empty, context));
         }
 
         private static Dictionary<string, object> LoadTestData()

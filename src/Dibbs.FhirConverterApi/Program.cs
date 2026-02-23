@@ -31,7 +31,12 @@ if (app.Environment.IsDevelopment())
 
 app.MapGet("/", () => new { status = "OK" })
 .WithName("HealthCheck")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, _, __) =>
+   {
+       operation.Summary = "Used to confirm that the API is running and responsive.";
+       operation.Description = "Returns \"OK\" if the API is running.";
+       return Task.CompletedTask;
+   });
 
 app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRequest requestBody) =>
 {
@@ -82,11 +87,11 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 })
 .Accepts<dynamic>("application/json")
 .WithName("ConvertToFhir")
-.WithOpenApi();
+.AddOpenApiOperationTransformer((operation, _, __) =>
+   {
+       operation.Summary = "Converts `input_data` from eICR to FHIR.";
+       operation.Description = "If applicable, merges eICR and RR and returns converted data as JSON.";
+       return Task.CompletedTask;
+   });
 
 app.Run();
-
-public partial class Program
-{
-    // Expose the Program class for use with WebApplicationFactory<T>
-}

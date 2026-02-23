@@ -69,7 +69,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <param name="input">The string to prepend to</param>
         /// <param name="arguments">The string to add to the beginning of the input string</param>
         /// <param name="context">The current template context</param>
-        /// <returns>A string containing the input string added to the end of the first argument. 
+        /// <returns>A string containing the input string added to the end of the first argument.
         ///     Returns nil if the first argument is nil.</returns>
         public static ValueTask<FluidValue> Prepend(FluidValue input, FilterArguments arguments, TemplateContext context)
         {

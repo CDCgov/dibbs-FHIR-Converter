@@ -1,0 +1,76 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "RelatedPerson",
+        "id":"{{ ID }}",
+        "identifier":
+        [
+            {% assign ids = relatedPerson.id | to_array -%}
+            {% for id in ids -%}
+            {% endfor -%}
+        ],
+        "relationship":
+        [
+            { {% include 'DataType/CodeableConcept', CodeableConcept: relatedPerson.code -%} },
+            {% if relatedPerson.guardianPerson %}
+                {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                            "code": "GUARD",
+                            "display": "Guardian",
+                        }
+                    ]
+                },
+            {% endif %}
+        ],
+        "name":
+        [
+            {% assign guardianNames = relatedPerson.guardianPerson.name | to_array -%}
+            {% assign names = relatedPerson.name | to_array | concat: guardianNames -%}
+            {% for name in names -%}
+            { {% include 'DataType/HumanName', HumanName: name -%} },
+            {% endfor -%}
+        ],
+        "telecom":
+        [
+            {% assign telecoms = relatedPerson.telecom | to_array -%}
+            {% for telecom in telecoms -%}
+            { {% include 'DataType/ContactPoint', ContactPoint: telecom -%} },
+            {% endfor -%}
+        ],
+        "birthDate":"{{ relatedPerson.guardianPerson.birthTime.value | add_hyphens_date }}",
+        "gender":"{{ relatedPerson.guardianPerson.administrativeGenderCode.displayName | downcase }}",
+        "address":
+        [
+            {% assign addrs = relatedPerson.addr | to_array -%}
+            {% for addr in addrs -%}
+            { {% include 'DataType/Address', Address: addr -%} },
+            {% endfor -%}
+        ],
+        "communication":
+        [
+            {% assign languageCommunications = relatedPerson.guardianPerson.languageCommunication | to_array -%}
+            {% for languageCommunication in languageCommunications -%}
+            {
+                "language":
+                {
+                    "coding":
+                    [
+                        {
+                            "system":"http://hl7.org/fhir/ValueSet/languages",
+                            "code":"{{ languageCommunication.languageCode.code }}",
+                            "display":"{{ languageCommunication.languageCode.code | downcase | get_property: 'ValueSet/Language' }}",
+                        },
+                    ],
+                },
+                "preferred":"{{ languageCommunication.preferenceInd.value }}",
+                "extension":
+                [
+                    { {% include 'Extension/PatientProficiency', modeCode: languageCommunication.modeCode, proficiencyLevelCode: languageCommunication.proficiencyLevelCode -%} },
+                ],
+            },
+            {% endfor -%}
+        ],
+    },
+},

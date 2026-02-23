@@ -1,0 +1,3093 @@
+{
+  "resourceType": "Bundle",
+  "type": "document",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-document-bundle"
+    ]
+  },
+  "id": "1.2.840.114350.1.13.4304.2.7.8.688883.1374",
+  "identifier": {
+    "system": "urn:ietf:rfc:3986",
+    "value": "urn:oid:1.2.840.114350.1.13.4304.2.7.8.688883.1374",
+    "assigner": {
+      "display": "EPC"
+    }
+  },
+  "timestamp": "1985-07-28T23:28:26-06:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:3aa16af4-b2f6-eae4-f15f-5a243c19cf4c",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "3aa16af4-b2f6-eae4-f15f-5a243c19cf4c",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
+          ]
+        },
+        "identifier": {
+          "use": "official",
+          "type": {
+            "coding": [
+              {
+                "code": "55751-2",
+                "system": "http://loinc.org",
+                "display": "Public health Case report"
+              }
+            ]
+          },
+          "value": "359d9b6c-da66-11ef-8f89-005056be2511",
+          "assigner": {
+            "display": "EPC"
+          }
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+            "valueString": "1"
+          },
+          {
+            "url": "https://www.hl7.org/implement/standards/product_brief.cfm?product_id=436",
+            "valueString": "2022-05-01"
+          }
+        ],
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "55751-2",
+              "system": "http://loinc.org",
+              "display": "Public health Case report"
+            }
+          ]
+        },
+        "date": "1985-07-28T23:28:26-06:00",
+        "title": "Initial Public Health Case Report",
+        "confidentiality": "N",
+        "section": [
+          {
+            "id": "36e66cea-6dd0-a13c-a6fc-71747cd770dd",
+            "title": "Miscellaneous Notes",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><p>REMOVED</p><p id=\"Note2\"><span><span>REMOVED.</span><br />REMOVED </span><br /><span>REMOVED</span><br /></p></li><li><p>REMOVED</p><p id=\"Note3\"><span><span>REMOVED.</span><br />REMOVED </span><br /><span>REMOVED</span><br /></p></li></ul><small id=\"subTitle1\">documented in this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10164-2",
+                  "system": "http://loinc.org",
+                  "display": "History of Present illness Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "366CAB00-DA66-11EF-B655-005056BE2511",
+            "title": "Immunizations",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /><col /><col /></colgroup><thead><tr><th>Immunization</th><th>Administration Dates</th><th>Next Due</th></tr></thead><tbody><tr id=\"immunization6\"><td id=\"immunization6Name\">REMOVED</td><td><p>REMOVED</p></td><td /></tr></tbody></table><small id=\"subTitle5\">documented as of this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11369-6",
+                  "system": "http://loinc.org",
+                  "display": "History of Immunization note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Immunization/c099eff8-da24-9e93-1961-f040da84ca62"
+              }
+            ]
+          },
+          {
+            "id": "368CF1FF-DA66-11EF-B655-005056BE2511",
+            "title": "Administered Medications",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table id=\"admMedTable10\"><caption>REMOVED</caption><colgroup><col /><col /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>Dose</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th></tr></thead><tbody><tr><td><p id=\"med7\">removed</p><p id=\"sig7\">REMOVED</p><p>REMOVED <span id=\"indication8\">Cleft hard palate</span></p></td><td>REMOVED</td><td>REMOVED</td><td>removed</td><td /><td /><td /></tr><tr><td /><td /></tr></tbody></table><small id=\"subTitle9\">documented in this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29549-3",
+                  "system": "http://loinc.org",
+                  "display": "Medication administered Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationAdministration/9e261e19-782d-4300-1c58-ca7798df678a"
+              }
+            ]
+          },
+          {
+            "id": "78b19a9e-3ab2-1532-4348-828fcdfe5cb9",
+            "title": "Plan of Treatment",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><caption>REMOVED</caption><colgroup><col /><col /><col /></colgroup><thead><tr><th>Date</th><th>Type</th><th>Department</th><th>REMOVED</th><th>Description</th></tr></thead><tbody><tr id=\"encounter12\"><td>REMOVED</td><td id=\"encounter12type\">REMOVED</td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>608-271-9000</p></td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p></td><td /></tr></tbody></table><small id=\"subTitle11\">documented as of this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "18776-5",
+                  "system": "http://loinc.org",
+                  "display": "Plan of care note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "CarePlan/94cf74b3-e084-b949-88ff-5db822d381bb"
+              }
+            ]
+          },
+          {
+            "id": "3697709E-DA66-11EF-B655-005056BE2511",
+            "title": "Active Problems",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /><col /><col /></colgroup><thead><tr><th>Problem</th><th>Noted Date</th><th>REMOVED</th></tr></thead><tbody><tr id=\"problem16\"><td id=\"problem16name\">Zika virus disease</td><td>REMOVED</td><td /></tr><tr id=\"problem15\"><td id=\"problem15name\">Cleft hard palate</td><td>REMOVED</td><td /></tr></tbody></table><small id=\"subTitle14\">removed</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "11450-4",
+                  "system": "http://loinc.org",
+                  "display": "Problem list - Reported"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "display": "Problem - Cleft hard palate",
+                "reference": "Condition/c2a4a80a-fb01-2f59-db39-44f258bd36c9"
+              },
+              {
+                "display": "Problem - Zika virus disease",
+                "reference": "Condition/1b2bc739-e5a9-7d5b-26db-1aaacfd6965f"
+              }
+            ]
+          },
+          {
+            "id": "36989282-da66-11ef-b655-005056be2511",
+            "title": "Chief Complaint",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">REMOVED </div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "10154-3",
+                  "system": "http://loinc.org",
+                  "display": "Chief complaint Narrative - Reported"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "36A3CB85-DA66-11EF-B655-005056BE2511",
+            "title": "Results",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603\"><p id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Procedure\"> REMOVED</p><table><colgroup><col /><col /><col /><col /><col /><col /></colgroup><thead><tr><th>Component</th><th>Value</th><th>Ref Range</th><th>Test Method</th><th>Analysis Time</th><th>Performed At</th><th>Pathologist Signature</th></tr></thead><tbody><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1Name\"> REMOVED</td><td>12</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1Signature\" /></tr><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2Name\"> WBC</td><td>REMOVED</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2Signature\" /></tr><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3Name\"> PLT</td><td>300</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3Signature\" /></tr><tr id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4\"><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4Name\"> REMOVED</td><td>5</td><td>REMOVED</td><td /><td /><td /><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4Signature\" /></tr></tbody></table><table><colgroup><col /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th><th>REMOVED</th></tr></thead><tbody><tr><td id=\"Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Specimen\"> Blood</td><td>REMOVED</td><td /><td>REMOVED</td><td /></tr></tbody></table><table><thead><tr><th>Narrative</th></tr></thead><tbody><tr><td><p /></td></tr></tbody></table><table><colgroup><col /><col /></colgroup><thead><tr><th>Authorizing Provider</th><th>Result Type</th><th>REMOVED</th></tr></thead><tbody><tr><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td></tr></tbody></table></li></ul><small id=\"subTitle17\">documented in this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "30954-2",
+                  "system": "http://loinc.org",
+                  "display": "Relevant diagnostic tests/laboratory data note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/2c75ca01-3197-0584-4f56-1d7de5ce25ec",
+                "display": "REMOVED"
+              },
+              {
+                "reference": "Observation/89a6c6d1-a50c-b5a2-5dc3-4abdd15a8b41",
+                "display": "REMOVED"
+              },
+              {
+                "reference": "Observation/06189b34-1eaf-1422-fdda-108b9f4e39ad",
+                "display": "REMOVED"
+              },
+              {
+                "reference": "Observation/701463f6-4bfc-fb07-d063-63340edceb2a",
+                "display": "REMOVED"
+              },
+              {
+                "reference": "Observation/75afe3af-962e-647d-2828-05b85f636fcd"
+              }
+            ]
+          },
+          {
+            "id": "afabbd64-95e7-8440-8b51-3049974b6602",
+            "title": "Social History",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table id=\"sochist19\"><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th>Tobacco Use</th><th>Types</th><th>Packs/Day</th><th>Years Used</th><th>Date</th></tr></thead><tbody><tr><td>Smoking Tobacco: Never</td><td /><td id=\"sochist19packsperday\" /><td /><td /></tr><tr id=\"sochist19smokeless\"><td>REMOVED</td><td /><td /><td /><td /></tr></tbody></table><table><colgroup><col /><col /></colgroup><thead><tr><th>Alcohol Use</th><th>Standard Drinks/Week</th><th>Comments</th></tr></thead><tbody><tr><td id=\"alcoholStatus\">Never</td><td>removed</td><td /></tr></tbody></table><table><colgroup><col /><col /></colgroup><thead><tr><th>REMOVED</th><th>Value</th><th>Date Recorded</th></tr></thead><tbody><tr id=\"BirthSex22\"><td>Sex Assigned at Birth</td><td id=\"BirthSex22Value\">Male</td><td>REMOVED</td></tr><tr id=\"LegalSex23\"><td>REMOVED</td><td id=\"LegalSex23Value\">Male</td><td>REMOVED</td></tr><tr id=\"GenderIdentity20\"><td>Gender Identity</td><td id=\"GenderIdentity20Value\">Not on file</td><td /></tr><tr id=\"SexualOrientation21\"><td>Sexual Orientation</td><td id=\"SexualOrientation21Value\">Not on file</td><td /></tr></tbody></table><small id=\"subTitle18\">documented as of this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29762-2",
+                  "system": "http://loinc.org",
+                  "display": "Social history note"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Observation/977b5c88-b56c-241a-4a53-8e50e78b84ab"
+              },
+              {
+                "reference": "Observation/aa04cd19-bbee-e365-7b25-0a1c04c6509f"
+              },
+              {
+                "reference": "Observation/699b9556-f7cb-9164-b312-849989c064a8"
+              },
+              {
+                "reference": "Observation/3c5350b1-f997-2c3d-ae94-baac33eb18ba"
+              },
+              {
+                "reference": "Observation/6b472fd6-c1cf-10e9-a33a-c7fac2eb7130"
+              },
+              {
+                "reference": "Observation/e36b30ae-3191-dfc0-8ea5-137c117a4ab7"
+              }
+            ]
+          },
+          {
+            "id": "7ac07696-a8f8-f912-b853-f44d22582979",
+            "title": "Last Filed Vital Signs",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /></colgroup><thead><tr><th>Vital Sign</th><th>REMOVED</th><th>REMOVED</th><th>Comments</th></tr></thead><tbody><tr><td>REMOVED</td><td><p id=\"sysBP_5689278360\">90</p>/ <p id=\"diaBP_5689278360\">50</p></td><td>REMOVED</td><td /></tr><tr id=\"pulse_5689278360\"><td>Pulse</td><td>80</td><td>REMOVED</td><td /></tr><tr id=\"temp_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr id=\"resp_5689278360\"><td>REMOVED</td><td>20</td><td>REMOVED</td><td /></tr><tr id=\"SpO2_\"><td>REMOVED</td><td>-</td><td>-</td><td /></tr><tr id=\"inhaled_\"><td>REMOVED</td><td>-</td><td>-</td><td /></tr><tr id=\"weight_5689278360\"><td>Weight</td><td>removed</td><td>REMOVED</td><td /></tr><tr id=\"height_5689278360\"><td>Height</td><td>removed</td><td>REMOVED</td><td /></tr><tr id=\"wflPerc_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr><td><p id=\"wflPerc5689278360GCSource4\"> REMOVED</p></td></tr><tr id=\"circum_5689278360\"><td>Head Circumference</td><td>removed</td><td>REMOVED</td><td /></tr><tr id=\"circumPerc_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr><td><p id=\"circumPerc5689278360GCSource2\">REMOVED</p></td></tr><tr id=\"bmi_5689278360\"><td>REMOVED</td><td>17.17</td><td>REMOVED</td><td /></tr><tr id=\"bmiPerc_5689278360\"><td>REMOVED</td><td>REMOVED</td><td>REMOVED</td><td /></tr><tr><td><p id=\"bmiPerc5689278360GCSource4\"> REMOVED</p></td></tr></tbody></table><small id=\"subTitle24\">documented in this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "8716-3",
+                  "system": "http://loinc.org",
+                  "display": "Vital signs note"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "36C02380-DA66-11EF-B655-005056BE2511",
+            "title": "Procedures",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><p>REMOVED.</p></li></ul><br /><table><colgroup><col /><col /><col /><col /></colgroup><thead><tr><th>REMOVED</th><th>REMOVED</th><th>Date/Time</th><th>REMOVED</th><th>Comments</th></tr></thead><tbody><tr id=\"procedure27\"><td><p id=\"procedure27name\">CBC</p></td><td>Routine</td><td>REMOVED</td><td /><td><p>REMOVED <span> removed</span>. </p></td></tr></tbody></table><small id=\"subTitle26\">documented in this encounter</small></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "47519-4",
+                  "system": "http://loinc.org",
+                  "display": "History of Procedures Document"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "Procedure/802d141e-0140-ea56-e123-be31ac681ff4"
+              }
+            ]
+          },
+          {
+            "id": "4b3c7f39-81fb-1a35-b2e8-8d692450126d",
+            "title": "Reason for Visit",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><table><colgroup><col /><col /></colgroup><thead><tr><th>Reason</th><th>Comments</th></tr></thead><tbody><tr id=\"rfv33\"><td id=\"reasonrfv33\">REMOVED</td><td /></tr></tbody></table></li></ul></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "29299-5",
+                  "system": "http://loinc.org",
+                  "display": "Reason for visit Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "4425b75d-df0a-a08d-0957-16db0b396df5",
+            "title": "Encounter Details",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><table><colgroup><col /><col /><col /></colgroup><thead><tr><th>Date</th><th>Type</th><th>Department</th><th>REMOVED</th><th>Description</th></tr></thead><tbody><tr id=\"encounter36\"><td>REMOVED</td><td id=\"encounter36type\">REMOVED</td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>608-271-9000</p></td><td><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p><p>REMOVED</p></td><td><p id=\"encounter36desc\">REMOVED</p></td></tr></tbody></table></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "46240-8",
+                  "system": "http://loinc.org",
+                  "display": "History of Hospitalizations+Outpatient visits Narrative"
+                }
+              ]
+            },
+            "mode": "snapshot"
+          },
+          {
+            "id": "9508303d-d943-1ce0-f1ea-8086918bd5aa",
+            "title": "Reportability Response Information Section",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Reportability Response Information Section</div>"
+            },
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension",
+                "valueCodeableConcept": {
+                  "text": "official",
+                  "coding": [
+                    {
+                      "code": "88085-6",
+                      "system": "http://loinc.org",
+                      "display": "Reportability response report Document Public health"
+                    }
+                  ]
+                }
+              },
+              {
+                "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
+                "extension": [
+                  {
+                    "url": "eICRProcessingStatus",
+                    "valueReference": {
+                      "reference": "Observation/e57fdf95-40f1-d63f-fa96-458fc5e50e4e",
+                      "display": "eICR was processed - with a warning"
+                    }
+                  }
+                ]
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "code": "88085-6",
+                  "system": "http://loinc.org",
+                  "display": "Reportability response report Document Public health"
+                }
+              ]
+            }
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        },
+        "encounter": {
+          "reference": "Encounter/1b34d96f-bcf5-314d-9463-631fdba57b5a"
+        },
+        "custodian": {
+          "reference": "Organization/da341ef9-3cba-b10f-2f38-1a16afde1d65"
+        },
+        "author": [
+          {
+            "reference": "PractitionerRole/3804eca3-4fdf-44a8-bd4c-202f81369b34"
+          },
+          {
+            "reference": "Device/82ff72e2-f27f-882f-95bb-fbffa2fc2fb0"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1b34d96f-bcf5-314d-9463-631fdba57b5a",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "1b34d96f-bcf5-314d-9463-631fdba57b5a",
+        "status": "in-progress",
+        "class": {
+          "code": "3",
+          "system": "urn:oid:1.2.840.114350.1.72.1.30",
+          "display": "Hospital Encounter"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.3.698084.8",
+            "value": "XX692"
+          }
+        ],
+        "period": {
+          "start": "1981-10-16T12:14:46-05:00"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        },
+        "location": [
+          {
+            "id": "1.2.840.114350.1.13.4304.2.7.2.686980",
+            "location": {
+              "reference": "Location/2522bf1c-c772-4201-6df8-8c60144074f3",
+              "display": " Sissubo School Neighbourhood Laboratory"
+            }
+          }
+        ],
+        "serviceProvider": {
+          "reference": "Organization/ee56ad21-0a36-ae17-a8ba-9c6863b438b1"
+        },
+        "participant": [
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "individual": {
+              "reference": "PractitionerRole/a6bc3538-1b2a-887a-aa60-0b526ac08e4a"
+            }
+          },
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ATND"
+                  }
+                ]
+              }
+            ],
+            "period": {
+              "start": "1981-10-16T12:14:46-05:00"
+            },
+            "individual": {
+              "reference": "PractitionerRole/4fae07f7-aa33-0bdb-72c8-16271c941ee6"
+            }
+          },
+          {
+            "type": [
+              {
+                "coding": [
+                  {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                    "code": "ADM"
+                  }
+                ]
+              }
+            ],
+            "period": {
+              "start": "1981-10-16T12:14:46-05:00"
+            },
+            "individual": {
+              "reference": "PractitionerRole/4fae07f7-aa33-0bdb-72c8-16271c941ee6"
+            }
+          },
+          {
+            "individual": {
+              "reference": "Practitioner/c51725d8-cd75-1aae-81a0-edcdb321939b"
+            }
+          }
+        ],
+        "diagnosis": [
+          {
+            "condition": {
+              "reference": "Condition/b04fce0b-0506-7d5e-59c8-db316acd86fd"
+            }
+          },
+          {
+            "condition": {
+              "reference": "Condition/2a7be43f-d2b5-d6b1-6ef5-762321535b39"
+            }
+          },
+          {
+            "condition": {
+              "reference": "Condition/f644c661-edc8-a392-6de6-bfce24490ef8"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2522bf1c-c772-4201-6df8-8c60144074f3",
+      "resource": {
+        "resourceType": "Location",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "id": "2522bf1c-c772-4201-6df8-8c60144074f3",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.686980",
+            "value": "XX114730"
+          }
+        ],
+        "name": " Sissubo School Neighbourhood Laboratory",
+        "address": {
+          "use": "work",
+          "line": [
+            "4509 KAMINO OCEAN Street"
+          ],
+          "city": "Galactic City",
+          "state": "KZ",
+          "country": "AI",
+          "postalCode": "89170-2785",
+          "district": "Lah'mu"
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+3-298-900-4460-y60",
+            "use": "work"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "1081-9",
+                "system": "urn:oid:2.16.840.1.113883.6.259",
+                "display": "Pediatric Medical-Surgical Ward"
+              },
+              {
+                "code": "82",
+                "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
+                "display": "Pediatrics"
+              }
+            ],
+            "text": "Pediatrics"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ee56ad21-0a36-ae17-a8ba-9c6863b438b1",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "ee56ad21-0a36-ae17-a8ba-9c6863b438b1",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.696570",
+            "value": "XX7530"
+          }
+        ],
+        "name": "Institute of Takodana Neighbourhood Pharmacy & Hospital",
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "554 KAMINO OCEAN Street"
+            ],
+            "city": "Galactic City",
+            "state": "KZ",
+            "country": "AI",
+            "postalCode": "89170-2785",
+            "district": "Lah'mu"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+3-298-900-4460-y60",
+            "use": "work"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0336fa14-9dff-ad05-5971-64a8ac7e4827",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "0336fa14-9dff-ad05-5971-64a8ac7e4827",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/_datatype",
+            "valueString": "Responsible Party"
+          }
+        ],
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "XX13576542"
+          }
+        ],
+        "name": [
+          {
+            "family": "Baba",
+            "given": [
+              "Elzar"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "54018 KAMINO OCEAN Spire",
+              "STE 820"
+            ],
+            "city": "Keren",
+            "state": "YA",
+            "postalCode": "81303"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6-901-374-4286",
+            "use": "work"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "208D00000X",
+                  "system": "http://nucc.org/provider-taxonomy",
+                  "display": "General Practice Physician"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "a6bc3538-1b2a-887a-aa60-0b526ac08e4a",
+        "practitioner": {
+          "reference": "Practitioner/0336fa14-9dff-ad05-5971-64a8ac7e4827"
+        },
+        "organization": {
+          "reference": "Organization/5aa7f76b-6547-8ceb-01c0-f12d2db0e774"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5aa7f76b-6547-8ceb-01c0-f12d2db0e774",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "5aa7f76b-6547-8ceb-01c0-f12d2db0e774",
+        "name": "Academy of Agamar Research Institute",
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "554 KAMINO OCEAN Street",
+              "Building SubaddressIdentifier"
+            ],
+            "city": "Galactic City",
+            "state": "KZ",
+            "country": "AI",
+            "postalCode": "79572",
+            "district": "Lah'mu"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a97a7ec2-3c33-f6ee-f76f-49adb0d62531",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "a97a7ec2-3c33-f6ee-f76f-49adb0d62531",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1234561235"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Powers",
+            "given": [
+              "JohnTESTPROVIDER"
+            ],
+            "suffix": [
+              " MD"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "90001 TEST Avey",
+              "STE 100"
+            ],
+            "city": "Washington",
+            "state": "DC",
+            "postalCode": "20000"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-608-271-9000",
+            "use": "work"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "208D00000X",
+                  "system": "http://nucc.org/provider-taxonomy",
+                  "display": "General Practice Physician"
+                },
+                {
+                  "code": "32",
+                  "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160",
+                  "display": "Internal Medicine"
+                },
+                {
+                  "code": "17",
+                  "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.10.836982.1050",
+                  "display": "Internal Medicine"
+                }
+              ],
+              "text": "Internal Medicine"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "4fae07f7-aa33-0bdb-72c8-16271c941ee6",
+        "practitioner": {
+          "reference": "Practitioner/d75ff4ad-89f6-c7c2-21f7-a26618b882fb"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d75ff4ad-89f6-c7c2-21f7-a26618b882fb",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "d75ff4ad-89f6-c7c2-21f7-a26618b882fb",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1234561235"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Powers",
+            "given": [
+              "JohnTESTPROVIDER"
+            ],
+            "suffix": [
+              " MD"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "90001 TEST Avey",
+              "STE 100"
+            ],
+            "city": "Washington",
+            "state": "DC",
+            "postalCode": "20000"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1-608-271-9000",
+            "use": "work"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "208D00000X",
+                  "system": "http://nucc.org/provider-taxonomy",
+                  "display": "General Practice Physician"
+                },
+                {
+                  "code": "32",
+                  "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160",
+                  "display": "Internal Medicine"
+                },
+                {
+                  "code": "17",
+                  "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.10.836982.1050",
+                  "display": "Internal Medicine"
+                }
+              ],
+              "text": "Internal Medicine"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e57fdf95-40f1-d63f-fa96-458fc5e50e4e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e57fdf95-40f1-d63f-fa96-458fc5e50e4e",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:39d966b9-8a3a-4024-93d8-138e97d5898a"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "RRVS20",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "display": "eICR was processed - with a warning"
+            }
+          ]
+        },
+        "hasMember": [
+          {
+            "reference": "Observation/c7689ff4-1aec-2cbb-393a-6e40e9b592b9"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c7689ff4-1aec-2cbb-393a-6e40e9b592b9",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "c7689ff4-1aec-2cbb-393a-6e40e9b592b9",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-reason-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:e39d6ae2-8c6e-4638-9b33-412996586f42"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "RR6",
+              "system": "urn:oid:2.16.840.1.114222.4.5.232",
+              "display": "eICR Processing Status Reason"
+            }
+          ]
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "RRVS29",
+              "system": "urn:oid:2.16.840.1.114222.4.5.274",
+              "display": "The eICR was processed with the warning of: outdated eRSD (RCTC) version."
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "RRVS31",
+                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "display": "Outdated eRSD (RCTC) Version Detail"
+                }
+              ]
+            },
+            "valueString": "3/29/2022"
+          },
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "RRVS33",
+                  "system": "urn:oid:2.16.840.1.114222.4.5.274",
+                  "display": "Expected eRSD (RCTC) Version Detail"
+                }
+              ]
+            },
+            "valueString": "The expected eRSD (RCTC) version should be one of the following: [\"2024-06-28\",\"1.2.4.0\",\"3.x.x\",\"2024-04-05\"] "
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:da341ef9-3cba-b10f-2f38-1a16afde1d65",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "da341ef9-3cba-b10f-2f38-1a16afde1d65",
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "XX22521268"
+          }
+        ],
+        "name": "Academy of Agamar Research Institute",
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "554 KAMINO OCEAN Street",
+              "Building SubaddressIdentifier"
+            ],
+            "city": "Galactic City",
+            "state": "KZ",
+            "country": "AI",
+            "postalCode": "79572",
+            "district": "Lah'mu"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+3-298-900-4460-y60",
+            "use": "work"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "3804eca3-4fdf-44a8-bd4c-202f81369b34",
+        "organization": {
+          "reference": "Organization/da341ef9-3cba-b10f-2f38-1a16afde1d65"
+        },
+        "practitioner": {
+          "reference": "Practitioner/0336fa14-9dff-ad05-5971-64a8ac7e4827"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:82ff72e2-f27f-882f-95bb-fbffa2fc2fb0",
+      "resource": {
+        "resourceType": "Device",
+        "id": "82ff72e2-f27f-882f-95bb-fbffa2fc2fb0",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.1",
+            "value": "XX.6"
+          }
+        ],
+        "manufacturer": "Epic - Version 11.3",
+        "version": [
+          {
+            "value": "Epic - Version 11.3"
+          }
+        ],
+        "property": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://hl7.org/fhir/device-category",
+                  "code": "software",
+                  "display": "software"
+                }
+              ]
+            }
+          }
+        ],
+        "owner": {
+          "reference": "Organization/da341ef9-3cba-b10f-2f38-1a16afde1d65"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c4d6bcaa-3af2-aef6-17b2-abc4d53104a8",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "c4d6bcaa-3af2-aef6-17b2-abc4d53104a8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-ssn",
+            "value": "XX5664558",
+            "assigner": {
+              "display": "Social Security Administration"
+            }
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Erso",
+            "given": [
+              "Fo"
+            ]
+          }
+        ],
+        "birthDate": "1860-10-14",
+        "deceasedBoolean": false,
+        "gender": "male",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "code": "2054-5",
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "display": "Black or African American"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Black or African American"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+            "extension": [
+              {
+                "url": "ombCategory",
+                "valueCoding": {
+                  "system": "urn:oid:2.16.840.1.113883.6.238",
+                  "code": "2186-5",
+                  "display": "Non Hispanic or Latino"
+                }
+              },
+              {
+                "url": "text",
+                "valueString": "Not Hispanic or Latino"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-genderidentity-extension",
+            "extension": [
+              {
+                "url": "value",
+                "valueString": "Not on file"
+              }
+            ]
+          },
+          {
+            "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+            "valueCode": "M"
+          }
+        ],
+        "address": [
+          {
+            "use": "home",
+            "line": [
+              "9897 Kamino Ocean Street"
+            ],
+            "city": "Galactic City",
+            "state": "KZ",
+            "country": "AI",
+            "postalCode": "79572",
+            "district": "Lah'mu",
+            "period": {
+              "start": "1981-10-15"
+            }
+          },
+          {
+            "use": "temp",
+            "line": [
+              "6903 KAMINO OCEAN Ave"
+            ],
+            "city": "Galactic City",
+            "state": "KZ",
+            "country": "AI",
+            "postalCode": "79572",
+            "district": "Lah'mu",
+            "period": {
+              "start": "1860-10-14",
+              "end": "1981-10-14"
+            }
+          }
+        ],
+        "maritalStatus": {
+          "coding": [
+            {
+              "code": "S",
+              "system": "urn:oid:2.16.840.1.113883.5.2",
+              "display": "Single"
+            }
+          ]
+        },
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6-901-374-4286",
+            "use": "home"
+          },
+          {
+            "system": "email",
+            "value": "cf@example.com"
+          }
+        ],
+        "communication": [
+          {
+            "language": {
+              "coding": [
+                {
+                  "system": "urn:ietf:bcp:47",
+                  "code": "en",
+                  "display": "English"
+                }
+              ]
+            },
+            "preferred": true
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9e261e19-782d-4300-1c58-ca7798df678a",
+      "resource": {
+        "resourceType": "MedicationAdministration",
+        "id": "9e261e19-782d-4300-1c58-ca7798df678a",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.798268",
+            "value": "XX86340"
+          }
+        ],
+        "status": "in-progress",
+        "effectivePeriod": {
+          "start": "1981-10-16T17:31:14Z"
+        },
+        "dosage": {
+          "route": {
+            "coding": [
+              {
+                "code": "C38288",
+                "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                "display": "Oral"
+              }
+            ],
+            "text": "Oral"
+          },
+          "dose": {
+            "value": 10,
+            "unit": "mg/kg"
+          },
+          "rateQuantity": {
+            "value": 6,
+            "unit": "h"
+          }
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        },
+        "medicationReference": {
+          "reference": "Medication/24e97f2a-194d-e99f-415a-ef7c7b024f09"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:24e97f2a-194d-e99f-415a-ef7c7b024f09",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "24e97f2a-194d-e99f-415a-ef7c7b024f09",
+        "code": {
+          "coding": [
+            {
+              "code": "197803",
+              "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+              "display": "ibuprofen 20 MG/ML Oral Suspension"
+            },
+            {
+              "code": "0363-0897-26",
+              "system": "urn:oid:2.16.840.1.113883.6.69"
+            },
+            {
+              "code": "27912",
+              "system": "urn:oid:2.16.840.1.113883.6.253"
+            },
+            {
+              "code": "66100020001820",
+              "system": "urn:oid:2.16.840.1.113883.6.68"
+            },
+            {
+              "code": "27912",
+              "system": "urn:oid:2.16.840.1.113883.6.162"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c2a4a80a-fb01-2f59-db39-44f258bd36c9",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "c2a4a80a-fb01-2f59-db39-44f258bd36c9",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.768076",
+            "value": "XX091"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "448915004",
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
+            },
+            {
+              "code": "Q35.1",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "749.00",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "745491",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Cleft hard palate"
+            }
+          ]
+        },
+        "onsetDateTime": "1981-10-15",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1b2bc739-e5a9-7d5b-26db-1aaacfd6965f",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "1b2bc739-e5a9-7d5b-26db-1aaacfd6965f",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.768076",
+            "value": "XX381"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3928002",
+              "system": "http://snomed.info/sct",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "A92.5",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "066.3",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "25447",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Zika virus disease"
+            }
+          ]
+        },
+        "onsetDateTime": "1985-07-28",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8909903d-2adc-a507-e472-2d3d8d8ba55e",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "8909903d-2adc-a507-e472-2d3d8d8ba55e",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.798268",
+            "value": "XX97036"
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "58410-2",
+              "system": "http://loinc.org",
+              "display": "CBC panel Auto (Bld)"
+            },
+            {
+              "code": "1698",
+              "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.696580",
+              "display": "CBC"
+            }
+          ],
+          "text": "CBC"
+        },
+        "effectivePeriod": {
+          "start": "1981-10-16",
+          "end": "1981-10-16"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        },
+        "specimen": [
+          {
+            "reference": "Specimen/a0364c3a-0124-b1f1-c4f5-518c0d810ece"
+          },
+          {
+            "reference": "Specimen/c625e261-fcd2-030c-7ddf-2145afdbb2a6"
+          }
+        ],
+        "result": [
+          {
+            "reference": "Observation/2c75ca01-3197-0584-4f56-1d7de5ce25ec"
+          },
+          {
+            "reference": "Observation/89a6c6d1-a50c-b5a2-5dc3-4abdd15a8b41"
+          },
+          {
+            "reference": "Observation/06189b34-1eaf-1422-fdda-108b9f4e39ad"
+          },
+          {
+            "reference": "Observation/701463f6-4bfc-fb07-d063-63340edceb2a"
+          },
+          {
+            "reference": "Observation/75afe3af-962e-647d-2828-05b85f636fcd"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a0364c3a-0124-b1f1-c4f5-518c0d810ece",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "a0364c3a-0124-b1f1-c4f5-518c0d810ece",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.7.798268.300",
+            "value": "XX97036"
+          }
+        ],
+        "type": {
+          "coding": [
+            {
+              "code": "119297000",
+              "system": "http://snomed.info/sct",
+              "display": "Blood specimen"
+            },
+            {
+              "code": "3",
+              "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.4.798268.300",
+              "display": "Blood"
+            }
+          ],
+          "text": "Blood"
+        },
+        "collection": {
+          "bodySite": {
+            "coding": [
+              {
+                "code": "122555007",
+                "system": "http://snomed.info/sct",
+                "display": "Venous blood specimen"
+              },
+              {
+                "code": "310",
+                "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.4.798268.325",
+                "display": "Blood, Venous"
+              }
+            ]
+          }
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c625e261-fcd2-030c-7ddf-2145afdbb2a6",
+      "resource": {
+        "resourceType": "Specimen",
+        "id": "c625e261-fcd2-030c-7ddf-2145afdbb2a6",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2c75ca01-3197-0584-4f56-1d7de5ce25ec",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2c75ca01-3197-0584-4f56-1d7de5ce25ec",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.6.798268.2000",
+            "value": "XX27262.4"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "30313-1",
+              "system": "http://loinc.org",
+              "display": "Hemoglobin (BldA) [Mass/Vol]"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-18T05:33:46Z",
+        "valueQuantity": {
+          "value": 12,
+          "unit": "g/dL"
+        },
+        "extension": [
+          {
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp1"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:89a6c6d1-a50c-b5a2-5dc3-4abdd15a8b41",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "89a6c6d1-a50c-b5a2-5dc3-4abdd15a8b41",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.6.798268.2000",
+            "value": "XX44824.7"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "33765-9",
+              "system": "http://loinc.org",
+              "display": "WBC Auto (Blood Product unit.platelet pheresis) [#/Vol]"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-18T05:33:46Z",
+        "valueQuantity": {
+          "value": 10000,
+          "unit": "10*3/uL"
+        },
+        "referenceRange": [
+          {
+            "text": "REMOVED",
+            "high": {
+              "value": 500000,
+              "unit": "10*3/uL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+                }
+              ]
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp2"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:06189b34-1eaf-1422-fdda-108b9f4e39ad",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "06189b34-1eaf-1422-fdda-108b9f4e39ad",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.6.798268.2000",
+            "value": "XX20053.5"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "26515-7",
+              "system": "http://loinc.org",
+              "display": "Platelets (Bld) [#/Vol]"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-18T05:33:46Z",
+        "valueQuantity": {
+          "value": 300,
+          "unit": "10*3/uL"
+        },
+        "extension": [
+          {
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp3"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:701463f6-4bfc-fb07-d063-63340edceb2a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "701463f6-4bfc-fb07-d063-63340edceb2a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.6.798268.2000",
+            "value": "XX98970.7"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "50544-6",
+              "system": "http://loinc.org",
+              "display": "Everolimus (Bld) [Mass/Vol]"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-18T05:33:46Z",
+        "valueQuantity": {
+          "value": 5,
+          "unit": "ng/mL"
+        },
+        "referenceRange": [
+          {
+            "text": "2 ng/mL - 8 ng/mL",
+            "low": {
+              "value": 2,
+              "unit": "ng/mL"
+            },
+            "high": {
+              "value": 8,
+              "unit": "ng/mL"
+            },
+            "type": {
+              "coding": [
+                {
+                  "code": "N",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+                }
+              ]
+            }
+          }
+        ],
+        "extension": [
+          {
+            "url": "observation entry reference value",
+            "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:75afe3af-962e-647d-2828-05b85f636fcd",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "75afe3af-962e-647d-2828-05b85f636fcd",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.798268",
+            "value": "XX97036"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "laboratory"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "unknown",
+              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
+            }
+          ]
+        },
+        "effectiveDateTime": "1981-10-18T05:33:46Z",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "12",
+              "system": "urn:oid:1.2.840.114350.1.72.1.5007"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:977b5c88-b56c-241a-4a53-8e50e78b84ab",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "977b5c88-b56c-241a-4a53-8e50e78b84ab",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1040.1",
+            "value": "XX075^^78581-6"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "72166-2",
+              "system": "http://loinc.org",
+              "display": "Tobacco smoking status"
+            }
+          ]
+        },
+        "effectiveDateTime": "1981-10-15",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "266919005",
+              "system": "http://snomed.info/sct",
+              "display": "Never smoked tobacco"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:aa04cd19-bbee-e365-7b25-0a1c04c6509f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "aa04cd19-bbee-e365-7b25-0a1c04c6509f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1040.8",
+            "value": "XX370^^645891606"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "229819007",
+              "system": "http://snomed.info/sct",
+              "display": "Tobacco use and exposure"
+            },
+            {
+              "code": "88031-0",
+              "system": "http://loinc.org",
+              "display": "Smokeless tobacco status Nom"
+            }
+          ]
+        },
+        "effectiveDateTime": "1981-10-15",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "451381000124107",
+              "system": "http://snomed.info/sct",
+              "display": "Smokeless tobacco non-user"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:699b9556-f7cb-9164-b312-849989c064a8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "699b9556-f7cb-9164-b312-849989c064a8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1040.12",
+            "value": "XX241^78523.05^009290342"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "897148007",
+              "system": "http://snomed.info/sct",
+              "display": "Alcoholic beverage intake"
+            },
+            {
+              "code": "11331-6",
+              "system": "http://loinc.org",
+              "display": "History of Alcohol use"
+            }
+          ]
+        },
+        "effectiveDateTime": "1981-10-15",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "228274009",
+              "system": "http://snomed.info/sct",
+              "display": "Lifetime non-drinker"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3c5350b1-f997-2c3d-ae94-baac33eb18ba",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3c5350b1-f997-2c3d-ae94-baac33eb18ba",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1040.21",
+            "value": "XX81066525-12694-V8612"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8689-2",
+              "system": "http://loinc.org",
+              "display": "History of Social function"
+            }
+          ]
+        },
+        "effectiveDateTime": "1981-10-15",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6b472fd6-c1cf-10e9-a33a-c7fac2eb7130",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6b472fd6-c1cf-10e9-a33a-c7fac2eb7130",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1040.23",
+            "value": "XX091^94923^77831-5"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "46098-0",
+              "system": "http://loinc.org",
+              "display": "Sex"
+            }
+          ]
+        },
+        "effectiveDateTime": "1981-10-16T12:09:32-05:00",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "248153007",
+              "system": "http://snomed.info/sct",
+              "display": "Male"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e36b30ae-3191-dfc0-8ea5-137c117a4ab7",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "e36b30ae-3191-dfc0-8ea5-137c117a4ab7",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation"
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "76690-7",
+              "display": "Sexual orientation"
+            }
+          ],
+          "text": "Sexual orientation"
+        },
+        "status": "final",
+        "valueString": "Not on file",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dca6c733-f4ef-7eb9-22d6-6da21d80c3fc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "dca6c733-f4ef-7eb9-22d6-6da21d80c3fc",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX83411565-lpaFA-L5523"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8480-6",
+              "system": "http://loinc.org",
+              "display": "Systolic blood pressure"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 90,
+          "unit": "mm[Hg]"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:625f7276-582a-d772-d940-0553166010c2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "625f7276-582a-d772-d940-0553166010c2",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX40890395-ozmWP-Y2671"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8462-4",
+              "system": "http://loinc.org",
+              "display": "Diastolic blood pressure"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 50,
+          "unit": "mm[Hg]"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:9a42b917-ffa0-c985-c081-bc38535152b8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "9a42b917-ffa0-c985-c081-bc38535152b8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX01506024-cjolx-L3283"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8867-4",
+              "system": "http://loinc.org",
+              "display": "Heart rate"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 80,
+          "unit": "/min"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7f0ea1e1-8aba-2f2f-34a7-656ce194b1bf",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7f0ea1e1-8aba-2f2f-34a7-656ce194b1bf",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX88375515-dgkvC86-M2951"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8310-5",
+              "system": "http://loinc.org",
+              "display": "Body temperature"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 36.67,
+          "unit": "Cel"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:faa54bcf-15c9-a63c-8bae-ea68729169ba",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "faa54bcf-15c9-a63c-8bae-ea68729169ba",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX26130336-sotr-Q1844"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "9279-1",
+              "system": "http://loinc.org",
+              "display": "Respiratory rate"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 20,
+          "unit": "/min"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3b769270-3002-992c-d0fe-f02d85ee26e0",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "3b769270-3002-992c-d0fe-f02d85ee26e0",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX26228197-kzqefkL58-L8864"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8302-2",
+              "system": "http://loinc.org",
+              "display": "Body height"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 89,
+          "unit": "cm"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7a12be20-8fe1-2e6d-d39d-576b07f6b1a6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "7a12be20-8fe1-2e6d-d39d-576b07f6b1a6",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX91590139-vxsffhN64-V7319"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "29463-7",
+              "system": "http://loinc.org",
+              "display": "Body weight"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 13.6,
+          "unit": "kg"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5e954dfc-8592-058f-0738-dd6440ca774f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "5e954dfc-8592-058f-0738-dd6440ca774f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX14930537-kzn-J7801"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "39156-5",
+              "system": "http://loinc.org",
+              "display": "Body mass index (BMI) [Ratio]"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 17.17,
+          "unit": "kg/m2"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ab2b1e03-aac8-148b-0bd9-521cd3c2535f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "ab2b1e03-aac8-148b-0bd9-521cd3c2535f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX70448418-ljzGvadV37-G8750"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "59576-9",
+              "system": "http://loinc.org",
+              "display": "Body mass index (BMI) [Percentile] Per age and sex"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 66.39,
+          "unit": "%"
+        },
+        "referenceRange": [
+          {
+            "text": "REMOVED"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:38b1002b-438d-4549-5413-266c4bbd4575",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "38b1002b-438d-4549-5413-266c4bbd4575",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX31403220-bpqpcpI46-Z5266"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8287-5",
+              "system": "http://loinc.org",
+              "display": "Head Occipital-frontal circumference by Tape measure"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 50,
+          "unit": "cm"
+        },
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6c872779-88fa-fb41-6cd8-7915dee0da2a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6c872779-88fa-fb41-6cd8-7915dee0da2a",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX88973478-xhnrlfJismB42-F6112"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "8289-1",
+              "system": "http://loinc.org",
+              "display": "Head Occipital-frontal circumference Percentile"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 82.86,
+          "unit": "%"
+        },
+        "referenceRange": [
+          {
+            "text": "REMOVED"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2c64af68-979a-96e5-83f5-3bb816839be8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "2c64af68-979a-96e5-83f5-3bb816839be8",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.2109.1",
+            "value": "XX99551761-csxTnxoD10-R3044"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "vital-signs"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "77606-2",
+              "system": "http://loinc.org",
+              "display": "Weight-for-length Per age and sex"
+            }
+          ],
+          "text": "REMOVED"
+        },
+        "effectiveDateTime": "1981-10-16T17:17:46Z",
+        "valueQuantity": {
+          "value": 72.23,
+          "unit": "%"
+        },
+        "referenceRange": [
+          {
+            "text": "REMOVED"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c51725d8-cd75-1aae-81a0-edcdb321939b",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "c51725d8-cd75-1aae-81a0-edcdb321939b",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "XX13576542"
+          }
+        ],
+        "name": [
+          {
+            "family": "Baba",
+            "given": [
+              "Elzar"
+            ],
+            "suffix": [
+              "MD"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "use": "work",
+            "line": [
+              "54018 KAMINO OCEAN Spire",
+              "STE 820"
+            ],
+            "city": "Keren",
+            "state": "YA",
+            "postalCode": "81303"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6-901-374-4286",
+            "use": "work"
+          }
+        ],
+        "qualification": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "208D00000X",
+                  "system": "http://nucc.org/provider-taxonomy",
+                  "display": "General Practice Physician"
+                },
+                {
+                  "code": "32",
+                  "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4160",
+                  "display": "Internal Medicine"
+                },
+                {
+                  "code": "17",
+                  "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.10.836982.1050",
+                  "display": "Internal Medicine"
+                }
+              ],
+              "text": "Internal Medicine"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b04fce0b-0506-7d5e-59c8-db316acd86fd",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "b04fce0b-0506-7d5e-59c8-db316acd86fd",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1099.1",
+            "value": "XX773-399227"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "448915004",
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
+            },
+            {
+              "code": "Q35.1",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "749.00",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "745491",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Cleft hard palate"
+            }
+          ],
+          "text": "Cleft hard palate"
+        },
+        "onsetDateTime": "1981-10-15",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2a7be43f-d2b5-d6b1-6ef5-762321535b39",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "2a7be43f-d2b5-d6b1-6ef5-762321535b39",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1099.1",
+            "value": "XX773-399227"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "448915004",
+              "system": "http://snomed.info/sct",
+              "display": "Cleft of hard palate"
+            },
+            {
+              "code": "Q35.1",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "749.00",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Cleft hard palate"
+            },
+            {
+              "code": "745491",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Cleft hard palate"
+            }
+          ],
+          "text": "Cleft hard palate"
+        },
+        "onsetDateTime": "1981-10-15",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f644c661-edc8-a392-6de6-bfce24490ef8",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "f644c661-edc8-a392-6de6-bfce24490ef8",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1099.1",
+            "value": "XX383-28881"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "55561003",
+              "system": "http://snomed.info/sct",
+              "display": "Active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3928002",
+              "system": "http://snomed.info/sct",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "A92.5",
+              "system": "urn:oid:2.16.840.1.113883.6.90",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "066.3",
+              "system": "urn:oid:2.16.840.1.113883.6.103",
+              "display": "Zika virus disease"
+            },
+            {
+              "code": "25447",
+              "system": "urn:oid:2.16.840.1.113883.3.247.1.1",
+              "display": "Zika virus disease"
+            }
+          ],
+          "text": "Zika virus disease"
+        },
+        "onsetDateTime": "1981-10-15",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:94cf74b3-e084-b949-88ff-5db822d381bb",
+      "resource": {
+        "resourceType": "CarePlan",
+        "id": "94cf74b3-e084-b949-88ff-5db822d381bb",
+        "status": "unknown",
+        "intent": "proposal",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        },
+        "encounter": {
+          "reference": "Encounter/79c91b9a-b4e0-2522-8f45-e724b0ce6a55"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:79c91b9a-b4e0-2522-8f45-e724b0ce6a55",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "79c91b9a-b4e0-2522-8f45-e724b0ce6a55",
+        "status": "in-progress",
+        "class": {
+          "code": "AMB",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.3.698084.8",
+            "value": "XX887",
+            "assigner": {
+              "display": "EPIC"
+            }
+          }
+        ],
+        "period": {
+          "start": "1985-10-15"
+        },
+        "location": [
+          {
+            "location": {
+              "reference": "Location/39cded5f-747d-c0f9-6f15-af1162d60a06"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:39cded5f-747d-c0f9-6f15-af1162d60a06",
+      "resource": {
+        "resourceType": "Location",
+        "id": "39cded5f-747d-c0f9-6f15-af1162d60a06",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-location"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.686980",
+            "value": "XX534260"
+          }
+        ],
+        "name": "University Medical Center & Pharmacy of Ando",
+        "address": {
+          "use": "work",
+          "line": [
+            "554 KAMINO OCEAN Street"
+          ],
+          "city": "Galactic City",
+          "state": "KZ",
+          "country": "AI",
+          "postalCode": "89170-2785",
+          "district": "Lah'mu"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "19",
+                "system": "urn:oid:1.2.840.114350.1.72.1.7.7.10.688867.4150",
+                "display": "Family Medicine"
+              }
+            ],
+            "text": "Family Medicine"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:802d141e-0140-ea56-e123-be31ac681ff4",
+      "resource": {
+        "resourceType": "Procedure",
+        "id": "802d141e-0140-ea56-e123-be31ac681ff4",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1988.1",
+            "value": "XX28196-5493"
+          }
+        ],
+        "status": "completed",
+        "code": {
+          "coding": [
+            {
+              "code": "58410-2",
+              "system": "http://loinc.org",
+              "display": "CBC panel Auto (Bld)"
+            }
+          ],
+          "text": "CBC"
+        },
+        "performedDateTime": "1981-10-16",
+        "subject": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c099eff8-da24-9e93-1961-f040da84ca62",
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "c099eff8-da24-9e93-1961-f040da84ca62",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.768076",
+            "value": "XX291"
+          }
+        ],
+        "occurrenceDateTime": "1981-10-15",
+        "vaccineCode": {
+          "coding": [
+            {
+              "code": "49281-400-10",
+              "system": "urn:oid:2.16.840.1.113883.6.69"
+            }
+          ]
+        },
+        "lotNumber": "651414",
+        "manufacturer": {
+          "reference": "Organization/b5c77b86-2764-79f9-10bf-5da5e63eb7c1"
+        },
+        "status": "completed",
+        "primarySource": true,
+        "patient": {
+          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "b5c77b86-2764-79f9-10bf-5da5e63eb7c1",
+        "name": "Sanofi Pasteur"
+      }
+    }
+  ]
+}

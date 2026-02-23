@@ -1,5 +1,5 @@
 """
-Creates `src/Microsoft.Health.Fhir.Liquid.Converter/Loinc.csv`
+Creates `src/Dibbs.Fhir.Liquid.Converter/Loinc.csv`
 
 Will first check if a code has a `DisplayName`. Otherwise will use the code's `LONG_COMMON_NAME`
 
@@ -7,7 +7,7 @@ Parameters:
 loinc_csv_path (str): Path to LoincTable/Loinc.csv in the LOINC database downloaded from https://loinc.org/downloads/
 
 Returns:
-None: Writes `src/Microsoft.Health.Fhir.Liquid.Converter/Loinc.csv` from the given Loinc CSV.
+None: Writes `src/Dibbs.Fhir.Liquid.Converter/Loinc.csv` from the given Loinc CSV.
 """
 
 import csv
@@ -28,7 +28,7 @@ with open(args.loinc_csv_path) as loinc_csv_file:
     next(csv_reader)
 
     with open(
-        "../src/Microsoft.Health.Fhir.Liquid.Converter/Loinc.csv", "w"
+        "../src/Dibbs.Fhir.Liquid.Converter/Loinc.csv", "w"
     ) as output_file:
         writer = csv.writer(output_file)
         writer.writerow([LOINC_NUM_HEADER, "name"])

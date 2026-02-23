@@ -1,9 +1,0 @@
-{% mergeDiff insurance -%}
-{
-  {% if msg.inforce == true -%}
-  "inforce" : true,
-  {% endif -%}
-  "benefitBalance" : "",
-  "contract" : ""
-}
-{% endmergeDiff -%}

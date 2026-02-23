@@ -11,10 +11,20 @@
             {% endfor -%}
         ],
         "status":"{{ medicationStatement.statusCode.code | downcase | get_property: 'ValueSet/MedicationStatementStatus' }}",
-        {% include 'Utils/EffectiveTime' effectiveTime: medicationStatement.effectiveTime %}
+        {% assign medicationStatementEffectiveTimes = medicationStatement.effectiveTime | to_array %}
+        {% for medicationStatementEffectiveTime in medicationStatementEffectiveTimes %}
+            {% if medicationStatementEffectiveTime.['xsi:type'] != "PIVL_TS" and medicationStatementEffectiveTime.['xsi:type'] != "EIVL_TS" %}
+                {% include 'Utils/EffectiveTime' effectiveTime: medicationStatement.effectiveTime %}
+            {% else %}
+                {% assign medicationStatementTiming = medicationStatementEffectiveTime %}
+            {% endif %}
+        {% endfor %}
         "dosage":
         [
             {
+                {% if medicationStatementTiming %}
+                    "timing":{ {% include 'DataType/Timing' Timing: medicationStatementTiming %} },
+                {% endif %}
                 "route":{ {% include 'DataType/CodeableConcept' CodeableConcept: medicationStatement.routeCode %} },
                 "doseAndRate":
                 [
@@ -26,6 +36,13 @@
                                 "unit":"{{ medicationStatement.doseQuantity.unit }}",
                             },
                         {% endif -%}
+                        {% if medicationStatement.rateQuantity.value -%}
+                            "rateQuantity":
+                            {
+                                "value":{{ medicationStatement.rateQuanity.value | format_quantity }},
+                                "unit":"{{ medicationStatement.rateQuanity.unit }}",
+                            },
+                        {% endif -%}
                     },
                 ],
             },
@@ -34,7 +51,7 @@
             {
                 "text": "{{medicationStatement.text.reference._}}",
             }
-        ]
-        
+        ],
+        "dateAsserted": "{{medicationStatement.author.time.value | format_as_date_time }}"
     },
 },

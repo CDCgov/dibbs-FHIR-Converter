@@ -14,7 +14,7 @@
         {% assign medicationStatementEffectiveTimes = medicationStatement.effectiveTime | to_array %}
         {% for medicationStatementEffectiveTime in medicationStatementEffectiveTimes %}
             {% if medicationStatementEffectiveTime['xsi:type'] != "PIVL_TS" and medicationStatementEffectiveTime['xsi:type'] != "EIVL_TS" %}
-                {% include 'Utils/EffectiveTime', effectiveTime: medicationStatement.effectiveTime %}
+                {% include 'Utils/EffectiveTime', effectiveTime: medicationStatementEffectiveTime %}
             {% else %}
                 {% assign medicationStatementTiming = medicationStatementEffectiveTime %}
             {% endif %}
@@ -22,6 +22,7 @@
         "dosage":
         [
             {
+                "text": "{{medicationStatement.text.reference._}}",
                 {% if medicationStatementTiming %}
                     "timing":{ {% include 'DataType/Timing', Timing: medicationStatementTiming %} },
                 {% endif %}
@@ -46,11 +47,6 @@
                     },
                 ],
             },
-        ],
-        "note": [
-            {
-                "text": "{{medicationStatement.text.reference._}}",
-            }
         ],
         "dateAsserted": "{{medicationStatement.author.time.value | format_as_date_time }}"
     },

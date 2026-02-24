@@ -1,8 +1,10 @@
 {% if relationship.supply -%}
     {% assign medicationRequestId = relationship.supply | to_json_string | generate_uuid -%}
+    {% assign fullMedicationRequestId = medicationRequestId | prepend: 'MedicationRequest/' %}
     {% include 'Resource/MedicationRequest', medicationRequest: relationship.supply, ID: medicationRequestId, intent: "order" -%}
     {% include 'Reference/MedicationRequest/Subject', ID: medicationRequestId, REF: fullPatientId -%}
     {% include 'Reference/MedicationRequest/MedicationReference', ID: medicationRequestId, REF: fullMedicationId -%}
+    {% include 'Reference/MedicationStatement/BasedOn', ID: medicationStatementId, REF: fullMedicationRequestId -%}
 {% endif -%}
 
 {% if relationship.supply.author.assignedAuthor -%}

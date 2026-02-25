@@ -11,6 +11,9 @@
             {% endfor -%}
         ],
         "status":"{{ medicationStatement.statusCode.code | downcase | get_property: 'ValueSet/MedicationStatementStatus' }}",
+        "note": {
+            "text": "{{ medicationStatement.text._ | default: medicationStatement.text.reference._ }}"
+        },
         {% assign medicationStatementTiming = nil %}
         {% assign medicationStatementEffectiveTimes = medicationStatement.effectiveTime | to_array %}
         {% for medicationStatementEffectiveTime in medicationStatementEffectiveTimes %}
@@ -23,6 +26,7 @@
         "dosage":
         [
             {
+                {% comment %} TODO LAURA: Pull this info from medicationStatement.entryRelationship.act where tempalteID == ? .text.etc. etc. {% endcomment %}
                 "text": "{{ medicationStatement.text._ | default: medicationStatement.text.reference._ }}",
                 {% if medicationStatementTiming %}
                     "timing":{ {% include 'DataType/Timing', Timing: medicationStatementTiming %} },

@@ -21,10 +21,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public void MedicationStatement_AllFields()
         {
+            // TODO LAURA: Update xmlStr to include entryRelationship/Act w/ Medication instructions
             var xmlStr = @"
                 <substanceAdministration classCode=""SBADM"" moodCode=""INT"">
                     <templateId root=""id-test""/>
-                    <text>Medication instructions</text>
+                    <text>Free text</text>
                     <statusCode code=""active""/>
                     <effectiveTime xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:type=""IVL_TS"">
                         <low value=""20260201""/>
@@ -52,6 +53,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             var actualFhir = GetFhirObjectFromTemplate<MedicationStatement>(ECRPath, attributes);
 
+            // TODO: Delete logs
             Console.WriteLine(JsonSerializer.Serialize(actualFhir, new JsonSerializerOptions
             {
                 WriteIndented = true,
@@ -63,7 +65,9 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("2026-02-01", (actualFhir.Effective as Period)?.Start);
             Assert.Equal("2026-02-28", (actualFhir.Effective as Period)?.End);
             Assert.Equal("2026-02-01", actualFhir.DateAsserted);
-            Assert.Equal("Medication instructions", actualFhir.Dosage.First().Text);
+            Assert.Equal("Free text", actualFhir.Note.First().Text);
+            // TODO Laura: Update test for dosage Text
+            // Assert.Equal("Medication instructions", actualFhir.Dosage.First().Text);
             Assert.Equal(1.0m, actualFhir.Dosage.First().Timing.Repeat.Period.Value);
             Assert.Equal(Hl7.Fhir.Model.Timing.UnitsOfTime.D, actualFhir.Dosage.First().Timing.Repeat.PeriodUnit);
             var routeCoding = actualFhir.Dosage.First().Route.Coding.First();

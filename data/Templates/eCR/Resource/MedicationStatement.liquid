@@ -11,18 +11,19 @@
             {% endfor -%}
         ],
         "status":"{{ medicationStatement.statusCode.code | downcase | get_property: 'ValueSet/MedicationStatementStatus' }}",
+        {% assign medicationStatementTiming = nil %}
         {% assign medicationStatementEffectiveTimes = medicationStatement.effectiveTime | to_array %}
         {% for medicationStatementEffectiveTime in medicationStatementEffectiveTimes %}
-            {% if medicationStatementEffectiveTime['xsi:type'] != "PIVL_TS" and medicationStatementEffectiveTime['xsi:type'] != "EIVL_TS" %}
-                {% include 'Utils/EffectiveTime', effectiveTime: medicationStatementEffectiveTime %}
-            {% else %}
+            {% if medicationStatementEffectiveTime['xsi:type'] == "PIVL_TS" or medicationStatementEffectiveTime['xsi:type'] == "EIVL_TS" %}
                 {% assign medicationStatementTiming = medicationStatementEffectiveTime %}
+            {% else %}
+                {% include 'Utils/EffectiveTime', effectiveTime: medicationStatementEffectiveTime %}
             {% endif %}
         {% endfor %}
         "dosage":
         [
             {
-                "text": "{{medicationStatement.text.reference._}}",
+                "text": "{{ medicationStatement.text._ | default: medicationStatement.text.reference._ }}",
                 {% if medicationStatementTiming %}
                     "timing":{ {% include 'DataType/Timing', Timing: medicationStatementTiming %} },
                 {% endif %}

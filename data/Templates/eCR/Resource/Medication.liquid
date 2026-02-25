@@ -1,0 +1,8 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Medication",
+        "id":"{{ ID }}",
+        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: medication.code -%} },
+    },
+},

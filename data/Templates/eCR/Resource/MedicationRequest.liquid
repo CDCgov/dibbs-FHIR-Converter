@@ -51,7 +51,7 @@
         ],
         {% if medicationRequest.repeatNumber.value or medicationRequest.quantity %} 
             "dispenseRequest": {
-                "numberOfRepeatsAllowed":"{{ medicationRequest.repeatNumber.value }}",
+                "numberOfRepeatsAllowed":{{ medicationRequest.repeatNumber.value }},
                 "quantity": {
                     "value": {{ medicationRequest.quantity.value | format_quantity }},
                     "unit": "{{ medicationRequest.quantity.unit }}",

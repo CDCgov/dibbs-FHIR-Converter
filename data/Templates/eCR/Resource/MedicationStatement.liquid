@@ -26,8 +26,11 @@
         "dosage":
         [
             {
-                {% comment %} TODO LAURA: Pull this info from medicationStatement.entryRelationship.act where tempalteID == ? .text.etc. etc. {% endcomment %}
-                "text": "{{ medicationStatement.text._ | default: medicationStatement.text.reference._ }}",
+                {% assign entries = medicationStatement.entryRelationship | to_array -%}
+                {% assign instruction = entries | where: 'act' | nested_where: "act.templateId.root", "2.16.840.1.113883.10.20.22.4.20" | first %}
+                {% if instruction %}
+                    "text": "{{ instruction.act.text._ | clean_string_from_tabs | default: instruction.act.text.reference._ }}",
+                {% endif %}
                 {% if medicationStatementTiming %}
                     "timing":{ {% include 'DataType/Timing', Timing: medicationStatementTiming %} },
                 {% endif %}

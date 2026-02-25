@@ -21,7 +21,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public void MedicationStatement_AllFields()
         {
-            // TODO LAURA: Update xmlStr to include entryRelationship/Act w/ Medication instructions
             var xmlStr = @"
                 <substanceAdministration classCode=""SBADM"" moodCode=""INT"">
                     <templateId root=""id-test""/>
@@ -41,6 +40,17 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                     <author>
                         <time value=""20260201-0500""/>
                     </author>
+                    <entryRelationship inversionInd=""true"" typeCode=""SUBJ"">
+                        <act classCode=""ACT"" moodCode=""INT"">
+                            <templateId extension=""2014-06-09"" root=""2.16.840.1.113883.10.20.22.4.20""/>
+                            <templateId root=""2.16.840.1.113883.10.20.22.4.20""/>
+                            <code code=""967006"" codeSystem=""2.16.840.1.113883.6.96"" codeSystemName=""SNOMED CT""/>
+                            <text>
+                                <reference value=""#d55886e161""/>Medication instructions
+                            </text>
+                            <statusCode code=""completed""/>
+                        </act>
+                    </entryRelationship>
                 </substanceAdministration>";
 
             var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
@@ -66,8 +76,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("2026-02-28", (actualFhir.Effective as Period)?.End);
             Assert.Equal("2026-02-01", actualFhir.DateAsserted);
             Assert.Equal("Free text", actualFhir.Note.First().Text);
-            // TODO Laura: Update test for dosage Text
-            // Assert.Equal("Medication instructions", actualFhir.Dosage.First().Text);
+            Assert.Equal("Medication instructions ", actualFhir.Dosage.First().Text);
             Assert.Equal(1.0m, actualFhir.Dosage.First().Timing.Repeat.Period.Value);
             Assert.Equal(Hl7.Fhir.Model.Timing.UnitsOfTime.D, actualFhir.Dosage.First().Timing.Repeat.PeriodUnit);
             var routeCoding = actualFhir.Dosage.First().Route.Coding.First();

@@ -49,13 +49,18 @@
                 {% endif %}
             }
         ],
-        {% if medicationRequest.repeatNumber.value or medicationRequest.quantity %} 
+        {% assign hasRepeatNumber = medicationRequest.repeatNumber.value and medicationRequest.repeatNumber.nullFlavor == nil %}
+        {% if hasRepeatNumber or medicationRequest.quantity %} 
             "dispenseRequest": {
-                "numberOfRepeatsAllowed":{{ medicationRequest.repeatNumber.value }},
-                "quantity": {
-                    "value": {{ medicationRequest.quantity.value | format_quantity }},
-                    "unit": "{{ medicationRequest.quantity.unit }}",
-                },
+                {% if hasRepeatNumber %}
+                    "numberOfRepeatsAllowed":{{ medicationRequest.repeatNumber.value | format_quantity }},
+                {% endif %}
+                {% if medicationRequest.quantity %}
+                    "quantity": {
+                        "value": {{ medicationRequest.quantity.value | format_quantity }},
+                        "unit": "{{ medicationRequest.quantity.unit }}",
+                    },
+                {% endif %}
             },
         {% endif %}
     },

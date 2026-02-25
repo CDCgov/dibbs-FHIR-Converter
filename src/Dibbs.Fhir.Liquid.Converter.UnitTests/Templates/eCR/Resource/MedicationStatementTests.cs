@@ -45,9 +45,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                             <templateId extension=""2014-06-09"" root=""2.16.840.1.113883.10.20.22.4.20""/>
                             <templateId root=""2.16.840.1.113883.10.20.22.4.20""/>
                             <code code=""967006"" codeSystem=""2.16.840.1.113883.6.96"" codeSystemName=""SNOMED CT""/>
-                            <text>
-                                <reference value=""#d55886e161""/>Medication instructions
-                            </text>
+                            <text>Medication instructions</text>
                             <statusCode code=""completed""/>
                         </act>
                     </entryRelationship>
@@ -63,12 +61,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             var actualFhir = GetFhirObjectFromTemplate<MedicationStatement>(ECRPath, attributes);
 
-            // TODO: Delete logs
-            Console.WriteLine(JsonSerializer.Serialize(actualFhir, new JsonSerializerOptions
-            {
-                WriteIndented = true,
-            }));
-
             Assert.Equal("MedicationStatement", actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
             Assert.Equal(MedicationStatement.MedicationStatusCodes.Active, actualFhir.Status);
@@ -76,7 +68,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("2026-02-28", (actualFhir.Effective as Period)?.End);
             Assert.Equal("2026-02-01", actualFhir.DateAsserted);
             Assert.Equal("Free text", actualFhir.Note.First().Text);
-            Assert.Equal("Medication instructions ", actualFhir.Dosage.First().Text);
+            Assert.Equal("Medication instructions", actualFhir.Dosage.First().Text);
             Assert.Equal(1.0m, actualFhir.Dosage.First().Timing.Repeat.Period.Value);
             Assert.Equal(Hl7.Fhir.Model.Timing.UnitsOfTime.D, actualFhir.Dosage.First().Timing.Repeat.PeriodUnit);
             var routeCoding = actualFhir.Dosage.First().Route.Coding.First();

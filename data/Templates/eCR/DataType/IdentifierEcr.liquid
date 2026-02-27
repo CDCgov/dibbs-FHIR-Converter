@@ -1,4 +1,5 @@
 {
+{% comment  %} For ECR ID we handle root and extension differently than other Identifier DataTypes {% endcomment %}
 {%- if Identifier.root or Identifier.extension -%}
 
     {%- if Identifier.root and Identifier.extension -%}

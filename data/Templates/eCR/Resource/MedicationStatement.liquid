@@ -48,8 +48,8 @@
                         {% if medicationStatement.rateQuantity.value -%}
                             "rateQuantity":
                             {
-                                "value":{{ medicationStatement.rateQuanity.value | format_quantity }},
-                                "unit":"{{ medicationStatement.rateQuanity.unit }}",
+                                "value":{{ medicationStatement.rateQuantity.value | format_quantity }},
+                                "unit":"{{ medicationStatement.rateQuantity.unit }}",
                             },
                         {% endif -%}
                     },

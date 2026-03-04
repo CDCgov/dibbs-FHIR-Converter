@@ -1,0 +1,13 @@
+{% comment %} Social Determinant of Health Social History Observation - Assessment Scale Observation From CCDA Template (https://build.fhir.org/ig/HL7/CDA-ccda/StructureDefinition-AssessmentScaleObservation.html) {% endcomment %}
+{% include 'Resource/Questionnaire', ID: observationId, observationEntry: entry %}
+{% if entry.entryRelationship %}
+    {% assign entryRelationships = entry.entryRelationship | to_array %}
+    {% for rel in entryRelationships %}
+        {% assign firstRelTemplate = rel.observation.templateId | to_array | first %}
+        {% if firstRelTemplate.root == '2.16.840.1.113883.10.20.22.4.86' %}
+            {% assign relObsId = rel | to_json_string | generate_uuid %}
+            {% assign fullRelObsId = relObsId |  prepend: 'Observation/AssessmentScaleObservation/' %}
+            {% include 'Resource/QuestionnaireResponse', observationId: relObsId, entry: rel.observation, effectiveTime: entry.effectiveTime %}
+        {% endif %}
+    {% endfor %}
+{% endif %}

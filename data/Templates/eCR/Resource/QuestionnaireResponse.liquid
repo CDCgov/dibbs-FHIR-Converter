@@ -1,0 +1,23 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "QuestionnaireResponse",
+        "id":"{{ ID }}",
+        "code" : {
+            {% include 'DataType/CodeableConcept', CodeableConcept: entry.code %}
+        },
+        "status": "{{ entry.statusCode.code }}",
+        "item": {
+            {% if entry.code.originalText.reference._ %}
+                "text": "{{  entry.code.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+            {% endif %}
+            {% if entry.value.code or entry.value.translation%}
+                "value": {
+                    {% include 'DataType/CodeableConcept', CodeableConcept: entry.value %}
+                }
+            {% elsif entry.value.nullFlavor and entry.value.nullFlavor == "OTH" %}
+                "value": "{{ entry.value.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+            {% endif %}
+        }
+    },
+},

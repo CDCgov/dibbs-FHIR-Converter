@@ -128,5 +128,47 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("urn:oid:1.2.840.114350.1.72.1.8.1", item.GetProperty("value").GetProperty("coding")[0].GetProperty("system").GetString());
             Assert.Equal("X-SDOH-FLO-1572879817-1", item.GetProperty("value").GetProperty("coding")[0].GetProperty("code").GetString());
         }
+        
+        [Fact]
+        public void QuestionnaireResponse_AllNull()
+        {
+            var xmlStr = @"
+                <observation classCode=""OBS"" moodCode=""EVN"">
+                    <templateId root=""2.16.840.1.113883.10.20.22.4.86"" />
+                    <templateId root=""2.16.840.1.113883.10.20.22.4.86""
+                        extension=""2022-06-01"" />
+                    <id root=""1.2.840.114350.1.13.4304.2.7.1.83687972""
+                        extension=""XXh66838-3936872386-73162-X0893"" />
+                    <code nullFlavor=""UNK"">
+                        <originalText>REMOVED</originalText>
+                    </code>
+                    <statusCode code=""completed"" />
+                    <value
+                        xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+                        xsi:type=""CD"" nullFlavor=""OTH"">
+                        <originalText>Not on file</originalText>
+                    </value>
+                </observation>
+            ";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "entry", parsed["observation"]},
+            };
+
+            var actualJson = GetJsonFromTemplate(ECRPath, attributes);
+            Assert.Equal(ResourceType.QuestionnaireResponse.ToString(), actualJson.GetProperty("resourceType").GetString());
+            Assert.NotNull(actualJson.GetProperty("id").GetString());
+
+            var code = actualJson.GetProperty("code");
+            Assert.Equal("REMOVED", code.GetProperty("text").GetString());
+
+            Assert.Equal(QuestionnaireResponse.QuestionnaireResponseStatus.Completed.ToString().ToLower(), actualJson.GetProperty("status").GetString());
+            
+            var item = actualJson.GetProperty("item");
+            Assert.Equal("Not on file", item.GetProperty("value").GetString());
+        }
     }
 }

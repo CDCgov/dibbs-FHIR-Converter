@@ -16,7 +16,11 @@
                     {% include 'DataType/CodeableConcept', CodeableConcept: entry.value %}
                 }
             {% elsif entry.value.nullFlavor and entry.value.nullFlavor == "OTH" %}
-                "value": "{{ entry.value.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+                {% if entry.value.originalText._ %}
+                    "value": "{{ entry.value.originalText._ | escape_special_chars | clean_string_from_tabs }}",
+                {% else %}
+                    "value": "{{ entry.value.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+                {% endif %}
             {% endif %}
         }
     },

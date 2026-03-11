@@ -21,6 +21,8 @@
                 {% else %}
                     "value": "{{ entry.value.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
                 {% endif %}
+            {% else %}
+                {% include 'Utils/ValueHelper', value: entry.value %}
             {% endif %}
         }
     },

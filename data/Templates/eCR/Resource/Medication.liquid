@@ -4,5 +4,8 @@
         "resourceType": "Medication",
         "id":"{{ ID }}",
         "code": { {% include 'DataType/CodeableConcept', CodeableConcept: medication.code -%} },
+        {% if medicationStatus %}
+            "status": "{{ medicationStatus | downcase | get_property: 'ValueSet/MedicationStatus' }}",
+        {% endif %}
     },
 },

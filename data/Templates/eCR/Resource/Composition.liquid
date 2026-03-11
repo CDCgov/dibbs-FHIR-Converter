@@ -117,6 +117,16 @@
                                     },
                                 {% endfor %}
                             {% endif %}
+                            {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.1" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.1" or component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.1.1" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.1.1" %}
+                                {% assign entries = component.section.entry | to_array -%}
+                                {% for entry in entries -%}
+                                    {% assign medicationStatementId = entry.substanceAdministration | to_json_string | generate_uuid -%}
+                                    {% assign fullMedicationStatementId = medicationStatementId | prepend: 'MedicationStatement/' -%}
+                                    {
+                                        "reference": "{{ fullMedicationStatementId }}",
+                                    },
+                                {% endfor %}
+                            {% endif %}
                             {% if component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2.1" or component.section.templateId.root == "2.16.840.1.113883.10.20.22.2.2" or component.section.templateId[0].root == "2.16.840.1.113883.10.20.22.2.2" %}
                                 {% assign entries = component.section.entry | to_array -%}
                                 {% for entry in entries -%}

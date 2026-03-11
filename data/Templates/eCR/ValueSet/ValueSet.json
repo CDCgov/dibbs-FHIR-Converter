@@ -566,6 +566,20 @@
         "code": "unknown"
       }
     },
+    "ValueSet/MedicationStatus": {
+      "active": {
+        "code": "active"
+      },
+      "inactive": {
+        "code": "inactive"
+      },
+      "entered-in-error": {
+        "code": "entered-in-error"
+      },
+      "__default__": {
+        "code": ""
+      }
+    },
     "ValueSet/NameUse": {
       "C": {
         "code": "usual"

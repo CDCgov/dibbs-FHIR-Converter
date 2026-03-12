@@ -180,19 +180,19 @@
                                     {% assign orgComps = sectionEntry.organizer.component | to_array -%}
                                     {% for orgComp in orgComps -%}
                                         {% if orgComp.observation -%}
-                                            {% if orgComp.observation.code.nullFlavor and orgComp.observation.code.nullFlavor != "UNK" -%}
+                                            {% if orgComp.observation.code.nullFlavor and orgComp.observation.code.nullFlavor == "UNK" -%}
                                             {% else -%}
-                                            {% assign observationId = orgComp.observation | to_json_string | generate_uuid -%}
-                                            {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
-                                            {
-                                                "reference": "{{ fullObservationId }}",
-                                                {% if orgComp.observation.code.originalText._ -%}
-                                                    "display": "{{ orgComp.observation.code.originalText._ | clean_string_from_tabs | strip | escape_special_chars }}",
-                                                {% elsif orgComp.observation.code.translation -%}
-                                                    {% assign translations = orgComp.observation.code.translation | to_array -%}
-                                                    "display": "{{ translations.first.displayName | strip | escape_special_chars }}",
-                                                {% endif -%}
-                                            },
+                                                {% assign observationId = orgComp.observation | to_json_string | generate_uuid -%}
+                                                {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
+                                                {
+                                                    "reference": "{{ fullObservationId }}",
+                                                    {% if orgComp.observation.code.originalText._ -%}
+                                                        "display": "{{ orgComp.observation.code.originalText._ | clean_string_from_tabs | strip | escape_special_chars }}",
+                                                    {% elsif orgComp.observation.code.translation -%}
+                                                        {% assign translations = orgComp.observation.code.translation | to_array -%}
+                                                        "display": "{{ translations.first.displayName | strip | escape_special_chars }}",
+                                                    {% endif -%}
+                                                },
                                             {% endif -%}
                                         {% endif -%}
                                     {% endfor -%}

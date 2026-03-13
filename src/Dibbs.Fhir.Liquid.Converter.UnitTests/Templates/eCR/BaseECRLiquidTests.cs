@@ -113,12 +113,16 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         /// <summary>
-        /// Create a Json object from the output of a template.
+        /// Create a FHIR object from the output of a template.
         /// </summary>
+        /// <typeparam name="T">FHIR Type</typeparam>
         /// <param name="templatePath">Path to the template being tested</param>
         /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
-        /// <returns>Json representation of the rendered template.</returns>
-        protected static JsonElement GetJsonFromTemplate(string templatePath, Dictionary<string, object> attributes)
+        /// <returns>FHIR object of type T</returns>
+        protected static T GetFhirObjectFromTemplate<T>(
+            string templatePath,
+            Dictionary<string, object> attributes
+        )
         {
             const int timeoutMs = 10000;
 
@@ -140,23 +144,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             {
                 actualJson = resourceElement;
             }
-
-            return actualJson;
-        }
-
-        /// <summary>
-        /// Create a FHIR object from the output of a template.
-        /// </summary>
-        /// <typeparam name="T">FHIR Type</typeparam>
-        /// <param name="templatePath">Path to the template being tested</param>
-        /// <param name="attributes">Dictionary of attributes to hydrate the template</param>
-        /// <returns>FHIR object of type T</returns>
-        protected static T GetFhirObjectFromTemplate<T>(
-            string templatePath,
-            Dictionary<string, object> attributes
-        )
-        {
-            var actualJson = GetJsonFromTemplate(templatePath, attributes);
 
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)

@@ -4,27 +4,34 @@
         "resourceType": "QuestionnaireResponse",
         "id":"{{ ID }}",
         "status": "{{ entry.statusCode.code }}",
-        "item": {
-            {% if entry.code.originalText.reference._ %}
-                "text": "{{  entry.code.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
-            {% elsif entry.code.originalText._ %}
-                "text": "{{  entry.code.originalText._ | escape_special_chars | clean_string_from_tabs }}",
-            {% endif %}
-            "answer": {
-                {% if entry.value.translation %}
-                    "valueCodeableConcept": {
-                        {% include 'DataType/CodeableConcept', CodeableConcept: entry.value %}
-                    }
-                {% elsif entry.value.nullFlavor and entry.value.nullFlavor == "OTH" %}
-                    {% if entry.value.originalText._ %}
-                        "valueString": "{{ entry.value.originalText._ | escape_special_chars | clean_string_from_tabs }}",
-                    {% else %}
-                        "valueString": "{{ entry.value.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
-                    {% endif %}
-                {% else %}
-                    {% include 'Utils/ValueHelper', value: entry.value %}
+        "item": [
+            {
+                {% if entry.code.originalText.reference._ %}
+                    "text": "{{  entry.code.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+                {% elsif entry.code.originalText._ %}
+                    "text": "{{  entry.code.originalText._ | escape_special_chars | clean_string_from_tabs }}",
                 {% endif %}
+                "answer": [
+                    {% assign entryValues = entry.value | to_array %}
+                    {% for entryValue in entryValues %}
+                        {
+                            {% if entryValue.translation %}
+                                "valueCodeableConcept": {
+                                {% include 'DataType/CodeableConcept', CodeableConcept: entryValue %}
+                                }
+                            {% elsif entryValue.nullFlavor and entryValue.nullFlavor == "OTH" %}
+                                {% if entryValue.originalText._ %}
+                                    "valueString": "{{ entryValue.originalText._ | escape_special_chars | clean_string_from_tabs }}",
+                                {% else %}
+                                    "valueString": "{{ entryValue.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+                                {% endif %}
+                            {% else %}
+                                {% include 'Utils/ValueHelper', value: entryValue %}
+                            {% endif %}
+                        },
+                    {% endfor %}
+                ]
             }
-        }
+        ]
     },
 },

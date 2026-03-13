@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Xunit;
 using Hl7.Fhir.Model;
 using Dibbs.Fhir.Liquid.Converter.DataParsers;
@@ -45,26 +46,29 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "ID", "1234" },
                 { "observationEntry", parsed["observation"]},
             };
-
-            var actualJson = GetJsonFromTemplate(ECRPath, attributes);
-            Assert.Equal(ResourceType.Observation.ToString(), actualJson.GetProperty("resourceType").GetString());
-            Assert.NotNull(actualJson.GetProperty("id").GetString());
-
-            var code = actualJson.GetProperty("code");
-            Assert.Equal("Hunger Vital Sign [HVS]", code.GetProperty("coding")[0].GetProperty("display").GetString());
-            Assert.Equal("http://loinc.org", code.GetProperty("coding")[0].GetProperty("system").GetString());
-            Assert.Equal("88121-9", code.GetProperty("coding")[0].GetProperty("code").GetString());
-            Assert.Equal("Hunger Vital Sign", code.GetProperty("text").GetString());
-
-            Assert.Equal(ObservationStatus.Final.ToString().ToLower(), actualJson.GetProperty("status").GetString());
-
-            Assert.Equal("2025-02-05", actualJson.GetProperty("effectiveDateTime").GetString());
             
-            var value = actualJson.GetProperty("value");
-            Assert.Equal("High Risk", value.GetProperty("coding")[0].GetProperty("display").GetString());
-            Assert.Equal("urn:oid:1.2.840.114350.1.72.1.8.1", value.GetProperty("coding")[0].GetProperty("system").GetString());
-            Assert.Equal("X-SDOH-RISK-3", value.GetProperty("coding")[0].GetProperty("code").GetString());
-            Assert.Equal("Food Insecurity Present", value.GetProperty("text").GetString());
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+
+            Assert.NotNull(actualFhir.Code);
+            Assert.Equal("Hunger Vital Sign [HVS]", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
+            Assert.Equal("88121-9", actualFhir.Code?.Coding?.First().Code);
+            Assert.Equal("Hunger Vital Sign", actualFhir.Code?.Text);
+
+            Assert.Equal(ObservationStatus.Final, actualFhir.Status);
+
+            Assert.Equal("2025-02-05", (actualFhir.Effective as FhirDateTime)?.Value);
+
+            Assert.IsType<CodeableConcept>(actualFhir.Value);
+            var value = (CodeableConcept)actualFhir.Value;
+            
+            Assert.Equal("High Risk", value.Coding.First().Display);
+            Assert.Equal("urn:oid:1.2.840.114350.1.72.1.8.1", value.Coding.First().System);
+            Assert.Equal("X-SDOH-RISK-3", value.Coding.First().Code);
+            Assert.Equal("Food Insecurity Present", value.Text);
         }
 
         [Fact]
@@ -95,24 +99,28 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "observationEntry", parsed["observation"]},
             };
 
-            var actualJson = GetJsonFromTemplate(ECRPath, attributes);
-            Assert.Equal(ResourceType.Observation.ToString(), actualJson.GetProperty("resourceType").GetString());
-            Assert.NotNull(actualJson.GetProperty("id").GetString());
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
 
-            var code = actualJson.GetProperty("code");
-            Assert.Equal("Hunger Vital Sign [HVS]", code.GetProperty("coding")[0].GetProperty("display").GetString());
-            Assert.Equal("http://loinc.org", code.GetProperty("coding")[0].GetProperty("system").GetString());
-            Assert.Equal("88121-9", code.GetProperty("coding")[0].GetProperty("code").GetString());
-            Assert.Equal("Hunger Vital Sign", code.GetProperty("text").GetString());
+            Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
 
-            Assert.Equal(ObservationStatus.Final.ToString().ToLower(), actualJson.GetProperty("status").GetString());
+            Assert.NotNull(actualFhir.Code);
+            Assert.Equal("Hunger Vital Sign [HVS]", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
+            Assert.Equal("88121-9", actualFhir.Code?.Coding?.First().Code);
+            Assert.Equal("Hunger Vital Sign", actualFhir.Code?.Text);
 
-            Assert.Equal("2025-02-05", actualJson.GetProperty("effectiveDateTime").GetString());
+            Assert.Equal(ObservationStatus.Final, actualFhir.Status);
+
+            Assert.Equal("2025-02-05", (actualFhir.Effective as FhirDateTime)?.Value);
+
+            Assert.IsType<CodeableConcept>(actualFhir.Value);
+            var value = (CodeableConcept)actualFhir.Value;
             
-            var value = actualJson.GetProperty("valueCodeableConcept");
-            Assert.Equal("At risk", value.GetProperty("coding")[0].GetProperty("display").GetString());
-            Assert.Equal("http://loinc.org", value.GetProperty("coding")[0].GetProperty("system").GetString());
-            Assert.Equal("LA19952-3", value.GetProperty("coding")[0].GetProperty("code").GetString());
+            Assert.Equal("At risk", value.Coding.First().Display);
+            Assert.Equal("http://loinc.org", value.Coding.First().System);
+            Assert.Equal("LA19952-3", value.Coding.First().Code);
+            Assert.Null(value.Text);
         }
     }
 }

@@ -2036,7 +2036,7 @@
         },
         "status": "final",
         "effectiveDateTime": "1981-10-15",
-        "value": {
+        "valueCodeableConcept": {
           "coding": [
             {
               "code": "X-SDOH-RISK-1",
@@ -2064,32 +2064,25 @@
       "resource": {
         "resourceType": "QuestionnaireResponse",
         "id": "fc402112-16d4-ea88-5834-25f3d0a3ae40",
-        "code": {
-          "coding": [
-            {
-              "code": "72166-2",
-              "system": "http://loinc.org",
-              "display": "Tobacco smoking status"
-            }
-          ],
-          "text": "REMOVED"
-        },
         "status": "completed",
         "item": {
-          "value": {
-            "coding": [
-              {
-                "code": "LA18978-9",
-                "system": "http://loinc.org",
-                "display": "Never smoker"
-              },
-              {
-                "code": "266919005",
-                "system": "http://snomed.info/sct",
-                "display": "Never smoked tobacco"
-              }
-            ],
-            "text": "REMOVED"
+          "text": "REMOVED",
+          "answer": {
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "LA18978-9",
+                  "system": "http://loinc.org",
+                  "display": "Never smoker"
+                },
+                {
+                  "code": "266919005",
+                  "system": "http://snomed.info/sct",
+                  "display": "Never smoked tobacco"
+                }
+              ],
+              "text": "REMOVED"
+            }
           }
         },
         "partOf": [
@@ -2104,32 +2097,25 @@
       "resource": {
         "resourceType": "QuestionnaireResponse",
         "id": "2f668088-ffec-0782-0633-3601488164b6",
-        "code": {
-          "coding": [
-            {
-              "code": "88031-0",
-              "system": "http://loinc.org",
-              "display": "Smokeless tobacco status Nom"
-            }
-          ],
-          "text": "REMOVED"
-        },
         "status": "completed",
         "item": {
-          "value": {
-            "coding": [
-              {
-                "code": "LA4519-0",
-                "system": "http://loinc.org",
-                "display": "Never used"
-              },
-              {
-                "code": "228502006",
-                "system": "http://snomed.info/sct",
-                "display": "Never used moist powdered tobacco"
-              }
-            ],
-            "text": "REMOVED"
+          "text": "REMOVED",
+          "answer": {
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "LA4519-0",
+                  "system": "http://loinc.org",
+                  "display": "Never used"
+                },
+                {
+                  "code": "228502006",
+                  "system": "http://snomed.info/sct",
+                  "display": "Never used moist powdered tobacco"
+                }
+              ],
+              "text": "REMOVED"
+            }
           }
         },
         "partOf": [
@@ -2144,12 +2130,12 @@
       "resource": {
         "resourceType": "QuestionnaireResponse",
         "id": "2347bd49-e201-187e-9409-9a289a050c86",
-        "code": {
-          "text": "REMOVED"
-        },
         "status": "completed",
         "item": {
-          "value": "Not on file"
+          "text": "REMOVED",
+          "answer": {
+            "valueString": "Not on file"
+          }
         },
         "partOf": [
           {

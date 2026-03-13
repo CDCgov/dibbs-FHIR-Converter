@@ -9,7 +9,7 @@
         "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
         {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
         {% if observationEntry.interpretationCode %}
-            "value": { 
+            "valueCodeableConcept": { 
                 {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.interpretationCode %} 
             },
         {% else %}

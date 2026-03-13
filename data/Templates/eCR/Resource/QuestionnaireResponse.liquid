@@ -3,27 +3,28 @@
     "resource":{
         "resourceType": "QuestionnaireResponse",
         "id":"{{ ID }}",
-        "code" : {
-            {% include 'DataType/CodeableConcept', CodeableConcept: entry.code %}
-        },
         "status": "{{ entry.statusCode.code }}",
         "item": {
             {% if entry.code.originalText.reference._ %}
                 "text": "{{  entry.code.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+            {% elsif entry.code.originalText._ %}
+                "text": "{{  entry.code.originalText._ | escape_special_chars | clean_string_from_tabs }}",
             {% endif %}
-            {% if entry.value.code or entry.value.translation%}
-                "value": {
-                    {% include 'DataType/CodeableConcept', CodeableConcept: entry.value %}
-                }
-            {% elsif entry.value.nullFlavor and entry.value.nullFlavor == "OTH" %}
-                {% if entry.value.originalText._ %}
-                    "value": "{{ entry.value.originalText._ | escape_special_chars | clean_string_from_tabs }}",
+            "answer": {
+                {% if entry.value.translation %}
+                    "valueCodeableConcept": {
+                        {% include 'DataType/CodeableConcept', CodeableConcept: entry.value %}
+                    }
+                {% elsif entry.value.nullFlavor and entry.value.nullFlavor == "OTH" %}
+                    {% if entry.value.originalText._ %}
+                        "valueString": "{{ entry.value.originalText._ | escape_special_chars | clean_string_from_tabs }}",
+                    {% else %}
+                        "valueString": "{{ entry.value.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+                    {% endif %}
                 {% else %}
-                    "value": "{{ entry.value.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+                    {% include 'Utils/ValueHelper', value: entry.value %}
                 {% endif %}
-            {% else %}
-                {% include 'Utils/ValueHelper', value: entry.value %}
-            {% endif %}
+            }
         }
     },
 },

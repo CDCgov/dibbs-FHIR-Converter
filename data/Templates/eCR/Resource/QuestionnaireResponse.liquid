@@ -16,15 +16,15 @@
                     {% for entryValue in entryValues %}
                         {% if entryValue.code %}
                             { 
-                                {% include 'DataType/Coding', Coding: entryValue %} 
+                                "valueCoding": { {% include 'DataType/Coding', Coding: entryValue %} } 
                             },
                         {% endif %}
                         
                         {% if entryValue.translation %}
                             {% assign translations = CodeableConcept.translation | to_array -%}
                             {% for translation in translations %}
-                                { 
-                                    {% include 'DataType/Coding', Coding: translation.code %} 
+                                {
+                                    "valueCoding": { {% include 'DataType/Coding', Coding: translation.code %} }
                                 },
                             {% endfor %}
                         {% endif %}

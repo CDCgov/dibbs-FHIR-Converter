@@ -33,9 +33,13 @@
                             {
                                 "valueString": "{{ entryValue.originalText._ | escape_special_chars | clean_string_from_tabs }}"
                             },
-                        {% else %}
+                        {% elsif entryValue.originalText.reference._ %}
                             {
                                 "valueString": "{{ entryValue.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}"
+                            },
+                        {% else %}
+                            {
+                                {% include 'Utils/ValueHelper', value: entryValue %}
                             },
                         {% endif %}
                     {% endfor %}

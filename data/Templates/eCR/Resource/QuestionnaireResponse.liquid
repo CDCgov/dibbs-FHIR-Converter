@@ -14,21 +14,30 @@
                 "answer": [
                     {% assign entryValues = entry.value | to_array %}
                     {% for entryValue in entryValues %}
-                        {
-                            {% if entryValue.translation %}
-                                "valueCodeableConcept": {
-                                {% include 'DataType/CodeableConcept', CodeableConcept: entryValue %}
-                                }
-                            {% elsif entryValue.nullFlavor and entryValue.nullFlavor == "OTH" %}
-                                {% if entryValue.originalText._ %}
-                                    "valueString": "{{ entryValue.originalText._ | escape_special_chars | clean_string_from_tabs }}",
-                                {% else %}
-                                    "valueString": "{{ entryValue.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
-                                {% endif %}
-                            {% else %}
-                                {% include 'Utils/ValueHelper', value: entryValue %}
-                            {% endif %}
-                        },
+                        {% if entryValue.code %}
+                            { 
+                                {% include 'DataType/Coding', Coding: entryValue %} 
+                            },
+                        {% endif %}
+                        
+                        {% if entryValue.translation %}
+                            {% assign translations = CodeableConcept.translation | to_array -%}
+                            {% for translation in translations %}
+                                { 
+                                    {% include 'DataType/Coding', Coding: translation.code %} 
+                                },
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if entryValue.originalText._ %}
+                            {
+                                "valueString": "{{ entryValue.originalText._ | escape_special_chars | clean_string_from_tabs }}"
+                            },
+                        {% else %}
+                            {
+                                "valueString": "{{ entryValue.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}"
+                            },
+                        {% endif %}
                     {% endfor %}
                 ]
             }

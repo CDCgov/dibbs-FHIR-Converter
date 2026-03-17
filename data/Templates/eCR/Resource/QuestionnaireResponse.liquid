@@ -6,11 +6,18 @@
         "status": "{{ entry.statusCode.code }}",
         "item": [
             {
+                {% comment %} linkId is required for the FHIR bundle to be valid, its should point to 
+                 a specific item in a Questionnaire but we dont always have Questionnaires. {% endcomment %}
+                "linkId": "empty",
+
                 {% if entry.code.originalText.reference._ %}
                     "text": "{{  entry.code.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
                 {% elsif entry.code.originalText._ %}
                     "text": "{{  entry.code.originalText._ | escape_special_chars | clean_string_from_tabs }}",
                 {% endif %}
+                
+                {% comment %} answers can't be any valueX they have to be 
+                single-valued valueX see https://hl7.org/fhir/R4/questionnaireresponse.html {% endcomment %}
                 "answer": [
                     {% assign entryValues = entry.value | to_array %}
                     {% for entryValue in entryValues %}

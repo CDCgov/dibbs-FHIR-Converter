@@ -2065,26 +2065,31 @@
         "resourceType": "QuestionnaireResponse",
         "id": "fc402112-16d4-ea88-5834-25f3d0a3ae40",
         "status": "completed",
-        "item": {
-          "text": "REMOVED",
-          "answer": {
-            "valueCodeableConcept": {
-              "coding": [
-                {
+        "item": [
+          {
+            "linkId": "empty",
+            "text": "REMOVED",
+            "answer": [
+              {
+                "valueCoding": {
                   "code": "LA18978-9",
                   "system": "http://loinc.org",
                   "display": "Never smoker"
-                },
-                {
+                }
+              },
+              {
+                "valueCoding": {
                   "code": "266919005",
                   "system": "http://snomed.info/sct",
                   "display": "Never smoked tobacco"
                 }
-              ],
-              "text": "REMOVED"
-            }
+              },
+              {
+                "valueString": "REMOVED"
+              }
+            ]
           }
-        },
+        ],
         "partOf": [
           {
             "reference": "Observation/c8dc5a17-0c90-1c9d-a5bc-683492e29efa"
@@ -2098,26 +2103,31 @@
         "resourceType": "QuestionnaireResponse",
         "id": "2f668088-ffec-0782-0633-3601488164b6",
         "status": "completed",
-        "item": {
-          "text": "REMOVED",
-          "answer": {
-            "valueCodeableConcept": {
-              "coding": [
-                {
+        "item": [
+          {
+            "linkId": "empty",
+            "text": "REMOVED",
+            "answer": [
+              {
+                "valueCoding": {
                   "code": "LA4519-0",
                   "system": "http://loinc.org",
                   "display": "Never used"
-                },
-                {
+                }
+              },
+              {
+                "valueCoding": {
                   "code": "228502006",
                   "system": "http://snomed.info/sct",
                   "display": "Never used moist powdered tobacco"
                 }
-              ],
-              "text": "REMOVED"
-            }
+              },
+              {
+                "valueString": "REMOVED"
+              }
+            ]
           }
-        },
+        ],
         "partOf": [
           {
             "reference": "Observation/c8dc5a17-0c90-1c9d-a5bc-683492e29efa"
@@ -2131,12 +2141,17 @@
         "resourceType": "QuestionnaireResponse",
         "id": "2347bd49-e201-187e-9409-9a289a050c86",
         "status": "completed",
-        "item": {
-          "text": "REMOVED",
-          "answer": {
-            "valueString": "Not on file"
+        "item": [
+          {
+            "linkId": "empty",
+            "text": "REMOVED",
+            "answer": [
+              {
+                "valueString": "Not on file"
+              }
+            ]
           }
-        },
+        ],
         "partOf": [
           {
             "reference": "Observation/c8dc5a17-0c90-1c9d-a5bc-683492e29efa"

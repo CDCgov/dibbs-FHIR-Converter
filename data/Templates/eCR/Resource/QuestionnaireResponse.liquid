@@ -6,8 +6,8 @@
         "status": "{{ entry.statusCode.code }}",
         "item": [
             {
-                {% comment %} linkId is required for the FHIR bundle to be valid, its should point to 
-                 a specific item in a Questionnaire but we dont always have Questionnaires. {% endcomment %}
+                {% comment %} linkId is required for the FHIR bundle to be valid, it should point to 
+                 a specific item in a Questionnaire but we don't always have Questionnaires. {% endcomment %}
                 "linkId": "empty",
 
                 {% if entry.code.originalText.reference._ %}

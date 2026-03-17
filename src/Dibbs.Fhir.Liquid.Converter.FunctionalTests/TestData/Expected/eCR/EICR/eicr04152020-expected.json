@@ -145,7 +145,15 @@
                 }
               ]
             },
-            "mode": "snapshot"
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "MedicationStatement/6a8a06a3-f5f0-e171-8f32-1fcd87759ce5"
+              },
+              {
+                "reference": "MedicationStatement/beda45fe-1993-8fd8-cdb5-b93de1b6721f"
+              }
+            ]
           },
           {
             "id": "59af1cca-0287-95d0-eb2a-8adbd38d6285",
@@ -848,12 +856,37 @@
         "effectivePeriod": {
           "start": "2019-07-22T00:00:00-05:00"
         },
+        "dosage": [
+          {
+            "route": {
+              "coding": [
+                {
+                  "code": "C38288",
+                  "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                  "display": "Oral route"
+                },
+                {
+                  "code": "26643006",
+                  "system": "http://snomed.info/sct",
+                  "display": "Oral route"
+                }
+              ],
+              "text": "Oral route"
+            }
+          }
+        ],
+        "dateAsserted": "2019-07-22T10:13:56.860-05:00",
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
         "medicationReference": {
           "reference": "Medication/8ea50ec3-2528-2efc-16ee-84d008e58028"
-        }
+        },
+        "basedOn": [
+          {
+            "reference": "MedicationRequest/5fa9f4bc-86fd-1482-603e-a74bba9c33c4"
+          }
+        ]
       }
     },
     {
@@ -917,7 +950,10 @@
         "status": "completed",
         "intent": "order",
         "dispenseRequest": {
-          "numberOfRepeatsAllowed": 1
+          "numberOfRepeatsAllowed": 1,
+          "quantity": {
+            "value": 30
+          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
@@ -1018,8 +1054,32 @@
           }
         ],
         "status": "active",
+        "effectivePeriod": {
+          "start": "2018-11-15T00:00:00-06:00"
+        },
         "dosage": [
           {
+            "timing": {
+              "repeat": {
+                "period": 24.0,
+                "periodUnit": "h"
+              }
+            },
+            "route": {
+              "coding": [
+                {
+                  "code": "C38288",
+                  "system": "urn:oid:2.16.840.1.113883.3.26.1.1",
+                  "display": "Oral route"
+                },
+                {
+                  "code": "26643006",
+                  "system": "http://snomed.info/sct",
+                  "display": "Oral route"
+                }
+              ],
+              "text": "Oral route"
+            },
             "doseAndRate": [
               {
                 "doseQuantity": {
@@ -1030,12 +1090,18 @@
             ]
           }
         ],
+        "dateAsserted": "2018-11-15T13:16:03.553-06:00",
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"
         },
         "medicationReference": {
           "reference": "Medication/5184d9e6-fb8f-8b98-185c-e1bd2823fd24"
-        }
+        },
+        "basedOn": [
+          {
+            "reference": "MedicationRequest/7f271226-7531-ae46-4dd4-4bb974cf6646"
+          }
+        ]
       }
     },
     {
@@ -1100,7 +1166,10 @@
         "intent": "order",
         "authoredOn": "2018-11-15T13:16:50.637-06:00",
         "dispenseRequest": {
-          "numberOfRepeatsAllowed": 0
+          "numberOfRepeatsAllowed": 0,
+          "quantity": {
+            "value": 30
+          }
         },
         "subject": {
           "reference": "Patient/ea377416-4450-d765-db9b-56b3c15c917a"

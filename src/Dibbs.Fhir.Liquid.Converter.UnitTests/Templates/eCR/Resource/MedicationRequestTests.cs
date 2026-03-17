@@ -62,6 +62,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                             },
                             doseQuantity = new { value = "3", unit = "mg" },
                             repeatNumber = new { value = "1" },
+                            quantity = new { unit = "mg", value = "5" },
                         }
                 },
             };
@@ -74,6 +75,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);
             Assert.Equal(RequestPriority.Asap , actualFhir.Priority);
             Assert.Equal(1, actualFhir.DispenseRequest.NumberOfRepeatsAllowed);
+            Assert.Equal(5, actualFhir.DispenseRequest.Quantity.Value);
+            Assert.Equal("mg", actualFhir.DispenseRequest.Quantity.Unit);
             var dosage = actualFhir.DosageInstruction.First();
             Assert.NotEmpty(dosage.Site);
             Assert.Equal("Abdomen", dosage.Site.Coding.First().Code);

@@ -232,9 +232,6 @@
               {
                 "reference": "Observation/701463f6-4bfc-fb07-d063-63340edceb2a",
                 "display": "REMOVED"
-              },
-              {
-                "reference": "Observation/75afe3af-962e-647d-2828-05b85f636fcd"
               }
             ]
           },
@@ -1446,9 +1443,6 @@
           },
           {
             "reference": "Observation/701463f6-4bfc-fb07-d063-63340edceb2a"
-          },
-          {
-            "reference": "Observation/75afe3af-962e-647d-2828-05b85f636fcd"
           }
         ]
       }
@@ -1755,55 +1749,6 @@
             "valueString": "#Result.1.2.840.114350.1.13.4304.2.7.2.798268.1072603.Comp4"
           }
         ],
-        "subject": {
-          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:75afe3af-962e-647d-2828-05b85f636fcd",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "75afe3af-962e-647d-2828-05b85f636fcd",
-        "meta": {
-          "profile": [
-            "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation"
-          ]
-        },
-        "identifier": [
-          {
-            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.798268",
-            "value": "XX97036"
-          }
-        ],
-        "category": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "code": "laboratory"
-              }
-            ]
-          }
-        ],
-        "status": "final",
-        "code": {
-          "coding": [
-            {
-              "code": "unknown",
-              "system": "http://terminology.hl7.org/CodeSystem/data-absent-reason"
-            }
-          ]
-        },
-        "effectiveDateTime": "1981-10-18T05:33:46Z",
-        "valueCodeableConcept": {
-          "coding": [
-            {
-              "code": "12",
-              "system": "urn:oid:1.2.840.114350.1.72.1.5007"
-            }
-          ]
-        },
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }

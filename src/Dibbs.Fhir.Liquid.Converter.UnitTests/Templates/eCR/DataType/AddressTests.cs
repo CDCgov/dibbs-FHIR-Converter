@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
@@ -11,114 +12,114 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         );
 
         [Fact]
-        public void GivenNoAttributeReturnsEmpty()
+        public async Task GivenNoAttributeReturnsEmpty()
         {
-            ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), string.Empty);
+            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), string.Empty);
         }
 
         [Fact]
-        public void GivenSingleStreetAddresReturnsLines()
+        public async Task GivenSingleStreetAddresReturnsLines()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { streetAddressLine = new { _ = "132 Main St" }}}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [""132 Main St"",], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
-        public void GivenArrayStreetAddresReturnsLines()
+        public async Task GivenArrayStreetAddresReturnsLines()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { streetAddressLine = new List<object> {new {_ = "132 Main St"}, new { _ ="Unit 2"} }}}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [""132 Main St"",""Unit 2"",], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
-        public void GivenCityReturnsCity()
+        public async Task GivenCityReturnsCity()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { city = new { _ = "Town" }}}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [], ""city"": ""Town"", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
-        public void GivenStateReturnsState()
+        public async Task GivenStateReturnsState()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { state = new { _ = "State" }}}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [], ""city"": """", ""state"": ""State"", ""country"": """", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
-        public void GivenPostalCodeReturnsPostalCode()
+        public async Task GivenPostalCodeReturnsPostalCode()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { postalCode = new { _ = "PostalCode" }}}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": ""PostalCode"", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
-        public void GivenCountyReturnsDistrict()
+        public async Task GivenCountyReturnsDistrict()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { county = new { _ = "County" }}}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": """", ""postalCode"": """", ""district"": ""County"", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
-        public void GivenCountrReturnsCountry()
+        public async Task GivenCountrReturnsCountry()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { country = new { _ = "Country" }}}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": ""Country"", ""postalCode"": """", ""district"": """", ""period"": { ""start"":"""", ""end"":"""", },");
         }
 
         [Fact]
-        public void GivenPeriodReturnsNothing()
+        public async Task GivenPeriodReturnsNothing()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { useablePeriod = new { low = new { value = "20240313"}} }}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"");
         }
 
         [Fact]
-        public void GivenPeriodAndCountryReturnsBoth()
+        public async Task GivenPeriodAndCountryReturnsBoth()
         {
             var attributes = new Dictionary<string, object>{
                 {"Address", new { country = new {_ = "Country" }, useablePeriod = new { low = new { value = "20240313"}} }}
             };
-            ConvertCheckLiquidTemplate(
+            await ConvertCheckLiquidTemplate(
                 ECRPath, 
                 attributes, 
                 @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": ""Country"", ""postalCode"": """", ""district"": """", ""period"": { ""start"":""2024-03-13"", ""end"":"""", },");

@@ -18,36 +18,36 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         );
 
         [Fact]
-        public void KnownOid()
+        public async System.Threading.Tasks.Task KnownOid()
         {
             var systemOid = "1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1";
             var expectedValue = @"""code"": ""10154-3"", ""display"": ""Chief complaint Narrative - Reported"",";
 
             var attributes = new Dictionary<string, object> { { "id", systemOid }, };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedValue);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedValue);
         }
 
         [Fact]
-        public void UnknownOid()
+        public async System.Threading.Tasks.Task UnknownOid()
         {
             var systemOid = "1.2.3.4";
             var expectedValue = "";
 
             var attributes = new Dictionary<string, object> { { "id", systemOid }, };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedValue);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedValue);
         }
 
         [Fact]
-        public void NotAnOid()
+        public async System.Threading.Tasks.Task NotAnOid()
         {
             var code = "not a oid";
             var expectedValue = "";
 
             var attributes = new Dictionary<string, object> { { "id", code }, };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedValue);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedValue);
         }
     }
 }

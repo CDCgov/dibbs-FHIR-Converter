@@ -14,10 +14,10 @@
   "timestamp": "2020-11-07T09:44:21-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:c326804a-2ac9-623b-2340-be759a767e89",
+      "fullUrl": "urn:uuid:0ecd1946-2f5a-6691-ba82-e3fd6e30e8dc",
       "resource": {
         "resourceType": "Composition",
-        "id": "c326804a-2ac9-623b-2340-be759a767e89",
+        "id": "0ecd1946-2f5a-6691-ba82-e3fd6e30e8dc",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -452,6 +452,29 @@
             "entry": [
               {
                 "reference": "Observation/26d05bcc-1b0f-fc8a-a85e-4c6c6512478f"
+              }
+            ]
+          },
+          {
+            "id": "34369316-4644-d7e0-7081-6d2bb898d57f",
+            "title": "Patient Care team information",
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li><table><thead><tr><th>Name</th><th>Focus</th><th>Nature</th><th>Time</th></tr></thead><tbody><tr id=\"CareTeamName1\"><td>My Care Team</td></tr><tr><td>Care Coordination</td></tr><tr><td>Integrated</td></tr><tr><td>Oct 2018 - present</td></tr></tbody></table><table><thead><tr><th>Name</th><th>Role</th><th>Specialty</th><th>Address</th><th>Phone</th><th>Email</th><th>Organization</th><th>Dates</th></tr></thead><tbody><tr id=\"CareTeamParticipants1\"><td>John D Smith, MD</td><td>PCP</td><td>Internal Medicine</td><td>100 Main St. Suite 100, Hope Valley, RI 02832</td><td>(401)539-2461</td><td>johndsmith@direct.aclinic.org</td><td>Hope Woods Health Services</td><td>Oct 8, 2018 - present</td></tr></tbody></table></li></ul></div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "code": "85847-2",
+                  "system": "http://loinc.org",
+                  "display": "Patient Care team information"
+                }
+              ]
+            },
+            "mode": "snapshot",
+            "entry": [
+              {
+                "reference": "CareTeam/93f367e7-fb8f-8220-c5fc-c612cb4fcffb"
               }
             ]
           },
@@ -1445,6 +1468,113 @@
                 ]
               }
             ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:93f367e7-fb8f-8220-c5fc-c612cb4fcffb",
+      "resource": {
+        "resourceType": "CareTeam",
+        "id": "93f367e7-fb8f-8220-c5fc-c612cb4fcffb",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:c37b6e41-8d99-496f-afba-b97383da63eb"
+          }
+        ],
+        "status": "active",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        },
+        "period": {
+          "start": "201810081426-0500"
+        },
+        "participant": [
+          {
+            "role": [
+              {
+                "coding": [
+                  {
+                    "code": "PCP",
+                    "system": "urn:oid:2.16.840.1.113883.5.88",
+                    "display": "primary care physician"
+                  }
+                ]
+              }
+            ],
+            "member": {
+              "reference": "Practitioner/332b44ba-27b8-6426-b122-df06a0d9730f"
+            },
+            "period": {
+              "start": "201810081426-0500"
+            },
+            "modifierExtension": [
+              {
+                "url": "participant.status",
+                "valueString": "active"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:332b44ba-27b8-6426-b122-df06a0d9730f",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "332b44ba-27b8-6426-b122-df06a0d9730f",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:uuid:b00b14e8-cde4-48ea-8a09-01bc4945122a",
+            "value": "1"
+          },
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:oid:1.5.5.5.5.5.5"
+          },
+          {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "5555555555"
+          }
+        ],
+        "name": [
+          {
+            "family": "Smith",
+            "given": [
+              "John",
+              "D"
+            ],
+            "suffix": [
+              "MD"
+            ]
+          }
+        ],
+        "address": [
+          {
+            "line": [
+              "100 Main St. Suite 100"
+            ],
+            "city": "Hope Valley",
+            "state": "RI",
+            "country": "US",
+            "postalCode": "02832"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+1(401)539-2461",
+            "use": "work"
+          },
+          {
+            "system": "email",
+            "value": "johndsmith@direct.aclinic.org"
           }
         ]
       }

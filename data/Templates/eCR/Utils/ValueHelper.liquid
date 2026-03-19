@@ -13,12 +13,8 @@
             {% assign formattedDecimal = value.value | format_decimal %}
             {% if formattedDecimal != nil %}
                 {{ formattedDecimal | escape_special_chars }},
-            {% comment %} {% elsif value.value startswith "." %}
-                {{ "0" | append: value.value | escape_special_chars }},
             {% else %}
-                {{ value.value | escape_special_chars }}, {% endcomment %}
-            {% else %}
-                "{{value.value | escape_special_chars}}"
+                "{{value.value | escape_special_chars}}",
             {% endif %}
         {% endif %}
         {% if value.unit and value.unit != "null" -%}

@@ -40,7 +40,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = ".50 in"}}
             };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": \".50 in\" },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": \".50 in\", },");
         }
 
         [Fact]

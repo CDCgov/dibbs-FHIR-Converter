@@ -26,6 +26,12 @@ namespace Dibbs.Fhir.Liquid.Converter
         [GeneratedRegex(@"^([0-2])((\.0)|(\.[1-9][0-9]*))*$", RegexOptions.IgnoreCase)]
         private static partial Regex OidRegex();
 
+        [GeneratedRegex(@"[-+]?\d*\.?\d+", RegexOptions.IgnoreCase)]
+        private static partial Regex DecimalRegex();
+
+        [GeneratedRegex(@"[^0-9.+\-\s]+", RegexOptions.IgnoreCase)]
+        private static partial Regex NonNumericRegex();
+
         /// <summary>
         /// Returns a specific property of a coding with mapping file Valueset.json
         /// </summary>
@@ -155,7 +161,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         public static ValueTask<FluidValue> FormatValueQuantity(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var inputString = input.ToStringValue();
-            var match = Regex.Match(inputString, @"[-+]?\d*\.?\d+");
+            var match = DecimalRegex().Match(inputString);
 
             if (match.Success)
             {
@@ -192,7 +198,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         public static ValueTask<FluidValue> ExtractUnit(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var inputString = input.ToStringValue();
-            var match = Regex.Match(inputString, @"[^0-9.+\-\s]+");
+            var match = NonNumericRegex().Match(inputString);
 
             if (match.Success)
             {

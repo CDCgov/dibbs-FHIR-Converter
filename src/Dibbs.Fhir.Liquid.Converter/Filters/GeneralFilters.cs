@@ -167,7 +167,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 }
                 else
                 {
-                    format = "#";
+                    format = "0";
                 }
 
                 return StringValue.Create(value.ToString(format));

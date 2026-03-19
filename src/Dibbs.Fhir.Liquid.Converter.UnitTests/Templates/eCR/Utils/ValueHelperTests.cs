@@ -62,6 +62,24 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
+        public async System.Threading.Tasks.Task GivenZeroProperlyReturnsZero()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { value = "0"}}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0, },");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenZeroDecimalProperlyReturnsZeroDecimal()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { value = "0.0"}}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.0, },");
+        }
+
+        [Fact]
         public async System.Threading.Tasks.Task GivenValueUnitProperlyReturnsWithValueUnit()
         {
             var attributes = new Dictionary<string, object>{

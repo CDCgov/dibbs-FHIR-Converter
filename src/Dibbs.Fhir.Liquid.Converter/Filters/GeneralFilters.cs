@@ -142,5 +142,40 @@ namespace Dibbs.Fhir.Liquid.Converter
 
             return new StringValue(extension);
         }
+
+        /// <summary>
+        /// Formats input number as a decimal with a leading 0 if there would be no value before the decimal point.
+        /// Retains the decimal precision of the input number
+        /// Returns nil if input is not a number
+        /// </summary>
+        /// <param name="input">An integer or decimal</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>The input formatted as a string with a leading zero as needed, or nil if input is not a number</returns>
+        public static ValueTask<FluidValue> FormatDecimal(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            var inputString = input.ToStringValue();
+            decimal value;
+            if (decimal.TryParse(inputString, out value))
+            {
+                string format;
+                string[] splitDecimal = inputString.Split('.');
+                bool hasDecimalPrecision = splitDecimal.Length > 1;
+                if (hasDecimalPrecision)
+                {
+                    format = "0." + new string('0', splitDecimal[1].Length);
+                }
+                else
+                {
+                    format = "#";
+                }
+
+                return StringValue.Create(value.ToString(format));
+            }
+            else
+            {
+                return NilValue.Instance;
+            }
+        }
     }
 }

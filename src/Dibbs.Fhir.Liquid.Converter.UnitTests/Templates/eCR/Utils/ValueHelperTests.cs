@@ -11,63 +11,72 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         );
 
         [Fact]
-        public void GivenNoAttributeReturnsEmpty()
+        public async System.Threading.Tasks.Task GivenNoAttributeReturnsEmpty()
         {
-            ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\":\"\",");
+            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\":\"\",");
         }
 
         [Fact]
-        public void GivenDecimalProperlyReturnsWithDecimal()
+        public async System.Threading.Tasks.Task GivenDecimalProperlyReturnsWithDecimal()
         {
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = ".29"}}
             };
-            ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, },");
         }
 
         [Fact]
-        public void GivenIntProperlyReturnsInt()
+        public async System.Threading.Tasks.Task GivenIntProperlyReturnsInt()
         {
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = "300"}}
             };
-            ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 300, },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 300, },");
         }
 
         [Fact]
-        public void GivenDecimalProperlyReturnsDecimal()
+        public async System.Threading.Tasks.Task GivenStringProperlyReturnsString()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { value = ".50 in"}}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": \".50 in\" },");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenDecimalProperlyReturnsDecimal()
         {
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = "300.00"}}
             };
-            ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 300.00, },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 300.00, },");
         }
 
         [Fact]
-        public void GivenNegativeValueProperlyReturnsNegativeValue()
+        public async System.Threading.Tasks.Task GivenNegativeValueProperlyReturnsNegativeValue()
         {
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = "-300.00"}}
             };
-            ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": -300.00, },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": -300.00, },");
         }
 
         [Fact]
-        public void GivenValueUnitProperlyReturnsWithValueUnit()
+        public async System.Threading.Tasks.Task GivenValueUnitProperlyReturnsWithValueUnit()
         {
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = ".29" , unit = "/d"}}
             };
-            ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\":\"/d\", },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\":\"/d\", },");
         }
 
         [Fact]
-        public void GivenNoValueOnlyUnitProperlyReturnsUnit()
+        public async System.Threading.Tasks.Task GivenNoValueOnlyUnitProperlyReturnsUnit()
         {
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = "" , unit = "Immediate"}}
             };
-            ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\":\"Immediate\", },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\":\"Immediate\", },");
         }
     }
 }

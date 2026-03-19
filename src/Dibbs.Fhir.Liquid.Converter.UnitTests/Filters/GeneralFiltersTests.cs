@@ -163,5 +163,17 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
             Assert.Equal(expected, Filters.RemovePrefix(StringValue.Create(extension), new FilterArguments(StringValue.Create(root)), context).Result.ToStringValue());
         }
+
+        [Fact]
+        public void FormatDecimal()
+        {
+            var context = new TemplateContext();
+
+            Assert.Equal("0.29", Filters.FormatDecimal(StringValue.Create(".29"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.Equal("300", Filters.FormatDecimal(StringValue.Create("300"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.True(Filters.FormatDecimal(StringValue.Create(".50 in"), FilterArguments.Empty, context).Result.IsNil());
+            Assert.Equal("300.00", Filters.FormatDecimal(StringValue.Create("300.00"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.Equal("-300", Filters.FormatDecimal(StringValue.Create("-300"), FilterArguments.Empty, context).Result.ToStringValue());
+        }
     }
 }

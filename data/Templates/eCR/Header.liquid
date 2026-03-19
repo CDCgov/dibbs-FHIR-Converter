@@ -175,7 +175,8 @@
   {% if careTeam %}
     {% assign careTeamId = careTeam | to_json_string | generate_uuid -%}
     {% include 'Resource/CareTeam', careTeamEntry: careTeam.entry.organizer, ID: careTeamId, patientId: fullPatientId%}
-    {% for member in careTeam.entry.organizer.component %}
+    {% assign careTeamOrganizerComponents = careTeam.entry.organizer.component |  to_array %}
+    {% for member in careTeamOrganizerComponents %}
       {% assign practitionerId = member.act.performer.assignedEntity | to_json_string | generate_uuid -%}
       {% include 'Resource/Practitioner', practitioner: member.act.performer.assignedEntity, ID: practitionerId %}
     {% endfor  %}

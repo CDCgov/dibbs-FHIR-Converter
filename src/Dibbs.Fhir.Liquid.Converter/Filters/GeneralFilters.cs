@@ -144,22 +144,26 @@ namespace Dibbs.Fhir.Liquid.Converter
         }
 
         /// <summary>
-        /// Formats input number as a decimal with a leading 0 if there would be no value before the decimal point.
+        /// Formats input value as a decimal with a leading 0 if there would be no value before the decimal point.
         /// Retains the decimal precision of the input number
-        /// Returns nil if input is not a number
+        /// Returns nil if input does not contain a number
         /// </summary>
-        /// <param name="input">An integer or decimal</param>
+        /// <param name="input">A value string</param>
         /// <param name="arguments">Filter arguments (unused)</param>
         /// <param name="context">The current template context (unused)</param>
         /// <returns>The input formatted as a string with a leading zero as needed, or nil if input is not a number</returns>
-        public static ValueTask<FluidValue> FormatDecimal(FluidValue input, FilterArguments arguments, TemplateContext context)
+        public static ValueTask<FluidValue> FormatValueQuantity(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var inputString = input.ToStringValue();
-            decimal value;
-            if (decimal.TryParse(inputString, out value))
+            var match = Regex.Match(inputString, @"[-+]?\d*\.?\d+");
+
+            if (match.Success)
             {
+                string numberString = match.Value;
+                decimal number = decimal.Parse(numberString);
+
                 string format;
-                string[] splitDecimal = inputString.Split('.');
+                string[] splitDecimal = numberString.Split('.');
                 bool hasDecimalPrecision = splitDecimal.Length > 1;
                 if (hasDecimalPrecision)
                 {
@@ -170,7 +174,29 @@ namespace Dibbs.Fhir.Liquid.Converter
                     format = "0";
                 }
 
-                return StringValue.Create(value.ToString(format));
+                return StringValue.Create(number.ToString(format));
+            }
+            else
+            {
+                return NilValue.Instance;
+            }
+        }
+
+        /// <summary>
+        /// Attempts to extract unit from value string. Used when a unit is not provided in a value element.
+        /// </summary>
+        /// <param name="input">A value string</param>
+        /// <param name="arguments">Filter arguments (unused)</param>
+        /// <param name="context">The current template context (unused)</param>
+        /// <returns>The non-number, non-whitespace portion of the string</returns>
+        public static ValueTask<FluidValue> ExtractUnit(FluidValue input, FilterArguments arguments, TemplateContext context)
+        {
+            var inputString = input.ToStringValue();
+            var match = Regex.Match(inputString, @"[^0-9.+\-\s]+");
+
+            if (match.Success)
+            {
+                return StringValue.Create(match.Value);
             }
             else
             {

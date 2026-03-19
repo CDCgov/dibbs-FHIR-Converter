@@ -165,15 +165,25 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
         }
 
         [Fact]
-        public void FormatDecimal()
+        public void FormatValueQuantity()
         {
             var context = new TemplateContext();
 
-            Assert.Equal("0.29", Filters.FormatDecimal(StringValue.Create(".29"), FilterArguments.Empty, context).Result.ToStringValue());
-            Assert.Equal("300", Filters.FormatDecimal(StringValue.Create("300"), FilterArguments.Empty, context).Result.ToStringValue());
-            Assert.True(Filters.FormatDecimal(StringValue.Create(".50 in"), FilterArguments.Empty, context).Result.IsNil());
-            Assert.Equal("300.00", Filters.FormatDecimal(StringValue.Create("300.00"), FilterArguments.Empty, context).Result.ToStringValue());
-            Assert.Equal("-300", Filters.FormatDecimal(StringValue.Create("-300"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.Equal("0.29", Filters.FormatValueQuantity(StringValue.Create(".29"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.Equal("300", Filters.FormatValueQuantity(StringValue.Create("300"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.True(Filters.FormatValueQuantity(StringValue.Create(".50 in"), FilterArguments.Empty, context).Result.IsNil());
+            Assert.Equal("300.00", Filters.FormatValueQuantity(StringValue.Create("300.00"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.Equal("-300", Filters.FormatValueQuantity(StringValue.Create("-300"), FilterArguments.Empty, context).Result.ToStringValue());
+        }
+
+        [Fact]
+        public void ExtractUnit()
+        {
+            var context = new TemplateContext();
+
+            Assert.Equal("in", Filters.ExtractUnit(StringValue.Create("12 in"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.Equal("$", Filters.ExtractUnit(StringValue.Create("$1"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.True(Filters.ExtractUnit(StringValue.Create("1"), FilterArguments.Empty, context).Result.IsNil());
         }
     }
 }

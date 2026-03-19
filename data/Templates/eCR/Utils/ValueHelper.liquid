@@ -9,16 +9,15 @@
 {% elsif value.value -%}
     "valueQuantity": {
         {% if value.value != blank %}
-        "value":
-            {% assign formattedDecimal = value.value | format_decimal %}
-            {% if formattedDecimal != nil %}
-                {{ formattedDecimal | escape_special_chars }},
-            {% else %}
-                "{{value.value | escape_special_chars}}",
-            {% endif %}
+            "value": {{ value.value | format_valuequantity }},
         {% endif %}
         {% if value.unit and value.unit != "null" -%}
-            "unit":"{{ value.unit }}",
+            "unit":"{{ value.unit | escape_special_chars }}",
+        {% else %}
+            {% assign unitFromValue = value.value | extract_unit %}
+            {% if unitFromValue != nil %}
+                "unit":"{{ unitFromValue | escape_special_chars }}",
+            {% endif -%}
         {% endif -%}
     },
 {% elsif value._ %}

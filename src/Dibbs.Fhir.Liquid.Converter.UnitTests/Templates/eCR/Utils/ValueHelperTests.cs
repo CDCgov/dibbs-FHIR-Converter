@@ -35,12 +35,21 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task GivenStringProperlyReturnsString()
+        public async System.Threading.Tasks.Task GivenStringProperlyReturnsDecimal()
         {
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = ".50 in"}}
             };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": \".50 in\", },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.50, \"unit\":\"in\", },");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenValueWithUnitAndUnitReturnsUnitFromAttribute()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { value = ".50 in", unit = "cm" }}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.50, \"unit\":\"cm\", },");
         }
 
         [Fact]

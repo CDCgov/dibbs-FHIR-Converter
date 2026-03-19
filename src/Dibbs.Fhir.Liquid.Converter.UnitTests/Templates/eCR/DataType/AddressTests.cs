@@ -124,6 +124,34 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 @"""use"": """", ""line"": [], ""city"": """", ""state"": """", ""country"": ""Country"", ""postalCode"": """", ""district"": """", ""period"": { ""start"":""2024-03-13"", ""end"":"""", },");
         }
 
+        [Fact]
+        public async System.Threading.Tasks.Task EscapesSpecialChars()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"Address", 
+                    new { 
+                        streetAddressLine = new [] { 
+                            new {_ = @"Li\ne1" }, 
+                            new { _ = @"""Line2""" }
+                        }, 
+                        city = new {_ = "/" },
+                        state = new {_ = @"\" },
+                        country = new {_ = "\"\"" },
+                        postalCode = new {_ = "[12345]" },
+                        county = new {_ = @"Dis\trict" },
+                        useablePeriod = new { 
+                            low = new { value = "20240313"}
+                        } 
+                    }
+                }
+            };
+
+            await ConvertCheckLiquidTemplate(
+                ECRPath, 
+                attributes, 
+                @"""use"": """", ""line"": [""Li\\ne1"",""\""Line2\"""",], ""city"": ""/"", ""state"": ""\\"", ""country"": ""\""\"""", ""postalCode"": ""[12345]"", ""district"": ""Dis\\trict"", ""period"": { ""start"":""2024-03-13"", ""end"":"""", },");
+        }
+
     }
    
 }

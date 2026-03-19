@@ -171,9 +171,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
 
             Assert.Equal("0.29", Filters.FormatValueQuantity(StringValue.Create(".29"), FilterArguments.Empty, context).Result.ToStringValue());
             Assert.Equal("300", Filters.FormatValueQuantity(StringValue.Create("300"), FilterArguments.Empty, context).Result.ToStringValue());
-            Assert.True(Filters.FormatValueQuantity(StringValue.Create(".50 in"), FilterArguments.Empty, context).Result.IsNil());
+            Assert.Equal("0.50", Filters.FormatValueQuantity(StringValue.Create(".50 in"), FilterArguments.Empty, context).Result.ToStringValue());
             Assert.Equal("300.00", Filters.FormatValueQuantity(StringValue.Create("300.00"), FilterArguments.Empty, context).Result.ToStringValue());
             Assert.Equal("-300", Filters.FormatValueQuantity(StringValue.Create("-300"), FilterArguments.Empty, context).Result.ToStringValue());
+            Assert.True(Filters.FormatValueQuantity(StringValue.Create("in"), FilterArguments.Empty, context).Result.IsNil());
         }
 
         [Fact]

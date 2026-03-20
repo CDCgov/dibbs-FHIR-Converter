@@ -10,7 +10,8 @@
                 {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
         ],
-        "manufacturer":"{{ author.assignedAuthoringDevice.manufacturerModelName._ | escape_special_chars }}",
+        {% assign manufacturerModelName = author.assignedAuthoringDevice.manufacturerModelName %}
+        "manufacturer":"{{ manufacturerModelName._ | default: manufacturerModelName.displayName | escape_special_chars }}",
         "version":
         [
             {

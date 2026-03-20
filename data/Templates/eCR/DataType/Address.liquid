@@ -7,10 +7,10 @@
             "{{ l._ | clean_string_from_tabs | escape_special_chars }}",
         {%- endfor -%}
     ],
-    "city": "{{Address.city._}}",
-    "state": "{{Address.state._}}",
-    "country": "{{Address.country._}}",
-    "postalCode": "{{Address.postalCode._}}",
-    "district": "{{Address.county._}}",
+    "city": "{{Address.city._ | escape_special_chars}}",
+    "state": "{{Address.state._ | escape_special_chars}}",
+    "country": "{{Address.country._ | escape_special_chars}}",
+    "postalCode": "{{Address.postalCode._ | escape_special_chars}}",
+    "district": "{{Address.county._ | escape_special_chars}}",
     "period": { {% include 'DataType/Period', Period: Address.useablePeriod %} },
 {% endif -%}

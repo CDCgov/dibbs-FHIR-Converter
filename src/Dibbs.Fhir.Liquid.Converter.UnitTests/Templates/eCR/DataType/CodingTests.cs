@@ -14,14 +14,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         );
 
         [Fact]
-        public void GivenNoAttributeReturnsEmpty()
+        public async System.Threading.Tasks.Task GivenNoAttributeReturnsEmpty()
         {
             var expectedContent = @"""code"": """",""system"": """",""display"": """",";
-            ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), expectedContent);
         }
 
         [Fact]
-        public void AllFields()
+        public async System.Threading.Tasks.Task AllFields()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -38,11 +38,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
             var expectedContent =
                 @"""code"": ""55751-2"",""system"": ""http://loinc.org"",""display"": ""Public health Case report"",";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]
-        public void NoDisplay()
+        public async System.Threading.Tasks.Task NoDisplay()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -53,11 +53,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
             var expectedContent =
                 @"""code"": ""2106-3"",""system"": ""urn:oid:2.16.840.1.113883.6.238"",""display"": """",";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]
-        public void UnknownLoincCode()
+        public async System.Threading.Tasks.Task UnknownLoincCode()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -73,11 +73,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
             var expectedContent =
                 @"""code"": ""TEST"",""system"": ""http://loinc.org"",""display"": ""Test Display Name"",";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]
-        public void SnomedCode()
+        public async System.Threading.Tasks.Task SnomedCode()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -94,7 +94,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
             var expectedContent =
                 @"""code"": ""1000004"",""system"": ""http://snomed.info/sct"",""display"": ""Sprain"",";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]

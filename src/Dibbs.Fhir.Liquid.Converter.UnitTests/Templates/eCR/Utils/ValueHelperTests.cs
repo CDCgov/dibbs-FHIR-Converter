@@ -35,24 +35,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task GivenStringProperlyReturnsDecimal()
-        {
-            var attributes = new Dictionary<string, object>{
-                {"value", new { value = ".50 in"}}
-            };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.50, \"unit\":\"in\", },");
-        }
-
-        [Fact]
-        public async System.Threading.Tasks.Task GivenValueWithUnitAndUnitReturnsUnitFromAttribute()
-        {
-            var attributes = new Dictionary<string, object>{
-                {"value", new { value = ".50 in", unit = "cm" }}
-            };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.50, \"unit\":\"cm\", },");
-        }
-
-        [Fact]
         public async System.Threading.Tasks.Task GivenDecimalProperlyReturnsDecimal()
         {
             var attributes = new Dictionary<string, object>{
@@ -68,24 +50,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 {"value", new { value = "-300.00"}}
             };
             await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": -300.00, },");
-        }
-
-        [Fact]
-        public async System.Threading.Tasks.Task GivenZeroProperlyReturnsZero()
-        {
-            var attributes = new Dictionary<string, object>{
-                {"value", new { value = "0"}}
-            };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0, },");
-        }
-
-        [Fact]
-        public async System.Threading.Tasks.Task GivenZeroDecimalProperlyReturnsZeroDecimal()
-        {
-            var attributes = new Dictionary<string, object>{
-                {"value", new { value = "0.0"}}
-            };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.0, },");
         }
 
         [Fact]

@@ -93,7 +93,7 @@ namespace Dibbs.Fhir.Liquid.Converter
                 return dataArray;
             }
 
-            return (ArrayValue)dataComponents;
+            return dataComponents;
         }
 
         private static async Task<FluidValue> GetChildSection(string[] sectionNames, DictionaryValue data, TemplateContext context)

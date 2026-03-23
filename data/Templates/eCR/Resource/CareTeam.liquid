@@ -16,8 +16,8 @@
             "reference": "{{ patientId }}"
         },
         "period": {
-            "start": "{{ careTeamEntry.effectiveTime.low.value }}",
-            "end": "{{ careTeamEntry.effectiveTime.high.value }}",
+            "start": "{{ careTeamEntry.effectiveTime.low.value | format_as_date_time }}",
+            "end": "{{ careTeamEntry.effectiveTime.high.value | format_as_date_time }}",
         },
         "participant": [
             {% assign components = careTeamEntry.component | to_array -%}
@@ -38,8 +38,8 @@
                         "reference": "{{ fullPractitionerId }}",
                     },
                     "period": {
-                        "start": "{{ component.act.effectiveTime.low.value}}",
-                        "end": "{{ component.act.effectiveTime.high.value}}",
+                        "start": "{{ component.act.effectiveTime.low.value | format_as_date_time}}",
+                        "end": "{{ component.act.effectiveTime.high.value | format_as_date_time}}",
                     },
                     "modifierExtension": [
                         {

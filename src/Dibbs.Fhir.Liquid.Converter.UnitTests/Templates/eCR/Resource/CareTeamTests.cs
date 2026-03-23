@@ -109,7 +109,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.NotEmpty(actualFhir.Identifier);
             Assert.Equal(CareTeam.CareTeamStatus.Active, actualFhir.Status);
             Assert.Equal("Patient/3456", actualFhir.Subject.Reference);
-            Assert.Equal("201810081426-0500", actualFhir.Period.Start);
+            Assert.Equal("2018-10-08T14:26:00-05:00", actualFhir.Period.Start);
             Assert.Empty(actualFhir.Period.End);
             
             Assert.NotEmpty(actualFhir.Participant.First().Role);
@@ -120,7 +120,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("urn:oid:2.16.840.1.113883.5.88", roleCodeableConcept.Coding.First().System);
             Assert.Equal("PCP", roleCodeableConcept.Coding.First().Code);
             Assert.NotNull(actualFhir.Participant[0].Member.Reference);
-            Assert.Equal("201810081426-0500", actualFhir.Participant[0].Period.Start);
+            Assert.Equal("2018-10-08T14:26:00-05:00", actualFhir.Participant[0].Period.Start);
             Assert.Empty(actualFhir.Participant[0].Period.End);
             Assert.Equal("participant.status", actualFhir.Participant[0].ModifierExtension[0].Url);
             Assert.Equal("active", actualFhir.Participant[0].ModifierExtension[0].Value.ToString());

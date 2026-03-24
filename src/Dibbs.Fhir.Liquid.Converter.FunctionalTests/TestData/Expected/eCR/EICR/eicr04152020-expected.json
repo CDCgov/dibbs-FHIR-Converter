@@ -858,6 +858,7 @@
         },
         "dosage": [
           {
+            "text": "take ",
             "route": {
               "coding": [
                 {
@@ -1059,6 +1060,7 @@
         },
         "dosage": [
           {
+            "text": "1 by mouth every day ",
             "timing": {
               "repeat": {
                 "period": 24.0,

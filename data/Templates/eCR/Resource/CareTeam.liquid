@@ -11,29 +11,35 @@
             {% endfor -%}
         ],
         "status": "{{ careTeamEntry.statusCode.code }}",
-        "name": "{{ careTeamEntry.code.originalText.reference._ }}",
+        "name": "{{ careTeamEntry.code.originalText.reference._ | clean_string_from_tabs | strip | escape_special_chars }}",
         "subject": {
             "reference": "{{ patientId }}"
         },
         "period": {
-            "start": "{{ careTeamEntry.effectiveTime.low.value }}",
-            "end": "{{ careTeamEntry.effectiveTime.high.value }}",
+            "start": "{{ careTeamEntry.effectiveTime.low.value | format_as_date_time }}",
+            "end": "{{ careTeamEntry.effectiveTime.high.value | format_as_date_time }}",
         },
         "participant": [
             {% assign components = careTeamEntry.component | to_array -%}
             {% for component in components -%}
                 {
-                    "role": {
-                        {% include 'DataType/CodeableConcept', CodeableConcept:  component.act.performer.['sdtc_functionCode'] %}
-                    },
+                    "role": [
+                        {
+                            {% if component.act.performer.functionCode and component.act.performer.functionCode.xmlns == "urn:hl7-org:sdtc" %}
+                                {% include 'DataType/CodeableConcept', CodeableConcept: component.act.performer.functionCode %}
+                            {% elsif component.act.performer.sdtc_functionCode %}
+                                {% include 'DataType/CodeableConcept', CodeableConcept: component.act.performer.sdtc_functionCode %}
+                            {% endif %}
+                        }
+                    ],
                     {% assign practitionerId = component.act.performer.assignedEntity | to_json_string | generate_uuid -%}
                     {% assign fullPractitionerId = practitionerId | prepend: 'Practitioner/' -%}
                     "member": {
                         "reference": "{{ fullPractitionerId }}",
                     },
                     "period": {
-                        "start": "{{ component.act.effectiveTime.low.value}}",
-                        "end": "{{ component.act.effectiveTime.high.value}}",
+                        "start": "{{ component.act.effectiveTime.low.value | format_as_date_time}}",
+                        "end": "{{ component.act.effectiveTime.high.value | format_as_date_time}}",
                     },
                     "modifierExtension": [
                         {

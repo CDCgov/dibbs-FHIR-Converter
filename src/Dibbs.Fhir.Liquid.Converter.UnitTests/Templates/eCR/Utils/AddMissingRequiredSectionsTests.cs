@@ -15,7 +15,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         );
 
         [Fact]
-        public void AddsMissingRequiredSection()
+        public async System.Threading.Tasks.Task AddsMissingRequiredSection()
         {
             // Composition is missing one required section: Chief Complaint
             var templatesinComp = "2.16.840.1.113883.10.20.22.2.10|2.16.840.1.113883.10.20.22.2.22|2.16.840.1.113883.10.20.22.2.22.1|1.3.6.1.4.1.19376.1.5.3.1.3.4|2.16.840.1.113883.10.20.22.2.38|2.16.840.1.113883.10.20.22.2.5|2.16.840.1.113883.10.20.22.2.5.1|2.16.840.1.113883.10.20.22.2.12|2.16.840.1.113883.10.20.22.2.3|2.16.840.1.113883.10.20.22.2.3.1|2.16.840.1.113883.10.20.22.2.7.1|2.16.840.1.113883.10.20.22.2.2.1|2.16.840.1.113883.10.20.22.2.17|2.16.840.1.113883.10.20.22.2.80|2.16.840.1.113883.10.20.22.2.4.1|2.16.840.1.113883.10.20.15.2.2.4";
@@ -26,11 +26,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "templatesInComp", templatesinComp},
             };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expected);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expected);
         }
 
         [Fact]
-        public void NoMissingRequiredSections()
+        public async System.Threading.Tasks.Task NoMissingRequiredSections()
         {
             // Composition had all required sections, none are missing
             var templatesinComp = "2.16.840.1.113883.10.20.22.2.10|2.16.840.1.113883.10.20.22.2.22|2.16.840.1.113883.10.20.22.2.22.1|1.3.6.1.4.1.19376.1.5.3.1.3.4|2.16.840.1.113883.10.20.22.2.38|2.16.840.1.113883.10.20.22.2.5|2.16.840.1.113883.10.20.22.2.5.1|1.3.6.1.4.1.19376.1.5.3.1.1.13.2.1|2.16.840.1.113883.10.20.22.2.12|2.16.840.1.113883.10.20.22.2.3|2.16.840.1.113883.10.20.22.2.3.1|2.16.840.1.113883.10.20.22.2.7.1|2.16.840.1.113883.10.20.22.2.2.1|2.16.840.1.113883.10.20.22.2.17|2.16.840.1.113883.10.20.22.2.80|2.16.840.1.113883.10.20.22.2.4.1|2.16.840.1.113883.10.20.15.2.2.4";
@@ -40,7 +40,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 { "templatesInComp", templatesinComp},
             };
 
-            ConvertCheckLiquidTemplate(ECRPath, attributes, "");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "");
         }
     }
 }

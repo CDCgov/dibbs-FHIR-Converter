@@ -1,5 +1,4 @@
 {% assign compositionId = msg.ClinicalDocument | to_json_string | generate_uuid -%}
-{% assign doof = msg.doof %}
 {% evaluate practitionerId using 'Utils/GenerateId' obj: msg.ClinicalDocument.componentOf.encompassingEncounter.responsibleParty.assignedEntity -%}
 {% include 'Resource/Composition', composition: msg.ClinicalDocument, practitionerId: practitionerId, ID: compositionId -%}
 {% include 'Reference/Composition/Subject', ID: compositionId, REF: fullPatientId -%}

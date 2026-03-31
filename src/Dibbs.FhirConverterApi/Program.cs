@@ -27,6 +27,11 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
 });
 builder.Logging.SetMinimumLevel(LogLevel.Debug);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 100 * 1024 * 1024; // 100 MB
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

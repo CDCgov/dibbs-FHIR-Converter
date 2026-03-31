@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net;
 using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter;
@@ -20,6 +21,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+{
+    // optional, but helps visibility
+});
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +35,52 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Configure request logging
+app.Use(async (context, next) =>
+{
+    var logger = context.RequestServices
+        .GetRequiredService<ILoggerFactory>()
+        .CreateLogger("RequestLogger");
+
+    var contentLength = context.Request.ContentLength;
+
+    logger.LogInformation(
+        "Incoming request: {method} {path} Content-Length: {length}",
+        context.Request.Method,
+        context.Request.Path,
+        contentLength
+    );
+
+    var sw = System.Diagnostics.Stopwatch.StartNew();
+
+    try
+    {
+        await next();
+        sw.Stop();
+
+        logger.LogInformation(
+            "Completed request: {method} {path} Status: {status} Duration: {duration}ms",
+            context.Request.Method,
+            context.Request.Path,
+            context.Response.StatusCode,
+            sw.ElapsedMilliseconds
+        );
+    }
+    catch (Exception ex)
+    {
+        sw.Stop();
+
+        logger.LogError(ex,
+            "Request failed: {method} {path} after {duration}ms",
+            context.Request.Method,
+            context.Request.Path,
+            sw.ElapsedMilliseconds
+        );
+
+        throw;
+    }
+});
 
 app.MapGet("/", () => new { status = "OK" })
 .WithName("HealthCheck")
@@ -38,14 +91,23 @@ app.MapGet("/", () => new { status = "OK" })
        return Task.CompletedTask;
    });
 
-app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRequest requestBody) =>
+app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRequest requestBody, ILogger<Program> logger) =>
 {
+    logger.LogInformation("Entered /convert-to-fhir");
+    var sw = Stopwatch.StartNew();
     var inputData = requestBody.InputData;
+
+    logger.LogInformation("InputData length: {length} chars (~{mb} MB)",
+        inputData.Length,
+        inputData.Length / (1024.0 * 1024.0));
+    
     XDocument ecrDoc;
 
     try
     {
+        logger.LogInformation("Parsing XML...");
         ecrDoc = XDocument.Parse(inputData);
+        logger.LogInformation("Parsed XML in {ms}ms", sw.ElapsedMilliseconds);
     }
     catch (Exception ex)
     {
@@ -53,13 +115,17 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
     }
 
+    sw.Restart();
     ecrDoc = EcrProcessor.ResolveReferences(ecrDoc);
+    logger.LogInformation("Resolved references in {ms}ms", sw.ElapsedMilliseconds);
 
     if (!string.IsNullOrEmpty(requestBody.RRData))
     {
         try
         {
+            sw.Restart();
             ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.RRData);
+            logger.LogInformation("Merged RR in {ms}ms", sw.ElapsedMilliseconds);
         }
         catch (UserFacingException ex)
         {
@@ -71,8 +137,14 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
     try
     {
+        sw.Restart();
         var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+        logger.LogInformation("Conversion done in {ms}ms", sw.ElapsedMilliseconds);
+        
+        sw.Restart();
         var newResult = FhirProcessor.FhirBundlePostProcessing(result);
+        logger.LogInformation("Post-processing done in {ms}ms", sw.ElapsedMilliseconds);
+        
         return Results.Text(newResult, contentType: "application/json");
     }
     catch (UserFacingException ex)

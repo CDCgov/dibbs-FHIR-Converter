@@ -49,10 +49,9 @@ app.Use(async (context, next) =>
         "Incoming request: {method} {path} Content-Length: {length}",
         context.Request.Method,
         context.Request.Path,
-        contentLength
-    );
+        contentLength);
 
-    var sw = System.Diagnostics.Stopwatch.StartNew();
+    var sw = Stopwatch.StartNew();
 
     try
     {
@@ -64,19 +63,18 @@ app.Use(async (context, next) =>
             context.Request.Method,
             context.Request.Path,
             context.Response.StatusCode,
-            sw.ElapsedMilliseconds
-        );
+            sw.ElapsedMilliseconds);
     }
     catch (Exception ex)
     {
         sw.Stop();
 
-        logger.LogError(ex,
+        logger.LogError(
+            ex,
             "Request failed: {method} {path} after {duration}ms",
             context.Request.Method,
             context.Request.Path,
-            sw.ElapsedMilliseconds
-        );
+            sw.ElapsedMilliseconds);
 
         throw;
     }
@@ -97,10 +95,10 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
     var sw = Stopwatch.StartNew();
     var inputData = requestBody.InputData;
 
-    logger.LogInformation("InputData length: {length} chars (~{mb} MB)",
+    logger.LogInformation(
+        "InputData length: {length} chars (~{mb} MB)",
         inputData.Length,
         inputData.Length / (1024.0 * 1024.0));
-    
     XDocument ecrDoc;
 
     try
@@ -140,11 +138,9 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         sw.Restart();
         var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
         logger.LogInformation("Conversion done in {ms}ms", sw.ElapsedMilliseconds);
-        
         sw.Restart();
         var newResult = FhirProcessor.FhirBundlePostProcessing(result);
         logger.LogInformation("Post-processing done in {ms}ms", sw.ElapsedMilliseconds);
-        
         return Results.Text(newResult, contentType: "application/json");
     }
     catch (UserFacingException ex)

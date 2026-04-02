@@ -20,16 +20,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
-{
-    // optional, but helps visibility
-});
-builder.Logging.SetMinimumLevel(LogLevel.Debug);
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Limits.MaxRequestBodySize = 100 * 1024 * 1024; // 100 MB
+    options.Limits.MaxRequestBodySize = 50 * 1024 * 1024; // 50 MB
 });
 
 var app = builder.Build();
@@ -116,7 +111,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
     }
     catch (Exception ex)
     {
-        Console.WriteLine("Ex: {1} StackTrace: '{0}'", Environment.StackTrace, ex);
+        logger.LogError(ex, "Error parsing XML");
         return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
     }
 
@@ -158,7 +153,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
     }
     catch (Exception ex)
     {
-        Console.WriteLine("Ex: {1} StackTrace: '{0}'", Environment.StackTrace, ex);
+        logger.LogError(ex, "Unhandled exception");
         return Results.Json(new { detail = "Error converting input data." }, statusCode: (int)HttpStatusCode.InternalServerError);
     }
 })

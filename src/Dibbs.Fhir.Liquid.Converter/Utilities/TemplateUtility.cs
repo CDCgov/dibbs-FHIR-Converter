@@ -86,6 +86,8 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
             options.Filters.AddFilter("append", Filters.Append);
             options.Filters.AddFilter("to_json_string", Filters.ToJsonString);
             options.Filters.AddFilter("gzip", Filters.Gzip);
+            options.Filters.AddFilter("format_valuequantity", Filters.FormatValueQuantity);
+            options.Filters.AddFilter("extract_unit", Filters.ExtractUnit);
         }
 
         public static IFluidTemplate ParseTemplate(string templateKey, string content)

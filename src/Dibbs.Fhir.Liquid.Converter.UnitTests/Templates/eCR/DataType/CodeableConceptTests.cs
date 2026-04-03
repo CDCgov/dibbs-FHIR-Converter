@@ -14,14 +14,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         );
 
         [Fact]
-        public void AllFieldsEmptyOptional()
+        public async System.Threading.Tasks.Task AllFieldsEmptyOptional()
         {
             var expectedContent = @"""coding"": [ ],";
-            ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), expectedContent);
         }
 
         [Fact]
-        public void MissingCodeButTextExtensible()
+        public async System.Threading.Tasks.Task MissingCodeButTextExtensible()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -31,11 +31,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent = @"""coding"": [ ],""text"": ""Ship Name"",";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]
-        public void AllFieldsEmptyRequired()
+        public async System.Threading.Tasks.Task AllFieldsEmptyRequired()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -46,11 +46,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             var expectedContent =
                 @"""coding"": [ ], ""extension"": [{ ""url"": ""http://hl7.org/fhir/StructureDefinition/data-absent-reason"", ""valueCode"": ""unknown"", },],";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]
-        public void AllFieldsEmptyExtensible()
+        public async System.Threading.Tasks.Task AllFieldsEmptyExtensible()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -61,11 +61,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             var expectedContent =
                 @"""coding"": [ { ""code"": ""unknown"", ""system"": ""http://terminology.hl7.org/CodeSystem/data-absent-reason"", },],";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]
-        public void NullCodeWithTranslation()
+        public async System.Threading.Tasks.Task NullCodeWithTranslation()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -90,11 +90,11 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
             var expectedContent =
                 @"""coding"": [ { ""code"": ""49281-400-10"",""system"": ""urn:oid:2.16.840.1.113883.6.69"",""display"": """",},],";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]
-        public void NullCodeWithSystemAndTranslation()
+        public async System.Threading.Tasks.Task NullCodeWithSystemAndTranslation()
         {
             var attributes = new Dictionary<string, object>
             {
@@ -119,7 +119,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             };
             var expectedContent =
                 @"""coding"": [ { ""code"": """",""system"": ""http://www.nlm.nih.gov/research/umls/rxnorm"",""display"": """",}, { ""code"": ""410942007"",""system"": ""http://snomed.info/sct"",""display"": ""Drug or medicament"",},],";
-            ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 
         [Fact]

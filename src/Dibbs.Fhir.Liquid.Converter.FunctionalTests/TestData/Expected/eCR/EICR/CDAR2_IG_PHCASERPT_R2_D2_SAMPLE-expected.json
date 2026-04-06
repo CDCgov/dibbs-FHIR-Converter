@@ -14,10 +14,10 @@
   "timestamp": "2018-11-07T09:44:21-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:23d5cd25-76ef-70f0-964c-521a1131ddf3",
+      "fullUrl": "urn:uuid:7a5c1d80-fd56-3bc1-f3b8-8d282302727b",
       "resource": {
         "resourceType": "Composition",
-        "id": "23d5cd25-76ef-70f0-964c-521a1131ddf3",
+        "id": "7a5c1d80-fd56-3bc1-f3b8-8d282302727b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"

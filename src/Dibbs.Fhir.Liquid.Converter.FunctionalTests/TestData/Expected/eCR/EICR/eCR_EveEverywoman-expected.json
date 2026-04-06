@@ -14,10 +14,10 @@
   "timestamp": "2020-11-07T09:44:21-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:0ecd1946-2f5a-6691-ba82-e3fd6e30e8dc",
+      "fullUrl": "urn:uuid:7a5c1d80-fd56-3bc1-f3b8-8d282302727b",
       "resource": {
         "resourceType": "Composition",
-        "id": "0ecd1946-2f5a-6691-ba82-e3fd6e30e8dc",
+        "id": "7a5c1d80-fd56-3bc1-f3b8-8d282302727b",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -1488,7 +1488,7 @@
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
         "period": {
-          "start": "201810081426-0500"
+          "start": "2018-10-08T14:26:00-05:00"
         },
         "participant": [
           {
@@ -1507,7 +1507,7 @@
               "reference": "Practitioner/332b44ba-27b8-6426-b122-df06a0d9730f"
             },
             "period": {
-              "start": "201810081426-0500"
+              "start": "2018-10-08T14:26:00-05:00"
             },
             "modifierExtension": [
               {

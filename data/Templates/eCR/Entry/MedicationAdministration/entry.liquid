@@ -1,5 +1,5 @@
 {% assign substanceAdministrationId = entry.substanceAdministration | to_json_string | generate_uuid -%}
-{% include 'Resource/MedicationAdministration', medicationAdministration: entry.substanceAdministration, ID: substanceAdministrationId -%}
+{% include 'Resource/MedicationAdministration', medicationAdministration: entry.substanceAdministration, ID: substanceAdministrationId, text: text -%}
 {% assign manufacturedMaterialId = entry.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial | to_json_string | generate_uuid -%}
 {% include 'Resource/Medication', medication: entry.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial, ID: manufacturedMaterialId -%}
 {% include 'Reference/MedicationAdministration/Subject', ID: substanceAdministrationId, REF: fullPatientId -%}

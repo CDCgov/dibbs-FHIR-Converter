@@ -131,6 +131,30 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
+        public void MedicationAdministration_DosageText_WithSectionReference()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                {
+                    "medicationAdministration",
+                    new
+                    {
+                        statusCode = new { code = "completed" },
+                        text = new { reference = new { value = "#sig1" } },
+                    }
+                },
+                {
+                    "text",
+                    new { _innerText = "<paragraph ID=\"sig1\">1 tablet oral twice daily</paragraph>" }
+                },
+            };
+            var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);
+
+            Assert.Equal("1 tablet oral twice daily", actualFhir.Dosage.Text);
+        }
+
+        [Fact]
         public void MedicationAdministration_DosageText_WithSimpleText()
         {
             var attributes = new Dictionary<string, object>

@@ -185,8 +185,9 @@
 
 {% assign medicationsAdministered = msg | get_first_ccda_sections_by_template_id: '2.16.840.1.113883.10.20.22.2.38' %}
 {% assign entries = medicationsAdministered.2_16_840_1_113883_10_20_22_2_38.entry | to_array -%}
+{% assign medAdminText = medicationsAdministered.2_16_840_1_113883_10_20_22_2_38.text -%}
 {% for entry in entries %}
-  {% include 'Entry/MedicationAdministration/entry', entry: entry %}
+  {% include 'Entry/MedicationAdministration/entry', entry: entry, text: medAdminText %}
 {% endfor %}
 
 {% assign guardian = msg.ClinicalDocument.recordTarget.patientRole.patient.guardian %}

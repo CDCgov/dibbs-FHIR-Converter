@@ -24,11 +24,12 @@
         {%- endif -%}
         "dosage":
         {
-            {% if medicationAdministration.text._innerText %}
-                "text": "{{ medicationAdministration.text._innerText | clean_string_from_tabs | escape_special_chars }}",
-            {% else %}
-                "text": "{{ medicationAdministration.text._ | clean_string_from_tabs | escape_special_chars }}",
-            {% endif %}
+            {% if medicationAdministration.text.reference.value -%}
+                {% assign medTextRefVal = medicationAdministration.text.reference.value | replace: '#', '' -%}
+                "text": "{{ text._innerText | find_inner_text_by_id: medTextRefVal | clean_string_from_tabs | escape_special_chars }}",
+            {% else -%}
+                "text": "{{ medicationAdministration.text._innerText | default: medicationAdministration.text._ | clean_string_from_tabs | escape_special_chars }}",
+            {% endif -%}
             "route":
             {
                 {% include 'DataType/CodeableConcept', CodeableConcept: medicationAdministration.routeCode -%}

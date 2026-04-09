@@ -157,7 +157,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal(QuestionnaireResponse.QuestionnaireResponseStatus.Completed, actualFhir.Status);
 
-            Assert.Equal("Smoking Tobacco Use", actualFhir.Item[0].Text);
+            Assert.Equal("Tobacco smoking status", actualFhir.Item[0].Text);
             Assert.Equal("Never Assessed", actualFhir.Item[0].Answer[0].Value.ToString());
         }
         

@@ -1,4 +1,8 @@
-{% if value.code %}
+{% if value.code and singleValued %}
+    "valueCoding": { 
+        {% include 'DataType/Coding', Coding: value %} 
+    }
+{% elsif value.code %}
     "valueCodeableConcept" : {
         {% include 'DataType/CodeableConcept', CodeableConcept: value -%}
     },
@@ -29,5 +33,9 @@
     {% if value.reference %}
         {% assign ref = value.reference %}
     {% endif %}
-    "valueString":"{%- include 'Utils/TextRefHelper', ref: ref, origText: origText -%}",
+    {% if ref._ %}
+        "valueString": "{{ ref._ | clean_string_from_tabs | escape_special_chars }}";
+    {% else %}
+        "valueString":"{%- include 'Utils/TextRefHelper', ref: ref, origText: origText -%}",
+    {% endif %}
 {% endif -%}

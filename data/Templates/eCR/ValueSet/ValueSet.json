@@ -816,6 +816,41 @@
       "__default__": {
         "code": ""
       }
+    },
+    "ValueSet/QuestionnaireAnswerStatus": {
+      "normal": {
+        "code": "in-progress"
+      },
+      "aborted": {
+        "code": "stopped"
+      },
+      "active": {
+        "code": "in-progress"
+      },
+      "cancelled": {
+        "code": "stopped"
+      },
+      "completed": {
+        "code": "completed"
+      },
+      "held": {
+        "code": "stopped"
+      },
+      "new": {
+        "code": "in-progress"
+      },
+      "suspended": {
+        "code": "stopped"
+      },
+      "nullified": {
+        "code": "entered-in-error"
+      },
+      "obsolete": {
+        "code": "amended"
+      },
+      "__default__": {
+        "code": "unknown"
+      }
     }
   }
 }

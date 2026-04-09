@@ -8,12 +8,21 @@
         },
         "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
         {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
-        {% if observationEntry.interpretationCode %}
-            "valueCodeableConcept": { 
-                {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.interpretationCode %} 
-            },
-        {% else %}
-            {% include 'Utils/ValueHelper', value: observationEntry.value %}
-        {% endif %}
+        "component": [
+            {
+                {% if observationEntry.value %}
+                    {% include 'Utils/ValueHelper', value: observationEntry.value %}
+                {% endif %}
+    
+                "interpretation": [
+                    {% assign interpretationCodes = observationEntry.interpretationCode | to_array %}
+                    {% for interpretationCode in interpretationCodes %}
+                    {
+                        {% include 'DataType/CodeableConcept', CodeableConcept: interpretationCode %}
+                    },
+                    {% endfor %}
+                ]
+            }
+        ]
     },
 },

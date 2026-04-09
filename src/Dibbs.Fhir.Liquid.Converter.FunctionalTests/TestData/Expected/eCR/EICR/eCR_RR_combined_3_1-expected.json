@@ -1981,16 +1981,22 @@
         },
         "status": "final",
         "effectiveDateTime": "1981-10-15",
-        "valueCodeableConcept": {
-          "coding": [
-            {
-              "code": "X-SDOH-RISK-1",
-              "system": "urn:oid:1.2.840.114350.1.72.1.8.1",
-              "display": "Low Risk"
-            }
-          ],
-          "text": "Low Risk"
-        },
+        "component": [
+          {
+            "interpretation": [
+              {
+                "coding": [
+                  {
+                    "code": "X-SDOH-RISK-1",
+                    "system": "urn:oid:1.2.840.114350.1.72.1.8.1",
+                    "display": "Low Risk"
+                  }
+                ],
+                "text": "Low Risk"
+              }
+            ]
+          }
+        ],
         "derivedFrom": [
           {
             "reference": "QuestionnaireResponse/fc402112-16d4-ea88-5834-25f3d0a3ae40"
@@ -2013,24 +2019,14 @@
         "item": [
           {
             "linkId": "empty",
-            "text": "REMOVED",
+            "text": "Tobacco smoking status NHIS",
             "answer": [
-              {
-                "valueCoding": {
-                  "code": "LA18978-9",
-                  "system": "http://loinc.org",
-                  "display": "Never smoker"
-                }
-              },
               {
                 "valueCoding": {
                   "code": "266919005",
                   "system": "http://snomed.info/sct",
                   "display": "Never smoked tobacco"
                 }
-              },
-              {
-                "valueString": "REMOVED"
               }
             ]
           }
@@ -2051,24 +2047,14 @@
         "item": [
           {
             "linkId": "empty",
-            "text": "REMOVED",
+            "text": "Smokeless tobacco status",
             "answer": [
-              {
-                "valueCoding": {
-                  "code": "LA4519-0",
-                  "system": "http://loinc.org",
-                  "display": "Never used"
-                }
-              },
               {
                 "valueCoding": {
                   "code": "228502006",
                   "system": "http://snomed.info/sct",
                   "display": "Never used moist powdered tobacco"
                 }
-              },
-              {
-                "valueString": "REMOVED"
               }
             ]
           }

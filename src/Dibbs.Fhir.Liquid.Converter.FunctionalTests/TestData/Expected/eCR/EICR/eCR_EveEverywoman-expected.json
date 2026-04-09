@@ -1488,7 +1488,7 @@
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         },
         "period": {
-          "start": "201810081426-0500"
+          "start": "2018-10-08T14:26:00-05:00"
         },
         "participant": [
           {
@@ -1507,7 +1507,7 @@
               "reference": "Practitioner/332b44ba-27b8-6426-b122-df06a0d9730f"
             },
             "period": {
-              "start": "201810081426-0500"
+              "start": "2018-10-08T14:26:00-05:00"
             },
             "modifierExtension": [
               {

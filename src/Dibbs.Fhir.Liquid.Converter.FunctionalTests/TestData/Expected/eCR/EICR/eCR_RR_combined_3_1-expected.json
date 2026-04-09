@@ -1983,6 +1983,16 @@
         "effectiveDateTime": "1981-10-15",
         "component": [
           {
+            "code": {
+              "coding": [
+                {
+                  "code": "88028-6",
+                  "system": "http://loinc.org",
+                  "display": "Tobacco use panel"
+                }
+              ],
+              "text": "REMOVED"
+            },
             "interpretation": [
               {
                 "coding": [

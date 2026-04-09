@@ -10,10 +10,12 @@
         {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
         "component": [
             {
+                "code" : {
+                    {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.code %}
+                },
                 {% if observationEntry.value %}
                     {% include 'Utils/ValueHelper', value: observationEntry.value %}
                 {% endif %}
-    
                 "interpretation": [
                     {% assign interpretationCodes = observationEntry.interpretationCode | to_array %}
                     {% for interpretationCode in interpretationCodes %}

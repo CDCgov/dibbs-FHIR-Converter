@@ -22,7 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 
-var maxRequestBodySizeEnvVar = Environment.GetEnvironmentVariable("MAX_BODY_SIZE");
+var maxRequestBodySizeEnvVar = Environment.GetEnvironmentVariable("MAX_BODY_SIZE_MB");
 var maxRequestBodySize = 50 * 1024 * 1024; // 50 MB if no env var set
 
 if (int.TryParse(maxRequestBodySizeEnvVar, out var value))

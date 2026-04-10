@@ -39,7 +39,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                                 { "period", new { value = "12", unit = "h" } }
                             }
                         },
-                        text = new { _innerText = "1 tablet oral" },
+                        text = new { _ = "1 tablet oral" },
                         routeCode = new {
                             code = "C38288",
                             codeSystem = "2.16.840.1.113883.3.26.1.1",
@@ -121,7 +121,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                     new
                     {
                         statusCode = new { code = "completed" },
-                        text = new { _innerText = "Take 1 tablet orally & daily" },
+                        text = new { _ = "Take 1 tablet orally & daily" },
                     }
                 },
             };
@@ -141,12 +141,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                     new
                     {
                         statusCode = new { code = "completed" },
-                        text = new { reference = new { value = "#sig1" } },
+                        text = new { reference = new { _ = "1 tablet oral twice daily", value = "#sig1" } },
                     }
-                },
-                {
-                    "text",
-                    new { _innerText = "<paragraph ID=\"sig1\">1 tablet oral twice daily</paragraph>" }
                 },
             };
             var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);

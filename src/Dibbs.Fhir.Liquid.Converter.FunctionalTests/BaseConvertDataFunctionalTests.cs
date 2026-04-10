@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Xml.Linq;
 using Firely.Fhir.Packages;
 using Firely.Fhir.Validation;
 using Firely.Fhir.Validation.Compilation;
@@ -23,6 +24,7 @@ using Hl7.Fhir.Validation;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Processors;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Dibbs.FhirConverterApi.Processors;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -64,7 +66,10 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
         {
             var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
-            var inputContent = File.ReadAllText(inputFile);
+            var rawInputContent = File.ReadAllText(inputFile);
+            var ecrDoc = XDocument.Parse(rawInputContent);
+            ecrDoc = EcrProcessor.ResolveReferences(ecrDoc);
+            var inputContent = ecrDoc.ToString();
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
 
             var updateSnapshot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";

@@ -22,9 +22,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 
+var maxRequestBodySizeEnvVar = Environment.GetEnvironmentVariable("MAX_BODY_SIZE");
+var maxRequestBodySize = 50 * 1024 * 1024; // 50 MB if no env var set
+
+if (int.TryParse(maxRequestBodySizeEnvVar, out var value))
+{
+    maxRequestBodySize = value;
+}
+
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Limits.MaxRequestBodySize = 50 * 1024 * 1024; // 50 MB
+    options.Limits.MaxRequestBodySize = maxRequestBodySize;
 });
 
 var app = builder.Build();

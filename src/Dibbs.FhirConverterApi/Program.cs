@@ -27,7 +27,7 @@ var maxRequestBodySize = 50 * 1024 * 1024; // 50 MB if no env var set
 
 if (int.TryParse(maxRequestBodySizeEnvVar, out var value))
 {
-    maxRequestBodySize = value;
+    maxRequestBodySize = value * 1024 * 1024;
 }
 
 builder.WebHost.ConfigureKestrel(options =>

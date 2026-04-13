@@ -14,10 +14,10 @@
   "timestamp": "2020-04-15T14:52:59-05:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:a30ec764-5438-2277-a369-66ad19fc04b7",
+      "fullUrl": "urn:uuid:b9659ac2-0861-40f2-62b2-4f02dc556ca5",
       "resource": {
         "resourceType": "Composition",
-        "id": "a30ec764-5438-2277-a369-66ad19fc04b7",
+        "id": "b9659ac2-0861-40f2-62b2-4f02dc556ca5",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -66,7 +66,7 @@
         ],
         "section": [
           {
-            "id": "6d76afc5-b970-eaa1-b6e5-436973364bde",
+            "id": "ebe44d94-0d18-5cac-c8a0-110a84d4e874",
             "title": "ENCOUNTERS",
             "text": {
               "status": "generated",
@@ -130,7 +130,7 @@
             ]
           },
           {
-            "id": "fdc7c1e0-3749-34ef-3672-20dac1d5f65c",
+            "id": "101bd288-72d1-bd9c-7aae-76addb7a763c",
             "title": "HISTORY OF MEDICATION USE",
             "text": {
               "status": "generated",
@@ -148,15 +148,15 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "MedicationStatement/6a8a06a3-f5f0-e171-8f32-1fcd87759ce5"
+                "reference": "MedicationStatement/e795dd59-6670-344a-5e62-7d5b670aeb47"
               },
               {
-                "reference": "MedicationStatement/beda45fe-1993-8fd8-cdb5-b93de1b6721f"
+                "reference": "MedicationStatement/602ca231-2896-6d9e-e694-86cfc5037d2c"
               }
             ]
           },
           {
-            "id": "59af1cca-0287-95d0-eb2a-8adbd38d6285",
+            "id": "5f53a272-c157-7582-abd1-906fb26e41ae",
             "title": "PROBLEMS",
             "text": {
               "status": "generated",
@@ -839,10 +839,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:6a8a06a3-f5f0-e171-8f32-1fcd87759ce5",
+      "fullUrl": "urn:uuid:e795dd59-6670-344a-5e62-7d5b670aeb47",
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "6a8a06a3-f5f0-e171-8f32-1fcd87759ce5",
+        "id": "e795dd59-6670-344a-5e62-7d5b670aeb47",
         "identifier": [
           {
             "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
@@ -853,6 +853,9 @@
           }
         ],
         "status": "active",
+        "note": {
+          "text": "BUSPIRONE HCL 10 MG ORAL TABLET"
+        },
         "effectivePeriod": {
           "start": "2019-07-22T00:00:00-05:00"
         },
@@ -1041,10 +1044,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:beda45fe-1993-8fd8-cdb5-b93de1b6721f",
+      "fullUrl": "urn:uuid:602ca231-2896-6d9e-e694-86cfc5037d2c",
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "beda45fe-1993-8fd8-cdb5-b93de1b6721f",
+        "id": "602ca231-2896-6d9e-e694-86cfc5037d2c",
         "identifier": [
           {
             "system": "urn:oid:1.2.840.113619.21.1.139060385287897942.9",
@@ -1055,6 +1058,9 @@
           }
         ],
         "status": "active",
+        "note": {
+          "text": "LISINOPRIL 10 MG ORAL TABLET"
+        },
         "effectivePeriod": {
           "start": "2018-11-15T00:00:00-06:00"
         },
@@ -1752,10 +1758,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:372ba5f2-c870-0b7b-e544-9cd044fac7fe",
+      "fullUrl": "urn:uuid:f244edef-a1ae-90d5-6c42-ece7f349d9b3",
       "resource": {
         "resourceType": "Encounter",
-        "id": "372ba5f2-c870-0b7b-e544-9cd044fac7fe",
+        "id": "f244edef-a1ae-90d5-6c42-ece7f349d9b3",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -1917,10 +1923,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:9e8d060a-8eef-0d7a-1c2b-91ecbd85c937",
+      "fullUrl": "urn:uuid:de864e72-d66e-e11e-abdd-e0f6f89041c3",
       "resource": {
         "resourceType": "Encounter",
-        "id": "9e8d060a-8eef-0d7a-1c2b-91ecbd85c937",
+        "id": "de864e72-d66e-e11e-abdd-e0f6f89041c3",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2089,10 +2095,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:0722efb3-a614-0739-2128-edc8fdfffac0",
+      "fullUrl": "urn:uuid:860dd431-f96b-5a8c-3cf5-fb9b8450ec6d",
       "resource": {
         "resourceType": "Encounter",
-        "id": "0722efb3-a614-0739-2128-edc8fdfffac0",
+        "id": "860dd431-f96b-5a8c-3cf5-fb9b8450ec6d",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2205,10 +2211,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d9b8d851-24a0-5b50-f6dd-e1de473f298c",
+      "fullUrl": "urn:uuid:28d7e1b3-7bfd-f57d-ad05-44cf1c278e8e",
       "resource": {
         "resourceType": "Encounter",
-        "id": "d9b8d851-24a0-5b50-f6dd-e1de473f298c",
+        "id": "28d7e1b3-7bfd-f57d-ad05-44cf1c278e8e",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2248,10 +2254,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:cc037f7a-2ee8-19cb-d63e-ce965db2285d",
+      "fullUrl": "urn:uuid:efa53bf0-4c1f-c52f-cf02-514b57b65e14",
       "resource": {
         "resourceType": "Encounter",
-        "id": "cc037f7a-2ee8-19cb-d63e-ce965db2285d",
+        "id": "efa53bf0-4c1f-c52f-cf02-514b57b65e14",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2347,10 +2353,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:ff4f59bd-78dd-fb81-fe33-d1089de3988e",
+      "fullUrl": "urn:uuid:494a5f0d-9e52-0fac-59bd-3599d56590cf",
       "resource": {
         "resourceType": "Encounter",
-        "id": "ff4f59bd-78dd-fb81-fe33-d1089de3988e",
+        "id": "494a5f0d-9e52-0fac-59bd-3599d56590cf",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2383,10 +2389,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:00733344-22c3-e9d5-2a40-463fd2856327",
+      "fullUrl": "urn:uuid:e8d27525-3945-4079-e7b4-2a883077ef8f",
       "resource": {
         "resourceType": "Encounter",
-        "id": "00733344-22c3-e9d5-2a40-463fd2856327",
+        "id": "e8d27525-3945-4079-e7b4-2a883077ef8f",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2419,10 +2425,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c4fad9c5-2b9b-dd0a-f224-dbb2d61bf96a",
+      "fullUrl": "urn:uuid:ae134c3e-acd3-e041-dbd0-d01007483c5b",
       "resource": {
         "resourceType": "Encounter",
-        "id": "c4fad9c5-2b9b-dd0a-f224-dbb2d61bf96a",
+        "id": "ae134c3e-acd3-e041-dbd0-d01007483c5b",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2522,10 +2528,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:f5bbe2b6-42c5-c734-3301-3fdc91afd7e7",
+      "fullUrl": "urn:uuid:83ea12ea-dd9c-1090-748c-090255e0168d",
       "resource": {
         "resourceType": "Encounter",
-        "id": "f5bbe2b6-42c5-c734-3301-3fdc91afd7e7",
+        "id": "83ea12ea-dd9c-1090-748c-090255e0168d",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2565,10 +2571,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d8b2c522-9728-18fa-ffd8-dcc45bf41dda",
+      "fullUrl": "urn:uuid:5c684525-b5b1-a215-8364-6e059c3aeb70",
       "resource": {
         "resourceType": "Encounter",
-        "id": "d8b2c522-9728-18fa-ffd8-dcc45bf41dda",
+        "id": "5c684525-b5b1-a215-8364-6e059c3aeb70",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2608,10 +2614,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:90a74343-3f2e-a030-3411-0a97e0257603",
+      "fullUrl": "urn:uuid:d48e4617-96aa-06ab-4908-628c7a91f3e3",
       "resource": {
         "resourceType": "Encounter",
-        "id": "90a74343-3f2e-a030-3411-0a97e0257603",
+        "id": "d48e4617-96aa-06ab-4908-628c7a91f3e3",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2780,10 +2786,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:8e4d6846-d56e-790d-d8cb-6a1ea486c3fc",
+      "fullUrl": "urn:uuid:0c0572bb-7991-b568-6e06-c7b01dd1961a",
       "resource": {
         "resourceType": "Encounter",
-        "id": "8e4d6846-d56e-790d-d8cb-6a1ea486c3fc",
+        "id": "0c0572bb-7991-b568-6e06-c7b01dd1961a",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2864,10 +2870,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b534b893-1bad-af48-b85a-a78eea8011ed",
+      "fullUrl": "urn:uuid:597630ca-93a5-9adf-edc8-4aaf1471a6a7",
       "resource": {
         "resourceType": "Encounter",
-        "id": "b534b893-1bad-af48-b85a-a78eea8011ed",
+        "id": "597630ca-93a5-9adf-edc8-4aaf1471a6a7",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2956,10 +2962,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d7c7088c-7ac7-7911-4100-60f2b12c300f",
+      "fullUrl": "urn:uuid:85a1887d-7865-eed5-16c8-715eb0377c35",
       "resource": {
         "resourceType": "Encounter",
-        "id": "d7c7088c-7ac7-7911-4100-60f2b12c300f",
+        "id": "85a1887d-7865-eed5-16c8-715eb0377c35",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -2999,10 +3005,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:52d57f07-ec00-8f36-3080-583387a95908",
+      "fullUrl": "urn:uuid:3aedbcea-ed30-d019-6ae7-72a0e2066da8",
       "resource": {
         "resourceType": "Encounter",
-        "id": "52d57f07-ec00-8f36-3080-583387a95908",
+        "id": "3aedbcea-ed30-d019-6ae7-72a0e2066da8",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3035,10 +3041,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:8af8dd51-a81d-28d1-0ea5-5c0f698b14ee",
+      "fullUrl": "urn:uuid:22513dbe-5356-148f-ad0f-e7aaf9da89d9",
       "resource": {
         "resourceType": "Encounter",
-        "id": "8af8dd51-a81d-28d1-0ea5-5c0f698b14ee",
+        "id": "22513dbe-5356-148f-ad0f-e7aaf9da89d9",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3152,10 +3158,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:271c4613-6d98-800e-3386-1fc1494ec3bb",
+      "fullUrl": "urn:uuid:90f93c82-b99e-de25-ff6e-b9d495b59606",
       "resource": {
         "resourceType": "Encounter",
-        "id": "271c4613-6d98-800e-3386-1fc1494ec3bb",
+        "id": "90f93c82-b99e-de25-ff6e-b9d495b59606",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3268,10 +3274,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:1edc7180-66f7-afed-d598-abaa58bb12e8",
+      "fullUrl": "urn:uuid:3432c4c0-89a1-dab3-b642-aa97bd4b8f93",
       "resource": {
         "resourceType": "Encounter",
-        "id": "1edc7180-66f7-afed-d598-abaa58bb12e8",
+        "id": "3432c4c0-89a1-dab3-b642-aa97bd4b8f93",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3311,10 +3317,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:cd3ff250-b384-7568-c36a-aaa634c6b8e4",
+      "fullUrl": "urn:uuid:852da43e-7caa-8f72-65e4-253fad1bac41",
       "resource": {
         "resourceType": "Encounter",
-        "id": "cd3ff250-b384-7568-c36a-aaa634c6b8e4",
+        "id": "852da43e-7caa-8f72-65e4-253fad1bac41",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3354,10 +3360,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:35f7d146-a036-1d4b-0aec-f64118dffacf",
+      "fullUrl": "urn:uuid:7aa60382-f4a4-6562-00e6-c303c39127f9",
       "resource": {
         "resourceType": "Encounter",
-        "id": "35f7d146-a036-1d4b-0aec-f64118dffacf",
+        "id": "7aa60382-f4a4-6562-00e6-c303c39127f9",
         "status": "finished",
         "class": {
           "code": "99201",
@@ -3526,10 +3532,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:b514e080-aff4-0ba7-bf20-4c8f8b516da6",
+      "fullUrl": "urn:uuid:9e34310c-f133-65e3-0311-066e5eeaf4ac",
       "resource": {
         "resourceType": "Encounter",
-        "id": "b514e080-aff4-0ba7-bf20-4c8f8b516da6",
+        "id": "9e34310c-f133-65e3-0311-066e5eeaf4ac",
         "status": "finished",
         "class": {
           "code": "99201",

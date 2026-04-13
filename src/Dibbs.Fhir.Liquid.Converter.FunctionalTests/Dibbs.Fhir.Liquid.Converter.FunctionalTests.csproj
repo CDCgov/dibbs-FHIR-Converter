@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dibbs.Fhir.Liquid.Converter\Dibbs.Fhir.Liquid.Converter.csproj" />
+    <ProjectReference Include="..\Dibbs.FhirConverterApi\Dibbs.FhirConverterApi.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

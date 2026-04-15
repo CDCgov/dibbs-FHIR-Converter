@@ -24,6 +24,7 @@
         {%- endif -%}
         "dosage":
         {
+            "text": "{{ medicationAdministration.text.reference._ | default: medicationAdministration.text._ | clean_string_from_tabs | escape_special_chars }}",
             "route":
             {
                 {% include 'DataType/CodeableConcept', CodeableConcept: medicationAdministration.routeCode -%}

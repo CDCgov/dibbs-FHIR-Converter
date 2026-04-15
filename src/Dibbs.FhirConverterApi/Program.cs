@@ -53,7 +53,7 @@ app.Use(async (context, next) =>
 
     var contentLength = context.Request.ContentLength;
 
-    logger.LogInformation(
+    logger.LogTrace(
         "Incoming request: {method} {path} Content-Length: {length}",
         context.Request.Method,
         context.Request.Path,
@@ -99,11 +99,10 @@ app.MapGet("/", () => new { status = "OK" })
 
 app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRequest requestBody, ILogger<Program> logger) =>
 {
-    logger.LogInformation("Entered /convert-to-fhir");
-    var sw = Stopwatch.StartNew();
+    logger.LogTrace("Entered /convert-to-fhir");
     var inputData = requestBody.InputData;
 
-    logger.LogInformation(
+    logger.LogTrace(
         "InputData length: {length} chars (~{mb} MB)",
         inputData.Length,
         inputData.Length / (1024.0 * 1024.0));
@@ -111,27 +110,22 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
     try
     {
-        logger.LogInformation("Parsing XML...");
+        logger.LogTrace("Parsing XML...");
         ecrDoc = XDocument.Parse(inputData);
-        logger.LogInformation("Parsed XML in {ms}ms", sw.ElapsedMilliseconds);
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "Error parsing XML");
+        logger.LogError(ex, "Error parsing XML. Stacktrace: '{0}'", Environment.StackTrace);
         return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
     }
 
-    sw.Restart();
     ecrDoc = EcrProcessor.ResolveReferences(ecrDoc);
-    logger.LogInformation("Resolved references in {ms}ms", sw.ElapsedMilliseconds);
 
     if (!string.IsNullOrEmpty(requestBody.RRData))
     {
         try
         {
-            sw.Restart();
             ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.RRData);
-            logger.LogInformation("Merged RR in {ms}ms", sw.ElapsedMilliseconds);
         }
         catch (UserFacingException ex)
         {
@@ -143,12 +137,12 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
     try
     {
-        sw.Restart();
+        var sw = Stopwatch.StartNew();
         var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        logger.LogInformation("Conversion done in {ms}ms", sw.ElapsedMilliseconds);
-        sw.Restart();
+        logger.LogTrace("Conversion done in {ms}ms", sw.ElapsedMilliseconds);
+        sw.Stop();
+
         var newResult = FhirProcessor.FhirBundlePostProcessing(result);
-        logger.LogInformation("Post-processing done in {ms}ms", sw.ElapsedMilliseconds);
         return Results.Text(newResult, contentType: "application/json");
     }
     catch (UserFacingException ex)
@@ -157,7 +151,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "Unhandled exception");
+        logger.LogError(ex, "Unhandled exception. Stacktrace: '{0}'", Environment.StackTrace);
         return Results.Json(new { detail = "Error converting input data." }, statusCode: (int)HttpStatusCode.InternalServerError);
     }
 })

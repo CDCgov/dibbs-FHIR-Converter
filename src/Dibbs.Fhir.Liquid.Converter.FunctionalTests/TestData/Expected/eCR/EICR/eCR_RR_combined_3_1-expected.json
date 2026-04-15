@@ -545,7 +545,9 @@
         "name": " Sissubo School Neighbourhood Laboratory",
         "address": {
           "use": "work",
-          "line": ["4509 KAMINO OCEAN Street"],
+          "line": [
+            "4509 KAMINO OCEAN Street"
+          ],
           "city": "Galactic City",
           "state": "KZ",
           "country": "AI",
@@ -593,7 +595,9 @@
         "address": [
           {
             "use": "work",
-            "line": ["554 KAMINO OCEAN Street"],
+            "line": [
+              "554 KAMINO OCEAN Street"
+            ],
             "city": "Galactic City",
             "state": "KZ",
             "country": "AI",
@@ -635,13 +639,18 @@
         "name": [
           {
             "family": "Baba",
-            "given": ["Elzar"]
+            "given": [
+              "Elzar"
+            ]
           }
         ],
         "address": [
           {
             "use": "work",
-            "line": ["54018 KAMINO OCEAN Spire", "STE 820"],
+            "line": [
+              "54018 KAMINO OCEAN Spire",
+              "STE 820"
+            ],
             "city": "Keren",
             "state": "YA",
             "postalCode": "81303"
@@ -723,14 +732,21 @@
           {
             "use": "official",
             "family": "Powers",
-            "given": ["JohnTESTPROVIDER"],
-            "suffix": [" MD"]
+            "given": [
+              "JohnTESTPROVIDER"
+            ],
+            "suffix": [
+              " MD"
+            ]
           }
         ],
         "address": [
           {
             "use": "work",
-            "line": ["90001 TEST Avey", "STE 100"],
+            "line": [
+              "90001 TEST Avey",
+              "STE 100"
+            ],
             "city": "Washington",
             "state": "DC",
             "postalCode": "20000"
@@ -798,14 +814,21 @@
           {
             "use": "official",
             "family": "Powers",
-            "given": ["JohnTESTPROVIDER"],
-            "suffix": [" MD"]
+            "given": [
+              "JohnTESTPROVIDER"
+            ],
+            "suffix": [
+              " MD"
+            ]
           }
         ],
         "address": [
           {
             "use": "work",
-            "line": ["90001 TEST Avey", "STE 100"],
+            "line": [
+              "90001 TEST Avey",
+              "STE 100"
+            ],
             "city": "Washington",
             "state": "DC",
             "postalCode": "20000"
@@ -1045,7 +1068,9 @@
           {
             "use": "official",
             "family": "Erso",
-            "given": ["Fo"]
+            "given": [
+              "Fo"
+            ]
           }
         ],
         "birthDate": "1860-10-14",
@@ -1103,7 +1128,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["9897 Kamino Ocean Street"],
+            "line": [
+              "9897 Kamino Ocean Street"
+            ],
             "city": "Galactic City",
             "state": "KZ",
             "country": "AI",
@@ -1115,7 +1142,9 @@
           },
           {
             "use": "temp",
-            "line": ["6903 KAMINO OCEAN Ave"],
+            "line": [
+              "6903 KAMINO OCEAN Ave"
+            ],
             "city": "Galactic City",
             "state": "KZ",
             "country": "AI",
@@ -1732,7 +1761,9 @@
         "resourceType": "Observation",
         "id": "53efc2c6-471a-4c02-9741-314d6f12c316",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -1781,7 +1812,9 @@
         "resourceType": "Observation",
         "id": "05c83a6a-75a4-4412-6181-611dda4ff0c7",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -1835,7 +1868,9 @@
         "resourceType": "Observation",
         "id": "0b1fe97a-5fb3-3fe2-cbf3-e4e366a6ef24",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -1889,7 +1924,9 @@
         "resourceType": "Observation",
         "id": "3c5350b1-f997-2c3d-ae94-baac33eb18ba",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2051,134 +2088,14 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c8dc5a17-0c90-1c9d-a5bc-683492e29efa",
-      "resource": {
-        "resourceType": "Observation",
-        "id": "c8dc5a17-0c90-1c9d-a5bc-683492e29efa",
-        "code": {
-          "coding": [
-            {
-              "code": "88028-6",
-              "system": "http://loinc.org",
-              "display": "Tobacco use panel"
-            }
-          ],
-          "text": "REMOVED"
-        },
-        "status": "final",
-        "effectiveDateTime": "1981-10-15",
-        "interpretation": [
-          {
-            "coding": [
-              {
-                "code": "X-SDOH-RISK-1",
-                "system": "urn:oid:1.2.840.114350.1.72.1.8.1",
-                "display": "Low Risk"
-              }
-            ],
-            "text": "Low Risk"
-          }
-        ],
-        "derivedFrom": [
-          {
-            "reference": "QuestionnaireResponse/fc402112-16d4-ea88-5834-25f3d0a3ae40"
-          },
-          {
-            "reference": "QuestionnaireResponse/2f668088-ffec-0782-0633-3601488164b6"
-          },
-          {
-            "reference": "QuestionnaireResponse/2347bd49-e201-187e-9409-9a289a050c86"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:fc402112-16d4-ea88-5834-25f3d0a3ae40",
-      "resource": {
-        "resourceType": "QuestionnaireResponse",
-        "id": "fc402112-16d4-ea88-5834-25f3d0a3ae40",
-        "status": "completed",
-        "item": [
-          {
-            "linkId": "empty",
-            "text": "Tobacco smoking status NHIS",
-            "answer": [
-              {
-                "valueCoding": {
-                  "code": "266919005",
-                  "system": "http://snomed.info/sct",
-                  "display": "Never smoked tobacco"
-                }
-              }
-            ]
-          }
-        ],
-        "partOf": [
-          {
-            "reference": "Observation/c8dc5a17-0c90-1c9d-a5bc-683492e29efa"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:2f668088-ffec-0782-0633-3601488164b6",
-      "resource": {
-        "resourceType": "QuestionnaireResponse",
-        "id": "2f668088-ffec-0782-0633-3601488164b6",
-        "status": "completed",
-        "item": [
-          {
-            "linkId": "empty",
-            "text": "Smokeless tobacco status",
-            "answer": [
-              {
-                "valueCoding": {
-                  "code": "228502006",
-                  "system": "http://snomed.info/sct",
-                  "display": "Never used moist powdered tobacco"
-                }
-              }
-            ]
-          }
-        ],
-        "partOf": [
-          {
-            "reference": "Observation/c8dc5a17-0c90-1c9d-a5bc-683492e29efa"
-          }
-        ]
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:2347bd49-e201-187e-9409-9a289a050c86",
-      "resource": {
-        "resourceType": "QuestionnaireResponse",
-        "id": "2347bd49-e201-187e-9409-9a289a050c86",
-        "status": "completed",
-        "item": [
-          {
-            "linkId": "empty",
-            "text": "REMOVED",
-            "answer": [
-              {
-                "valueString": "Not on file"
-              }
-            ]
-          }
-        ],
-        "partOf": [
-          {
-            "reference": "Observation/c8dc5a17-0c90-1c9d-a5bc-683492e29efa"
-          }
-        ]
-      }
-    },
-    {
       "fullUrl": "urn:uuid:2254b170-8241-8f19-a7cf-3b16f6a5723e",
       "resource": {
         "resourceType": "Observation",
         "id": "2254b170-8241-8f19-a7cf-3b16f6a5723e",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2254,7 +2171,9 @@
         "resourceType": "Observation",
         "id": "3c776a38-dd35-01d3-35c6-df144cfad680",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2299,7 +2218,9 @@
         "resourceType": "Observation",
         "id": "c22311ef-8f7d-12bb-6664-ae6e83e1e3ca",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2344,7 +2265,9 @@
         "resourceType": "Observation",
         "id": "3e3a58a4-5b5d-19e5-aa15-c5e020d1c83e",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2389,7 +2312,9 @@
         "resourceType": "Observation",
         "id": "a5cd7372-fca3-6ec0-d95f-20b522e3874b",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2434,7 +2359,9 @@
         "resourceType": "Observation",
         "id": "6f33916f-6dcc-58fd-6f7b-24a2a09f4b71",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2479,7 +2406,9 @@
         "resourceType": "Observation",
         "id": "5b600641-f4fd-6fc3-a996-72bb985a9c32",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2524,7 +2453,9 @@
         "resourceType": "Observation",
         "id": "084f8612-4884-3c4b-1094-a0b9771640ed",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2569,7 +2500,9 @@
         "resourceType": "Observation",
         "id": "650e7be6-e9bb-9bf3-5f39-92b00be2068b",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2614,7 +2547,9 @@
         "resourceType": "Observation",
         "id": "b7291830-dadf-ce28-ce26-567d9da8c72b",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2664,7 +2599,9 @@
         "resourceType": "Observation",
         "id": "ea36b896-e48f-b6de-c84d-497c5a22da93",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2709,7 +2646,9 @@
         "resourceType": "Observation",
         "id": "3c8fb0e6-7ae4-0ed3-e6b2-ecf93027294a",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2759,7 +2698,9 @@
         "resourceType": "Observation",
         "id": "45b44e0c-5eed-6f32-d1c7-5bdb56316312",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -2822,14 +2763,21 @@
         "name": [
           {
             "family": "Baba",
-            "given": ["Elzar"],
-            "suffix": ["MD"]
+            "given": [
+              "Elzar"
+            ],
+            "suffix": [
+              "MD"
+            ]
           }
         ],
         "address": [
           {
             "use": "work",
-            "line": ["54018 KAMINO OCEAN Spire", "STE 820"],
+            "line": [
+              "54018 KAMINO OCEAN Spire",
+              "STE 820"
+            ],
             "city": "Keren",
             "state": "YA",
             "postalCode": "81303"
@@ -3119,7 +3067,9 @@
         "name": "University Medical Center & Pharmacy of Ando",
         "address": {
           "use": "work",
-          "line": ["554 KAMINO OCEAN Street"],
+          "line": [
+            "554 KAMINO OCEAN Street"
+          ],
           "city": "Galactic City",
           "state": "KZ",
           "country": "AI",

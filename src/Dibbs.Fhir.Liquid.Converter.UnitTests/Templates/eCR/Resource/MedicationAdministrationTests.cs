@@ -39,6 +39,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                                 { "period", new { value = "12", unit = "h" } }
                             }
                         },
+                        text = new { _ = "1 tablet oral" },
                         routeCode = new {
                             code = "C38288",
                             codeSystem = "2.16.840.1.113883.3.26.1.1",
@@ -98,6 +99,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.NotNull(actualFhir.Status);
             Assert.NotEmpty(actualFhir.Effective);
 
+            Assert.Equal("1 tablet oral", actualFhir.Dosage.Text);
             Assert.Equal("ORAL", actualFhir.Dosage.Route.Coding.First().Display);
             Assert.Equal(1, actualFhir.Dosage.Dose.Value);
             Assert.Equal("g", actualFhir.Dosage.Dose.Unit);
@@ -106,6 +108,66 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("h", dosageRateQuantity.Unit);
 
             Assert.Equal("Patient\u0027s condition improved", actualFhir.GetExtensionValue<CodeableConcept>("http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-therapeutic-medication-response-extension").Coding.First().Display);
+        }
+
+        [Fact]
+        public void MedicationAdministration_DosageText_WithInnerText()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                {
+                    "medicationAdministration",
+                    new
+                    {
+                        statusCode = new { code = "completed" },
+                        text = new { _ = "Take 1 tablet orally & daily" },
+                    }
+                },
+            };
+            var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);
+
+            Assert.Equal("Take 1 tablet orally & daily", actualFhir.Dosage.Text);
+        }
+
+        [Fact]
+        public void MedicationAdministration_DosageText_WithSectionReference()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                {
+                    "medicationAdministration",
+                    new
+                    {
+                        statusCode = new { code = "completed" },
+                        text = new { reference = new { _ = "1 tablet oral twice daily", value = "#sig1" } },
+                    }
+                },
+            };
+            var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);
+
+            Assert.Equal("1 tablet oral twice daily", actualFhir.Dosage.Text);
+        }
+
+        [Fact]
+        public void MedicationAdministration_DosageText_WithSimpleText()
+        {
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                {
+                    "medicationAdministration",
+                    new
+                    {
+                        statusCode = new { code = "completed" },
+                        text = new { _ = "Take 2 tablets every 8 hours" },
+                    }
+                },
+            };
+            var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);
+
+            Assert.Equal("Take 2 tablets every 8 hours", actualFhir.Dosage.Text);
         }
     }
 }

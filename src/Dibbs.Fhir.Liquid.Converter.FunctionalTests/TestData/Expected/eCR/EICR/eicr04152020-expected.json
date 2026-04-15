@@ -514,7 +514,9 @@
         "name": "Near North Health Service Corporation",
         "address": [
           {
-            "line": ["1276 N Clybourn"],
+            "line": [
+              "1276 N Clybourn"
+            ],
             "city": "Chicago",
             "state": "IL ",
             "country": "USA",
@@ -559,12 +561,17 @@
         "name": [
           {
             "family": "Nurse Desk",
-            "given": ["KH WH"]
+            "given": [
+              "KH WH"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["Winfield Moody", "1276 N Clybourn"],
+            "line": [
+              "Winfield Moody",
+              "1276 N Clybourn"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60653"
@@ -622,7 +629,9 @@
         "name": "Winfield Moody Health Center",
         "address": [
           {
-            "line": ["1276 N Clybourn"],
+            "line": [
+              "1276 N Clybourn"
+            ],
             "city": "Chicago",
             "state": "IL ",
             "postalCode": "60610     "
@@ -711,7 +720,9 @@
           {
             "use": "official",
             "family": "Test Patient",
-            "given": ["Erx"]
+            "given": [
+              "Erx"
+            ]
           }
         ],
         "birthDate": "1976-07-04",
@@ -759,7 +770,10 @@
         ],
         "address": [
           {
-            "line": ["215 W Ohio", "Apt 105"],
+            "line": [
+              "215 W Ohio",
+              "Apt 105"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60654"
@@ -999,12 +1013,17 @@
         "name": [
           {
             "family": "Nemiary",
-            "given": ["Deina"]
+            "given": [
+              "Deina"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["Winfield Moody", "1276 N. Clybourn"],
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60610"
@@ -1214,12 +1233,17 @@
         "name": [
           {
             "family": "Cox-Batson",
-            "given": ["Stephanie"]
+            "given": [
+              "Stephanie"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["Winfield Moody", "1276 N. Clybourn"],
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60610"
@@ -1812,12 +1836,17 @@
         "name": [
           {
             "family": "Alliance",
-            "given": ["Admin"]
+            "given": [
+              "Admin"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["215 W. Ohio Street", "4th Floor"],
+            "line": [
+              "215 W. Ohio Street",
+              "4th Floor"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60654"
@@ -1862,7 +1891,9 @@
           ]
         },
         "address": {
-          "line": ["1276 N Clybourn"],
+          "line": [
+            "1276 N Clybourn"
+          ],
           "city": "Chicago",
           "state": "IL ",
           "country": "USA",
@@ -1977,12 +2008,17 @@
         "name": [
           {
             "family": "Reid",
-            "given": ["Fredrick"]
+            "given": [
+              "Fredrick"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["Winfield Moody", "1276 N. Clybourn Ave"],
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn Ave"
+            ],
             "city": "Chicago",
             "state": "IL ",
             "postalCode": "60619"
@@ -2027,7 +2063,9 @@
           ]
         },
         "address": {
-          "line": ["4259 S. Berkeley"],
+          "line": [
+            "4259 S. Berkeley"
+          ],
           "city": "Chicago",
           "state": "IL",
           "country": "USA",
@@ -2142,12 +2180,17 @@
         "name": [
           {
             "family": "Herzan-Taylor",
-            "given": ["Elizabeth"]
+            "given": [
+              "Elizabeth"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["Denny Community Health Center", "30 W. Chicago"],
+            "line": [
+              "Denny Community Health Center",
+              "30 W. Chicago"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60610"
@@ -2278,7 +2321,9 @@
           ]
         },
         "address": {
-          "line": ["800 N Kedzie"],
+          "line": [
+            "800 N Kedzie"
+          ],
           "city": "Chicago",
           "state": "IL",
           "country": "USA",
@@ -2447,7 +2492,9 @@
           ]
         },
         "address": {
-          "line": ["834 E. 50th Street"],
+          "line": [
+            "834 E. 50th Street"
+          ],
           "city": "Chicago",
           "state": "IL",
           "country": "USA",
@@ -2652,12 +2699,17 @@
         "name": [
           {
             "family": "Greyer",
-            "given": ["Rhonda"]
+            "given": [
+              "Rhonda"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["North Kostner Health Center", "1520 N. Kostner Ave."],
+            "line": [
+              "North Kostner Health Center",
+              "1520 N. Kostner Ave."
+            ],
             "city": "Chicago",
             "state": "IL",
             "country": "USA",
@@ -2703,7 +2755,9 @@
           ]
         },
         "address": {
-          "line": ["4501 N Sheridan Road"],
+          "line": [
+            "4501 N Sheridan Road"
+          ],
           "city": "Chicago",
           "state": "IL ",
           "postalCode": "60640"
@@ -2876,7 +2930,9 @@
           ]
         },
         "address": {
-          "line": ["1276 N. Clybourn"],
+          "line": [
+            "1276 N. Clybourn"
+          ],
           "city": "Chicago",
           "state": "IL",
           "country": "USA",
@@ -3070,7 +3126,9 @@
         "name": [
           {
             "family": "Midgett",
-            "given": ["Regina"]
+            "given": [
+              "Regina"
+            ]
           }
         ],
         "address": [
@@ -3185,12 +3243,17 @@
         "name": [
           {
             "family": "Lightbourne",
-            "given": ["Amber"]
+            "given": [
+              "Amber"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["1276 N Clybourn", "WM"],
+            "line": [
+              "1276 N Clybourn",
+              "WM"
+            ],
             "city": "Chicago",
             "state": "IIl",
             "country": "USA"
@@ -3382,12 +3445,17 @@
         "name": [
           {
             "family": "Kittisopikul",
-            "given": ["Crystal"]
+            "given": [
+              "Crystal"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["Winfield Moody", "1276 N. Clybourn"],
+            "line": [
+              "Winfield Moody",
+              "1276 N. Clybourn"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60610"
@@ -3432,7 +3500,9 @@
           ]
         },
         "address": {
-          "line": ["30 West Chicago"],
+          "line": [
+            "30 West Chicago"
+          ],
           "city": "Chicago",
           "state": "IL",
           "country": "USA",
@@ -3547,7 +3617,9 @@
         "name": [
           {
             "family": "Arendt",
-            "given": ["Adam"]
+            "given": [
+              "Adam"
+            ]
           }
         ],
         "address": [
@@ -3676,12 +3748,17 @@
         "name": [
           {
             "family": "Alliance",
-            "given": ["Admin"]
+            "given": [
+              "Admin"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["215 W. Ohio Street", "4th Floor"],
+            "line": [
+              "215 W. Ohio Street",
+              "4th Floor"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60654"
@@ -3778,12 +3855,17 @@
         "name": [
           {
             "family": "Alliance",
-            "given": ["Admin"]
+            "given": [
+              "Admin"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["215 W. Ohio Street", "4th Floor"],
+            "line": [
+              "215 W. Ohio Street",
+              "4th Floor"
+            ],
             "city": "Chicago",
             "state": "IL",
             "postalCode": "60654"

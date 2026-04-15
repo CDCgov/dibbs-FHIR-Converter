@@ -636,7 +636,9 @@
         ],
         "name": "Good Health Hospital",
         "address": {
-          "line": ["1000 Hospital Lane"],
+          "line": [
+            "1000 Hospital Lane"
+          ],
           "city": "Ann Arbor",
           "state": "MI",
           "country": "US",
@@ -675,7 +677,9 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": ["1000 Hospital Lane"],
+            "line": [
+              "1000 Hospital Lane"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -721,13 +725,19 @@
         "name": [
           {
             "family": "Seven",
-            "given": ["Henry"],
-            "suffix": ["M.D."]
+            "given": [
+              "Henry"
+            ],
+            "suffix": [
+              "M.D."
+            ]
           }
         ],
         "address": [
           {
-            "line": ["1002 Healthcare Drive"],
+            "line": [
+              "1002 Healthcare Drive"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -773,7 +783,9 @@
         "name": "Community Health and Hospitals",
         "address": [
           {
-            "line": ["1002 Healthcare Drive"],
+            "line": [
+              "1002 Healthcare Drive"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1234,7 +1246,9 @@
         "name": "Good Health Hospital",
         "address": [
           {
-            "line": ["1000 Hospital Lane"],
+            "line": [
+              "1000 Hospital Lane"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1300,12 +1314,18 @@
           {
             "use": "official",
             "family": "Everywoman",
-            "given": ["Eve", "H"]
+            "given": [
+              "Eve",
+              "H"
+            ]
           },
           {
             "use": "usual",
             "family": "Everywoman",
-            "given": ["Ruth", "L"]
+            "given": [
+              "Ruth",
+              "L"
+            ]
           }
         ],
         "birthDate": "1974-11-24",
@@ -1388,7 +1408,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["2222 Home Street"],
+            "line": [
+              "2222 Home Street"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -1525,13 +1547,20 @@
         "name": [
           {
             "family": "Smith",
-            "given": ["John", "D"],
-            "suffix": ["MD"]
+            "given": [
+              "John",
+              "D"
+            ],
+            "suffix": [
+              "MD"
+            ]
           }
         ],
         "address": [
           {
-            "line": ["100 Main St. Suite 100"],
+            "line": [
+              "100 Main St. Suite 100"
+            ],
             "city": "Hope Valley",
             "state": "RI",
             "country": "US",
@@ -1641,7 +1670,10 @@
           {
             "use": "official",
             "family": "Mum",
-            "given": ["Martha", "L"]
+            "given": [
+              "Martha",
+              "L"
+            ]
           }
         ],
         "telecom": [
@@ -1658,7 +1690,9 @@
         "address": [
           {
             "use": "home",
-            "line": ["4444 Home Street"],
+            "line": [
+              "4444 Home Street"
+            ],
             "city": "Ann Arbor",
             "state": "MI",
             "country": "US",
@@ -2545,7 +2579,9 @@
           {
             "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
             "valueAddress": {
-              "line": ["99 Football Stadium Road"],
+              "line": [
+                "99 Football Stadium Road"
+              ],
               "city": "My City",
               "state": "AZ",
               "country": "US",
@@ -2724,7 +2760,9 @@
           {
             "use": "official",
             "family": "Everyman",
-            "given": ["Adam"]
+            "given": [
+              "Adam"
+            ]
           }
         ],
         "patient": {
@@ -3162,7 +3200,9 @@
               {
                 "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-address-extension",
                 "valueAddress": {
-                  "line": ["1170 N Rancho Robles Rd"],
+                  "line": [
+                    "1170 N Rancho Robles Rd"
+                  ],
                   "city": "Oracle",
                   "state": "AZ",
                   "country": "US",
@@ -3183,7 +3223,9 @@
         "resourceType": "Observation",
         "id": "c241ed7b-dc3d-7055-5d3e-a307f8494b07",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3230,7 +3272,9 @@
         "resourceType": "Observation",
         "id": "962570d9-01a7-db34-f8c9-57168e44510d",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3414,7 +3458,9 @@
         "name": "University Hospital",
         "address": [
           {
-            "line": ["Peachtree St"],
+            "line": [
+              "Peachtree St"
+            ],
             "city": "Atlanta",
             "state": "Georgia"
           }
@@ -3538,7 +3584,9 @@
         "resourceType": "Observation",
         "id": "aa4503c3-c475-e3dd-96fa-814291526157",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3589,7 +3637,9 @@
         "resourceType": "Observation",
         "id": "40db397d-91fe-7c16-2b20-b9d1b46f6140",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3633,7 +3683,9 @@
         "resourceType": "Observation",
         "id": "5bc4d32a-aa57-1d96-5ea6-87d48bcd7516",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3677,7 +3729,9 @@
         "resourceType": "Observation",
         "id": "ca049d29-37b4-4b96-6940-f506b60966cf",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3721,7 +3775,9 @@
         "resourceType": "Observation",
         "id": "a0453f8b-628e-e30c-7900-06229f409f77",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3765,7 +3821,9 @@
         "resourceType": "Observation",
         "id": "bdfc681c-3255-664f-ee64-01672d1785de",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3809,7 +3867,9 @@
         "resourceType": "Observation",
         "id": "26c60c1c-e7c4-faf2-c3db-6b2eaa81d96b",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3853,7 +3913,9 @@
         "resourceType": "Observation",
         "id": "eb7cc925-1f69-4738-d033-24c41dfdb02e",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3897,7 +3959,9 @@
         "resourceType": "Observation",
         "id": "e885f483-ce24-e078-5b21-ccc7c5031e48",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -3941,7 +4005,9 @@
         "resourceType": "Observation",
         "id": "9f81a6a6-5e42-8107-7464-31ed8eea4d78",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -4337,7 +4403,9 @@
         ],
         "name": "Community Health and Hospitals",
         "address": {
-          "line": ["1002 Healthcare Drive"],
+          "line": [
+            "1002 Healthcare Drive"
+          ],
           "city": "Ann Arbor",
           "state": "MI",
           "country": "US",
@@ -4426,7 +4494,9 @@
         "resourceType": "Observation",
         "id": "44e6df0f-4e41-63ee-2bda-625369930b7c",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {
@@ -4539,7 +4609,9 @@
         "resourceType": "Observation",
         "id": "ecf330de-e85f-0b34-5fdd-6dccdae41d6d",
         "meta": {
-          "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"]
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
         },
         "identifier": [
           {

@@ -1981,30 +1981,16 @@
         },
         "status": "final",
         "effectiveDateTime": "1981-10-15",
-        "component": [
+        "interpretation": [
           {
-            "code": {
-              "coding": [
-                {
-                  "code": "88028-6",
-                  "system": "http://loinc.org",
-                  "display": "Tobacco use panel"
-                }
-              ],
-              "text": "REMOVED"
-            },
-            "interpretation": [
+            "coding": [
               {
-                "coding": [
-                  {
-                    "code": "X-SDOH-RISK-1",
-                    "system": "urn:oid:1.2.840.114350.1.72.1.8.1",
-                    "display": "Low Risk"
-                  }
-                ],
-                "text": "Low Risk"
+                "code": "X-SDOH-RISK-1",
+                "system": "urn:oid:1.2.840.114350.1.72.1.8.1",
+                "display": "Low Risk"
               }
-            ]
+            ],
+            "text": "Low Risk"
           }
         ],
         "derivedFrom": [

@@ -62,11 +62,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal("2025-02-05", (actualFhir.Effective as FhirDateTime)?.Value);
 
-            Assert.Null(actualFhir.Value);
-            Assert.Empty(actualFhir.Component.First().Value.ToString() !);
+            Assert.Empty(actualFhir.Value.ToString());
 
-            Assert.IsType<CodeableConcept>(actualFhir.Component.First().Interpretation.First());
-            var value = actualFhir.Component.First().Interpretation.First();
+            Assert.IsType<CodeableConcept>(actualFhir.Interpretation.First());
+            var value = actualFhir.Interpretation.First();
 
             Assert.Equal("High Risk", value.Coding.First().Display);
             Assert.Equal("urn:oid:1.2.840.114350.1.72.1.8.1", value.Coding.First().System);
@@ -117,10 +116,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal("2025-02-05", (actualFhir.Effective as FhirDateTime)?.Value);
 
-            Assert.Null(actualFhir.Value);
+            Assert.Empty(actualFhir.Interpretation);
 
-            Assert.IsType<CodeableConcept>(actualFhir.Component.First().Value);
-            var value = (CodeableConcept)actualFhir.Component.First().Value;
+            Assert.IsType<CodeableConcept>(actualFhir.Value);
+            var value = (CodeableConcept)actualFhir.Value;
 
             Assert.Equal("At risk", value.Coding.First().Display);
             Assert.Equal("http://loinc.org", value.Coding.First().System);

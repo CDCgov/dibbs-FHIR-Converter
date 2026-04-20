@@ -97,7 +97,6 @@
             {% assign entryRelationships = observationEntry.entryRelationship | to_array %}
             {% for entry in entryRelationships %}
                 {% if entry.act.templateId.root == "2.16.840.1.113883.10.20.22.4.64" -%}
-                    {% comment %} TODO ANGELA 2 {% endcomment %}
                     {% assign obsRefVal = entry.act.text.reference.value| replace: '#', '' -%}
                     {% assign noteString = text._innerText | find_inner_text_by_id: obsRefVal -%}
                     "note":

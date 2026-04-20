@@ -71,7 +71,7 @@
                 {% elsif observationEntry.referenceRange.observationRange.value.low.translation.value %}
                     "low": {
                         "value":"{{ observationEntry.referenceRange.observationRange.value.low.translation.value }}",
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.low.translation.originalText._ }}",
+                        "unit":"{{ observationEntry.referenceRange.observationRange.value.low.translation.originalText._ | escape_special_chars }}",
                     },
                 {% endif -%}
                 {% if observationEntry.referenceRange.observationRange.value.high.value -%}
@@ -83,7 +83,7 @@
                 {% elsif observationEntry.referenceRange.observationRange.value.high.translation.value %}
                     "high": {
                         "value":"{{ observationEntry.referenceRange.observationRange.value.high.translation.value }}",
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ }}",
+                        "unit":"{{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ | escape_special_chars }}",
                     },
                 {% endif -%}
                 "type": { {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.referenceRange.observationRange.interpretationCode %} },
@@ -97,6 +97,7 @@
             {% assign entryRelationships = observationEntry.entryRelationship | to_array %}
             {% for entry in entryRelationships %}
                 {% if entry.act.templateId.root == "2.16.840.1.113883.10.20.22.4.64" -%}
+                    {% comment %} TODO ANGELA 2 {% endcomment %}
                     {% assign obsRefVal = entry.act.text.reference.value| replace: '#', '' -%}
                     {% assign noteString = text._innerText | find_inner_text_by_id: obsRefVal -%}
                     "note":

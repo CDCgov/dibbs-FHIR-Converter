@@ -33,12 +33,12 @@
         {% endif -%}
 
         {% assign manufacturedProduct = immunization.consumable.manufacturedProduct %}
-        {% assign vaccineDisplay = manufacturedProduct.manufacturedMaterial.code.originalText.reference._ %}
+        {% assign vaccineDisplay = manufacturedProduct.manufacturedMaterial.code.originalText %}
 
         "vaccineCode": {
         {% include 'DataType/CodeableConcept', CodeableConcept: manufacturedProduct.manufacturedMaterial.code -%}
         {% if vaccineDisplay %}
-            "text": {{ vaccineDisplay | to_json_string }}
+            "text": "{% include 'Utils/TextHelper', text: vaccineDisplay %}",
         {% endif %}
         },
         "lotNumber":"{{ manufacturedProduct.manufacturedMaterial.lotNumberText._ }}",

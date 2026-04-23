@@ -29,7 +29,7 @@
             {%- for rel in reasons -%}
                 {
                 {% include 'DataType/CodeableConcept', CodeableConcept: rel.observation.value -%}
-                "text": "{{ rel.observation.text._ }}"
+                 "text": "{%- include 'Utils/TextHelper', text: rel.observation.text -%}",
                 },
             {%- endfor -%}
             ],

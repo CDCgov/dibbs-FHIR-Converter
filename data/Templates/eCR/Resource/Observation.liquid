@@ -71,7 +71,7 @@
                 {% elsif observationEntry.referenceRange.observationRange.value.low.translation.value %}
                     "low": {
                         "value":"{{ observationEntry.referenceRange.observationRange.value.low.translation.value }}",
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.low.translation.originalText._ }}",
+                        "unit":"{{ observationEntry.referenceRange.observationRange.value.low.translation.originalText._ | escape_special_chars }}",
                     },
                 {% endif -%}
                 {% if observationEntry.referenceRange.observationRange.value.high.value -%}
@@ -83,7 +83,7 @@
                 {% elsif observationEntry.referenceRange.observationRange.value.high.translation.value %}
                     "high": {
                         "value":"{{ observationEntry.referenceRange.observationRange.value.high.translation.value }}",
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ }}",
+                        "unit":"{{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ | escape_special_chars }}",
                     },
                 {% endif -%}
                 "type": { {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.referenceRange.observationRange.interpretationCode %} },

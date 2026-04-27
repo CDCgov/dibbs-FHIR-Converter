@@ -12,7 +12,7 @@
         ],
         "status":"{{ medicationStatement.statusCode.code | downcase | get_property: 'ValueSet/MedicationStatementStatus' }}",
         "note": {
-            "text": "{{ medicationStatement.text._ | default: medicationStatement.text.reference._ }}"
+            "text": "{%- include 'Utils/TextHelper', text: medicationStatement.text -%}"
         },
         {% assign medicationStatementTiming = nil %}
         {% assign medicationStatementEffectiveTimes = medicationStatement.effectiveTime | to_array %}
@@ -29,7 +29,7 @@
                 {% assign entries = medicationStatement.entryRelationship | to_array -%}
                 {% assign instruction = entries | where: 'act' | nested_where: "act.templateId.root", "2.16.840.1.113883.10.20.22.4.20" | first %}
                 {% if instruction %}
-                    "text": "{{ instruction.act.text._ | clean_string_from_tabs | default: instruction.act.text.reference._ }}",
+                    "text": "{%- include 'Utils/TextHelper', text: instruction.act.text -%}",
                 {% endif %}
                 {% if medicationStatementTiming %}
                     "timing":{ {% include 'DataType/Timing', Timing: medicationStatementTiming %} },

@@ -1,0 +1,25 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Observation",
+        "id":"{{ ID }}",
+        "code" : {
+            {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.code %}
+        },
+        "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
+        {% if observationEntry.value %}
+            {% include 'Utils/ValueHelper', value: observationEntry.value %}
+        {% endif %}
+        {% if observationEntry.interpretationCode %}
+            "interpretation": [
+                {% assign interpretationCodes = observationEntry.interpretationCode | to_array %}
+                {% for interpretationCode in interpretationCodes %}
+                {
+                    {% include 'DataType/CodeableConcept', CodeableConcept: interpretationCode %}
+                },
+                {% endfor %}
+            ]
+        {% endif %}
+    },
+},

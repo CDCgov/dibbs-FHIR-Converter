@@ -14,10 +14,10 @@
   "timestamp": "2020-05-05T11:05:15-04:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:dd97b10b-5d82-25f2-d660-84cdb50a4274",
+      "fullUrl": "urn:uuid:42645400-62ce-85d8-1177-a198fd7f29d7",
       "resource": {
         "resourceType": "Composition",
-        "id": "dd97b10b-5d82-25f2-d660-84cdb50a4274",
+        "id": "42645400-62ce-85d8-1177-a198fd7f29d7",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"

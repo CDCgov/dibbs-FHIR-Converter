@@ -1,4 +1,8 @@
-{% assign compositionId = msg.ClinicalDocument | to_json_string | generate_uuid -%}
+{% if msg.ClinicalDocument.id %}
+  {% assign compositionId = msg.ClinicalDocument.id | to_json_string | generate_uuid -%}
+{% else %}
+  {% assign compositionId = msg.ClinicalDocument | to_json_string | generate_uuid -%}
+{% endif %}
 {% evaluate practitionerId using 'Utils/GenerateId' obj: msg.ClinicalDocument.componentOf.encompassingEncounter.responsibleParty.assignedEntity -%}
 {% include 'Resource/Composition', composition: msg.ClinicalDocument, practitionerId: practitionerId, ID: compositionId -%}
 {% include 'Reference/Composition/Subject', ID: compositionId, REF: fullPatientId -%}

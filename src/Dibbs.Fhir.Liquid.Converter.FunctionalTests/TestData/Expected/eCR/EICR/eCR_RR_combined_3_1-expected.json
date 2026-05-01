@@ -17,10 +17,10 @@
   "timestamp": "1985-07-28T23:28:26-06:00",
   "entry": [
     {
-      "fullUrl": "urn:uuid:45df5811-d15f-0868-743a-3feee07ac372",
+      "fullUrl": "urn:uuid:6f33647c-f4c3-acf3-0efc-6f0140c19b76",
       "resource": {
         "resourceType": "Composition",
-        "id": "45df5811-d15f-0868-743a-3feee07ac372",
+        "id": "6f33647c-f4c3-acf3-0efc-6f0140c19b76",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"

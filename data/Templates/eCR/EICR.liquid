@@ -1,12 +1,9 @@
-{% assign eicrDocumentId = msg._originalData | generate_uuid -%}
-{% if msg.ClinicalDocument.id -%}
-  {% if msg.ClinicalDocument.id.extension -%}
-    {% comment %} If extension exists, use that {% endcomment %}
-    {% assign eicrDocumentId = msg.ClinicalDocument.id.extension -%}
-  {% elsif msg.ClinicalDocument.id.root -%}
-    {% comment %} If extension does not exist and root does, use that {% endcomment %}
-    {% assign eicrDocumentId = msg.ClinicalDocument.id.root -%}
-  {% endif -%}
+{% if msg.ClinicalDocument.id and msg.ClinicalDocument.id.extension -%}
+  {% comment %} If extension exists, use that {% endcomment %}
+  {% assign eicrDocumentId = msg.ClinicalDocument.id.extension -%}
+{% elsif msg.ClinicalDocument.id and msg.ClinicalDocument.id.root -%}
+  {% comment %} If extension does not exist and root does, use that {% endcomment %}
+  {% assign eicrDocumentId = msg.ClinicalDocument.id.root -%}
 {% else -%}
   {% assign eicrDocumentId = msg._originalData | generate_uuid -%}
 {% endif -%}

@@ -1,0 +1,15 @@
+{% include 'Resource/ObservationScreeningResponse', ID: observationId, observationEntry: entry %}
+{% if entry.entryRelationship %}
+    {% assign entryRelationships = entry.entryRelationship | to_array %}
+    {% for rel in entryRelationships %}
+        {% assign firstRelTemplate = rel.observation.templateId | to_array | first %}
+        {% if firstRelTemplate.root == '2.16.840.1.113883.10.20.22.4.86' %}
+            {% assign relObsId = rel | to_json_string | generate_uuid %}
+            {% assign fullObsId = observationId |  prepend: 'Observation/' %}
+            {% assign fullRelObsId = relObsId |  prepend: 'QuestionnaireResponse/' %}
+            {% include 'Resource/QuestionnaireResponse', ID: relObsId, entry: rel.observation %}
+            {% include 'Reference/QuestionnaireResponse/PartOf', ID: relObsId, REF: fullObsId %}
+            {% include 'Reference/Observation/DerivedFrom', ID: observationId, REF: fullRelObsId %}
+        {% endif %}
+    {% endfor %}
+{% endif %}

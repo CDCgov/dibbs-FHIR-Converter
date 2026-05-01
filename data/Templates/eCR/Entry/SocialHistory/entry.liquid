@@ -27,6 +27,19 @@
             {% include 'Entry/ObservationExposureContact/entry', observationId: observationId, entry: entry %}
         {% else -%}
             {% include 'Resource/Observation', observationCategory: 'social-history', observationEntry: entry.observation, ID: observationId -%}
+            {% if entry.observation.entryRelationship %}
+                {% assign entryRelationships = entry.observation.entryRelationship | to_array %}
+                {% for rel in entryRelationships %}
+                    {% assign firstRelObsTemplate = rel.observation.templateId | to_array | first %}
+                    {%  comment %} SDOH Questionnaire - Looking for the CCDA template id for https://build.fhir.org/ig/HL7/CDA-ccda/StructureDefinition-AssessmentScaleObservation.html {% endcomment %}
+                    {% if firstRelObsTemplate.root == '2.16.840.1.113883.10.20.22.4.69' %}
+                        {% assign relObsId = rel | to_json_string | generate_uuid %}
+                        {% assign fullRelObsId = relObsId |  prepend: 'Observation/' %}
+                        {% include 'Entry/ObservationScreeningResponse/entry', observationId: relObsId, entry: rel.observation %}
+                        {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         {% endif -%}
         {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
     {% endif %}

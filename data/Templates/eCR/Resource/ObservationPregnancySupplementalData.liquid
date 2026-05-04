@@ -1,0 +1,31 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Observation",
+        "id":"{{ ID }}",
+        "meta":
+        {
+            "profile":
+            [
+                {% if templateId == '2.16.840.1.113883.10.20.22.4.286' %}
+                "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-birth-plurality-of-pregnancy",
+                {% elsif templateId == '2.16.840.1.113883.10.20.22.4.295' %}
+                "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-first-prenatal-care-visit",
+                {% elsif templateId == '2.16.840.1.113883.10.20.22.4.296' %}
+                "http://hl7.org/fhir/us/bfdr/StructureDefinition-Observation-number-prenatal-visits.html"
+                {% endif %}
+            ],
+        },
+        "identifier":
+        [
+            {% assign ids = observationEntry.id | to_array -%}
+            {% for id in ids -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
+            {% endfor -%}
+        ],
+        "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
+        "code":{ {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.code %} },
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
+        {% include 'Utils/ValueHelper', value: observationEntry.value -%}
+    },
+},

@@ -18,14 +18,28 @@
                 {% include 'Resource/ObservationPregnancyStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
                 {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
 
-                {% comment %} Add birth outcome obs with focus on this pregnancy obs {% endcomment %}
+                {% comment %} Add supplemental pregnancy data {% endcomment %}
                 {% assign rels = entry.observation.entryRelationship | to_array %}
                 {% for rel in rels -%}
+                    {% assign relObsId = rel | to_json_string | generate_uuid %}
+                    {% assign fullRelObsId = relObsId |  prepend: 'Observation/' %}
+                    {% comment %} Add birth outcome obs with focus on this pregnancy obs {% endcomment %}
                     {% if rel.typeCode == "COMP" and rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.284' %}
-                        {% assign outcomeId = rel | to_json_string | generate_uuid %}
-                        {% include 'Resource/ObservationPregnancyOutcome', observationCategory: 'exam', observationEntry: rel.observation, ID: outcomeId, birthOrder: rel.sequenceNumber.value -%}
-                        {% include 'Reference/Observation/Subject', ID: outcomeId, REF: fullPatientId -%}
-                        {% include 'Reference/Observation/Focus', ID: outcomeId, REF: fullObservationId -%}
+                        {% include 'Resource/ObservationPregnancyOutcome', observationCategory: 'exam', observationEntry: rel.observation, ID: relObsId, birthOrder: rel.sequenceNumber.value -%}
+                        {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
+                        {% include 'Reference/Observation/Focus', ID: relObsId, REF: fullObservationId -%}
+                    {% comment %} Add other supplemental pregnancy observations as a hasMember on this pregnancy obs {% endcomment %}
+                    {%  elsif rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.286' or rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.295' or rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.296' %}
+                        {% include 'Resource/ObservationPregnancySupplementalData', observationEntry: rel.observation, ID: relObsId, templateId: rel.observation.templateId.root  -%}
+                        {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
+                        {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
+                    {% else %} {% comment %} Also handle related findings - may have multiple template ids {% endcomment %}
+                        {% assign templateIds = rel.observation.templateId | to_array -%}
+                        {% if templateIds.first.root == '2.16.840.1.113883.10.20.22.4.4' or templateIds.first.root == '2.16.840.1.113883.10.20.22.4.298' %}
+                            {% include 'Resource/ObservationPregnancySupplementalData', observationEntry: rel.observation, ID: relObsId, templateId: templateIds.first.root  -%}
+                            {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
+                            {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             {% else -%}

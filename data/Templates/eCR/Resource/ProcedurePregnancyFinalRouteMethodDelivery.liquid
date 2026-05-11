@@ -1,0 +1,31 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Procedure",
+        "id":"{{ ID }}",
+        "meta":
+        {
+            "profile":
+            [
+                "http://hl7.org/fhir/us/bfdr/StructureDefinition/Procedure-final-route-method-delivery"
+            ]
+        },
+        "identifier":
+        [
+            {% include 'DataType/Identifier', Identifier: procedureEntry.id -%}
+        ],
+        "category":
+        {
+            "coding": [
+                {
+                    "system": "http://loinc.org",
+                    "code": "73762-7",
+                    "display": "Final route and method of delivery [US Standard Certificate of Live Birth]"
+                }
+            ]
+        },
+        "status":"{{ procedureEntry.statusCode.code | get_property: 'ValueSet/EventStatus' }}",
+        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: procedureEntry.code -%} },
+        {% include 'Utils/EffectiveTime', effectiveTime: procedureEntry.effectiveTime, timeType: "performed" %}
+    },
+},

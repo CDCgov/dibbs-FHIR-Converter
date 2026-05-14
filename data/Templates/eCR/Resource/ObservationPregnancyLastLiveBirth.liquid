@@ -1,0 +1,33 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "Observation",
+        "id":"{{ ID }}",
+        "meta":
+        {
+            "profile":
+            [
+                "http://hl7.org/fhir/us/bfdr/StructureDefinition/Observation-date-of-last-live-birth",
+            ],
+        },
+        "identifier":
+        [
+            {% assign ids = observationEntry.id | to_array -%}
+            {% for id in ids -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
+            {% endfor -%}
+        ],
+        "status": "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
+        "code":
+        {
+            "coding": [
+                {
+                    "system": "http://loinc.org",
+                    "code": "68499-3",
+                    "display": "Date last live birth"
+                }
+            ]
+        },
+        {% include 'Utils/ValueHelper', value: observationEntry.value -%}
+    },
+},

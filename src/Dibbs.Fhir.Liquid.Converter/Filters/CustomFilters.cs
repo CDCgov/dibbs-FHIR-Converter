@@ -66,8 +66,8 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <returns>A dictionary where the keys are codes and the values are descriptions.</returns>
         private static Dictionary<string, string> CSVMapDictionary(string filename)
         {
-            TextFieldParser parser = new (filename);
-            Dictionary<string, string> csvData = new ();
+            TextFieldParser parser = new(filename);
+            Dictionary<string, string> csvData = new();
 
             parser.HasFieldsEnclosedInQuotes = true;
             parser.SetDelimiters(",");
@@ -141,35 +141,48 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <returns>A string with the content of the node with the specified ID, or nil if not found.</returns>
         public static ValueTask<FluidValue> FindInnerTextById(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
-            XmlDocument doc = new ();
-
-            // Add wrapper <doc> as the fragment may not have one root node.
-            doc.LoadXml($"<doc>{input.ToStringValue()}</doc>");
-            XmlElement root = doc.DocumentElement;
-            var result = FindInnerTextByIdRecursive(root, arguments.At(0).ToStringValue());
+            var id = arguments.At(0).ToStringValue();
+            var xml = $"<doc>{input.ToStringValue()}</doc>";
+            var result = FindInnerTextByIdWithReader(xml, id);
             return result == null ? NilValue.Instance : StringValue.Create(result);
         }
 
-        private static string? FindInnerTextByIdRecursive(XmlElement root, string id)
+        private static string? FindInnerTextByIdWithReader(string xml, string id)
         {
-            foreach (XmlNode node in root.ChildNodes)
+            var settings = new XmlReaderSettings
             {
-                if (node is XmlElement el)
-                {
-                    foreach (XmlAttribute attr in el.Attributes)
-                    {
-                        if (string.Equals(attr.LocalName.ToLower(), "id", StringComparison.OrdinalIgnoreCase) && attr.Value == id)
-                        {
-                            return el.InnerXml;
-                        }
-                    }
+                DtdProcessing = DtdProcessing.Ignore,
+                IgnoreWhitespace = true,
+                IgnoreComments = true,
+            };
 
-                    var res = FindInnerTextByIdRecursive(el, id);
-                    if (res != null)
+            using var stringReader = new StringReader(xml);
+            using var reader = XmlReader.Create(stringReader, settings);
+
+            while (reader.Read())
+            {
+                if (reader.NodeType != XmlNodeType.Element)
+                {
+                    continue;
+                }
+
+                if (!reader.HasAttributes)
+                {
+                    continue;
+                }
+
+                for (int i = 0; i < reader.AttributeCount; i++)
+                {
+                    reader.MoveToAttribute(i);
+                    if (string.Equals(reader.LocalName, "id", StringComparison.OrdinalIgnoreCase)
+                        && reader.Value == id)
                     {
-                        return res;
+                        reader.MoveToElement();
+                        return reader.ReadInnerXml();
                     }
                 }
+
+                reader.MoveToElement();
             }
 
             return null;

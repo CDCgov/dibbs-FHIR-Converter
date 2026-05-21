@@ -80,5 +80,28 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DataParsers
                 expectedInnerText,
                 (contents?["text"] as Dictionary<string, object>)?.GetValueOrDefault("_innerText"));
         }
+
+        [Fact]
+        public void GivenRepeatedElementsAndNamespacedAttributes_WhenParse_CorrectResultShouldBeReturned()
+        {
+            var document = "<ClinicalDocument xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:hl7-org:v3\">" +
+                           "<templateId root=\"template-one\"/>" +
+                           "<templateId root=\"template-two\"/>" +
+                           "<value xsi:type=\"CD\">line 1\nline 2</value>" +
+                           "<empty/>" +
+                           "</ClinicalDocument>";
+
+            var data = _parser.Parse(document);
+            var contents = (data as Dictionary<string, object>)?.GetValueOrDefault("ClinicalDocument") as Dictionary<string, object>;
+            var templateIds = contents?["templateId"] as List<object>;
+            var value = contents?["value"] as Dictionary<string, object>;
+
+            Assert.Equal(2, templateIds?.Count);
+            Assert.Equal("template-one", (templateIds?[0] as Dictionary<string, object>)?["root"]);
+            Assert.Equal("template-two", (templateIds?[1] as Dictionary<string, object>)?["root"]);
+            Assert.Equal("CD", value?["xsi:type"]);
+            Assert.Equal("line 1line 2", value?["_"]);
+            Assert.Null(contents?["empty"]);
+        }
     }
 }

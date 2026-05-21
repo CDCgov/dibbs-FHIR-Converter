@@ -13,7 +13,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public async System.Threading.Tasks.Task GivenNoAttributeReturnsEmpty()
         {
-            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\":\"\",");
+            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\": \"\",");
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = ".29" , unit = "/d"}}
             };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\":\"/d\", },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\": \"/d\", },");
         }
 
         [Fact]
@@ -67,7 +67,16 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = "" , unit = "Immediate"}}
             };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\":\"Immediate\", },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\": \"Immediate\", },");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenRefInnerTextProperlyReturnsText()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { originalText = new { reference = new { _ = "some value" }}}}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueString\": \"some value\",");
         }
     }
 }

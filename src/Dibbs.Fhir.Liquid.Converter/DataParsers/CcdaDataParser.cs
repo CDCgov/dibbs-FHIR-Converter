@@ -45,12 +45,7 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
                 // Convert to dictionary
                 var dataDictionary = ConvertToDictionary(xDocument);
 
-                // Remove line breaks in original data
-                // string.Replace is faster and uses less memory than regex.Replace
-                dataDictionary["_originalData"] = document
-                    .Replace("\r\n", string.Empty)
-                    .Replace("\n", string.Empty)
-                    .Replace("\r", string.Empty);
+                dataDictionary["_originalData"] = CleanStringValue(document);
 
                 return dataDictionary;
             }
@@ -148,7 +143,10 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
 
         private static string CleanStringValue(string value)
         {
-            return CcdaDataParserRegex.NewlineRegex().Replace(value, string.Empty);
+            // string.Replace is faster and uses less memory than regex.Replace
+            return value.Replace("\r\n", string.Empty)
+                    .Replace("\n", string.Empty)
+                    .Replace("\r", string.Empty);;
         }
 
         private static bool IsRedundantNamespaceAttribute(XAttribute attribute, string defaultNamespace)

@@ -133,8 +133,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         }
     }
 
-    // using DisableFormatting has performance benefits and we don't care about the input data's formatting
-    inputData = ecrDoc.ToString(SaveOptions.DisableFormatting);
+    inputData = ecrDoc.ToString();
 
     try
     {

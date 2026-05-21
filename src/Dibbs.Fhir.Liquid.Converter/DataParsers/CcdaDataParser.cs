@@ -9,6 +9,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
+using Newtonsoft.Json;
 
 namespace Dibbs.Fhir.Liquid.Converter.DataParsers
 {
@@ -42,10 +43,17 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
                 // Change XText to XElement with name "_" to avoid serializing depth difference, e.g., given="foo" and given.#text="foo"
                 ReplaceTextWithElement(xDocument?.Root);
 
-                // Convert to dictionary
-                var dataDictionary = ConvertToDictionary(xDocument);
+                // Convert to json dictionary
+                var jsonString = JsonConvert.SerializeXNode(xDocument);
+                var dataDictionary = JsonConvert.DeserializeObject<IDictionary<string, object>>(jsonString, new DictionaryJsonConverter()) ??
+                                     new Dictionary<string, object>();
 
-                dataDictionary["_originalData"] = CleanStringValue(document);
+                // Remove line breaks in original data
+                // string.Replace is faster and uses less memory than regex.Replace
+                dataDictionary["_originalData"] = dataDictionary["_originalData"] = document
+                    .Replace("\r\n", string.Empty)
+                    .Replace("\n", string.Empty)
+                    .Replace("\r", string.Empty);
 
                 return dataDictionary;
             }
@@ -53,100 +61,6 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
             {
                 throw new DataParseException(FhirConverterErrorCode.InputParsingError, string.Format(Resources.InputParsingError, ex.Message), ex);
             }
-        }
-
-        private static Dictionary<string, object> ConvertToDictionary(XDocument document)
-        {
-            return new Dictionary<string, object>
-            {
-                [document.Root.Name.LocalName] = ConvertElement(document.Root),
-            };
-        }
-
-        private static object ConvertElement(XElement element)
-        {
-            var value = new Dictionary<string, object>();
-
-            foreach (var attribute in element.Attributes())
-            {
-                value[GetAttributeName(attribute)] = CleanStringValue(attribute.Value);
-            }
-
-            var childNodeValues = new Dictionary<string, List<object>>();
-            foreach (var childNode in element.Nodes())
-            {
-                switch (childNode)
-                {
-                    case XElement childElement:
-                        AddChildNodeValue(childNodeValues, childElement.Name.LocalName, ConvertElement(childElement));
-                        break;
-                    case XComment comment:
-                        AddChildNodeValue(childNodeValues, "#comment", CleanStringValue(comment.Value));
-                        break;
-                    case XProcessingInstruction processingInstruction:
-                        AddChildNodeValue(childNodeValues, $"?{processingInstruction.Target}", CleanStringValue(processingInstruction.Data));
-                        break;
-                }
-            }
-
-            foreach (var childNodeValue in childNodeValues)
-            {
-                value[childNodeValue.Key] = childNodeValue.Value.Count == 1 ? childNodeValue.Value[0] : childNodeValue.Value;
-            }
-
-            var textNodes = element.Nodes().OfType<XText>().ToList();
-            if (textNodes.Count > 0)
-            {
-                var textValue = CleanStringValue(string.Concat(textNodes.Select(textNode => textNode.Value)));
-                if (value.Count == 0)
-                {
-                    return textValue;
-                }
-
-                value["#text"] = textValue;
-            }
-
-            return value.Count > 0 ? value : null;
-        }
-
-        private static void AddChildNodeValue(IDictionary<string, List<object>> childNodeValues, string name, object value)
-        {
-            if (!childNodeValues.TryGetValue(name, out var values))
-            {
-                values = new List<object>();
-                childNodeValues[name] = values;
-            }
-
-            values.Add(value);
-        }
-
-        private static string GetAttributeName(XAttribute attribute)
-        {
-            if (attribute.IsNamespaceDeclaration)
-            {
-                return string.Equals(attribute.Name.LocalName, "xmlns", StringComparison.Ordinal)
-                    ? "xmlns"
-                    : $"xmlns:{attribute.Name.LocalName}";
-            }
-
-            var attributeNamespace = attribute.Name.Namespace;
-            if (attributeNamespace == XNamespace.None)
-            {
-                return attribute.Name.LocalName;
-            }
-
-            var prefix = attribute.Parent?.GetPrefixOfNamespace(attributeNamespace);
-            return string.IsNullOrEmpty(prefix)
-                ? attribute.Name.LocalName
-                : $"{prefix}:{attribute.Name.LocalName}";
-        }
-
-        private static string CleanStringValue(string value)
-        {
-            // string.Replace is faster and uses less memory than regex.Replace
-            return value.Replace("\r\n", string.Empty)
-                    .Replace("\n", string.Empty)
-                    .Replace("\r", string.Empty);;
         }
 
         private static bool IsRedundantNamespaceAttribute(XAttribute attribute, string defaultNamespace)

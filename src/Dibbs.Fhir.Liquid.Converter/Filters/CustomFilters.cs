@@ -66,8 +66,8 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <returns>A dictionary where the keys are codes and the values are descriptions.</returns>
         private static Dictionary<string, string> CSVMapDictionary(string filename)
         {
-            TextFieldParser parser = new(filename);
-            Dictionary<string, string> csvData = new();
+            TextFieldParser parser = new (filename);
+            Dictionary<string, string> csvData = new ();
 
             parser.HasFieldsEnclosedInQuotes = true;
             parser.SetDelimiters(",");

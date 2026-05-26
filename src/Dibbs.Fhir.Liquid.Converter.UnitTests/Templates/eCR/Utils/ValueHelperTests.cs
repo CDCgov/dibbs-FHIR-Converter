@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Xunit;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
@@ -13,7 +14,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         [Fact]
         public async System.Threading.Tasks.Task GivenNoAttributeReturnsEmpty()
         {
-            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\":\"\",");
+            await ConvertCheckLiquidTemplate(ECRPath, new Dictionary<string, object>(), "\"valueString\": \"\",");
         }
 
         [Fact]
@@ -58,7 +59,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = ".29" , unit = "/d"}}
             };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\":\"/d\", },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 0.29, \"unit\": \"/d\", },");
         }
 
         [Fact]
@@ -67,7 +68,86 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var attributes = new Dictionary<string, object>{
                 {"value", new { value = "" , unit = "Immediate"}}
             };
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\":\"Immediate\", },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\": \"Immediate\", },");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenUnitInValueStringProperlyReturnsWithValueUnit()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { value = "5mg" }}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"value\": 5, \"unit\": \"mg\", },");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenRefInnerTextProperlyReturnsText()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { originalText = new { reference = new { _ = "some value" }}}}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueString\": \"some value\",");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenValueInnerTextProperlyReturnsText()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { _ = "some value" }}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueString\": \"some value\",");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenOriginalTextInnerTextProperlyReturnsText()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { originalText = new { _ = "some value" }}}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueString\": \"some value\",");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenBooleanProperlyReturnsValueBoolean()
+        {
+            var xmlStr = @"<value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:type=""BL"" value=""true"" />";
+            var attributes = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueBoolean\": true,");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenIntegerProperlyReturnsValueInteger()
+        {
+            var xmlStr = @"<value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:type=""INT"" value=""20"" />";
+            var attributes = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueInteger\": 20,");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenTimestampProperlyReturnsValueDateTime()
+        {
+            var xmlStr = @"<value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:type=""TS"" value=""20260522"" />";
+            var attributes = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueDateTime\": \"2026-05-22\",");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenValueCodeSingleValuedProperlyReturnsWithValueCoding()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { code = "1234" , displayName = "some coding", codeSystem = "a code system"}},
+                { "singleValued", true }
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueCoding\": { \"code\": \"1234\",\"system\": \"a code system\",\"display\": \"some coding\", },");
+        }
+
+        [Fact]
+        public async System.Threading.Tasks.Task GivenValueCodeProperlyReturnsWithValueCodeableConcept()
+        {
+            var attributes = new Dictionary<string, object>{
+                {"value", new { code = "1234" , displayName = "some coding", codeSystem = "a code system"}}
+            };
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueCodeableConcept\": { \"coding\": [ { \"code\": \"1234\",\"system\": \"a code system\",\"display\": \"some coding\",},],},");
         }
     }
 }

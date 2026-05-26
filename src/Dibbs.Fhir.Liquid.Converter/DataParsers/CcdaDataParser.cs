@@ -49,7 +49,11 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
                                      new Dictionary<string, object>();
 
                 // Remove line breaks in original data
-                dataDictionary["_originalData"] = CcdaDataParserRegex.NewlineRegex().Replace(document, string.Empty);
+                // string.Replace is faster and uses less memory than regex.Replace
+                dataDictionary["_originalData"] = dataDictionary["_originalData"] = document
+                    .Replace("\r\n", string.Empty)
+                    .Replace("\n", string.Empty)
+                    .Replace("\r", string.Empty);
 
                 return dataDictionary;
             }

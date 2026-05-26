@@ -59,7 +59,7 @@
                 {% endfor %}
             {% else -%}
                 {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.300' %}
-                    {%  comment  %} [C-CDA PREG] D(Rh) Type - Lab {% endcomment %}
+                    {% comment %} [C-CDA PREG] D(Rh) Type - Lab {% endcomment %}
                     {% include 'Resource/Observation', observationCategory: 'laboratory', observationEntry: entry.observation, ID: observationId -%}
                 {% else %}
                     {% include 'Resource/Observation', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}

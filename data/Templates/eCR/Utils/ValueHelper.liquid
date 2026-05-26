@@ -1,15 +1,15 @@
 {% if value.code and singleValued %}
     "valueCoding": { 
         {% include 'DataType/Coding', Coding: value %} 
-    }
+    },
 {% elsif value.code %}
-    "valueCodeableConcept" : {
+    "valueCodeableConcept": {
         {% include 'DataType/CodeableConcept', CodeableConcept: value -%}
     },
 {% elsif value["xsi:type"] == "BL" -%}
-    "valueBoolean" : {{ value.value }}
+    "valueBoolean": {{ value.value }},
 {% elsif value["xsi:type"] == "INT" -%}
-    "valueInteger" : {{ value.value }}
+    "valueInteger": {{ value.value }},
 {% elsif value["xsi:type"] == "TS" -%}
     "valueDateTime": "{{ value.value | format_as_date_time }}",
 {% elsif value.value -%}
@@ -18,26 +18,26 @@
             "value": {{ value.value | format_valuequantity }},
         {% endif %}
         {% if value.unit and value.unit != "null" -%}
-            "unit":"{{ value.unit | escape_special_chars }}",
+            "unit": "{{ value.unit | escape_special_chars }}",
         {% else %}
             {% assign unitFromValue = value.value | extract_unit %}
             {% if unitFromValue != nil %}
-                "unit":"{{ unitFromValue | escape_special_chars }}",
+                "unit": "{{ unitFromValue | escape_special_chars }}",
             {% endif -%}
         {% endif -%}
     },
 {% elsif value._ %}
-    "valueString":"{{ value._ | clean_string_from_tabs | escape_special_chars }}",
+    "valueString": "{{ value._ | clean_string_from_tabs | escape_special_chars }}",
 {% elsif value.originalText._ %}
-    "valueString":"{{ value.originalText._ | clean_string_from_tabs | escape_special_chars }}",
+    "valueString": "{{ value.originalText._ | clean_string_from_tabs | escape_special_chars }}",
 {% else %}
     {% assign ref = value.originalText.reference %}
     {% if value.reference %}
         {% assign ref = value.reference %}
     {% endif %}
     {% if ref._ %}
-        "valueString": "{{ ref._ | clean_string_from_tabs | escape_special_chars }}";
+        "valueString": "{{ ref._ | clean_string_from_tabs | escape_special_chars }}",
     {% else %}
-        "valueString":"{%- include 'Utils/TextRefHelper', ref: ref, origText: origText -%}",
+        "valueString": "{%- include 'Utils/TextRefHelper', ref: ref, origText: origText -%}",
     {% endif %}
 {% endif -%}

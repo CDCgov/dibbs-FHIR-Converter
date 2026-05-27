@@ -134,32 +134,29 @@ public class EcrProcessor
         var names = new XmlNamespaceManager(ecrXDocument.CreateNavigator().NameTable);
         names.AddNamespace("hl7", "urn:hl7-org:v3");
 
-        var refs = ecrXDocument.XPathSelectElements(
-            "//hl7:reference",
-            names);
+        // First pass: build a lookup of all elements with an ID attribute
+        // This replaces the per-reference XPath query with a single dictionary lookup
+        var idLookup = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var element in ecrXDocument.Descendants())
+        {
+            var id = element.Attribute("ID")?.Value;
+            if (id != null && !idLookup.ContainsKey(id))
+            {
+                var elementValue = string.Concat(element.Nodes().Select(n => n.ToString()));
+                idLookup[id] = elementValue;
+            }
+        }
 
+        // Second pass: resolve all references using the lookup
+        var refs = ecrXDocument.XPathSelectElements("//hl7:reference", names);
         foreach (var refElement in refs)
         {
             var value = refElement.Attribute("value");
             if (value is not null)
             {
                 var refId = value.Value[1..];
-
-                // We need to loop over the nodes inside the element returned by this XPath
-                // rather than getting the text dirtectly via the XPath so that we are able to
-                // retain inner XHTML tags.
-                var element = ecrXDocument.XPathSelectElement(
-                    $"//*[@ID='{refId}']",
-                    names);
-
-                if (element != null)
+                if (idLookup.TryGetValue(refId, out var elementValue))
                 {
-                    string elementValue = string.Empty;
-                    foreach (var node in element.Nodes())
-                    {
-                        elementValue += node.ToString();
-                    }
-
                     refElement.Value = elementValue;
                 }
             }

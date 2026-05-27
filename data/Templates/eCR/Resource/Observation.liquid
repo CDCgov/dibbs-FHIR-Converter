@@ -52,40 +52,53 @@
             {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.targetSiteCode, minCardinality: 0 -%}
         },
         {% include 'Utils/ValueHelper', value: observationEntry.value, origText: text._innerText %}
+
+        {% assign range = observationEntry.referenceRange.observationRange %}
+        {% assign low = range.value.low %}
+        {% assign high = range.value.high %}
+
+        {% assign lowUnit = low.unit | escape_special_chars %}
+        {% assign highUnit = high.unit | escape_special_chars %}
+        {% assign lowTranslText = low.translation.originalText._ | escape_special_chars %}
+        {% assign highTranslText = high.translation.originalText._ | escape_special_chars %}
+
         "referenceRange":
         [
             {
-                {% if observationEntry.referenceRange.observationRange.value.low.value and observationEntry.referenceRange.observationRange.value.high.value -%}
-                    "text":"{{ observationEntry.referenceRange.observationRange.value.low.value }} {{ observationEntry.referenceRange.observationRange.value.low.unit }} - {{ observationEntry.referenceRange.observationRange.value.high.value }} {{ observationEntry.referenceRange.observationRange.value.high.unit }}",
-                {% elsif observationEntry.referenceRange.observationRange.value.low.translation.value and observationEntry.referenceRange.observationRange.value.high.translation.value %}
-                    "text":"{{ observationEntry.referenceRange.observationRange.value.low.translation.value }} {{ observationEntry.referenceRange.observationRange.value.low.translation.originalText._ | escape_special_chars }} - {{ observationEntry.referenceRange.observationRange.value.high.translation.value }} {{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ | escape_special_chars }}",
+                {% if low.value and high.value -%}
+                    "text":"{{ low.value }} {{ lowUnit }} - {{ high.value }} {{ highUnit }}",
+                {% elsif low.translation.value and high.translation.value %}
+                    "text":"{{ low.translation.value }} {{ lowTranslText }} - {{ high.translation.value }} {{ highTranslText }}",
                 {% else %}
-                    "text":"{{  observationEntry.referenceRange.observationRange.text._ | escape_special_chars }}",
+                    "text":"{{ range.text._ | escape_special_chars }}",
                 {% endif %}
-                {% if observationEntry.referenceRange.observationRange.value.low.value -%}
+
+                {% if low.value -%}
                     "low":
                     {
-                        "value":{{ observationEntry.referenceRange.observationRange.value.low.value }},
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.low.unit }}",
+                        "value":{{ low.value }},
+                        "unit":"{{ lowUnit }}",
                     },
-                {% elsif observationEntry.referenceRange.observationRange.value.low.translation.value %}
+                {% elsif low.translation.value %}
                     "low": {
-                        "value":"{{ observationEntry.referenceRange.observationRange.value.low.translation.value }}",
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.low.translation.originalText._ | escape_special_chars }}",
+                        "value":"{{ low.translation.value }}",
+                        "unit":"{{ lowTranslText }}",
                     },
                 {% endif -%}
-                {% if observationEntry.referenceRange.observationRange.value.high.value -%}
+
+                {% if high.value -%}
                     "high":
                     {
-                        "value":{{ observationEntry.referenceRange.observationRange.value.high.value }},
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.high.unit }}",
+                        "value":{{ high.value }},
+                        "unit":"{{ highUnit }}",
                     },
-                {% elsif observationEntry.referenceRange.observationRange.value.high.translation.value %}
+                {% elsif high.translation.value %}
                     "high": {
-                        "value":"{{ observationEntry.referenceRange.observationRange.value.high.translation.value }}",
-                        "unit":"{{ observationEntry.referenceRange.observationRange.value.high.translation.originalText._ | escape_special_chars }}",
+                        "value":"{{ high.translation.value }}",
+                        "unit":"{{ highTranslText }}",
                     },
                 {% endif -%}
+
                 "type": { {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.referenceRange.observationRange.interpretationCode %} },
             },
         ],

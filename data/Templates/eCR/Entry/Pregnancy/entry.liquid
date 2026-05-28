@@ -60,10 +60,11 @@
             {% else -%}
                 {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.300' or tempId.root == '2.16.840.1.113883.10.20.22.4.301' %}
                     {% comment %} [C-CDA PREG] D(Rh) Type or [C-CDA PREG] D(Rh) Sensitized - Labs {% endcomment %}
-                    {% include 'Resource/Observation', observationCategory: 'laboratory', observationEntry: entry.observation, ID: observationId -%}
+                    {% assign observationCategory = 'laboratory' %}
                 {% else %}
-                    {% include 'Resource/Observation', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
+                    {% assign observationCategory = 'exam' %}
                 {% endif -%}
+                {% include 'Resource/Observation', observationCategory: observationCategory, observationEntry: entry.observation, ID: observationId -%}
                 {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
             {% endif -%}
         {% endfor -%}

@@ -29,5 +29,6 @@
             ]
         },
         {% include 'Utils/ValueHelper', value: observationEntry.value -%}
+        {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
     },
 },

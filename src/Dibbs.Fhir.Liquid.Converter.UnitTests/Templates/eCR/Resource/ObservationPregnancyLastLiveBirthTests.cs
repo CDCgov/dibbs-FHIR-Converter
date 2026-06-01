@@ -60,6 +60,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("Date last live birth", actualFhir.Code.Coding.First().Display);
 
             Assert.Equal("2016-05-01", (actualFhir.Value as FhirDateTime)?.Value);
+            Assert.Equal("2018-01-05T10:15:00", (actualFhir.Effective as FhirDateTime)?.Value);
         }
     }
 }

@@ -1,19 +1,19 @@
 "use":"{{ HumanName.use | get_property: 'ValueSet/NameUse' }}",
-"family":"{{HumanName.family._ | escape_special_chars}}",
+"family":"{{HumanName.family._ }}",
 "given":[
 	{% assign givens = HumanName.given | to_array -%}
 	{% for g in givens -%}
 		{% assign given = g._ | remove: '"' %}
 		{% if given != blank %}
-			"{{given | escape_special_chars}}",
+			"{{given }}",
 		{% endif %}
 	{% endfor -%}
 ],
 "prefix":
 [
-	"{{HumanName.prefix._ | escape_special_chars}}",
+	"{{HumanName.prefix._ }}",
 ],
 "suffix":
 [
-	"{{HumanName.suffix._ | escape_special_chars }}",
+	"{{HumanName.suffix._ }}",
 ]

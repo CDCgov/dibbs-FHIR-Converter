@@ -11,7 +11,7 @@
             {% endfor -%}
         ],
         "status": "{{ careTeamEntry.statusCode.code }}",
-        "name": "{{ careTeamEntry.code.originalText.reference._ | clean_string_from_tabs | strip | escape_special_chars }}",
+        "name": "{{ careTeamEntry.code.originalText.reference._ | clean_string_from_tabs | strip }}",
         "subject": {
             "reference": "{{ patientId }}"
         },

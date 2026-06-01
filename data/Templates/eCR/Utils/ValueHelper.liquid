@@ -18,25 +18,25 @@
             "value": {{ value.value | format_valuequantity }},
         {% endif %}
         {% if value.unit and value.unit != "null" -%}
-            "unit":"{{ value.unit | escape_special_chars }}",
+            "unit":"{{ value.unit }}",
         {% else %}
             {% assign unitFromValue = value.value | extract_unit %}
             {% if unitFromValue != nil %}
-                "unit":"{{ unitFromValue | escape_special_chars }}",
+                "unit":"{{ unitFromValue }}",
             {% endif -%}
         {% endif -%}
     },
 {% elsif value._ %}
-    "valueString":"{{ value._ | clean_string_from_tabs | escape_special_chars }}",
+    "valueString":"{{ value._ | clean_string_from_tabs }}",
 {% elsif value.originalText._ %}
-    "valueString":"{{ value.originalText._ | clean_string_from_tabs | escape_special_chars }}",
+    "valueString":"{{ value.originalText._ | clean_string_from_tabs }}",
 {% else %}
     {% assign ref = value.originalText.reference %}
     {% if value.reference %}
         {% assign ref = value.reference %}
     {% endif %}
     {% if ref._ %}
-        "valueString": "{{ ref._ | clean_string_from_tabs | escape_special_chars }}";
+        "valueString": "{{ ref._ | clean_string_from_tabs }}";
     {% else %}
         "valueString":"{%- include 'Utils/TextRefHelper', ref: ref, origText: origText -%}",
     {% endif %}

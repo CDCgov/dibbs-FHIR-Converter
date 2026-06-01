@@ -18,18 +18,18 @@
             "value": {{ value.value | format_valuequantity }},
         {% endif %}
         {% if value.unit and value.unit != "null" -%}
-            "unit":"{{ value.unit }}",
+            "unit": "{{ value.unit }}",
         {% else %}
             {% assign unitFromValue = value.value | extract_unit %}
             {% if unitFromValue != nil %}
-                "unit":"{{ unitFromValue }}",
+                "unit": "{{ unitFromValue }}",
             {% endif -%}
         {% endif -%}
     },
 {% elsif value._ %}
-    "valueString":"{{ value._ | clean_string_from_tabs }}",
+    "valueString": "{{ value._ | clean_string_from_tabs }}",
 {% elsif value.originalText._ %}
-    "valueString":"{{ value.originalText._ | clean_string_from_tabs }}",
+    "valueString": "{{ value.originalText._ | clean_string_from_tabs }}",
 {% else %}
     {% assign ref = value.originalText.reference %}
     {% if value.reference %}

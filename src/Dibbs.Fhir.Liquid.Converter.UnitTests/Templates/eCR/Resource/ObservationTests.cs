@@ -182,6 +182,67 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(0, actualFhir.Extension.Count());
         }
 
+        [Fact]
+        public void ObservationPregnancyDRhType_Basic_AllFields()
+        {
+            var xmlStr = @"
+            <observation classCode=""OBS"" moodCode=""EVN"">
+                <!-- [C-CDA R3.1] Result Observation -->
+                <templateId root=""2.16.840.1.113883.10.20.22.4.2"" extension=""2015-08-01"" />
+                <!-- [C-CDA PREG] D(Rh) Type -->
+                <templateId root=""2.16.840.1.113883.10.20.22.4.300"" extension=""2018-04-01"" />
+                <id root=""1532f91f-7b5b-4479-94a5-f9fef1b28238"" />
+                <code code=""10331-7""
+                    displayName=""Rh [Type] in Blood""
+                    codeSystem=""2.16.840.1.113883.6.1""
+                    codeSystemName=""LOINC"" />
+                <statusCode code=""completed"" />
+                <effectiveTime value=""20170505"" />
+                <value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" 
+                    xsi:type=""CD"" 
+                    code=""165747007""
+                    displayName=""RhD positive (finding)""
+                    codeSystem=""2.16.840.1.113883.6.96""
+                    codeSystemName=""SNOMED CT"" />
+            </observation>
+            ";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "observationCategory", "laboratory" },
+                { "observationEntry", parsed["observation"]},
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+
+            Assert.Equal(
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation",
+                actualFhir.Meta.Profile.First());
+            Assert.Equal(
+                "laboratory",
+                actualFhir.Category.First().Coding.First().Code);
+
+            Assert.Equal(ObservationStatus.Final, actualFhir.Status);
+
+            Assert.NotNull(actualFhir.Code);
+            Assert.Equal("10331-7", actualFhir.Code?.Coding?.First().Code);
+            Assert.Equal("Rh Nom (Bld)", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
+
+            Assert.Equal("2017-05-05", (actualFhir.Effective as FhirDateTime)?.Value);
+
+            Assert.IsType<CodeableConcept>(actualFhir.Value);
+            var value = (CodeableConcept)actualFhir.Value;
+
+            Assert.Equal("165747007", value.Coding.First().Code);
+            Assert.Equal("http://snomed.info/sct", value.Coding.First().System);
+            Assert.Equal("RhD positive", value.Coding.First().Display);
+        }
 
         [Fact]
         public async System.Threading.Tasks.Task Obs_Status_GivenLabObsResultStatus_ReturnsStatusFromObs()

@@ -171,6 +171,25 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
         }
 
         [Fact]
+        public void GivenOtherSpecialCharactersInSourceData_WhenConvert_OutputJsonShouldNotEscapeThem()
+        {
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
+            {
+                new Dictionary<string, IFluidTemplate>
+                {
+                    { "Root", _parser.Parse(@"{""value"":""{{ msg.ClinicalDocument.value._ }}""}") },
+                },
+            };
+
+            var input = """<ClinicalDocument><value>He said\n\r'4>5'</value></ClinicalDocument>""";
+            var processor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+            var result = processor.Convert(input, "Root", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection), new MockFileProvider());
+            var resultObject = JObject.Parse(result);
+
+            Assert.Equal("""He said\n\r'4>5'""", resultObject["value"]?.Value<string>());
+        }
+
+        [Fact]
         public void GivenBatchRenderedTemplateWithSpecialCharacters_WhenConvert_OutputJsonShouldRemainValid()
         {
             var templateCollection = new List<Dictionary<string, IFluidTemplate>>

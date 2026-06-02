@@ -102,6 +102,38 @@ public class CustomFilterTests
     }
 
     [Fact]
+    public void FindInnerTextById_NestedId_ReturnsString()
+    {
+        TemplateContext context = new TemplateContext();
+        var innerXml = "<paragraph style=\"bold\">hello</paragraph>";
+        var fragment = $"<content ID=\"outer\"><content ID=\"inner\">{innerXml}</content></content>";
+        var actual = Filters.FindInnerTextById(StringValue.Create(fragment), new FilterArguments(StringValue.Create("inner")), context).Result.ToStringValue();
+        Assert.Equal(innerXml, actual);
+    }
+
+    [Fact]
+    public void FindInnerTextById_DuplicateId_ReturnsFirstString()
+    {
+        TemplateContext context = new TemplateContext();
+        var fragment = "<content ID=\"hi\">first</content><content ID=\"hi\">second</content>";
+        var actual = Filters.FindInnerTextById(StringValue.Create(fragment), new FilterArguments(StringValue.Create("hi")), context).Result.ToStringValue();
+        Assert.Equal("first", actual);
+    }
+
+    [Fact]
+    public void FindInnerTextById_SameIdInDifferentFragments_ReturnsMatchingString()
+    {
+        TemplateContext context = new TemplateContext();
+        var firstFragment = "<content ID=\"hi\">first</content>";
+        var secondFragment = "<content ID=\"hi\">second</content>";
+
+        Filters.FindInnerTextById(StringValue.Create(firstFragment), new FilterArguments(StringValue.Create("hi")), context);
+        var actual = Filters.FindInnerTextById(StringValue.Create(secondFragment), new FilterArguments(StringValue.Create("hi")), context).Result.ToStringValue();
+
+        Assert.Equal("second", actual);
+    }
+
+    [Fact]
     public void FindInnerTextById_InvalidId_ReturnsNull()
     {
         TemplateContext context = new TemplateContext();

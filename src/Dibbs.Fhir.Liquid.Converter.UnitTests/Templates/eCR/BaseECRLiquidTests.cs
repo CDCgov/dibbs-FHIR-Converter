@@ -84,7 +84,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var actualContent = "";
             try
             {
-                actualContent = template.Render(context)
+                actualContent = template.Render(context, TemplateUtility.JsonStringEncoder)
                 .Trim()
                 .Replace("\n", " ")
                 .Replace("\t", string.Empty);

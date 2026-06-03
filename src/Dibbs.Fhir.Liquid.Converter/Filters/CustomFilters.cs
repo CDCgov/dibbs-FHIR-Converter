@@ -15,7 +15,7 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
-        private const string InnerTextByIdCacheKey = "Dibbs.Fhir.Liquid.Converter.Filters.InnerTextByIdCache";
+        private const string InnerTextByIdCacheKey = "InnerTextByIdCache";
 
         private static string outDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         private static readonly Dictionary<string, string> LoincDict = CSVMapDictionary(Path.Combine(outDir, @"Loinc.csv"));
@@ -162,6 +162,14 @@ namespace Dibbs.Fhir.Liquid.Converter
             return result == null ? NilValue.Instance : StringValue.Create(result);
         }
 
+        /// <summary>
+        /// Attempts to retrieve text from cache.
+        /// If the key (xml) is not found in the cache then it adds a dictionary of ID to text mappings to the cache with the value of xml as the key.
+        /// </summary>
+        /// <param name="xml">The string of XML to search within.</param>
+        /// <param name="id">The ID (reference value) to search for within the data structure.</param>
+        /// <param name="cache">The cache of nested dictionaries containing XML -> ID -> XML element stored within the context's ambient values.</param>
+        /// <returns>A string with the content of the node with the specified ID, or nil if not found.</returns>
         private static string? FindInnerTextById(string xml, string id, Dictionary<string, Dictionary<string, XmlElement>> cache)
         {
             if (cache.TryGetValue(xml, out var cachedElementsById))
@@ -175,7 +183,11 @@ namespace Dibbs.Fhir.Liquid.Converter
             return elementsById.TryGetValue(id, out var element) ? element.InnerXml : null;
         }
 
-        // Returns inner text cache from context, creating it if necessary
+        /// <summary>
+        /// Gets cache from context's ambient values or creates it if it does not exist.
+        /// </summary>
+        /// <param name="context">The current template context.</param>
+        /// <returns>A dictionary of dictionaries for storing XML -> ID -> XML element mappings</returns>
         private static Dictionary<string, Dictionary<string, XmlElement>> GetInnerTextByIdCache(TemplateContext context)
         {
             if (context.AmbientValues.TryGetValue(InnerTextByIdCacheKey, out var existingCache)
@@ -190,6 +202,11 @@ namespace Dibbs.Fhir.Liquid.Converter
             return cache;
         }
 
+        /// <summary>
+        /// Parses XML in order to create ID to text mappings
+        /// </summary>
+        /// <param name="xml">The input XML.</param>
+        /// <returns>A dictionary of ID to XML element mappings</returns>
         private static Dictionary<string, XmlElement> CreateInnerTextByIdIndex(string xml)
         {
             var document = new XmlDocument();
@@ -204,6 +221,14 @@ namespace Dibbs.Fhir.Liquid.Converter
             return elementsById;
         }
 
+        /// <summary>
+        /// Searches XML for ID attributes and adds ID to XML element mapping to elementsById dictionary.
+        /// </summary>
+        /// <param name="node">The parsed input XML.</param>
+        /// <param name="elementsById">
+        /// Dictionary containing ID to XML element mappings.
+        /// This is passed by reference so we can add to it instead of returning a value.
+        /// </param>
         private static void AddElementsById(XmlNode? node, Dictionary<string, XmlElement> elementsById)
         {
             if (node == null)
@@ -226,6 +251,11 @@ namespace Dibbs.Fhir.Liquid.Converter
             }
         }
 
+        /// <summary>
+        /// Searches XML for an ID attribute.
+        /// </summary>
+        /// <param name="element">The parsed input XML element.</param>
+        /// <returns>The ID attribute value</returns>
         private static string? GetIdAttribute(XmlElement element)
         {
             foreach (XmlAttribute attribute in element.Attributes)

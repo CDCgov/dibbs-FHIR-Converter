@@ -150,6 +150,67 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             var result = processor.Convert(data, "TemplateName", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
             Assert.True(result.Length > 0);
         }
+
+        [Fact]
+        public void GivenSpecialCharactersInSourceData_WhenConvert_OutputJsonShouldRemainValid()
+        {
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
+            {
+                new Dictionary<string, IFluidTemplate>
+                {
+                    { "Root", _parser.Parse(@"{""value"":""{{ msg.ClinicalDocument.value._ }}""}") },
+                },
+            };
+
+            var input = """<ClinicalDocument><value>He said "hi" \ path</value></ClinicalDocument>""";
+            var processor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+            var result = processor.Convert(input, "Root", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection), new MockFileProvider());
+            var resultObject = JObject.Parse(result);
+
+            Assert.Equal("""He said "hi" \ path""", resultObject["value"]?.Value<string>());
+        }
+
+        [Fact]
+        public void GivenOtherSpecialCharactersInSourceData_WhenConvert_OutputJsonShouldNotEscapeThem()
+        {
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
+            {
+                new Dictionary<string, IFluidTemplate>
+                {
+                    { "Root", _parser.Parse(@"{""value"":""{{ msg.ClinicalDocument.value._ }}"", ""div"": ""{{ msg.ClinicalDocument.value.text._innerText }}"" }") },
+                },
+            };
+
+            // '<' and '>' come encoded in eCRs to avoid creating invalid XML
+            var input = """<ClinicalDocument><value>He said\n\r'4&gt;5 and 7&lt;6'<text><span>a</span></text></value></ClinicalDocument>""";
+            var processor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+            var result = processor.Convert(input, "Root", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection), new MockFileProvider());
+            var resultObject = JObject.Parse(result);
+
+            Assert.Equal("""He said\n\r'4>5 and 7<6'""", resultObject["value"]?.Value<string>());
+            Assert.Equal("""<span>a</span>""", resultObject["div"]?.Value<string>());
+        }
+
+        [Fact]
+        public void GivenBatchRenderedTemplateWithSpecialCharacters_WhenConvert_OutputJsonShouldRemainValid()
+        {
+            var templateCollection = new List<Dictionary<string, IFluidTemplate>>
+            {
+                new Dictionary<string, IFluidTemplate>
+                {
+                    { "Root", _parser.Parse(@"{""items"":[{{ msg.ClinicalDocument.item | to_array | batch_render: 'Item', 'item' }}]}") },
+                    { "Item", _parser.Parse(@"{""name"":""{{ item._ }}""}") },
+                },
+            };
+
+            var input = """<ClinicalDocument><item>One "quote"</item><item>Two \ slash</item></ClinicalDocument>""";
+            var processor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
+            var result = processor.Convert(input, "Root", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection), new MockFileProvider());
+            var resultObject = JObject.Parse(result);
+
+            Assert.Equal("One \"quote\"", resultObject["items"]?[0]?["name"]?.Value<string>());
+            Assert.Equal("""Two \ slash""", resultObject["items"]?[1]?["name"]?.Value<string>());
+        }
         
         [Theory]
         [MemberData(nameof(GetMockDefaultTemplateCollection))]

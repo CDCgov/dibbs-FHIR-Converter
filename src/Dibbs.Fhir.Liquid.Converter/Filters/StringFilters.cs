@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using Dibbs.Fhir.Liquid.Converter.InputProcessors;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Fluid.Values;
 
@@ -24,19 +24,6 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
-        /// <summary>
-        /// Escapes backslashes ("\") and quotes (""") from input string
-        /// </summary>
-        /// <param name="input">A string</param>
-        /// <param name="arguments">Filter arguments (unused)</param>
-        /// <param name="context">The current template context (unused)</param>
-        /// <returns>The input string with special characters escaped</returns>
-        public static ValueTask<FluidValue> EscapeSpecialChars(FluidValue input, FilterArguments arguments, TemplateContext context)
-        {
-            var data = input.ToStringValue();
-            return string.IsNullOrEmpty(data) ? input : StringValue.Create(SpecialCharProcessor.Escape(data));
-        }
-
         /// <summary>
         /// Returns an array containing matches with a regular expression
         /// </summary>
@@ -107,14 +94,15 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <param name="arguments">Filter arguments (unused when they are passed into Fluid's JSON filter)</param>
         /// <param name="context">The current template context</param>
         /// <returns>The input value represented as a JSON string. Returns nil if input is nil.</returns>
-        public static ValueTask<FluidValue> ToJsonString(FluidValue input, FilterArguments arguments, TemplateContext context)
+        public static async ValueTask<FluidValue> ToJsonString(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             if (input.IsNil())
             {
                 return NilValue.Instance;
             }
 
-            return Fluid.Filters.MiscFilters.Json(input, arguments, context);
+            var json = await Fluid.Filters.MiscFilters.Json(input, arguments, context);
+            return StringValue.Create(json.ToStringValue(), encode: false);
         }
 
         /// <summary>

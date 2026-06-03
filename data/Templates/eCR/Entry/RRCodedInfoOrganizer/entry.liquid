@@ -30,7 +30,7 @@
                             {% if participant.participantRole and participant.templateId.root == "2.16.840.1.113883.10.20.15.2.4.1" %}
                                 {% comment %} Participant: Routing Entity (required) {% endcomment %}
                                 {% assign organizationRoutingEntityId = participant | to_json_string | generate_uuid %}
-                                {% assign organizationRoutingEntityName = participant.participantRole.playingEntity.name._ | clean_string_from_tabs | escape_special_chars %}
+                                {% assign organizationRoutingEntityName = participant.participantRole.playingEntity.name._ | clean_string_from_tabs %}
                                 {% include "Resource/OrganizationRRRoutingEntity", organization: participant.participantRole, ID: organizationRoutingEntityId  %}
                                 {% assign fullOrganizationRoutingEntityId = organizationRoutingEntityId | prepend: 'Organization/' -%}
                                 {% include "Reference/Observation/Performer", ID: organizerId, PERFNAME: organizationRoutingEntityName, REF: fullOrganizationRoutingEntityId %}
@@ -39,7 +39,7 @@
                             {% if participant.participantRole and participant.templateId.root == "2.16.840.1.113883.10.20.15.2.4.3" %}
                                 {% comment %} Participant: Rules Authoring Agency (required) {% endcomment %}
                                 {% assign organizationRulesAuthoringAgencyId = participant | to_json_string | generate_uuid %}
-                                {% assign organizationRulesAuthoringAgencyName = participant.participantRole.playingEntity.name._ | clean_string_from_tabs | escape_special_chars %}
+                                {% assign organizationRulesAuthoringAgencyName = participant.participantRole.playingEntity.name._ | clean_string_from_tabs %}
                                 {% include "Resource/OrganizationRRRulesAuthoringAgency", organization: participant.participantRole, ID: organizationRulesAuthoringAgencyId  %}
                                 {% assign fullOrganizationRulesAuthoringAgencyId = organizationRulesAuthoringAgencyId | prepend: 'Organization/' -%}
                                 {% include "Reference/Observation/Performer", ID: organizerId, PERFNAME: organizationRulesAuthoringAgencyName, REF: fullOrganizationRulesAuthoringAgencyId %}
@@ -48,7 +48,7 @@
                             {% if participant.participantRole and participant.templateId.root == "2.16.840.1.113883.10.20.15.2.4.2" %}
                                 {% comment %} Participant: Responsible Agency (optional) {% endcomment %}
                                 {% assign organizationResponsibleAgencyId = participant | to_json_string | generate_uuid %}
-                                {% assign organizationResponsibleAgencyName = participant.participantRole.playingEntity.name._ | clean_string_from_tabs | escape_special_chars %}
+                                {% assign organizationResponsibleAgencyName = participant.participantRole.playingEntity.name._ | clean_string_from_tabs %}
                                 {% include "Resource/OrganizationRRResponsibleAgency", organization: participant.participantRole, ID: organizationResponsibleAgencyId  %}
                                 {% assign fullOrganizationResponsibleAgencyId = organizationResponsibleAgencyId | prepend: 'Organization/' -%}
                                 {% include "Reference/Observation/Performer", ID: organizerId, PERFNAME: organizationResponsibleAgencyName, REF: fullOrganizationResponsibleAgencyId %}

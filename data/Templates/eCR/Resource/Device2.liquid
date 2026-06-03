@@ -16,7 +16,7 @@
         {% else -%}
             { {% include 'DataType/CodeableConcept', CodeableConcept: deviceEntry.participant.participantRole.playingDevice.code -%} },
         {% endif -%}
-        "manufacturer":"{{deviceEntry.participant.participantRole.scopingEntity.desc._ | escape_special_chars}}",
+        "manufacturer":"{{deviceEntry.participant.participantRole.scopingEntity.desc._ }}",
         "deviceName": [{
            "name": "{{ deviceName }}",
         }],

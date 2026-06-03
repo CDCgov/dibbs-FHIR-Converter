@@ -72,12 +72,12 @@ namespace Dibbs.Fhir.Liquid.Converter
                     context.SetValue(collectionVarName, inputArray);
                 }
 
-                var result = await template.RenderAsync(context);
+                var result = await template.RenderAsync(context, TemplateUtility.JsonStringEncoder);
                 sb.Append(result);
                 sb.Append(',');
             }
 
-            return StringValue.Create(sb.ToString());
+            return StringValue.Create(sb.ToString(), encode: false);
         }
 
         // TODO: I'd like to explore this further when we get the chance

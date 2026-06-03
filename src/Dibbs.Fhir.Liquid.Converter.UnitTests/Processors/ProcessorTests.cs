@@ -177,16 +177,18 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.Processors
             {
                 new Dictionary<string, IFluidTemplate>
                 {
-                    { "Root", _parser.Parse(@"{""value"":""{{ msg.ClinicalDocument.value._ }}""}") },
+                    { "Root", _parser.Parse(@"{""value"":""{{ msg.ClinicalDocument.value._ }}"", ""div"": ""{{ msg.ClinicalDocument.value.text._innerText }}"" }") },
                 },
             };
 
-            var input = """<ClinicalDocument><value>He said\n\r'4>5'</value></ClinicalDocument>""";
+            // '<' and '>' come encoded in eCRs to avoid creating invalid XML
+            var input = """<ClinicalDocument><value>He said\n\r'4&gt;5 and 7&lt;6'<text><span>a</span></text></value></ClinicalDocument>""";
             var processor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), GetTemplateOptions());
             var result = processor.Convert(input, "Root", TemplateUtility.TemplateDirectory, new TemplateProvider(templateCollection), new MockFileProvider());
             var resultObject = JObject.Parse(result);
 
-            Assert.Equal("""He said\n\r'4>5'""", resultObject["value"]?.Value<string>());
+            Assert.Equal("""He said\n\r'4>5 and 7<6'""", resultObject["value"]?.Value<string>());
+            Assert.Equal("""<span>a</span>""", resultObject["div"]?.Value<string>());
         }
 
         [Fact]

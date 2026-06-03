@@ -11,11 +11,11 @@
                 "linkId": "empty",
 
                 {% if entry.code.displayName %}
-                    "text": "{{  entry.code.displayName | escape_special_chars | clean_string_from_tabs }}",
+                    "text": "{{  entry.code.displayName | clean_string_from_tabs }}",
                 {% elsif entry.code.originalText.reference._ %}
-                    "text": "{{  entry.code.originalText.reference._ | escape_special_chars | clean_string_from_tabs }}",
+                    "text": "{{  entry.code.originalText.reference._ | clean_string_from_tabs }}",
                 {% elsif entry.code.originalText._ %}
-                    "text": "{{  entry.code.originalText._ | escape_special_chars | clean_string_from_tabs }}",
+                    "text": "{{  entry.code.originalText._ | clean_string_from_tabs }}",
                 {% endif %}
                 
                 {% comment %} answers can't be any valueX they have to be 

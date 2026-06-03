@@ -4,6 +4,7 @@
 // -------------------------------------------------------------------------------------------------
 
 using System;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
@@ -46,6 +47,8 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
 
         public static TemplateOptions TemplateOptions => TemplateOptionsValue;
 
+        public static JavaScriptEncoder JsonStringEncoder => JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+
         public static void AddFilters(TemplateOptions options)
         {
             // CollectionFilters
@@ -81,7 +84,6 @@ namespace Dibbs.Fhir.Liquid.Converter.Utilities
             options.Filters.AddFilter("remove_regex", Filters.RemoveRegex);
             options.Filters.AddFilter("match", Filters.Match);
             options.Filters.AddFilter("to_xhtml", Filters.ToXhtml);
-            options.Filters.AddFilter("escape_special_chars", Filters.EscapeSpecialChars);
             options.Filters.AddFilter("prepend", Filters.Prepend);
             options.Filters.AddFilter("append", Filters.Append);
             options.Filters.AddFilter("to_json_string", Filters.ToJsonString);

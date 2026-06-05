@@ -12,8 +12,9 @@
         ],
 
         {% assign entryRelationships = immunization.entryRelationship | to_array -%}
-        {% assign statusReasonObs = entryRelationships | nested_where: "observation.templateId.root", "2.16.840.1.113883.10.20.22.4.53" | first %}
-        "statusReason": { {% include 'DataType/CodeableConcept', CodeableConcept: statusReasonObs.observation.code -%} },
+        {% assign immunizationRefusal = entryRelationships | nested_where: "observation.templateId.root", "2.16.840.1.113883.10.20.22.4.53" | first %}
+        {% assign immunizationRefusalReason = immunizationRefusal.observation.value | default: immunizationRefusal.observation.code %}
+        "statusReason": { {% include 'DataType/CodeableConcept', CodeableConcept: immunizationRefusalReason -%} },
         "protocolApplied": [
             {% for entryRelationship in entryRelationships -%}
                 {
@@ -47,8 +48,10 @@
         "manufacturer": {
             "reference": "{{ fullManufacturerId }}",
         },
-
-        {% if immunization.statusCode.code -%}
+        {% if immunization.negationInd == "true" %}
+            {% comment %} negationInd=true indicates substance was NOT given at this date  {% endcomment %}
+            "status": "not-done",
+        {% elsif immunization.statusCode.code -%}
             "status":"{{immunization.statusCode.code | get_property: 'ValueSet/ImmunizationStatus' }}",
         {% else -%}
             "status":"completed",
@@ -56,5 +59,11 @@
         "primarySource": true,
         "route":{ {% include 'DataType/CodeableConcept', CodeableConcept: immunization.routeCode -%}},
         "site":{ {% include 'DataType/CodeableConcept', CodeableConcept: immunization.approachSiteCode -%} },
+        {% if immunization.text %}
+            "note": {
+                "status": "generated",
+                "div": "{% include 'Utils/TextHelper', text: immunization.text %}",
+            },
+        {% endif %}
     },
 },

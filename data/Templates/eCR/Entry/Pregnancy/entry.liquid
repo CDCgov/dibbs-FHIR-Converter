@@ -73,17 +73,19 @@
         {% endfor -%}
     {% endif -%}
 {% elsif entry.substanceAdministration -%}
-    {% comment %} This Observation profile indicates a characteristic of labor of D Immune Globulin (RhIG) administered after labor. {% endcomment %}
-    {% assign observationId = entry.substanceAdministration | to_json_string | generate_uuid -%}
-    {% assign fullObservationId = observationId | prepend: 'Observation/' %}
+    {% assign substanceAdministrationId = entry.substanceAdministration | to_json_string | generate_uuid -%}
     {% assign templateIds = entry.substanceAdministration.templateId | to_array -%}
     {% for tempId in templateIds -%}
         {% if tempId and tempId.root -%}
             {% if tempId.root == '2.16.840.1.113883.10.20.22.4.16' -%}
                 {% continue %}
             {% elsif tempId.root == '2.16.840.1.113883.10.20.22.4.302' %}
-                {% include 'Resource/ObservationPregnancySubstanceAdministration', observationEntry: entry.substanceAdministration, ID: observationId -%}
-                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
+                {% include 'Resource/MedicationAdministration', medicationAdministration: entry.substanceAdministration, ID: substanceAdministrationId -%}
+                {% include 'Reference/MedicationAdministration/Subject', ID: substanceAdministrationId, REF: fullPatientId -%}
+                {% assign manufacturedMaterialId = entry.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial | to_json_string | generate_uuid -%}
+                {% assign fullManufacturedMaterialId = manufacturedMaterialId | prepend: 'Medication/' -%}
+                {% include 'Resource/Medication', medication: entry.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial, ID: manufacturedMaterialId -%}
+                {% include 'Reference/MedicationAdministration/MedicationReference', ID: substanceAdministrationId, REF: fullManufacturedMaterialId -%}
             {% endif %}
         {% endif %}
     {% endfor %}

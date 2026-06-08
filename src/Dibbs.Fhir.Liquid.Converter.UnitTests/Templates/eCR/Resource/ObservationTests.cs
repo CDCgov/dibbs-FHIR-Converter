@@ -245,6 +245,77 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
+        public void ObservationPregnancyDRhSensitized_Basic_AllFields()
+        {
+            var xmlStr = @"
+            <observation classCode=""OBS"" moodCode=""EVN"">
+                <!-- [C-CDA R2.1] Problem Observation (V3) -->
+                <templateId root=""2.16.840.1.113883.10.20.22.4.4"" extension=""2015-08-01"" />
+                <!-- [C-CDA PREG] D(Rh) Sensitized -->
+                <templateId root=""2.16.840.1.113883.10.20.22.4.301"" extension=""2018-04-01"" />
+                <id root=""fbf72855-a67e-4a70-a05a-f4abde14d69b"" />
+                <code code=""55607006""
+                    displayName=""Problem""
+                    codeSystem=""2.16.840.1.113883.6.96""
+                    codeSystemName=""SNOMED CT"">
+                    <translation code=""75318-6""
+                        codeSystem=""2.16.840.1.113883.6.1""
+                        codeSystemName=""LOINC""
+                        displayName=""Problem"" />
+                </code>
+                <statusCode code=""completed"" />
+                <effectiveTime>
+                    <low value=""20180101"" />
+                </effectiveTime>
+                <value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:type=""CD"" code=""199583002""
+                    codeSystem=""2.16.840.1.113883.6.96""
+                    codeSystemName=""SNOMED CT""
+                    displayName=""Rhesus isoimmunization with antenatal problem (disorder)"" />
+            </observation>
+            ";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "observationCategory", "laboratory" },
+                { "observationEntry", parsed["observation"]},
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+
+            Assert.Equal(
+                "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-lab-result-observation",
+                actualFhir.Meta.Profile.First());
+            Assert.Equal(
+                "laboratory",
+                actualFhir.Category.First().Coding.First().Code);
+
+            Assert.Equal(ObservationStatus.Final, actualFhir.Status);
+
+            Assert.NotNull(actualFhir.Code);
+            Assert.Equal("55607006", actualFhir.Code?.Coding?.First().Code);
+            Assert.Equal("Problem", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("http://snomed.info/sct", actualFhir.Code?.Coding?.First().System);
+
+            Assert.Equal("75318-6", actualFhir.Code?.Coding?[1].Code);
+            Assert.Equal("Problem Family member", actualFhir.Code?.Coding?[1].Display);
+            Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?[1].System);
+
+            Assert.Equal("2018-01-01", (actualFhir.Effective as Period).Start);
+
+            Assert.IsType<CodeableConcept>(actualFhir.Value);
+            var value = (CodeableConcept)actualFhir.Value;
+
+            Assert.Equal("199583002", value.Coding.First().Code);
+            Assert.Equal("http://snomed.info/sct", value.Coding.First().System);
+            Assert.Equal("Rhesus isoimmunization with antenatal problem", value.Coding.First().Display);
+        }
+
+        [Fact]
         public async System.Threading.Tasks.Task Obs_Status_GivenLabObsResultStatus_ReturnsStatusFromObs()
         {
             var attributes = new Dictionary<string, object>

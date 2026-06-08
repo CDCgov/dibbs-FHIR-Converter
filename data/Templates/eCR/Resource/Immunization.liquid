@@ -60,10 +60,11 @@
         "route":{ {% include 'DataType/CodeableConcept', CodeableConcept: immunization.routeCode -%}},
         "site":{ {% include 'DataType/CodeableConcept', CodeableConcept: immunization.approachSiteCode -%} },
         {% if immunization.text %}
-            "note": {
-                "status": "generated",
-                "div": "{% include 'Utils/TextHelper', text: immunization.text %}",
-            },
+            "note": [
+                {
+                    "text": "{% include 'Utils/TextHelper', text: immunization.text %}",
+                },
+            ],
         {% endif %}
     },
 },

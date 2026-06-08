@@ -15,10 +15,18 @@ namespace Dibbs.Fhir.Liquid.Converter
     /// </summary>
     public partial class Filters
     {
+        private const string InnerTextByIdCacheKey = "InnerTextByIdCache";
+
         private static string outDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         private static readonly Dictionary<string, string> LoincDict = CSVMapDictionary(Path.Combine(outDir, @"Loinc.csv"));
         private static readonly Dictionary<string, string> SnomedDict = CSVMapDictionary(Path.Combine(outDir, @"Snomed.csv"));
         private static readonly Dictionary<string, string> RxnormDict = CSVMapDictionary(Path.Combine(outDir, @"rxnorm.csv"));
+        private static readonly XmlReaderSettings InnerTextByIdReaderSettings = new ()
+        {
+            DtdProcessing = DtdProcessing.Ignore,
+            IgnoreWhitespace = true,
+            IgnoreComments = true,
+        };
 
         [GeneratedRegex("[ ]{2,}")]
         private static partial Regex MultispaceRegex();
@@ -137,52 +145,125 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// </summary>
         /// <param name="input">The string of XML to search within.</param>
         /// <param name="arguments">The ID (reference value) to search for within the data structure.</param>
-        /// <param name="context">The current template context (unused)</param>
+        /// <param name="context">The current template context.</param>
         /// <returns>A string with the content of the node with the specified ID, or nil if not found.</returns>
         public static ValueTask<FluidValue> FindInnerTextById(FluidValue input, FilterArguments arguments, TemplateContext context)
         {
             var id = arguments.At(0).ToStringValue();
-            var xml = $"<doc>{input.ToStringValue()}</doc>";
-            var result = FindInnerTextByIdWithReader(xml, id);
+            var xml = input.ToStringValue();
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return NilValue.Instance;
+            }
+
+            var result = FindInnerTextById(xml, id, GetInnerTextByIdCache(context));
+
             return result == null ? NilValue.Instance : StringValue.Create(result);
         }
 
-        private static string? FindInnerTextByIdWithReader(string xml, string id)
+        /// <summary>
+        /// Attempts to retrieve text from cache.
+        /// If the key (xml) is not found in the cache then it adds a dictionary of ID to text mappings to the cache with the value of xml as the key.
+        /// </summary>
+        /// <param name="xml">The string of XML to search within.</param>
+        /// <param name="id">The ID (reference value) to search for within the data structure.</param>
+        /// <param name="cache">The cache of nested dictionaries containing XML -> ID -> XML element stored within the context's ambient values.</param>
+        /// <returns>A string with the content of the node with the specified ID, or nil if not found.</returns>
+        private static string? FindInnerTextById(string xml, string id, Dictionary<string, Dictionary<string, XmlElement>> cache)
         {
-            var settings = new XmlReaderSettings
+            if (cache.TryGetValue(xml, out var cachedElementsById))
             {
-                DtdProcessing = DtdProcessing.Ignore,
-                IgnoreWhitespace = true,
-                IgnoreComments = true,
-            };
+                return cachedElementsById.TryGetValue(id, out var cachedElement) ? cachedElement.InnerXml : null;
+            }
 
-            using var stringReader = new StringReader(xml);
-            using var reader = XmlReader.Create(stringReader, settings);
+            var elementsById = CreateInnerTextByIdIndex(xml);
+            cache[xml] = elementsById;
 
-            while (reader.Read())
+            return elementsById.TryGetValue(id, out var element) ? element.InnerXml : null;
+        }
+
+        /// <summary>
+        /// Gets cache from context's ambient values or creates it if it does not exist.
+        /// </summary>
+        /// <param name="context">The current template context.</param>
+        /// <returns>A dictionary of dictionaries for storing XML -> ID -> XML element mappings</returns>
+        private static Dictionary<string, Dictionary<string, XmlElement>> GetInnerTextByIdCache(TemplateContext context)
+        {
+            if (context.AmbientValues.TryGetValue(InnerTextByIdCacheKey, out var existingCache)
+                && existingCache is Dictionary<string, Dictionary<string, XmlElement>> innerTextByIdCache)
             {
-                if (reader.NodeType != XmlNodeType.Element)
-                {
-                    continue;
-                }
+                return innerTextByIdCache;
+            }
 
-                if (!reader.HasAttributes)
-                {
-                    continue;
-                }
+            var cache = new Dictionary<string, Dictionary<string, XmlElement>>(StringComparer.Ordinal);
+            context.AmbientValues[InnerTextByIdCacheKey] = cache;
 
-                for (int i = 0; i < reader.AttributeCount; i++)
-                {
-                    reader.MoveToAttribute(i);
-                    if (string.Equals(reader.LocalName, "id", StringComparison.OrdinalIgnoreCase)
-                        && reader.Value == id)
-                    {
-                        reader.MoveToElement();
-                        return reader.ReadInnerXml();
-                    }
-                }
+            return cache;
+        }
 
-                reader.MoveToElement();
+        /// <summary>
+        /// Parses XML in order to create ID to text mappings
+        /// </summary>
+        /// <param name="xml">The input XML.</param>
+        /// <returns>A dictionary of ID to XML element mappings</returns>
+        private static Dictionary<string, XmlElement> CreateInnerTextByIdIndex(string xml)
+        {
+            var document = new XmlDocument();
+            using var stringReader = new StringReader($"<doc>{xml}</doc>");
+            using var reader = XmlReader.Create(stringReader, InnerTextByIdReaderSettings);
+
+            document.Load(reader);
+
+            var elementsById = new Dictionary<string, XmlElement>(StringComparer.Ordinal);
+            AddElementsById(document.DocumentElement, elementsById);
+
+            return elementsById;
+        }
+
+        /// <summary>
+        /// Searches XML for ID attributes and adds ID to XML element mapping to elementsById dictionary.
+        /// </summary>
+        /// <param name="node">The parsed input XML.</param>
+        /// <param name="elementsById">
+        /// Dictionary containing ID to XML element mappings.
+        /// This is passed by reference so we can add to it instead of returning a value.
+        /// </param>
+        private static void AddElementsById(XmlNode? node, Dictionary<string, XmlElement> elementsById)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            if (node is XmlElement element)
+            {
+                var id = GetIdAttribute(element);
+                if (id != null && !elementsById.ContainsKey(id))
+                {
+                    elementsById.Add(id, element);
+                }
+            }
+
+            foreach (XmlNode child in node.ChildNodes)
+            {
+                AddElementsById(child, elementsById);
+            }
+        }
+
+        /// <summary>
+        /// Searches XML for an ID attribute.
+        /// </summary>
+        /// <param name="element">The parsed input XML element.</param>
+        /// <returns>The ID attribute value</returns>
+        private static string? GetIdAttribute(XmlElement element)
+        {
+            foreach (XmlAttribute attribute in element.Attributes)
+            {
+                if (string.Equals(attribute.LocalName, "id", StringComparison.OrdinalIgnoreCase))
+                {
+                    return attribute.Value;
+                }
             }
 
             return null;

@@ -5,7 +5,7 @@
     {% else -%}
         {% assign templateIds = entry.observation.templateId | to_array -%}
         {% for tempId in templateIds -%}
-            {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.15.3.8' or tempId.root == '2.16.840.1.113883.10.20.22.4.2' -%}
+            {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.15.3.8' or tempId.root == '2.16.840.1.113883.10.20.22.4.2' or tempId.root == '2.16.840.1.113883.10.20.22.4.4' -%}
                 {% continue %}
             {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.30.3.34' -%}
                 {% include 'Resource/ObservationLastMenstrualPeriod', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
@@ -61,8 +61,8 @@
                     {% endif %}
                 {% endfor %}
             {% else -%}
-                {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.300' %}
-                    {% comment %} [C-CDA PREG] D(Rh) Type - Lab {% endcomment %}
+                {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.300' or tempId.root == '2.16.840.1.113883.10.20.22.4.301' %}
+                    {% comment %} [C-CDA PREG] D(Rh) Type or [C-CDA PREG] D(Rh) Sensitized - Labs {% endcomment %}
                     {% assign observationCategory = 'laboratory' %}
                 {% else %}
                     {% assign observationCategory = 'exam' %}

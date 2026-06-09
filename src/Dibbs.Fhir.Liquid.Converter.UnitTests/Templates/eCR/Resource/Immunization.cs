@@ -189,9 +189,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                         <code
                             displayName=""influenza, intradermal, quadrivalent, preservative free, injectable"" codeSystemName=""CVX"" codeSystem=""2.16.840.1.113883.12.292""
                             code=""166"">
-                        <originalText>
-                            <reference value=""#ImmunizationProduct_1""/>
-                        </originalText>
+                        <originalText>influenza, intradermal, quadrivalent</originalText>
                         </code>
                     </manufacturedMaterial>
                     </manufacturedProduct>

@@ -13,7 +13,11 @@
 
         {% assign entryRelationships = immunization.entryRelationship | to_array -%}
         {% assign immunizationRefusal = entryRelationships | nested_where: "observation.templateId.root", "2.16.840.1.113883.10.20.22.4.53" | first %}
-        {% assign immunizationRefusalReason = immunizationRefusal.observation.value | default: immunizationRefusal.observation.code %}
+        {% if immunizationRefusal.observation.value %}
+            {% assign immunizationRefusalReason = immunizationRefusal.observation.value %}
+        {% else %}
+            {% assign immunizationRefusalReason = immunizationRefusal.observation.code %}
+        {% endif %}
         "statusReason": { {% include 'DataType/CodeableConcept', CodeableConcept: immunizationRefusalReason -%} },
         "protocolApplied": [
             {% for entryRelationship in entryRelationships -%}

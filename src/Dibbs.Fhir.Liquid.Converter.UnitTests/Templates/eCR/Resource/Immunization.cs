@@ -147,12 +147,20 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("10013000", actualFhir.Site.Coding[0].Code);
         }
 
+        [Fact]
         public void ImmunizationRefusal_AllFields()
         {
             // Example from https://hl7.org/fhir/R4/immunization-example-refused.json.html
             var xmlStr = @"
-                <substanceAdministration negationInd=""true"" moodCode=""EVN""
-                                        classCode=""SBADM"">
+                <substanceAdministration
+                    xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+                    xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
+                    xmlns=""urn:hl7-org:v3""
+                    xmlns:cda=""urn:hl7-org:v3""
+                    xmlns:sdtc=""urn:hl7-org:sdtc""
+                    xmlns:voc=""http://www.lantanagroup.com/voc""
+                    negationInd=""true"" moodCode=""EVN""
+                    classCode=""SBADM"">
                 <!--  ** Immunization activity **  -->
                 <templateId root=""2.16.840.1.113883.10.20.22.4.52""/>
                 <templateId root=""2.16.840.1.113883.10.20.22.4.52""
@@ -222,8 +230,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(Immunization.ImmunizationStatusCodes.NotDone, actualFhir.Status);
 
             Assert.Equal("2015-11-15", (actualFhir.Occurrence as FhirDateTime).Value);
-
-            Assert.Equal("patient objection", actualFhir.StatusReason.Coding[0].Code);
+       
+            Assert.Equal("PATOBJ", actualFhir.StatusReason.Coding[0].Code);
 
             Assert.Equal("166", actualFhir.VaccineCode.Coding[0].Code);
             Assert.Equal("influenza, intradermal, quadrivalent, preservative free, injectable", actualFhir.VaccineCode.Coding[0].Display);

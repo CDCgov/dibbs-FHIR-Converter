@@ -3150,6 +3150,11 @@
         },
         "status": "completed",
         "primarySource": true,
+        "note": [
+          {
+            "text": "<td ID=\"immunization6Name\" xmlns=\"urn:hl7-org:v3\">REMOVED</td><td xmlns=\"urn:hl7-org:v3\"> <content>REMOVED</content></td><td xmlns=\"urn:hl7-org:v3\" />"
+          }
+        ],
         "patient": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }

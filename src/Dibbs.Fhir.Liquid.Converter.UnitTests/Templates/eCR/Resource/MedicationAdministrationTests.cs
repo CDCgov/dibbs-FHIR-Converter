@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using Hl7.Fhir.Model;
 using Xunit;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
@@ -168,6 +169,57 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);
 
             Assert.Equal("Take 2 tablets every 8 hours", actualFhir.Dosage.Text);
+        }
+
+        [Fact]
+        public void PregnancyMedicationAdministration_AllFields()
+        {
+            var xmlString =
+                @"
+                <substanceAdministration classCode=""SBADM"" moodCode=""EVN"">
+                    <!-- [C-CDA R2.1] Medication Activity (V2) -->
+                    <templateId root=""2.16.840.1.113883.10.20.22.4.16"" extension=""2014-06-09"" />
+                    <!-- [C-CDA PREG] D Immune Globulin (RhIG) Given -->
+                    <templateId root=""2.16.840.1.113883.10.20.22.4.302"" extension=""2018-04-01"" />
+                    <id root=""7abe5aa2-c1ba-4552-85fc-796b4c00c50d"" />
+                    <statusCode code=""completed"" />
+                    <effectiveTime xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:type=""IVL_TS"">
+                        <low value=""20170618"" />
+                    </effectiveTime>
+                    <consumable>
+                        <manufacturedProduct classCode=""MANU"">
+                            <!-- [C-CDA R2.1] Medication information -->
+                            <templateId root=""2.16.840.1.113883.10.20.22.4.23"" extension=""2014-06-09"" />
+                            <!-- [C-CDA PREG] D Immune Globulin (RhIG) -->
+                            <templateId root=""2.16.840.1.113883.10.20.22.4.303"" extension=""2018-04-01"" />
+                            <id root=""8bdb8496-2acb-4ae3-b231-69e4c92e25a1"" />
+                            <manufacturedMaterial>
+                                <code code=""1790513""
+                                    displayName=""13 ML Rho(D) Immune Globulin, human 1154 UNT/ML Injection [WinRho]""
+                                    codeSystem=""2.16.840.1.113883.6.88""
+                                    codeSystemName=""RxNorm"" />
+                            </manufacturedMaterial>
+                        </manufacturedProduct>
+                    </consumable>
+                </substanceAdministration>";
+
+            var parser = new CcdaDataParser();
+            var parsedXml = parser.Parse(xmlString) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "medicationAdministration", parsedXml["substanceAdministration"] },
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<MedicationAdministration>(ECRPath, attributes);
+
+            Assert.Equal("MedicationAdministration", actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+            Assert.NotEmpty(actualFhir.Identifier);
+            Assert.Equal("Completed", actualFhir.Status.ToString());
+
+            Assert.Equal("2017-06-18", (actualFhir.Effective as Period)?.Start);
         }
     }
 }

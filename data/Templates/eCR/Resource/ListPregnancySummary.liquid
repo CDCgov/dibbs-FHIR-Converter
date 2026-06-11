@@ -1,0 +1,17 @@
+{
+    "fullUrl":"urn:uuid:{{ ID }}",
+    "resource":{
+        "resourceType": "List",
+        "id":"{{ ID }}",
+        "identifier":
+        [
+            {% assign ids = entry.id | to_array -%}
+            {% for id in ids -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
+            {% endfor -%}
+        ],
+        "status": "{{ entry.statusCode.code | get_property: 'ValueSet/ListStatus' }}",
+        "date":"{{ entry.effectiveTime.value | format_as_date_time }}",
+        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: entry.code -%} },
+    },
+},

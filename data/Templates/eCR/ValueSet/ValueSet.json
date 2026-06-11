@@ -851,6 +851,20 @@
       "__default__": {
         "code": "unknown"
       }
+    },
+    "ValueSet/ListStatus": {
+      "active": {
+        "code": "current"
+      },
+      "inactive": {
+        "code": "retired"
+      },
+      "error": {
+        "code": "entered-in-error"
+      },
+      "__default__": {
+        "code": "unknown"
+      }
     }
   }
 }

@@ -89,4 +89,12 @@
             {% endif %}
         {% endif %}
     {% endfor %}
+{% elsif entry.organizer and entry.organizer.templateId.root == '2.16.840.1.113883.10.20.22.4.292' -%}
+    {% comment %} Pregnancy Summary Organizer {% endcomment %}
+    {% assign organizerId = entry.organizer | to_json_string | generate_uuid -%}
+    {% include 'Resource/ListPregnancySummary', entry: entry.organizer, ID: organizerId -%}
+    {% assign comps = entry.organizer.component | to_array -%} 
+    {% for component in comps %}
+        {% include 'Entry/Pregnancy/entry_organizer_component', component: component, organizerId: organizerId %}
+    {% endfor %}
 {% endif -%}

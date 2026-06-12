@@ -2,5 +2,5 @@
     {% assign observationId = component.observation | to_json_string | generate_uuid -%}
     {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
     {% include 'Resource/Observation', observationCategory: 'social-history', observationEntry: component.observation, ID: observationId -%}
-    {% include 'Reference/List/Entry_Item', ID: organizerId, REF: fullObservationId -%}
+    {% include 'Reference/Observation/HasMember', ID: organizerId, REF: fullObservationId -%}
 {% endif %}

@@ -47,14 +47,12 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             await ConvertAndValidateNonemptyResource(_ccdaTemplateProvider, templateName, samplePath, rootTemplate);
         }
 
-        // We have a previously existing bug that can cause identical Practitioner and PractitionerRole IDs.
-        // Once that is addressed we can uncomment this test.
-        // [Theory]
-        // [MemberData(nameof(GetCcdaRuleBasedTestCases))]
-        // public async Task GivenDataAndTemplateDirectoryProvider_WhenConvertDataCalled_ThenValidateNonidenticalResources(string templateName, string samplePath, string rootTemplate)
-        // {
-        //     await ConvertAndValidateNonidenticalResources(_ccdaTemplateProvider, templateName, samplePath, rootTemplate);
-        // }
+        [Theory]
+        [MemberData(nameof(GetCcdaRuleBasedTestCases))]
+        public async Task GivenDataAndTemplateDirectoryProvider_WhenConvertDataCalled_ThenValidateNonidenticalResources(string templateName, string samplePath, string rootTemplate)
+        {
+            await ConvertAndValidateNonidenticalResources(_ccdaTemplateProvider, templateName, samplePath, rootTemplate);
+        }
 
         [Fact]
         public async Task GivenDataAndTemplateDirectoryProvider_WhenConvertDataCalled_ThenValidateParserFunctionality()

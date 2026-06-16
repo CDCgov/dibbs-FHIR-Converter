@@ -14,7 +14,6 @@ If these filters do not meet your needs, you can also write your own filters.
 ### String Filters
 | Filter | Description | Syntax |
 |-|-|-|
-| escape_special_chars | Returns string with special chars escaped | `{{ '\E' \| escape_special_chars }} #=> '\\E'` |
 | match | Returns an array containing matches with a regular expression | `{% assign m = code \| match: '[0123456789.]+' -%}` |
 | append | Adds the first argument to the end of the input string. Returns nil if the first argument is nil. | `{% assign fullPatientId = 'Patient/' \| append: patientId -%}` |
 | prepend | Adds the input string to the end of the first argument. Returns nil if the first argument is nil. | `{% assign fullPatientId = patientId \| prepend: 'Patient/' -%}` |

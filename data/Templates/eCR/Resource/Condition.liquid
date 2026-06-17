@@ -23,7 +23,7 @@
                     {% endif %}
                 {% endfor -%}
             {% comment %} Fallbacks if Problem Status observation DNE {% endcomment %}
-            {% elsif conditionEntry.effectiveTime.high %}
+            {% elsif conditionEntry.effectiveTime.high.value %}
                 "coding": [
                     {
                         "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",

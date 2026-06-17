@@ -153,6 +153,17 @@
         "code": ""
       }
     },
+    "ValueSet/ClinicalStatus": {
+      "active": {
+        "code": "active"
+      },
+      "completed": {
+        "code": "inactive"
+      },
+      "__default__": {
+        "code": "active"
+      }
+    },
     "ValueSet/DiagnosticReportStatus": {
       "X": {
         "code": "cancelled"

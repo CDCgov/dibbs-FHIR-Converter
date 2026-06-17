@@ -22,7 +22,17 @@
                         {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
                     {% endif %}
                 {% endfor -%}
-            {% comment %} Fallbacks if Problem Status observation DNE {% endcomment %}
+            {% comment %} Fallback #1: Use Problem Concern Act status if Problem Status observation DNE {% endcomment %}
+            {% comment %} https://build.fhir.org/ig/HL7/ccda-on-fhir/en/CF-problems.html {% endcomment %}
+            {% elsif entry.act.statusCode.code %}
+                {% assign test = entry.act.statusCode.code | print_object %}
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "{{ entry.act.statusCode.code | get_property: 'ValueSet/ClinicalStatus' }}"
+                    },
+                ],
+            {% comment %} Fallback #2 if Problem Status observation DNE {% endcomment %}
             {% elsif conditionEntry.effectiveTime.high.value %}
                 "coding": [
                     {

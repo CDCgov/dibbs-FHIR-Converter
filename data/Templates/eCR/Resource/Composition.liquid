@@ -255,6 +255,13 @@
                                             },
                                         {% endif %}
                                     {% endfor %}
+                                {% elsif sectionEntry.substanceAdministration != nil and component.section.templateId.root == '2.16.840.1.113883.10.20.22.2.80' %}
+                                    {% comment %} Pregnancy substanceAdministrations {% endcomment %}
+                                    {% assign substanceAdministrationId = sectionEntry.substanceAdministration | to_json_string | generate_uuid -%}
+                                    {% assign fullSubstanceAdministrationId = substanceAdministrationId | prepend: 'MedicationAdministration/' %}
+                                    {
+                                        "reference": "{{ fullSubstanceAdministrationId }}",
+                                    },
                                 {% endif -%}
                             {% endfor -%}
                         ],

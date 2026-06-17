@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.Json;
 using Hl7.Fhir.Model;
 using Xunit;
+using Dibbs.Fhir.Liquid.Converter.DataParsers;
 
 namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 {
@@ -45,6 +46,38 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("code-code-test", coding.Code);
             Assert.Equal("code-codeSystem-test", coding.System);
             Assert.Equal("medication-name-test", coding.Display);
+        }
+
+        [Fact]
+        public void PregnancyMedication_AllFields()
+        {
+            var xmlString =
+                @"
+                <manufacturedMaterial>
+                    <code code=""1790513""
+                        displayName=""13 ML Rho(D) Immune Globulin, human 1154 UNT/ML Injection [WinRho]""
+                        codeSystem=""2.16.840.1.113883.6.88""
+                        codeSystemName=""RxNorm"" />
+                </manufacturedMaterial>";
+
+            var parser = new CcdaDataParser();
+            var parsedXml = parser.Parse(xmlString) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "medication", parsedXml["manufacturedMaterial"] },
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<Medication>(ECRPath, attributes);
+
+            Assert.Equal("Medication", actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+
+            var coding = actualFhir.Code.Coding.First();
+            Assert.Equal("1790513", coding.Code);
+            Assert.Equal("http://www.nlm.nih.gov/research/umls/rxnorm", coding.System);
+            Assert.Equal("13 ML Rho(D) immune globulin, human 1154 UNT/ML Injection [WinRho]", coding.Display);
         }
     }
 }

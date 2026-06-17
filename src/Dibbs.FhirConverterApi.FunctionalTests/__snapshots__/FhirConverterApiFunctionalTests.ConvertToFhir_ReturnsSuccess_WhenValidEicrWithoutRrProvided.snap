@@ -718,6 +718,14 @@
                 "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a67"
               }
             ],
+            "clinicalStatus": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                  "code": "active"
+                }
+              ]
+            },
             "category": [
               {
                 "coding": [
@@ -758,6 +766,14 @@
                 "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a68"
               }
             ],
+            "clinicalStatus": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                  "code": "active"
+                }
+              ]
+            },
             "category": [
               {
                 "coding": [

@@ -1715,6 +1715,14 @@
             "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a66"
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [
@@ -1752,6 +1760,14 @@
             "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a67"
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [
@@ -4167,6 +4183,14 @@
             "value": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e705"
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [
@@ -4204,6 +4228,14 @@
             "value": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e704"
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [

@@ -17,10 +17,10 @@
       "timestamp": "2025-02-25T01:32:00Z",
       "entry": [
         {
-          "fullUrl": "urn:uuid:c3f8e71c-c613-1ba5-d786-01c60229da20",
+          "fullUrl": "urn:uuid:2640643e-c537-28db-9a1f-0be7087353d0",
           "resource": {
             "resourceType": "Composition",
-            "id": "c3f8e71c-c613-1ba5-d786-01c60229da20",
+            "id": "2640643e-c537-28db-9a1f-0be7087353d0",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition"
@@ -65,7 +65,7 @@
             "confidentiality": "N",
             "section": [
               {
-                "id": "e01329fd-9f38-6bc5-30f4-222316c5dd07",
+                "id": "a1b73852-9b07-a718-e25f-4064a76c9b68",
                 "title": "Plan of Treatment",
                 "text": {
                   "status": "generated",
@@ -83,7 +83,7 @@
                 "mode": "snapshot",
                 "entry": [
                   {
-                    "reference": "CarePlan/0e3c9726-0979-3127-7cde-e7082a96fbfc"
+                    "reference": "CarePlan/169e724e-b91b-7b0a-24fc-be231a11c345"
                   }
                 ]
               },
@@ -124,7 +124,7 @@
                 "mode": "snapshot"
               },
               {
-                "id": "23ab9b03-0a1b-b3ab-b5f9-b96f8e47a908",
+                "id": "3ffb51ab-3217-9743-2879-7f0011ed0b16",
                 "title": "Problems",
                 "text": {
                   "status": "generated",
@@ -170,7 +170,7 @@
                 "mode": "snapshot"
               },
               {
-                "id": "4f5e5135-21ef-80b6-9565-7c8879002754",
+                "id": "cbeaae6c-91b9-5a37-6e4a-3414b6358fdd",
                 "title": "Results",
                 "text": {
                   "status": "generated",
@@ -193,7 +193,7 @@
                 ]
               },
               {
-                "id": "2f50f447-dd19-16d7-3742-ac21924deb07",
+                "id": "8612c8d0-18d5-e4a1-cc8a-6bb6c02b77e1",
                 "title": "Social History",
                 "text": {
                   "status": "generated",
@@ -219,7 +219,7 @@
                 ]
               },
               {
-                "id": "d50da8fb-5d7f-a9e4-6d27-e6ac5ee5253f",
+                "id": "cabd6571-752f-838d-51f9-93be387bc6f5",
                 "title": "Vital Signs (Last Filed)",
                 "text": {
                   "status": "generated",
@@ -252,7 +252,7 @@
                 }
               },
               {
-                "id": "d62f4d09-f06d-5033-f372-01683abba2c8",
+                "id": "255addff-ee26-eb1b-6926-517a7940bcac",
                 "title": "Reportability Response Information Section",
                 "text": {
                   "status": "generated",
@@ -313,7 +313,7 @@
             },
             "author": [
               {
-                "reference": "PractitionerRole/9342fe62-7ff5-a14e-b829-2e880d7e6b45"
+                "reference": "PractitionerRole/ab3dc4cd-e023-67b3-f4e5-02acb2453574"
               }
             ]
           }
@@ -579,16 +579,16 @@
             },
             "hasMember": [
               {
-                "reference": "Observation/91e9ed13-0c4f-10f9-4022-5de6456cf865"
+                "reference": "Observation/fac4147a-93bc-f5bc-8171-381b43c440ad"
               }
             ]
           }
         },
         {
-          "fullUrl": "urn:uuid:91e9ed13-0c4f-10f9-4022-5de6456cf865",
+          "fullUrl": "urn:uuid:fac4147a-93bc-f5bc-8171-381b43c440ad",
           "resource": {
             "resourceType": "Observation",
-            "id": "91e9ed13-0c4f-10f9-4022-5de6456cf865",
+            "id": "fac4147a-93bc-f5bc-8171-381b43c440ad",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation"
@@ -636,24 +636,24 @@
             "performer": [
               {
                 "display": "Coruscant Department of Health",
-                "reference": "Organization/e69f6311-724d-a226-e2f1-eb79ea9fc545"
+                "reference": "Organization/20b9d5cb-e61f-4a95-f7b6-534885bbb807"
               },
               {
                 "display": "Coruscant Department of Health",
-                "reference": "Organization/57c9d325-ffcb-5040-fb1c-8b3f13b8f16e"
+                "reference": "Organization/f7b26e05-3aa8-92b8-cf0f-e43888054e3c"
               },
               {
                 "display": "Coruscant Department of Health",
-                "reference": "Organization/79a37dee-d5a9-30a4-66f6-efce5a523b8e"
+                "reference": "Organization/0565db77-f846-ecc9-6c79-9554505a6779"
               }
             ]
           }
         },
         {
-          "fullUrl": "urn:uuid:e69f6311-724d-a226-e2f1-eb79ea9fc545",
+          "fullUrl": "urn:uuid:20b9d5cb-e61f-4a95-f7b6-534885bbb807",
           "resource": {
             "resourceType": "Organization",
-            "id": "e69f6311-724d-a226-e2f1-eb79ea9fc545",
+            "id": "20b9d5cb-e61f-4a95-f7b6-534885bbb807",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-responsible-agency-organization"
@@ -692,10 +692,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:57c9d325-ffcb-5040-fb1c-8b3f13b8f16e",
+          "fullUrl": "urn:uuid:f7b26e05-3aa8-92b8-cf0f-e43888054e3c",
           "resource": {
             "resourceType": "Organization",
-            "id": "57c9d325-ffcb-5040-fb1c-8b3f13b8f16e",
+            "id": "f7b26e05-3aa8-92b8-cf0f-e43888054e3c",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization"
@@ -734,10 +734,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:79a37dee-d5a9-30a4-66f6-efce5a523b8e",
+          "fullUrl": "urn:uuid:0565db77-f846-ecc9-6c79-9554505a6779",
           "resource": {
             "resourceType": "Organization",
-            "id": "79a37dee-d5a9-30a4-66f6-efce5a523b8e",
+            "id": "0565db77-f846-ecc9-6c79-9554505a6779",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-routing-entity-organization"
@@ -878,7 +878,7 @@
         {
           "resource": {
             "resourceType": "PractitionerRole",
-            "id": "9342fe62-7ff5-a14e-b829-2e880d7e6b45",
+            "id": "ab3dc4cd-e023-67b3-f4e5-02acb2453574",
             "organization": {
               "reference": "Organization/8b06cd13-a912-27b6-1c73-aea78bf8df1f"
             },
@@ -1026,6 +1026,86 @@
                 ]
               }
             ]
+          }
+        },
+        {
+          "fullUrl": "urn:uuid:00bd16b4-f05c-93f0-614f-2aed279fc599",
+          "resource": {
+            "resourceType": "Condition",
+            "id": "00bd16b4-f05c-93f0-614f-2aed279fc599",
+            "identifier": [
+              {
+                "system": "urn:ietf:rfc:3986",
+                "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a67"
+              }
+            ],
+            "category": [
+              {
+                "coding": [
+                  {
+                    "code": "problem-item-list",
+                    "display": "Problem List Item",
+                    "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+                  }
+                ]
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "code": "386661006",
+                  "system": "http://snomed.info/sct",
+                  "display": "Fever"
+                }
+              ]
+            },
+            "onsetDateTime": "2025-02-05",
+            "subject": {
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
+            },
+            "meta": {
+              "source": "ecr"
+            }
+          }
+        },
+        {
+          "fullUrl": "urn:uuid:bc5888a5-5fbb-4652-ce07-79823f43e124",
+          "resource": {
+            "resourceType": "Condition",
+            "id": "bc5888a5-5fbb-4652-ce07-79823f43e124",
+            "identifier": [
+              {
+                "system": "urn:ietf:rfc:3986",
+                "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a68"
+              }
+            ],
+            "category": [
+              {
+                "coding": [
+                  {
+                    "code": "problem-item-list",
+                    "display": "Problem List Item",
+                    "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+                  }
+                ]
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "code": "386661006",
+                  "system": "http://snomed.info/sct",
+                  "display": "Fever"
+                }
+              ]
+            },
+            "onsetDateTime": "2025-02-05",
+            "subject": {
+              "reference": "Patient/5812ebbf-0c54-644a-3d79-739f956806de"
+            },
+            "meta": {
+              "source": "ecr"
+            }
           }
         },
         {
@@ -1234,10 +1314,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:1eea3980-9117-c629-e951-187478e9c020",
+          "fullUrl": "urn:uuid:40db397d-91fe-7c16-2b20-b9d1b46f6140",
           "resource": {
             "resourceType": "Observation",
-            "id": "1eea3980-9117-c629-e951-187478e9c020",
+            "id": "40db397d-91fe-7c16-2b20-b9d1b46f6140",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1281,10 +1361,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:a6b35f51-be85-53da-f02b-15625aececea",
+          "fullUrl": "urn:uuid:5bc4d32a-aa57-1d96-5ea6-87d48bcd7516",
           "resource": {
             "resourceType": "Observation",
-            "id": "a6b35f51-be85-53da-f02b-15625aececea",
+            "id": "5bc4d32a-aa57-1d96-5ea6-87d48bcd7516",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1328,10 +1408,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:efd8ed37-e03d-7900-6956-f0228c787674",
+          "fullUrl": "urn:uuid:ca049d29-37b4-4b96-6940-f506b60966cf",
           "resource": {
             "resourceType": "Observation",
-            "id": "efd8ed37-e03d-7900-6956-f0228c787674",
+            "id": "ca049d29-37b4-4b96-6940-f506b60966cf",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1375,10 +1455,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:e8b96985-ea71-bb6a-cb1b-c65dc04bd6ea",
+          "fullUrl": "urn:uuid:a0453f8b-628e-e30c-7900-06229f409f77",
           "resource": {
             "resourceType": "Observation",
-            "id": "e8b96985-ea71-bb6a-cb1b-c65dc04bd6ea",
+            "id": "a0453f8b-628e-e30c-7900-06229f409f77",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1422,10 +1502,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:2bd018a6-a52c-b69d-6d6d-81b13faa749d",
+          "fullUrl": "urn:uuid:bdfc681c-3255-664f-ee64-01672d1785de",
           "resource": {
             "resourceType": "Observation",
-            "id": "2bd018a6-a52c-b69d-6d6d-81b13faa749d",
+            "id": "bdfc681c-3255-664f-ee64-01672d1785de",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1469,10 +1549,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:b489d07e-c351-21bb-dd04-736c5fbc8636",
+          "fullUrl": "urn:uuid:432dd023-5770-8bfc-7161-ebaf36cd2222",
           "resource": {
             "resourceType": "Observation",
-            "id": "b489d07e-c351-21bb-dd04-736c5fbc8636",
+            "id": "432dd023-5770-8bfc-7161-ebaf36cd2222",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1516,10 +1596,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:d8fd211d-2555-ea6c-116c-132dcef4cc61",
+          "fullUrl": "urn:uuid:e54a4d68-5e05-f31c-a376-628a0c24a735",
           "resource": {
             "resourceType": "Observation",
-            "id": "d8fd211d-2555-ea6c-116c-132dcef4cc61",
+            "id": "e54a4d68-5e05-f31c-a376-628a0c24a735",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1563,10 +1643,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:b47109b2-3f96-e69f-637f-728b9b7e9657",
+          "fullUrl": "urn:uuid:1dbf1070-886e-77a9-5660-01442772c1c8",
           "resource": {
             "resourceType": "Observation",
-            "id": "b47109b2-3f96-e69f-637f-728b9b7e9657",
+            "id": "1dbf1070-886e-77a9-5660-01442772c1c8",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1610,10 +1690,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:74e77fe8-551b-bc20-f6b4-ab4119703a15",
+          "fullUrl": "urn:uuid:9f81a6a6-5e42-8107-7464-31ed8eea4d78",
           "resource": {
             "resourceType": "Observation",
-            "id": "74e77fe8-551b-bc20-f6b4-ab4119703a15",
+            "id": "9f81a6a6-5e42-8107-7464-31ed8eea4d78",
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/StructureDefinition/Observation"
@@ -1657,10 +1737,10 @@
           }
         },
         {
-          "fullUrl": "urn:uuid:0e3c9726-0979-3127-7cde-e7082a96fbfc",
+          "fullUrl": "urn:uuid:169e724e-b91b-7b0a-24fc-be231a11c345",
           "resource": {
             "resourceType": "CarePlan",
-            "id": "0e3c9726-0979-3127-7cde-e7082a96fbfc",
+            "id": "169e724e-b91b-7b0a-24fc-be231a11c345",
             "status": "unknown",
             "intent": "proposal",
             "subject": {

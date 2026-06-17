@@ -760,6 +760,43 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:ad6b0781-4ca7-674e-4c7b-0a90a56c88d1",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "ad6b0781-4ca7-674e-4c7b-0a90a56c88d1",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:04c0e62e-f79b-4551-86d3-f1e5b51c510a"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "230145002",
+              "system": "http://snomed.info/sct",
+              "display": "Difficulty breathing"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-05-13",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
       "fullUrl": "urn:uuid:131cd5cf-898e-482b-7b68-f02d22206a4d",
       "resource": {
         "resourceType": "DiagnosticReport",

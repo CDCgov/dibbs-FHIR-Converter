@@ -12,6 +12,14 @@
     "valueInteger": {{ value.value }},
 {% elsif value["xsi:type"] == "TS" -%}
     "valueDateTime": "{{ value.value | format_as_date_time }}",
+{% elsif value.translation -%}
+    "extension": [
+        {
+            "url" : "http://hl7.org/fhir/StructureDefinition/extension-quantity-translation",
+            {% assign translation = value.translation %}
+             "valueCoding": { {% include 'DataType/Coding', Coding: translation %} }      
+        }
+    ]
 {% elsif value.value -%}
     "valueQuantity": {
         {% if value.value != blank %}

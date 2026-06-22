@@ -911,9 +911,16 @@
                 }
               ]
             },
-            "valueQuantity": {
-              "unit": "Immediate"
-            }
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/extension-quantity-translation",
+                "valueCoding": {
+                  "code": "88694003",
+                  "system": "http://snomed.info/sct",
+                  "display": "Immediate"
+                }
+              }
+            ]
           }
         ],
         "performer": [

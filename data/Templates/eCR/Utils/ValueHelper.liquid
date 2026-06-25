@@ -12,14 +12,6 @@
     "valueInteger": {{ value.value }},
 {% elsif value["xsi:type"] == "TS" -%}
     "valueDateTime": "{{ value.value | format_as_date_time }}",
-{% elsif value.translation -%}
-    "extension": [
-        {
-            "url" : "http://hl7.org/fhir/StructureDefinition/extension-quantity-translation",
-            {% assign translation = value.translation %}
-             "valueCoding": { {% include 'DataType/Coding', Coding: translation %} }      
-        }
-    ]
 {% elsif value.value -%}
     "valueQuantity": {
         {% if value.value != blank %}
@@ -33,6 +25,24 @@
                 "unit": "{{ unitFromValue }}",
             {% endif -%}
         {% endif -%}
+        {% if value.translation -%}
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/extension-quantity-translation",
+                    "valueQuantity": {
+                        {% if value.unit and value.unit != "null" -%}
+                            "unit": "{{ value.unit }}",
+                        {% endif -%}
+                        {%- capture translationSystem -%}
+                            {%- include 'ValueSet/SystemReference', code: value.translation.codeSystem -%}
+                        {%- endcapture -%}
+                        {%- assign translationSystem = translationSystem | strip -%}
+                        "system": "{{ translationSystem | prepend_id }}",
+                        "code": "{{ value.translation.code }}"
+                    }
+                }
+            ]
+         {% endif -%}
     },
 {% elsif value._ %}
     "valueString": "{{ value._ | clean_string_from_tabs }}",

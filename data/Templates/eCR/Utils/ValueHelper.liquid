@@ -25,7 +25,7 @@
                 "unit": "{{ unitFromValue }}",
             {% endif -%}
         {% endif -%}
-        {% if value.translation -%}
+        {% if value.translation  and value["xsi:type"] == "PQ" -%}
             "extension": [
                 {
                     "url": "http://hl7.org/fhir/StructureDefinition/extension-quantity-translation",

@@ -54,13 +54,15 @@
         {% include 'Utils/ValueHelper', value: observationEntry.value, origText: text._innerText %}
 
         {% assign range = observationEntry.referenceRange.observationRange %}
-        {% assign low = range.value.low %}
-        {% assign high = range.value.high %}
 
-        {% assign lowUnit = low.unit | escape_special_chars %}
-        {% assign highUnit = high.unit | escape_special_chars %}
-        {% assign lowTranslText = low.translation.originalText._ | escape_special_chars %}
-        {% assign highTranslText = high.translation.originalText._ | escape_special_chars %}
+        {% if range and range.value %}
+            {% assign low = range.value.low %}
+            {% assign high = range.value.high %}
+            {% assign lowUnit = low.unit | escape_special_chars %}
+            {% assign highUnit = high.unit | escape_special_chars %}
+            {% assign lowTranslText = low.translation.originalText._ | escape_special_chars %}
+            {% assign highTranslText = high.translation.originalText._ | escape_special_chars %}
+        {% endif %}
 
         "referenceRange":
         [

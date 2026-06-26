@@ -142,7 +142,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             var attributes = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
 
-            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\": \"Immediate\", \"extension\": [ { \"url\": \"http://hl7.org/fhir/StructureDefinition/quantity-translation\", \"valueCoding\": { \"code\": \"88694003\",\"system\": \"http://snomed.info/sct\",\"display\": \"Immediate\", } } ] },");
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\": \"Immediate\", \"extension\": [ { \"url\": \"http://hl7.org/fhir/StructureDefinition/extension-quantity-translation\", \"valueQuantity\": {\"unit\": \"Immediate (qualifier value)\",\"system\": \"http://snomed.info/sct\", \"code\": \"88694003\" } } ] },");
         }
 
         [Fact]

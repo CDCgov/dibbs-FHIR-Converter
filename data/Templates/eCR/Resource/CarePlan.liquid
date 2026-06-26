@@ -41,8 +41,9 @@
                                 "status": "not-started",
                             {% endif %}
                             {% comment %} planned activities use scheduledString instead of scheduledDateTime {% endcomment %}
+                            {% comment %} Using raw filter to prevent the output from Utils/EffectiveTime from being double-encoded because it outputs JSON {% endcomment %}
                             {% capture time %}{% include 'Utils/EffectiveTime', effectiveTime: act.effectiveTime, timeType: "scheduled" %}{% endcapture %}
-                            {{ time |  replace_first: "DateTime", "String" }}
+                            {{ time |  replace_first: "DateTime", "String" | raw }}
                         }
                     },
                 {% endif %}

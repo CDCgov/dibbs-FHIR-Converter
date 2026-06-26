@@ -7,13 +7,16 @@
     {% include 'Reference/DiagnosticReport/Result', ID: diagnosticId, REF: fullObservationId -%}
     {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
 
-    {% assign labDeviceNameReference = component.observation.text.reference.value | replace: '#', '' | append: 'TestMethodName1'-%}
-    {% assign labDeviceName = text._innerText | find_inner_text_by_id: labDeviceNameReference | clean_string_from_tabs | escape_special_chars -%}
-    {% if labDeviceName != nil and labDeviceName != blank %}
-      {% assign deviceId = labDeviceName | generate_uuid %}
-      {% assign fullDeviceId = deviceId | prepend: 'Device/' %}
-      {% include 'Resource/Device2', ID: deviceId, deviceName: labDeviceName -%}
-      {% include 'Reference/Observation/Device', ID: observationId, REF: fullDeviceId -%}
+    {% if component.observation.text.reference.value and component.observation.text.reference.value != blank %}
+      {% comment %} TODO: figure out what is the correct way to identify device IDs. TestMethodName1 is not a reliable identifier {% endcomment %}
+      {% assign labDeviceNameReference = component.observation.text.reference.value | replace: '#', '' | append: 'TestMethodName1' -%}
+      {% assign labDeviceName = text._innerText | find_inner_text_by_id: labDeviceNameReference | clean_string_from_tabs -%}
+      {% if labDeviceName != nil and labDeviceName != blank %}
+        {% assign deviceId = labDeviceName | generate_uuid %}
+        {% assign fullDeviceId = deviceId | prepend: 'Device/' %}
+        {% include 'Resource/Device2', ID: deviceId, deviceName: labDeviceName -%}
+        {% include 'Reference/Observation/Device', ID: observationId, REF: fullDeviceId -%}
+      {% endif %}
     {% endif %}
 
     {% if component.observation.author.assignedAuthor -%}

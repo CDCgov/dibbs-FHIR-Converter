@@ -51,7 +51,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Tags
             await template.RenderAsync(sw, encoder, context);
 
             var content = sw.ToString().Trim();
-            context.SetValue(_target, content.Length == 0 ? NilValue.Instance : content);
+            context.SetValue(_target, content.Length == 0 ? NilValue.Instance : StringValue.Create(content, encode: false));
 
             return Completion.Normal;
         }

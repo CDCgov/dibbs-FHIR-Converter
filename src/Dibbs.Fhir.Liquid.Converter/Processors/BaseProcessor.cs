@@ -86,7 +86,7 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
         {
             try
             {
-                return template.Render(context);
+                return template.Render(context, TemplateUtility.JsonStringEncoder);
             }
             catch (RenderException)
             {

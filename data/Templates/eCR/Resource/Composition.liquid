@@ -83,11 +83,11 @@
                         {
                             "status":"generated",
                             {% if component.section.text -%}
-                                "div": "{{ component.section.text._innerText | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+                                "div": "{{ component.section.text._innerText | to_xhtml | clean_string_from_tabs }}",
                             {% elsif component.section.title._ -%}
-                                "div":"{{ component.section.title._ | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+                                "div":"{{ component.section.title._ | to_xhtml | clean_string_from_tabs }}",
                             {% else -%}
-                                "div":"{{ component.section.code.displayName | to_xhtml | clean_string_from_tabs | escape_special_chars }}",
+                                "div":"{{ component.section.code.displayName | to_xhtml | clean_string_from_tabs }}",
                             {% endif -%}
                         },
                         "code":
@@ -167,10 +167,10 @@
                                             {% assign fullConditionId = conditionId | prepend: 'Condition/' -%}
                                             {
                                                 {% if er.observation.value.displayName -%}
-                                                    "display": "Problem - {{ er.observation.value.displayName | escape_special_chars }}",
+                                                    "display": "Problem - {{ er.observation.value.displayName }}",
                                                 {% elsif er.observation.value.translation -%}
                                                     {% assign translations = er.observation.value.translation | to_array -%}
-                                                    "display": "Problem - {{ translations.first.displayName | escape_special_chars }}",
+                                                    "display": "Problem - {{ translations.first.displayName }}",
                                                 {% endif -%}
                                                 "reference": "{{ fullConditionId }}",
                                             },
@@ -187,10 +187,10 @@
                                                 {
                                                     "reference": "{{ fullObservationId }}",
                                                     {% if orgComp.observation.code.originalText._ -%}
-                                                        "display": "{{ orgComp.observation.code.originalText._ | clean_string_from_tabs | strip | escape_special_chars }}",
+                                                        "display": "{{ orgComp.observation.code.originalText._ | clean_string_from_tabs | strip }}",
                                                     {% elsif orgComp.observation.code.translation -%}
                                                         {% assign translations = orgComp.observation.code.translation | to_array -%}
-                                                        "display": "{{ translations.first.displayName | strip | escape_special_chars }}",
+                                                        "display": "{{ translations.first.displayName | strip }}",
                                                     {% endif -%}
                                                 },
                                             {% endif -%}
@@ -255,6 +255,13 @@
                                             },
                                         {% endif %}
                                     {% endfor %}
+                                {% elsif sectionEntry.substanceAdministration != nil and component.section.templateId.root == '2.16.840.1.113883.10.20.22.2.80' %}
+                                    {% comment %} Pregnancy substanceAdministrations {% endcomment %}
+                                    {% assign substanceAdministrationId = sectionEntry.substanceAdministration | to_json_string | generate_uuid -%}
+                                    {% assign fullSubstanceAdministrationId = substanceAdministrationId | prepend: 'MedicationAdministration/' %}
+                                    {
+                                        "reference": "{{ fullSubstanceAdministrationId }}",
+                                    },
                                 {% endif -%}
                             {% endfor -%}
                         ],
@@ -332,7 +339,7 @@
                                         {% endif -%}
                                         {% assign fullObservationId = observationId | prepend: 'Observation/' -%}
                                         {
-                                            "display": "Relevant Reportable Condition Observation - {{ ob.value.displayName | escape_special_chars }}",
+                                            "display": "Relevant Reportable Condition Observation - {{ ob.value.displayName }}",
                                             "reference": "{{ fullObservationId }}",
                                         },
                                     {% endif -%}

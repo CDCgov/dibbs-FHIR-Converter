@@ -23,15 +23,6 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.FilterTests
     public class StringFiltersTests
     {
         [Fact]
-        public void EscapeSpecialCharsTest()
-        {
-            var context = new TemplateContext();
-            Assert.Equal("\\\"", Filters.EscapeSpecialChars(StringValue.Create("\""), FilterArguments.Empty, context).Result.ToStringValue());
-            Assert.Equal(string.Empty, Filters.EscapeSpecialChars(StringValue.Create(string.Empty), FilterArguments.Empty, context).Result.ToStringValue());
-            Assert.True(Filters.EscapeSpecialChars(NilValue.Instance, FilterArguments.Empty, context).Result.IsNil());
-        }
-
-        [Fact]
         public void MatchTest()
         {
             var context = new TemplateContext();

@@ -5,13 +5,16 @@
     {% else -%}
         {% assign templateIds = entry.observation.templateId | to_array -%}
         {% for tempId in templateIds -%}
-            {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.15.3.8' -%}
+            {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.15.3.8' or tempId.root == '2.16.840.1.113883.10.20.22.4.2' or tempId.root == '2.16.840.1.113883.10.20.22.4.4' -%}
                 {% continue %}
             {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.30.3.34' -%}
                 {% include 'Resource/ObservationLastMenstrualPeriod', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
                 {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
             {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.281' -%}
                 {% include 'Resource/ObservationPregnancyIntent', observationEntry: entry.observation, ID: observationId -%}
+                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
+            {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.294' -%}
+                {% include 'Resource/ObservationPregnancyLastLiveBirth', observationEntry: entry.observation, ID: observationId -%}
                 {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
             {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.285' -%}
                 {% include 'Resource/ObservationPostpartumStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
@@ -20,7 +23,6 @@
                 {% comment %}  Supplemental pregnancy observation {% endcomment %}
                 {% include 'Resource/ObservationPregnancyStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
                 {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
-
                 {% comment %} Add supplemental pregnancy data {% endcomment %}
                 {% assign rels = entry.observation.entryRelationship | to_array %}
                 {% for rel in rels -%}
@@ -59,9 +61,32 @@
                     {% endif %}
                 {% endfor %}
             {% else -%}
-                {% include 'Resource/Observation', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
+                {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.300' or tempId.root == '2.16.840.1.113883.10.20.22.4.301' %}
+                    {% comment %} [C-CDA PREG] D(Rh) Type or [C-CDA PREG] D(Rh) Sensitized - Labs {% endcomment %}
+                    {% assign observationCategory = 'laboratory' %}
+                {% else %}
+                    {% assign observationCategory = 'exam' %}
+                {% endif -%}
+                {% include 'Resource/Observation', observationCategory: observationCategory, observationEntry: entry.observation, ID: observationId -%}
                 {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
             {% endif -%}
         {% endfor -%}
     {% endif -%}
+{% elsif entry.substanceAdministration -%}
+    {% assign substanceAdministrationId = entry.substanceAdministration | to_json_string | generate_uuid -%}
+    {% assign templateIds = entry.substanceAdministration.templateId | to_array -%}
+    {% for tempId in templateIds -%}
+        {% if tempId and tempId.root -%}
+            {% if tempId.root == '2.16.840.1.113883.10.20.22.4.16' -%}
+                {% continue %}
+            {% elsif tempId.root == '2.16.840.1.113883.10.20.22.4.302' %}
+                {% include 'Resource/MedicationAdministration', medicationAdministration: entry.substanceAdministration, ID: substanceAdministrationId -%}
+                {% include 'Reference/MedicationAdministration/Subject', ID: substanceAdministrationId, REF: fullPatientId -%}
+                {% assign manufacturedMaterialId = entry.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial | to_json_string | generate_uuid -%}
+                {% assign fullManufacturedMaterialId = manufacturedMaterialId | prepend: 'Medication/' -%}
+                {% include 'Resource/Medication', medication: entry.substanceAdministration.consumable.manufacturedProduct.manufacturedMaterial, ID: manufacturedMaterialId -%}
+                {% include 'Reference/MedicationAdministration/MedicationReference', ID: substanceAdministrationId, REF: fullManufacturedMaterialId -%}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
 {% endif -%}

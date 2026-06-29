@@ -58,10 +58,10 @@
         {% if range and range.value %}
             {% assign low = range.value.low %}
             {% assign high = range.value.high %}
-            {% assign lowUnit = low.unit | escape_special_chars %}
-            {% assign highUnit = high.unit | escape_special_chars %}
-            {% assign lowTranslText = low.translation.originalText._ | escape_special_chars %}
-            {% assign highTranslText = high.translation.originalText._ | escape_special_chars %}
+            {% assign lowUnit = low.unit %}
+            {% assign highUnit = high.unit %}
+            {% assign lowTranslText = low.translation.originalText._ %}
+            {% assign highTranslText = high.translation.originalText._ %}
         {% endif %}
 
         "referenceRange":
@@ -72,7 +72,7 @@
                 {% elsif low.translation.value and high.translation.value %}
                     "text":"{{ low.translation.value }} {{ lowTranslText }} - {{ high.translation.value }} {{ highTranslText }}",
                 {% else %}
-                    "text":"{{ range.text._ | escape_special_chars }}",
+                    "text":"{{ range.text._ }}",
                 {% endif %}
 
                 {% if low.value -%}

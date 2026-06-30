@@ -359,7 +359,7 @@
               }
             ],
             "individual": {
-              "reference": "PractitionerRole/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
+              "reference": "PractitionerRole/e9e5feef-d442-26aa-a72a-bfac75b004c1"
             }
           }
         ]
@@ -467,7 +467,7 @@
     {
       "resource": {
         "resourceType": "PractitionerRole",
-        "id": "e8d30303-e0a1-2dbb-bddb-d208c95aad77",
+        "id": "e9e5feef-d442-26aa-a72a-bfac75b004c1",
         "practitioner": {
           "reference": "Practitioner/e8d30303-e0a1-2dbb-bddb-d208c95aad77"
         },
@@ -1277,6 +1277,14 @@
             }
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [
@@ -2849,6 +2857,14 @@
             }
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [

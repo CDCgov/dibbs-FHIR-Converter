@@ -612,7 +612,7 @@
               }
             ],
             "individual": {
-              "reference": "PractitionerRole/ea367600-317d-9531-f989-894c5a2acccd"
+              "reference": "PractitionerRole/1a53f31d-a2d8-8673-a03e-38318b5d2e6a"
             }
           }
         ]
@@ -766,7 +766,7 @@
     {
       "resource": {
         "resourceType": "PractitionerRole",
-        "id": "ea367600-317d-9531-f989-894c5a2acccd",
+        "id": "1a53f31d-a2d8-8673-a03e-38318b5d2e6a",
         "practitioner": {
           "reference": "Practitioner/b1788a7c-7165-936d-d3de-3a1713e2d54d"
         },
@@ -1700,6 +1700,96 @@
           }
         ],
         "patient": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5e424dc2-c626-07e0-0cd8-0a52e23d3c3f",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "5e424dc2-c626-07e0-0cd8-0a52e23d3c3f",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a66"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "35064005",
+              "system": "http://snomed.info/sct",
+              "display": "Dark stools"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-11-01",
+        "subject": {
+          "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4043a57f-14a8-1b67-ca5a-2f21c784a744",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "4043a57f-14a8-1b67-ca5a-2f21c784a744",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a67"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "43025008",
+              "system": "http://snomed.info/sct",
+              "display": "Paroxysmal cough"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-11-04",
+        "subject": {
           "reference": "Patient/f238f1ae-2f55-cd21-5c90-5e68a10af8ce"
         }
       }
@@ -4093,6 +4183,14 @@
             "value": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e705"
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [
@@ -4130,6 +4228,14 @@
             "value": "urn:uuid:db734647-fc99-424c-a864-7e3cda82e704"
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [

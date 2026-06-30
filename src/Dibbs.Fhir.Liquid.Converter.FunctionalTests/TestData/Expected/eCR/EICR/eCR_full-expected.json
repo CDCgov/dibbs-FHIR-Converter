@@ -337,7 +337,7 @@
               }
             ],
             "individual": {
-              "reference": "PractitionerRole/3c7071a2-a74f-2f17-aa12-7689452e4bf9"
+              "reference": "PractitionerRole/6d5565a3-8682-6d1a-0780-1a4236109073"
             }
           }
         ]
@@ -488,7 +488,7 @@
     {
       "resource": {
         "resourceType": "PractitionerRole",
-        "id": "3c7071a2-a74f-2f17-aa12-7689452e4bf9",
+        "id": "6d5565a3-8682-6d1a-0780-1a4236109073",
         "practitioner": {
           "reference": "Practitioner/4581f291-448a-04ad-0508-e348f799a4b0"
         },
@@ -756,6 +756,51 @@
               "display": "remdesivir 100 MG Injection"
             }
           ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ad6b0781-4ca7-674e-4c7b-0a90a56c88d1",
+      "resource": {
+        "resourceType": "Condition",
+        "id": "ad6b0781-4ca7-674e-4c7b-0a90a56c88d1",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:04c0e62e-f79b-4551-86d3-f1e5b51c510a"
+          }
+        ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "problem-item-list",
+                "display": "Problem List Item",
+                "system": "http://hl7.org/fhir/us/core/ValueSet/us-core-condition-category"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "230145002",
+              "system": "http://snomed.info/sct",
+              "display": "Difficulty breathing"
+            }
+          ]
+        },
+        "onsetDateTime": "2020-05-13",
+        "subject": {
+          "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
         }
       }
     },
@@ -1040,6 +1085,14 @@
             "value": "urn:uuid:e945f578-d795-4ec3-a403-ea8f3319f37c"
           }
         ],
+        "clinicalStatus": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active"
+            }
+          ]
+        },
         "category": [
           {
             "coding": [

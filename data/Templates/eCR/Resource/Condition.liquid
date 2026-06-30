@@ -12,15 +12,41 @@
         ],
         "clinicalStatus":
         {
-            {% assign entryRelationships = conditionEntry.entryRelationship | to_array -%}
-            {% for entryRelationship in entryRelationships -%}
-                {% assign templateIdString = entryRelationship.observation.templateId | to_json_string -%}
-                {% if  templateIdString  contains '"2.16.840.1.113883.10.20.22.4.5"' -%}
-                    {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
-                {% elsif templateIdString  contains '"2.16.840.1.113883.10.20.22.4.6"' -%}
-                    {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
-                {% endif -%}
-            {% endfor -%}
+            {% if conditionEntry.entryRelationship %}
+                {% assign entryRelationships = conditionEntry.entryRelationship | to_array -%}
+                {% for entryRelationship in entryRelationships -%}
+                    {% assign templateIdString = entryRelationship.observation.templateId | to_json_string -%}
+                    {% if  templateIdString  contains '"2.16.840.1.113883.10.20.22.4.5"' -%}
+                        {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
+                    {% elsif templateIdString  contains '"2.16.840.1.113883.10.20.22.4.6"' -%}
+                        {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
+                    {% endif %}
+                {% endfor -%}
+            {% comment %} Fallback #1: Use Problem Concern Act status if Problem Status observation DNE {% endcomment %}
+            {% comment %} https://build.fhir.org/ig/HL7/ccda-on-fhir/en/CF-problems.html {% endcomment %}
+            {% elsif entry.act.statusCode.code %}
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "{{ entry.act.statusCode.code | get_property: 'ValueSet/ClinicalStatus' }}"
+                    },
+                ],
+            {% comment %} Fallback #2 if Problem Status observation DNE {% endcomment %}
+            {% elsif conditionEntry.effectiveTime.high.value %}
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "inactive"
+                    },
+                ],
+            {% else %}
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "active"
+                    },
+                ],
+            {% endif -%}
         },
         "category": [
         {

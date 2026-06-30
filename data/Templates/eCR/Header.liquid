@@ -44,7 +44,10 @@
 {% if responsibleParty -%}
   {% include 'Resource/PractitionerResponsibleParty', practitioner: responsibleParty, ID: practitionerId -%}
   {% assign fullPractitionerId = practitionerId | prepend: 'Practitioner/' -%}
-  {% assign practitionerRoleId =  responsibleParty | to_json_string | generate_uuid %}
+  {% comment %} The '|PractitionerRole' discriminator keeps this hash distinct from practitionerId above, which is
+  also generated from the responsibleParty object (via Utils/GenerateId) when assignedEntity has no usable id.
+  Without it, Practitioner and PractitionerRole would get identical IDs. {% endcomment %}
+  {% assign practitionerRoleId =  responsibleParty | to_json_string | append: '|PractitionerRole' | generate_uuid %}
   {% assign fullPractitionerRoleId = practitionerRoleId | prepend: 'PractitionerRole/' %}
   {% include 'Reference/PractitionerRole/Practitioner', REF: fullPractitionerId, ID: practitionerRoleId -%}
 
@@ -53,7 +56,8 @@
     {% evaluate organizationId using 'Utils/GenerateId' obj: responsibleParty.representedOrganization -%}
     {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
     {% include 'Resource/Organization', organization: responsibleParty.representedOrganization, ID: organizationId -%}
-    {% assign practitionerRoleId =  responsibleParty | to_json_string | generate_uuid %}
+    {% comment %} Same '|PractitionerRole' discriminator as above, recomputed here to keep this PractitionerRole id distinct from practitionerId. {% endcomment %}
+    {% assign practitionerRoleId =  responsibleParty | to_json_string | append: '|PractitionerRole' | generate_uuid %}
     {% include 'Reference/PractitionerRole/Practitioner', REF: fullPractitionerId, ID: practitionerRoleId -%}
     {% include 'Reference/PractitionerRole/Organization', REF: fullOrganizationId, ID: practitionerRoleId -%}
   {% endif %}

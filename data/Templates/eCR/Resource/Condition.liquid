@@ -62,7 +62,20 @@
             {% endif -%}
         },
         ],
-        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: conditionEntry.value -%} },
+        {% if conditionEntry.negationInd == "true" %}
+            "code": {
+                "coding": [
+                    {
+                        "code": "160245001",
+                        "system": "http://snomed.info/sct",
+                        "display": "No current problems or disability"
+                    },
+                ],
+                "text": "{%- include 'Utils/TextHelper', text: conditionEntry.value.originalText -%}" 
+            },
+        {% else %}
+            "code": { {% include 'DataType/CodeableConcept', CodeableConcept: conditionEntry.value -%} },
+        {% endif %}
         {% if conditionEntry.effectiveTime.low.value -%}
             "onsetDateTime":"{{ conditionEntry.effectiveTime.low.value | format_as_date_time }}",
         {% elsif conditionEntry.author.time and conditionEntry.author.time.value -%}
@@ -81,16 +94,18 @@
         "note":
         [
             {
-                {% for relatedEntry in relatedEntries -%}
-                    {% assign templateIdString = relatedEntry.act.templateId.root | to_json_string -%}
-                    {% if templateIdString contains '"2.16.840.1.113883.10.20.22.4.64"' or templateIdString contains "2.16.840.1.113883.10.20.22.4.202" and relatedEntry.act.text.reference.value -%}
-                        {% assign commentRefVal = relatedEntry.act.text.reference.value | replace: '#', '' -%}
-                        {% assign commentText = text._innerText | find_inner_text_by_id: commentRefVal -%}
+                "text": "{%- include 'Utils/TextHelper', text: conditionEntry.text -%}" 
+            },
+            {% for relatedEntry in relatedEntries -%}
+                {% assign templateIdString = relatedEntry.act.templateId.root | to_json_string -%}
+                {% if templateIdString contains '"2.16.840.1.113883.10.20.22.4.64"' or templateIdString contains "2.16.840.1.113883.10.20.22.4.202" and relatedEntry.act.text.reference.value -%}
+                    {% assign commentRefVal = relatedEntry.act.text.reference.value | replace: '#', '' -%}
+                    {% assign commentText = text._innerText | find_inner_text_by_id: commentRefVal -%}
+                    {
                         "text": "{{ commentText | clean_string_from_tabs }}",
-                    {% endif -%}
-                {% endfor -%}
-
-            }
+                    },
+                {% endif -%}
+            {% endfor -%}
         ],
     },
 },

@@ -132,6 +132,20 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         }
 
         [Fact]
+        public async System.Threading.Tasks.Task GivenTranslation()
+        {
+            var xmlStr = """
+            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" unit="Immediate" value="" xsi:type="PQ">
+                <translation code="88694003" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Immediate (qualifier value)" />
+            </value>
+            """;
+
+            var attributes = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+
+            await ConvertCheckLiquidTemplate(ECRPath, attributes, "\"valueQuantity\": { \"unit\": \"Immediate\", \"extension\": [ { \"url\": \"http://hl7.org/fhir/StructureDefinition/extension-quantity-translation\", \"valueQuantity\": {\"unit\": \"Immediate (qualifier value)\",\"system\": \"http://snomed.info/sct\", \"code\": \"88694003\" } } ] },");
+        }
+
+        [Fact]
         public async System.Threading.Tasks.Task GivenValueCodeSingleValuedProperlyReturnsWithValueCoding()
         {
             var attributes = new Dictionary<string, object>{

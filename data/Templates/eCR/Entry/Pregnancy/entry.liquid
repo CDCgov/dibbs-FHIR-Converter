@@ -5,71 +5,73 @@
     {% else -%}
         {% assign templateIds = entry.observation.templateId | to_array -%}
         {% for tempId in templateIds -%}
-            {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.15.3.8' or tempId.root == '2.16.840.1.113883.10.20.22.4.2' or tempId.root == '2.16.840.1.113883.10.20.22.4.4' -%}
-                {% continue %}
-            {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.30.3.34' -%}
-                {% include 'Resource/ObservationLastMenstrualPeriod', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
-                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
-            {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.281' -%}
-                {% include 'Resource/ObservationPregnancyIntent', observationEntry: entry.observation, ID: observationId -%}
-                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
-            {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.294' -%}
-                {% include 'Resource/ObservationPregnancyLastLiveBirth', observationEntry: entry.observation, ID: observationId -%}
-                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
-            {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.285' -%}
-                {% include 'Resource/ObservationPostpartumStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
-                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
-            {% elsif tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.293' -%}
-                {% comment %}  Supplemental pregnancy observation {% endcomment %}
-                {% include 'Resource/ObservationPregnancyStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
-                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
-                {% comment %} Add supplemental pregnancy data {% endcomment %}
-                {% assign rels = entry.observation.entryRelationship | to_array %}
-                {% for rel in rels -%}
-                    {% assign relObsId = rel | to_json_string | generate_uuid %}
-                    {% assign fullRelObsId = relObsId |  prepend: 'Observation/' %}
-                    {% comment %} Add birth outcome obs with focus on this pregnancy obs {% endcomment %}
-                    {% if rel.typeCode == "COMP" and rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.284' %}
-                        {% include 'Resource/ObservationPregnancyOutcome', observationCategory: 'exam', observationEntry: rel.observation, ID: relObsId, birthOrder: rel.sequenceNumber.value -%}
-                        {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
-                        {% include 'Reference/Observation/Focus', ID: relObsId, REF: fullObservationId -%}
-                        {% comment %} Check the entry relationships of the outcome for any procedures (expecting method of delivery) - add as a partOf this outcome obs {% endcomment %}
-                        {% assign procedureRels = rel.observation.entryRelationship | to_array %}
-                        {% for procedureRel in procedureRels %}
-                            {% if procedureRel.procedure.classCode == "PROC" %}
-                                {% assign procedureTemplateIds = procedureRel.procedure.templateId | to_array -%}
-                                {% if procedureTemplateIds.first.root == '2.16.840.1.113883.10.20.22.4.14' or procedureTemplateIds.first.root == '2.16.840.1.113883.10.20.22.4.299' %}
-                                    {% assign procedureId = procedureRel.procedure | to_json_string | generate_uuid %}
-                                    {% assign fullProcedureId = procedureId | prepend: 'Procedure/' %}
-                                    {% include 'Resource/ProcedurePregnancyFinalRouteMethodDelivery.liquid', ID: procedureId, procedureEntry: procedureRel.procedure %}
-                                    {% include 'Reference/Observation/PartOf', ID: relObsId, REF: fullProcedureId %}
+            {% if tempId and tempId.root %}
+                {% if tempId.root == '2.16.840.1.113883.10.20.15.3.8' or tempId.root == '2.16.840.1.113883.10.20.22.4.2' or tempId.root == '2.16.840.1.113883.10.20.22.4.4' -%}
+                    {% continue %}
+                {% elsif tempId.root == '2.16.840.1.113883.10.20.30.3.34' -%}
+                    {% include 'Resource/ObservationLastMenstrualPeriod', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
+                    {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
+                {% elsif tempId.root == '2.16.840.1.113883.10.20.22.4.281' -%}
+                    {% include 'Resource/ObservationPregnancyIntent', observationEntry: entry.observation, ID: observationId -%}
+                    {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
+                {% elsif tempId.root == '2.16.840.1.113883.10.20.22.4.294' -%}
+                    {% include 'Resource/ObservationPregnancyLastLiveBirth', observationEntry: entry.observation, ID: observationId -%}
+                    {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
+                {% elsif tempId.root == '2.16.840.1.113883.10.20.22.4.285' -%}
+                    {% include 'Resource/ObservationPostpartumStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
+                    {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
+                {% elsif tempId.root == '2.16.840.1.113883.10.20.22.4.293' -%}
+                    {% comment %}  Supplemental pregnancy observation {% endcomment %}
+                    {% include 'Resource/ObservationPregnancyStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
+                    {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
+                    {% comment %} Add supplemental pregnancy data {% endcomment %}
+                    {% assign rels = entry.observation.entryRelationship | to_array %}
+                    {% for rel in rels -%}
+                        {% assign relObsId = rel | to_json_string | generate_uuid %}
+                        {% assign fullRelObsId = relObsId |  prepend: 'Observation/' %}
+                        {% comment %} Add birth outcome obs with focus on this pregnancy obs {% endcomment %}
+                        {% if rel.typeCode == "COMP" and rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.284' %}
+                            {% include 'Resource/ObservationPregnancyOutcome', observationCategory: 'exam', observationEntry: rel.observation, ID: relObsId, birthOrder: rel.sequenceNumber.value -%}
+                            {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
+                            {% include 'Reference/Observation/Focus', ID: relObsId, REF: fullObservationId -%}
+                            {% comment %} Check the entry relationships of the outcome for any procedures (expecting method of delivery) - add as a partOf this outcome obs {% endcomment %}
+                            {% assign procedureRels = rel.observation.entryRelationship | to_array %}
+                            {% for procedureRel in procedureRels %}
+                                {% if procedureRel.procedure.classCode == "PROC" %}
+                                    {% assign procedureTemplateIds = procedureRel.procedure.templateId | to_array -%}
+                                    {% if procedureTemplateIds.first.root == '2.16.840.1.113883.10.20.22.4.14' or procedureTemplateIds.first.root == '2.16.840.1.113883.10.20.22.4.299' %}
+                                        {% assign procedureId = procedureRel.procedure | to_json_string | generate_uuid %}
+                                        {% assign fullProcedureId = procedureId | prepend: 'Procedure/' %}
+                                        {% include 'Resource/ProcedurePregnancyFinalRouteMethodDelivery.liquid', ID: procedureId, procedureEntry: procedureRel.procedure %}
+                                        {% include 'Reference/Observation/PartOf', ID: relObsId, REF: fullProcedureId %}
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    {% comment %} Add other supplemental pregnancy observations as a hasMember on this pregnancy obs {% endcomment %}
-                    {%  elsif rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.286' or rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.295' or rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.296' %}
-                        {% include 'Resource/ObservationPregnancySupplementalData', observationEntry: rel.observation, ID: relObsId, templateId: rel.observation.templateId.root  -%}
-                        {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
-                        {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
-                    {% else %} {% comment %} Also handle related findings - may have multiple template ids {% endcomment %}
-                        {% assign templateIds = rel.observation.templateId | to_array -%}
-                        {% if templateIds.first.root == '2.16.840.1.113883.10.20.22.4.4' or templateIds.first.root == '2.16.840.1.113883.10.20.22.4.298' %}
-                            {% include 'Resource/ObservationPregnancySupplementalData', observationEntry: rel.observation, ID: relObsId, templateId: templateIds.first.root  -%}
+                            {% endfor %}
+                        {% comment %} Add other supplemental pregnancy observations as a hasMember on this pregnancy obs {% endcomment %}
+                        {%  elsif rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.286' or rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.295' or rel.observation.templateId.root == '2.16.840.1.113883.10.20.22.4.296' %}
+                            {% include 'Resource/ObservationPregnancySupplementalData', observationEntry: rel.observation, ID: relObsId, templateId: rel.observation.templateId.root  -%}
                             {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
                             {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
+                        {% else %} {% comment %} Also handle related findings - may have multiple template ids {% endcomment %}
+                            {% assign templateIds = rel.observation.templateId | to_array -%}
+                            {% if templateIds.first.root == '2.16.840.1.113883.10.20.22.4.4' or templateIds.first.root == '2.16.840.1.113883.10.20.22.4.298' %}
+                                {% include 'Resource/ObservationPregnancySupplementalData', observationEntry: rel.observation, ID: relObsId, templateId: templateIds.first.root  -%}
+                                {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
+                                {% include 'Reference/Observation/HasMember', ID: observationId, REF: fullRelObsId %}
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                {% endfor %}
-            {% else -%}
-                {% if tempId and tempId.root and tempId.root == '2.16.840.1.113883.10.20.22.4.300' or tempId.root == '2.16.840.1.113883.10.20.22.4.301' %}
-                    {% comment %} [C-CDA PREG] D(Rh) Type or [C-CDA PREG] D(Rh) Sensitized - Labs {% endcomment %}
-                    {% assign observationCategory = 'laboratory' %}
-                {% else %}
-                    {% assign observationCategory = 'exam' %}
+                    {% endfor %}
+                {% else -%}
+                    {% if tempId.root == '2.16.840.1.113883.10.20.22.4.300' or tempId.root == '2.16.840.1.113883.10.20.22.4.301' %}
+                        {% comment %} [C-CDA PREG] D(Rh) Type or [C-CDA PREG] D(Rh) Sensitized - Labs {% endcomment %}
+                        {% assign observationCategory = 'laboratory' %}
+                    {% else %}
+                        {% assign observationCategory = 'exam' %}
+                    {% endif -%}
+                    {% include 'Resource/Observation', observationCategory: observationCategory, observationEntry: entry.observation, ID: observationId -%}
+                    {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
                 {% endif -%}
-                {% include 'Resource/Observation', observationCategory: observationCategory, observationEntry: entry.observation, ID: observationId -%}
-                {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
-            {% endif -%}
+            {% endif %}
         {% endfor -%}
     {% endif -%}
 {% elsif entry.substanceAdministration -%}
@@ -88,5 +90,13 @@
                 {% include 'Reference/MedicationAdministration/MedicationReference', ID: substanceAdministrationId, REF: fullManufacturedMaterialId -%}
             {% endif %}
         {% endif %}
+    {% endfor %}
+{% elsif entry.organizer and entry.organizer.templateId.root == '2.16.840.1.113883.10.20.22.4.292' -%}
+    {% comment %} Pregnancy Summary Organizer {% endcomment %}
+    {% assign observationId = entry.organizer | to_json_string | generate_uuid -%}
+    {% include 'Resource/Observation', observationEntry: entry.organizer, ID: observationId -%}
+    {% assign comps = entry.organizer.component | to_array -%} 
+    {% for component in comps %}
+        {% include 'Entry/Pregnancy/entry_organizer_component', component: component, organizerId: observationId %}
     {% endfor %}
 {% endif -%}

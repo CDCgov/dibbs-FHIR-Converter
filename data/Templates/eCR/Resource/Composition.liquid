@@ -262,6 +262,13 @@
                                     {
                                         "reference": "{{ fullSubstanceAdministrationId }}",
                                     },
+                                {% elsif sectionEntry.organizer != nil and component.section.templateId.root == '2.16.840.1.113883.10.20.22.2.80' %}
+                                    {% comment %} Pregnancy Summary Organizer {% endcomment %}
+                                    {% assign organizerId = sectionEntry.organizer | to_json_string | generate_uuid -%}
+                                    {% assign fullOrganizerId = organizerId | prepend: 'Observation/' %}
+                                    {
+                                        "reference": "{{ fullOrganizerId }}",
+                                    },
                                 {% endif -%}
                             {% endfor -%}
                         ],

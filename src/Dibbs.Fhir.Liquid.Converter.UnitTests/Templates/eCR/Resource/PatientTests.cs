@@ -23,7 +23,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             // From Eve Everywoman
             // Added maritalStatus from Dash Rendar
             // Added synthetic religiousAfifiliationCode
-            var xmlStr = @"
+            var xmlStrPatient = @"
                 <patientRole
                     xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                     xsi:schemaLocation=""urn:hl7-org:v3 ../../../cda-core-2.0/schema/extensions/SDTC/infrastructure/cda/CDA_SDTC.xsd""
@@ -136,12 +136,40 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                     </patient>
                 </patientRole>
             ";
-            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+            var parsedPatient = new CcdaDataParser().Parse(xmlStrPatient) as Dictionary<string, object>;
+
+            // Contact from Dash Rendar
+            var xmlStrParticipant = @"
+                <!-- Emergency Contact -->
+                <participant typeCode=""IND"">
+                    <time nullFlavor=""UNK"" />
+                    <associatedEntity classCode=""ECON"">
+                    <id root=""2.16.840.1.113883.19.5.9999.456"" />
+                    <addr use=""H"">
+                        <streetAddressLine>500 Republica, Suite 460</streetAddressLine>
+                        <city>Senate District</city>
+                        <state>Galactic City</state>
+                        <postalCode>GC-500</postalCode>
+                        <country>Coruscant</country>
+                    </addr>
+                    <telecom value=""tel:+1-555-555-8858"" use=""MC"" />
+                    <associatedPerson>
+                        <name use=""L"">
+                        <prefix>Mr</prefix>
+                        <given>Perrin</given>
+                        <family>Fertha</family>
+                        </name>
+                    </associatedPerson>
+                    </associatedEntity>
+                </participant>
+            ";
+            var parsedParticipant = new CcdaDataParser().Parse(xmlStrParticipant) as Dictionary<string, object>;
 
             var attributes = new Dictionary<string, object>
             {
                 { "ID", "1234" },
-                { "patientRole", parsed["patientRole"]},
+                { "patientRole", parsedPatient["patientRole"]},
+                { "participants", new List<object> { parsedParticipant["participant"] }}
             };
 
             var actualFhir = GetFhirObjectFromTemplate<Patient>(ECRPath, attributes);
@@ -168,12 +196,31 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             // Telecom
             Assert.Equal("+1-555-555-2003", actualFhir.Telecom[0].Value);
-            Assert.Equal("Phone", actualFhir.Telecom[0].System.ToString());
-            Assert.Equal("Home", actualFhir.Telecom[0].Use.ToString());
+            Assert.Equal(ContactPoint.ContactPointSystem.Phone, actualFhir.Telecom[0].System);
+            Assert.Equal(ContactPoint.ContactPointUse.Home, actualFhir.Telecom[0].Use);
 
             Assert.Equal("+1-555-555-2004", actualFhir.Telecom[1].Value);
-            Assert.Equal("Phone", actualFhir.Telecom[1].System.ToString());
-            Assert.Equal("Work", actualFhir.Telecom[1].Use.ToString());
+            Assert.Equal(ContactPoint.ContactPointSystem.Phone, actualFhir.Telecom[1].System);
+            Assert.Equal(ContactPoint.ContactPointUse.Work, actualFhir.Telecom[1].Use);
+
+            // Contact
+            Assert.Equal(HumanName.NameUse.Official, actualFhir.Contact[0].Name.Use);
+            Assert.Equal("Fertha", actualFhir.Contact[0].Name.Family);
+            Assert.Equal(new[] { "Perrin" }, actualFhir.Contact[0].Name.Given);
+            Assert.Equal(new[] { "Mr" }, actualFhir.Contact[0].Name.Prefix);
+            Assert.Equal(new[] { "" }, actualFhir.Contact[0].Name.Suffix);
+            Assert.Equal("+1-555-555-8858", actualFhir.Contact[0].Telecom[0].Value);
+            Assert.Equal(ContactPoint.ContactPointSystem.Phone, actualFhir.Contact[0].Telecom[0].System);
+            Assert.Equal(ContactPoint.ContactPointUse.Mobile, actualFhir.Contact[0].Telecom[0].Use);
+            Assert.Equal(Address.AddressUse.Home, actualFhir.Contact[0].Address.Use);
+            Assert.Equal(new [] {"500 Republica, Suite 460"}, actualFhir.Contact[0].Address.Line);
+            Assert.Equal("Senate District", actualFhir.Contact[0].Address.City);
+            Assert.Equal("", actualFhir.Contact[0].Address.District);
+            Assert.Equal("Galactic City", actualFhir.Contact[0].Address.State);
+            Assert.Equal("GC-500", actualFhir.Contact[0].Address.PostalCode);
+            Assert.Equal("Coruscant", actualFhir.Contact[0].Address.Country);
+            Assert.Equal("", actualFhir.Contact[0].Address.Period.Start);
+            Assert.Equal("", actualFhir.Contact[0].Address.Period.End);
 
             // Address
             Assert.Equal(Address.AddressUse.Home, actualFhir.Address[0].Use);

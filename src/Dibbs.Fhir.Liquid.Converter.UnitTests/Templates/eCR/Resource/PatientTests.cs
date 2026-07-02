@@ -22,6 +22,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
         {
             // From Eve Everywoman
             // Added maritalStatus from Dash Rendar
+            // Added synthetic religiousAfifiliationCode
             var xmlStr = @"
                 <patientRole
                     xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
@@ -127,7 +128,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                         <maritalStatusCode code=""M"" displayName=""Married""
                             codeSystem=""2.16.840.1.113883.1.11.12212""
                             codeSystemName=""MaritalStatusCode"" />
-                        <!-- ADDED: contact from Dash Rendar -->
+                        <!-- ADDED: religiousAffiliationCode (synthetic) -->
+                        <religiousAffiliationCode code=""Catholic""
+                            codeSystem=""2.16.840.1.113883.5.1076"" 
+                            codeSystemName=""ReligiousAffiliation"" />
 
                     </patient>
                 </patientRole>
@@ -220,12 +224,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("Non Hispanic or Latino", ethnicity.Display);
             Assert.Equal("text", actualFhir.Extension[1].Extension[1].Url);
             Assert.Equal("Not Hispanic or Latino", ((FhirString)actualFhir.Extension[1].Extension[1].Value).Value);
-            
+
             // Other
             Assert.Equal(AdministrativeGender.Female, actualFhir.Gender);
+            Assert.Equal("1974-11-24", actualFhir.BirthDate);
+            Assert.Equal("urn:oid:2.16.840.1.113883.5.1076", ((CodeableConcept)actualFhir.Extension[2].Value).Coding[0].System);
+            Assert.Equal("Catholic", ((CodeableConcept)actualFhir.Extension[2].Value).Coding[0].Code);
             Assert.Equal("http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex", actualFhir.Extension[3].Url);
             Assert.Equal("UNK", ((Code)actualFhir.Extension[3].Value).Value);
-            Assert.Equal("1974-11-24", actualFhir.BirthDate);
             Assert.Equal(false, ((FhirBoolean)actualFhir.Deceased).Value);
             Assert.Equal("Married", actualFhir.MaritalStatus.Coding[0].Display);
         }

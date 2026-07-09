@@ -1,14 +1,14 @@
 {% if tribeAOb -%}
-    "url" : "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-tribal-affiliation-extension",
-    "extension" : [
+    "url": "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-tribal-affiliation-extension",
+    "extension": [
         {
-          "url" : "TribeName",
+          "url": "TribeName",
           "valueCoding":
                     { {% include 'DataType/Coding', Coding: tribeAOb.code -%} },
         },
         {% if tribeAOb.value -%}
           {
-            "url" : "EnrolledTribeMember",
+            "url": "EnrolledTribeMember",
             {% include 'Utils/ValueHelper', value: tribeAOb.value, origText: SOCIALTEXT -%}
           },
         {% endif -%}

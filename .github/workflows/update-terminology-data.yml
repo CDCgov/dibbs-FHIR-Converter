@@ -1,4 +1,4 @@
-name: Update from external data sources (Monthly)
+name: Update terminology data from external sources (Monthly)
 
 on:
   #schedule:
@@ -10,7 +10,7 @@ permissions:
   #pull-requests: write
 
 concurrency:
-  group: update-external-data
+  group: update-terminology-data
   cancel-in-progress: false
 
 jobs:

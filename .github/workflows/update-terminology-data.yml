@@ -58,3 +58,69 @@ jobs:
           name: external-data-rxnorm
           path: ${{ runner.temp }}/external-data-artifacts/rxnorm.tar
           if-no-files-found: error
+
+  update-loinc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate Loinc.csv
+        env:
+          LOINC_AUTH: ${{ secrets.LOINC_AUTH }}
+        run: |
+          set -euo pipefail
+
+          loinc_zip="${RUNNER_TEMP}/loinc.zip"
+          loinc_extract_dir="${RUNNER_TEMP}/loinc"
+          loinc_file="src/Dibbs.Fhir.Liquid.Converter/Loinc.csv"
+
+          # The LOINC download API requires the Basic auth token stored in the
+          # repository's LOINC_AUTH secret.
+          if [ -z "${LOINC_AUTH}" ]; then
+            echo "LOINC_AUTH secret is required to download LOINC data."
+            exit 1
+          fi
+
+          # Download the LOINC database zip to runner temp storage so the
+          # workspace only contains files that should become artifacts.
+          curl --fail --show-error --silent --location --request GET \
+            --url "https://loinc.regenstrief.org/api/v1/Loinc/Download" \
+            --header "authorization: Basic ${LOINC_AUTH}" \
+            --output "$loinc_zip"
+
+          # The processing script expects the LoincTable/Loinc.csv file from
+          # inside the unzipped database package.
+          mkdir -p "$loinc_extract_dir"
+          unzip -q "$loinc_zip" -d "$loinc_extract_dir"
+          loinc_source_file="$(find "$loinc_extract_dir" -path "*/LoincTable/Loinc.csv" -print -quit)"
+
+          if [ -z "$loinc_source_file" ]; then
+            echo "Could not find LoincTable/Loinc.csv in the downloaded LOINC zip."
+            exit 1
+          fi
+
+          # Run from scripts/ because loinc_names.py writes to ../src/... .
+          (
+            cd scripts
+            python3 loinc_names.py "$loinc_source_file"
+          )
+
+          # Guard against empty or malformed output before packaging it.
+          test "$(wc -l < "$loinc_file")" -gt 1
+
+      - name: Package LOINC artifact
+        run: |
+          set -euo pipefail
+
+          # Keep repository-relative paths inside the archive so a future PR job
+          # can extract all generated data files onto a fresh checkout.
+          mkdir -p "${RUNNER_TEMP}/external-data-artifacts"
+          tar -cf "${RUNNER_TEMP}/external-data-artifacts/loinc.tar" src/Dibbs.Fhir.Liquid.Converter/Loinc.csv
+
+      - name: Upload LOINC artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-data-loinc
+          path: ${{ runner.temp }}/external-data-artifacts/loinc.tar
+          if-no-files-found: error

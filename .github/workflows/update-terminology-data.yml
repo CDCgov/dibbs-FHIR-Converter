@@ -1,0 +1,60 @@
+name: Update terminology data from external sources (Monthly)
+
+on:
+  #schedule:
+  #  - cron: "0 8 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  #pull-requests: write
+
+concurrency:
+  group: update-terminology-data
+  cancel-in-progress: false
+
+jobs:
+  update-rxnorm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Generate rxnorm.csv
+        run: |
+          set -euo pipefail
+
+          rxnorm_file="src/Dibbs.Fhir.Liquid.Converter/rxnorm.csv"
+
+          # Write to a temporary file first so a failed download cannot leave a
+          # partial rxnorm.csv behind.
+          tmp_file="$(mktemp)"
+          trap 'rm -f "$tmp_file"' EXIT
+
+          # RxNav returns active concepts as JSON. Convert it to the two-column
+          # CSV shape the converter loads at runtime: code,name.
+          curl --fail --show-error --silent --location \
+            "https://rxnav.nlm.nih.gov/REST/allstatus.json?status=active" \
+            | jq --raw-output '[["code", "name"]] + [.minConceptGroup.minConcept[] | [.rxcui, .name]] | .[] | @csv' \
+            > "$tmp_file"
+
+          # Guard against empty or malformed responses before replacing the
+          # checked-in CSV file.
+          test "$(wc -l < "$tmp_file")" -gt 1
+          mv "$tmp_file" "$rxnorm_file"
+
+      - name: Package RxNorm artifact
+        run: |
+          set -euo pipefail
+
+          # Keep repository-relative paths inside the archive so the final PR
+          # job can extract all generated data files onto a fresh checkout.
+          mkdir -p "${RUNNER_TEMP}/external-data-artifacts"
+          tar -cf "${RUNNER_TEMP}/external-data-artifacts/rxnorm.tar" src/Dibbs.Fhir.Liquid.Converter/rxnorm.csv
+
+      - name: Upload RxNorm artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-data-rxnorm
+          path: ${{ runner.temp }}/external-data-artifacts/rxnorm.tar
+          if-no-files-found: error

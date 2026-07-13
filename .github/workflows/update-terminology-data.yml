@@ -1,4 +1,4 @@
-name: Update terminology data from external sources (Monthly)
+name: Update terminology data (Monthly)
 
 on:
   #schedule:

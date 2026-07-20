@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  #pull-requests: write
+  pull-requests: write
 
 concurrency:
   group: update-terminology-data
@@ -263,14 +263,16 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Author the commit as the user or app that triggered the workflow.
-          # The email follows GitHub's ID-based noreply format.
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+          # Author the commit as the standard GitHub Actions bot so reviewers
+          # can clearly identify it as an automated terminology update.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           # Fetch the existing update branch when it exists so force-with-lease
           # can safely refresh an older automated PR.
-          git fetch origin "$BRANCH_NAME:refs/remotes/origin/$BRANCH_NAME" || true
+          if git ls-remote --exit-code --heads origin "$BRANCH_NAME" >/dev/null; then
+            git fetch origin "$BRANCH_NAME:refs/remotes/origin/$BRANCH_NAME"
+          fi
 
           # Reuse a stable branch name so monthly runs update the same PR branch
           # instead of creating a new branch every time.

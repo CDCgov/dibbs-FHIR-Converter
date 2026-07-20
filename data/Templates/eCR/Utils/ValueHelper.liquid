@@ -25,6 +25,31 @@
                 "unit": "{{ unitFromValue }}",
             {% endif -%}
         {% endif -%}
+        {% if value.translation  and value["xsi:type"] == "PQ" -%}
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/extension-quantity-translation",
+                    "valueQuantity": {
+                        {%- assign display = nil -%}
+                        {%- if codeSystemName contains "loinc" -%}
+                          {%- assign display = value.translation.code | get_loinc_name -%}
+                        {%- elsif codeSystemName contains "snomed" -%}
+                          {%- assign display = value.translation.code | get_snomed_name -%}
+                        {%- endif -%}
+                        {%- if value.translation.displayName and display == nil -%}
+                          {%- assign display = value.translation.displayName | clean_string_from_tabs | strip -%}
+                        {%- endif -%}
+                        "unit": "{{display}}",
+                        {%- capture translationSystem -%}
+                            {%- include 'ValueSet/SystemReference', code: value.translation.codeSystem -%}
+                        {%- endcapture -%}
+                        {%- assign translationSystem = translationSystem | strip -%}
+                        "system": "{{ translationSystem | prepend_id }}",
+                        "code": "{{ value.translation.code }}"
+                    }
+                }
+            ]
+         {% endif -%}
     },
 {% elsif value._ %}
     "valueString": "{{ value._ | clean_string_from_tabs }}",

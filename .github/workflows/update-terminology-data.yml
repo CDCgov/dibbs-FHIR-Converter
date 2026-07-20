@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update-rxnorm:
+  download-rxnorm:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -59,7 +59,7 @@ jobs:
           path: ${{ runner.temp }}/external-data-artifacts/rxnorm.tar
           if-no-files-found: error
 
-  update-loinc:
+  download-loinc:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -123,4 +123,89 @@ jobs:
         with:
           name: external-data-loinc
           path: ${{ runner.temp }}/external-data-artifacts/loinc.tar
+          if-no-files-found: error
+
+  download-snomed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: scripts/.python-version
+          cache: pip
+
+      - name: Install SNOMED script dependencies
+        run: python -m pip install pandas
+
+      - name: Generate Snomed.csv
+        env:
+          UMLS_API_KEY: ${{ secrets.UMLS_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          snomed_release_json="${RUNNER_TEMP}/snomed-release.json"
+          snomed_zip="${RUNNER_TEMP}/snomed.zip"
+          snomed_extract_dir="${RUNNER_TEMP}/snomed"
+          snomed_file="src/Dibbs.Fhir.Liquid.Converter/Snomed.csv"
+
+          # The UTS download API requires the API key stored in the repository's
+          # UMLS_API_KEY secret.
+          if [ -z "${UMLS_API_KEY}" ]; then
+            echo "UMLS_API_KEY secret is required to download SNOMED data. See: https://documentation.uts.nlm.nih.gov/rest/authentication.html"
+            exit 1
+          fi
+
+          # Ask UTS for the current SNOMED CT US Edition release metadata.
+          curl --fail --show-error --silent --location --request GET \
+            --url "https://uts-ws.nlm.nih.gov/releases?current=true&releaseType=snomed-ct-us-edition" \
+            --output "$snomed_release_json"
+
+          # The release metadata includes the protected package download URL.
+          snomed_download_url="$(jq --raw-output '[.. | objects | (.downloadUrl? // .clientDownloadUrl? // empty)][0] // empty' "$snomed_release_json")"
+
+          if [ -z "$snomed_download_url" ] || [ "$snomed_download_url" = "null" ]; then
+            echo "Could not find a downloadUrl in the current SNOMED release metadata."
+            exit 1
+          fi
+
+          # Download the release package through the UTS download API. Use
+          # --data-urlencode so special characters in the package URL are safe.
+          curl --fail --show-error --silent --location --get \
+            --url "https://uts-ws.nlm.nih.gov/download" \
+            --data-urlencode "url=${snomed_download_url}" \
+            --data-urlencode "apiKey=${UMLS_API_KEY}" \
+            --output "$snomed_zip"
+
+          # The processing script discovers the current release Snapshot files
+          # under the unzipped package directory.
+          mkdir -p "$snomed_extract_dir"
+          unzip -q "$snomed_zip" -d "$snomed_extract_dir"
+
+          # Run from scripts/ because snomed_names.py writes to ../src/... by
+          # default.
+          (
+            cd scripts
+            python snomed_names.py "$snomed_extract_dir"
+          )
+
+          # Guard against empty or malformed output before packaging it.
+          test "$(wc -l < "$snomed_file")" -gt 1
+
+      - name: Package SNOMED artifact
+        run: |
+          set -euo pipefail
+
+          # Keep repository-relative paths inside the archive so a future PR job
+          # can extract all generated data files onto a fresh checkout.
+          mkdir -p "${RUNNER_TEMP}/external-data-artifacts"
+          tar -cf "${RUNNER_TEMP}/external-data-artifacts/snomed.tar" src/Dibbs.Fhir.Liquid.Converter/Snomed.csv
+
+      - name: Upload SNOMED artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-data-snomed
+          path: ${{ runner.temp }}/external-data-artifacts/snomed.tar
           if-no-files-found: error

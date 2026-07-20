@@ -278,7 +278,7 @@ jobs:
           # instead of creating a new branch every time.
           git checkout -B "$BRANCH_NAME"
           git add -A
-          git commit -m "Update external data sources"
+          git commit -m "Update terminology data"
           git push --force-with-lease origin "$BRANCH_NAME"
 
           # Summarize the files included in this aggregate update.
@@ -287,7 +287,7 @@ jobs:
             cat <<'PR_BODY'
           ## Summary
 
-          Updates external terminology data files used by the FHIR converter.
+          Updates terminology data files used by the FHIR converter.
 
           ## Changed files
           PR_BODY

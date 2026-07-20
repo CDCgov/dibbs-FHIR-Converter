@@ -320,10 +320,10 @@ jobs:
             gh pr create \
               --base main \
               --head "$BRANCH_NAME" \
-              --title "Update external data sources" \
+              --title "chore: Update terminology data (Monthly)" \
               --body-file "$pr_body_file"
           else
             gh pr edit "$BRANCH_NAME" \
-              --title "Update external data sources" \
+              --title "chore: Update terminology data (Monthly)" \
               --body-file "$pr_body_file"
           fi

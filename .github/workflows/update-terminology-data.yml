@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Generate rxnorm.csv
         run: |
@@ -53,7 +53,7 @@ jobs:
           tar -cf "${RUNNER_TEMP}/external-data-artifacts/rxnorm.tar" src/Dibbs.Fhir.Liquid.Converter/rxnorm.csv
 
       - name: Upload RxNorm artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: external-data-rxnorm
           path: ${{ runner.temp }}/external-data-artifacts/rxnorm.tar
@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Generate Loinc.csv
         env:
@@ -119,7 +119,7 @@ jobs:
           tar -cf "${RUNNER_TEMP}/external-data-artifacts/loinc.tar" src/Dibbs.Fhir.Liquid.Converter/Loinc.csv
 
       - name: Upload LOINC artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: external-data-loinc
           path: ${{ runner.temp }}/external-data-artifacts/loinc.tar
@@ -129,7 +129,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -204,7 +204,7 @@ jobs:
           tar -cf "${RUNNER_TEMP}/external-data-artifacts/snomed.tar" src/Dibbs.Fhir.Liquid.Converter/Snomed.csv
 
       - name: Upload SNOMED artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: external-data-snomed
           path: ${{ runner.temp }}/external-data-artifacts/snomed.tar

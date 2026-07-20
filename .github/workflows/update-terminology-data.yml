@@ -298,7 +298,6 @@ jobs:
 
           Before merging this PR:
           - Review the generated terminology CSV changes.
-          - Confirm the workflow completed successfully for all terminology sources.
 
           After this PR is approved:
           1. Merge this FHIR converter PR into `main`.
@@ -306,8 +305,8 @@ jobs:
              - Go to https://github.com/CDCgov/dibbs-FHIR-Converter/releases.
              - Draft a new release using the repository's current release naming/versioning convention.
              - Make sure the release target includes this merged terminology update.
-             - Generate or write release notes that mention the terminology data refresh.
-             - Publish the release and copy the exact release tag or branch name.
+             - Generate release notes that mention the terminology data refresh.
+             - Publish the release and copy the exact release tag.
           3. Open a PR in `CDCgov/dibbs-ecr-viewer` to update [`containers/fhir-converter/Dockerfile`](https://github.com/CDCgov/dibbs-ecr-viewer/blob/main/containers/fhir-converter/Dockerfile).
           4. In that Dockerfile, update the `git clone https://github.com/CDCgov/dibbs-FHIR-Converter.git --branch ...` value to the new FHIR converter release tag.
           5. Make sure all checks pass before merging the ECR Viewer PR.

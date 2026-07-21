@@ -56,7 +56,8 @@
             {% assign obsRelationships = observationEntry.entryRelationship | to_array -%}
             {% for obsRelation in obsRelationships -%}
             {% assign templateIdString = obsRelation.observation.templateId.root -%}
-            {% if templateIdString == '2.16.840.1.113883.10.20.22.4.280' or templateIdString == '2.16.840.1.113883.10.20.22.4.297' -%}
+            {% comment %} Estimated Gestational Age of Pregnancy (2.16.840.1.113883.10.20.22.4.280), Estimated Date of Delivery (2.16.840.1.113883.10.20.22.4.297 or 2.16.840.1.113883.10.20.15.3.1) {% endcomment %}
+            {% if templateIdString == '2.16.840.1.113883.10.20.22.4.280' or templateIdString == '2.16.840.1.113883.10.20.22.4.297' or templateIdString == '2.16.840.1.113883.10.20.15.3.1' -%}
             {
                 "extension": [
                     {% if obsRelation.observation.effectiveTime -%}

@@ -309,7 +309,8 @@ jobs:
              - Publish the release and copy the exact release tag.
           3. Open a PR in `CDCgov/dibbs-ecr-viewer` to update [`containers/fhir-converter/Dockerfile`](https://github.com/CDCgov/dibbs-ecr-viewer/blob/main/containers/fhir-converter/Dockerfile).
           4. In that Dockerfile, update the `git clone https://github.com/CDCgov/dibbs-FHIR-Converter.git --branch ...` value to the new FHIR converter release tag.
-          5. Make sure all checks pass before merging the ECR Viewer PR.
+          5. Make sure all checks pass before merging the eCR Viewer PR.
+          6. Once merged, create a new release of the eCR Viewer for users to receive these updates.
           PR_BODY
           } > "$pr_body_file"
 

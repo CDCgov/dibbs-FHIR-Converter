@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
@@ -31,14 +31,15 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
 
                 // Remove redundant namespaces to avoid appending namespace prefix before elements
                 var defaultNamespace = xDocument.Root?.GetDefaultNamespace().NamespaceName;
-                xDocument.Root?.Attributes()
+                xDocument.Root?.DescendantsAndSelf()
+                    .Attributes()
                     .Where(attribute => IsRedundantNamespaceAttribute(attribute, defaultNamespace))
                     .Remove();
 
                 // Normalize non-default namespace prefix in elements
                 var namespaces = xDocument.Root?.Attributes()
                     .Where(x => x.IsNamespaceDeclaration && x.Value != defaultNamespace);
-                NormalizeNamespacePrefix(xDocument?.Root, namespaces);
+                NormalizeNamespacePrefix(xDocument?.Root, namespaces, defaultNamespace);
 
                 // Change XText to XElement with name "_" to avoid serializing depth difference, e.g., given="foo" and given.#text="foo"
                 ReplaceTextWithElement(xDocument?.Root);
@@ -74,25 +75,38 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
         /// <summary>
         /// Replace "namespace:attribute" to "namespace_attribute" to be compatible with DotLiquids, e.g., from sdtc:raceCode to sdtc_raceCode
         /// </summary>
-        private static void NormalizeNamespacePrefix(XElement element, IEnumerable<XAttribute> namespaces)
+        private static void NormalizeNamespacePrefix(XElement element, IEnumerable<XAttribute> namespaces, string defaultNamespace)
         {
-            if (element == null || namespaces == null)
+            if (element == null)
             {
                 return;
             }
 
-            foreach (var ns in namespaces)
+            var localNamespaces = element.Attributes()
+                .Where(x => x.IsNamespaceDeclaration &&
+                            !string.Equals(x.Name.LocalName, "xmlns", StringComparison.InvariantCultureIgnoreCase) &&
+                            x.Value != defaultNamespace)
+                .ToList();
+
+            var currentNamespaces = localNamespaces.Count > 0
+                ? localNamespaces.Concat(namespaces ?? Enumerable.Empty<XAttribute>())
+                : namespaces;
+
+            if (currentNamespaces != null)
             {
-                if (string.Equals(ns.Value, element.Name.NamespaceName, StringComparison.InvariantCultureIgnoreCase))
+                foreach (var ns in currentNamespaces)
                 {
-                    element.Name = $"{ns.Name.LocalName}_{element.Name.LocalName}";
-                    break;
+                    if (string.Equals(ns.Value, element.Name.NamespaceName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        element.Name = $"{ns.Name.LocalName}_{element.Name.LocalName}";
+                        break;
+                    }
                 }
             }
 
             foreach (var childElement in element.Elements())
             {
-                NormalizeNamespacePrefix(childElement, namespaces);
+                NormalizeNamespacePrefix(childElement, currentNamespaces, defaultNamespace);
             }
         }
 

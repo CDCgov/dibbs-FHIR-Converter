@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
@@ -79,6 +79,45 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests.DataParsers
             Assert.Equal(
                 expectedInnerText,
                 (contents?["text"] as Dictionary<string, object>)?.GetValueOrDefault("_innerText"));
+        }
+
+        [Fact]
+        public void GivenCcdaDocumentWithChildElementNamespace_WhenParse_CorrectResultShouldBeReturned()
+        {
+            // Document where "xmlns:sdtc" is defined on a child element, not on ClinicalDocument
+            var document = "<ClinicalDocument xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:hl7-org:v3\">" +
+                           "<patientRole>" +
+                           "<patient xmlns:sdtc=\"urn:hl7-org:sdtc\">" +
+                           "<sdtc:raceCode code=\"2076-8\" displayName=\"Hawaiian or Other Pacific Islander\"/>" +
+                           "<sdtc:deceasedInd value=\"false\"/>" +
+                           "</patient>" +
+                           "</patientRole>" +
+                           "</ClinicalDocument>";
+            var data = _parser.Parse(document);
+            var contents = (data as Dictionary<string, object>)?.GetValueOrDefault("ClinicalDocument") as Dictionary<string, object>;
+            var patientRole = contents?.GetValueOrDefault("patientRole") as Dictionary<string, object>;
+            var patient = patientRole?.GetValueOrDefault("patient") as Dictionary<string, object>;
+
+            Assert.NotNull(patient?["sdtc_raceCode"]);
+            Assert.NotNull(patient?["sdtc_deceasedInd"]);
+        }
+
+        [Fact]
+        public void GivenCcdaDocumentWithNamespaceOnElementItself_WhenParse_CorrectResultShouldBeReturned()
+        {
+            var document = "<ClinicalDocument xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns=\"urn:hl7-org:v3\">" +
+                           "<patientRole>" +
+                           "<patient>" +
+                           "<sdtc:deceasedInd xmlns:sdtc=\"urn:hl7-org:sdtc\" value=\"false\"/>" +
+                           "</patient>" +
+                           "</patientRole>" +
+                           "</ClinicalDocument>";
+            var data = _parser.Parse(document);
+            var contents = (data as Dictionary<string, object>)?.GetValueOrDefault("ClinicalDocument") as Dictionary<string, object>;
+            var patientRole = contents?.GetValueOrDefault("patientRole") as Dictionary<string, object>;
+            var patient = patientRole?.GetValueOrDefault("patient") as Dictionary<string, object>;
+
+            Assert.NotNull(patient?["sdtc_deceasedInd"]);
         }
     }
 }

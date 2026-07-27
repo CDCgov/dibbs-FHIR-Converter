@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
   pull-requests: write
 
 concurrency:
@@ -281,6 +282,22 @@ jobs:
           git commit -m "Update terminology data"
           git push --force-with-lease origin "$BRANCH_NAME"
 
+          # Determine which terminology files changed so the PR labels match
+          # the current aggregate update.
+          changed_files_file="$(mktemp)"
+          git show --name-only --format="" HEAD | sed '/^$/d' > "$changed_files_file"
+
+          changed_labels=()
+          if grep -Fxq "src/Dibbs.Fhir.Liquid.Converter/rxnorm.csv" "$changed_files_file"; then
+            changed_labels+=("terminology: rxnorm")
+          fi
+          if grep -Fxq "src/Dibbs.Fhir.Liquid.Converter/Loinc.csv" "$changed_files_file"; then
+            changed_labels+=("terminology: loinc")
+          fi
+          if grep -Fxq "src/Dibbs.Fhir.Liquid.Converter/Snomed.csv" "$changed_files_file"; then
+            changed_labels+=("terminology: snomed")
+          fi
+
           # Summarize the files included in this aggregate update.
           pr_body_file="$(mktemp)"
           {
@@ -291,7 +308,7 @@ jobs:
 
           ## Changed files
           PR_BODY
-            git show --name-only --format="" HEAD | sed '/^$/d; s/^/- /'
+            sed 's/^/- /' "$changed_files_file"
             cat <<'PR_BODY'
 
           ## Next steps for approvers
@@ -327,4 +344,15 @@ jobs:
             gh pr edit "$BRANCH_NAME" \
               --title "chore: Update terminology data (Monthly)" \
               --body-file "$pr_body_file"
+          fi
+
+          # Apply the pre-created labels that match the terminology files in
+          # this update. Clear old terminology labels first because this job
+          # reuses the same PR branch for each monthly run.
+          gh pr edit "$BRANCH_NAME" \
+            --remove-label "terminology: rxnorm,terminology: loinc,terminology: snomed" \
+            || true
+          if [ "${#changed_labels[@]}" -gt 0 ]; then
+            changed_labels_csv="$(IFS=,; echo "${changed_labels[*]}")"
+            gh pr edit "$BRANCH_NAME" --add-label "$changed_labels_csv"
           fi

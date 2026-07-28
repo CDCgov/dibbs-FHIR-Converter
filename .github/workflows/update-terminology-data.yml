@@ -1,24 +1,25 @@
-name: Update terminology data from external sources (Monthly)
+name: Update terminology data (Monthly)
 
 on:
-  #schedule:
-  #  - cron: "0 8 1 * *"
+  schedule:
+    - cron: "0 8 1 * *"
   workflow_dispatch:
 
 permissions:
   contents: write
-  #pull-requests: write
+  issues: write
+  pull-requests: write
 
 concurrency:
   group: update-terminology-data
   cancel-in-progress: false
 
 jobs:
-  update-rxnorm:
+  download-rxnorm:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Generate rxnorm.csv
         run: |
@@ -53,8 +54,305 @@ jobs:
           tar -cf "${RUNNER_TEMP}/external-data-artifacts/rxnorm.tar" src/Dibbs.Fhir.Liquid.Converter/rxnorm.csv
 
       - name: Upload RxNorm artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: external-data-rxnorm
           path: ${{ runner.temp }}/external-data-artifacts/rxnorm.tar
           if-no-files-found: error
+
+  download-loinc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Generate Loinc.csv
+        env:
+          LOINC_AUTH: ${{ secrets.LOINC_AUTH }}
+        run: |
+          set -euo pipefail
+
+          loinc_zip="${RUNNER_TEMP}/loinc.zip"
+          loinc_extract_dir="${RUNNER_TEMP}/loinc"
+          loinc_file="src/Dibbs.Fhir.Liquid.Converter/Loinc.csv"
+
+          # The LOINC download API requires the Basic auth token stored in the
+          # repository's LOINC_AUTH secret.
+          if [ -z "${LOINC_AUTH}" ]; then
+            echo "LOINC_AUTH secret is required to download LOINC data."
+            exit 1
+          fi
+
+          # Download the LOINC database zip to runner temp storage so the
+          # workspace only contains files that should become artifacts.
+          curl --fail --show-error --silent --location --request GET \
+            --url "https://loinc.regenstrief.org/api/v1/Loinc/Download" \
+            --header "authorization: Basic ${LOINC_AUTH}" \
+            --output "$loinc_zip"
+
+          # The processing script expects the LoincTable/Loinc.csv file from
+          # inside the unzipped database package.
+          mkdir -p "$loinc_extract_dir"
+          unzip -q "$loinc_zip" -d "$loinc_extract_dir"
+          loinc_source_file="$(find "$loinc_extract_dir" -path "*/LoincTable/Loinc.csv" -print -quit)"
+
+          if [ -z "$loinc_source_file" ]; then
+            echo "Could not find LoincTable/Loinc.csv in the downloaded LOINC zip."
+            exit 1
+          fi
+
+          # Run from scripts/ because loinc_names.py writes to ../src/... .
+          (
+            cd scripts
+            python3 loinc_names.py "$loinc_source_file"
+          )
+
+          # Guard against empty or malformed output before packaging it.
+          test "$(wc -l < "$loinc_file")" -gt 1
+
+      - name: Package LOINC artifact
+        run: |
+          set -euo pipefail
+
+          # Keep repository-relative paths inside the archive so a future PR job
+          # can extract all generated data files onto a fresh checkout.
+          mkdir -p "${RUNNER_TEMP}/external-data-artifacts"
+          tar -cf "${RUNNER_TEMP}/external-data-artifacts/loinc.tar" src/Dibbs.Fhir.Liquid.Converter/Loinc.csv
+
+      - name: Upload LOINC artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: external-data-loinc
+          path: ${{ runner.temp }}/external-data-artifacts/loinc.tar
+          if-no-files-found: error
+
+  download-snomed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version-file: scripts/.python-version
+          cache: pip
+
+      - name: Install SNOMED script dependencies
+        run: python -m pip install pandas
+
+      - name: Generate Snomed.csv
+        env:
+          UMLS_API_KEY: ${{ secrets.UMLS_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          snomed_release_json="${RUNNER_TEMP}/snomed-release.json"
+          snomed_zip="${RUNNER_TEMP}/snomed.zip"
+          snomed_extract_dir="${RUNNER_TEMP}/snomed"
+          snomed_file="src/Dibbs.Fhir.Liquid.Converter/Snomed.csv"
+
+          # The UTS download API requires the API key stored in the repository's
+          # UMLS_API_KEY secret.
+          if [ -z "${UMLS_API_KEY}" ]; then
+            echo "UMLS_API_KEY secret is required to download SNOMED data. See: https://documentation.uts.nlm.nih.gov/rest/authentication.html"
+            exit 1
+          fi
+
+          # Ask UTS for the current SNOMED CT US Edition release metadata.
+          curl --fail --show-error --silent --location --request GET \
+            --url "https://uts-ws.nlm.nih.gov/releases?current=true&releaseType=snomed-ct-us-edition" \
+            --output "$snomed_release_json"
+
+          # The release metadata includes the protected package download URL.
+          snomed_download_url="$(jq --raw-output '[.. | objects | (.downloadUrl? // .clientDownloadUrl? // empty)][0] // empty' "$snomed_release_json")"
+
+          if [ -z "$snomed_download_url" ] || [ "$snomed_download_url" = "null" ]; then
+            echo "Could not find a downloadUrl in the current SNOMED release metadata."
+            exit 1
+          fi
+
+          # Download the release package through the UTS download API. Use
+          # --data-urlencode so special characters in the package URL are safe.
+          curl --fail --show-error --silent --location --get \
+            --url "https://uts-ws.nlm.nih.gov/download" \
+            --data-urlencode "url=${snomed_download_url}" \
+            --data-urlencode "apiKey=${UMLS_API_KEY}" \
+            --output "$snomed_zip"
+
+          # The processing script discovers the current release Snapshot files
+          # under the unzipped package directory.
+          mkdir -p "$snomed_extract_dir"
+          unzip -q "$snomed_zip" -d "$snomed_extract_dir"
+
+          # Run from scripts/ because snomed_names.py writes to ../src/... by
+          # default.
+          (
+            cd scripts
+            python snomed_names.py "$snomed_extract_dir"
+          )
+
+          # Guard against empty or malformed output before packaging it.
+          test "$(wc -l < "$snomed_file")" -gt 1
+
+      - name: Package SNOMED artifact
+        run: |
+          set -euo pipefail
+
+          # Keep repository-relative paths inside the archive so a future PR job
+          # can extract all generated data files onto a fresh checkout.
+          mkdir -p "${RUNNER_TEMP}/external-data-artifacts"
+          tar -cf "${RUNNER_TEMP}/external-data-artifacts/snomed.tar" src/Dibbs.Fhir.Liquid.Converter/Snomed.csv
+
+      - name: Upload SNOMED artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: external-data-snomed
+          path: ${{ runner.temp }}/external-data-artifacts/snomed.tar
+          if-no-files-found: error
+
+  create-pull-request:
+    runs-on: ubuntu-latest
+    needs:
+      - download-rxnorm
+      - download-loinc
+      - download-snomed
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Download generated data artifacts
+        uses: actions/download-artifact@v7
+        with:
+          pattern: external-data-*
+          path: ${{ runner.temp }}/external-data-artifacts
+          merge-multiple: true
+
+      - name: Apply generated data artifacts
+        run: |
+          set -euo pipefail
+
+          # Each data-source job uploads a tar archive containing
+          # repository-relative paths. Extract every archive before doing one
+          # aggregate diff.
+          artifact_count=0
+          while IFS= read -r -d '' artifact; do
+            artifact_count=$((artifact_count + 1))
+            tar -xf "$artifact"
+          done < <(find "${RUNNER_TEMP}/external-data-artifacts" -name "*.tar" -print0)
+
+          test "$artifact_count" -gt 0
+
+      - name: Check for external data changes
+        id: external_data_changes
+        run: |
+          set -euo pipefail
+
+          # Only create or update a PR when at least one generated data file
+          # differs from the version currently checked in on main.
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create pull request
+        if: steps.external_data_changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH_NAME: update-external-data
+        run: |
+          set -euo pipefail
+
+          # Author the commit as the standard GitHub Actions bot so reviewers
+          # can clearly identify it as an automated terminology update.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Fetch the existing update branch when it exists so force-with-lease
+          # can safely refresh an older automated PR.
+          if git ls-remote --exit-code --heads origin "$BRANCH_NAME" >/dev/null; then
+            git fetch origin "$BRANCH_NAME:refs/remotes/origin/$BRANCH_NAME"
+          fi
+
+          # Reuse a stable branch name so monthly runs update the same PR branch
+          # instead of creating a new branch every time.
+          git checkout -B "$BRANCH_NAME"
+          git add -A
+          git commit -m "Update terminology data"
+          git push --force-with-lease origin "$BRANCH_NAME"
+
+          # Determine which terminology files changed so the PR labels match
+          # the current aggregate update.
+          changed_files_file="$(mktemp)"
+          git show --name-only --format="" HEAD | sed '/^$/d' > "$changed_files_file"
+
+          changed_labels=()
+          if grep -Fxq "src/Dibbs.Fhir.Liquid.Converter/rxnorm.csv" "$changed_files_file"; then
+            changed_labels+=("terminology: rxnorm")
+          fi
+          if grep -Fxq "src/Dibbs.Fhir.Liquid.Converter/Loinc.csv" "$changed_files_file"; then
+            changed_labels+=("terminology: loinc")
+          fi
+          if grep -Fxq "src/Dibbs.Fhir.Liquid.Converter/Snomed.csv" "$changed_files_file"; then
+            changed_labels+=("terminology: snomed")
+          fi
+
+          # Summarize the files included in this aggregate update.
+          pr_body_file="$(mktemp)"
+          {
+            cat <<'PR_BODY'
+          ## Summary
+
+          Updates terminology data files used by the FHIR converter.
+
+          ## Changed files
+          PR_BODY
+            sed 's/^/- /' "$changed_files_file"
+            cat <<'PR_BODY'
+
+          ## Next steps for approvers
+
+          Before merging this PR:
+          - Review the generated terminology CSV changes.
+
+          After this PR is approved:
+          1. Merge this FHIR converter PR into `main`.
+          2. Create a new GitHub release for `dibbs-FHIR-Converter` from the updated `main` branch:
+             - Go to https://github.com/CDCgov/dibbs-FHIR-Converter/releases.
+             - Draft a new release using the repository's current release naming/versioning convention.
+             - Make sure the release target includes this merged terminology update.
+             - Generate release notes that mention the terminology data refresh.
+             - Publish the release and copy the exact release tag.
+          3. Open a PR in `CDCgov/dibbs-ecr-viewer` to update [`containers/fhir-converter/Dockerfile`](https://github.com/CDCgov/dibbs-ecr-viewer/blob/main/containers/fhir-converter/Dockerfile).
+          4. In that Dockerfile, update the `git clone https://github.com/CDCgov/dibbs-FHIR-Converter.git --branch ...` value to the new FHIR converter release tag.
+          5. Make sure all checks pass before merging the eCR Viewer PR.
+          6. Once merged, create a new release of the eCR Viewer for users to receive these updates.
+          PR_BODY
+          } > "$pr_body_file"
+
+          # Open a PR the first time changes are found. If a previous external
+          # data PR is still open, refresh its title and body after pushing.
+          pr_count="$(gh pr list --head "$BRANCH_NAME" --base main --state open --json number --jq length)"
+          if [ "$pr_count" -eq 0 ]; then
+            gh pr create \
+              --base main \
+              --head "$BRANCH_NAME" \
+              --title "chore: Update terminology data (Monthly)" \
+              --body-file "$pr_body_file"
+          else
+            gh pr edit "$BRANCH_NAME" \
+              --title "chore: Update terminology data (Monthly)" \
+              --body-file "$pr_body_file"
+          fi
+
+          # Apply the pre-created labels that match the terminology files in
+          # this update. Clear old terminology labels first because this job
+          # reuses the same PR branch for each monthly run.
+          gh pr edit "$BRANCH_NAME" \
+            --remove-label "terminology: rxnorm,terminology: loinc,terminology: snomed" \
+            || true
+          if [ "${#changed_labels[@]}" -gt 0 ]; then
+            changed_labels_csv="$(IFS=,; echo "${changed_labels[*]}")"
+            gh pr edit "$BRANCH_NAME" --add-label "$changed_labels_csv"
+          fi

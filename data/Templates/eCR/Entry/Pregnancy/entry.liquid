@@ -22,7 +22,7 @@
                     {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
                 {% elsif tempId.root == '2.16.840.1.113883.10.20.22.4.293' -%}
                     {% comment %}  Supplemental pregnancy observation {% endcomment %}
-                    {% include 'Resource/ObservationPregnancyStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId -%}
+                    {% include 'Resource/ObservationPregnancyStatus', observationCategory: 'exam', observationEntry: entry.observation, ID: observationId, text: text -%}
                     {% include 'Reference/Observation/Subject', ID: observationId, REF: fullPatientId -%}
                     {% comment %} Add supplemental pregnancy data {% endcomment %}
                     {% assign rels = entry.observation.entryRelationship | to_array %}

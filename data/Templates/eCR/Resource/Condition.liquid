@@ -12,15 +12,41 @@
         ],
         "clinicalStatus":
         {
-            {% assign entryRelationships = conditionEntry.entryRelationship | to_array -%}
-            {% for entryRelationship in entryRelationships -%}
-                {% assign templateIdString = entryRelationship.observation.templateId | to_json_string -%}
-                {% if  templateIdString  contains '"2.16.840.1.113883.10.20.22.4.5"' -%}
-                    {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
-                {% elsif templateIdString  contains '"2.16.840.1.113883.10.20.22.4.6"' -%}
-                    {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
-                {% endif -%}
-            {% endfor -%}
+            {% if conditionEntry.entryRelationship %}
+                {% assign entryRelationships = conditionEntry.entryRelationship | to_array -%}
+                {% for entryRelationship in entryRelationships -%}
+                    {% assign templateIdString = entryRelationship.observation.templateId | to_json_string -%}
+                    {% if  templateIdString  contains '"2.16.840.1.113883.10.20.22.4.5"' -%}
+                        {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
+                    {% elsif templateIdString  contains '"2.16.840.1.113883.10.20.22.4.6"' -%}
+                        {% include 'DataType/CodeableConcept', CodeableConcept: entryRelationship.observation.value -%}
+                    {% endif %}
+                {% endfor -%}
+            {% comment %} Fallback #1: Use Problem Concern Act status if Problem Status observation DNE {% endcomment %}
+            {% comment %} https://build.fhir.org/ig/HL7/ccda-on-fhir/en/CF-problems.html {% endcomment %}
+            {% elsif entry.act.statusCode.code %}
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "{{ entry.act.statusCode.code | get_property: 'ValueSet/ClinicalStatus' }}"
+                    },
+                ],
+            {% comment %} Fallback #2 if Problem Status observation DNE {% endcomment %}
+            {% elsif conditionEntry.effectiveTime.high.value %}
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "inactive"
+                    },
+                ],
+            {% else %}
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                        "code": "active"
+                    },
+                ],
+            {% endif -%}
         },
         "category": [
         {
@@ -36,7 +62,20 @@
             {% endif -%}
         },
         ],
-        "code": { {% include 'DataType/CodeableConcept', CodeableConcept: conditionEntry.value -%} },
+        {% if conditionEntry.negationInd == "true" %}
+            "code": {
+                "coding": [
+                    {
+                        "code": "160245001",
+                        "system": "http://snomed.info/sct",
+                        "display": "No current problems or disability"
+                    },
+                ],
+                "text": "{%- include 'Utils/TextHelper', text: conditionEntry.value.originalText -%}" 
+            },
+        {% else %}
+            "code": { {% include 'DataType/CodeableConcept', CodeableConcept: conditionEntry.value -%} },
+        {% endif %}
         {% if conditionEntry.effectiveTime.low.value -%}
             "onsetDateTime":"{{ conditionEntry.effectiveTime.low.value | format_as_date_time }}",
         {% elsif conditionEntry.author.time and conditionEntry.author.time.value -%}
@@ -55,16 +94,18 @@
         "note":
         [
             {
-                {% for relatedEntry in relatedEntries -%}
-                    {% assign templateIdString = relatedEntry.act.templateId.root | to_json_string -%}
-                    {% if templateIdString contains '"2.16.840.1.113883.10.20.22.4.64"' or templateIdString contains "2.16.840.1.113883.10.20.22.4.202" and relatedEntry.act.text.reference.value -%}
-                        {% assign commentRefVal = relatedEntry.act.text.reference.value | replace: '#', '' -%}
-                        {% assign commentText = text._innerText | find_inner_text_by_id: commentRefVal -%}
+                "text": "{%- include 'Utils/TextHelper', text: conditionEntry.text -%}" 
+            },
+            {% for relatedEntry in relatedEntries -%}
+                {% assign templateIdString = relatedEntry.act.templateId.root | to_json_string -%}
+                {% if templateIdString contains '"2.16.840.1.113883.10.20.22.4.64"' or templateIdString contains "2.16.840.1.113883.10.20.22.4.202" and relatedEntry.act.text.reference.value -%}
+                    {% assign commentRefVal = relatedEntry.act.text.reference.value | replace: '#', '' -%}
+                    {% assign commentText = text._innerText | find_inner_text_by_id: commentRefVal -%}
+                    {
                         "text": "{{ commentText | clean_string_from_tabs }}",
-                    {% endif -%}
-                {% endfor -%}
-
-            }
+                    },
+                {% endif -%}
+            {% endfor -%}
         ],
     },
 },

@@ -314,7 +314,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ResourceType.Patient.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
 
-            Assert.Equal("2026-07-01", ((Date)actualFhir.Deceased).Value);
+            Assert.Equal("2026-07-01", ((FhirDateTime)actualFhir.Deceased).Value);
         }
     }
 }

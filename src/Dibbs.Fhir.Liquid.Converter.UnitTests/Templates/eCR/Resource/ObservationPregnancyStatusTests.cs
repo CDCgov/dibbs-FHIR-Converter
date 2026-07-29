@@ -242,5 +242,154 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
               eddComponent.Code.Coding.First().Display
           );
         }
+
+        [Fact]
+        public void PregnancyStatus_CommentActivity()
+        {
+          var xmlString = @"
+          <observation classCode=""OBS"" moodCode=""EVN"">
+							<templateId root=""2.16.840.1.113883.10.20.15.3.8""/>
+							<templateId extension=""2018-04-01"" root=""2.16.840.1.113883.10.20.22.4.293""/>
+							<id extension=""138914829"" root=""1.2.840.114350.1.13.363.2.7.9.728366.79666980""/>
+							<code code=""ASSERTION"" codeSystem=""2.16.840.1.113883.5.4""/>
+							<statusCode code=""completed""/>
+							<effectiveTime>
+								<low value=""20250727""/>
+							</effectiveTime>
+							<value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" code=""77386006"" codeSystem=""2.16.840.1.113883.6.96"" codeSystemName=""SNOMED CT"" displayName=""Pregnant"" xsi:type=""CD""/>
+							<entryRelationship typeCode=""REFR"">
+								<observation classCode=""OBS"" moodCode=""EVN"">
+									<templateId extension=""2018-04-01"" root=""2.16.840.1.113883.10.20.22.4.297""/>
+									<id extension=""138914829-2-1"" root=""1.2.840.114350.1.13.363.2.7.9.728366.79666980""/>
+									<code code=""11779-6"" codeSystem=""2.16.840.1.113883.6.1"" codeSystemName=""LOINC"" displayName=""Delivery date Estimated from last menstrual period""/>
+									<statusCode code=""completed""/>
+									<effectiveTime value=""20251030""/>
+									<value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" value=""20260427"" xsi:type=""TS""/>
+									<entryRelationship typeCode=""REFR"">
+										<act classCode=""ACT"" moodCode=""EVN"">
+											<templateId root=""2.16.840.1.113883.10.20.22.4.64""/>
+											<code code=""48767-8"" codeSystem=""2.16.840.1.113883.6.1"" codeSystemName=""LOINC"" displayName=""Annotation comment""/>
+											<text>
+												<reference value=""#datingevent26comment""/>
+											</text>
+										</act>
+									</entryRelationship>
+								</observation>
+							</entryRelationship>
+							<entryRelationship typeCode=""REFR"">
+								<observation classCode=""OBS"" moodCode=""EVN"">
+									<templateId extension=""2018-04-01"" root=""2.16.840.1.113883.10.20.22.4.297""/>
+									<id extension=""138914829-5-2"" root=""1.2.840.114350.1.13.363.2.7.9.728366.79666980""/>
+									<code code=""11781-2"" codeSystem=""2.16.840.1.113883.6.1"" codeSystemName=""LOINC"" displayName=""Delivery date US composite estimate""/>
+									<statusCode code=""completed""/>
+									<effectiveTime value=""20251104""/>
+									<value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" value=""20260503"" xsi:type=""TS""/>
+									<entryRelationship typeCode=""REFR"">
+										<act classCode=""ACT"" moodCode=""EVN"">
+											<templateId root=""2.16.840.1.113883.10.20.22.4.64""/>
+											<code code=""48767-8"" codeSystem=""2.16.840.1.113883.6.1"" codeSystemName=""LOINC"" displayName=""Annotation comment""/>
+											<text>
+												<reference value=""#datingevent27comment""/>
+											</text>
+										</act>
+									</entryRelationship>
+								</observation>
+							</entryRelationship>
+						</observation>";
+
+          var parser = new CcdaDataParser();
+          var parsedXml = parser.Parse(xmlString) as Dictionary<string, object>;
+          var text = new Dictionary<string, object>
+          {
+              {
+                  "_innerText",
+                  @"<content ID=""datingevent26comment"">LMP comment</content>
+                    <content ID=""datingevent27comment"">Ultrasound comment</content>"
+              },
+          };
+
+          var attributes = new Dictionary<string, object>
+          {
+              { "ID", "1234" },
+              { "patientId", "urn:uuid:9876" },
+              { "observationCategory", "exam" },
+              { "observationEntry", parsedXml["observation"] },
+              { "text", text },
+          };
+
+          var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+          Assert.Equal("Observation", actualFhir.TypeName);
+          Assert.Equal("1234", actualFhir.Id);
+          Assert.Equal(
+              "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation",
+              Assert.Single(actualFhir.Meta.Profile)
+          );
+
+          var identifier = Assert.Single(actualFhir.Identifier);
+          Assert.Equal(
+              "urn:oid:1.2.840.114350.1.13.363.2.7.9.728366.79666980",
+              identifier.System
+          );
+          Assert.Equal("138914829", identifier.Value);
+
+          var category = Assert.Single(Assert.Single(actualFhir.Category).Coding);
+          Assert.Equal("http://terminology.hl7.org/CodeSystem/observation-category", category.System);
+          Assert.Equal("exam", category.Code);
+
+          Assert.Equal(ObservationStatus.Final, actualFhir.Status);
+
+          var observationCode = Assert.Single(actualFhir.Code.Coding);
+          Assert.Equal("http://loinc.org", observationCode.System);
+          Assert.Equal("82810-3", observationCode.Code);
+          Assert.Equal("Pregnancy status", observationCode.Display);
+
+          var effectivePeriod = Assert.IsType<Period>(actualFhir.Effective);
+          Assert.Equal("2025-07-27", effectivePeriod.Start);
+
+          var pregnancyStatus = Assert.Single(
+              Assert.IsType<CodeableConcept>(actualFhir.Value).Coding
+          );
+          Assert.Equal("http://snomed.info/sct", pregnancyStatus.System);
+          Assert.Equal("77386006", pregnancyStatus.Code);
+          Assert.Equal("Pregnancy", pregnancyStatus.Display);
+
+          Assert.Collection(
+              actualFhir.Note,
+              note => Assert.Equal("LMP comment", note.Text),
+              note => Assert.Equal("Ultrasound comment", note.Text)
+          );
+
+          const string determinedExtensionUrl =
+              "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-date-determined-extension";
+
+          Assert.Collection(
+              actualFhir.Component,
+              component =>
+              {
+                  var code = Assert.Single(component.Code.Coding);
+                  Assert.Equal("http://loinc.org", code.System);
+                  Assert.Equal("11779-6", code.Code);
+                  Assert.Equal("Delivery date Estimated from last menstrual period", code.Display);
+                  Assert.Equal("2026-04-27", Assert.IsType<FhirDateTime>(component.Value).Value);
+
+                  var extension = Assert.Single(component.Extension);
+                  Assert.Equal(determinedExtensionUrl, extension.Url);
+                  Assert.Equal("2025-10-30", Assert.IsType<FhirDateTime>(extension.Value).Value);
+              },
+              component =>
+              {
+                  var code = Assert.Single(component.Code.Coding);
+                  Assert.Equal("http://loinc.org", code.System);
+                  Assert.Equal("11781-2", code.Code);
+                  Assert.Equal("Delivery date US composite estimate", code.Display);
+                  Assert.Equal("2026-05-03", Assert.IsType<FhirDateTime>(component.Value).Value);
+
+                  var extension = Assert.Single(component.Extension);
+                  Assert.Equal(determinedExtensionUrl, extension.Url);
+                  Assert.Equal("2025-11-04", Assert.IsType<FhirDateTime>(extension.Value).Value);
+              }
+          );
+        }
     }
 }

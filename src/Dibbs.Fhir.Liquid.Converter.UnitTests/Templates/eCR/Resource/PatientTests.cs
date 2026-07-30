@@ -297,7 +297,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 >
                     <patient>
                         <sdtc:deceasedInd value=""true"" />
-                        <sdtc:deceasedTime value=""20260701"" />
+                        <sdtc:deceasedTime value=""202607010800"" />
                     </patient>
                 </patientRole>
             ";
@@ -314,7 +314,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ResourceType.Patient.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
 
-            Assert.Equal("2026-07-01", ((FhirDateTime)actualFhir.Deceased).Value);
+            Assert.Equal("2026-07-01T08:00:00", ((FhirDateTime)actualFhir.Deceased).Value);
         }
     }
 }

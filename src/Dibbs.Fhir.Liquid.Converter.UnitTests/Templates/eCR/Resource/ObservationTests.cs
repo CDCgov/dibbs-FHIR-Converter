@@ -336,5 +336,90 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Contains(@"""status"":""preliminary""", actualContent);
             Assert.DoesNotContain(@"""url"": ""http://terminology.hl7.org/ValueSet/v2-0085""", actualContent);
         }
+
+        [Fact]
+        public void PregnancySummaryObservation_AllFields()
+        {
+            var xmlString =
+                @"
+                <organizer classCode=""CLUSTER"" moodCode=""EVN"">
+                    <!-- [C-CDA PREG] Pregnancy Summary Organizer -->
+                    <templateId root=""2.16.840.1.113883.10.20.22.4.292"" extension=""2018-04-01"" />
+                    <id root=""0a648e8a-c61c-46dd-bd0c-3081db0a9f66"" />
+                    <code code=""10162-6""
+                        displayName=""History of Pregnancies Narrative""
+                        codeSystem=""2.16.840.1.113883.6.1""
+                        codeSystemName=""LOINC"" />
+                    <statusCode code=""active"" />
+                    <effectiveTime value=""201801051015""/>
+                </organizer>";
+
+            var parser = new CcdaDataParser();
+            var parsedXml = parser.Parse(xmlString) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "observationEntry", parsedXml["organizer"] },
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal("Observation", actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+            Assert.NotEmpty(actualFhir.Identifier);
+            Assert.Equal("Preliminary", actualFhir.Status.ToString());
+
+            Assert.Equal("http://loinc.org", actualFhir.Code.Coding.First().System);
+            Assert.Equal("10162-6", actualFhir.Code.Coding.First().Code);
+            Assert.Equal("History of pregnancies Narrative", actualFhir.Code.Coding.First().Display);
+
+            Assert.Equal("2018-01-05T10:15:00", (actualFhir.Effective as FhirDateTime)?.Value);
+        }
+
+        [Fact]
+        public void PregnancySummaryObservationComponent_AllFields()
+        {
+            var xmlString =
+                @"
+                <observation classCode=""OBS"" moodCode=""EVN"">
+                    <!-- [C-CDA PREG] Gravidity (Total Pregnancies) -->
+                    <templateId root=""2.16.840.1.113883.10.20.22.4.282"" extension=""2018-04-01"" />
+                    <id root=""18701808-d4cb-4a6c-b10b-4eaeb66f1158"" />
+                    <code code=""11996-6""
+                        displayName=""[#] Pregnancies""
+                        codeSystem=""2.16.840.1.113883.6.1""
+                        codeSystemName=""LOINC"" />
+                    <statusCode code=""completed"" />
+                    <effectiveTime value=""201801051015"" />
+                    <value xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xsi:type=""INT"" value=""6"" />
+                </observation>";
+
+            var parser = new CcdaDataParser();
+            var parsedXml = parser.Parse(xmlString) as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "observationEntry", parsedXml["observation"] },
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            Assert.Equal("Observation", actualFhir.TypeName);
+            Assert.NotNull(actualFhir.Id);
+            Assert.NotEmpty(actualFhir.Identifier);
+            Assert.Equal("Final", actualFhir.Status.ToString());
+
+            Assert.Equal("http://loinc.org", actualFhir.Code.Coding.First().System);
+            Assert.Equal("11996-6", actualFhir.Code.Coding.First().Code);
+            Assert.Equal("[#] Pregnancies", actualFhir.Code.Coding.First().Display);
+
+            Assert.Equal("2018-01-05T10:15:00", (actualFhir.Effective as FhirDateTime)?.Value);
+
+            var fhirInteger = actualFhir.Value as Hl7.Fhir.Model.Integer;
+            Assert.NotNull(fhirInteger);
+            Assert.Equal(6, fhirInteger.Value);
+        }
     }
 }

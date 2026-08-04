@@ -24,7 +24,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                   <id extension=""7988992429-85750-Z6733056""
                     root=""1.2.840.114350.1.13.719.2.7.1.83687972"" />
                   <code code=""88121-9"" codeSystem=""2.16.840.1.113883.6.1""
-                    codeSystemName=""LOINC"" displayName=""Hunger Vital Sign [HVS]"">
+                    codeSystemName=""LOINC"" displayName=""Children's HealthWatch Hunger Vital Sign [HVS]"">
                     <originalText>Hunger Vital Sign</originalText>
                   </code>
                   <statusCode code=""completed"" />
@@ -53,7 +53,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.NotNull(actualFhir.Id);
 
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("Hunger Vital Sign [HVS]", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("Children's HealthWatch Hunger Vital Sign [HVS]", actualFhir.Code?.Coding?.First().Display);
             Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
             Assert.Equal("88121-9", actualFhir.Code?.Coding?.First().Code);
             Assert.Equal("Hunger Vital Sign", actualFhir.Code?.Text);
@@ -84,7 +84,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                   <id extension=""7988992429-85750-Z6733056""
                     root=""1.2.840.114350.1.13.719.2.7.1.83687972"" />
                   <code code=""88121-9"" codeSystem=""2.16.840.1.113883.6.1""
-                    codeSystemName=""LOINC"" displayName=""Hunger Vital Sign [HVS]"">
+                    codeSystemName=""LOINC"" displayName=""Children's HealthWatch Hunger Vital Sign [HVS]"">
                     <originalText>Hunger Vital Sign</originalText>
                   </code>
                   <statusCode code=""completed"" />
@@ -107,7 +107,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.NotNull(actualFhir.Id);
 
             Assert.NotNull(actualFhir.Code);
-            Assert.Equal("Hunger Vital Sign [HVS]", actualFhir.Code?.Coding?.First().Display);
+            Assert.Equal("Children's HealthWatch Hunger Vital Sign [HVS]", actualFhir.Code?.Coding?.First().Display);
             Assert.Equal("http://loinc.org", actualFhir.Code?.Coding?.First().System);
             Assert.Equal("88121-9", actualFhir.Code?.Coding?.First().Code);
             Assert.Equal("Hunger Vital Sign", actualFhir.Code?.Text);

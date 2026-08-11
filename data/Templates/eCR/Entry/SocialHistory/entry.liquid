@@ -62,5 +62,7 @@
                 {% include 'Reference/Observation/Subject', ID: relObsId, REF: fullPatientId -%}
             {% endif %}
         {% endfor %}
+    {% else %}
+        {% include 'Resource/Observation', observationCategory: 'social-history', observationEntry: entry.act, ID: observationId, text: text -%}
     {% endif %}
 {% endif -%}

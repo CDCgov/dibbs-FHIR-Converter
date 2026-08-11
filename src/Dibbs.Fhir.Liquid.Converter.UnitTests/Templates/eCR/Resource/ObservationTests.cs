@@ -117,6 +117,47 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("#ipointtohtml", refExt.Value.ToString());
         }
 
+        [Theory]
+        [InlineData(
+            "Ready to Quit: No; Counseling Given: Yes",
+            "Ready to Quit: No; Counseling Given: Yes")]
+        [InlineData(
+            "<content styleCode=\"xcellHeader\">Tobacco Cessation:</content> Ready to Quit: No; Counseling Given: Yes<br />",
+            "Tobacco Cessation: Ready to Quit: No; Counseling Given: Yes")]
+        public void ObservationTextReference_AddsPlainTextNote(string referencedText, string expectedText)
+        {
+            var xmlStr = $@"
+            <document xmlns=""urn:hl7-org:v3"">
+                <text>
+                    <paragraph ID=""observation-note"">{referencedText}</paragraph>
+                </text>
+                <observation classCode=""OBS"" moodCode=""EVN"">
+                    <id root=""bf9c0a26-4524-4395-b3ce-100450b9c9ad"" />
+                    <code code=""72166-2"" displayName=""Tobacco smoking status""
+                        codeSystem=""2.16.840.1.113883.6.1"" codeSystemName=""LOINC"" />
+                    <statusCode code=""completed"" />
+                    <text>
+                        <reference value=""#observation-note"" />
+                    </text>
+                </observation>
+            </document>";
+            var parsed = new CcdaDataParser().Parse(xmlStr) as Dictionary<string, object>;
+            var document = parsed["document"] as Dictionary<string, object>;
+
+            var attributes = new Dictionary<string, object>
+            {
+                { "ID", "1234" },
+                { "observationCategory", "social-history" },
+                { "observationEntry", document["observation"] },
+                { "text", document["text"] },
+            };
+
+            var actualFhir = GetFhirObjectFromTemplate<Observation>(ECRPath, attributes);
+
+            var note = Assert.Single(actualFhir.Note);
+            Assert.Equal(expectedText, note.Text);
+        }
+
         [Fact]
         public void ObservationVitalSign_Basic_AllFields()
         {

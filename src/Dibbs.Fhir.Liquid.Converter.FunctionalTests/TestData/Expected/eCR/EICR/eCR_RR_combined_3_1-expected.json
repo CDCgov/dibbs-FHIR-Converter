@@ -1836,7 +1836,7 @@
         },
         "note": [
           {
-            "text": "Tobacco UseTypesPacks/DayYears UsedDateSmoking Tobacco: NeverREMOVED"
+            "text": " Tobacco Use Types Packs/Day Years Used Date Smoking Tobacco: Never REMOVED "
           }
         ],
         "subject": {
@@ -3217,7 +3217,7 @@
         "primarySource": true,
         "note": [
           {
-            "text": "<td ID=\"immunization6Name\" xmlns=\"urn:hl7-org:v3\">REMOVED</td><td xmlns=\"urn:hl7-org:v3\"> <content>REMOVED</content></td><td xmlns=\"urn:hl7-org:v3\" />"
+            "text": "REMOVED REMOVED"
           }
         ],
         "patient": {

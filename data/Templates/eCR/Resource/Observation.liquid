@@ -53,12 +53,11 @@
         },
         {% include 'Utils/ValueHelper', value: observationEntry.value, origText: text._innerText %}
 
-        {% if observationEntry.text.reference.value and text._innerText -%}
+        {% if observationEntry.text and text._innerText -%}
+        {% assign innerText = text._innerText %}
         "note": [
-            {% assign obsRefVal = observationEntry.text.reference.value | replace: '#', '' -%}
-            {% assign noteString = text._innerText | find_inner_text_by_id: obsRefVal -%}
             {
-                "text": "{{ noteString | strip_html | clean_string_from_tabs }}"
+                "text": "{%- include 'Utils/TextHelper', text: observationEntry.text, origText: innerText -%}" 
             }
         ],
         {% endif %}

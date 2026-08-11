@@ -1091,7 +1091,12 @@
         "effectivePeriod": {
           "start": "2020-04-22",
           "end": "2020-05-05"
-        }
+        },
+        "note": [
+          {
+            "text": "recent travel for vacation to Wuhan China from April 22, 2020 to May 5, 2020"
+          }
+        ]
       }
     },
     {

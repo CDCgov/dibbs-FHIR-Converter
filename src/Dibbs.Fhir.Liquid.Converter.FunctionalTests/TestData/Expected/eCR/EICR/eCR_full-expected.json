@@ -885,6 +885,11 @@
             }
           ]
         },
+        "note": [
+          {
+            "text": "SARS coronavirus 2 N gene [Presence] in Unspecified specimen by Nucleic acid amplification using primer-probe set N2Detected (qualifier value)05/13/2020"
+          }
+        ],
         "extension": [
           {
             "url": "observation entry reference value",
@@ -976,6 +981,11 @@
             }
           ]
         },
+        "note": [
+          {
+            "text": "Neisseria gonorrhoeae [Presence] in Urine by NAADetected (qualifier value)05/15/2020"
+          }
+        ],
         "extension": [
           {
             "url": "observation entry reference value",
@@ -1039,6 +1049,48 @@
         },
         "subject": {
           "reference": "Patient/44e595bb-fb0b-fe20-870e-7e03122722ef"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6c9c77ac-3bb1-00a8-5143-5b1edeb66569",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "6c9c77ac-3bb1-00a8-5143-5b1edeb66569",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:79565142-eae0-4213-a3b3-b73cdf474682"
+          }
+        ],
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+                "code": "social-history"
+              }
+            ]
+          }
+        ],
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "code": "420008001",
+              "system": "http://snomed.info/sct",
+              "display": "Travel"
+            }
+          ]
+        },
+        "effectivePeriod": {
+          "start": "2020-04-22",
+          "end": "2020-05-05"
         }
       }
     },

@@ -1560,6 +1560,11 @@
           "value": 12,
           "unit": "g/dL"
         },
+        "note": [
+          {
+            "text": " REMOVED12REMOVED"
+          }
+        ],
         "extension": [
           {
             "url": "observation entry reference value",
@@ -1613,6 +1618,11 @@
           "value": 10000,
           "unit": "10*3/uL"
         },
+        "note": [
+          {
+            "text": " WBCREMOVEDREMOVED"
+          }
+        ],
         "referenceRange": [
           {
             "text": "REMOVED",
@@ -1683,6 +1693,11 @@
           "value": 300,
           "unit": "10*3/uL"
         },
+        "note": [
+          {
+            "text": " PLT300REMOVED"
+          }
+        ],
         "extension": [
           {
             "url": "observation entry reference value",
@@ -1736,6 +1751,11 @@
           "value": 5,
           "unit": "ng/mL"
         },
+        "note": [
+          {
+            "text": " REMOVED5REMOVED"
+          }
+        ],
         "referenceRange": [
           {
             "text": "2 ng/mL - 8 ng/mL",
@@ -1814,6 +1834,11 @@
             }
           ]
         },
+        "note": [
+          {
+            "text": "Tobacco UseTypesPacks/DayYears UsedDateSmoking Tobacco: NeverREMOVED"
+          }
+        ],
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
@@ -1870,6 +1895,11 @@
             }
           ]
         },
+        "note": [
+          {
+            "text": "REMOVED"
+          }
+        ],
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
@@ -2148,6 +2178,11 @@
           ],
           "text": "Male"
         },
+        "note": [
+          {
+            "text": "REMOVEDMaleREMOVED"
+          }
+        ],
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }

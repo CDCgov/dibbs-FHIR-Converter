@@ -164,4 +164,137 @@ public class EcrProcessor
 
         return ecrXDocument;
     }
+
+    public static XDocument ResolveEntryReferences(XDocument ecrXDocument)
+    {
+        var element = ecrXDocument.Root;
+
+        if (element != null)
+        {
+            var clinicalStatementById = GetClinicalStatementIdLookup(element);
+            element = ResolveEntryReferenceActs(element, clinicalStatementById);
+            ecrXDocument.Root?.ReplaceWith(element);
+        }
+
+        return ecrXDocument;
+    }
+
+    private static Dictionary<string, XElement> GetClinicalStatementIdLookup(XElement element)
+    {
+        var clinicalStatementById = new Dictionary<string, XElement>(StringComparer.Ordinal);
+
+        foreach (var statement in element.DescendantsAndSelf().Where(IsClinicalStatementElement))
+        {
+            // Skip Entry References because they reuse the target's id.
+            if (IsEntryReferenceAct(statement))
+            {
+                continue;
+            }
+
+            // Store a copy so later replacements do not change the statement used to resolve other references.
+            var statementCopy = new XElement(statement);
+            foreach (var idElement in GetIdElements(statement))
+            {
+                var key = GetIdentifierKey(idElement);
+                if (key != null && !clinicalStatementById.ContainsKey(key))
+                {
+                    clinicalStatementById[key] = statementCopy;
+                }
+            }
+        }
+
+        return clinicalStatementById;
+    }
+
+    private static XElement ResolveEntryReferenceActs(
+        XElement element,
+        Dictionary<string, XElement> clinicalStatementById)
+    {
+        foreach (var entryReferenceAct in element.DescendantsAndSelf().Where(IsEntryReferenceAct).ToList())
+        {
+            var replacement = GetEntryReferenceReplacement(entryReferenceAct, clinicalStatementById);
+
+            if (replacement != null)
+            {
+                entryReferenceAct.ReplaceWith(replacement);
+            }
+        }
+
+        return element;
+    }
+
+    private static XElement? GetEntryReferenceReplacement(
+        XElement entryReferenceAct,
+        Dictionary<string, XElement> clinicalStatementById)
+    {
+        foreach (var idElement in GetIdElements(entryReferenceAct))
+        {
+            var key = GetIdentifierKey(idElement);
+
+            // Stop if resolving this reference would create a cycle.
+            if (key == null ||
+                !clinicalStatementById.TryGetValue(key, out var referencedStatement))
+            {
+                continue;
+            }
+
+            var replacement = new XElement(referencedStatement);
+            ResolveEntryReferenceActs(replacement, clinicalStatementById);
+            return replacement;
+        }
+
+        return null;
+    }
+
+    private static IEnumerable<XElement> GetIdElements(XElement element)
+    {
+        return element.Elements().Where(child => child.Name.LocalName == "id");
+    }
+
+    private static string? GetIdentifierKey(XElement idElement)
+    {
+        if (idElement.Attribute("nullFlavor") != null)
+        {
+            return null;
+        }
+
+        var root = idElement.Attribute("root")?.Value;
+        var extension = idElement.Attribute("extension")?.Value;
+
+        if (string.IsNullOrWhiteSpace(root) && string.IsNullOrWhiteSpace(extension))
+        {
+            return null;
+        }
+
+        return $"{root}\u001f{extension}";
+    }
+
+    private static bool IsClinicalStatementElement(XElement element)
+    {
+        // These are the Clinical Statements that can be contained by Entry or EntryRelationship
+        // https://build.fhir.org/ig/HL7/CDA-core-sd/StructureDefinition-Entry.html
+        // https://build.fhir.org/ig/HL7/CDA-core-sd/StructureDefinition-EntryRelationship.html
+        HashSet<string> clinicalStatementElementNames =
+        [
+            "act",
+            "encounter",
+            "observation",
+            "observationMedia",
+            "organizer",
+            "procedure",
+            "regionOfInterest",
+            "substanceAdministration",
+            "supply",
+        ];
+
+        return clinicalStatementElementNames.Contains(element.Name.LocalName);
+    }
+
+    private static bool IsEntryReferenceAct(XElement element)
+    {
+        return element.Name.LocalName == "act" &&
+               element.Elements()
+                   .Any(child => child.Name.LocalName == "templateId" &&
+                                 child.Attribute("root")?.Value == "2.16.840.1.113883.10.20.22.4.122");
+    }
 }

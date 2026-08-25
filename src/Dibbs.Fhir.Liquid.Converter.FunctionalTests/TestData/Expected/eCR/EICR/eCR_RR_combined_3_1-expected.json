@@ -1404,10 +1404,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:cbba39f7-13fd-45b7-b170-e174ed01e565",
+      "fullUrl": "urn:uuid:151e0cbd-ebcb-f7b9-e190-862ec582ca4a",
       "resource": {
         "resourceType": "DiagnosticReport",
-        "id": "cbba39f7-13fd-45b7-b170-e174ed01e565",
+        "id": "151e0cbd-ebcb-f7b9-e190-862ec582ca4a",
         "identifier": [
           {
             "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.798268",
@@ -1442,7 +1442,7 @@
             "reference": "Specimen/a0364c3a-0124-b1f1-c4f5-518c0d810ece"
           },
           {
-            "reference": "Specimen/c625e261-fcd2-030c-7ddf-2145afdbb2a6"
+            "reference": "Specimen/ed65851c-2458-378c-cf20-d79ec7148a09"
           }
         ],
         "result": [
@@ -1509,10 +1509,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:c625e261-fcd2-030c-7ddf-2145afdbb2a6",
+      "fullUrl": "urn:uuid:ed65851c-2458-378c-cf20-d79ec7148a09",
       "resource": {
         "resourceType": "Specimen",
-        "id": "c625e261-fcd2-030c-7ddf-2145afdbb2a6",
+        "id": "ed65851c-2458-378c-cf20-d79ec7148a09",
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }

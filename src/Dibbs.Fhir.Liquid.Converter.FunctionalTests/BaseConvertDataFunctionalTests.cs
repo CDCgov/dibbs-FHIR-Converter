@@ -69,6 +69,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var rawInputContent = File.ReadAllText(inputFile);
             var ecrDoc = XDocument.Parse(rawInputContent);
             ecrDoc = EcrProcessor.ResolveReferences(ecrDoc);
+            ecrDoc = EcrProcessor.ResolveEntryReferences(ecrDoc);
             var inputContent = ecrDoc.ToString();
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
 

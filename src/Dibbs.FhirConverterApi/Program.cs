@@ -121,6 +121,9 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
     ecrDoc = EcrProcessor.ResolveReferences(ecrDoc);
 
+    // Resolve references while the original CDA element names and hierarchy are still intact.
+    ecrDoc = EcrProcessor.ResolveEntryReferences(ecrDoc);
+
     if (!string.IsNullOrEmpty(requestBody.RRData))
     {
         try

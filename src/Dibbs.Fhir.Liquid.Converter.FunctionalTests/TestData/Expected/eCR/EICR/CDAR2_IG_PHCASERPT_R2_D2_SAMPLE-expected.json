@@ -306,7 +306,7 @@
             ]
           },
           {
-            "id": "d1997c52-8056-2189-4c64-a771b78f9cdd",
+            "id": "c2b1a3ca-c1ea-f905-3948-2ffffd86b8e9",
             "title": "Pregnancy Section",
             "text": {
               "status": "generated",
@@ -324,10 +324,10 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
+                "reference": "Observation/3e026bd2-562d-2cf8-947a-1c7ba19f62ab"
               },
               {
-                "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
+                "reference": "Observation/3e026bd2-562d-2cf8-947a-1c7ba19f62ab"
               },
               {
                 "reference": "Observation/e918b73b-aad0-4797-3ee3-ff8b96d3a054"
@@ -1058,10 +1058,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:971025bd-d2cd-6731-e9f1-7d51fbeea207",
+      "fullUrl": "urn:uuid:3e026bd2-562d-2cf8-947a-1c7ba19f62ab",
       "resource": {
         "resourceType": "Observation",
-        "id": "971025bd-d2cd-6731-e9f1-7d51fbeea207",
+        "id": "3e026bd2-562d-2cf8-947a-1c7ba19f62ab",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"
@@ -1235,7 +1235,7 @@
         },
         "focus": [
           {
-            "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
+            "reference": "Observation/3e026bd2-562d-2cf8-947a-1c7ba19f62ab"
           }
         ]
       }

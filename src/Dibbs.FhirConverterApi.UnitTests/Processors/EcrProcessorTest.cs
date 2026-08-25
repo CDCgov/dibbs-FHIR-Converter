@@ -157,4 +157,110 @@ public class EcrProcessorTest
     var rrFromEicr = mergedEcr.XPathSelectElements(".//hl7:templateId[@root='2.16.840.1.113883.10.20.15.2.2.5' and @extension='2021-01-01']", names);
     Assert.Empty(rrFromEicr);
   }
+
+  [Fact]
+  public void ResolveEntryReferences_ReplacesReferenceActWithReferencedStatement()
+  {
+    var document = @"<ClinicalDocument xmlns=""urn:hl7-org:v3"">
+                             <entry>
+                               <observation classCode=""OBS"" moodCode=""EVN"">
+                                 <templateId root=""wrong-template""/>
+                                 <id root=""shared-root"" extension=""wrong-extension""/>
+                                 <code code=""wrong-code""/>
+                               </observation>
+                             </entry>
+                             <entry>
+                               <observation classCode=""OBS"" moodCode=""EVN"">
+                                 <templateId root=""target-template""/>
+                                 <id root=""shared-root"" extension=""target-extension""/>
+                                 <code code=""target-code""/>
+                               </observation>
+                             </entry>
+                             <entry>
+                               <act classCode=""ACT"" moodCode=""EVN"">
+                                 <templateId root=""2.16.840.1.113883.10.20.22.4.122""/>
+                                 <id root=""shared-root"" extension=""target-extension""/>
+                                 <code nullFlavor=""NP""/>
+                                 <statusCode code=""completed""/>
+                               </act>
+                             </entry>
+                           </ClinicalDocument>";
+    var actual = EcrProcessor.ResolveEntryReferences(XDocument.Parse(document));
+    XNamespace cda = "urn:hl7-org:v3";
+    var entries = actual.Root!.Elements(cda + "entry").ToList();
+    var referenceEntry = entries[2];
+
+    Assert.Null(referenceEntry.Element(cda + "act"));
+
+    var observation = Assert.Single(referenceEntry.Elements(cda + "observation"));
+    var templateId = Assert.Single(observation.Elements(cda + "templateId"));
+    var code = Assert.Single(observation.Elements(cda + "code"));
+
+    Assert.Equal("target-template", templateId.Attribute("root")?.Value);
+    Assert.Equal("target-code", code.Attribute("code")?.Value);
+  }
+
+  [Fact]
+  public void ResolveEntryReferences_ReplacesReferenceActInsideEntryRelationship()
+  {
+    var document = @"<ClinicalDocument xmlns=""urn:hl7-org:v3"">
+                             <entry>
+                               <observation classCode=""OBS"" moodCode=""EVN"">
+                                 <id root=""parent-observation""/>
+                                 <entryRelationship typeCode=""REFR"">
+                                   <act classCode=""ACT"" moodCode=""EVN"">
+                                     <templateId root=""2.16.840.1.113883.10.20.22.4.122""/>
+                                     <id root=""target-procedure""/>
+                                     <code nullFlavor=""NP""/>
+                                     <statusCode code=""completed""/>
+                                   </act>
+                                 </entryRelationship>
+                               </observation>
+                             </entry>
+                             <entry>
+                               <procedure classCode=""PROC"" moodCode=""EVN"">
+                                 <templateId root=""target-procedure-template""/>
+                                 <id root=""target-procedure""/>
+                                 <code code=""target-procedure-code""/>
+                               </procedure>
+                             </entry>
+                           </ClinicalDocument>";
+    var actual = EcrProcessor.ResolveEntryReferences(XDocument.Parse(document));
+    XNamespace cda = "urn:hl7-org:v3";
+    var parentEntry = actual.Root!.Elements(cda + "entry").First();
+    var parentObservation = Assert.Single(parentEntry.Elements(cda + "observation"));
+    var entryRelationship = Assert.Single(parentObservation.Elements(cda + "entryRelationship"));
+
+    Assert.Equal("REFR", entryRelationship.Attribute("typeCode")?.Value);
+    Assert.Null(entryRelationship.Element(cda + "act"));
+
+    var procedure = Assert.Single(entryRelationship.Elements(cda + "procedure"));
+    var templateId = Assert.Single(procedure.Elements(cda + "templateId"));
+    var code = Assert.Single(procedure.Elements(cda + "code"));
+
+    Assert.Equal("target-procedure-template", templateId.Attribute("root")?.Value);
+    Assert.Equal("target-procedure-code", code.Attribute("code")?.Value);
+  }
+
+  [Fact]
+  public void ResolveEntryReferences_PreservesUnmatchedReferenceAct()
+  {
+    var document = @"<ClinicalDocument xmlns=""urn:hl7-org:v3"">
+                             <entry>
+                               <act classCode=""ACT"" moodCode=""EVN"">
+                                 <templateId root=""2.16.840.1.113883.10.20.22.4.122""/>
+                                 <id root=""missing-target""/>
+                                 <code nullFlavor=""NP""/>
+                                 <statusCode code=""completed""/>
+                               </act>
+                             </entry>
+                           </ClinicalDocument>";
+    var actual = EcrProcessor.ResolveEntryReferences(XDocument.Parse(document));
+    XNamespace cda = "urn:hl7-org:v3";
+    var entry = Assert.Single(actual.Root!.Elements(cda + "entry"));
+    var act = Assert.Single(entry.Elements(cda + "act"));
+    var templateId = Assert.Single(act.Elements(cda + "templateId"));
+
+    Assert.Equal("2.16.840.1.113883.10.20.22.4.122", templateId.Attribute("root")?.Value);
+  }
 }

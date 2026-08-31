@@ -1404,10 +1404,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:151e0cbd-ebcb-f7b9-e190-862ec582ca4a",
+      "fullUrl": "urn:uuid:cbba39f7-13fd-45b7-b170-e174ed01e565",
       "resource": {
         "resourceType": "DiagnosticReport",
-        "id": "151e0cbd-ebcb-f7b9-e190-862ec582ca4a",
+        "id": "cbba39f7-13fd-45b7-b170-e174ed01e565",
         "identifier": [
           {
             "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.2.798268",
@@ -1440,9 +1440,6 @@
         "specimen": [
           {
             "reference": "Specimen/a0364c3a-0124-b1f1-c4f5-518c0d810ece"
-          },
-          {
-            "reference": "Specimen/ed65851c-2458-378c-cf20-d79ec7148a09"
           }
         ],
         "result": [
@@ -1457,6 +1454,30 @@
           },
           {
             "reference": "Observation/76ebf58d-ef47-c970-198f-d8af6e7c511b"
+          }
+        ],
+        "extension": [
+          {
+            "url": "https://github.com/CDCgov/dibbs-FHIR-Converter/StructureDefinition/cda-entry-reference",
+            "extension": [
+              {
+                "url": "target",
+                "valueReference": {
+                  "reference": "Procedure/523b67bf-9245-e1e3-a3ee-76ea350a8748"
+                }
+              },
+              {
+                "url": "typeCode",
+                "valueCoding": {
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-ActRelationshipType",
+                  "code": "COMP"
+                }
+              },
+              {
+                "url": "inversionInd",
+                "valueBoolean": true
+              }
+            ]
           }
         ]
       }
@@ -1503,16 +1524,6 @@
             ]
           }
         },
-        "subject": {
-          "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:ed65851c-2458-378c-cf20-d79ec7148a09",
-      "resource": {
-        "resourceType": "Specimen",
-        "id": "ed65851c-2458-378c-cf20-d79ec7148a09",
         "subject": {
           "reference": "Patient/c4d6bcaa-3af2-aef6-17b2-abc4d53104a8"
         }
@@ -2014,6 +2025,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "c8dc5a17-0c90-1c9d-a5bc-683492e29efa",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.83687972",
+            "value": "XX81066525-12694-V8612"
+          }
+        ],
         "code": {
           "coding": [
             {
@@ -2056,6 +2073,10 @@
       "resource": {
         "resourceType": "QuestionnaireResponse",
         "id": "fc402112-16d4-ea88-5834-25f3d0a3ae40",
+        "identifier": {
+          "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.83687972",
+          "value": "XXs87752-3307835746-22913-A7141"
+        },
         "status": "completed",
         "item": [
           {
@@ -2084,6 +2105,10 @@
       "resource": {
         "resourceType": "QuestionnaireResponse",
         "id": "2f668088-ffec-0782-0633-3601488164b6",
+        "identifier": {
+          "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.83687972",
+          "value": "XXv45901-4417680455-49616-D1737"
+        },
         "status": "completed",
         "item": [
           {
@@ -2112,6 +2137,10 @@
       "resource": {
         "resourceType": "QuestionnaireResponse",
         "id": "2347bd49-e201-187e-9409-9a289a050c86",
+        "identifier": {
+          "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.83687972",
+          "value": "XXh66838-3936872386-73162-X0893"
+        },
         "status": "completed",
         "item": [
           {
@@ -2193,6 +2222,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "d5634631-ddc4-0f50-d880-b36a9de51065",
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.840.114350.1.13.4304.2.7.1.1040.45",
+            "value": "XX546.9"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-observation-sexual-orientation"

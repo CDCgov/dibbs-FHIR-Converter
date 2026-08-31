@@ -5,7 +5,13 @@
         "id":"{{ ID }}",
         "identifier":
         [
-            {% assign ids = specimenProc.participant.participantRole.id | to_array -%}
+            {% assign specimenIds = specimenProc.participant.participantRole.id | to_array -%}
+            {% assign procedureIds = specimenProc.id | to_array -%}
+            {% comment %}
+                This template converts the collection procedure into a Specimen. Include the
+                procedure ids so Entry References to that CDA procedure can find this resource.
+            {% endcomment %}
+            {% assign ids = specimenIds | concat: procedureIds -%}
             {% for id in ids -%}
                 {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}

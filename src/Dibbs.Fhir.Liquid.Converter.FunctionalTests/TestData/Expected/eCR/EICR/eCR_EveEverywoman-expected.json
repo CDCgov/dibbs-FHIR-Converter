@@ -383,7 +383,7 @@
             ]
           },
           {
-            "id": "ad6c6ae7-8e37-143f-5d2a-3d750528487d",
+            "id": "bfe37699-7456-3752-1bcd-ade2ad96bfc5",
             "title": "Pregnancy Section",
             "text": {
               "status": "generated",
@@ -401,10 +401,10 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "Observation/080e75ee-20b2-6b0a-7e90-b3287f7004be"
+                "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
               },
               {
-                "reference": "Observation/080e75ee-20b2-6b0a-7e90-b3287f7004be"
+                "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
               },
               {
                 "reference": "Observation/1d93a81a-783d-c53d-54c4-24e9f036600d"
@@ -1805,10 +1805,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:080e75ee-20b2-6b0a-7e90-b3287f7004be",
+      "fullUrl": "urn:uuid:2a400387-e218-396e-2d44-32ce20eaa1f7",
       "resource": {
         "resourceType": "Observation",
-        "id": "080e75ee-20b2-6b0a-7e90-b3287f7004be",
+        "id": "2a400387-e218-396e-2d44-32ce20eaa1f7",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"
@@ -1982,7 +1982,7 @@
         },
         "focus": [
           {
-            "reference": "Observation/080e75ee-20b2-6b0a-7e90-b3287f7004be"
+            "reference": "Observation/2a400387-e218-396e-2d44-32ce20eaa1f7"
           }
         ]
       }
@@ -2875,6 +2875,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "88758e59-8554-85af-d347-90e6f5cb2c55",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:79565142-eae0-4213-a3b3-b73cdf474682"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -2921,6 +2927,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "97b51123-4fab-9332-9e7e-b3afc57b45e1",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:030df1dc-1d31-4e5d-abdd-5edd0b74c5c3"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -2973,6 +2985,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "e51380a0-f65b-fdaf-c141-3974e9d7d842",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:3f3aa1dd-75c5-4f10-9881-374429241b03"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -3019,6 +3037,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "73501091-475b-ed11-39dc-2e810af60bef",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b98e410c-d29a-46d8-8fc8-f55a9d3022b9"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -3096,6 +3120,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "7ea16f9a-29a7-dff0-5d8c-d3391f91cfe9",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:afd5c96f-9289-4796-b8fa-faa50ac113ff"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-transportation-details"
@@ -3159,6 +3189,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "b8678cc4-fcdf-54c6-3bc8-65aa54dcdb1f",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b97346f7-8f9e-4c5b-97bb-df4f6e057fd4"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -3212,6 +3248,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "4097baf8-254f-2c1f-a130-8668d962e4bb",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:1d957c2a-6133-427d-a6cc-26f132773b86"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -3265,6 +3307,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "547dbdf1-aa96-f6aa-2dfb-b0caaff05586",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:45397b5c-e974-4cf1-8b19-e1555bd55701"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -4277,6 +4325,12 @@
       "resource": {
         "resourceType": "CarePlan",
         "id": "18f64631-4747-dbec-f691-5e89d2e1a364",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:7658963e-54da-496f-bf18-dea1dddaa3b0"
+          }
+        ],
         "status": "unknown",
         "intent": "proposal",
         "subject": {

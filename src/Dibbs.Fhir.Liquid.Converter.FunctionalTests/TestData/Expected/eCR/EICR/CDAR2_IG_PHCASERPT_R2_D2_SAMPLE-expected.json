@@ -306,7 +306,7 @@
             ]
           },
           {
-            "id": "c2b1a3ca-c1ea-f905-3948-2ffffd86b8e9",
+            "id": "d1997c52-8056-2189-4c64-a771b78f9cdd",
             "title": "Pregnancy Section",
             "text": {
               "status": "generated",
@@ -324,10 +324,10 @@
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "Observation/3e026bd2-562d-2cf8-947a-1c7ba19f62ab"
+                "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
               },
               {
-                "reference": "Observation/3e026bd2-562d-2cf8-947a-1c7ba19f62ab"
+                "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
               },
               {
                 "reference": "Observation/e918b73b-aad0-4797-3ee3-ff8b96d3a054"
@@ -1058,10 +1058,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:3e026bd2-562d-2cf8-947a-1c7ba19f62ab",
+      "fullUrl": "urn:uuid:971025bd-d2cd-6731-e9f1-7d51fbeea207",
       "resource": {
         "resourceType": "Observation",
-        "id": "3e026bd2-562d-2cf8-947a-1c7ba19f62ab",
+        "id": "971025bd-d2cd-6731-e9f1-7d51fbeea207",
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-pregnancy-status-observation"
@@ -1235,7 +1235,7 @@
         },
         "focus": [
           {
-            "reference": "Observation/3e026bd2-562d-2cf8-947a-1c7ba19f62ab"
+            "reference": "Observation/971025bd-d2cd-6731-e9f1-7d51fbeea207"
           }
         ]
       }
@@ -1882,6 +1882,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "41fb62f4-0827-2a1a-c85e-afc77b2c92d5",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:79565142-eae0-4213-a3b3-b73cdf474682"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -1928,6 +1934,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "e419541c-79fc-a50e-6c78-f93b7715fc88",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:030df1dc-1d31-4e5d-abdd-5edd0b74c5c3"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -1980,6 +1992,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "d5b5f6ce-cd21-c9a0-5778-e5276364c153",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b98e410c-d29a-46d8-8fc8-f55a9d3022b9"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -2032,6 +2050,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "e0b83dcd-dced-1a38-d82a-eca78198428b",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:b97346f7-8f9e-4c5b-97bb-df4f6e057fd4"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -2085,6 +2109,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "8b536f6b-b441-948d-764c-517fa4869ddd",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:1d957c2a-6133-427d-a6cc-26f132773b86"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"
@@ -2138,6 +2168,12 @@
       "resource": {
         "resourceType": "Observation",
         "id": "8a65af49-3816-ab97-1179-3ebe9c728122",
+        "identifier": [
+          {
+            "system": "urn:ietf:rfc:3986",
+            "value": "urn:uuid:45397b5c-e974-4cf1-8b19-e1555bd55701"
+          }
+        ],
         "meta": {
           "profile": [
             "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"

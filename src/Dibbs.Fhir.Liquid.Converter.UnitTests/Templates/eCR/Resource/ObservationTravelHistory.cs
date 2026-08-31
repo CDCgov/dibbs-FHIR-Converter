@@ -72,6 +72,10 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
 
+            var identifier = Assert.Single(actualFhir.Identifier);
+            Assert.Equal("urn:ietf:rfc:3986", identifier.System);
+            Assert.Equal("urn:uuid:37c76c51-6411-4e1d-8a37-957fd49d2cda", identifier.Value);
+
             Assert.Equal(ObservationStatus.Final, actualFhir.Status);
 
             Assert.Equal("420008001", actualFhir.Code?.Coding?.First().Code);

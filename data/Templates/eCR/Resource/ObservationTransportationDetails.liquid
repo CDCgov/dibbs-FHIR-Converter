@@ -3,6 +3,13 @@
     "resource":{
         "resourceType": "Observation",
         "id":"{{ ID }}",
+        "identifier":
+        [
+            {% assign ids = transitOrganizer.id | to_array -%}
+            {% for id in ids -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
+            {% endfor -%}
+        ],
         "meta":
         {
             "profile":

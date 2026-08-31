@@ -23,6 +23,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                     root=""2.16.840.1.113883.10.20.22.4.69"" />
                   <id extension=""7988992429-85750-Z6733056""
                     root=""1.2.840.114350.1.13.719.2.7.1.83687972"" />
+                  <id root=""11111111-1111-1111-1111-111111111111"" />
                   <code code=""88121-9"" codeSystem=""2.16.840.1.113883.6.1""
                     codeSystemName=""LOINC"" displayName=""Children's HealthWatch Hunger Vital Sign [HVS]"">
                     <originalText>Hunger Vital Sign</originalText>
@@ -51,6 +52,20 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
+
+            Assert.Collection(
+                actualFhir.Identifier,
+                identifier =>
+                {
+                    Assert.Equal("urn:oid:1.2.840.114350.1.13.719.2.7.1.83687972", identifier.System);
+                    Assert.Equal("7988992429-85750-Z6733056", identifier.Value);
+                },
+                identifier =>
+                {
+                    Assert.Equal("urn:ietf:rfc:3986", identifier.System);
+                    Assert.Equal("urn:uuid:11111111-1111-1111-1111-111111111111", identifier.Value);
+                }
+            );
 
             Assert.NotNull(actualFhir.Code);
             Assert.Equal("Children's HealthWatch Hunger Vital Sign [HVS]", actualFhir.Code?.Coding?.First().Display);

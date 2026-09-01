@@ -16,6 +16,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Specification;
+using Hl7.Fhir.Specification.Snapshot;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Specification.Terminology;
 using Hl7.Fhir.Support;
@@ -139,7 +140,30 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
                     "https://packages2.fhir.org/packages"
                 );
 
-                var profileSource = new CachedResolver(ecrSource);
+                var entryReferenceDefinitionPath = Path.Join(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    Constants.StructureDefinitionsDirectory,
+                    "StructureDefinition-cda-entry-reference.json"
+                );
+                var entryReferenceDefinition = new FhirJsonParser().Parse<StructureDefinition>(
+                    File.ReadAllText(entryReferenceDefinitionPath)
+                );
+                var snapshotGenerator = new SnapshotGenerator(
+                    new MultiResolver(ecrSource, coreSource)
+                );
+                snapshotGenerator.Update(entryReferenceDefinition);
+                Assert.True(
+                    snapshotGenerator.Outcome == null,
+                    snapshotGenerator.Outcome?.ToString()
+                );
+                Assert.NotNull(entryReferenceDefinition.Snapshot);
+
+                var profileSource = new CachedResolver(
+                    new MultiResolver(
+                        new InMemoryResourceResolver(entryReferenceDefinition),
+                        ecrSource
+                    )
+                );
                 var loincClient = new FhirClient("https://fhir.loinc.org");
                 loincClient.RequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue(

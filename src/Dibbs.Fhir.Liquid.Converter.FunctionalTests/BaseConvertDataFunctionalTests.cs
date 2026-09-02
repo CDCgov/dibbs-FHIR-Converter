@@ -49,9 +49,9 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
                 // ]
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "2" },
                 new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "9" },
-                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "29" },
+                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "41" },
                 new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "13" },
-                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "13" },
+                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "17" },
             };
             return data.Select(item => new[]
             {

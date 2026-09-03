@@ -3,6 +3,10 @@
     "resource":{
         "resourceType": "Observation",
         "id":"{{ ID }}",
+        "identifier":
+        [
+            {% include 'DataType/Identifier', Identifier: observationEntry.id -%}
+        ],
         "meta":
         {
             "profile":

@@ -1,0 +1,196 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "cda-entry-reference",
+  "url": "https://github.com/CDCgov/dibbs-FHIR-Converter/StructureDefinition/cda-entry-reference",
+  "version": "0.1.0",
+  "name": "CdaEntryReference",
+  "title": "CDA Entry Reference",
+  "status": "draft",
+  "date": "2026-08-31",
+  "publisher": "Centers for Disease Control and Prevention",
+  "description": "Preserves a CDA Entry Reference by linking the FHIR resource created from the containing CDA clinical statement to the FHIR resource created from the referenced clinical statement. The optional relationship components preserve attributes from the CDA entryRelationship that contains the Entry Reference.",
+  "purpose": "Provides relationship-neutral support for CDA Entry Reference template 2.16.840.1.113883.10.20.22.4.122 when no resource-specific FHIR relationship mapping is selected.",
+  "fhirVersion": "4.0.1",
+  "mapping": [
+    {
+      "identity": "cda",
+      "uri": "urn:hl7-org:v3",
+      "name": "HL7 CDA R2"
+    }
+  ],
+  "kind": "complex-type",
+  "abstract": false,
+  "context": [
+    {
+      "type": "element",
+      "expression": "Resource"
+    }
+  ],
+  "type": "Extension",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Extension",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Extension",
+        "path": "Extension",
+        "short": "Reference to another CDA clinical statement",
+        "definition": "Links the FHIR resource created from a containing CDA clinical statement to the FHIR resource created from the clinical statement identified by a CDA Entry Reference.",
+        "comment": "This extension preserves the CDA relationship without asserting that a resource-specific FHIR element has the same semantics. It does not replace a standard FHIR relationship element when an applicable mapping is known.",
+        "min": 0,
+        "max": "*",
+        "mapping": [
+          {
+            "identity": "cda",
+            "map": "entryRelationship/act[templateId/@root='2.16.840.1.113883.10.20.22.4.122']"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:target",
+        "path": "Extension.extension",
+        "sliceName": "target",
+        "short": "Referenced FHIR resource",
+        "definition": "The FHIR resource created from the CDA clinical statement whose identifier matches the Entry Reference id.",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "cda",
+            "map": "entryRelationship/act[templateId/@root='2.16.840.1.113883.10.20.22.4.122']/id"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:target.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:target.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "target"
+      },
+      {
+        "id": "Extension.extension:target.value[x]",
+        "path": "Extension.extension.value[x]",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Reference",
+            "targetProfile": [
+              "http://hl7.org/fhir/StructureDefinition/Resource"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:typeCode",
+        "path": "Extension.extension",
+        "sliceName": "typeCode",
+        "short": "CDA relationship type",
+        "definition": "The typeCode from the CDA entryRelationship that contains the Entry Reference.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "cda",
+            "map": "entryRelationship/@typeCode"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:typeCode.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:typeCode.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "typeCode"
+      },
+      {
+        "id": "Extension.extension:typeCode.value[x]",
+        "path": "Extension.extension.value[x]",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "Coding"
+          }
+        ],
+        "patternCoding": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActRelationshipType"
+        },
+        "binding": {
+          "strength": "required",
+          "description": "HL7 v3 ActRelationshipType codes.",
+          "valueSet": "http://terminology.hl7.org/ValueSet/v3-ActRelationshipType"
+        }
+      },
+      {
+        "id": "Extension.extension:inversionInd",
+        "path": "Extension.extension",
+        "sliceName": "inversionInd",
+        "short": "CDA relationship direction is inverted",
+        "definition": "The inversionInd from the CDA entryRelationship that contains the Entry Reference. This component is present only when inversionInd was explicitly supplied in the CDA document.",
+        "min": 0,
+        "max": "1",
+        "type": [
+          {
+            "code": "Extension"
+          }
+        ],
+        "mapping": [
+          {
+            "identity": "cda",
+            "map": "entryRelationship/@inversionInd"
+          }
+        ]
+      },
+      {
+        "id": "Extension.extension:inversionInd.extension",
+        "path": "Extension.extension.extension",
+        "max": "0"
+      },
+      {
+        "id": "Extension.extension:inversionInd.url",
+        "path": "Extension.extension.url",
+        "fixedUri": "inversionInd"
+      },
+      {
+        "id": "Extension.extension:inversionInd.value[x]",
+        "path": "Extension.extension.value[x]",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "boolean"
+          }
+        ]
+      },
+      {
+        "id": "Extension.url",
+        "path": "Extension.url",
+        "fixedUri": "https://github.com/CDCgov/dibbs-FHIR-Converter/StructureDefinition/cda-entry-reference"
+      },
+      {
+        "id": "Extension.value[x]",
+        "path": "Extension.value[x]",
+        "min": 0,
+        "max": "0"
+      }
+    ]
+  }
+}

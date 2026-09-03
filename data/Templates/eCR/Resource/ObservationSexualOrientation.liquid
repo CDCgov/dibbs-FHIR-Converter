@@ -3,6 +3,13 @@
     "resource":{
         "resourceType": "Observation",
         "id":"{{ ID }}",
+        "identifier":
+        [
+            {% assign ids = observationEntry.id | to_array -%}
+            {% for id in ids -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
+            {% endfor -%}
+        ],
         "meta":
         {
             "profile":
@@ -26,7 +33,7 @@
                 "{{ observationEntry.statusCode._}}",
             {% else -%}
                 "{{ observationEntry.statusCode.code | get_property: 'ValueSet/ObservationStatus' }}",
-            {% endif -%},
+            {% endif -%}
         {% include 'Utils/EffectiveTime', effectiveTime: observationEntry.effectiveTime %}
         {% comment %} When we have eCRs with actual data for this element, revist these values {% endcomment %}
         {% comment %} May need to use this ValueSet: http://hl7.org/fhir/us/core/STU6.1/ValueSet-us-core-sexual-orientation.html {% endcomment %}

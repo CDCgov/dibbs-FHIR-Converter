@@ -3,9 +3,20 @@
     "resource":{
         "resourceType": "CarePlan",
         "id":"{{ID}}",
+        {% assign entries = carePlan.entry | to_array -%}
         "identifier":
         [
             {% assign ids = carePlan.id | to_array -%}
+            {% comment %}
+                Direct act entries become activities on this CarePlan instead of separate
+                resources. Include their ids so Entry References can find the CarePlan.
+            {% endcomment %}
+            {% for entry in entries -%}
+                {% if entry.act -%}
+                    {% assign actIds = entry.act.id | to_array -%}
+                    {% assign ids = ids | concat: actIds -%}
+                {% endif -%}
+            {% endfor -%}
             {% for id in ids -%}
                 {% include 'DataType/Identifier', Identifier: id -%}
             {% endfor -%}
@@ -16,7 +27,6 @@
             "reference": "{{ patientReference }}",
         },
         "activity":[
-            {% assign entries = carePlan.entry | to_array %}
             {% for entry in entries %}
                 {% assign act = entry.act %}
                 {% comment %} Other entry types are handled in `Entry/PlanOfTreatment/entry` {% endcomment %}

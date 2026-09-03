@@ -16,11 +16,11 @@ public class FhirProcessor
     /// </returns>
     public static string FhirBundlePostProcessing(string input)
     {
-        var bundleJson = JsonNode.Parse(input) !;
+        var bundleJson = JsonNode.Parse(input) ?? new JsonObject();
 
         bundleJson = AddDataSourceToBundle(bundleJson);
-        var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}");
-        resultsJson!["response"] !["FhirResource"] = bundleJson;
+        var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}") ?? new JsonObject();
+        resultsJson["response"] !["FhirResource"] = bundleJson;
         var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
         {
             WriteIndented = true,

@@ -24,6 +24,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                     root=""2.16.840.1.113883.10.20.22.4.86"" />
                   <id extension=""cer99351-7166272929-18651-Z4134990""
                     root=""1.2.840.114350.1.13.719.2.7.1.83687972"" />
+                  <id root=""44444444-4444-4444-4444-444444444444"" />
                   <code code=""98976-4"" codeSystem=""2.16.840.1.113883.6.1""
                     codeSystemName=""LOINC""
                     displayName=""In the past 12 months, was there a time when you were not able to pay the mortgage or rent on time?"">
@@ -53,6 +54,9 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             
             Assert.Equal(ResourceType.QuestionnaireResponse.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
+
+            Assert.Equal("urn:oid:1.2.840.114350.1.13.719.2.7.1.83687972", actualFhir.Identifier.System);
+            Assert.Equal("cer99351-7166272929-18651-Z4134990", actualFhir.Identifier.Value);
 
             Assert.Equal(QuestionnaireResponse.QuestionnaireResponseStatus.Completed, actualFhir.Status);
 

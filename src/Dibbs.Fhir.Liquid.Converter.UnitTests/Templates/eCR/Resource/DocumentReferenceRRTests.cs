@@ -78,7 +78,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 actualFhir.Meta.Profile.First()
             );
 
-            Assert.Equal("Public health Note", actualFhir.Type.Coding.First().Display);
+            Assert.Equal("Public Health Note", actualFhir.Type.Coding.First().Display);
             Assert.Equal("83910-0", actualFhir.Type.Coding.First().Code);
             Assert.Equal("Public health information", actualFhir.Type.Text);
 

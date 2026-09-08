@@ -30,7 +30,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public health Case report"
+                "display": "Public Health Case Report"
               }
             ]
           },
@@ -52,7 +52,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public health Case report"
+              "display": "Public Health Case Report"
             }
           ]
         },
@@ -72,7 +72,7 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of care note"
+                  "display": "Plan of Care Note"
                 }
               ]
             },
@@ -433,7 +433,7 @@
             "mode": "snapshot"
           },
           {
-            "id": "193a3b85-558f-84b9-68bd-45ccce7becff",
+            "id": "3c9bce68-3cb6-1a68-4dba-2d80204f476b",
             "title": "Emergency Outbreak Information Section",
             "text": {
               "status": "generated",
@@ -444,7 +444,7 @@
                 {
                   "code": "83910-0",
                   "system": "http://loinc.org",
-                  "display": "Public health Note"
+                  "display": "Public Health Note"
                 }
               ]
             },
@@ -1004,7 +1004,7 @@
             {
               "system": "http://loinc.org",
               "code": "83910-0",
-              "display": "Public health Note"
+              "display": "Public Health Note"
             }
           ],
           "text": "Public health information"
@@ -1064,7 +1064,7 @@
             {
               "system": "http://loinc.org",
               "code": "83910-0",
-              "display": "Public health Note"
+              "display": "Public Health Note"
             }
           ],
           "text": "Public health information"

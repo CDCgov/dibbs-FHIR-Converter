@@ -34,7 +34,7 @@
                   {
                     "code": "55751-2",
                     "system": "http://loinc.org",
-                    "display": "Public health Case report"
+                    "display": "Public Health Case Report"
                   }
                 ]
               },
@@ -56,7 +56,7 @@
                 {
                   "code": "55751-2",
                   "system": "http://loinc.org",
-                  "display": "Public health Case report"
+                  "display": "Public Health Case Report"
                 }
               ]
             },
@@ -76,7 +76,7 @@
                     {
                       "code": "18776-5",
                       "system": "http://loinc.org",
-                      "display": "Plan of care note"
+                      "display": "Plan of Care Note"
                     }
                   ]
                 },

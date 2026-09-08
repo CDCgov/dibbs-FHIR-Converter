@@ -16,6 +16,7 @@ using Hl7.Fhir.Model;
 using Hl7.Fhir.Rest;
 using Hl7.Fhir.Serialization;
 using Hl7.Fhir.Specification;
+using Hl7.Fhir.Specification.Snapshot;
 using Hl7.Fhir.Specification.Source;
 using Hl7.Fhir.Specification.Terminology;
 using Hl7.Fhir.Support;
@@ -48,9 +49,9 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
                 // ]
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "2" },
                 new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "9" },
-                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "29" },
+                new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "41" },
                 new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "13" },
-                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "13" },
+                new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "17" },
             };
             return data.Select(item => new[]
             {
@@ -73,7 +74,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
 
             var updateSnapshot = Environment.GetEnvironmentVariable("UPDATE_SNAPSHOT") ?? "false";
-            if (true)
+            if (string.Equals(updateSnapshot.Trim(), "true", StringComparison.OrdinalIgnoreCase))
             {
                 File.WriteAllText(expectedFile, actualContent);
             }
@@ -139,12 +140,35 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
                     "https://packages2.fhir.org/packages"
                 );
 
-                var profileSource = new CachedResolver(ecrSource);
+                var entryReferenceDefinitionPath = Path.Join(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    Constants.StructureDefinitionsDirectory,
+                    "StructureDefinition-cda-entry-reference.json"
+                );
+                var entryReferenceDefinition = new FhirJsonParser().Parse<StructureDefinition>(
+                    File.ReadAllText(entryReferenceDefinitionPath)
+                );
+                var snapshotGenerator = new SnapshotGenerator(
+                    new MultiResolver(ecrSource, coreSource)
+                );
+                snapshotGenerator.Update(entryReferenceDefinition);
+                Assert.True(
+                    snapshotGenerator.Outcome == null,
+                    snapshotGenerator.Outcome?.ToString()
+                );
+                Assert.NotNull(entryReferenceDefinition.Snapshot);
+
+                var profileSource = new CachedResolver(
+                    new MultiResolver(
+                        new InMemoryResourceResolver(entryReferenceDefinition),
+                        ecrSource
+                    )
+                );
                 var loincClient = new FhirClient("https://fhir.loinc.org");
                 loincClient.RequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue(
                         "Basic",
-                        "am55Z2FhcmQ6M1hTQCFld2NBQWVMc1pN"
+                        Environment.GetEnvironmentVariable("LOINC_AUTH")
                     );
                 var loincTerminologyService = new ExternalTerminologyService(loincClient);
                 var terminologyService = new LocalTerminologyService(profileSource);

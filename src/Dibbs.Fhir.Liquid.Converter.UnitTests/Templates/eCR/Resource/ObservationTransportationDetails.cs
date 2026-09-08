@@ -34,6 +34,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 <!-- [eICR R2 STU3] Transportation Details Organizer -->
                 <templateId root=""2.16.840.1.113883.10.20.15.2.3.50"" extension=""2021-01-01""/>
                 <id root=""afd5c96f-9289-4796-b8fa-faa50ac113ff""/>
+                <id root=""33333333-3333-3333-3333-333333333333""/>
                 <!-- Transport vehicle type -->
                 <code code=""21812002""
                     codeSystem=""2.16.840.1.113883.6.1""
@@ -74,6 +75,20 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal(ResourceType.Observation.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
+
+            Assert.Collection(
+                actualFhir.Identifier,
+                identifier =>
+                {
+                    Assert.Equal("urn:ietf:rfc:3986", identifier.System);
+                    Assert.Equal("urn:uuid:afd5c96f-9289-4796-b8fa-faa50ac113ff", identifier.Value);
+                },
+                identifier =>
+                {
+                    Assert.Equal("urn:ietf:rfc:3986", identifier.System);
+                    Assert.Equal("urn:uuid:33333333-3333-3333-3333-333333333333", identifier.Value);
+                }
+            );
 
             Assert.Equal(ObservationStatus.Final, actualFhir.Status);
 

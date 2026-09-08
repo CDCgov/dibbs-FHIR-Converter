@@ -11,6 +11,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
     {
         public static readonly string TemplateDirectory = Path.Join("..", "..", "data", "Templates");
         public static readonly string SampleDataDirectory = Path.Join("..", "..", "data", "SampleData");
+        public static readonly string StructureDefinitionsDirectory = Path.Join("..", "..", "data", "StructureDefinitions");
         // Roundabout path to make sure we reference/update the source expected test data and not a copy
         // in the build folder
         public static readonly string TestDataDirectory = Path.Join("..", "..", "src", "Dibbs.Fhir.Liquid.Converter.FunctionalTests", "TestData");

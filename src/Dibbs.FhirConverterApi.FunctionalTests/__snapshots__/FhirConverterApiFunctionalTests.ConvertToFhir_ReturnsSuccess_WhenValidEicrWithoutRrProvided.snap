@@ -960,6 +960,12 @@
           "resource": {
             "resourceType": "Observation",
             "id": "098e70ab-3f80-2c42-2bae-665b4ebd70a2",
+            "identifier": [
+              {
+                "system": "urn:ietf:rfc:3986",
+                "value": "urn:uuid:030df1dc-1d31-4e5d-abdd-5edd0b74c5c3"
+              }
+            ],
             "meta": {
               "profile": [
                 "http://hl7.org/fhir/us/ecr/StructureDefinition/us-ph-travel-history"

@@ -6,14 +6,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection.Metadata;
+using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.Processors;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
+using Dibbs.FhirConverterApi.Processors;
 using Fluid;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -59,6 +63,39 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             ConvertCCDAMessageAndValidateExpectedResponse(templateProvider, rootTemplate, inputFile, expectedFile);
         }
 
+        [Fact]
+        public void GivenEcrWithEntryReference_WhenConverting_ExtensionTargetsExistingResource()
+        {
+            const string entryReferenceUrl = "https://github.com/CDCgov/dibbs-FHIR-Converter/StructureDefinition/cda-entry-reference";
+            var templateDirectory = Path.Join(AppDomain.CurrentDomain.BaseDirectory, Constants.TemplateDirectory, "eCR");
+            var templateProvider = new TemplateProvider(templateDirectory);
+            var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
+            var inputFile = Path.Join(Constants.SampleDataDirectory, "eCR", "eCR_RR_combined_3_1.xml");
+            var cdaDocument = EcrProcessor.ResolveReferences(XDocument.Parse(File.ReadAllText(inputFile)));
+            var processor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
+
+            var converted = processor.Convert(cdaDocument.ToString(), "EICR", TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
+            var bundle = JObject.Parse(converted);
+            var resources = bundle["entry"]?.Select(entry => entry["resource"]).OfType<JObject>().ToList() ?? new List<JObject>();
+            var entryReferences = resources
+                .SelectMany(resource => (resource["extension"] as JArray ?? new JArray())
+                    .OfType<JObject>()
+                    .Where(extension => extension.Value<string>("url") == entryReferenceUrl)
+                    .Select(extension => (Resource: resource, Extension: extension)))
+                .ToList();
+
+            var entryReference = Assert.Single(entryReferences);
+            Assert.Equal("DiagnosticReport", entryReference.Resource.Value<string>("resourceType"));
+
+            var target = entryReference.Extension["extension"]?
+                .OfType<JObject>()
+                .Single(part => part.Value<string>("url") == "target")["valueReference"]?["reference"]?
+                .Value<string>();
+
+            Assert.False(string.IsNullOrEmpty(target));
+            Assert.Contains(resources, resource => target == $"{resource.Value<string>("resourceType")}/{resource.Value<string>("id")}");
+        }
+
         [Theory]
         [MemberData(nameof(GetDataForEcr))]
         public void GivenEcrDocument_WhenConverting_ExpectedFhirResourceShouldBeValid(string rootTemplate, string inputFile, string expectedFile, string validationFailureStep, string numFailures)
@@ -81,7 +118,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var templateOptions = new TemplateOptions();
             var ccdaProcessor = new CcdaProcessor(FhirConverterLogging.CreateLogger<CcdaProcessor>(), templateOptions);
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(Constants.TestTemplatesDirectory));
-            
+
             var exception = Assert.Throws<RenderException>(() => ccdaProcessor.Convert(@"<ClinicalDocument></ClinicalDocument>", "NestingTooDeepTemplate", TemplateUtility.TemplateDirectory, new TemplateProvider(Constants.TestTemplatesDirectory), fileProvider));
             Assert.True(exception.InnerException is InvalidOperationException);
         }

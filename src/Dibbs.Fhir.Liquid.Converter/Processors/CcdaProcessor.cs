@@ -1,4 +1,4 @@
-﻿// -------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
@@ -8,6 +8,7 @@ using System.IO;
 using System.Text.Json;
 using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Dibbs.Fhir.Liquid.Converter.Models;
+using Dibbs.Fhir.Liquid.Converter.OutputProcessors;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Fluid;
 using Fluid.Values;
@@ -34,7 +35,8 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
         protected override string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider)
         {
             object ccdaData = parser.Parse(data);
-            return InternalConvertFromObject(ccdaData, rootTemplate, templatesPath, templateProvider, fileProvider);
+            string converted = InternalConvertFromObject(ccdaData, rootTemplate, templatesPath, templateProvider, fileProvider);
+            return EntryReferencePostProcessor.Process(converted, data);
         }
 
         protected override TemplateContext CreateContext(ITemplateProvider templateProvider, IDictionary<string, object> data, string rootTemplate, IFileProvider fileProvider)

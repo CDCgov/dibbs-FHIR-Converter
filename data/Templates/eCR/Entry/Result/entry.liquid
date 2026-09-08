@@ -20,7 +20,7 @@
     {% comment %} From 2.16.840.1.113883.10.20.15.2.3.35:2022-05-01 {% endcomment %}
     {% assign procComponents  = entry.organizer.component | to_array | where: "procedure"  %}
     {% for component in procComponents %}
-        {% if component.procedure.code.nullFlavor %}
+        {% if component.procedure.code == nil or component.procedure.code.nullFlavor %}
         {% else %}
             {% assign specimenId = component.procedure | to_json_string | generate_uuid -%}
             {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' -%}

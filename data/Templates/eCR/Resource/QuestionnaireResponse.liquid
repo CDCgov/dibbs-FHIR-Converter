@@ -3,6 +3,10 @@
     "resource":{
         "resourceType": "QuestionnaireResponse",
         "id":"{{ ID }}",
+        {% assign identifier = entry.id | to_array | first -%}
+        {% if identifier -%}
+            "identifier": {% include 'DataType/Identifier', Identifier: identifier -%}
+        {% endif -%}
         "status": "{{ entry.statusCode.code | get_property: 'ValueSet/QuestionnaireAnswerStatus' }}",
         "item": [
             {

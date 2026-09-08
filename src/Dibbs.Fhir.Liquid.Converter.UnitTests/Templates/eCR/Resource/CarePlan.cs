@@ -113,7 +113,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(actualFhir.Status, RequestStatus.Unknown);
             Assert.Empty(actualFhir.Activity);
         }
-        
+
         [Fact]
         public void CarePlan_AllFields_MultipleEntries()
         {
@@ -181,6 +181,14 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var actualFhir = GetFhirObjectFromTemplate<CarePlan>(ECRPath, attributes);
 
             Assert.Equal(2, actualFhir.Activity.Count());
+            Assert.Equal(
+                new[]
+                {
+                    "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a54",
+                    "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a55",
+                    "urn:uuid:ab1791b0-5c71-11db-b0de-0800200c9a56",
+                },
+                actualFhir.Identifier.Select(identifier => identifier.Value));
         }
     }
 }

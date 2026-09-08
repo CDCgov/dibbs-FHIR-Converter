@@ -3,6 +3,13 @@
     "resource":{
         "resourceType": "Observation",
         "id":"{{ ID }}",
+        "identifier":
+        [
+            {% assign ids = observationEntry.id | to_array -%}
+            {% for id in ids -%}
+                {% include 'DataType/Identifier', Identifier: id -%}
+            {% endfor -%}
+        ],
         "code" : {
             {% include 'DataType/CodeableConcept', CodeableConcept: observationEntry.code %}
         },

@@ -65232,7 +65232,7 @@ LOINC_NUM,name
 56444-3,Healthcare communication Document
 56445-0,Medication summary Document
 56446-8,Appointment summary Document
-56447-6,Deprecated Plan of care note
+56447-6,Deprecated Plan of Care Note
 56448-4,Chloride Screen (Sweat) [Moles/Vol]
 56449-2,Baker's yeast IgG4 (S) [Mass/Vol]
 564-5,Colony count Visual count (Specimen) [#]
@@ -95057,7 +95057,7 @@ LOINC_NUM,name
 83980-3,Deprecated Social work Team Note
 83981-1,Social Worker Transfer Summary Note
 83982-9,Social Worker Transplant Candidate Evaluation Note
-83983-7,Deprecated Social work Interdisciplinary Plan of care note
+83983-7,Deprecated Social work Interdisciplinary Plan of Care Note
 83984-5,Speech-Language Pathology Consult Note
 83985-2,Speech-Language Pathology Long Term Care Facility Note
 83986-0,Speech-Language Pathology Risk Assessment and Screening Note

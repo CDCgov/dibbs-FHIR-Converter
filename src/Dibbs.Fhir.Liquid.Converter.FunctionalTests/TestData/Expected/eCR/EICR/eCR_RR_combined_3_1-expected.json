@@ -33,7 +33,7 @@
               {
                 "code": "55751-2",
                 "system": "http://loinc.org",
-                "display": "Public health Case report"
+                "display": "Public Health Case Report"
               }
             ]
           },
@@ -58,7 +58,7 @@
             {
               "code": "55751-2",
               "system": "http://loinc.org",
-              "display": "Public health Case report"
+              "display": "Public Health Case Report"
             }
           ]
         },
@@ -131,7 +131,7 @@
             ]
           },
           {
-            "id": "449ba05d-cb7e-4185-7f4b-256f3af0b4fe",
+            "id": "a44c806a-d75c-c163-afcf-72d3ed1a6bce",
             "title": "Plan of Treatment",
             "text": {
               "status": "generated",
@@ -142,14 +142,14 @@
                 {
                   "code": "18776-5",
                   "system": "http://loinc.org",
-                  "display": "Plan of care note"
+                  "display": "Plan of Care Note"
                 }
               ]
             },
             "mode": "snapshot",
             "entry": [
               {
-                "reference": "CarePlan/d235cbab-7d4c-d3ff-151d-9b82d55f4fa2"
+                "reference": "CarePlan/4c3f55e1-7989-8cca-6e75-151a883957ec"
               }
             ]
           },
@@ -3103,10 +3103,10 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:d235cbab-7d4c-d3ff-151d-9b82d55f4fa2",
+      "fullUrl": "urn:uuid:4c3f55e1-7989-8cca-6e75-151a883957ec",
       "resource": {
         "resourceType": "CarePlan",
-        "id": "d235cbab-7d4c-d3ff-151d-9b82d55f4fa2",
+        "id": "4c3f55e1-7989-8cca-6e75-151a883957ec",
         "status": "unknown",
         "intent": "proposal",
         "subject": {

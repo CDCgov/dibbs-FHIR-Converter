@@ -37,7 +37,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 }
             };
             var expectedContent =
-                @"""code"": ""55751-2"",""system"": ""http://loinc.org"",""display"": ""Public health Case report"",";
+                @"""code"": ""55751-2"",""system"": ""http://loinc.org"",""display"": ""Public Health Case Report"",";
             await ConvertCheckLiquidTemplate(ECRPath, attributes, expectedContent);
         }
 

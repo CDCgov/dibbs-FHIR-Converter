@@ -3286,7 +3286,7 @@
                     <!-- [eICR R2 STU3] Emergency Outbreak Information Section -->
                     <templateId root="2.16.840.1.113883.10.20.15.2.2.4" extension="2021-01-01" />
                     <code code="83910-0" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"
-                        displayName="Public health Note" />
+                        displayName="Public Health Note" />
                     <title>Emergency Outbreak Information Section</title>
                     <text>
                         <table>

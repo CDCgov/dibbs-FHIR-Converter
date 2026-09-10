@@ -15,12 +15,12 @@ using System.Linq;
 
 public class PostProcessor
 {
-    private readonly FhirJsonParser _parser = new FhirJsonParser();
+    private readonly FhirJsonDeserializer _deserializer = new FhirJsonDeserialize();
 
     public IEnumerable<Resource> FilterResources(IEnumerable<string> fhirResources)
     {
         return fhirResources
-            .Select(fhirResource => _parser.Parse<Resource>(fhirResource))
+            .Select(fhirResource => _deserializer.Deserialize<Resource>(fhirResource))
             .Where(resource => !IsEmptyResource(resource))
             .Where(resource => !IsIdAbsentResource(resource));
     }

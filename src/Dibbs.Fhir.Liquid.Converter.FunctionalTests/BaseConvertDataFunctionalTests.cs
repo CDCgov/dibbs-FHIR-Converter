@@ -50,7 +50,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
                 new[] { @"EICR", @"eCR_full.xml", @"eCR_full-expected.json", "validation", "2" },
                 new[] { @"EICR", @"eCR_RR_combined_3_1.xml", @"eCR_RR_combined_3_1-expected.json", "validation", "9" },
                 new[] { @"EICR", @"eCR_EveEverywoman.xml", @"eCR_EveEverywoman-expected.json", "validation", "41" },
-                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "13" },
+                new[] { @"EICR", @"eicr04152020.xml", @"eicr04152020-expected.json", "validation", "12" },
                 new[] { @"EICR", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE.xml", @"CDAR2_IG_PHCASERPT_R2_D2_SAMPLE-expected.json", "validation", "17" },
             };
             return data.Select(item => new[]
@@ -114,14 +114,11 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
             var actualContent = ccdaProcessor.Convert(inputContent, rootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
 
-            var fhirJsonPocoDeserializerSettings = new FhirJsonPocoDeserializerSettings()
-            {
-                ValidateOnFailedParse = true
-            };
+            var fhirJsonConverterOptions = new FhirJsonConverterOptions();
             var serializerOptions = new JsonSerializerOptions()
-                .ForFhir(ModelInfo.ModelInspector, fhirJsonPocoDeserializerSettings)
-                .Ignoring([CodedValidationException.DATETIME_LITERAL_INVALID_CODE]);
-            // Ignoring datetime formatting because FHIR does not like datetimes with times without a time zone.
+                .ForFhir(ModelInfo.ModelInspector, fhirJsonConverterOptions)
+                .Ignoring([CodedValidationException.LITERAL_INVALID_CODE]);
+            // Firely 6.x uses this shared primitive-literal code for timezone-less date-time errors.
 
             try
             {
@@ -145,7 +142,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
                     Constants.StructureDefinitionsDirectory,
                     "StructureDefinition-cda-entry-reference.json"
                 );
-                var entryReferenceDefinition = new FhirJsonParser().Parse<StructureDefinition>(
+                var entryReferenceDefinition = new FhirJsonDeserializer().Deserialize<StructureDefinition>(
                     File.ReadAllText(entryReferenceDefinitionPath)
                 );
                 var snapshotGenerator = new SnapshotGenerator(

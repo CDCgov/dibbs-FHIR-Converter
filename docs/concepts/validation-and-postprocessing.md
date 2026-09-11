@@ -15,7 +15,7 @@ using System.Linq;
 
 public class PostProcessor
 {
-    private readonly FhirJsonDeserializer _deserializer = new FhirJsonDeserialize();
+    private readonly FhirJsonDeserializer _deserializer = new FhirJsonDeserializer();
 
     public IEnumerable<Resource> FilterResources(IEnumerable<string> fhirResources)
     {

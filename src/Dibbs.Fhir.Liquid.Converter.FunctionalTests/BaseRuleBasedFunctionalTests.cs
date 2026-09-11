@@ -28,7 +28,10 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
 
         private static readonly int _maxRevealDepth = 1 << 7;
         private static readonly string _ccdaDataFolder = Path.Combine(Constants.SampleDataDirectory, "eCR");
-        private static readonly FhirJsonParser _fhirParser = new FhirJsonParser();
+        private static readonly FhirJsonDeserializer _fhirDeserializer = new(
+            new DeserializerSettings()
+                .UsingMode(DeserializationMode.Recoverable)
+        );
         private readonly CcdaProcessor _ccdaProcessor;
 
         private readonly ITestOutputHelper _output;
@@ -152,7 +155,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             }");
             try
             {
-                var bundle = _fhirParser.Parse<Hl7.Fhir.Model.Observation>(jsonResult);
+                var bundle = _fhirDeserializer.Deserialize<Hl7.Fhir.Model.Observation>(jsonResult);
                 Assert.Null(bundle);
             }
             catch (FormatException fe)
@@ -167,7 +170,7 @@ namespace Dibbs.Fhir.Liquid.Converter.FunctionalTests
             var jsonResult = JsonConvert.SerializeObject(result, Formatting.Indented);
             try
             {
-                var bundle = _fhirParser.Parse<Hl7.Fhir.Model.Bundle>(jsonResult);
+                var bundle = _fhirDeserializer.Deserialize<Hl7.Fhir.Model.Bundle>(jsonResult);
                 Assert.NotNull(bundle);
             }
             catch (FormatException fe)

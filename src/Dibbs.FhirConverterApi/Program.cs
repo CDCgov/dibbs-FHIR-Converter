@@ -132,7 +132,18 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
                     HttpStatusCode.UnprocessableEntity);
             }
 
-            var fhirJson = FhirProcessor.ConvertXmlToJson(inputData);
+            string fhirJson;
+
+            try
+            {
+                fhirJson = FhirProcessor.ConvertXmlToJson(inputData);
+            }
+            catch (UserFacingException ex) when (ex.InnerException is not null)
+            {
+                logger.LogWarning(ex.InnerException, "FHIR XML deserialization failed.");
+                throw;
+            }
+
             var fhirResult = FhirProcessor.FhirBundlePostProcessing(fhirJson);
             return Results.Text(fhirResult, contentType: "application/json");
         }

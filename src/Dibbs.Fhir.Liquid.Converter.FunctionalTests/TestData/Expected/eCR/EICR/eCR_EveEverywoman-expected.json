@@ -540,14 +540,8 @@
           {
             "code": "replaces",
             "targetReference": {
-              "reference": "Composition/2.16.840.1.113883.9.9.9.9.9"
-            },
-            "extension": [
-              {
-                "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
-                "valueString": "1"
-              }
-            ]
+              "reference": "Composition/2.16.840.1.113883.9.9.9.9.9/_history/1"
+            }
           }
         ],
         "encounter": {

@@ -13,15 +13,13 @@
 
                         "targetReference":
                         {
-                            "reference":"Composition/{{ relatedDOC.parentDocument.id.root }}",
+                            {% if relatedDOC.parentDocument.versionNumber.value -%}
+                                "reference":"Composition/{{ relatedDOC.parentDocument.id.root }}/_history/{{ relatedDOC.parentDocument.versionNumber.value }}",
+                            {% else -%}
+                                "reference":"Composition/{{ relatedDOC.parentDocument.id.root }}",
+                            {% endif -%}
                         },
                     {% endif -%}
-                    "extension":[
-                        {
-                            "url" : "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
-                            "valueString" : "{{ relatedDOC.parentDocument.versionNumber.value }}"
-                        },
-                    ],
                 {% endif -%}
 
             },

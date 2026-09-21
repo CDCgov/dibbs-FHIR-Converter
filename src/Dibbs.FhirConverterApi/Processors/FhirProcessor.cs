@@ -10,6 +10,13 @@ namespace Dibbs.FhirConverterApi.Processors;
 
 public class FhirProcessor
 {
+
+    // TODO: remove deserialization mode eventually. 
+    // This is a permissive setting to allow invalid test data through.
+    private static readonly FhirXmlDeserializer SyntaxOnlyDeserializer = new (
+        new DeserializerSettings()
+            .UsingMode(DeserializationMode.Recoverable));
+
     /// <summary>
     /// Converts a FHIR R4 XML Bundle to its FHIR JSON representation.
     /// </summary>
@@ -20,7 +27,7 @@ public class FhirProcessor
     {
         try
         {
-            var bundle = FhirXmlDeserializer.DEFAULT.Deserialize<Bundle>(input);
+            var bundle = SyntaxOnlyDeserializer.Deserialize<Bundle>(input);
             return bundle.ToJson();
         }
         catch (Exception ex)
@@ -46,7 +53,7 @@ public class FhirProcessor
 
         bundleJson = AddDataSourceToBundle(bundleJson);
         var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}") ?? new JsonObject();
-        resultsJson["response"] !["FhirResource"] = bundleJson;
+        resultsJson["response"]!["FhirResource"] = bundleJson;
         var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
         {
             WriteIndented = true,

@@ -1,11 +1,37 @@
+using System.Net;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Dibbs.FhirConverterApi.Models;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Serialization;
 
 namespace Dibbs.FhirConverterApi.Processors;
 
 public class FhirProcessor
 {
+    /// <summary>
+    /// Converts a FHIR R4 XML Bundle to its FHIR JSON representation.
+    /// </summary>
+    /// <param name="input">The FHIR R4 XML Bundle.</param>
+    /// <returns>The FHIR Bundle as a JSON string.</returns>
+    /// <exception cref="UserFacingException">Thrown when the input is not a valid FHIR R4 Bundle.</exception>
+    public static string ConvertXmlToJson(string input)
+    {
+        try
+        {
+            var bundle = FhirXmlDeserializer.DEFAULT.Deserialize<Bundle>(input);
+            return bundle.ToJson();
+        }
+        catch (Exception ex)
+        {
+            throw new UserFacingException(
+                "FHIR XML input must be a valid FHIR R4 Bundle.",
+                HttpStatusCode.UnprocessableEntity,
+                ex);
+        }
+    }
+
     /// <summary>
     ///  Makes final changes to FHIR bundle before returning to caller.
     ///  Adds source info to all resources.

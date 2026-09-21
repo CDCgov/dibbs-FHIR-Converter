@@ -106,12 +106,12 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         "InputData length: {length} chars (~{mb} MB)",
         inputData.Length,
         inputData.Length / (1024.0 * 1024.0));
-    XDocument ecrDoc;
+    XDocument inputDocument;
 
     try
     {
         logger.LogTrace("Parsing XML...");
-        ecrDoc = XDocument.Parse(inputData);
+        inputDocument = XDocument.Parse(inputData);
     }
     catch (Exception ex)
     {
@@ -119,25 +119,34 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
     }
 
-    ecrDoc = EcrProcessor.ResolveReferences(ecrDoc);
-
-    if (!string.IsNullOrEmpty(requestBody.RRData))
+    try
     {
-        try
+        var inputDocumentType = InputProcessor.DetermineDocumentType(inputDocument);
+
+        if (inputDocumentType == InputDocumentType.Fhir)
+        {
+            if (!string.IsNullOrEmpty(requestBody.RRData))
+            {
+                throw new UserFacingException(
+                    "Reportability Response (RR) data is only supported for C-CDA input.",
+                    HttpStatusCode.UnprocessableEntity);
+            }
+
+            var fhirJson = FhirProcessor.ConvertXmlToJson(inputData);
+            var fhirResult = FhirProcessor.FhirBundlePostProcessing(fhirJson);
+            return Results.Text(fhirResult, contentType: "application/json");
+        }
+
+        var ecrDoc = EcrProcessor.ResolveReferences(inputDocument);
+
+        if (!string.IsNullOrEmpty(requestBody.RRData))
         {
             ecrDoc = EcrProcessor.MergeEicrAndRR(ecrDoc, requestBody.RRData);
         }
-        catch (UserFacingException ex)
-        {
-            return Results.Json(new { detail = ex.Message }, statusCode: (int)ex.StatusCode);
-        }
-    }
 
-    // using DisableFormatting has performance benefits and we don't care about the input data's formatting
-    inputData = ecrDoc.ToString(SaveOptions.DisableFormatting);
+        // using DisableFormatting has performance benefits and we don't care about the input data's formatting
+        inputData = ecrDoc.ToString(SaveOptions.DisableFormatting);
 
-    try
-    {
         var sw = Stopwatch.StartNew();
         var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
         logger.LogTrace("Conversion done in {ms}ms", sw.ElapsedMilliseconds);
@@ -160,8 +169,8 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 .WithName("ConvertToFhir")
 .AddOpenApiOperationTransformer((operation, _, __) =>
    {
-       operation.Summary = "Converts `input_data` from eICR to FHIR.";
-       operation.Description = "If applicable, merges eICR and RR and returns converted data as JSON.";
+       operation.Summary = "Converts XML `input_data` to FHIR JSON.";
+       operation.Description = "Accepts a C-CDA document or FHIR R4 Bundle. If applicable, merges C-CDA eICR and RR data before conversion.";
        return Task.CompletedTask;
    });
 

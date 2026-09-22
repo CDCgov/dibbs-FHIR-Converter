@@ -63,7 +63,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal("ServiceRequest", actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
             Assert.Equal(RequestStatus.Active, actualFhir.Status);
-            Assert.NotEmpty(actualFhir.Occurrence);
+            Assert.NotNull(actualFhir.Occurrence);
             Assert.Equal("Why not", actualFhir.ReasonCode.First().Coding.First().Code);
             Assert.Equal(RequestPriority.Asap , actualFhir.Priority);
             Assert.NotEmpty(actualFhir.BodySite);

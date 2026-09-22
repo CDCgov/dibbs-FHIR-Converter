@@ -109,7 +109,8 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             Assert.Equal(ResourceType.Device.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
-            Assert.Equal("[{}]", JsonConvert.SerializeObject(actualFhir.Identifier));
+            Assert.Single(actualFhir.Identifier);
+            Assert.Null(actualFhir.Identifier[0].Value);
             Assert.Empty(actualFhir.Type.Coding);
             Assert.Equal("", actualFhir.Manufacturer);
             Assert.Equal("cane", actualFhir.DeviceName.First().Name);

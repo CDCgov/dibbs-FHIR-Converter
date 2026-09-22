@@ -147,7 +147,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
 
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)
-                .UsingMode(DeserializerModes.Ostrich);
+                .UsingMode(DeserializationMode.Ostrich);
 
             var actualFhir = JsonSerializer.Deserialize<T>(actualJson, fhirOptions);
 
@@ -171,7 +171,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var actualJson = DeserializeJson(actual);
             var fhirOptions = new JsonSerializerOptions { AllowTrailingCommas = true, }
                 .ForFhir(ModelInfo.ModelInspector)
-                .UsingMode(DeserializerModes.Ostrich);
+                .UsingMode(DeserializationMode.Ostrich);
             var actualFhir = JsonSerializer.Deserialize<T>(actualJson, fhirOptions);
 
             return actualFhir;

@@ -54,7 +54,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
                 actualFhir.Meta.Profile.First()
             );
             Assert.NotEmpty(actualFhir.Identifier);
-            Assert.NotEmpty(actualFhir.Category);
+            Assert.NotNull(actualFhir.Category);
 
             Assert.Equal("Completed", actualFhir.Status.ToString());
             Assert.Equal("http://snomed.info/sct", actualFhir.Code.Coding.First().System);

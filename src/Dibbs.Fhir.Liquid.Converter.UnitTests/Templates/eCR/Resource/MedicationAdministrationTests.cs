@@ -98,7 +98,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.NotNull(actualFhir.Id);
             Assert.NotEmpty(actualFhir.Identifier);
             Assert.NotNull(actualFhir.Status);
-            Assert.NotEmpty(actualFhir.Effective);
+            Assert.NotNull(actualFhir.Effective);
 
             Assert.Equal("1 tablet oral", actualFhir.Dosage.Text);
             Assert.Equal("ORAL", actualFhir.Dosage.Route.Coding.First().Display);

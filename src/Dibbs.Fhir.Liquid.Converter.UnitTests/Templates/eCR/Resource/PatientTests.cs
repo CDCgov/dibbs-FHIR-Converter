@@ -177,7 +177,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             Assert.Equal(ResourceType.Patient.ToString(), actualFhir.TypeName);
             Assert.NotNull(actualFhir.Id);
 
-            Assert.Equal("http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient", actualFhir.Meta.ProfileElement[0].Value);
+            Assert.Equal("http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient", actualFhir.Meta.ProfileElement[0].ToString());
             Assert.Equal("123453", actualFhir.Identifier[0].Value);
             Assert.Equal("444-22-2222", actualFhir.Identifier[1].Value);
 

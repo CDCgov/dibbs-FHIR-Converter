@@ -66,7 +66,7 @@ namespace Dibbs.Fhir.Liquid.Converter.UnitTests
             var detail = actualFhir.Activity.First().Detail;
             Assert.Equal(CarePlan.CarePlanActivityStatus.Scheduled, detail.Status);
             Assert.Equal(CarePlan.CarePlanActivityKind.Task, detail.Kind);
-            Assert.NotEmpty(detail.Scheduled);
+            Assert.NotNull(detail.Scheduled);
             Assert.Equal("Why not", detail.ReasonCode.First().Coding.First().Code);
             Assert.Equal("Couldn't hurt", detail.ReasonCode.Last().Coding.First().Code);
         }

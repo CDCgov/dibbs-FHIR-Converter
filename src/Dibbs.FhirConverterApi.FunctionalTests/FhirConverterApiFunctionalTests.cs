@@ -28,6 +28,125 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         </Bundle>
         """;
 
+    private const string ValidFhirEicrXml = """
+        <Bundle xmlns="http://hl7.org/fhir">
+          <id value="eicr-bundle" />
+          <type value="document" />
+          <entry>
+            <fullUrl value="urn:uuid:11111111-1111-1111-1111-111111111111" />
+            <resource>
+              <Composition>
+                <id value="eicr-composition" />
+                <meta>
+                  <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-composition" />
+                </meta>
+                <status value="final" />
+                <type>
+                  <coding>
+                    <system value="http://loinc.org" />
+                    <code value="55751-2" />
+                  </coding>
+                </type>
+                <subject>
+                  <reference value="urn:uuid:11111111-1111-1111-1111-111111111112" />
+                </subject>
+                <date value="2026-09-23T12:00:00Z" />
+                <title value="Initial Public Health Case Report" />
+              </Composition>
+            </resource>
+          </entry>
+          <entry>
+            <fullUrl value="urn:uuid:11111111-1111-1111-1111-111111111112" />
+            <resource>
+              <Patient>
+                <id value="eicr-patient" />
+              </Patient>
+            </resource>
+          </entry>
+        </Bundle>
+        """;
+
+    private const string ValidFhirRrXml = """
+        <Bundle xmlns="http://hl7.org/fhir">
+          <id value="rr-bundle" />
+          <type value="document" />
+          <entry>
+            <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222221" />
+            <resource>
+              <Composition>
+                <id value="rr-composition" />
+                <meta>
+                  <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-composition" />
+                </meta>
+                <status value="final" />
+                <type>
+                  <coding>
+                    <system value="http://loinc.org" />
+                    <code value="88085-6" />
+                  </coding>
+                </type>
+                <date value="2026-09-23T12:01:00Z" />
+                <title value="Reportability Response" />
+              </Composition>
+            </resource>
+          </entry>
+          <entry>
+            <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222222" />
+            <resource>
+              <Patient>
+                <id value="rr-patient" />
+              </Patient>
+            </resource>
+          </entry>
+          <entry>
+            <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222223" />
+            <resource>
+              <Observation>
+                <id value="rr-status" />
+                <meta>
+                  <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation" />
+                </meta>
+                <status value="final" />
+                <code>
+                  <coding>
+                    <code value="RRVS19" />
+                    <display value="eICR processed" />
+                  </coding>
+                </code>
+              </Observation>
+            </resource>
+          </entry>
+          <entry>
+            <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222224" />
+            <resource>
+              <Observation>
+                <id value="rr-condition" />
+                <meta>
+                  <profile value="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation" />
+                </meta>
+                <status value="final" />
+                <code>
+                  <coding>
+                    <system value="http://snomed.info/sct" />
+                    <code value="64572001" />
+                  </coding>
+                </code>
+                <subject>
+                  <reference value="urn:uuid:22222222-2222-2222-2222-222222222222" />
+                </subject>
+                <valueCodeableConcept>
+                  <coding>
+                    <system value="http://snomed.info/sct" />
+                    <code value="40468003" />
+                    <display value="Viral hepatitis, type A" />
+                  </coding>
+                </valueCodeableConcept>
+              </Observation>
+            </resource>
+          </entry>
+        </Bundle>
+        """;
+
     private readonly HttpClient _client;
 
     public FhirConverterApiFunctionalTests(WebApplicationFactory<Program> factory)
@@ -108,12 +227,51 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     }
 
     [Fact]
-    public async Task ConvertToFhir_Returns422StatusCode_WhenFhirXmlAndRrProvided()
+    public async Task ConvertToFhir_ReturnsSuccess_WhenSeparateFhirEicrAndRrProvided()
     {
         var content = new FhirConverterRequest
         {
-            InputData = ValidFhirXml,
-            RRData = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml"),
+            InputData = ValidFhirEicrXml,
+            RRData = ValidFhirRrXml,
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var jsonResponse = JsonNode.Parse(await response.Content.ReadAsStringAsync());
+        var bundle = jsonResponse!["response"] !["FhirResource"] !;
+        var entries = bundle["entry"] !.AsArray();
+        var patientEntry = Assert.Single(
+            entries,
+            entry => (string?)entry?["resource"]?["resourceType"] == "Patient");
+        Assert.Single(
+            entries,
+            entry => (string?)entry?["resource"]?["resourceType"] == "Composition");
+        var rrConditionEntry = Assert.Single(
+            entries,
+            entry =>
+                entry?["resource"]?["meta"]?["profile"]?.ToJsonString().Contains(
+                    "rr-relevant-reportable-condition-observation",
+                    StringComparison.Ordinal) == true);
+        var patientReference = $"Patient/{(string)patientEntry!["resource"] !["id"] !}";
+
+        Assert.Equal("OK", (string)jsonResponse["response"] !["Status"] !);
+        Assert.Equal("Bundle", (string)bundle["resourceType"] !);
+        Assert.Equal("document", (string)bundle["type"] !);
+        Assert.Equal(
+            patientReference,
+            (string)rrConditionEntry!["resource"] !["subject"] !["reference"] !);
+        Assert.DoesNotContain(entries, entry =>
+            (string?)entry?["resource"]?["resourceType"] is "Bundle" or "MessageHeader");
+    }
+
+    [Fact]
+    public async Task ConvertToFhir_Returns422StatusCode_WhenMalformedFhirRrProvided()
+    {
+        var content = new FhirConverterRequest
+        {
+            InputData = ValidFhirEicrXml,
+            RRData = "<this is not valid xml>",
         };
 
         var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
@@ -121,7 +279,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
         var jsonResponse = await response.Content.ReadAsStringAsync();
         Assert.Equal(
-            "{\"detail\":\"Reportability Response (RR) data is only supported for C-CDA input.\"}",
+            "{\"detail\":\"FHIR RR XML input must be a valid FHIR R4 Bundle.\"}",
             jsonResponse);
     }
 

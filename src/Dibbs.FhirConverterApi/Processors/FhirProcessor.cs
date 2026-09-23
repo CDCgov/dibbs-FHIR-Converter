@@ -10,8 +10,7 @@ namespace Dibbs.FhirConverterApi.Processors;
 
 public class FhirProcessor
 {
-
-    // TODO: remove deserialization mode eventually. 
+    // TODO: remove deserialization mode eventually.
     // This is a permissive setting to allow invalid test data through.
     private static readonly FhirXmlDeserializer SyntaxOnlyDeserializer = new (
         new DeserializerSettings()
@@ -25,15 +24,39 @@ public class FhirProcessor
     /// <exception cref="UserFacingException">Thrown when the input is not a valid FHIR R4 Bundle.</exception>
     public static string ConvertXmlToJson(string input)
     {
+        return DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.").ToJson();
+    }
+
+    /// <summary>
+    /// Converts separate FHIR R4 eICR and RR XML Bundles into the flat JSON Bundle
+    /// consumed by the eCR Viewer.
+    /// </summary>
+    /// <param name="eicrInput">The FHIR R4 eICR document Bundle.</param>
+    /// <param name="rrInput">The FHIR R4 Reportability Response document Bundle.</param>
+    /// <returns>The combined eICR Bundle as a JSON string.</returns>
+    /// <exception cref="UserFacingException">Thrown when either input is not a valid FHIR R4 Bundle.</exception>
+    public static string ConvertXmlToJson(string eicrInput, string rrInput)
+    {
+        var eicrBundle = DeserializeBundle(
+            eicrInput,
+            "FHIR XML input must be a valid FHIR R4 Bundle.");
+        var rrBundle = DeserializeBundle(
+            rrInput,
+            "FHIR RR XML input must be a valid FHIR R4 Bundle.");
+
+        return FhirEcrMerger.Merge(eicrBundle, rrBundle);
+    }
+
+    private static Bundle DeserializeBundle(string input, string errorMessage)
+    {
         try
         {
-            var bundle = SyntaxOnlyDeserializer.Deserialize<Bundle>(input);
-            return bundle.ToJson();
+            return SyntaxOnlyDeserializer.Deserialize<Bundle>(input);
         }
         catch (Exception ex)
         {
             throw new UserFacingException(
-                "FHIR XML input must be a valid FHIR R4 Bundle.",
+                errorMessage,
                 HttpStatusCode.UnprocessableEntity,
                 ex);
         }
@@ -53,7 +76,7 @@ public class FhirProcessor
 
         bundleJson = AddDataSourceToBundle(bundleJson);
         var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}") ?? new JsonObject();
-        resultsJson["response"]!["FhirResource"] = bundleJson;
+        resultsJson["response"] !["FhirResource"] = bundleJson;
         var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
         {
             WriteIndented = true,

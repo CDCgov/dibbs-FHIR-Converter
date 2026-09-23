@@ -51,7 +51,7 @@ To build the Docker image for the FHIR Conversion service from source code inste
 To convert your source data to FHIR, make a `POST` request to the `/convert-to-fhir` endpoint. If you are running the API locally, the URL will be `http://localhost:8080/convert-to-fhir`.
 This request will include some number of the following values in the request body depending on your use case. **Please note: `input_data` and `rr_data` must be JSON escaped.**
 - `input_data`: **Required**. The primary data payload that will be converted.
-- `rr_data`: Optional. Reportability Response information to be merged with input_data before conversion.
+- `rr_data`: Optional. Reportability Response information to be merged with `input_data` before conversion. For FHIR input, provide separate FHIR R4 eICR and RR document Bundles; the response is a single flat eICR Bundle that includes the RR resources used by the eCR Viewer.
 
 ### Sample FHIR Conversion Request
 ```

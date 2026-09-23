@@ -125,18 +125,13 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
         if (inputDocumentType == InputDocumentType.Fhir)
         {
-            if (!string.IsNullOrEmpty(requestBody.RRData))
-            {
-                throw new UserFacingException(
-                    "Reportability Response (RR) data is only supported for C-CDA input.",
-                    HttpStatusCode.UnprocessableEntity);
-            }
-
             string fhirJson;
 
             try
             {
-                fhirJson = FhirProcessor.ConvertXmlToJson(inputData);
+                fhirJson = string.IsNullOrEmpty(requestBody.RRData)
+                    ? FhirProcessor.ConvertXmlToJson(inputData)
+                    : FhirProcessor.ConvertXmlToJson(inputData, requestBody.RRData);
             }
             catch (UserFacingException ex) when (ex.InnerException is not null)
             {
@@ -181,7 +176,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 .AddOpenApiOperationTransformer((operation, _, __) =>
    {
        operation.Summary = "Converts XML `input_data` to FHIR JSON.";
-       operation.Description = "Accepts a C-CDA document or FHIR R4 Bundle. If applicable, merges C-CDA eICR and RR data before conversion.";
+       operation.Description = "Accepts a C-CDA document or FHIR R4 Bundle. If applicable, merges separate eICR and RR documents before conversion.";
        return Task.CompletedTask;
    });
 

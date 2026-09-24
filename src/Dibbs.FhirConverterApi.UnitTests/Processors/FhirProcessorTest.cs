@@ -1,6 +1,8 @@
 using System.Net;
 using System.Text.Json.Nodes;
 using Dibbs.FhirConverterApi.Processors;
+using Hl7.Fhir.Model;
+using Hl7.Fhir.Serialization;
 
 namespace Dibbs.FhirConverterApi.UnitTests.Processors;
 
@@ -274,6 +276,40 @@ public class FhirProcessorTest
     </Bundle>
     """;
 
+  private static string AddEntryToEicr(string entry)
+  {
+    return EicrXml.Replace(
+      "</Bundle>",
+      $"{entry}\n</Bundle>",
+      StringComparison.Ordinal);
+  }
+
+  private static string AddSharedRulesAgencyToEicr(string name)
+  {
+    return AddEntryToEicr($"""
+      <entry>
+        <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222227" />
+        <resource>
+          <Organization>
+            <id value="shared-rules-agency" />
+            <meta>
+              <profile value="http://example.org/fhir/StructureDefinition/eicr-organization" />
+            </meta>
+            <name value="{name}" />
+          </Organization>
+        </resource>
+      </entry>
+      """);
+  }
+
+  private static string ConvertJsonBundleToXml(string bundleJson)
+  {
+    var bundle = new FhirJsonDeserializer(
+      new DeserializerSettings().UsingMode(DeserializationMode.Recoverable))
+      .Deserialize<Bundle>(bundleJson);
+    return new FhirXmlSerializer().SerializeToString(bundle);
+  }
+
   [Fact]
   public void ConvertXmlToJson_ReturnsEquivalentFhirJson_WhenInputIsFhirXmlBundle()
   {
@@ -411,6 +447,400 @@ public class FhirProcessorTest
   }
 
   [Fact]
+  public void ConvertXmlToJson_DeduplicatesEquivalentSharedResourceAndRemapsAllAliases()
+  {
+    var eicrWithSharedOrganization = AddSharedRulesAgencyToEicr("Rules Agency");
+    var rrWithRelativeOrganizationReference = RrXml.Replace(
+      """<reference value="urn:uuid:22222222-2222-2222-2222-222222222227" />""",
+      """<reference value="Organization/22222222-2222-2222-2222-222222222227" />""",
+      StringComparison.Ordinal);
+
+    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(
+      eicrWithSharedOrganization,
+      rrWithRelativeOrganizationReference)) !;
+    var entries = actual["entry"] !.AsArray();
+    var resources = entries.Select(entry => entry!["resource"] !).ToList();
+
+    var organization = Assert.Single(
+      resources,
+      resource => (string?)resource["resourceType"] == "Organization");
+    Assert.Equal("shared-rules-agency", (string)organization["id"] !);
+
+    var profiles = organization["meta"] !["profile"] !.AsArray()
+      .Select(profile => (string)profile!)
+      .ToList();
+    Assert.Contains(
+      "http://example.org/fhir/StructureDefinition/eicr-organization",
+      profiles);
+    Assert.Contains(
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization",
+      profiles);
+
+    var rrInformation = resources.Single(resource =>
+      (string?)resource["id"] == "22222222-2222-2222-2222-222222222225");
+    Assert.Equal(
+      "Organization/shared-rules-agency",
+      (string)rrInformation["performer"] ![0] !["reference"] !);
+    Assert.Single(
+      entries,
+      entry => (string?)entry!["fullUrl"] ==
+        "urn:uuid:22222222-2222-2222-2222-222222222227");
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_PreservesSharedResourceAcrossRepeatedMerge()
+  {
+    const string rrProfile =
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization";
+    const string retainedTagSystem =
+      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger";
+    const string addedProfileTagSystem =
+      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger-added-profile";
+
+    var eicrWithSharedOrganization = AddSharedRulesAgencyToEicr("Rules Agency");
+    var firstJson = FhirProcessor.ConvertXmlToJson(eicrWithSharedOrganization, RrXml);
+    var firstXml = ConvertJsonBundleToXml(firstJson);
+
+    var second = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(firstXml, RrXml)) !;
+    var entries = second["entry"] !.AsArray();
+    var resources = entries.Select(entry => entry!["resource"] !).ToList();
+    var organization = Assert.Single(
+      resources,
+      resource => (string?)resource["resourceType"] == "Organization");
+    var profiles = organization["meta"] !["profile"] !.AsArray();
+    var tags = organization["meta"] !["tag"] !.AsArray();
+
+    Assert.Equal("shared-rules-agency", (string)organization["id"] !);
+    Assert.Single(profiles, profile => (string?)profile == rrProfile);
+    Assert.Single(
+      tags,
+      tag =>
+        (string?)tag!["system"] == retainedTagSystem &&
+        (string?)tag["code"] == "retained-eicr-resource");
+    Assert.Single(
+      tags,
+      tag =>
+        (string?)tag!["system"] == addedProfileTagSystem &&
+        (string?)tag["code"] == rrProfile);
+    Assert.Single(
+      entries,
+      entry => (string?)entry!["fullUrl"] ==
+        "urn:uuid:22222222-2222-2222-2222-222222222227");
+
+    var rrInformation = resources.Single(resource =>
+      (string?)resource["id"] == "22222222-2222-2222-2222-222222222225");
+    Assert.Equal(
+      "Organization/shared-rules-agency",
+      (string)rrInformation["performer"] ![0] !["reference"] !);
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_PreservesNativeRrProfileAcrossRepeatedMerge()
+  {
+    const string rrProfile =
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization";
+    const string retainedTagSystem =
+      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger";
+    const string addedProfileTagSystem =
+      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger-added-profile";
+
+    var combinedProfiles = $"""
+      <profile value="http://example.org/fhir/StructureDefinition/eicr-organization" />
+                  <profile value="{rrProfile}" />
+      """;
+    var eicrWithNativeRrProfile = AddSharedRulesAgencyToEicr("Rules Agency").Replace(
+      """<profile value="http://example.org/fhir/StructureDefinition/eicr-organization" />""",
+      combinedProfiles,
+      StringComparison.Ordinal);
+    var firstJson = FhirProcessor.ConvertXmlToJson(eicrWithNativeRrProfile, RrXml);
+    var firstXml = ConvertJsonBundleToXml(firstJson);
+
+    var second = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(firstXml, RrXml)) !;
+    var entries = second["entry"] !.AsArray();
+    var organization = Assert.Single(
+      entries.Select(entry => entry!["resource"] !),
+      resource => (string?)resource["resourceType"] == "Organization");
+    var profiles = organization["meta"] !["profile"] !.AsArray();
+    var tags = organization["meta"] !["tag"] !.AsArray();
+
+    Assert.Equal("shared-rules-agency", (string)organization["id"] !);
+    Assert.Single(profiles, profile => (string?)profile == rrProfile);
+    Assert.Single(
+      tags,
+      tag =>
+        (string?)tag!["system"] == retainedTagSystem &&
+        (string?)tag["code"] == "retained-eicr-resource");
+    Assert.DoesNotContain(
+      tags,
+      tag =>
+        (string?)tag!["system"] == addedProfileTagSystem &&
+        (string?)tag["code"] == rrProfile);
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_DeduplicatesChainedSharedResourcesWhenParentPrecedesChild()
+  {
+    var eicrWithSharedResources = AddEntryToEicr("""
+      <entry>
+        <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222224" />
+        <resource>
+          <Observation>
+            <id value="shared-relevant-condition" />
+            <meta>
+              <profile value="http://example.org/fhir/StructureDefinition/eicr-observation" />
+            </meta>
+            <status value="final" />
+            <code>
+              <coding>
+                <system value="http://snomed.info/sct" />
+                <code value="64572001" />
+              </coding>
+            </code>
+            <subject>
+              <reference value="urn:uuid:11111111-1111-1111-1111-111111111112" />
+            </subject>
+            <valueCodeableConcept>
+              <coding>
+                <system value="http://snomed.info/sct" />
+                <code value="40468003" />
+                <display value="Viral hepatitis, type A" />
+              </coding>
+            </valueCodeableConcept>
+            <hasMember>
+              <reference value="Observation/shared-reportability-information" />
+            </hasMember>
+          </Observation>
+        </resource>
+      </entry>
+      <entry>
+        <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222225" />
+        <resource>
+          <Observation>
+            <id value="shared-reportability-information" />
+            <meta>
+              <profile value="http://example.org/fhir/StructureDefinition/eicr-observation" />
+            </meta>
+            <extension url="http://hl7.org/fhir/us/ecr/StructureDefinition/rr-external-resource-extension">
+              <valueReference>
+                <reference value="urn:uuid:22222222-2222-2222-2222-222222222226" />
+              </valueReference>
+            </extension>
+            <status value="final" />
+            <code>
+              <coding>
+                <code value="RRVS5" />
+              </coding>
+            </code>
+            <subject>
+              <reference value="urn:uuid:11111111-1111-1111-1111-111111111112" />
+            </subject>
+            <performer>
+              <reference value="urn:uuid:22222222-2222-2222-2222-222222222227" />
+            </performer>
+          </Observation>
+        </resource>
+      </entry>
+      """);
+    var rrWithRelativeChildReference = RrXml.Replace(
+      """<reference value="urn:uuid:22222222-2222-2222-2222-222222222225" />""",
+      """<reference value="Observation/22222222-2222-2222-2222-222222222225" />""",
+      StringComparison.Ordinal);
+
+    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(
+      eicrWithSharedResources,
+      rrWithRelativeChildReference)) !;
+    var entries = actual["entry"] !.AsArray();
+    var resources = entries.Select(entry => entry!["resource"] !).ToList();
+    var retainedParent = resources.Single(resource =>
+      (string?)resource["id"] == "shared-relevant-condition");
+
+    Assert.Equal(
+      "Observation/shared-reportability-information",
+      (string)retainedParent["hasMember"] ![0] !["reference"] !);
+    var retainedChild = Assert.Single(
+      resources,
+      resource => (string?)resource["id"] == "shared-reportability-information");
+    Assert.Contains(
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-relevant-reportable-condition-observation",
+      retainedParent["meta"] !["profile"] !.AsArray().Select(profile => (string)profile!));
+    Assert.Contains(
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-reportability-information-observation",
+      retainedChild["meta"] !["profile"] !.AsArray().Select(profile => (string)profile!));
+    Assert.Single(
+      entries,
+      entry => (string?)entry!["fullUrl"] ==
+        "urn:uuid:22222222-2222-2222-2222-222222222224");
+    Assert.Single(
+      entries,
+      entry => (string?)entry!["fullUrl"] ==
+        "urn:uuid:22222222-2222-2222-2222-222222222225");
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_Throws_WhenSharedResourceContentConflicts()
+  {
+    var eicrWithConflictingOrganization =
+      AddSharedRulesAgencyToEicr("Different Rules Agency");
+
+    var exception = Assert.Throws<Models.UserFacingException>(
+      () => FhirProcessor.ConvertXmlToJson(eicrWithConflictingOrganization, RrXml));
+
+    Assert.Equal(
+      "FHIR eICR and RR Bundles contain conflicting resource identities.",
+      exception.Message);
+    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_Throws_WhenRrContainsAmbiguousResourceIdentity()
+  {
+    var rrWithDuplicateIdentity = RrXml.Replace(
+      """<fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222230" />""",
+      """<fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222227" />""",
+      StringComparison.Ordinal);
+
+    var exception = Assert.Throws<Models.UserFacingException>(
+      () => FhirProcessor.ConvertXmlToJson(EicrXml, rrWithDuplicateIdentity));
+
+    Assert.Equal(
+      "FHIR eICR and RR Bundles contain conflicting resource identities.",
+      exception.Message);
+    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_Throws_WhenRrPatientAliasBelongsToAnotherEicrResource()
+  {
+    var rrWithConflictingPatientFullUrl = RrXml.Replace(
+      """<fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222222" />""",
+      """<fullUrl value="urn:uuid:11111111-1111-1111-1111-111111111113" />""",
+      StringComparison.Ordinal);
+
+    var exception = Assert.Throws<Models.UserFacingException>(
+      () => FhirProcessor.ConvertXmlToJson(EicrXml, rrWithConflictingPatientFullUrl));
+
+    Assert.Equal(
+      "FHIR eICR and RR Bundles contain conflicting resource identities.",
+      exception.Message);
+    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_UsesRetainedReferenceInGeneratedRrSection()
+  {
+    var eicrWithSharedCondition = AddEntryToEicr("""
+      <entry>
+        <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222224" />
+        <resource>
+          <Observation>
+            <id value="shared-relevant-condition" />
+            <meta>
+              <profile value="http://example.org/fhir/StructureDefinition/eicr-observation" />
+            </meta>
+            <status value="final" />
+            <code>
+              <coding>
+                <system value="http://snomed.info/sct" />
+                <code value="64572001" />
+              </coding>
+            </code>
+            <subject>
+              <reference value="urn:uuid:11111111-1111-1111-1111-111111111112" />
+            </subject>
+            <valueCodeableConcept>
+              <coding>
+                <system value="http://snomed.info/sct" />
+                <code value="40468003" />
+                <display value="Viral hepatitis, type A" />
+              </coding>
+            </valueCodeableConcept>
+            <hasMember>
+              <reference value="urn:uuid:22222222-2222-2222-2222-222222222225" />
+            </hasMember>
+          </Observation>
+        </resource>
+      </entry>
+      """);
+
+    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(
+      eicrWithSharedCondition,
+      RrXml)) !;
+    var entries = actual["entry"] !.AsArray();
+    var resources = entries.Select(entry => entry!["resource"] !).ToList();
+    var composition = resources.Single(resource =>
+      (string?)resource["resourceType"] == "Composition");
+    var rrSection = composition["section"] !.AsArray()
+      .Single(section =>
+        (string?)section!["title"] == "Reportability Response Information Section");
+
+    Assert.Equal(
+      "Observation/shared-relevant-condition",
+      (string)rrSection!["entry"] ![0] !["reference"] !);
+    Assert.Single(
+      entries,
+      entry => (string?)entry!["fullUrl"] ==
+        "urn:uuid:22222222-2222-2222-2222-222222222224");
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_UsesRetainedReferenceInGeneratedProcessingStatusExtension()
+  {
+    var eicrWithSharedStatus = AddEntryToEicr("""
+      <entry>
+        <fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222223" />
+        <resource>
+          <Observation>
+            <id value="shared-processing-status" />
+            <meta>
+              <profile value="http://example.org/fhir/StructureDefinition/eicr-observation" />
+            </meta>
+            <status value="final" />
+            <code>
+              <coding>
+                <code value="RRVS19" />
+                <display value="eICR processed" />
+              </coding>
+            </code>
+          </Observation>
+        </resource>
+      </entry>
+      """);
+    var rrWithoutProcessingStatusExtension = RrXml.Replace(
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension",
+      "http://example.org/fhir/StructureDefinition/not-processing-status",
+      StringComparison.Ordinal);
+
+    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(
+      eicrWithSharedStatus,
+      rrWithoutProcessingStatusExtension)) !;
+    var entries = actual["entry"] !.AsArray();
+    var resources = entries.Select(entry => entry!["resource"] !).ToList();
+    var retainedStatus = resources.Single(resource =>
+      (string?)resource["id"] == "shared-processing-status");
+    Assert.Contains(
+      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-observation",
+      retainedStatus["meta"] !["profile"] !.AsArray().Select(profile => (string)profile!));
+
+    var composition = resources
+      .Single(resource => (string?)resource["resourceType"] == "Composition");
+    var rrSection = composition["section"] !.AsArray()
+      .Single(section =>
+        (string?)section!["title"] == "Reportability Response Information Section");
+    var statusExtension = rrSection!["extension"] !.AsArray()
+      .Single(extension =>
+        (string?)extension!["url"] ==
+          "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-eicr-processing-status-extension");
+
+    Assert.Equal(
+      "Observation/shared-processing-status",
+      (string)statusExtension!["extension"] ![0] !["valueReference"] !["reference"] !);
+    Assert.Single(
+      entries,
+      entry => (string?)entry!["fullUrl"] ==
+        "urn:uuid:22222222-2222-2222-2222-222222222223");
+  }
+
+  [Fact]
   public void ConvertXmlToJson_Throws_WhenMergeInputsAreSwapped()
   {
     var exception = Assert.Throws<Models.UserFacingException>(
@@ -440,6 +870,29 @@ public class FhirProcessorTest
       () => FhirProcessor.ConvertXmlToJson(EicrXml, "<not-valid-xml>"));
 
     Assert.Equal("FHIR RR XML input must be a valid FHIR R4 Bundle.", exception.Message);
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_NormalizesStandaloneFhirEicrBundle_DerivingIdsAndRewritingReferences()
+  {
+    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(EicrXml)) !;
+    var entries = actual["entry"] !.AsArray();
+
+    Assert.Equal("eicr-bundle", (string)actual["id"] !);
+    Assert.Equal(3, entries.Count);
+
+    var composition = entries[0] !["resource"] !;
+    Assert.Equal("Composition", (string)composition["resourceType"] !);
+    Assert.Equal("Patient/11111111-1111-1111-1111-111111111112", (string)composition["subject"] !["reference"] !);
+
+    var patient = entries[1] !["resource"] !;
+    Assert.Equal("Patient", (string)patient["resourceType"] !);
+    Assert.Equal("11111111-1111-1111-1111-111111111112", (string)patient["id"] !);
+
+    var observation = entries[2] !["resource"] !;
+    Assert.Equal("Observation", (string)observation["resourceType"] !);
+    Assert.Equal("11111111-1111-1111-1111-111111111113", (string)observation["id"] !);
+    Assert.Equal("Patient/11111111-1111-1111-1111-111111111112", (string)observation["subject"] !["reference"] !);
   }
 
   [Fact]

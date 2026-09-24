@@ -48,6 +48,16 @@ internal static class FhirEcrMerger
     private const string InitiationTypeExtension =
         "http://hl7.org/fhir/us/ecr/StructureDefinition/eicr-initiation-type-extension";
 
+    private const string ResourceOwnershipTagSystem =
+        "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger";
+
+    private const string AddedRrProfileTagSystem =
+        "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger-added-profile";
+
+    private const string RetainedEicrResourceTagCode = "retained-eicr-resource";
+
+    private const string AppendedRrResourceTagCode = "appended-rr-resource";
+
     private const string ReportabilityResponseSectionTitle =
         "Reportability Response Information Section";
 
@@ -67,6 +77,28 @@ internal static class FhirEcrMerger
         RoutingEntityProfile,
         ResponsibleAgencyProfile,
     };
+
+    /// <summary>
+    /// Normalizes a standalone FHIR Bundle so that all resources have logical IDs
+    /// derived from their entry fullUrl, and all internal references are rewritten
+    /// to relative ResourceType/id references.
+    /// </summary>
+    /// <param name="bundle">The input FHIR Bundle.</param>
+    /// <returns>The normalized FHIR Bundle serialized as FHIR JSON.</returns>
+    public static string Normalize(Bundle bundle)
+    {
+        var bundleJson = ParseBundle(bundle);
+
+        EnsureBundleId(bundleJson);
+
+        var entries = GetOrCreateEntries(bundleJson);
+        var indexedEntries = IndexEntries(entries);
+        var referenceMap = BuildReferenceMap(indexedEntries);
+
+        RewriteReferences(bundleJson, referenceMap);
+
+        return bundleJson.ToJsonString();
+    }
 
     /// <summary>
     /// Merges the RR resources used by the Viewer into the eICR document Bundle.
@@ -93,20 +125,30 @@ internal static class FhirEcrMerger
             indexedEicrEntries,
             indexedRrEntries);
 
+        var eicrIndex = BuildEntryIndex(indexedEicrEntries);
         var rrIndex = BuildEntryIndex(indexedRrEntries);
         var selectedRrEntries = SelectViewerRrEntries(indexedRrEntries, rrIndex);
-        ValidateNoIdentityCollisions(indexedEicrEntries, selectedRrEntries);
         var referenceMap = BuildReferenceMap(indexedEicrEntries, selectedRrEntries);
 
-        MapRrPatientToEicrPatient(indexedEicrEntries, indexedRrEntries, referenceMap);
+        MapRrPatientToEicrPatient(
+            indexedEicrEntries,
+            indexedRrEntries,
+            eicrIndex,
+            referenceMap);
+        var rrEntriesToAppend = ReconcileIdentityCollisions(
+            selectedRrEntries,
+            eicrIndex,
+            referenceMap);
+
         RewriteReferences(eicrJson, referenceMap);
         RewriteReferences(rrJson, referenceMap);
 
-        AppendSelectedEntries(eicrEntries, indexedEicrEntries, selectedRrEntries);
+        AppendSelectedEntries(eicrEntries, rrEntriesToAppend);
         ReplaceReportabilityResponseSection(
             eicrComposition.Resource,
             rrComposition.Resource,
-            selectedRrEntries);
+            selectedRrEntries,
+            referenceMap);
 
         return eicrJson.ToJsonString();
     }
@@ -176,14 +218,45 @@ internal static class FhirEcrMerger
 
     private static void RemoveExistingViewerRrEntries(JsonArray entries)
     {
+        var removeLegacyRrEntries = ContainsReportabilityResponseSection(entries);
+
         for (var index = entries.Count - 1; index >= 0; index--)
         {
-            if (entries[index]?["resource"] is JsonObject resource &&
-                HasViewerRrProfile(resource))
+            if (entries[index]?["resource"] is not JsonObject resource)
+            {
+                continue;
+            }
+
+            if (HasRetainedEicrResourceTag(resource))
+            {
+                RestoreRetainedEicrResource(resource);
+                continue;
+            }
+
+            if (HasAppendedRrResourceTag(resource) ||
+                (removeLegacyRrEntries && HasViewerRrProfile(resource)))
             {
                 entries.RemoveAt(index);
             }
         }
+    }
+
+    private static bool ContainsReportabilityResponseSection(JsonArray entries)
+    {
+        return entries
+            .OfType<JsonObject>()
+            .Select(entry => entry["resource"])
+            .OfType<JsonObject>()
+            .Where(resource => GetString(resource["resourceType"]) == "Composition")
+            .Any(composition =>
+                composition["section"] is JsonArray sections &&
+                sections.OfType<JsonObject>().Any(IsReportabilityResponseSection));
+    }
+
+    private static bool IsReportabilityResponseSection(JsonObject section)
+    {
+        return GetString(section["title"]) == ReportabilityResponseSectionTitle ||
+            HasCode(section, ReportabilityResponseCode);
     }
 
     private static (IndexedEntry EicrComposition, IndexedEntry RrComposition)
@@ -259,11 +332,7 @@ internal static class FhirEcrMerger
 
         foreach (var entry in entries)
         {
-            index.TryAdd(entry.Reference, entry);
-            if (!string.IsNullOrWhiteSpace(entry.FullUrl))
-            {
-                index.TryAdd(entry.FullUrl, entry);
-            }
+            RegisterCanonicalEntry(entry, index);
         }
 
         return index;
@@ -343,12 +412,11 @@ internal static class FhirEcrMerger
     }
 
     private static Dictionary<string, string> BuildReferenceMap(
-        IEnumerable<IndexedEntry> eicrEntries,
-        IEnumerable<IndexedEntry> rrEntries)
+        IEnumerable<IndexedEntry> entries)
     {
         var referenceMap = new Dictionary<string, string>(StringComparer.Ordinal);
 
-        foreach (var entry in eicrEntries.Concat(rrEntries))
+        foreach (var entry in entries)
         {
             referenceMap.TryAdd(entry.Reference, entry.Reference);
             if (!string.IsNullOrWhiteSpace(entry.FullUrl))
@@ -360,42 +428,147 @@ internal static class FhirEcrMerger
         return referenceMap;
     }
 
-    private static void ValidateNoIdentityCollisions(
+    private static Dictionary<string, string> BuildReferenceMap(
         IEnumerable<IndexedEntry> eicrEntries,
-        IReadOnlyList<IndexedEntry> selectedRrEntries)
+        IEnumerable<IndexedEntry> rrEntries)
     {
-        var eicrReferences = eicrEntries
-            .Select(entry => entry.Reference)
-            .ToHashSet(StringComparer.Ordinal);
-        var eicrFullUrls = eicrEntries
-            .Select(entry => entry.FullUrl)
-            .Where(fullUrl => !string.IsNullOrWhiteSpace(fullUrl))
-            .ToHashSet(StringComparer.Ordinal);
-        var rrReferences = new HashSet<string>(StringComparer.Ordinal);
-        var rrFullUrls = new HashSet<string>(StringComparer.Ordinal);
+        return BuildReferenceMap(eicrEntries.Concat(rrEntries));
+    }
+
+    private static IReadOnlyList<IndexedEntry> ReconcileIdentityCollisions(
+        IReadOnlyList<IndexedEntry> selectedRrEntries,
+        Dictionary<string, IndexedEntry> entriesByAlias,
+        Dictionary<string, string> referenceMap)
+    {
+        var entriesToAppend = new List<IndexedEntry>();
+        var collisionPairs = new List<(IndexedEntry Retained, IndexedEntry Candidate)>();
 
         foreach (var rrEntry in selectedRrEntries)
         {
-            var referenceCollision = !rrReferences.Add(rrEntry.Reference) ||
-                eicrReferences.Contains(rrEntry.Reference);
-            var fullUrlCollision = !string.IsNullOrWhiteSpace(rrEntry.FullUrl) &&
-                (!rrFullUrls.Add(rrEntry.FullUrl) || eicrFullUrls.Contains(rrEntry.FullUrl));
+            var matchingEntries = GetIdentityAliases(rrEntry)
+                .Where(entriesByAlias.ContainsKey)
+                .Select(alias => entriesByAlias[alias])
+                .Distinct()
+                .ToList();
 
-            if (referenceCollision || fullUrlCollision)
+            if (matchingEntries.Count == 0)
             {
-                throw new UserFacingException(
-                    "FHIR eICR and RR Bundles contain conflicting resource identities.",
-                    HttpStatusCode.UnprocessableEntity);
+                RegisterCanonicalEntry(rrEntry, entriesByAlias);
+                entriesToAppend.Add(rrEntry);
+                continue;
             }
+
+            if (matchingEntries.Count != 1)
+            {
+                throw CreateIdentityCollisionException();
+            }
+
+            var retainedEntry = matchingEntries[0];
+            collisionPairs.Add((retainedEntry, rrEntry));
+
+            foreach (var alias in GetIdentityAliases(rrEntry))
+            {
+                entriesByAlias[alias] = retainedEntry;
+                referenceMap[alias] = retainedEntry.Reference;
+            }
+        }
+
+        if (collisionPairs.Any(pair =>
+            !HaveEquivalentResourceContent(pair.Retained, pair.Candidate, referenceMap)))
+        {
+            throw CreateIdentityCollisionException();
+        }
+
+        foreach (var (retained, candidate) in collisionPairs)
+        {
+            var addedProfiles = MergeProfiles(retained.Resource, candidate.Resource);
+            MarkRetainedEicrResource(retained.Resource, addedProfiles);
+        }
+
+        return entriesToAppend;
+    }
+
+    private static void RegisterCanonicalEntry(
+        IndexedEntry entry,
+        IDictionary<string, IndexedEntry> entriesByAlias)
+    {
+        foreach (var alias in GetIdentityAliases(entry))
+        {
+            if (entriesByAlias.TryGetValue(alias, out var existingEntry) &&
+                !ReferenceEquals(existingEntry, entry))
+            {
+                throw CreateIdentityCollisionException();
+            }
+
+            entriesByAlias[alias] = entry;
         }
     }
 
+    private static IEnumerable<string> GetIdentityAliases(IndexedEntry entry)
+    {
+        yield return entry.Reference;
+
+        if (!string.IsNullOrWhiteSpace(entry.FullUrl) && entry.FullUrl != entry.Reference)
+        {
+            yield return entry.FullUrl;
+        }
+    }
+
+    private static bool HaveEquivalentResourceContent(
+        IndexedEntry retainedEntry,
+        IndexedEntry candidateEntry,
+        Dictionary<string, string> referenceMap)
+    {
+        var comparisonMap = new Dictionary<string, string>(referenceMap, StringComparer.Ordinal);
+        foreach (var alias in GetIdentityAliases(candidateEntry))
+        {
+            comparisonMap[alias] = retainedEntry.Reference;
+        }
+
+        var retainedResource = CreateComparableResource(retainedEntry.Resource, comparisonMap);
+        var candidateResource = CreateComparableResource(candidateEntry.Resource, comparisonMap);
+
+        return JsonNode.DeepEquals(retainedResource, candidateResource);
+    }
+
+    private static JsonObject CreateComparableResource(
+        JsonObject resource,
+        IReadOnlyDictionary<string, string> referenceMap)
+    {
+        var comparableResource = resource.DeepClone().AsObject();
+
+        // IDs can be local aliases for the same fullUrl, while profiles describe
+        // document-specific roles and do not change the resource's clinical content.
+        comparableResource.Remove("id");
+
+        if (comparableResource["meta"] is JsonObject meta)
+        {
+            meta.Remove("profile");
+            if (meta.Count == 0)
+            {
+                comparableResource.Remove("meta");
+            }
+        }
+
+        RewriteReferences(comparableResource, referenceMap);
+        return comparableResource;
+    }
+
+    private static UserFacingException CreateIdentityCollisionException()
+    {
+        return new UserFacingException(
+            "FHIR eICR and RR Bundles contain conflicting resource identities.",
+            HttpStatusCode.UnprocessableEntity);
+    }
+
     private static void MapRrPatientToEicrPatient(
-        IEnumerable<IndexedEntry> eicrEntries,
+        IReadOnlyList<IndexedEntry> eicrEntries,
         IEnumerable<IndexedEntry> rrEntries,
+        IReadOnlyDictionary<string, IndexedEntry> eicrEntriesByAlias,
         IDictionary<string, string> referenceMap)
     {
-        var eicrPatient = eicrEntries.FirstOrDefault(entry => entry.ResourceType == "Patient");
+        var eicrPatient = eicrEntries
+            .FirstOrDefault(entry => entry.ResourceType == "Patient");
         if (eicrPatient is null)
         {
             return;
@@ -403,10 +576,17 @@ internal static class FhirEcrMerger
 
         foreach (var rrPatient in rrEntries.Where(entry => entry.ResourceType == "Patient"))
         {
-            referenceMap[rrPatient.Reference] = eicrPatient.Reference;
-            if (!string.IsNullOrWhiteSpace(rrPatient.FullUrl))
+            var patientAliases = GetIdentityAliases(rrPatient).ToList();
+            if (patientAliases.Any(alias =>
+                eicrEntriesByAlias.TryGetValue(alias, out var existingEntry) &&
+                !ReferenceEquals(existingEntry, eicrPatient)))
             {
-                referenceMap[rrPatient.FullUrl] = eicrPatient.Reference;
+                throw CreateIdentityCollisionException();
+            }
+
+            foreach (var alias in patientAliases)
+            {
+                referenceMap[alias] = eicrPatient.Reference;
             }
         }
     }
@@ -445,39 +625,25 @@ internal static class FhirEcrMerger
 
     private static void AppendSelectedEntries(
         JsonArray eicrEntries,
-        IEnumerable<IndexedEntry> indexedEicrEntries,
-        IEnumerable<IndexedEntry> selectedRrEntries)
+        IEnumerable<IndexedEntry> entriesToAppend)
     {
-        var existingReferences = indexedEicrEntries
-            .Select(entry => entry.Reference)
-            .ToHashSet(StringComparer.Ordinal);
-        var existingFullUrls = indexedEicrEntries
-            .Select(entry => entry.FullUrl)
-            .Where(fullUrl => !string.IsNullOrWhiteSpace(fullUrl))
-            .ToHashSet(StringComparer.Ordinal);
-
-        foreach (var rrEntry in selectedRrEntries)
+        foreach (var entry in entriesToAppend)
         {
-            if (existingReferences.Contains(rrEntry.Reference) ||
-                (!string.IsNullOrWhiteSpace(rrEntry.FullUrl) &&
-                    existingFullUrls.Contains(rrEntry.FullUrl)))
+            var appendedEntry = entry.Entry.DeepClone().AsObject();
+            if (appendedEntry["resource"] is JsonObject resource)
             {
-                continue;
+                MarkAppendedRrResource(resource);
             }
 
-            eicrEntries.Add(rrEntry.Entry.DeepClone());
-            existingReferences.Add(rrEntry.Reference);
-            if (!string.IsNullOrWhiteSpace(rrEntry.FullUrl))
-            {
-                existingFullUrls.Add(rrEntry.FullUrl);
-            }
+            eicrEntries.Add(appendedEntry);
         }
     }
 
     private static void ReplaceReportabilityResponseSection(
         JsonObject eicrComposition,
         JsonObject rrComposition,
-        IReadOnlyList<IndexedEntry> selectedRrEntries)
+        IReadOnlyList<IndexedEntry> selectedRrEntries,
+        IReadOnlyDictionary<string, string> referenceMap)
     {
         var sections = eicrComposition["section"] as JsonArray ?? new JsonArray();
         eicrComposition["section"] = sections;
@@ -485,8 +651,7 @@ internal static class FhirEcrMerger
         for (var index = sections.Count - 1; index >= 0; index--)
         {
             if (sections[index] is JsonObject section &&
-                (GetString(section["title"]) == ReportabilityResponseSectionTitle ||
-                    HasCode(section, ReportabilityResponseCode)))
+                IsReportabilityResponseSection(section))
             {
                 sections.RemoveAt(index);
             }
@@ -503,7 +668,8 @@ internal static class FhirEcrMerger
 
         var processingStatusExtension = GetProcessingStatusExtension(
             rrComposition,
-            selectedRrEntries);
+            selectedRrEntries,
+            referenceMap);
 
         if (processingStatusExtension is not null)
         {
@@ -530,7 +696,7 @@ internal static class FhirEcrMerger
         {
             var reference = new JsonObject
             {
-                ["reference"] = condition.Reference,
+                ["reference"] = ResolveReference(condition.Reference, referenceMap),
             };
             if (GetConditionDisplay(condition.Resource) is { } display)
             {
@@ -550,7 +716,8 @@ internal static class FhirEcrMerger
 
     private static JsonObject? GetProcessingStatusExtension(
         JsonObject rrComposition,
-        IReadOnlyList<IndexedEntry> selectedRrEntries)
+        IReadOnlyList<IndexedEntry> selectedRrEntries,
+        IReadOnlyDictionary<string, string> referenceMap)
     {
         var processingStatus = selectedRrEntries.FirstOrDefault(entry =>
             HasProfile(entry.Resource, ProcessingStatusProfile));
@@ -559,7 +726,7 @@ internal static class FhirEcrMerger
 
         if (processingStatusExtension is null)
         {
-            return CreateProcessingStatusExtension(processingStatus);
+            return CreateProcessingStatusExtension(processingStatus, referenceMap);
         }
 
         if (processingStatus is not null &&
@@ -598,7 +765,8 @@ internal static class FhirEcrMerger
     }
 
     private static JsonObject? CreateProcessingStatusExtension(
-        IndexedEntry? processingStatus)
+        IndexedEntry? processingStatus,
+        IReadOnlyDictionary<string, string> referenceMap)
     {
         if (processingStatus is null)
         {
@@ -607,7 +775,7 @@ internal static class FhirEcrMerger
 
         var statusReference = new JsonObject
         {
-            ["reference"] = processingStatus.Reference,
+            ["reference"] = ResolveReference(processingStatus.Reference, referenceMap),
         };
         if (GetCodeDisplay(processingStatus.Resource) is { } display)
         {
@@ -626,6 +794,15 @@ internal static class FhirEcrMerger
                 },
             },
         };
+    }
+
+    private static string ResolveReference(
+        string reference,
+        IReadOnlyDictionary<string, string> referenceMap)
+    {
+        return referenceMap.TryGetValue(reference, out var resolvedReference)
+            ? resolvedReference
+            : reference;
     }
 
     private static JsonObject? FindExtension(JsonNode? node, string extensionUrl)
@@ -689,6 +866,178 @@ internal static class FhirEcrMerger
             .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
     }
 
+    private static IReadOnlyList<string> MergeProfiles(
+        JsonObject retainedResource,
+        JsonObject candidateResource)
+    {
+        var addedProfiles = new List<string>();
+        if (candidateResource["meta"]?["profile"] is not JsonArray candidateProfiles)
+        {
+            return addedProfiles;
+        }
+
+        if (retainedResource["meta"] is not JsonObject retainedMeta)
+        {
+            retainedMeta = new JsonObject();
+            retainedResource["meta"] = retainedMeta;
+        }
+
+        if (retainedMeta["profile"] is not JsonArray retainedProfiles)
+        {
+            retainedProfiles = new JsonArray();
+            retainedMeta["profile"] = retainedProfiles;
+        }
+
+        var existingProfiles = retainedProfiles
+            .Select(GetString)
+            .OfType<string>()
+            .ToHashSet(StringComparer.Ordinal);
+
+        foreach (var profileNode in candidateProfiles)
+        {
+            if (GetString(profileNode) is { } profile &&
+                existingProfiles.Add(profile))
+            {
+                retainedProfiles.Add(profileNode!.DeepClone());
+                addedProfiles.Add(profile);
+            }
+        }
+
+        return addedProfiles;
+    }
+
+    private static void MarkRetainedEicrResource(
+        JsonObject resource,
+        IEnumerable<string> addedProfiles)
+    {
+        AddResourceTag(
+            resource,
+            ResourceOwnershipTagSystem,
+            RetainedEicrResourceTagCode);
+
+        foreach (var profile in addedProfiles)
+        {
+            AddResourceTag(resource, AddedRrProfileTagSystem, profile);
+        }
+    }
+
+    private static void MarkAppendedRrResource(JsonObject resource)
+    {
+        AddResourceTag(
+            resource,
+            ResourceOwnershipTagSystem,
+            AppendedRrResourceTagCode);
+    }
+
+    private static void AddResourceTag(JsonObject resource, string system, string code)
+    {
+        if (resource["meta"] is not JsonObject meta)
+        {
+            meta = new JsonObject();
+            resource["meta"] = meta;
+        }
+
+        if (meta["tag"] is not JsonArray tags)
+        {
+            tags = new JsonArray();
+            meta["tag"] = tags;
+        }
+
+        if (!HasTag(tags, system, code))
+        {
+            tags.Add(new JsonObject
+            {
+                ["system"] = system,
+                ["code"] = code,
+            });
+        }
+    }
+
+    private static bool HasRetainedEicrResourceTag(JsonObject resource)
+    {
+        return HasResourceTag(resource, RetainedEicrResourceTagCode);
+    }
+
+    private static bool HasAppendedRrResourceTag(JsonObject resource)
+    {
+        return HasResourceTag(resource, AppendedRrResourceTagCode);
+    }
+
+    private static bool HasResourceTag(JsonObject resource, string code)
+    {
+        return resource["meta"]?["tag"] is JsonArray tags &&
+            HasTag(tags, ResourceOwnershipTagSystem, code);
+    }
+
+    private static bool HasTag(JsonArray tags, string system, string code)
+    {
+        return tags
+            .OfType<JsonObject>()
+            .Any(tag =>
+                GetString(tag["system"]) == system &&
+                GetString(tag["code"]) == code);
+    }
+
+    private static void RestoreRetainedEicrResource(JsonObject resource)
+    {
+        if (resource["meta"] is not JsonObject meta ||
+            meta["tag"] is not JsonArray tags)
+        {
+            return;
+        }
+
+        var addedProfiles = tags
+            .OfType<JsonObject>()
+            .Where(tag => GetString(tag["system"]) == AddedRrProfileTagSystem)
+            .Select(tag => GetString(tag["code"]))
+            .OfType<string>()
+            .ToHashSet(StringComparer.Ordinal);
+
+        if (meta["profile"] is JsonArray profiles)
+        {
+            for (var index = profiles.Count - 1; index >= 0; index--)
+            {
+                if (GetString(profiles[index]) is { } profile &&
+                    addedProfiles.Contains(profile))
+                {
+                    profiles.RemoveAt(index);
+                }
+            }
+
+            if (profiles.Count == 0)
+            {
+                meta.Remove("profile");
+            }
+        }
+
+        for (var index = tags.Count - 1; index >= 0; index--)
+        {
+            if (tags[index] is not JsonObject tag)
+            {
+                continue;
+            }
+
+            var system = GetString(tag["system"]);
+            var code = GetString(tag["code"]);
+            if (system == AddedRrProfileTagSystem ||
+                (system == ResourceOwnershipTagSystem &&
+                    code == RetainedEicrResourceTagCode))
+            {
+                tags.RemoveAt(index);
+            }
+        }
+
+        if (tags.Count == 0)
+        {
+            meta.Remove("tag");
+        }
+
+        if (meta.Count == 0)
+        {
+            resource.Remove("meta");
+        }
+    }
+
     private static bool HasProfile(JsonObject resource, string expectedProfile)
     {
         return GetProfiles(resource).Contains(expectedProfile, StringComparer.Ordinal);
@@ -708,8 +1057,7 @@ internal static class FhirEcrMerger
                 continue;
             }
 
-            var versionSeparator = profile.IndexOf('|');
-            yield return versionSeparator >= 0 ? profile[..versionSeparator] : profile;
+            yield return GetProfileUrl(profile);
         }
     }
 
@@ -745,6 +1093,12 @@ internal static class FhirEcrMerger
 
                 break;
         }
+    }
+
+    private static string GetProfileUrl(string profile)
+    {
+        var versionSeparator = profile.IndexOf('|');
+        return versionSeparator >= 0 ? profile[..versionSeparator] : profile;
     }
 
     private static string? GetString(JsonNode? node)

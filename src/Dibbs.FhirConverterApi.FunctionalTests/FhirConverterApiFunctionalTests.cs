@@ -227,6 +227,36 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     }
 
     [Fact]
+    public async Task ConvertToFhir_ReturnsSuccess_WhenValidFhirEicrWithoutRrProvided()
+    {
+        var content = new FhirConverterRequest
+        {
+            InputData = ValidFhirEicrXml,
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var jsonResponse = JsonNode.Parse(await response.Content.ReadAsStringAsync());
+        var bundle = jsonResponse!["response"] !["FhirResource"] !;
+        var entries = bundle["entry"] !.AsArray();
+
+        Assert.Equal("OK", (string)jsonResponse["response"] !["Status"] !);
+        Assert.Equal("Bundle", (string)bundle["resourceType"] !);
+        Assert.Equal("document", (string)bundle["type"] !);
+        Assert.Equal(2, entries.Count);
+
+        var composition = entries[0] !["resource"] !;
+        Assert.Equal("Composition", (string)composition["resourceType"] !);
+        Assert.Equal("Patient/eicr-patient", (string)composition["subject"] !["reference"] !);
+
+        var patient = entries[1] !["resource"] !;
+        Assert.Equal("Patient", (string)patient["resourceType"] !);
+        Assert.Equal("eicr-patient", (string)patient["id"] !);
+        Assert.Equal("ecr", (string)patient["meta"] !["source"] !);
+    }
+
+    [Fact]
     public async Task ConvertToFhir_ReturnsSuccess_WhenSeparateFhirEicrAndRrProvided()
     {
         var content = new FhirConverterRequest

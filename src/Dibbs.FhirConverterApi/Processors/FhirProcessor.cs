@@ -17,14 +17,17 @@ public class FhirProcessor
             .UsingMode(DeserializationMode.Recoverable));
 
     /// <summary>
-    /// Converts a FHIR R4 XML Bundle to its FHIR JSON representation.
+    /// Converts a FHIR R4 XML Bundle to its normalized FHIR JSON representation.
+    /// Derives logical IDs for resources without an ID and rewrites internal
+    /// references to relative ResourceType/id references.
     /// </summary>
     /// <param name="input">The FHIR R4 XML Bundle.</param>
-    /// <returns>The FHIR Bundle as a JSON string.</returns>
+    /// <returns>The normalized FHIR Bundle as a JSON string.</returns>
     /// <exception cref="UserFacingException">Thrown when the input is not a valid FHIR R4 Bundle.</exception>
     public static string ConvertXmlToJson(string input)
     {
-        return DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.").ToJson();
+        var bundle = DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.");
+        return FhirEcrMerger.Normalize(bundle);
     }
 
     /// <summary>

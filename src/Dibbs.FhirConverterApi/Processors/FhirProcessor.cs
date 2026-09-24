@@ -1,4 +1,6 @@
+using System.Buffers;
 using System.Net;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -18,6 +20,12 @@ public class FhirProcessor
         Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
 
+    private static readonly JsonWriterOptions FhirResponseWriterOptions = new ()
+    {
+        Indented = true,
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
     // TODO: remove deserialization mode eventually.
     // This is a permissive setting to allow invalid test data through.
     private static readonly FhirXmlDeserializer SyntaxOnlyDeserializer = new (
@@ -34,16 +42,15 @@ public class FhirProcessor
     /// <exception cref="UserFacingException">Thrown when the input is not a valid FHIR R4 Bundle.</exception>
     public static string ConvertXmlToJson(string input)
     {
-        return ConvertXmlToJsonObject(input).ToJsonString();
+        return FhirJsonSerializer.Default.SerializeToString(ConvertXmlToBundle(input));
     }
 
     /// <summary>
-    /// Converts a FHIR R4 XML Bundle to a normalized mutable JSON object.
-    /// This avoids serializing and reparsing the Bundle before final response processing.
+    /// Converts a FHIR R4 XML Bundle to a normalized Bundle POCO.
     /// </summary>
     /// <param name="input">The FHIR R4 XML Bundle.</param>
-    /// <returns>The normalized FHIR Bundle as a JSON object.</returns>
-    internal static JsonObject ConvertXmlToJsonObject(string input)
+    /// <returns>The normalized FHIR Bundle.</returns>
+    internal static Bundle ConvertXmlToBundle(string input)
     {
         var bundle = DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.");
         return FhirEcrMerger.Normalize(bundle);
@@ -59,17 +66,18 @@ public class FhirProcessor
     /// <exception cref="UserFacingException">Thrown when either input is not a valid FHIR R4 Bundle.</exception>
     public static string ConvertXmlToJson(string eicrInput, string rrInput)
     {
-        return ConvertXmlToJsonObject(eicrInput, rrInput).ToJsonString();
+        return FhirJsonSerializer.Default.SerializeToString(
+            ConvertXmlToBundle(eicrInput, rrInput));
     }
 
     /// <summary>
     /// Converts and merges separate FHIR R4 eICR and RR XML Bundles into a
-    /// mutable JSON object without an intermediate serialization pass.
+    /// single Bundle POCO without an intermediate JSON representation.
     /// </summary>
     /// <param name="eicrInput">The FHIR R4 eICR document Bundle.</param>
     /// <param name="rrInput">The FHIR R4 Reportability Response document Bundle.</param>
-    /// <returns>The combined eICR Bundle as a JSON object.</returns>
-    internal static JsonObject ConvertXmlToJsonObject(string eicrInput, string rrInput)
+    /// <returns>The combined eICR Bundle.</returns>
+    internal static Bundle ConvertXmlToBundle(string eicrInput, string rrInput)
     {
         var eicrBundle = DeserializeBundle(
             eicrInput,
@@ -131,6 +139,32 @@ public class FhirProcessor
     }
 
     /// <summary>
+    /// Adds source metadata to a typed FHIR Bundle and serializes it directly
+    /// into the API response envelope.
+    /// </summary>
+    /// <param name="bundle">The normalized or merged FHIR Bundle.</param>
+    /// <returns>The wrapped API response serialized as JSON.</returns>
+    internal static string FhirBundlePostProcessing(Bundle bundle)
+    {
+        AddDataSourceToBundle(bundle);
+
+        var buffer = new ArrayBufferWriter<byte>();
+        using (var writer = new Utf8JsonWriter(buffer, FhirResponseWriterOptions))
+        {
+            writer.WriteStartObject();
+            writer.WritePropertyName("response");
+            writer.WriteStartObject();
+            writer.WriteString("Status", "OK");
+            writer.WritePropertyName("FhirResource");
+            FhirJsonSerializer.Default.Serialize(bundle, writer);
+            writer.WriteEndObject();
+            writer.WriteEndObject();
+        }
+
+        return Encoding.UTF8.GetString(buffer.WrittenSpan);
+    }
+
+    /// <summary>
     ///  Given a FHIR bundle and a data source parameter the function
     ///  will loop through the bundle and add a Meta.source entry for
     ///  every resource in the bundle.
@@ -143,7 +177,7 @@ public class FhirProcessor
             var resource = entry!["resource"];
             if (resource is null)
             {
-                return;
+                continue;
             }
 
             JsonNode? meta = resource["meta"];
@@ -155,6 +189,21 @@ public class FhirProcessor
             }
 
             meta["source"] = "ecr";
+        }
+    }
+
+    private static void AddDataSourceToBundle(Bundle bundle)
+    {
+        foreach (var entry in bundle.Entry)
+        {
+            if (entry.Resource is not { } resource)
+            {
+                continue;
+            }
+
+            resource.Meta ??= new Meta();
+            resource.Meta.SourceElement ??= new FhirUri();
+            resource.Meta.SourceElement.Value = "ecr";
         }
     }
 }

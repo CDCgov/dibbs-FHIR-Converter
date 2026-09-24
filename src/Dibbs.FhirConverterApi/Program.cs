@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Net;
-using System.Text.Json.Nodes;
 using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter;
 using Dibbs.Fhir.Liquid.Converter.Processors;
@@ -126,13 +125,13 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
         if (inputDocumentType == InputDocumentType.Fhir)
         {
-            JsonObject fhirJson;
+            Hl7.Fhir.Model.Bundle fhirBundle;
 
             try
             {
-                fhirJson = string.IsNullOrEmpty(requestBody.RRData)
-                    ? FhirProcessor.ConvertXmlToJsonObject(inputData)
-                    : FhirProcessor.ConvertXmlToJsonObject(inputData, requestBody.RRData);
+                fhirBundle = string.IsNullOrEmpty(requestBody.RRData)
+                    ? FhirProcessor.ConvertXmlToBundle(inputData)
+                    : FhirProcessor.ConvertXmlToBundle(inputData, requestBody.RRData);
             }
             catch (UserFacingException ex) when (ex.InnerException is not null)
             {
@@ -140,7 +139,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
                 throw;
             }
 
-            var fhirResult = FhirProcessor.FhirBundlePostProcessing(fhirJson);
+            var fhirResult = FhirProcessor.FhirBundlePostProcessing(fhirBundle);
             return Results.Text(fhirResult, contentType: "application/json");
         }
 

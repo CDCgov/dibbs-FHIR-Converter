@@ -17,6 +17,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
             <value value="urn:uuid:12345678-1234-1234-1234-123456789abc" />
           </identifier>
           <type value="collection" />
+          <entry />
           <entry>
             <fullUrl value="urn:uuid:87654321-4321-4321-4321-cba987654321" />
             <resource>
@@ -223,7 +224,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(
             "urn:uuid:12345678-1234-1234-1234-123456789abc",
             (string)bundle["identifier"] !["value"] !);
-        Assert.Equal("ecr", (string)bundle["entry"] ![0] !["resource"] !["meta"] !["source"] !);
+        Assert.Equal("ecr", (string)bundle["entry"] ![1] !["resource"] !["meta"] !["source"] !);
     }
 
     [Fact]

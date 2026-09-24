@@ -33,6 +33,9 @@ public class FhirProcessorTest
               <reference value="urn:uuid:11111111-1111-1111-1111-111111111112" />
             </subject>
             <date value="2026-09-23T12:00:00Z" />
+            <author>
+              <reference value="urn:uuid:11111111-1111-1111-1111-111111111112" />
+            </author>
             <title value="Initial Public Health Case Report" />
           </Composition>
         </resource>
@@ -346,10 +349,13 @@ public class FhirProcessorTest
   [Fact]
   public void ConvertXmlToJson_MergesSeparateFhirEicrAndRrForViewer()
   {
-    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(EicrXml, RrXml)) !;
+    var serialized = FhirProcessor.ConvertXmlToJson(EicrXml, RrXml);
+    var typedBundle = new FhirJsonDeserializer().Deserialize<Bundle>(serialized);
+    var actual = JsonNode.Parse(serialized) !;
     var entries = actual["entry"] !.AsArray();
     var resources = entries.Select(entry => entry!["resource"] !).ToList();
 
+    Assert.Equal(Bundle.BundleType.Document, typedBundle.Type);
     Assert.Equal("eicr-bundle", (string)actual["id"] !);
     Assert.Equal("document", (string)actual["type"] !);
     Assert.Equal(8, entries.Count);
@@ -909,5 +915,29 @@ public class FhirProcessorTest
       Assert.NotNull(entry?["resource"]?["meta"]?["source"]);
       Assert.Equal("ecr", (string)entry!["resource"] !["meta"] !["source"] !);
     }
+  }
+
+  [Fact]
+  public void FhirBundlePostProcessing_ShouldContinuePastEntryWithoutResource()
+  {
+    const string fhirInput = """
+      {
+        "resourceType": "Bundle",
+        "type": "collection",
+        "entry": [
+          {},
+          {
+            "resource": {
+              "resourceType": "Patient",
+              "id": "patient-1"
+            }
+          }
+        ]
+      }
+      """;
+
+    var actual = JsonNode.Parse(FhirProcessor.FhirBundlePostProcessing(fhirInput));
+
+    Assert.Equal("ecr", (string)actual!["response"] !["FhirResource"] !["entry"] ![1] !["resource"] !["meta"] !["source"] !);
   }
 }

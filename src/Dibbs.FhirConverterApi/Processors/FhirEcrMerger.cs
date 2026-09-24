@@ -1,8 +1,6 @@
 using System.Net;
-using System.Text.Json.Nodes;
 using Dibbs.FhirConverterApi.Models;
 using Hl7.Fhir.Model;
-using Hl7.Fhir.Serialization;
 
 namespace Dibbs.FhirConverterApi.Processors;
 
@@ -84,20 +82,18 @@ internal static class FhirEcrMerger
     /// to relative ResourceType/id references.
     /// </summary>
     /// <param name="bundle">The input FHIR Bundle.</param>
-    /// <returns>The normalized FHIR Bundle as a mutable JSON object.</returns>
-    public static JsonObject Normalize(Bundle bundle)
+    /// <returns>The normalized FHIR Bundle.</returns>
+    /// <remarks>The supplied Bundle is normalized in place.</remarks>
+    public static Bundle Normalize(Bundle bundle)
     {
-        var bundleJson = ParseBundle(bundle);
+        EnsureBundleId(bundle);
 
-        EnsureBundleId(bundleJson);
-
-        var entries = GetOrCreateEntries(bundleJson);
-        var indexedEntries = IndexEntries(entries);
+        var indexedEntries = IndexEntries(bundle.Entry);
         var referenceMap = BuildReferenceMap(indexedEntries);
 
-        RewriteReferences(bundleJson, referenceMap);
+        RewriteReferences(bundle, referenceMap);
 
-        return bundleJson;
+        return bundle;
     }
 
     /// <summary>
@@ -105,23 +101,19 @@ internal static class FhirEcrMerger
     /// </summary>
     /// <param name="eicrBundle">The eICR document Bundle.</param>
     /// <param name="rrBundle">The RR document Bundle.</param>
-    /// <returns>The merged eICR Bundle as a mutable JSON object.</returns>
-    public static JsonObject Merge(Bundle eicrBundle, Bundle rrBundle)
+    /// <returns>The merged eICR Bundle.</returns>
+    /// <remarks>The supplied Bundles are consumed and may be mutated. Callers
+    /// should pass newly deserialized instances.</remarks>
+    public static Bundle Merge(Bundle eicrBundle, Bundle rrBundle)
     {
-        var eicrJson = ParseBundle(eicrBundle);
-        var rrJson = ParseBundle(rrBundle);
+        EnsureBundleId(eicrBundle);
+        RemoveExistingViewerRrEntries(eicrBundle.Entry);
 
-        EnsureBundleId(eicrJson);
-
-        var eicrEntries = GetOrCreateEntries(eicrJson);
-        var rrEntries = GetOrCreateEntries(rrJson);
-        RemoveExistingViewerRrEntries(eicrEntries);
-
-        var indexedEicrEntries = IndexEntries(eicrEntries);
-        var indexedRrEntries = IndexEntries(rrEntries);
+        var indexedEicrEntries = IndexEntries(eicrBundle.Entry);
+        var indexedRrEntries = IndexEntries(rrBundle.Entry);
         var (eicrComposition, rrComposition) = ValidateMergeInputs(
-            eicrJson,
-            rrJson,
+            eicrBundle,
+            rrBundle,
             indexedEicrEntries,
             indexedRrEntries);
 
@@ -140,89 +132,70 @@ internal static class FhirEcrMerger
             eicrIndex,
             referenceMap);
 
-        RewriteReferences(eicrJson, referenceMap);
-        RewriteReferences(rrJson, referenceMap);
+        RewriteReferences(eicrBundle, referenceMap);
+        RewriteReferences(rrBundle, referenceMap);
 
-        AppendSelectedEntries(eicrEntries, rrEntriesToAppend);
+        AppendSelectedEntries(eicrBundle.Entry, rrEntriesToAppend);
         ReplaceReportabilityResponseSection(
-            eicrComposition.Resource,
-            rrComposition.Resource,
+            (Composition)eicrComposition.Resource,
+            (Composition)rrComposition.Resource,
             selectedRrEntries,
             referenceMap);
 
-        return eicrJson;
+        return eicrBundle;
     }
 
-    private static JsonObject ParseBundle(Bundle bundle)
+    private static void EnsureBundleId(Bundle bundle)
     {
-        return JsonNode.Parse(bundle.ToJson()) as JsonObject
-            ?? throw new InvalidOperationException("Unable to serialize the FHIR Bundle.");
-    }
-
-    private static void EnsureBundleId(JsonObject bundle)
-    {
-        if (string.IsNullOrWhiteSpace(GetString(bundle["id"])))
+        if (!string.IsNullOrWhiteSpace(bundle.Id))
         {
-            bundle["id"] = Guid.NewGuid().ToString();
-        }
-    }
-
-    private static JsonArray GetOrCreateEntries(JsonObject bundle)
-    {
-        if (bundle["entry"] is JsonArray entries)
-        {
-            return entries;
+            return;
         }
 
-        entries = new JsonArray();
-        bundle["entry"] = entries;
-        return entries;
+        bundle.IdElement ??= new Id();
+        bundle.IdElement.Value = Guid.NewGuid().ToString();
     }
 
-    private static List<IndexedEntry> IndexEntries(JsonArray entries)
+    private static List<IndexedEntry> IndexEntries(
+        IEnumerable<Bundle.EntryComponent> entries)
     {
         var indexedEntries = new List<IndexedEntry>();
 
-        foreach (var entry in entries.OfType<JsonObject>())
+        foreach (var entry in entries)
         {
-            if (entry["resource"] is not JsonObject resource)
+            if (entry.Resource is not { } resource)
             {
                 continue;
             }
 
-            var resourceType = GetString(resource["resourceType"]);
-            if (string.IsNullOrWhiteSpace(resourceType))
-            {
-                continue;
-            }
-
-            var fullUrl = GetString(entry["fullUrl"]);
-            var resourceId = GetString(resource["id"]);
+            var resourceType = resource.TypeName;
+            var resourceId = resource.Id;
 
             if (string.IsNullOrWhiteSpace(resourceId))
             {
-                resourceId = DeriveResourceId(fullUrl);
-                resource["id"] = resourceId;
+                resourceId = DeriveResourceId(entry.FullUrl);
+                resource.IdElement ??= new Id();
+                resource.IdElement.Value = resourceId;
             }
 
             indexedEntries.Add(new IndexedEntry(
                 entry,
                 resource,
-                resourceType,
                 $"{resourceType}/{resourceId}",
-                fullUrl));
+                entry.FullUrl));
         }
 
         return indexedEntries;
     }
 
-    private static void RemoveExistingViewerRrEntries(JsonArray entries)
+    private static void RemoveExistingViewerRrEntries(
+        IList<Bundle.EntryComponent> entries)
     {
         var removeLegacyRrEntries = ContainsReportabilityResponseSection(entries);
 
         for (var index = entries.Count - 1; index >= 0; index--)
         {
-            if (entries[index]?["resource"] is not JsonObject resource)
+            if (entries[index].Resource is not { } resource)
             {
                 continue;
             }
@@ -241,37 +214,35 @@ internal static class FhirEcrMerger
         }
     }
 
-    private static bool ContainsReportabilityResponseSection(JsonArray entries)
+    private static bool ContainsReportabilityResponseSection(
+        IEnumerable<Bundle.EntryComponent> entries)
     {
         return entries
-            .OfType<JsonObject>()
-            .Select(entry => entry["resource"])
-            .OfType<JsonObject>()
-            .Where(resource => GetString(resource["resourceType"]) == "Composition")
-            .Any(composition =>
-                composition["section"] is JsonArray sections &&
-                sections.OfType<JsonObject>().Any(IsReportabilityResponseSection));
+            .Select(entry => entry.Resource)
+            .OfType<Composition>()
+            .Any(composition => composition.Section.Any(IsReportabilityResponseSection));
     }
 
-    private static bool IsReportabilityResponseSection(JsonObject section)
+    private static bool IsReportabilityResponseSection(
+        Composition.SectionComponent section)
     {
-        return GetString(section["title"]) == ReportabilityResponseSectionTitle ||
-            HasCode(section, ReportabilityResponseCode);
+        return section.Title == ReportabilityResponseSectionTitle ||
+            HasCode(section.Code, ReportabilityResponseCode);
     }
 
     private static (IndexedEntry EicrComposition, IndexedEntry RrComposition)
         ValidateMergeInputs(
-            JsonObject eicrBundle,
-            JsonObject rrBundle,
+            Bundle eicrBundle,
+            Bundle rrBundle,
             IReadOnlyList<IndexedEntry> eicrEntries,
             IReadOnlyList<IndexedEntry> rrEntries)
     {
         var eicrCompositions = eicrEntries.Where(entry =>
-            entry.ResourceType == "Composition" &&
+            entry.Resource is Composition &&
             HasProfile(entry.Resource, EicrCompositionProfile)).ToList();
-        var eicrPatientCount = eicrEntries.Count(entry => entry.ResourceType == "Patient");
+        var eicrPatientCount = eicrEntries.Count(entry => entry.Resource is Patient);
 
-        if (GetString(eicrBundle["type"]) != "document" ||
+        if (eicrBundle.Type != Bundle.BundleType.Document ||
             eicrCompositions.Count != 1 ||
             eicrPatientCount != 1)
         {
@@ -281,11 +252,11 @@ internal static class FhirEcrMerger
         }
 
         var rrCompositions = rrEntries.Where(entry =>
-            entry.ResourceType == "Composition" &&
+            entry.Resource is Composition &&
             HasProfile(entry.Resource, RrCompositionProfile)).ToList();
-        var rrPatientCount = rrEntries.Count(entry => entry.ResourceType == "Patient");
+        var rrPatientCount = rrEntries.Count(entry => entry.Resource is Patient);
 
-        if (GetString(rrBundle["type"]) != "document" ||
+        if (rrBundle.Type != Bundle.BundleType.Document ||
             rrCompositions.Count != 1 ||
             rrPatientCount != 1)
         {
@@ -384,29 +355,19 @@ internal static class FhirEcrMerger
         }
     }
 
-    private static bool HasMeaningfulObservationValue(JsonObject observation)
+    private static bool HasMeaningfulObservationValue(Resource resource)
     {
-        var hasValue = observation.Any(property =>
-            property.Key.StartsWith("value", StringComparison.Ordinal) &&
-            property.Value is not null);
-
-        if (!hasValue)
+        if (resource is not Observation { Value: { } value })
         {
             return false;
         }
 
-        if (observation["valueCodeableConcept"]?["coding"] is not JsonArray codings)
-        {
-            return true;
-        }
-
-        return !codings
-            .OfType<JsonObject>()
-            .Select(coding => GetString(coding["code"]))
-            .Any(code => string.Equals(code, "NA", StringComparison.OrdinalIgnoreCase));
+        return value is not CodeableConcept codeableConcept ||
+            !codeableConcept.Coding.Any(coding =>
+                string.Equals(coding.Code, "NA", StringComparison.OrdinalIgnoreCase));
     }
 
-    private static bool HasViewerRrProfile(JsonObject resource)
+    private static bool HasViewerRrProfile(Resource resource)
     {
         return GetProfiles(resource).Any(profile => ViewerRrProfiles.Contains(profile));
     }
@@ -528,25 +489,30 @@ internal static class FhirEcrMerger
         var retainedResource = CreateComparableResource(retainedEntry.Resource, comparisonMap);
         var candidateResource = CreateComparableResource(candidateEntry.Resource, comparisonMap);
 
-        return JsonNode.DeepEquals(retainedResource, candidateResource);
+        // Collision reconciliation compares modeled R4 content. Recoverable-parser
+        // overflow represents malformed input and is outside the merge contract.
+        return PocoEqualityComparisons.IsExactly(retainedResource, candidateResource);
     }
 
-    private static JsonObject CreateComparableResource(
-        JsonObject resource,
+    private static Resource CreateComparableResource(
+        Resource resource,
         IReadOnlyDictionary<string, string> referenceMap)
     {
-        var comparableResource = resource.DeepClone().AsObject();
+        var comparableResource = resource.DeepCopy();
 
         // IDs can be local aliases for the same fullUrl, while profiles describe
         // document-specific roles and do not change the resource's clinical content.
-        comparableResource.Remove("id");
-
-        if (comparableResource["meta"] is JsonObject meta)
+        if (comparableResource.IdElement is not null)
         {
-            meta.Remove("profile");
-            if (meta.Count == 0)
+            comparableResource.IdElement.Value = null;
+        }
+
+        if (comparableResource.Meta is { } meta)
+        {
+            meta.ProfileElement.Clear();
+            if (!meta.EnumerateElements().Any())
             {
-                comparableResource.Remove("meta");
+                comparableResource.Meta = null;
             }
         }
 
@@ -568,13 +534,13 @@ internal static class FhirEcrMerger
         IDictionary<string, string> referenceMap)
     {
         var eicrPatient = eicrEntries
-            .FirstOrDefault(entry => entry.ResourceType == "Patient");
+            .FirstOrDefault(entry => entry.Resource is Patient);
         if (eicrPatient is null)
         {
             return;
         }
 
-        foreach (var rrPatient in rrEntries.Where(entry => entry.ResourceType == "Patient"))
+        foreach (var rrPatient in rrEntries.Where(entry => entry.Resource is Patient))
         {
             var patientAliases = GetIdentityAliases(rrPatient).ToList();
             if (patientAliases.Any(alias =>
@@ -592,47 +558,75 @@ internal static class FhirEcrMerger
     }
 
     private static void RewriteReferences(
-        JsonNode? node,
+        Base node,
         IReadOnlyDictionary<string, string> referenceMap)
     {
-        switch (node)
+        foreach (var reference in DescendantsAndSelf(node).OfType<ResourceReference>())
         {
-            case JsonObject jsonObject:
-                foreach (var property in jsonObject.ToList())
-                {
-                    if (property.Key == "reference" &&
-                        GetString(property.Value) is { } reference &&
-                        referenceMap.TryGetValue(reference, out var replacement))
-                    {
-                        jsonObject[property.Key] = replacement;
-                    }
-                    else
-                    {
-                        RewriteReferences(property.Value, referenceMap);
-                    }
-                }
+            if (reference.Reference is not { } currentReference ||
+                !referenceMap.TryGetValue(currentReference, out var replacement))
+            {
+                continue;
+            }
 
-                break;
-            case JsonArray jsonArray:
-                foreach (var item in jsonArray)
-                {
-                    RewriteReferences(item, referenceMap);
-                }
+            reference.ReferenceElement ??= new FhirString();
+            reference.ReferenceElement.Value = replacement;
+        }
+    }
 
-                break;
+    private static IEnumerable<string> GetReferences(Base node)
+    {
+        return DescendantsAndSelf(node)
+            .OfType<ResourceReference>()
+            .Select(reference => reference.Reference)
+            .Where(reference => !string.IsNullOrWhiteSpace(reference))
+            .Cast<string>();
+    }
+
+    private static IEnumerable<Base> DescendantsAndSelf(Base root)
+    {
+        yield return root;
+
+        foreach (var (_, value) in root.EnumerateElements())
+        {
+            switch (value)
+            {
+                case Base child:
+                    foreach (var descendant in DescendantsAndSelf(child))
+                    {
+                        yield return descendant;
+                    }
+
+                    break;
+                case IReadOnlyList<Base?> children:
+                    foreach (var child in children)
+                    {
+                        if (child is null)
+                        {
+                            continue;
+                        }
+
+                        foreach (var descendant in DescendantsAndSelf(child))
+                        {
+                            yield return descendant;
+                        }
+                    }
+
+                    break;
+            }
         }
     }
 
     private static void AppendSelectedEntries(
-        JsonArray eicrEntries,
+        ICollection<Bundle.EntryComponent> eicrEntries,
         IEnumerable<IndexedEntry> entriesToAppend)
     {
         foreach (var entry in entriesToAppend)
         {
-            var appendedEntry = entry.Entry.DeepClone().AsObject();
-            if (appendedEntry["resource"] is JsonObject resource)
+            var appendedEntry = entry.Entry.DeepCopy();
+            if (appendedEntry.Resource is not null)
             {
-                MarkAppendedRrResource(resource);
+                MarkAppendedRrResource(appendedEntry.Resource);
             }
 
             eicrEntries.Add(appendedEntry);
@@ -640,31 +634,31 @@ internal static class FhirEcrMerger
     }
 
     private static void ReplaceReportabilityResponseSection(
-        JsonObject eicrComposition,
-        JsonObject rrComposition,
+        Composition eicrComposition,
+        Composition rrComposition,
         IReadOnlyList<IndexedEntry> selectedRrEntries,
         IReadOnlyDictionary<string, string> referenceMap)
     {
-        var sections = eicrComposition["section"] as JsonArray ?? new JsonArray();
-        eicrComposition["section"] = sections;
+        eicrComposition.Section.RemoveAll(IsReportabilityResponseSection);
 
-        for (var index = sections.Count - 1; index >= 0; index--)
+        var rrSection = new Composition.SectionComponent
         {
-            if (sections[index] is JsonObject section &&
-                IsReportabilityResponseSection(section))
+            ElementId = ReportabilityResponseSectionId,
+            Title = ReportabilityResponseSectionTitle,
+            Text = new Narrative
             {
-                sections.RemoveAt(index);
-            }
-        }
-
-        var extensions = new JsonArray
-        {
-            new JsonObject
-            {
-                ["url"] = InitiationTypeExtension,
-                ["valueCodeableConcept"] = CreateInitiationType(),
+                Status = Narrative.NarrativeStatus.Generated,
+                Div =
+                    "<div xmlns=\"http://www.w3.org/1999/xhtml\">Reportability Response Information Section</div>",
             },
+            Code = CreateReportabilityResponseCode(),
         };
+
+        rrSection.Extension.Add(new Extension
+        {
+            Url = InitiationTypeExtension,
+            Value = CreateInitiationType(),
+        });
 
         var processingStatusExtension = GetProcessingStatusExtension(
             rrComposition,
@@ -673,56 +667,38 @@ internal static class FhirEcrMerger
 
         if (processingStatusExtension is not null)
         {
-            extensions.Add(processingStatusExtension);
+            rrSection.Extension.Add(processingStatusExtension);
         }
 
-        var rrSection = new JsonObject
-        {
-            ["id"] = ReportabilityResponseSectionId,
-            ["title"] = ReportabilityResponseSectionTitle,
-            ["text"] = new JsonObject
-            {
-                ["status"] = "generated",
-                ["div"] =
-                    "<div xmlns=\"http://www.w3.org/1999/xhtml\">Reportability Response Information Section</div>",
-            },
-            ["extension"] = extensions,
-            ["code"] = CreateReportabilityResponseCode(),
-        };
-
-        var conditionReferences = new JsonArray();
         foreach (var condition in selectedRrEntries.Where(entry =>
             HasProfile(entry.Resource, RelevantConditionProfile)))
         {
-            var reference = new JsonObject
+            var conditionReference = new ResourceReference
             {
-                ["reference"] = ResolveReference(condition.Reference, referenceMap),
+                Reference = ResolveReference(condition.Reference, referenceMap),
             };
+
             if (GetConditionDisplay(condition.Resource) is { } display)
             {
-                reference["display"] = $"Relevant Reportable Condition Observation - {display}";
+                conditionReference.Display =
+                    $"Relevant Reportable Condition Observation - {display}";
             }
 
-            conditionReferences.Add(reference);
+            rrSection.Entry.Add(conditionReference);
         }
 
-        if (conditionReferences.Count > 0)
-        {
-            rrSection["entry"] = conditionReferences;
-        }
-
-        sections.Add(rrSection);
+        eicrComposition.Section.Add(rrSection);
     }
 
-    private static JsonObject? GetProcessingStatusExtension(
-        JsonObject rrComposition,
+    private static Extension? GetProcessingStatusExtension(
+        Composition rrComposition,
         IReadOnlyList<IndexedEntry> selectedRrEntries,
         IReadOnlyDictionary<string, string> referenceMap)
     {
         var processingStatus = selectedRrEntries.FirstOrDefault(entry =>
             HasProfile(entry.Resource, ProcessingStatusProfile));
-        var processingStatusExtension = FindExtension(rrComposition, ProcessingStatusExtension)
-            ?.DeepClone() as JsonObject;
+        var processingStatusExtension =
+            FindExtension(rrComposition, ProcessingStatusExtension)?.DeepCopy();
 
         if (processingStatusExtension is null)
         {
@@ -730,41 +706,42 @@ internal static class FhirEcrMerger
         }
 
         if (processingStatus is not null &&
-            FindExtension(processingStatusExtension, "eICRProcessingStatus")?["valueReference"]
-                is JsonObject statusReference &&
-            string.IsNullOrWhiteSpace(GetString(statusReference["display"])) &&
+            FindExtension(processingStatusExtension, "eICRProcessingStatus")?.Value
+                is ResourceReference statusReference &&
+            string.IsNullOrWhiteSpace(statusReference.Display) &&
             GetCodeDisplay(processingStatus.Resource) is { } display)
         {
-            statusReference["display"] = display;
+            statusReference.DisplayElement ??= new FhirString();
+            statusReference.DisplayElement.Value = display;
         }
 
         return processingStatusExtension;
     }
 
-    private static JsonObject CreateInitiationType()
+    private static CodeableConcept CreateInitiationType()
     {
         var initiationType = CreateReportabilityResponseCode();
-        initiationType["text"] = "official";
+        initiationType.Text = "official";
         return initiationType;
     }
 
-    private static JsonObject CreateReportabilityResponseCode()
+    private static CodeableConcept CreateReportabilityResponseCode()
     {
-        return new JsonObject
+        return new CodeableConcept
         {
-            ["coding"] = new JsonArray
+            Coding =
             {
-                new JsonObject
+                new Coding
                 {
-                    ["code"] = ReportabilityResponseCode,
-                    ["system"] = "http://loinc.org",
-                    ["display"] = "Reportability response report Document Public health",
+                    Code = ReportabilityResponseCode,
+                    System = "http://loinc.org",
+                    Display = "Reportability response report Document Public health",
                 },
             },
         };
     }
 
-    private static JsonObject? CreateProcessingStatusExtension(
+    private static Extension? CreateProcessingStatusExtension(
         IndexedEntry? processingStatus,
         IReadOnlyDictionary<string, string> referenceMap)
     {
@@ -773,27 +750,25 @@ internal static class FhirEcrMerger
             return null;
         }
 
-        var statusReference = new JsonObject
+        var statusReference = new ResourceReference
         {
-            ["reference"] = ResolveReference(processingStatus.Reference, referenceMap),
+            Reference = ResolveReference(processingStatus.Reference, referenceMap),
+            Display = GetCodeDisplay(processingStatus.Resource),
         };
-        if (GetCodeDisplay(processingStatus.Resource) is { } display)
-        {
-            statusReference["display"] = display;
-        }
 
-        return new JsonObject
+        var processingStatusReferenceExtension = new Extension
         {
-            ["url"] = ProcessingStatusExtension,
-            ["extension"] = new JsonArray
-            {
-                new JsonObject
-                {
-                    ["url"] = "eICRProcessingStatus",
-                    ["valueReference"] = statusReference,
-                },
-            },
+            Url = "eICRProcessingStatus",
+            Value = statusReference,
         };
+
+        var extension = new Extension
+        {
+            Url = ProcessingStatusExtension,
+        };
+        extension.Extension.Add(processingStatusReferenceExtension);
+
+        return extension;
     }
 
     private static string ResolveReference(
@@ -805,100 +780,70 @@ internal static class FhirEcrMerger
             : reference;
     }
 
-    private static JsonObject? FindExtension(JsonNode? node, string extensionUrl)
+    private static Extension? FindExtension(Base node, string extensionUrl)
     {
-        switch (node)
+        return DescendantsAndSelf(node)
+            .OfType<Extension>()
+            .FirstOrDefault(extension => extension.Url == extensionUrl);
+    }
+
+    private static bool HasCode(CodeableConcept? codeableConcept, string code)
+    {
+        return codeableConcept?.Coding.Any(coding => coding.Code == code) == true;
+    }
+
+    private static string? GetConditionDisplay(Resource resource)
+    {
+        if (resource is not Observation { Value: CodeableConcept value })
         {
-            case JsonObject jsonObject:
-                if (GetString(jsonObject["url"]) == extensionUrl)
-                {
-                    return jsonObject;
-                }
-
-                foreach (var property in jsonObject)
-                {
-                    if (FindExtension(property.Value, extensionUrl) is { } extension)
-                    {
-                        return extension;
-                    }
-                }
-
-                break;
-            case JsonArray jsonArray:
-                foreach (var item in jsonArray)
-                {
-                    if (FindExtension(item, extensionUrl) is { } extension)
-                    {
-                        return extension;
-                    }
-                }
-
-                break;
+            return null;
         }
 
-        return null;
+        return value.Text
+            ?? GetFirstCodingValue(value, coding => coding.Display)
+            ?? GetFirstCodingValue(value, coding => coding.Code);
     }
 
-    private static bool HasCode(JsonObject resource, string code)
+    private static string? GetCodeDisplay(Resource resource)
     {
-        return resource["code"]?["coding"] is JsonArray codings &&
-            codings.OfType<JsonObject>().Any(coding => GetString(coding["code"]) == code);
+        return resource is Observation observation
+            ? GetFirstCodingValue(observation.Code, coding => coding.Display)
+                ?? GetFirstCodingValue(observation.Code, coding => coding.Code)
+            : null;
     }
 
-    private static string? GetConditionDisplay(JsonObject condition)
+    private static string? GetFirstCodingValue(
+        CodeableConcept? codeableConcept,
+        Func<Coding, string?> selector)
     {
-        return GetString(condition["valueCodeableConcept"]?["text"])
-            ?? GetFirstCodingValue(condition["valueCodeableConcept"], "display")
-            ?? GetFirstCodingValue(condition["valueCodeableConcept"], "code");
-    }
-
-    private static string? GetCodeDisplay(JsonObject resource)
-    {
-        return GetFirstCodingValue(resource["code"], "display")
-            ?? GetFirstCodingValue(resource["code"], "code");
-    }
-
-    private static string? GetFirstCodingValue(JsonNode? codeableConcept, string propertyName)
-    {
-        return (codeableConcept?["coding"] as JsonArray)?
-            .OfType<JsonObject>()
-            .Select(coding => GetString(coding[propertyName]))
+        return codeableConcept?.Coding
+            .Select(selector)
             .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
     }
 
     private static IReadOnlyList<string> MergeProfiles(
-        JsonObject retainedResource,
-        JsonObject candidateResource)
+        Resource retainedResource,
+        Resource candidateResource)
     {
         var addedProfiles = new List<string>();
-        if (candidateResource["meta"]?["profile"] is not JsonArray candidateProfiles)
+        if (candidateResource.Meta is null)
         {
             return addedProfiles;
         }
 
-        if (retainedResource["meta"] is not JsonObject retainedMeta)
-        {
-            retainedMeta = new JsonObject();
-            retainedResource["meta"] = retainedMeta;
-        }
+        retainedResource.Meta ??= new Meta();
 
-        if (retainedMeta["profile"] is not JsonArray retainedProfiles)
-        {
-            retainedProfiles = new JsonArray();
-            retainedMeta["profile"] = retainedProfiles;
-        }
-
-        var existingProfiles = retainedProfiles
-            .Select(GetString)
+        var existingProfiles = retainedResource.Meta.ProfileElement
+            .Select(profile => profile.JsonValue as string)
             .OfType<string>()
             .ToHashSet(StringComparer.Ordinal);
 
-        foreach (var profileNode in candidateProfiles)
+        foreach (var profileElement in candidateResource.Meta.ProfileElement)
         {
-            if (GetString(profileNode) is { } profile &&
+            if (profileElement.JsonValue is string profile &&
                 existingProfiles.Add(profile))
             {
-                retainedProfiles.Add(profileNode!.DeepClone());
+                retainedResource.Meta.ProfileElement.Add(profileElement.DeepCopy());
                 addedProfiles.Add(profile);
             }
         }
@@ -907,7 +852,7 @@ internal static class FhirEcrMerger
     }
 
     private static void MarkRetainedEicrResource(
-        JsonObject resource,
+        Resource resource,
         IEnumerable<string> addedProfiles)
     {
         AddResourceTag(
@@ -921,7 +866,7 @@ internal static class FhirEcrMerger
         }
     }
 
-    private static void MarkAppendedRrResource(JsonObject resource)
+    private static void MarkAppendedRrResource(Resource resource)
     {
         AddResourceTag(
             resource,
@@ -929,169 +874,89 @@ internal static class FhirEcrMerger
             AppendedRrResourceTagCode);
     }
 
-    private static void AddResourceTag(JsonObject resource, string system, string code)
+    private static void AddResourceTag(Resource resource, string system, string code)
     {
-        if (resource["meta"] is not JsonObject meta)
-        {
-            meta = new JsonObject();
-            resource["meta"] = meta;
-        }
+        resource.Meta ??= new Meta();
 
-        if (meta["tag"] is not JsonArray tags)
+        if (!HasTag(resource.Meta.Tag, system, code))
         {
-            tags = new JsonArray();
-            meta["tag"] = tags;
-        }
-
-        if (!HasTag(tags, system, code))
-        {
-            tags.Add(new JsonObject
+            resource.Meta.Tag.Add(new Coding
             {
-                ["system"] = system,
-                ["code"] = code,
+                System = system,
+                Code = code,
             });
         }
     }
 
-    private static bool HasRetainedEicrResourceTag(JsonObject resource)
+    private static bool HasRetainedEicrResourceTag(Resource resource)
     {
         return HasResourceTag(resource, RetainedEicrResourceTagCode);
     }
 
-    private static bool HasAppendedRrResourceTag(JsonObject resource)
+    private static bool HasAppendedRrResourceTag(Resource resource)
     {
         return HasResourceTag(resource, AppendedRrResourceTagCode);
     }
 
-    private static bool HasResourceTag(JsonObject resource, string code)
+    private static bool HasResourceTag(Resource resource, string code)
     {
-        return resource["meta"]?["tag"] is JsonArray tags &&
-            HasTag(tags, ResourceOwnershipTagSystem, code);
+        return resource.Meta is not null &&
+            HasTag(resource.Meta.Tag, ResourceOwnershipTagSystem, code);
     }
 
-    private static bool HasTag(JsonArray tags, string system, string code)
+    private static bool HasTag(IEnumerable<Coding> tags, string system, string code)
     {
-        return tags
-            .OfType<JsonObject>()
-            .Any(tag =>
-                GetString(tag["system"]) == system &&
-                GetString(tag["code"]) == code);
+        return tags.Any(tag => tag.System == system && tag.Code == code);
     }
 
-    private static void RestoreRetainedEicrResource(JsonObject resource)
+    private static void RestoreRetainedEicrResource(Resource resource)
     {
-        if (resource["meta"] is not JsonObject meta ||
-            meta["tag"] is not JsonArray tags)
+        if (resource.Meta is not { } meta)
         {
             return;
         }
 
-        var addedProfiles = tags
-            .OfType<JsonObject>()
-            .Where(tag => GetString(tag["system"]) == AddedRrProfileTagSystem)
-            .Select(tag => GetString(tag["code"]))
+        var addedProfiles = meta.Tag
+            .Where(tag => tag.System == AddedRrProfileTagSystem)
+            .Select(tag => tag.Code)
             .OfType<string>()
             .ToHashSet(StringComparer.Ordinal);
 
-        if (meta["profile"] is JsonArray profiles)
+        meta.ProfileElement.RemoveAll(profile =>
+            profile.JsonValue is string value &&
+            addedProfiles.Contains(value));
+
+        meta.Tag.RemoveAll(tag =>
+            tag.System == AddedRrProfileTagSystem ||
+            (tag.System == ResourceOwnershipTagSystem &&
+                tag.Code == RetainedEicrResourceTagCode));
+
+        if (!meta.EnumerateElements().Any())
         {
-            for (var index = profiles.Count - 1; index >= 0; index--)
-            {
-                if (GetString(profiles[index]) is { } profile &&
-                    addedProfiles.Contains(profile))
-                {
-                    profiles.RemoveAt(index);
-                }
-            }
-
-            if (profiles.Count == 0)
-            {
-                meta.Remove("profile");
-            }
-        }
-
-        for (var index = tags.Count - 1; index >= 0; index--)
-        {
-            if (tags[index] is not JsonObject tag)
-            {
-                continue;
-            }
-
-            var system = GetString(tag["system"]);
-            var code = GetString(tag["code"]);
-            if (system == AddedRrProfileTagSystem ||
-                (system == ResourceOwnershipTagSystem &&
-                    code == RetainedEicrResourceTagCode))
-            {
-                tags.RemoveAt(index);
-            }
-        }
-
-        if (tags.Count == 0)
-        {
-            meta.Remove("tag");
-        }
-
-        if (meta.Count == 0)
-        {
-            resource.Remove("meta");
+            resource.Meta = null;
         }
     }
 
-    private static bool HasProfile(JsonObject resource, string expectedProfile)
+    private static bool HasProfile(Resource resource, string expectedProfile)
     {
         return GetProfiles(resource).Contains(expectedProfile, StringComparer.Ordinal);
     }
 
-    private static IEnumerable<string> GetProfiles(JsonObject resource)
+    private static IEnumerable<string> GetProfiles(Resource resource)
     {
-        if (resource["meta"]?["profile"] is not JsonArray profiles)
+        if (resource.Meta is null)
         {
             yield break;
         }
 
-        foreach (var profileNode in profiles)
+        foreach (var profile in resource.Meta.ProfileElement
+            .Select(profile => profile.JsonValue as string)
+            .OfType<string>())
         {
-            if (GetString(profileNode) is not { } profile)
+            if (!string.IsNullOrWhiteSpace(profile))
             {
-                continue;
+                yield return GetProfileUrl(profile);
             }
-
-            yield return GetProfileUrl(profile);
-        }
-    }
-
-    private static IEnumerable<string> GetReferences(JsonNode? node)
-    {
-        switch (node)
-        {
-            case JsonObject jsonObject:
-                foreach (var property in jsonObject)
-                {
-                    if (property.Key == "reference" && GetString(property.Value) is { } reference)
-                    {
-                        yield return reference;
-                    }
-                    else
-                    {
-                        foreach (var nestedReference in GetReferences(property.Value))
-                        {
-                            yield return nestedReference;
-                        }
-                    }
-                }
-
-                break;
-            case JsonArray jsonArray:
-                foreach (var item in jsonArray)
-                {
-                    foreach (var nestedReference in GetReferences(item))
-                    {
-                        yield return nestedReference;
-                    }
-                }
-
-                break;
         }
     }
 
@@ -1101,34 +966,23 @@ internal static class FhirEcrMerger
         return versionSeparator >= 0 ? profile[..versionSeparator] : profile;
     }
 
-    private static string? GetString(JsonNode? node)
-    {
-        return node is JsonValue value && value.TryGetValue<string>(out var result)
-            ? result
-            : null;
-    }
-
     private sealed class IndexedEntry
     {
         public IndexedEntry(
-            JsonObject entry,
-            JsonObject resource,
-            string resourceType,
+            Bundle.EntryComponent entry,
+            Resource resource,
             string reference,
             string? fullUrl)
         {
             Entry = entry;
             Resource = resource;
-            ResourceType = resourceType;
             Reference = reference;
             FullUrl = fullUrl;
         }
 
-        public JsonObject Entry { get; }
+        public Bundle.EntryComponent Entry { get; }
 
-        public JsonObject Resource { get; }
-
-        public string ResourceType { get; }
+        public Resource Resource { get; }
 
         public string Reference { get; }
 

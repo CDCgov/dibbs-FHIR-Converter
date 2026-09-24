@@ -84,8 +84,8 @@ internal static class FhirEcrMerger
     /// to relative ResourceType/id references.
     /// </summary>
     /// <param name="bundle">The input FHIR Bundle.</param>
-    /// <returns>The normalized FHIR Bundle serialized as FHIR JSON.</returns>
-    public static string Normalize(Bundle bundle)
+    /// <returns>The normalized FHIR Bundle as a mutable JSON object.</returns>
+    public static JsonObject Normalize(Bundle bundle)
     {
         var bundleJson = ParseBundle(bundle);
 
@@ -97,7 +97,7 @@ internal static class FhirEcrMerger
 
         RewriteReferences(bundleJson, referenceMap);
 
-        return bundleJson.ToJsonString();
+        return bundleJson;
     }
 
     /// <summary>
@@ -105,8 +105,8 @@ internal static class FhirEcrMerger
     /// </summary>
     /// <param name="eicrBundle">The eICR document Bundle.</param>
     /// <param name="rrBundle">The RR document Bundle.</param>
-    /// <returns>The merged eICR Bundle serialized as FHIR JSON.</returns>
-    public static string Merge(Bundle eicrBundle, Bundle rrBundle)
+    /// <returns>The merged eICR Bundle as a mutable JSON object.</returns>
+    public static JsonObject Merge(Bundle eicrBundle, Bundle rrBundle)
     {
         var eicrJson = ParseBundle(eicrBundle);
         var rrJson = ParseBundle(rrBundle);
@@ -150,7 +150,7 @@ internal static class FhirEcrMerger
             selectedRrEntries,
             referenceMap);
 
-        return eicrJson.ToJsonString();
+        return eicrJson;
     }
 
     private static JsonObject ParseBundle(Bundle bundle)

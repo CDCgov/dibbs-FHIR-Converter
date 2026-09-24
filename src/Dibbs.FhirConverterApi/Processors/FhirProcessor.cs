@@ -10,6 +10,14 @@ namespace Dibbs.FhirConverterApi.Processors;
 
 public class FhirProcessor
 {
+    private static readonly JsonSerializerOptions ResponseSerializerOptions = new ()
+    {
+        WriteIndented = true,
+
+        // Encoder required for HTML sections to be formatted the way we expect
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+    };
+
     // TODO: remove deserialization mode eventually.
     // This is a permissive setting to allow invalid test data through.
     private static readonly FhirXmlDeserializer SyntaxOnlyDeserializer = new (
@@ -26,6 +34,17 @@ public class FhirProcessor
     /// <exception cref="UserFacingException">Thrown when the input is not a valid FHIR R4 Bundle.</exception>
     public static string ConvertXmlToJson(string input)
     {
+        return ConvertXmlToJsonObject(input).ToJsonString();
+    }
+
+    /// <summary>
+    /// Converts a FHIR R4 XML Bundle to a normalized mutable JSON object.
+    /// This avoids serializing and reparsing the Bundle before final response processing.
+    /// </summary>
+    /// <param name="input">The FHIR R4 XML Bundle.</param>
+    /// <returns>The normalized FHIR Bundle as a JSON object.</returns>
+    internal static JsonObject ConvertXmlToJsonObject(string input)
+    {
         var bundle = DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.");
         return FhirEcrMerger.Normalize(bundle);
     }
@@ -39,6 +58,18 @@ public class FhirProcessor
     /// <returns>The combined eICR Bundle as a JSON string.</returns>
     /// <exception cref="UserFacingException">Thrown when either input is not a valid FHIR R4 Bundle.</exception>
     public static string ConvertXmlToJson(string eicrInput, string rrInput)
+    {
+        return ConvertXmlToJsonObject(eicrInput, rrInput).ToJsonString();
+    }
+
+    /// <summary>
+    /// Converts and merges separate FHIR R4 eICR and RR XML Bundles into a
+    /// mutable JSON object without an intermediate serialization pass.
+    /// </summary>
+    /// <param name="eicrInput">The FHIR R4 eICR document Bundle.</param>
+    /// <param name="rrInput">The FHIR R4 Reportability Response document Bundle.</param>
+    /// <returns>The combined eICR Bundle as a JSON object.</returns>
+    internal static JsonObject ConvertXmlToJsonObject(string eicrInput, string rrInput)
     {
         var eicrBundle = DeserializeBundle(
             eicrInput,
@@ -76,19 +107,27 @@ public class FhirProcessor
     public static string FhirBundlePostProcessing(string input)
     {
         var bundleJson = JsonNode.Parse(input) ?? new JsonObject();
+        return FhirBundlePostProcessing(bundleJson);
+    }
 
-        bundleJson = AddDataSourceToBundle(bundleJson);
-        var resultsJson = JsonNode.Parse("{\"response\": {\"Status\": \"OK\",\"FhirResource\": {}}}") ?? new JsonObject();
-        resultsJson["response"] !["FhirResource"] = bundleJson;
-        var resultString = resultsJson!.ToJsonString(new JsonSerializerOptions
+    /// <summary>
+    /// Makes final changes to a FHIR Bundle JSON object before returning it to the caller.
+    /// </summary>
+    /// <param name="bundleJson">The mutable FHIR Bundle JSON object.</param>
+    /// <returns>The wrapped API response serialized as JSON.</returns>
+    internal static string FhirBundlePostProcessing(JsonNode bundleJson)
+    {
+        AddDataSourceToBundle(bundleJson);
+        var resultsJson = new JsonObject
         {
-            WriteIndented = true,
+            ["response"] = new JsonObject
+            {
+                ["Status"] = "OK",
+                ["FhirResource"] = bundleJson,
+            },
+        };
 
-            // Encoder required for HTML sections to be formatted the way we expect
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        });
-
-        return resultString;
+        return resultsJson.ToJsonString(ResponseSerializerOptions);
     }
 
     /// <summary>
@@ -97,17 +136,14 @@ public class FhirProcessor
     ///  every resource in the bundle.
     /// </summary>
     /// <param name="bundle">The FHIR bundle to add minimum provenance to.</param>
-    /// <returns>
-    ///  The FHIR bundle with the a Meta.source entry for each FHIR resource in the bundle
-    /// </returns>
-    private static JsonNode AddDataSourceToBundle(JsonNode bundle)
+    private static void AddDataSourceToBundle(JsonNode bundle)
     {
         foreach (var entry in (bundle["entry"] as JsonArray) ?? new JsonArray())
         {
             var resource = entry!["resource"];
             if (resource is null)
             {
-                return bundle;
+                return;
             }
 
             JsonNode? meta = resource["meta"];
@@ -120,7 +156,5 @@ public class FhirProcessor
 
             meta["source"] = "ecr";
         }
-
-        return bundle;
     }
 }

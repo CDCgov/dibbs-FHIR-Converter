@@ -288,6 +288,11 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal("OK", (string)jsonResponse["response"] !["Status"] !);
         Assert.Equal("Bundle", (string)bundle["resourceType"] !);
         Assert.Equal("document", (string)bundle["type"] !);
+        Assert.All(
+            entries,
+            entry => Assert.Equal(
+                "ecr",
+                (string)entry!["resource"] !["meta"] !["source"] !));
         Assert.Equal(
             patientReference,
             (string)rrConditionEntry!["resource"] !["subject"] !["reference"] !);

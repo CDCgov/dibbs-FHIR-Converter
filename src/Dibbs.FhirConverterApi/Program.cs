@@ -98,7 +98,7 @@ app.MapGet("/", () => new { status = "OK" })
        return Task.CompletedTask;
    });
 
-app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRequest requestBody, ILogger<Program> logger) =>
+app.MapPost("/convert-to-fhir", ([FromBody] FhirConverterRequest requestBody, ILogger<Program> logger) =>
 {
     logger.LogTrace("Entered /convert-to-fhir");
     var inputData = requestBody.InputData;
@@ -149,12 +149,12 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         }
 
         // using DisableFormatting has performance benefits and we don't care about the input data's formatting
-        inputData = ecrDoc.ToString(SaveOptions.DisableFormatting);
+        var normalizedInputData = ecrDoc.ToString(SaveOptions.DisableFormatting);
 
         var sw = Stopwatch.StartNew();
-        var result = dataProcessor.Convert(inputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
-        logger.LogTrace("Conversion done in {ms}ms", sw.ElapsedMilliseconds);
+        var result = dataProcessor.Convert(normalizedInputData, TemplateUtility.RootTemplate, TemplateUtility.TemplateDirectory, templateProvider, fileProvider);
         sw.Stop();
+        logger.LogTrace("Conversion done in {ms}ms", sw.ElapsedMilliseconds);
 
         var newResult = FhirProcessor.FhirBundlePostProcessing(result);
         return Results.Text(newResult, contentType: "application/json");
@@ -174,7 +174,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         return Results.Json(new { detail = "Error converting input data." }, statusCode: (int)HttpStatusCode.InternalServerError);
     }
 })
-.Accepts<dynamic>("application/json")
+.Accepts<FhirConverterRequest>("application/json")
 .WithName("ConvertToFhir")
 .AddOpenApiOperationTransformer((operation, _, __) =>
    {

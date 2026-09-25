@@ -111,20 +111,26 @@ internal static class FhirEcrMerger
 
         var indexedEicrEntries = IndexEntries(eicrBundle.Entry);
         var indexedRrEntries = IndexEntries(rrBundle.Entry);
-        var (eicrComposition, rrComposition) = ValidateMergeInputs(
+        var (eicrComposition, eicrPatient) = ValidateDocumentBundle(
             eicrBundle,
-            rrBundle,
             indexedEicrEntries,
-            indexedRrEntries);
+            EicrCompositionProfile,
+            "FHIR eICR input must contain exactly one eICR Composition and one Patient.");
+        var (rrComposition, rrPatient) = ValidateDocumentBundle(
+            rrBundle,
+            indexedRrEntries,
+            RrCompositionProfile,
+            "FHIR RR input must contain exactly one RR Composition and one Patient.");
 
         var eicrIndex = BuildEntryIndex(indexedEicrEntries);
         var rrIndex = BuildEntryIndex(indexedRrEntries);
         var selectedRrEntries = SelectViewerRrEntries(indexedRrEntries, rrIndex);
-        var referenceMap = BuildReferenceMap(indexedEicrEntries, selectedRrEntries);
+        var referenceMap = BuildReferenceMap(
+            indexedEicrEntries.Concat(selectedRrEntries));
 
         MapRrPatientToEicrPatient(
-            indexedEicrEntries,
-            indexedRrEntries,
+            eicrPatient,
+            rrPatient,
             eicrIndex,
             referenceMap);
         var rrEntriesToAppend = ReconcileIdentityCollisions(
@@ -230,42 +236,28 @@ internal static class FhirEcrMerger
             HasCode(section.Code, ReportabilityResponseCode);
     }
 
-    private static (IndexedEntry EicrComposition, IndexedEntry RrComposition)
-        ValidateMergeInputs(
-            Bundle eicrBundle,
-            Bundle rrBundle,
-            IReadOnlyList<IndexedEntry> eicrEntries,
-            IReadOnlyList<IndexedEntry> rrEntries)
+    private static (IndexedEntry Composition, IndexedEntry Patient)
+        ValidateDocumentBundle(
+            Bundle bundle,
+            IReadOnlyList<IndexedEntry> entries,
+            string compositionProfile,
+            string errorMessage)
     {
-        var eicrCompositions = eicrEntries.Where(entry =>
+        var compositions = entries.Where(entry =>
             entry.Resource is Composition &&
-            HasProfile(entry.Resource, EicrCompositionProfile)).ToList();
-        var eicrPatientCount = eicrEntries.Count(entry => entry.Resource is Patient);
+            HasProfile(entry.Resource, compositionProfile)).ToList();
+        var patients = entries.Where(entry => entry.Resource is Patient).ToList();
 
-        if (eicrBundle.Type != Bundle.BundleType.Document ||
-            eicrCompositions.Count != 1 ||
-            eicrPatientCount != 1)
+        if (bundle.Type != Bundle.BundleType.Document ||
+            compositions.Count != 1 ||
+            patients.Count != 1)
         {
             throw new UserFacingException(
-                "FHIR eICR input must contain exactly one eICR Composition and one Patient.",
+                errorMessage,
                 HttpStatusCode.UnprocessableEntity);
         }
 
-        var rrCompositions = rrEntries.Where(entry =>
-            entry.Resource is Composition &&
-            HasProfile(entry.Resource, RrCompositionProfile)).ToList();
-        var rrPatientCount = rrEntries.Count(entry => entry.Resource is Patient);
-
-        if (rrBundle.Type != Bundle.BundleType.Document ||
-            rrCompositions.Count != 1 ||
-            rrPatientCount != 1)
-        {
-            throw new UserFacingException(
-                "FHIR RR input must contain exactly one RR Composition and one Patient.",
-                HttpStatusCode.UnprocessableEntity);
-        }
-
-        return (eicrCompositions[0], rrCompositions[0]);
+        return (compositions[0], patients[0]);
     }
 
     private static string DeriveResourceId(string? fullUrl)
@@ -282,18 +274,9 @@ internal static class FhirEcrMerger
             candidate = uri.Segments.LastOrDefault()?.Trim('/');
         }
 
-        return IsValidFhirId(candidate) ? candidate! : Guid.NewGuid().ToString();
-    }
-
-    private static bool IsValidFhirId(string? value)
-    {
-        return !string.IsNullOrWhiteSpace(value) &&
-            value.Length <= 64 &&
-            value.All(character =>
-                (character >= 'a' && character <= 'z') ||
-                (character >= 'A' && character <= 'Z') ||
-                (character >= '0' && character <= '9') ||
-                character is '-' or '.');
+        return candidate is not null && Id.IsValidValue(candidate)
+            ? candidate
+            : Guid.NewGuid().ToString();
     }
 
     private static Dictionary<string, IndexedEntry> BuildEntryIndex(
@@ -387,13 +370,6 @@ internal static class FhirEcrMerger
         }
 
         return referenceMap;
-    }
-
-    private static Dictionary<string, string> BuildReferenceMap(
-        IEnumerable<IndexedEntry> eicrEntries,
-        IEnumerable<IndexedEntry> rrEntries)
-    {
-        return BuildReferenceMap(eicrEntries.Concat(rrEntries));
     }
 
     private static IReadOnlyList<IndexedEntry> ReconcileIdentityCollisions(
@@ -528,32 +504,22 @@ internal static class FhirEcrMerger
     }
 
     private static void MapRrPatientToEicrPatient(
-        IReadOnlyList<IndexedEntry> eicrEntries,
-        IEnumerable<IndexedEntry> rrEntries,
+        IndexedEntry eicrPatient,
+        IndexedEntry rrPatient,
         IReadOnlyDictionary<string, IndexedEntry> eicrEntriesByAlias,
         IDictionary<string, string> referenceMap)
     {
-        var eicrPatient = eicrEntries
-            .FirstOrDefault(entry => entry.Resource is Patient);
-        if (eicrPatient is null)
+        var patientAliases = GetIdentityAliases(rrPatient).ToList();
+        if (patientAliases.Any(alias =>
+            eicrEntriesByAlias.TryGetValue(alias, out var existingEntry) &&
+            !ReferenceEquals(existingEntry, eicrPatient)))
         {
-            return;
+            throw CreateIdentityCollisionException();
         }
 
-        foreach (var rrPatient in rrEntries.Where(entry => entry.Resource is Patient))
+        foreach (var alias in patientAliases)
         {
-            var patientAliases = GetIdentityAliases(rrPatient).ToList();
-            if (patientAliases.Any(alias =>
-                eicrEntriesByAlias.TryGetValue(alias, out var existingEntry) &&
-                !ReferenceEquals(existingEntry, eicrPatient)))
-            {
-                throw CreateIdentityCollisionException();
-            }
-
-            foreach (var alias in patientAliases)
-            {
-                referenceMap[alias] = eicrPatient.Reference;
-            }
+            referenceMap[alias] = eicrPatient.Reference;
         }
     }
 

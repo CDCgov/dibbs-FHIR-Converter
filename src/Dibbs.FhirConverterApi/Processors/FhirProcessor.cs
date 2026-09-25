@@ -13,6 +13,12 @@ namespace Dibbs.FhirConverterApi.Processors;
 
 public class FhirProcessor
 {
+    private const string InvalidFhirBundleMessage =
+        "FHIR XML input must be a valid FHIR R4 Bundle.";
+
+    private const string InvalidRrBundleMessage =
+        "FHIR RR XML input must be a valid FHIR R4 Bundle.";
+
     private static readonly JsonSerializerOptions ResponseSerializerOptions = new ()
     {
         WriteIndented = true,
@@ -53,7 +59,7 @@ public class FhirProcessor
     /// <returns>The normalized FHIR Bundle.</returns>
     internal static Bundle ConvertXmlToBundle(string input)
     {
-        var bundle = DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.");
+        var bundle = DeserializeBundle(input, InvalidFhirBundleMessage);
         return FhirEcrMerger.Normalize(bundle);
     }
 
@@ -64,7 +70,7 @@ public class FhirProcessor
     /// <returns>The normalized FHIR Bundle.</returns>
     internal static Bundle ConvertXmlToBundle(XmlReader input)
     {
-        var bundle = DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.");
+        var bundle = DeserializeBundle(input, InvalidFhirBundleMessage);
         return FhirEcrMerger.Normalize(bundle);
     }
 
@@ -91,14 +97,8 @@ public class FhirProcessor
     /// <returns>The combined eICR Bundle.</returns>
     internal static Bundle ConvertXmlToBundle(string eicrInput, string rrInput)
     {
-        var eicrBundle = DeserializeBundle(
-            eicrInput,
-            "FHIR XML input must be a valid FHIR R4 Bundle.");
-        var rrBundle = DeserializeBundle(
-            rrInput,
-            "FHIR RR XML input must be a valid FHIR R4 Bundle.");
-
-        return FhirEcrMerger.Merge(eicrBundle, rrBundle);
+        var eicrBundle = DeserializeBundle(eicrInput, InvalidFhirBundleMessage);
+        return MergeBundles(eicrBundle, rrInput);
     }
 
     /// <summary>
@@ -109,13 +109,13 @@ public class FhirProcessor
     /// <returns>The combined eICR Bundle.</returns>
     internal static Bundle ConvertXmlToBundle(XmlReader eicrInput, string rrInput)
     {
-        var eicrBundle = DeserializeBundle(
-            eicrInput,
-            "FHIR XML input must be a valid FHIR R4 Bundle.");
-        var rrBundle = DeserializeBundle(
-            rrInput,
-            "FHIR RR XML input must be a valid FHIR R4 Bundle.");
+        var eicrBundle = DeserializeBundle(eicrInput, InvalidFhirBundleMessage);
+        return MergeBundles(eicrBundle, rrInput);
+    }
 
+    private static Bundle MergeBundles(Bundle eicrBundle, string rrInput)
+    {
+        var rrBundle = DeserializeBundle(rrInput, InvalidRrBundleMessage);
         return FhirEcrMerger.Merge(eicrBundle, rrBundle);
     }
 
@@ -168,7 +168,7 @@ public class FhirProcessor
     /// </summary>
     /// <param name="bundleJson">The mutable FHIR Bundle JSON object.</param>
     /// <returns>The wrapped API response serialized as JSON.</returns>
-    internal static string FhirBundlePostProcessing(JsonNode bundleJson)
+    private static string FhirBundlePostProcessing(JsonNode bundleJson)
     {
         AddDataSourceToBundle(bundleJson);
         var resultsJson = new JsonObject
@@ -210,16 +210,19 @@ public class FhirProcessor
     }
 
     /// <summary>
-    ///  Given a FHIR bundle and a data source parameter the function
-    ///  will loop through the bundle and add a Meta.source entry for
-    ///  every resource in the bundle.
+    /// Adds minimum provenance to each resource in a FHIR Bundle.
     /// </summary>
     /// <param name="bundle">The FHIR bundle to add minimum provenance to.</param>
     private static void AddDataSourceToBundle(JsonNode bundle)
     {
-        foreach (var entry in (bundle["entry"] as JsonArray) ?? new JsonArray())
+        if (bundle["entry"] is not JsonArray entries)
         {
-            var resource = entry!["resource"];
+            return;
+        }
+
+        foreach (var entry in entries)
+        {
+            var resource = entry?["resource"];
             if (resource is null)
             {
                 continue;

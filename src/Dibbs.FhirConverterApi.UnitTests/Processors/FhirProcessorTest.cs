@@ -8,6 +8,18 @@ namespace Dibbs.FhirConverterApi.UnitTests.Processors;
 
 public class FhirProcessorTest
 {
+  private const string IdentityCollisionMessage =
+    "FHIR eICR and RR Bundles contain conflicting resource identities.";
+
+  private const string RrRulesAgencyProfile =
+    "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization";
+
+  private const string RetainedResourceTagSystem =
+    "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger";
+
+  private const string AddedProfileTagSystem =
+    "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger-added-profile";
+
   private const string EicrXml = """
     <Bundle xmlns="http://hl7.org/fhir">
       <id value="eicr-bundle" />
@@ -313,6 +325,30 @@ public class FhirProcessorTest
     return new FhirXmlSerializer().SerializeToString(bundle);
   }
 
+  private static string CreatePatientBundleXml(string fullUrl)
+  {
+    return $"""
+      <Bundle xmlns="http://hl7.org/fhir">
+        <type value="collection" />
+        <entry>
+          <fullUrl value="{fullUrl}" />
+          <resource>
+            <Patient />
+          </resource>
+        </entry>
+      </Bundle>
+      """;
+  }
+
+  private static void AssertIdentityCollision(string eicrXml, string rrXml)
+  {
+    var exception = Assert.Throws<Models.UserFacingException>(
+      () => FhirProcessor.ConvertXmlToJson(eicrXml, rrXml));
+
+    Assert.Equal(IdentityCollisionMessage, exception.Message);
+    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+  }
+
   [Fact]
   public void ConvertXmlToJson_ReturnsEquivalentFhirJson_WhenInputIsFhirXmlBundle()
   {
@@ -350,12 +386,10 @@ public class FhirProcessorTest
   public void ConvertXmlToJson_MergesSeparateFhirEicrAndRrForViewer()
   {
     var serialized = FhirProcessor.ConvertXmlToJson(EicrXml, RrXml);
-    var typedBundle = new FhirJsonDeserializer().Deserialize<Bundle>(serialized);
     var actual = JsonNode.Parse(serialized) !;
     var entries = actual["entry"] !.AsArray();
     var resources = entries.Select(entry => entry!["resource"] !).ToList();
 
-    Assert.Equal(Bundle.BundleType.Document, typedBundle.Type);
     Assert.Equal("eicr-bundle", (string)actual["id"] !);
     Assert.Equal("document", (string)actual["type"] !);
     Assert.Equal(8, entries.Count);
@@ -443,13 +477,7 @@ public class FhirProcessorTest
       "urn:uuid:11111111-1111-1111-1111-111111111113",
       StringComparison.Ordinal);
 
-    var exception = Assert.Throws<Models.UserFacingException>(
-      () => FhirProcessor.ConvertXmlToJson(EicrXml, conflictingRrXml));
-
-    Assert.Equal(
-      "FHIR eICR and RR Bundles contain conflicting resource identities.",
-      exception.Message);
-    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+    AssertIdentityCollision(EicrXml, conflictingRrXml);
   }
 
   [Fact]
@@ -496,13 +524,6 @@ public class FhirProcessorTest
   [Fact]
   public void ConvertXmlToJson_PreservesSharedResourceAcrossRepeatedMerge()
   {
-    const string rrProfile =
-      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization";
-    const string retainedTagSystem =
-      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger";
-    const string addedProfileTagSystem =
-      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger-added-profile";
-
     var eicrWithSharedOrganization = AddSharedRulesAgencyToEicr("Rules Agency");
     var firstJson = FhirProcessor.ConvertXmlToJson(eicrWithSharedOrganization, RrXml);
     var firstXml = ConvertJsonBundleToXml(firstJson);
@@ -517,17 +538,17 @@ public class FhirProcessorTest
     var tags = organization["meta"] !["tag"] !.AsArray();
 
     Assert.Equal("shared-rules-agency", (string)organization["id"] !);
-    Assert.Single(profiles, profile => (string?)profile == rrProfile);
+    Assert.Single(profiles, profile => (string?)profile == RrRulesAgencyProfile);
     Assert.Single(
       tags,
       tag =>
-        (string?)tag!["system"] == retainedTagSystem &&
+        (string?)tag!["system"] == RetainedResourceTagSystem &&
         (string?)tag["code"] == "retained-eicr-resource");
     Assert.Single(
       tags,
       tag =>
-        (string?)tag!["system"] == addedProfileTagSystem &&
-        (string?)tag["code"] == rrProfile);
+        (string?)tag!["system"] == AddedProfileTagSystem &&
+        (string?)tag["code"] == RrRulesAgencyProfile);
     Assert.Single(
       entries,
       entry => (string?)entry!["fullUrl"] ==
@@ -543,16 +564,9 @@ public class FhirProcessorTest
   [Fact]
   public void ConvertXmlToJson_PreservesNativeRrProfileAcrossRepeatedMerge()
   {
-    const string rrProfile =
-      "http://hl7.org/fhir/us/ecr/StructureDefinition/rr-rules-authoring-agency-organization";
-    const string retainedTagSystem =
-      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger";
-    const string addedProfileTagSystem =
-      "https://github.com/CDCgov/dibbs-FHIR-Converter/CodeSystem/fhir-ecr-merger-added-profile";
-
     var combinedProfiles = $"""
       <profile value="http://example.org/fhir/StructureDefinition/eicr-organization" />
-                  <profile value="{rrProfile}" />
+                  <profile value="{RrRulesAgencyProfile}" />
       """;
     var eicrWithNativeRrProfile = AddSharedRulesAgencyToEicr("Rules Agency").Replace(
       """<profile value="http://example.org/fhir/StructureDefinition/eicr-organization" />""",
@@ -570,17 +584,17 @@ public class FhirProcessorTest
     var tags = organization["meta"] !["tag"] !.AsArray();
 
     Assert.Equal("shared-rules-agency", (string)organization["id"] !);
-    Assert.Single(profiles, profile => (string?)profile == rrProfile);
+    Assert.Single(profiles, profile => (string?)profile == RrRulesAgencyProfile);
     Assert.Single(
       tags,
       tag =>
-        (string?)tag!["system"] == retainedTagSystem &&
+        (string?)tag!["system"] == RetainedResourceTagSystem &&
         (string?)tag["code"] == "retained-eicr-resource");
     Assert.DoesNotContain(
       tags,
       tag =>
-        (string?)tag!["system"] == addedProfileTagSystem &&
-        (string?)tag["code"] == rrProfile);
+        (string?)tag!["system"] == AddedProfileTagSystem &&
+        (string?)tag["code"] == RrRulesAgencyProfile);
   }
 
   [Fact]
@@ -688,13 +702,7 @@ public class FhirProcessorTest
     var eicrWithConflictingOrganization =
       AddSharedRulesAgencyToEicr("Different Rules Agency");
 
-    var exception = Assert.Throws<Models.UserFacingException>(
-      () => FhirProcessor.ConvertXmlToJson(eicrWithConflictingOrganization, RrXml));
-
-    Assert.Equal(
-      "FHIR eICR and RR Bundles contain conflicting resource identities.",
-      exception.Message);
-    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+    AssertIdentityCollision(eicrWithConflictingOrganization, RrXml);
   }
 
   [Fact]
@@ -705,13 +713,7 @@ public class FhirProcessorTest
       """<fullUrl value="urn:uuid:22222222-2222-2222-2222-222222222227" />""",
       StringComparison.Ordinal);
 
-    var exception = Assert.Throws<Models.UserFacingException>(
-      () => FhirProcessor.ConvertXmlToJson(EicrXml, rrWithDuplicateIdentity));
-
-    Assert.Equal(
-      "FHIR eICR and RR Bundles contain conflicting resource identities.",
-      exception.Message);
-    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+    AssertIdentityCollision(EicrXml, rrWithDuplicateIdentity);
   }
 
   [Fact]
@@ -722,13 +724,7 @@ public class FhirProcessorTest
       """<fullUrl value="urn:uuid:11111111-1111-1111-1111-111111111113" />""",
       StringComparison.Ordinal);
 
-    var exception = Assert.Throws<Models.UserFacingException>(
-      () => FhirProcessor.ConvertXmlToJson(EicrXml, rrWithConflictingPatientFullUrl));
-
-    Assert.Equal(
-      "FHIR eICR and RR Bundles contain conflicting resource identities.",
-      exception.Message);
-    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+    AssertIdentityCollision(EicrXml, rrWithConflictingPatientFullUrl);
   }
 
   [Fact]
@@ -859,6 +855,38 @@ public class FhirProcessorTest
   }
 
   [Fact]
+  public void ConvertXmlToJson_Throws_WhenEicrDoesNotContainPatient()
+  {
+    var eicrWithoutPatient = EicrXml
+      .Replace("<Patient>", "<RelatedPerson>", StringComparison.Ordinal)
+      .Replace("</Patient>", "</RelatedPerson>", StringComparison.Ordinal);
+
+    var exception = Assert.Throws<Models.UserFacingException>(
+      () => FhirProcessor.ConvertXmlToJson(eicrWithoutPatient, RrXml));
+
+    Assert.Equal(
+      "FHIR eICR input must contain exactly one eICR Composition and one Patient.",
+      exception.Message);
+    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+  }
+
+  [Fact]
+  public void ConvertXmlToJson_Throws_WhenRrDoesNotContainPatient()
+  {
+    var rrWithoutPatient = RrXml
+      .Replace("<Patient>", "<RelatedPerson>", StringComparison.Ordinal)
+      .Replace("</Patient>", "</RelatedPerson>", StringComparison.Ordinal);
+
+    var exception = Assert.Throws<Models.UserFacingException>(
+      () => FhirProcessor.ConvertXmlToJson(EicrXml, rrWithoutPatient));
+
+    Assert.Equal(
+      "FHIR RR input must contain exactly one RR Composition and one Patient.",
+      exception.Message);
+    Assert.Equal(HttpStatusCode.UnprocessableEntity, exception.StatusCode);
+  }
+
+  [Fact]
   public void ConvertXmlToJson_Throws_WhenInputIsNotValidFhirXml()
   {
     const string invalidFhirXml = "<Bundle xmlns=\"http://hl7.org/fhir\"><entry>";
@@ -902,23 +930,33 @@ public class FhirProcessorTest
   }
 
   [Fact]
-  public void FhirBundlePostProcessing_ShouldAddSourceToMeta_WhenInputTypeIsProvided()
+  public void ConvertXmlToJson_DerivesResourceIdFromAbsoluteFullUrl()
   {
-    var fhirInput = File.ReadAllText("../../../../../data/SampleData/FHIR/eCR_EveEverywoman-expected.json");
-    var actual = FhirProcessor.FhirBundlePostProcessing(fhirInput);
-    var actualJson = JsonNode.Parse(actual);
-    var entries = actualJson!["response"]?["FhirResource"]?["entry"] as JsonArray;
-    Assert.True(entries?.Count > 0);
+    var input = CreatePatientBundleXml(
+      "https://example.org/fhir/Patient/patient-123");
 
-    foreach (var entry in entries)
-    {
-      Assert.NotNull(entry?["resource"]?["meta"]?["source"]);
-      Assert.Equal("ecr", (string)entry!["resource"] !["meta"] !["source"] !);
-    }
+    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(input)) !;
+    var patientId = (string)actual["entry"] ![0] !["resource"] !["id"] !;
+
+    Assert.True(Id.IsValidValue((string)actual["id"] !));
+    Assert.Equal("patient-123", patientId);
   }
 
   [Fact]
-  public void FhirBundlePostProcessing_ShouldContinuePastEntryWithoutResource()
+  public void ConvertXmlToJson_GeneratesResourceId_WhenFullUrlHasNoValidId()
+  {
+    var input = CreatePatientBundleXml(
+      "https://example.org/fhir/Patient/not_valid");
+
+    var actual = JsonNode.Parse(FhirProcessor.ConvertXmlToJson(input)) !;
+    var patientId = (string)actual["entry"] ![0] !["resource"] !["id"] !;
+
+    Assert.NotEqual("not_valid", patientId);
+    Assert.True(Id.IsValidValue(patientId));
+  }
+
+  [Fact]
+  public void FhirBundlePostProcessing_AddsSourceAndSkipsEntryWithoutResource()
   {
     const string fhirInput = """
       {
@@ -931,13 +969,30 @@ public class FhirProcessorTest
               "resourceType": "Patient",
               "id": "patient-1"
             }
+          },
+          {
+            "resource": {
+              "resourceType": "Patient",
+              "id": "patient-2",
+              "meta": {
+                "profile": [
+                  "http://example.org/fhir/StructureDefinition/example-patient"
+                ]
+              }
+            }
           }
         ]
       }
       """;
 
-    var actual = JsonNode.Parse(FhirProcessor.FhirBundlePostProcessing(fhirInput));
+    var actual = JsonNode.Parse(FhirProcessor.FhirBundlePostProcessing(fhirInput)) !;
+    var entries = actual["response"] !["FhirResource"] !["entry"] !.AsArray();
 
-    Assert.Equal("ecr", (string)actual!["response"] !["FhirResource"] !["entry"] ![1] !["resource"] !["meta"] !["source"] !);
+    Assert.Null(entries[0] !["resource"]);
+    Assert.Equal("ecr", (string)entries[1] !["resource"] !["meta"] !["source"] !);
+    Assert.Equal("ecr", (string)entries[2] !["resource"] !["meta"] !["source"] !);
+    Assert.Equal(
+      "http://example.org/fhir/StructureDefinition/example-patient",
+      (string)entries[2] !["resource"] !["meta"] !["profile"] ![0] !);
   }
 }

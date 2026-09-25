@@ -169,7 +169,23 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     public async Task OpenApi()
     {
         var response = await _client.GetAsync("/swagger/v1/swagger.json");
+
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+        var document = JsonNode.Parse(await response.Content.ReadAsStringAsync()) !;
+        var postOperation = document["paths"] !["/convert-to-fhir"] !["post"] !;
+        var requestContent = postOperation["requestBody"] !["content"] !;
+        var requestSchema = requestContent["application/json"] !["schema"] !;
+        var schemas = document["components"] !["schemas"] !;
+        var requiredProperties = schemas["FhirConverterRequest"] !["required"] !
+            .AsArray();
+
+        Assert.Equal(
+            "#/components/schemas/FhirConverterRequest",
+            (string)requestSchema["$ref"] !);
+        Assert.Contains(
+            "input_data",
+            requiredProperties.Select(property => (string)property!));
     }
 
     [Fact]
@@ -177,13 +193,8 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     {
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
         var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
-        var content = new FhirConverterRequest
-        {
-            InputData = eICR,
-            RRData = rr,
-        };
 
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        var response = await ConvertToFhirAsync(eICR, rr);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -194,12 +205,8 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     public async Task ConvertToFhir_ReturnsSuccess_WhenValidEicrWithoutRrProvided()
     {
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
-        var content = new FhirConverterRequest
-        {
-            InputData = eICR,
-        };
 
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        var response = await ConvertToFhirAsync(eICR);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -207,14 +214,9 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     }
 
     [Fact]
-    public async Task ConvertToFhir_ReturnsSuccess_WhenValidFhirXmlProvided()
+    public async Task ConvertToFhir_ReturnsSuccess_WhenFhirXmlContainsEmptyEntry()
     {
-        var content = new FhirConverterRequest
-        {
-            InputData = ValidFhirXml,
-        };
-
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        var response = await ConvertToFhirAsync(ValidFhirXml);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var jsonResponse = JsonNode.Parse(await response.Content.ReadAsStringAsync());
@@ -224,18 +226,14 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
         Assert.Equal(
             "urn:uuid:12345678-1234-1234-1234-123456789abc",
             (string)bundle["identifier"] !["value"] !);
+        Assert.Null(bundle["entry"] ![0] !["resource"]);
         Assert.Equal("ecr", (string)bundle["entry"] ![1] !["resource"] !["meta"] !["source"] !);
     }
 
     [Fact]
     public async Task ConvertToFhir_ReturnsSuccess_WhenValidFhirEicrWithoutRrProvided()
     {
-        var content = new FhirConverterRequest
-        {
-            InputData = ValidFhirEicrXml,
-        };
-
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        var response = await ConvertToFhirAsync(ValidFhirEicrXml);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var jsonResponse = JsonNode.Parse(await response.Content.ReadAsStringAsync());
@@ -260,13 +258,7 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     [Fact]
     public async Task ConvertToFhir_ReturnsSuccess_WhenSeparateFhirEicrAndRrProvided()
     {
-        var content = new FhirConverterRequest
-        {
-            InputData = ValidFhirEicrXml,
-            RRData = ValidFhirRrXml,
-        };
-
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        var response = await ConvertToFhirAsync(ValidFhirEicrXml, ValidFhirRrXml);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var jsonResponse = JsonNode.Parse(await response.Content.ReadAsStringAsync());
@@ -304,83 +296,68 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     [Fact]
     public async Task ConvertToFhir_Returns422StatusCode_WhenMalformedFhirRrProvided()
     {
-        var content = new FhirConverterRequest
-        {
-            InputData = ValidFhirEicrXml,
-            RRData = "<this is not valid xml>",
-        };
+        var response = await ConvertToFhirAsync(
+            ValidFhirEicrXml,
+            "<this is not valid xml>");
 
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-
-        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal(
-            "{\"detail\":\"FHIR RR XML input must be a valid FHIR R4 Bundle.\"}",
-            jsonResponse);
+        await AssertUnprocessableEntity(
+            response,
+            "FHIR RR XML input must be a valid FHIR R4 Bundle.");
     }
 
     [Fact]
     public async Task ConvertToFhir_Returns422StatusCode_WhenXmlRootIsUnsupported()
     {
-        var content = new FhirConverterRequest
-        {
-            InputData = "<Patient xmlns=\"http://hl7.org/fhir\" />",
-        };
+        var response = await ConvertToFhirAsync(
+            "<Patient xmlns=\"http://hl7.org/fhir\" />");
 
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+        await AssertUnprocessableEntity(
+            response,
+            "Unsupported XML root element. Expected a C-CDA ClinicalDocument or FHIR R4 Bundle.");
+    }
 
-        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal(
-            "{\"detail\":\"Unsupported XML root element. Expected a C-CDA ClinicalDocument or FHIR R4 Bundle.\"}",
-            jsonResponse);
+    [Fact]
+    public async Task ConvertToFhir_Returns422StatusCode_WhenFhirIsMalformedAfterRoot()
+    {
+        var response = await ConvertToFhirAsync(
+            "<Bundle xmlns=\"http://hl7.org/fhir\"><entry>");
+
+        await AssertUnprocessableEntity(
+            response,
+            "FHIR XML input must be a valid FHIR R4 Bundle.");
     }
 
     [Fact]
     public async Task ConvertToFhir_Returns422StatusCode_WhenInvalidEicrProvided()
     {
         var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
-        var content = new FhirConverterRequest
-        {
-            InputData = "<this is not valid xml>",
-            RRData = rr,
-        };
 
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal("{\"detail\":\"EICR message must be valid XML message.\"}", jsonResponse);
+        var response = await ConvertToFhirAsync("<this is not valid xml>", rr);
+        await AssertUnprocessableEntity(
+            response,
+            "EICR message must be valid XML message.");
     }
 
     [Fact]
     public async Task ConvertToFhir_Returns422StatusCode_WhenCcdaIsMalformedAfterRoot()
     {
-        var content = new FhirConverterRequest
-        {
-            InputData = "<ClinicalDocument xmlns=\"urn:hl7-org:v3\"><component></ClinicalDocument>",
-        };
+        var response = await ConvertToFhirAsync(
+            "<ClinicalDocument xmlns=\"urn:hl7-org:v3\"><component></ClinicalDocument>");
 
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-
-        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal("{\"detail\":\"EICR message must be valid XML message.\"}", jsonResponse);
+        await AssertUnprocessableEntity(
+            response,
+            "EICR message must be valid XML message.");
     }
 
     [Fact]
-    public async Task ConvertToFhir_Returns422StatusCode_WhenInvalidRrProvided()
+    public async Task ConvertToFhir_Returns422StatusCode_WhenMalformedCcdaRrProvided()
     {
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");
-        var content = new FhirConverterRequest
-        {
-            InputData = eICR,
-            RRData = "<this is not valid xml>",
-        };
 
-        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
-        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        Assert.Equal("{\"detail\":\"Reportability Response (RR) message must be valid XML message.\"}", jsonResponse);
+        var response = await ConvertToFhirAsync(eICR, "<this is not valid xml>");
+        await AssertUnprocessableEntity(
+            response,
+            "Reportability Response (RR) message must be valid XML message.");
     }
 
     private static Snapshooter.MatchOptions CommonIgnoredFields(Snapshooter.MatchOptions matchOptions)
@@ -390,5 +367,28 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
                     .IgnoreAllFields("fullUrl")
                     .IgnoreAllFields("reference")
                     .IgnoreField("response.FhirResource.entry[*].request.url");
+    }
+
+    private static async Task AssertUnprocessableEntity(
+        HttpResponseMessage response,
+        string expectedDetail)
+    {
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+
+        var jsonResponse = JsonNode.Parse(await response.Content.ReadAsStringAsync());
+        Assert.Equal(expectedDetail, (string?)jsonResponse?["detail"]);
+    }
+
+    private Task<HttpResponseMessage> ConvertToFhirAsync(
+        string inputData,
+        string? rrData = null)
+    {
+        return _client.PostAsJsonAsync(
+            "/convert-to-fhir",
+            new FhirConverterRequest
+            {
+                InputData = inputData,
+                RRData = rrData,
+            });
     }
 }

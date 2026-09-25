@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Net;
+using System.Xml;
 using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter;
 using Dibbs.Fhir.Liquid.Converter.Processors;
@@ -106,22 +107,18 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
         "InputData length: {length} chars (~{mb} MB)",
         inputData.Length,
         inputData.Length / (1024.0 * 1024.0));
-    XDocument inputDocument;
-
     try
     {
-        logger.LogTrace("Parsing XML...");
-        inputDocument = XDocument.Parse(inputData);
-    }
-    catch (Exception ex)
-    {
-        logger.LogError(ex, "Error parsing XML. Stacktrace: '{0}'", Environment.StackTrace);
-        return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
-    }
-
-    try
-    {
-        var inputDocumentType = InputProcessor.DetermineDocumentType(inputDocument);
+        logger.LogTrace("Inspecting XML root...");
+        using var textReader = new StringReader(inputData);
+        using var inputReader = XmlReader.Create(
+            textReader,
+            new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null,
+            });
+        var inputDocumentType = InputProcessor.DetermineDocumentType(inputReader);
 
         if (inputDocumentType == InputDocumentType.Fhir)
         {
@@ -130,8 +127,8 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
             try
             {
                 fhirBundle = string.IsNullOrEmpty(requestBody.RRData)
-                    ? FhirProcessor.ConvertXmlToBundle(inputData)
-                    : FhirProcessor.ConvertXmlToBundle(inputData, requestBody.RRData);
+                    ? FhirProcessor.ConvertXmlToBundle(inputReader)
+                    : FhirProcessor.ConvertXmlToBundle(inputReader, requestBody.RRData);
             }
             catch (UserFacingException ex) when (ex.InnerException is not null)
             {
@@ -143,6 +140,7 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
             return Results.Text(fhirResult, contentType: "application/json");
         }
 
+        var inputDocument = XDocument.Load(inputReader);
         var ecrDoc = EcrProcessor.ResolveReferences(inputDocument);
 
         if (!string.IsNullOrEmpty(requestBody.RRData))
@@ -160,6 +158,11 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
 
         var newResult = FhirProcessor.FhirBundlePostProcessing(result);
         return Results.Text(newResult, contentType: "application/json");
+    }
+    catch (XmlException ex)
+    {
+        logger.LogError(ex, "Error parsing XML. Stacktrace: '{0}'", Environment.StackTrace);
+        return Results.Json(new { detail = "EICR message must be valid XML message." }, statusCode: (int)HttpStatusCode.UnprocessableEntity);
     }
     catch (UserFacingException ex)
     {

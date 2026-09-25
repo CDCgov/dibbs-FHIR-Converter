@@ -353,6 +353,21 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
     }
 
     [Fact]
+    public async Task ConvertToFhir_Returns422StatusCode_WhenCcdaIsMalformedAfterRoot()
+    {
+        var content = new FhirConverterRequest
+        {
+            InputData = "<ClinicalDocument xmlns=\"urn:hl7-org:v3\"><component></ClinicalDocument>",
+        };
+
+        var response = await _client.PostAsync("/convert-to-fhir", JsonContent.Create(content));
+
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+        Assert.Equal("{\"detail\":\"EICR message must be valid XML message.\"}", jsonResponse);
+    }
+
+    [Fact]
     public async Task ConvertToFhir_Returns422StatusCode_WhenInvalidRrProvided()
     {
         var eICR = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_eICR.xml");

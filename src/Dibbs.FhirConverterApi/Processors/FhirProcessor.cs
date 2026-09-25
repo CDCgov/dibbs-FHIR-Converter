@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Xml;
 using Dibbs.FhirConverterApi.Models;
 using Hl7.Fhir.Model;
 using Hl7.Fhir.Serialization;
@@ -57,6 +58,17 @@ public class FhirProcessor
     }
 
     /// <summary>
+    /// Converts a FHIR R4 XML reader to a normalized Bundle POCO.
+    /// </summary>
+    /// <param name="input">A reader positioned on the FHIR Bundle root element.</param>
+    /// <returns>The normalized FHIR Bundle.</returns>
+    internal static Bundle ConvertXmlToBundle(XmlReader input)
+    {
+        var bundle = DeserializeBundle(input, "FHIR XML input must be a valid FHIR R4 Bundle.");
+        return FhirEcrMerger.Normalize(bundle);
+    }
+
+    /// <summary>
     /// Converts separate FHIR R4 eICR and RR XML Bundles into the flat JSON Bundle
     /// consumed by the eCR Viewer.
     /// </summary>
@@ -89,7 +101,40 @@ public class FhirProcessor
         return FhirEcrMerger.Merge(eicrBundle, rrBundle);
     }
 
+    /// <summary>
+    /// Converts and merges a FHIR eICR reader and serialized RR Bundle.
+    /// </summary>
+    /// <param name="eicrInput">A reader positioned on the FHIR eICR Bundle root element.</param>
+    /// <param name="rrInput">The FHIR R4 Reportability Response document Bundle.</param>
+    /// <returns>The combined eICR Bundle.</returns>
+    internal static Bundle ConvertXmlToBundle(XmlReader eicrInput, string rrInput)
+    {
+        var eicrBundle = DeserializeBundle(
+            eicrInput,
+            "FHIR XML input must be a valid FHIR R4 Bundle.");
+        var rrBundle = DeserializeBundle(
+            rrInput,
+            "FHIR RR XML input must be a valid FHIR R4 Bundle.");
+
+        return FhirEcrMerger.Merge(eicrBundle, rrBundle);
+    }
+
     private static Bundle DeserializeBundle(string input, string errorMessage)
+    {
+        try
+        {
+            return SyntaxOnlyDeserializer.Deserialize<Bundle>(input);
+        }
+        catch (Exception ex)
+        {
+            throw new UserFacingException(
+                errorMessage,
+                HttpStatusCode.UnprocessableEntity,
+                ex);
+        }
+    }
+
+    private static Bundle DeserializeBundle(XmlReader input, string errorMessage)
     {
         try
         {

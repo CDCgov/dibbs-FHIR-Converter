@@ -92,8 +92,8 @@ app.MapGet("/", () => new { status = "OK" })
 .WithName("HealthCheck")
 .AddOpenApiOperationTransformer((operation, _, __) =>
    {
-       operation.Summary = "Used to confirm that the API is running and responsive.";
-       operation.Description = "Returns \"OK\" if the API is running.";
+       operation.Summary = "Used to confirm that the API is ready to accept conversion requests.";
+       operation.Description = "Returns \"OK\" after the terminology dictionaries have been loaded.";
        return Task.CompletedTask;
    });
 
@@ -164,5 +164,25 @@ app.MapPost("/convert-to-fhir", (HttpRequest request, [FromBody] FhirConverterRe
        operation.Description = "If applicable, merges eICR and RR and returns converted data as JSON.";
        return Task.CompletedTask;
    });
+
+// Complete terminology initialization before Kestrel listens, so a successful
+// health check also means the converter is ready to use its terminology tables.
+app.Logger.LogInformation("Loading terminology dictionaries before accepting requests.");
+var terminologyLoadTimer = Stopwatch.StartNew();
+try
+{
+    var counts = Filters.InitializeTerminologies();
+    app.Logger.LogInformation(
+        "Terminology dictionaries loaded in {Duration}ms: LOINC {LoincCount}, SNOMED {SnomedCount}, RxNorm {RxnormCount} codes.",
+        terminologyLoadTimer.ElapsedMilliseconds,
+        counts.Loinc,
+        counts.Snomed,
+        counts.Rxnorm);
+}
+catch (Exception ex)
+{
+    app.Logger.LogCritical(ex, "Terminology initialization failed. The converter will not start.");
+    throw;
+}
 
 app.Run();

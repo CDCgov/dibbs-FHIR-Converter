@@ -12,6 +12,19 @@ If you see a message like `Command 'dotnet' not found` (MacOS and Linux) or `The
 
 ## Running the DIBBs FHIR Conversion Service
 
+### Startup and readiness
+
+The service loads the LOINC, SNOMED, and RxNorm terminology dictionaries into memory
+before it starts listening for HTTP requests. Each dictionary is loaded once per
+process and reused by subsequent conversions.
+
+A successful `GET /` response (`{"status":"OK"}`) means terminology loading has
+completed. During initialization, the HTTP port is not yet listening. Configure
+container and deployment health-check startup grace periods to cover terminology
+loading on the target hardware; individual health checks do not need long timeouts.
+Missing, malformed, or empty terminology files cause startup to fail with an error
+log instead of deferring the failure to a conversion request.
+
 ### Running with Docker (Recommended for Production)
 
 To run the DIBBs FHIR Conversion service with Docker, follow these steps.

@@ -28,6 +28,16 @@ namespace Dibbs.Fhir.Liquid.Converter
             IgnoreComments = true,
         };
 
+        /// <summary>
+        /// Loads all terminology dictionaries before the API starts accepting requests.
+        /// Static initialization ensures the dictionaries are loaded only once per process.
+        /// </summary>
+        /// <returns>The number of codes loaded for each terminology.</returns>
+        public static (int Loinc, int Snomed, int Rxnorm) InitializeTerminologies()
+        {
+            return (LoincDict.Count, SnomedDict.Count, RxnormDict.Count);
+        }
+
         [GeneratedRegex("[ ]{2,}")]
         private static partial Regex MultispaceRegex();
 
@@ -74,7 +84,7 @@ namespace Dibbs.Fhir.Liquid.Converter
         /// <returns>A dictionary where the keys are codes and the values are descriptions.</returns>
         private static Dictionary<string, string> CSVMapDictionary(string filename)
         {
-            TextFieldParser parser = new (filename);
+            using TextFieldParser parser = new (filename);
             Dictionary<string, string> csvData = new ();
 
             parser.HasFieldsEnclosedInQuotes = true;
@@ -87,10 +97,20 @@ namespace Dibbs.Fhir.Liquid.Converter
                 fields = parser.ReadFields();
                 if (fields != null)
                 {
+                    if (fields.Length < 2 || string.IsNullOrWhiteSpace(fields[0]))
+                    {
+                        throw new InvalidDataException($"Terminology file '{filename}' contains a row without a code and description.");
+                    }
+
                     string key = fields[0].Trim();
                     string value = fields[1].Trim();
                     csvData[key] = value;
                 }
+            }
+
+            if (csvData.Count == 0)
+            {
+                throw new InvalidDataException($"Terminology file '{filename}' contains no codes.");
             }
 
             return csvData;

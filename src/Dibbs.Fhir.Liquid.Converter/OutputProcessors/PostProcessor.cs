@@ -5,10 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Antlr4.Runtime;
-using Antlr4.Runtime.Tree;
+using System.Linq;
 using Dibbs.Fhir.Liquid.Converter.Exceptions;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Newtonsoft.Json;
@@ -26,26 +23,7 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
 
         public static JObject ParseJson(string input)
         {
-            var stream = new AntlrInputStream(input);
-            var lexer = new jsonLexer(stream);
-            var tokens = new CommonTokenStream(lexer);
-            var errorBuilder = new StringBuilder();
-            var parser = new jsonParser(tokens, new StringWriter(new StringBuilder()), new StringWriter(errorBuilder));
-            lexer.RemoveErrorListeners();
-            parser.RemoveErrorListeners();
-            parser.AddErrorListener(new JsonParserErrorListener());
-            parser.BuildParseTree = true;
-            var tree = parser.json();
-            if (parser.NumberOfSyntaxErrors > 0)
-            {
-                throw new PostprocessException(FhirConverterErrorCode.JsonParsingError, string.Format(Resources.JsonParsingError, errorBuilder));
-            }
-
-            var listener = new JsonListener();
-            ParseTreeWalker.Default.Walk(listener, tree);
-            var result = listener.GetResult().ToString();
-
-            return JsonConvert.DeserializeObject<JObject>(result, new JsonSerializerSettings { DateParseHandling = DateParseHandling.None });
+            return new BundleJsonParser(input).Parse();
         }
 
         public static JObject MergeJson(JObject obj)
@@ -57,12 +35,22 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
 
                 if (obj.TryGetValue("entry", out var entries))
                 {
-                    foreach (var entry in entries)
+                    // Detach in one pass: adding already-parented tokens to another
+                    // container clones them, and removing entries individually is quadratic.
+                    var originalEntries = entries.ToArray();
+                    if (entries is JContainer container)
+                    {
+                        container.RemoveAll();
+                    }
+
+                    var settings = new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union };
+                    foreach (var entry in originalEntries)
                     {
                         var resourceKey = GetKey(entry);
                         if (resourceKeyToIndexMap.TryGetValue(resourceKey, out var index))
                         {
-                            mergedEntity[index] = Merge((JObject)mergedEntity[index], (JObject)entry);
+                            // Merge mutates the existing resource. Assigning it back would clone it again.
+                            ((JObject)mergedEntity[index]).Merge((JObject)entry, settings);
                         }
                         else
                         {
@@ -80,18 +68,6 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
             }
 
             return obj;
-        }
-
-        private static JObject Merge(JObject obj1, JObject obj2)
-        {
-            var setting = new JsonMergeSettings
-            {
-                MergeArrayHandling = MergeArrayHandling.Union,
-            };
-
-            obj1.Merge(obj2, setting);
-
-            return obj1;
         }
 
         private static string GetKey(JToken obj)

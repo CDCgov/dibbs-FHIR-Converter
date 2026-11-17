@@ -24,29 +24,8 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
 
             try
             {
-                var data = Parse(XDocument.Parse(document));
-                data["_originalData"] = document.Replace("\r", string.Empty).Replace("\n", string.Empty);
-                return data;
-            }
-            catch (DataParseException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                throw new DataParseException(FhirConverterErrorCode.InputParsingError, string.Format(Resources.InputParsingError, ex.Message), ex);
-            }
-        }
+                var xDocument = XDocument.Parse(document);
 
-        /// <summary>
-        /// Converts an already parsed document to template data, normalizing the supplied tree in place.
-        /// The caller must capture any original XML metadata before calling this overload.
-        /// </summary>
-        public IDictionary<string, object> Parse(XDocument xDocument)
-        {
-            ArgumentNullException.ThrowIfNull(xDocument);
-            try
-            {
                 // Serialize contents of `text` elements as string in `_innerText` child element
                 StringifyTextNodeContents(xDocument?.Root);
 
@@ -69,6 +48,13 @@ namespace Dibbs.Fhir.Liquid.Converter.DataParsers
                 var jsonString = JsonConvert.SerializeXNode(xDocument);
                 var dataDictionary = JsonConvert.DeserializeObject<IDictionary<string, object>>(jsonString, new DictionaryJsonConverter()) ??
                                      new Dictionary<string, object>();
+
+                // Remove line breaks in original data
+                // string.Replace is faster and uses less memory than regex.Replace
+                dataDictionary["_originalData"] = dataDictionary["_originalData"] = document
+                    .Replace("\r\n", string.Empty)
+                    .Replace("\n", string.Empty)
+                    .Replace("\r", string.Empty);
 
                 return dataDictionary;
             }

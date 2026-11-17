@@ -4,8 +4,6 @@
 {% elsif msg.ClinicalDocument.id and msg.ClinicalDocument.id.root -%}
   {% comment %} If extension does not exist and root does, use that {% endcomment %}
   {% assign eicrDocumentId = msg.ClinicalDocument.id.root -%}
-{% elsif msg._documentIdFallback -%}
-  {% assign eicrDocumentId = msg._documentIdFallback -%}
 {% else -%}
   {% assign eicrDocumentId = msg._originalData | generate_uuid -%}
 {% endif -%}

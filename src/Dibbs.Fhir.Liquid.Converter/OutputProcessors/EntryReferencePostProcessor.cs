@@ -32,11 +32,8 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
 
         public static string Process(string bundleJsonString, XDocument cdaDocument)
         {
-            return Process(bundleJsonString, Capture(cdaDocument));
-        }
+            var entryReferenceActs = FindEntryReferenceActs(cdaDocument).ToList();
 
-        internal static string Process(string bundleJsonString, IReadOnlyList<EntryReference> entryReferenceActs)
-        {
             // The entry reference OID appeared in the document but was not the templateId of an act element.
             // Do not add entry reference extensions.
             if (entryReferenceActs.Count == 0)
@@ -59,13 +56,13 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
 
         public static JsonNode Process(JsonNode bundle, XDocument cdaDocument)
         {
-            ResolveEntryReferences(bundle, Capture(cdaDocument));
+            ResolveEntryReferences(bundle, FindEntryReferenceActs(cdaDocument));
             return bundle;
         }
 
         private static bool ResolveEntryReferences(
             JsonNode bundle,
-            IEnumerable<EntryReference> entryReferenceActs)
+            IEnumerable<XElement> entryReferenceActs)
         {
             if (bundle["entry"] is not JsonArray entries)
             {
@@ -77,8 +74,8 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
             var updated = false;
             foreach (var entryReferenceAct in entryReferenceActs)
             {
-                if (FindMatchingResource(entryReferenceAct.TargetIds, resourceByIdentifier) is not { } target ||
-                    FindMatchingResource(entryReferenceAct.AncestorIds, resourceByIdentifier) is not { } source)
+                if (FindMatchingResource(entryReferenceAct, resourceByIdentifier) is not { } target ||
+                    FindContainingResource(entryReferenceAct, resourceByIdentifier) is not { } source)
                 {
                     continue;
                 }
@@ -135,50 +132,33 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
                 _ => Enumerable.Empty<JsonObject>(),
             };
 
-        // Copy only identifiers and relationship attributes before the parser mutates the XML.
-        internal static IReadOnlyList<EntryReference> Capture(XDocument document)
+        private static ResourceMatch? FindContainingResource(
+            XElement entryReferenceAct,
+            Dictionary<string, ResourceMatch?> index)
         {
-            return FindEntryReferenceActs(document).Select(act =>
+            // The nearest converted ancestor is the resource that contains the Entry Reference.
+            foreach (var ancestor in entryReferenceAct.Ancestors())
             {
-                var relationship = act.Ancestors().FirstOrDefault(a => a.Name.LocalName == "entryRelationship");
-                return new EntryReference(
-                    GetIdentifierKeys(act).ToArray(),
-                    GetAncestorIdentifierKeys(act).ToArray(),
-                    relationship?.Attribute("typeCode")?.Value?.Trim(),
-                    relationship?.Attribute("inversionInd")?.Value?.Trim()?.ToLowerInvariant());
-            }).ToArray();
-        }
+                var matched = FindMatchingResource(ancestor, index);
 
-        private static IEnumerable<string> GetIdentifierKeys(XElement element)
-        {
-            return element.Elements().Where(e => e.Name.LocalName == "id")
-                .Select(GetCdaIdKey).Where(key => key != null);
-        }
-
-        private static IEnumerable<string> GetAncestorIdentifierKeys(XElement act)
-        {
-            foreach (var ancestor in act.Ancestors())
-            {
-                foreach (var key in GetIdentifierKeys(ancestor))
+                // Check the containing section itself, but do not search beyond it.
+                if (matched != null || ancestor.Name.LocalName == "section")
                 {
-                    yield return key;
-                }
-
-                // The containing section is eligible; ancestors above it are not.
-                if (ancestor.Name.LocalName == "section")
-                {
-                    yield break;
+                    return matched;
                 }
             }
+
+            return null;
         }
 
         private static void AddEntryReferenceExtension(
             JsonObject sourceResource,
             ResourceMatch target,
-            EntryReference entryReferenceAct)
+            XElement entryReferenceAct)
         {
-            var typeCode = entryReferenceAct.TypeCode;
-            var inversionInd = entryReferenceAct.InversionInd;
+            var relationship = entryReferenceAct.Ancestors().FirstOrDefault(a => a.Name.LocalName == "entryRelationship");
+            var typeCode = relationship?.Attribute("typeCode")?.Value?.Trim();
+            var inversionInd = relationship?.Attribute("inversionInd")?.Value?.Trim()?.ToLowerInvariant();
 
             var extensionParts = new JsonArray
             {
@@ -247,12 +227,14 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
         }
 
         private static ResourceMatch? FindMatchingResource(
-            IEnumerable<string> keys,
+            XElement element,
             Dictionary<string, ResourceMatch?> index)
         {
-            foreach (var key in keys)
+            foreach (var id in element.Elements().Where(element => element.Name.LocalName == "id"))
             {
-                if (index.TryGetValue(key, out var matched) && matched != null)
+                var key = GetCdaIdKey(id);
+
+                if (key != null && index.TryGetValue(key, out var matched) && matched != null)
                 {
                     return matched;
                 }
@@ -303,17 +285,6 @@ namespace Dibbs.Fhir.Liquid.Converter.OutputProcessors
             }
 
             return id;
-        }
-
-        internal sealed class EntryReference(string[] targetIds, string[] ancestorIds, string? typeCode, string? inversionInd)
-        {
-            public string[] TargetIds { get; } = targetIds;
-
-            public string[] AncestorIds { get; } = ancestorIds;
-
-            public string? TypeCode { get; } = typeCode;
-
-            public string? InversionInd { get; } = inversionInd;
         }
 
         private sealed class ResourceMatch(string resourceType, string id, JsonObject resource)

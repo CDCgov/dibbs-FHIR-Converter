@@ -3,12 +3,9 @@
 // Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
 // -------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter.DataParsers;
 using Dibbs.Fhir.Liquid.Converter.Models;
 using Dibbs.Fhir.Liquid.Converter.OutputProcessors;
@@ -34,30 +31,6 @@ namespace Dibbs.Fhir.Liquid.Converter.Processors
         }
 
         protected override string DefaultRootTemplateParentPath { get; set; } = "eCR";
-
-        /// <summary>
-        /// Converts an EICR using the supplied document, which is normalized in place.
-        /// Other root templates retain the string path for original-XML attachments.
-        /// </summary>
-        public string Convert(XDocument document, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider)
-        {
-            ArgumentNullException.ThrowIfNull(document);
-            if (rootTemplate != "EICR")
-            {
-                return Convert(document.ToString(SaveOptions.DisableFormatting), rootTemplate, templatesPath, templateProvider, fileProvider);
-            }
-
-            var references = EntryReferencePostProcessor.Capture(document);
-            var root = document.Root;
-            var ids = root?.Elements(root.Name.Namespace + "id").ToArray();
-            var hasDocumentId = root != null && root.Name == root.GetDefaultNamespace() + "ClinicalDocument" &&
-                ids?.Length == 1 && (ids[0].Attribute("extension") != null || ids[0].Attribute("root") != null);
-            var fallbackId = hasDocumentId ? null : CdaDocumentId.Generate(document);
-            var data = parser.Parse(document);
-            data["_documentIdFallback"] = fallbackId;
-            var converted = InternalConvertFromObject(data, rootTemplate, templatesPath, templateProvider, fileProvider);
-            return EntryReferencePostProcessor.Process(converted, references);
-        }
 
         protected override string InternalConvert(string data, string rootTemplate, string templatesPath, ITemplateProvider templateProvider, IFileProvider fileProvider)
         {

@@ -1,7 +1,14 @@
 using System.Net;
 using System.Net.Http.Json;
+using System.Xml.Linq;
+using Dibbs.Fhir.Liquid.Converter;
+using Dibbs.Fhir.Liquid.Converter.Processors;
+using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Dibbs.FhirConverterApi.Models;
+using Dibbs.FhirConverterApi.Processors;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging.Abstractions;
 using Snapshooter.Xunit;
 
 namespace Dibbs.FhirConverterApi.FunctionalTests;
@@ -64,6 +71,26 @@ public class FhirConverterApiFunctionalTests : IClassFixture<WebApplicationFacto
 
         var jsonResponse = await response.Content.ReadAsStringAsync();
         Snapshot.Match(jsonResponse, matchOptions => CommonIgnoredFields(matchOptions));
+    }
+
+    [Fact]
+    public async Task ConvertToFhir_WithoutDocumentIdAndWithRr_MatchesStringConversion()
+    {
+        var document = XDocument.Load("../../../../../data/SampleData/eCR/yoda_eICR.xml");
+        document.Root!.Elements(document.Root.Name.Namespace + "id").Remove();
+        var input = document.ToString(SaveOptions.DisableFormatting);
+        var rr = File.ReadAllText("../../../../../data/SampleData/eCR/yoda_RR.xml");
+        document = EcrProcessor.MergeEicrAndRR(EcrProcessor.ResolveReferences(document), rr);
+        var processor = new CcdaProcessor(NullLogger<CcdaProcessor>.Instance, TemplateUtility.TemplateOptions);
+        var templates = new TemplateProvider(TemplateUtility.TemplateDirectory);
+        using var files = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
+        var expected = FhirProcessor.FhirBundlePostProcessing(processor.Convert(
+            document.ToString(SaveOptions.DisableFormatting), "EICR", TemplateUtility.TemplateDirectory, templates, files));
+
+        var response = await _client.PostAsJsonAsync("/convert-to-fhir", new FhirConverterRequest { InputData = input, RRData = rr });
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(expected, await response.Content.ReadAsStringAsync());
     }
 
     [Fact]

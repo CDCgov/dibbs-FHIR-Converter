@@ -26,7 +26,7 @@
             {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' -%}
             {% include 'Resource/SpecimenProcedure', ID: specimenId, specimenProc: component.procedure %}
             {% include 'Reference/Specimen/Subject', ID: specimenId, REF: fullPatientId -%}
-            {% include 'Reference/DiagnosticReport/Specimen', ID: diagnosticID, REF: fullSpecimenId %}
+            {% include 'Reference/DiagnosticReport/Specimen', ID: diagnosticId, REF: fullSpecimenId %}
         {% endif %}
     {% endfor %}
 
@@ -41,8 +41,11 @@
         {% endif %}
         {% assign fullSpecimenId = specimenId | prepend: 'Specimen/' -%}
         {% include 'Resource/Specimen', ID: specimenId, specimen: spec %}
-        {% include 'Reference/Specimen/Subject', ID: specimenId, REF: fullPatientId -%}
-        {% include 'Reference/DiagnosticReport/Specimen', ID: diagnosticID, REF: fullSpecimenId %}
+        {% comment %} If a matching collection procedure was found, it will have already emitted these references above. {% endcomment %}
+        {% if matchingSpecProcComp == nil or matchingSpecProcComp.procedure.code == nil or matchingSpecProcComp.procedure.code.nullFlavor %}
+            {% include 'Reference/Specimen/Subject', ID: specimenId, REF: fullPatientId -%}
+            {% include 'Reference/DiagnosticReport/Specimen', ID: diagnosticId, REF: fullSpecimenId %}
+        {% endif %}
     {% endfor %}
 
     {% assign comps = entry.organizer.component | to_array -%} 

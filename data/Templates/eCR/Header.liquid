@@ -56,9 +56,6 @@
     {% evaluate organizationId using 'Utils/GenerateId' obj: responsibleParty.representedOrganization -%}
     {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
     {% include 'Resource/Organization', organization: responsibleParty.representedOrganization, ID: organizationId -%}
-    {% comment %} Same '|PractitionerRole' discriminator as above, recomputed here to keep this PractitionerRole id distinct from practitionerId. {% endcomment %}
-    {% assign practitionerRoleId =  responsibleParty | to_json_string | append: '|PractitionerRole' | generate_uuid %}
-    {% include 'Reference/PractitionerRole/Practitioner', REF: fullPractitionerId, ID: practitionerRoleId -%}
     {% include 'Reference/PractitionerRole/Organization', REF: fullOrganizationId, ID: practitionerRoleId -%}
   {% endif %}
 {% endif -%}
@@ -79,8 +76,6 @@
       {% evaluate organizationId using 'Utils/GenerateId' obj: encounterParticipant.assignedEntity.representedOrganization -%}
       {% assign fullOrganizationId = organizationId | prepend: 'Organization/' -%}
       {% include 'Resource/Organization', organization: encounterParticipant.assignedEntity.representedOrganization, ID: organizationId -%}
-      {% assign practitionerRoleId =  encounterParticipant.assignedEntity | to_json_string | generate_uuid %}
-      {% include 'Reference/PractitionerRole/Practitioner', REF: fullPractitionerId, ID: practitionerRoleId -%}
       {% include 'Reference/PractitionerRole/Organization', REF: fullOrganizationId, ID: practitionerRoleId -%}
     {% endif %}
   {% endif -%}

@@ -102,12 +102,6 @@ public partial class jsonParser : Parser {
 			IjsonListener typedListener = listener as IjsonListener;
 			if (typedListener != null) typedListener.ExitJson(this);
 		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IjsonVisitor<TResult> typedVisitor = visitor as IjsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitJson(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -153,12 +147,6 @@ public partial class jsonParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			IjsonListener typedListener = listener as IjsonListener;
 			if (typedListener != null) typedListener.ExitObj(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IjsonVisitor<TResult> typedVisitor = visitor as IjsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitObj(this);
-			else return visitor.VisitChildren(this);
 		}
 	}
 
@@ -262,12 +250,6 @@ public partial class jsonParser : Parser {
 			IjsonListener typedListener = listener as IjsonListener;
 			if (typedListener != null) typedListener.ExitPair(this);
 		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IjsonVisitor<TResult> typedVisitor = visitor as IjsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitPair(this);
-			else return visitor.VisitChildren(this);
-		}
 	}
 
 	[RuleVersion(0)]
@@ -317,12 +299,6 @@ public partial class jsonParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			IjsonListener typedListener = listener as IjsonListener;
 			if (typedListener != null) typedListener.ExitArray(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IjsonVisitor<TResult> typedVisitor = visitor as IjsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitArray(this);
-			else return visitor.VisitChildren(this);
 		}
 	}
 
@@ -429,12 +405,6 @@ public partial class jsonParser : Parser {
 		public override void ExitRule(IParseTreeListener listener) {
 			IjsonListener typedListener = listener as IjsonListener;
 			if (typedListener != null) typedListener.ExitValue(this);
-		}
-		[System.Diagnostics.DebuggerNonUserCode]
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IjsonVisitor<TResult> typedVisitor = visitor as IjsonVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitValue(this);
-			else return visitor.VisitChildren(this);
 		}
 	}
 

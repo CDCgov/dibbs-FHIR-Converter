@@ -133,6 +133,38 @@ public class CustomFilterTests
         Assert.Equal("second", actual);
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FindInnerTextById_RepeatedLookups_ReturnMatchingText(bool useDistinctStringInstances)
+    {
+        var context = new TemplateContext();
+        var fragment = "<content ID=\"first\">one</content><content ID=\"second\"><paragraph>two</paragraph></content>";
+        var lookups = new[]
+        {
+            (Id: "missing", Expected: (string)null),
+            (Id: "second", Expected: "<paragraph>two</paragraph>"),
+            (Id: "first", Expected: "one"),
+            (Id: "second", Expected: "<paragraph>two</paragraph>"),
+        };
+
+        foreach (var (id, expected) in lookups)
+        {
+            var xml = useDistinctStringInstances ? new string(fragment.ToCharArray()) : fragment;
+            var actual = Filters.FindInnerTextById(
+                StringValue.Create(xml), new FilterArguments(StringValue.Create(id)), context).Result;
+
+            if (expected == null)
+            {
+                Assert.Equal(NilValue.Instance, actual);
+            }
+            else
+            {
+                Assert.Equal(expected, actual.ToStringValue());
+            }
+        }
+    }
+
     [Fact]
     public void FindInnerTextById_InvalidId_ReturnsNull()
     {

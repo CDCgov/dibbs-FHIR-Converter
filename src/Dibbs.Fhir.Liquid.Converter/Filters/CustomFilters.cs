@@ -164,7 +164,7 @@ namespace Dibbs.Fhir.Liquid.Converter
 
         /// <summary>
         /// Attempts to retrieve text from cache.
-        /// If the key (xml) is not found in the cache then it adds a dictionary of ID to text mappings to the cache with the value of xml as the key.
+        /// If the XML string instance is not found in the cache, indexes its elements by ID.
         /// </summary>
         /// <param name="xml">The string of XML to search within.</param>
         /// <param name="id">The ID (reference value) to search for within the data structure.</param>
@@ -196,7 +196,10 @@ namespace Dibbs.Fhir.Liquid.Converter
                 return innerTextByIdCache;
             }
 
-            var cache = new Dictionary<string, Dictionary<string, XmlElement>>(StringComparer.Ordinal);
+            // Templates reuse the same narrative string. Key by its identity so cache hits
+            // do not hash the entire XML content. Equal strings in separate instances get
+            // separate indexes, all scoped to this conversion's template context.
+            var cache = new Dictionary<string, Dictionary<string, XmlElement>>(ReferenceEqualityComparer.Instance);
             context.AmbientValues[InnerTextByIdCacheKey] = cache;
 
             return cache;

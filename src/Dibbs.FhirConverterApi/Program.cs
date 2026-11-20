@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Xml.Linq;
 using Dibbs.Fhir.Liquid.Converter;
+using Dibbs.Fhir.Liquid.Converter.FileSystems;
 using Dibbs.Fhir.Liquid.Converter.Processors;
 using Dibbs.Fhir.Liquid.Converter.Utilities;
 using Dibbs.FhirConverterApi;
@@ -12,7 +13,8 @@ using Microsoft.Extensions.FileProviders;
 
 var dataProcessor = new CcdaProcessor(ConsoleLoggerFactory.CreateLogger<CcdaProcessor>(), TemplateUtility.TemplateOptions);
 var templateProvider = new TemplateProvider(TemplateUtility.TemplateDirectory);
-var fileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
+using var physicalFileProvider = new PhysicalFileProvider(Path.GetFullPath(TemplateUtility.TemplateDirectory));
+var fileProvider = new CachingFileProvider(physicalFileProvider);
 
 var builder = WebApplication.CreateBuilder(args);
 
